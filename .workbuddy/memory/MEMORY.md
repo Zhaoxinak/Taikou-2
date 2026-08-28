@@ -17,14 +17,13 @@
 - 教训：切片伪像会造假表；xref 只抓绝对立即数；已四次误判「唯一 xref 的静态表」语义 → 先确认引用函数真起点。
 
 ## 已破（速查，细节见文档）
-格式 LS11/MSGX/GRP/IDX/SMODE/TOWNCHIP/KOS；BSDATA 700武将×59B(home_city+status→派生归属)、TOWNPOS 92城、SNDATA 833×49B、SAVEDATA 16×20480B槽；名表 `0x506ca8` stride9×370；`HJMAPDAT.DAT` 38×1700B；per-tick 伤害 `0x42d270`(Unicorn 双证)；天气/季节/气候 §3.9；49国国情 `0x519548`；合戦布陣+計略 §3.10；静态中文名表 11 张 §3.11(`static_name_tables.json`)；地形攻防系数 §3.12(`terrain_ref.py`)；技能/官位/授艺、经济(买价=基价×1.5 已验)、事件 27 类型。
+格式 LS11/MSGX/GRP/IDX/SMODE/TOWNCHIP/KOS；BSDATA 700武将×59B(home_city+status→派生归属)、TOWNPOS 92城、SNDATA XOR流地图+833×49B明文层、SAVEDATA 16×20480B槽；名表 `0x506ca8` stride9×370；`HJMAPDAT.DAT` 38×1700B；per-tick 伤害 `0x42d270`(Unicorn 双证)；天气/季节/气候 §3.9；**49国国情 `0x519548` 字段全闭合**（`province_ref.py`，雪国36）；合戦布陣+計略 §3.10；静态中文名表 11 张 §3.11；地形攻防系数 §3.12；技能/官位/授艺、经济(买价=基价×1.5 已验)、事件 27 类型。
 **阵形名确认不存在于 EXE**（2014 条 CJK 串零命中）⇒ `byte[p+4]` 只是内部编号，复刻可自命名。
 
 ## 仍待破
-1. section A 9类×20 属性命名（须 emu；列名线索 `0x5099d8`/`0x509a78`）。
-2. 其余計略 handler 数值（优先 火计 `0x436710`、伏兵 `0x435d20`）。
-3. 评价词 8 组↔10 字段绑定（emu `0x47ca70`）。
-4. 49国表其余字段+填充函数(→雪国名单)；商品基价/卖价系数；SNDATA rec23–830；逐事件 handler；4 个战斗模式标志。
+1. 国情 `+0` 低4位可读名 / `+2` 其它 bit / `0x47e440` 11B 扩展字段名。
+2. SNDATA 流尾实体（200/30/20…）逐字段；商品基价 `0x513ea8`；物品池种子。
+3. 评价词 8 组↔10 字段绑定（emu `0x47ca70`）；逐事件 handler。
 
 ## Godot 侧约定
 预渲染画作 LINEAR+MIPMAPS；像素艺术 NEAREST+STRETCH_KEEP；mipmap 只在 Image 上生成；CJK 走系统字体（**所有 `*CHAR.LZW` 是角色精灵不是字体**）。
