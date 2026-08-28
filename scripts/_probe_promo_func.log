@@ -1,0 +1,6 @@
+call-targets=4906
+0x4e88b8 host start=0x004e87e0 end=0x004e8a00 size=544
+disasm 165 instrs
+
+--- uses of 0x50d850 (1) ---
+0x004e88b5  8b0cbd50d85000     mov      ecx, dword ptr [edi*4 + 0x50d850]

@@ -1,0 +1,380 @@
+
+---- 阈值函数区 (含 0x49fc30 / 0x49fc90)  0x0049fc00 .. 0x0049fd20
+  0049fc00  jne      0x49fc07
+  0049fc02  shr      word ptr [esp + 0x10], 1
+  0049fc07  mov      edx, dword ptr [esp + 0x10]
+  0049fc0b  push     0xea60
+  0049fc10  push     edx
+  0049fc11  push     edi
+  0049fc12  call     0x4ebca0
+  0049fc17  mov      esi, dword ptr [esi + 4]
+  0049fc1a  add      esp, 0xc
+  0049fc1d  test     esi, esi
+  0049fc1f  mov      edi, eax
+  0049fc21  jne      0x49fbc1
+  0049fc23  pop      ebx
+  0049fc24  mov      ax, di
+  0049fc27  pop      edi
+  0049fc28  pop      esi
+  0049fc29  ret      
+  0049fc2a  nop      
+  0049fc2b  nop      
+  0049fc2c  nop      
+  0049fc2d  nop      
+  0049fc2e  nop      
+  0049fc2f  nop      
+  0049fc30  mov      edx, dword ptr [esp + 4]
+  0049fc34  xor      eax, eax
+  0049fc36  mov      ecx, 0x50bf88
+  0049fc3b  cmp      dword ptr [ecx], edx
+  0049fc3d  je       0x49fc4e
+  0049fc3f  inc      eax
+  0049fc40  add      ecx, 8
+  0049fc43  cmp      ax, 6
+  0049fc47  jb       0x49fc3b
+  0049fc49  or       ax, 0xffff
+  0049fc4d  ret      
+  0049fc4e  mov      ax, word ptr [ecx + 4]
+  0049fc52  ret      
+  0049fc53  nop      
+  0049fc54  nop      
+  0049fc55  nop      
+  0049fc56  nop      
+  0049fc57  nop      
+  0049fc58  nop      
+  0049fc59  nop      
+  0049fc5a  nop      
+  0049fc5b  nop      
+  0049fc5c  nop      
+  0049fc5d  nop      
+  0049fc5e  nop      
+  0049fc5f  nop      
+  0049fc60  mov      dx, word ptr [esp + 4]
+  0049fc65  mov      eax, 6
+  0049fc6a  mov      ecx, 0x50bfb0
+  0049fc6f  cmp      dx, word ptr [ecx + 4]
+  0049fc73  jae      0x49fc88
+  0049fc75  add      eax, 0xffff
+  0049fc7a  sub      ecx, 8
+  0049fc7d  test     ax, ax
+  0049fc80  ja       0x49fc6f
+  0049fc82  mov      eax, 1
+  0049fc87  ret      
+  0049fc88  mov      eax, dword ptr [ecx]
+  0049fc8a  ret      
+  0049fc8b  nop      
+  0049fc8c  nop      
+  0049fc8d  nop      
+  0049fc8e  nop      
+  0049fc8f  nop      
+  0049fc90  mov      edx, dword ptr [esp + 4]
+  0049fc94  xor      eax, eax
+  0049fc96  mov      ecx, 0x50bf88
+  0049fc9b  cmp      dword ptr [ecx], edx
+  0049fc9d  je       0x49fcae
+  0049fc9f  inc      eax
+  0049fca0  add      ecx, 8
+  0049fca3  cmp      ax, 6
+  0049fca7  jb       0x49fc9b
+  0049fca9  or       ax, 0xffff
+  0049fcad  ret      
+  0049fcae  mov      ax, word ptr [ecx + 6]
+  0049fcb2  ret      
+  0049fcb3  nop      
+  0049fcb4  nop      
+  0049fcb5  nop      
+  0049fcb6  nop      
+  0049fcb7  nop      
+  0049fcb8  nop      
+  0049fcb9  nop      
+  0049fcba  nop      
+  0049fcbb  nop      
+  0049fcbc  nop      
+  0049fcbd  nop      
+  0049fcbe  nop      
+  0049fcbf  nop      
+  0049fcc0  mov      eax, dword ptr [esp + 4]
+  0049fcc4  mov      cx, word ptr [eax + 0x2c]
+  0049fcc8  shr      ecx, 8
+  0049fccb  and      ecx, 7
+  0049fcce  lea      eax, [ecx - 1]
+  0049fcd1  cmp      eax, 4
+  0049fcd4  ja       0x49fd14
+  0049fcd6  jmp      dword ptr [eax*4 + 0x49fd1c]
+  0049fcdd  push     2
+  0049fcdf  call     0x49fc30
+  0049fce4  add      esp, 4
+  0049fce7  ret      
+  0049fce8  push     3
+  0049fcea  call     0x49fc30
+  0049fcef  add      esp, 4
+  0049fcf2  ret      
+  0049fcf3  push     4
+  0049fcf5  call     0x49fc30
+  0049fcfa  add      esp, 4
+  0049fcfd  ret      
+  0049fcfe  push     5
+  0049fd00  call     0x49fc30
+  0049fd05  add      esp, 4
+  0049fd08  ret      
+  0049fd09  push     6
+  0049fd0b  call     0x49fc30
+  0049fd10  add      esp, 4
+  0049fd13  ret      
+  0049fd14  mov      ax, 0xea60
+  0049fd18  ret      
+  0049fd19  lea      ecx, [ecx]
+
+---- 晋升主函数 (含 call set_rank @0x4ab261)  0x004ab180 .. 0x004ab2e0
+  004ab180  push     ebx
+  004ab181  call     0x49f5e0
+  004ab186  mov      cl, byte ptr [0x516638]
+  004ab18c  test     cl, 4
+  004ab18f  jne      0x4ab195
+  004ab191  xor      eax, eax
+  004ab193  pop      ebx
+  004ab194  ret      
+  004ab195  test     cl, 0x10
+  004ab198  je       0x4ab1af
+  004ab19a  mov      ecx, dword ptr [esp + 8]
+  004ab19e  mov      bl, byte ptr [eax + 0x24]
+  004ab1a1  mov      dl, byte ptr [ecx + 0x24]
+  004ab1a4  xor      ecx, ecx
+  004ab1a6  cmp      dl, bl
+  004ab1a8  sete     cl
+  004ab1ab  mov      eax, ecx
+  004ab1ad  pop      ebx
+  004ab1ae  ret      
+  004ab1af  mov      edx, dword ptr [esp + 8]
+  004ab1b3  mov      bl, byte ptr [eax + 0x25]
+  004ab1b6  mov      cl, byte ptr [edx + 0x25]
+  004ab1b9  xor      edx, edx
+  004ab1bb  cmp      cl, bl
+  004ab1bd  pop      ebx
+  004ab1be  sete     dl
+  004ab1c1  mov      eax, edx
+  004ab1c3  ret      
+  004ab1c4  nop      
+  004ab1c5  nop      
+  004ab1c6  nop      
+  004ab1c7  nop      
+  004ab1c8  nop      
+  004ab1c9  nop      
+  004ab1ca  nop      
+  004ab1cb  nop      
+  004ab1cc  nop      
+  004ab1cd  nop      
+  004ab1ce  nop      
+  004ab1cf  nop      
+  004ab1d0  push     ebx
+  004ab1d1  push     esi
+  004ab1d2  push     edi
+  004ab1d3  call     0x49f5e0
+  004ab1d8  test     byte ptr [eax + 0x2d], 7
+  004ab1dc  mov      ebx, dword ptr [esp + 0x10]
+  004ab1e0  je       0x4ab1f0
+  004ab1e2  mov      cl, byte ptr [ebx + 0x25]
+  004ab1e5  mov      dl, byte ptr [eax + 0x25]
+  004ab1e8  cmp      cl, dl
+  004ab1ea  je       0x4ab298
+  004ab1f0  mov      al, byte ptr [ebx + 0x25]
+  004ab1f3  cmp      al, 0xc8
+  004ab1f5  mov      byte ptr [esp + 0x10], al
+  004ab1f9  jae      0x4ab213
+  004ab1fb  mov      ecx, dword ptr [esp + 0x10]
+  004ab1ff  and      ecx, 0xff
+  004ab205  mov      eax, ecx
+  004ab207  shl      eax, 5
+  004ab20a  sub      eax, ecx
+  004ab20c  add      eax, 0x51eb88
+  004ab211  jmp      0x4ab215
+  004ab213  xor      eax, eax
+  004ab215  mov      ax, word ptr [eax + 0xa]
+  004ab219  cmp      ax, 0x172
+  004ab21d  jae      0x4ab234
+  004ab21f  and      eax, 0xffff
+  004ab224  lea      edi, [eax + eax*2]
+  004ab227  shl      edi, 4
+  004ab22a  sub      edi, eax
+  004ab22c  add      edi, 0x519868
+  004ab232  jmp      0x4ab236
+  004ab234  xor      edi, edi
+  004ab236  mov      si, word ptr [ebx + 0x2c]
+  004ab23a  mov      dx, word ptr [edi + 0x2c]
+  004ab23e  shr      esi, 8
+  004ab241  and      esi, 7
+  004ab244  shr      edx, 8
+  004ab247  inc      esi
+  004ab248  and      edx, 7
+  004ab24b  cmp      esi, edx
+  004ab24d  jge      0x4ab298
+  004ab24f  push     esi
+  004ab250  call     0x49fc30
+  004ab255  add      esp, 4
+  004ab258  cmp      word ptr [ebx + 0x26], ax
+  004ab25c  jb       0x4ab298
+  004ab25e  push     esi
+  004ab25f  mov      ecx, ebx
+  004ab261  call     0x49a7e0
+  004ab266  push     esi
+  004ab267  call     0x49fc90
+  004ab26c  add      esp, 4
+  004ab26f  mov      ecx, ebx
+  004ab271  push     eax
+  004ab272  call     0x49a790
+  004ab277  push     edi
+  004ab278  push     ebx
+  004ab279  call     0x49ffc0
+  004ab27e  add      esp, 8
+  004ab281  mov      si, ax
+  004ab284  push     3
+  004ab286  call     0x4ebd60
+  004ab28b  add      esp, 4
+  004ab28e  add      esi, eax
+  004ab290  mov      ecx, ebx
+  004ab292  push     esi
+  004ab293  call     0x4a3260
+  004ab298  pop      edi
+  004ab299  pop      esi
+  004ab29a  pop      ebx
+  004ab29b  ret      
+  004ab29c  nop      
+  004ab29d  nop      
+  004ab29e  nop      
+  004ab29f  nop      
+  004ab2a0  push     esi
+  004ab2a1  mov      esi, dword ptr [esp + 8]
+  004ab2a5  mov      al, byte ptr [esi + 0x13]
+  004ab2a8  add      al, 0x38
+  004ab2aa  cmp      al, 0x31
+  004ab2ac  mov      byte ptr [esp + 8], al
+  004ab2b0  jae      0x4ab2c4
+  004ab2b2  mov      eax, dword ptr [esp + 8]
+  004ab2b6  and      eax, 0xff
+  004ab2bb  lea      eax, [eax + eax*4 + 0x519548]
+  004ab2c2  jmp      0x4ab2c6
+  004ab2c4  xor      eax, eax
+  004ab2c6  mov      al, byte ptr [eax + 3]
+  004ab2c9  mov      cl, byte ptr [esi + 0xc]
+  004ab2cc  shr      al, 2
+  004ab2cf  shr      cl, 1
+  004ab2d1  xor      dx, dx
+  004ab2d4  and      eax, 0x1f
+  004ab2d7  mov      dl, cl
+  004ab2d9  inc      eax
+  004ab2da  add      edx, 0x64
+  004ab2dd  push     eax
+  004ab2de  push     edx
+
+---- 同型晋升点 (0x4b9b66)  0x004b9ac0 .. 0x004b9be0
+  004b9ac0  lea      edx, [esp + 0x24]
+  004b9ac4  mov      ecx, 0x526c00
+  004b9ac9  push     edx
+  004b9aca  call     0x4ed880
+  004b9acf  pop      edi
+  004b9ad0  pop      esi
+  004b9ad1  pop      ebx
+  004b9ad2  add      esp, 0x28
+  004b9ad5  ret      
+  004b9ad6  nop      
+  004b9ad7  nop      
+  004b9ad8  nop      
+  004b9ad9  nop      
+  004b9ada  nop      
+  004b9adb  nop      
+  004b9adc  nop      
+  004b9add  nop      
+  004b9ade  nop      
+  004b9adf  nop      
+  004b9ae0  push     ebx
+  004b9ae1  mov      ebx, dword ptr [esp + 8]
+  004b9ae5  push     ebp
+  004b9ae6  push     esi
+  004b9ae7  mov      esi, dword ptr [esp + 0x14]
+  004b9aeb  mov      cx, word ptr [ebx + 0x2c]
+  004b9aef  xor      eax, eax
+  004b9af1  push     edi
+  004b9af2  mov      al, byte ptr [esi + 0x2d]
+  004b9af5  and      eax, 7
+  004b9af8  shr      ecx, 8
+  004b9afb  mov      edi, eax
+  004b9afd  and      ecx, 7
+  004b9b00  and      edi, 0xffff
+  004b9b06  dec      ecx
+  004b9b07  cmp      edi, ecx
+  004b9b09  jge      0x4b9c04
+  004b9b0f  mov      edx, dword ptr [esp + 0x1c]
+  004b9b13  mov      ax, word ptr [esi + 0x26]
+  004b9b17  push     0xea60
+  004b9b1c  push     edx
+  004b9b1d  push     eax
+  004b9b1e  call     0x4ebca0
+  004b9b23  add      esp, 0xc
+  004b9b26  inc      edi
+  004b9b27  mov      ebp, eax
+  004b9b29  push     edi
+  004b9b2a  call     0x49fc30
+  004b9b2f  add      esp, 4
+  004b9b32  cmp      bp, ax
+  004b9b35  jb       0x4b9c04
+  004b9b3b  push     ebp
+  004b9b3c  mov      ecx, esi
+  004b9b3e  call     0x49a770
+  004b9b43  push     0x90b
+  004b9b48  push     ebx
+  004b9b49  call     0x47b900
+  004b9b4e  add      esp, 8
+  004b9b51  push     0x90c
+  004b9b56  push     esi
+  004b9b57  call     0x47bcc0
+  004b9b5c  add      esp, 8
+  004b9b5f  test     eax, eax
+  004b9b61  je       0x4b9bde
+  004b9b63  push     edi
+  004b9b64  mov      ecx, esi
+  004b9b66  call     0x49a7e0
+  004b9b6b  mov      cx, word ptr [esi + 0x2c]
+  004b9b6f  shr      ecx, 8
+  004b9b72  and      ecx, 7
+  004b9b75  push     ecx
+  004b9b76  call     0x49fc90
+  004b9b7b  add      esp, 4
+  004b9b7e  mov      ecx, esi
+  004b9b80  push     eax
+  004b9b81  call     0x49a790
+  004b9b86  xor      edx, edx
+  004b9b88  mov      ecx, esi
+  004b9b8a  mov      dl, byte ptr [esi + 0x28]
+  004b9b8d  push     edx
+  004b9b8e  call     0x49a920
+  004b9b93  push     eax
+  004b9b94  push     0x90f
+  004b9b99  push     ebx
+  004b9b9a  call     0x47b900
+  004b9b9f  add      esp, 0x10
+  004b9ba2  mov      ecx, esi
+  004b9ba4  call     0x49c310
+  004b9ba9  push     eax
+  004b9baa  push     0x910
+  004b9baf  push     esi
+  004b9bb0  call     0x47b900
+  004b9bb5  add      esp, 0xc
+  004b9bb8  push     0x911
+  004b9bbd  push     ebx
+  004b9bbe  call     0x47b900
+  004b9bc3  add      esp, 8
+  004b9bc6  push     0x912
+  004b9bcb  push     esi
+  004b9bcc  call     0x47b900
+  004b9bd1  add      esp, 8
+  004b9bd4  mov      eax, 1
+  004b9bd9  pop      edi
+  004b9bda  pop      esi
+  004b9bdb  pop      ebp
+  004b9bdc  pop      ebx
+  004b9bdd  ret      
+
+---- 0x49fc30 机器码 ----
+  8b 54 24 04 33 c0 b9 88 bf 50 00 39 11 74 0f 40 83 c1 08 66 3d 06 00 72 f2 66 0d ff ff c3 66 8b 41 04 c3 90 90 90 90 90 90 90 90 90 90 90 90 90
+---- 0x49fc90 机器码 ----
+  8b 54 24 04 33 c0 b9 88 bf 50 00 39 11 74 0f 40 83 c1 08 66 3d 06 00 72 f2 66 0d ff ff c3 66 8b 41 06 c3 90 90 90 90 90 90 90 90 90 90 90 90 90

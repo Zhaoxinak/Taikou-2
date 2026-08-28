@@ -1,0 +1,125 @@
+{
+  "module": "評定 / 任务分配（Council & Task Assignment）",
+  "broken": "2026-08-28 (续64)",
+  "note": "本模块含两套独立的表，此前笔记将二者混为一谈，此处已区分",
+  "A_主命": {
+    "name_table": {
+      "va": "0x504b28",
+      "type": "指针表 stride 4",
+      "count": 12,
+      "names": ["贩卖军粮", "购买军粮", "军马", "洋枪", "开垦农田", "改建",
+                "筑城", "进贡", "威吓", "朝廷工作", "收集情报", "谋略"],
+      "used_at": "0x46336c（評定 主命菜单构建）"
+    }
+  },
+  "B_報告": {
+    "handler_table": {
+      "va": "0x504898",
+      "type": "函数指针表 stride 4",
+      "count": 13,
+      "entry_14_is_zero": true,
+      "handlers": [
+        {"idx": 0,  "va": "0x45e700", "role": "対象槽设置（调 0x441750），无报告文本"},
+        {"idx": 1,  "va": "0x45e790", "msgid": "0x1202", "text": "我去过%s城。"},
+        {"idx": 2,  "va": "0x45e870", "msgid": "0x1203", "text": "%s如今好像在%s城。"},
+        {"idx": 3,  "va": "0x45e8e0", "msgid": "0x1204", "text": "%s家的%s好像擅长%s。"},
+        {"idx": 4,  "va": "0x45e970", "msgid": "0x1205", "text": "%s家的%s好像是%s天才。"},
+        {"idx": 5,  "va": "0x45e9f0", "msgid": "0x1206", "text": "说起%s家头号家臣，当然是%s了。",
+         "extra": [{"msgid": "0x120d", "text": "哈哈哈┅┅，正是区区在下我。"}]},
+        {"idx": 6,  "va": "0x45ea90", "msgid": "0x1207", "text": "名叫%s的%s在%s。"},
+        {"idx": 7,  "va": "0x45eb80", "msgid": "0x1208", "text": "名叫%s的浪人在%s。"},
+        {"idx": 8,  "va": "0x45ec10", "msgid": "0x1209", "text": "在%s见过名叫%s的%s。"},
+        {"idx": 9,  "va": "0x45ed80", "msgid": "0x120a", "text": "%s家的%s好像卧病不起。"},
+        {"idx": 10, "va": "0x45edf0", "msgid": "0x120b", "text": "%s家的%s有个名叫%s的得力助手。"},
+        {"idx": 11, "va": "0x45eec0", "msgid": "0x120c", "text": "听说奥州的马贩子去了%s。"},
+        {"idx": 12, "va": "0x45ef40", "msgid": "0x120e", "text": "啊，你正从事稻米贩卖吗？那我就告诉你%s这一带的米价吧。"}
+      ]
+    }
+  },
+  "runtime_state": {
+    "0x513fcc": "word 条目数 count",
+    "0x513fd4": "word[count] 条目表 stride 2；低15位 = ID，bit15(0x8000) = 已询问过",
+    "0x513fe0": "word[13] 报告槽，handler 执行后由 0x46046b 清 0",
+    "0x5176a8": "30 × 4B 報告対象槽；+id*4 处 word = 対象ID（id < 30）",
+    "0x52063c": "dword 当前対象指针"
+  },
+  "target_id_to_name": {
+    "fn": "0x49c2b0(&slot)",
+    "reads": "ax = word[slot]（対象ID）",
+    "segments": [
+      {"range": "0..999",     "expr": "0x521aa8 + id*7",  "stride": 7, "semantics": "运行时填充（静态映像为空）"},
+      {"range": "1000..1999", "expr": "0x5077b0 + (id-1000)*7", "stride": 7,
+       "semantics": "特殊NPC（商人/茶人/铁炮/南蛮/剑客/公卿/画匠）",
+       "samples": ["今井", "津田", "角仓", "千", "国友", "戈梅斯", "柳生", "上泉", "丸目", "狩野"]},
+      {"range": "2000..2999", "expr": "dword[0x506c54]", "semantics": "运行时指针（静态为 0x513ea8，空）"},
+      {"range": "3000+",     "expr": "0x507978 + (id-3000)*7", "stride": 7,
+       "semantics": "一般NPC種別（町の人々）",
+       "samples": ["旅店主", "酒馆女", "马行", "米店", "商人", "马贩子", "穴太众", "工人"]}
+    ],
+    "special_cases": {
+      "17 (0x11)": "直接取字符串 0x504888 = '商　人'",
+      "menu_last": "菜单末项 = 0x504890 = '停　止'"
+    },
+    "cross_validation": "一般NPC id 3022 = '穴太众'，正对应 0x460550 的築城業者对话（M2#1491-1495）"
+  },
+  "functions": {
+    "0x4601f0": "評定开场：显示 M3#575(带「我」名)；rand()%count 挑一项；显示 M3#576「嗯？什么事？」",
+    "0x460280": "主循环：0x460320 菜单 → 若 bit15 已设则 M3#577「其他没什么好讲的。」；否则置 bit15 并调 0x4603f0",
+    "0x460320": "菜单构建：count 个条目按 ID 取名 + 末项「停　止」，调 0x47be00 选择，返回索引或 -1",
+    "0x4603f0": "执行分发：ID==22 → 0x460550；否则 0x460420 求索引 → call [idx*4 + 0x504898]",
+    "0x460420": "ID → handler 索引映射（分支依赖 0x513fcc / 0x513ff6 / 0x513ff8 / 0x460500 计数 / 0x460530 随机槽）",
+    "0x460500": "统计 0x513fd4 表中 byte[e+1] & 0x80 的条目数（stride 2）",
+    "0x460530": "rand()%13 反复挑，直到 word[0x513fe0 + i*2] != 0",
+    "0x460550": "築城特例：穴太众对话 M2#1491 / 1493 / 1495 / 1492",
+    "0x4607f0": "ID 15..22 跳表 0x46086c → 基值 0x61/0x5b/0x58/0x67 + 索引 → 0x496ba0 状态跳转",
+    "0x496ba0": "游戏状态/画面切换（本模块以 add 0x56/0x5e/0x64/0x6b/0x6d 计算目标）"
+  },
+  "correction": {
+    "old_note": "key_addresses.md 曾记「任务名表 0x504b28（12）；执行分发 0x4603f0 → call [idx*4+0x504898]（13 handler）」，易误认为同一套",
+    "actual": "0x504b28（12 主命名）与 0x504898（13 报告 handler）是两套独立表：前者用于評定下达主命的菜单（0x46336c），后者用于評定听取报告的生成（0x4603f0）"
+  },
+  "encoding_fix": {
+    "file": "scripts/_probe/msgx/all_messages.txt",
+    "is": "UTF-8",
+    "was_misread_as": "GBK",
+    "note": "此前按 GBK 解码得到乱码；MESSAGE1-4 全部为 UTF-8。MSGX 编号 file = id//2000"
+  },
+  "report_selection": {
+    "fn": "0x460420（由 0x4603f0 分发器调用；di=word[0x516610]=当前選択ID）",
+    "semantics": "报告 handler 选取策略（非 1:1 表），返回 0..12 后调用方清 word[0x513fe0+idx*2]=0",
+    "inputs": {
+      "di": "word[0x516610]（0x49f6b0 返回该全局；= 評定菜单当前選択ID）",
+      "count": "word[0x513fcc]（总报告条目数）",
+      "asked": "0x460500() = #{i : word[0x513fd4+i*2] & 0x8000}（已询问数）",
+      "slots": "word[0x513fe0+i*2] (i=0..12)，非零=该报告类型当前可展示",
+      "flag6": "word[0x513ff6] = slots[11]（handler 11 馬販子 可用性）",
+      "flag8": "word[0x513ff8] = slots[12]（handler 12 米価 可用性）"
+    },
+    "prob_gate": "0x4ebe40(p) = (rand()%100) < p；0x4ebe40(0x28)=40% 概率取 handler 1",
+    "rand_avail": "0x460530 = rand()%13 反复重试，挑 slots[i]!=0 的 i",
+    "algorithm": [
+      "if di==9:",
+      "  if count>=3: asked==1->0 ; asked==2->1 ; asked==3->rand_avail ; else->0",
+      "  else(count<3): asked==1 -> (40%?1:0) ; else -> rand_avail",
+      "else(di!=9):",
+      "  if asked==1 and count>1: -> (40%?1:0)",
+      "  if asked==2 and count>=2:",
+      "    di in {0,1}: flag8!=0 -> 12(米価) ; else rand_avail",
+      "    di==2: flag6!=0 -> 11(馬販子) ; else rand_avail",
+      "    else: rand_avail",
+      "  else: rand_avail"
+    ],
+    "flag_writers": "0x45f0xx 准备函数：bp 为模式参数 -> flag6=1 当 bp==2 且 0x45ef20()!=0xffff（馬販子可用）；flag8=1 当 bp==1（米価可用）。slots[6..12] 由 0x45e3e0/0x45eb30/0x45ecc0/0x45ef20 填充候选数。",
+    "decode": "0x460420 是把「玩家选的菜单类别(di) + 已报告进度(asked) + 可展示池(slots)」映射成具体报告类型(0..12)的状态机；0x513ff6/0x513ff8 是馬販子/米価两类特殊报告的可用性开关。"
+  },
+  "tails_resolved_20260828_续69": {
+    "ref": "council_tails_ref.py（静态自校验 29/29 PASS）",
+    "1a_id_0_999": "0x521aa8 = 武将名表（stride 7, 370 条），init 时由 0x47dce0（实体基址 0x51986a, 计数 0x172=370）调 0x47d910 逐 7 字节拷贝；同时写镜像改名表 0x520660",
+    "1b_id_2000_2999": "dword[0x506c54] = 运行时指针（静态 0x513ea8，运行时被间接写入）；全镜像引用均为读（jmp[ecx+0x506c54]@0x4e9f06 / mov esi,[0x506c54]@0x4bbe47）；无静态名表可 dump",
+    "2_handler0_0x441750": "0x45e700(handler[0]) 调 0x441750(slot=0x5176a8+id*4, mode=0)；0x441750 取目标结构体(0x49f6b0) 按 bp==9 分支，调 0x47bae0 把带姓/官称显示名写入 0x5176a8 対象槽 => 報告対象名 formatter",
+    "3_主命执行入口": "0x504b28(12 ptr 名表, 指针@0x504aa0-0x504b20) + helper 0x463369(mov eax,[eax*4+0x504b28])；执行链 0x45efe0(主命指令表构建) -> 0x4607f0(遍历 0x513fd4, ID 15..22) -> 0x46086c 跳表(基值 0x56/0x61/0x5b/0x58/0x67+项索引) -> 0x496ba0(中央状态转移引擎, 711 调用点)",
+    "4_prep_bp语义": "0x45f0c0 准备函数：call 0x45e3e0 建候选池(写 0x513ff4)；cmp bp,2 -> bp==2∧0x45ef20()!=0xffff 置 flag6(0x513ff6,馬販子)；bp∈{0,1} 置 flag8(0x513ff8,米価)；两 flag 被 0x460420 选取状态机读取(cmp@0x4604d2/0x4604e3)；bp 由评定报告 setup 间接传入"
+  },
+  "still_unknown": [],
+  "reference_impl": "council_ref.py（16/16 自校验通过） + council_report_ref.py（18/18 自校验通过，report_index 选取策略） + council_tails_ref.py（29/29 静态自校验通过，4 尾巴闭合）"
+}

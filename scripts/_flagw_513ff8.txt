@@ -1,0 +1,54 @@
+=== writer of 00513ff8 @ 0045f0fa (context) ===
+0045f09a  aas 
+0045f09b  push ecx
+0045f09c  add byte ptr [edx], ch
+0045f09f  call 0x45ecc0
+0045f0a4  add esp, 4
+0045f0a7  mov word ptr [0x513ff0], ax
+0045f0ad  push 9
+0045f0af  push 0
+0045f0b1  call 0x45e3e0
+0045f0b6  add esp, 8
+0045f0b9  mov word ptr [0x513ff2], ax
+0045f0bf  push 0xa
+0045f0c1  push 0
+0045f0c3  call 0x45e3e0
+0045f0c8  add esp, 8
+0045f0cb  cmp bp, 2
+0045f0cf  mov word ptr [0x513ff4], ax
+0045f0d5  mov word ptr [0x513ff6], 0
+0045f0de  mov esi, 1
+0045f0e3  jne 0x45f0f7
+0045f0e5  call 0x45ef20
+0045f0ea  cmp ax, 0xffff
+0045f0ee  je 0x45f0f7
+0045f0f0  mov word ptr [0x513ff6], si
+0045f0f7  test bp, bp
+0045f0fa  mov word ptr [0x513ff8], 0
+0045f103  je 0x45f10a
+0045f105  cmp bp, si
+0045f108  jne 0x45f111
+0045f10a  mov word ptr [0x513ff8], si
+0045f111  pop edi
+0045f112  pop esi
+0045f113  pop ebp
+0045f114  ret 
+0045f115  nop 
+0045f116  nop 
+0045f117  nop 
+0045f118  nop 
+0045f119  nop 
+0045f11a  nop 
+0045f11b  nop 
+0045f11c  nop 
+0045f11d  nop 
+0045f11e  nop 
+0045f11f  nop 
+0045f120  push ecx
+0045f121  mov al, byte ptr [0x520603]
+0045f126  push esi
+0045f127  cmp al, 0x31
+0045f129  mov byte ptr [esp + 4], al
+0045f12d  jae 0x45f141
+0045f12f  mov eax, dword ptr [esp + 4]
+0045f133  and eax, 0xff

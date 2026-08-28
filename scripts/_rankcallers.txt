@@ -1,0 +1,762 @@
+==============================================================================
+调用 0x004e3670  (setter: +0x2c(w) +0x2e(w) +0x30(w) +0x32(b), ret 0x10)
+callers: 3
+
+---- call @ 0x004e36b9   [func @ ?]
+    004e3649  push     8
+    004e364b  push     0x67
+    004e364d  push     0x97
+    004e3652  push     8
+    004e3654  push     8
+    004e3656  mov      ecx, esi
+    004e3658  call     0x575c30
+    004e365d  pop      edi
+    004e365e  pop      esi
+    004e365f  pop      ebx
+    004e3660  ret      
+    004e3661  nop      
+    004e3662  nop      
+    004e3663  nop      
+    004e3664  nop      
+    004e3665  nop      
+    004e3666  nop      
+    004e3667  nop      
+    004e3668  nop      
+    004e3669  nop      
+    004e366a  nop      
+    004e366b  nop      
+    004e366c  nop      
+    004e366d  nop      
+    004e366e  nop      
+    004e366f  nop      
+    004e3670  mov      al, byte ptr [esp + 0x10]
+    004e3674  mov      dx, word ptr [esp + 4]
+    004e3679  mov      byte ptr [ecx + 0x32], al
+    004e367c  mov      ax, word ptr [esp + 8]
+    004e3681  mov      word ptr [ecx + 0x2c], dx
+    004e3685  mov      dx, word ptr [esp + 0xc]
+    004e368a  mov      word ptr [ecx + 0x2e], ax
+    004e368e  mov      word ptr [ecx + 0x30], dx
+    004e3692  ret      0x10
+    004e3695  nop      
+    004e3696  nop      
+    004e3697  nop      
+    004e3698  nop      
+    004e3699  nop      
+    004e369a  nop      
+    004e369b  nop      
+    004e369c  nop      
+    004e369d  nop      
+    004e369e  nop      
+    004e369f  nop      
+    004e36a0  mov      eax, dword ptr [esp + 0x24]
+    004e36a4  mov      edx, dword ptr [esp + 0x1c]
+    004e36a8  push     esi
+    004e36a9  mov      esi, ecx
+    004e36ab  mov      ecx, dword ptr [esp + 0x24]
+    004e36af  push     eax
+    004e36b0  mov      eax, dword ptr [esp + 0x20]
+    004e36b4  push     ecx
+    004e36b5  push     edx
+    004e36b6  push     eax
+    004e36b7  mov      ecx, esi
+    004e36b9  call     0x4e3670
+    004e36be  mov      ecx, dword ptr [esp + 0x18]
+    004e36c2  mov      edx, dword ptr [esp + 0x14]
+    004e36c6  mov      eax, dword ptr [esp + 0x10]
+
+---- call @ 0x004e3973   [func @ ?]
+    004e3903  push     edi
+    004e3904  mov      edi, ecx
+    004e3906  call     0x5021d0
+    004e390b  mov      esi, eax
+    004e390d  mov      ecx, esi
+    004e390f  call     0x501d40
+    004e3914  cmp      al, 2
+    004e3916  mov      ecx, esi
+    004e3918  jne      0x4e3931
+    004e391a  call     0x501e20
+    004e391f  shl      al, 1
+    004e3921  mov      cl, 0xa
+    004e3923  mov      dl, 0x26
+    004e3925  sub      cl, al
+    004e3927  mov      al, 0x24
+    004e3929  mov      byte ptr [esp + 0xc], cl
+    004e392d  mov      cl, 0x25
+    004e392f  jmp      0x4e3958
+    004e3931  call     0x501d40
+    004e3936  cmp      al, 1
+    004e3938  jne      0x4e394d
+    004e393a  mov      ecx, esi
+    004e393c  call     0x501e20
+    004e3941  shl      al, 1
+    004e3943  mov      dl, 0xa
+    004e3945  sub      dl, al
+    004e3947  mov      byte ptr [esp + 0xc], dl
+    004e394b  jmp      0x4e3952
+    004e394d  mov      byte ptr [esp + 0xc], 8
+    004e3952  mov      al, 0x21
+    004e3954  mov      cl, 0x22
+    004e3956  mov      dl, 0x23
+    004e3958  mov      ebx, dword ptr [esp + 0xc]
+    004e395c  movzx    dx, dl
+    004e3960  push     ebx
+    004e3961  push     edx
+    004e3962  movzx    cx, cl
+    004e3966  xor      dx, dx
+    004e3969  push     ecx
+    004e396a  mov      dl, al
+    004e396c  lea      ecx, [edi + 0x12f]
+    004e3972  push     edx
+    004e3973  call     0x4e3670
+    004e3978  mov      al, byte ptr [esi + 4]
+    004e397b  neg      al
+    004e397d  sbb      al, al
+    004e397f  and      eax, 0xff
+
+---- call @ 0x004e3999   [func @ ?]
+    004e3929  mov      byte ptr [esp + 0xc], cl
+    004e392d  mov      cl, 0x25
+    004e392f  jmp      0x4e3958
+    004e3931  call     0x501d40
+    004e3936  cmp      al, 1
+    004e3938  jne      0x4e394d
+    004e393a  mov      ecx, esi
+    004e393c  call     0x501e20
+    004e3941  shl      al, 1
+    004e3943  mov      dl, 0xa
+    004e3945  sub      dl, al
+    004e3947  mov      byte ptr [esp + 0xc], dl
+    004e394b  jmp      0x4e3952
+    004e394d  mov      byte ptr [esp + 0xc], 8
+    004e3952  mov      al, 0x21
+    004e3954  mov      cl, 0x22
+    004e3956  mov      dl, 0x23
+    004e3958  mov      ebx, dword ptr [esp + 0xc]
+    004e395c  movzx    dx, dl
+    004e3960  push     ebx
+    004e3961  push     edx
+    004e3962  movzx    cx, cl
+    004e3966  xor      dx, dx
+    004e3969  push     ecx
+    004e396a  mov      dl, al
+    004e396c  lea      ecx, [edi + 0x12f]
+    004e3972  push     edx
+    004e3973  call     0x4e3670
+    004e3978  mov      al, byte ptr [esi + 4]
+    004e397b  neg      al
+    004e397d  sbb      al, al
+    004e397f  and      eax, 0xff
+    004e3984  mov      byte ptr [esp + 0xc], al
+    004e3988  mov      ecx, dword ptr [esp + 0xc]
+    004e398c  push     ecx
+    004e398d  push     0x2e
+    004e398f  push     0x2d
+    004e3991  push     0x2c
+    004e3993  lea      ecx, [edi + 0x162]
+    004e3999  call     0x4e3670
+    004e399e  pop      edi
+    004e399f  pop      esi
+    004e39a0  pop      ebx
+    004e39a1  pop      ecx
+    004e39a2  ret      
+    004e39a3  nop      
+    004e39a4  nop      
+    004e39a5  nop      
+    004e39a6  nop      
+    004e39a7  nop      
+    004e39a8  nop      
+    004e39a9  nop      
+
+==============================================================================
+调用 0x004ef020  (setter: +0x2c(w) +0x2e(w) then call 0x576400, ret 0x1c)
+callers: 13
+
+---- call @ 0x004e6033   [func @ ?]
+    004e5fc3  add      byte ptr [eax], ah
+    004e5fc5  add      byte ptr [eax], al
+    004e5fc7  push     0x416
+    004e5fcc  call     0x574630
+    004e5fd1  lea      edi, [esi + 0x12b]
+    004e5fd7  push     0x890
+    004e5fdc  push     0x100
+    004e5fe1  push     0x10
+    004e5fe3  mov      ecx, edi
+    004e5fe5  call     0x5764b0
+    004e5fea  push     edi
+    004e5feb  mov      ecx, esi
+    004e5fed  call     0x5b1f80
+    004e5ff2  lea      edi, [esi + 0x157]
+    004e5ff8  push     0x891
+    004e5ffd  mov      ecx, edi
+    004e5fff  call     0x576450
+    004e6004  push     edi
+    004e6005  mov      ecx, esi
+    004e6007  call     0x5b1f80
+    004e600c  lea      eax, [esi + 0x77]
+    004e600f  mov      ecx, esi
+    004e6011  push     eax
+    004e6012  call     0x5b1f80
+    004e6017  push     0x28
+    004e6019  push     0x27
+    004e601b  push     0x88d
+    004e6020  push     0x20
+    004e6022  lea      edi, [esi + 0x9b]
+    004e6028  push     0x20
+    004e602a  push     0x58
+    004e602c  push     0xa8
+    004e6031  mov      ecx, edi
+    004e6033  call     0x4ef020
+    004e6038  push     edi
+    004e6039  mov      ecx, esi
+    004e603b  call     0x5b1f80
+    004e6040  push     0x32
+    004e6042  push     0x31
+
+---- call @ 0x004e605c   [func @ ?]
+    004e5fec  into     
+    004e5fed  call     0x5b1f80
+    004e5ff2  lea      edi, [esi + 0x157]
+    004e5ff8  push     0x891
+    004e5ffd  mov      ecx, edi
+    004e5fff  call     0x576450
+    004e6004  push     edi
+    004e6005  mov      ecx, esi
+    004e6007  call     0x5b1f80
+    004e600c  lea      eax, [esi + 0x77]
+    004e600f  mov      ecx, esi
+    004e6011  push     eax
+    004e6012  call     0x5b1f80
+    004e6017  push     0x28
+    004e6019  push     0x27
+    004e601b  push     0x88d
+    004e6020  push     0x20
+    004e6022  lea      edi, [esi + 0x9b]
+    004e6028  push     0x20
+    004e602a  push     0x58
+    004e602c  push     0xa8
+    004e6031  mov      ecx, edi
+    004e6033  call     0x4ef020
+    004e6038  push     edi
+    004e6039  mov      ecx, esi
+    004e603b  call     0x5b1f80
+    004e6040  push     0x32
+    004e6042  push     0x31
+    004e6044  push     0x88e
+    004e6049  push     0x20
+    004e604b  lea      edi, [esi + 0xcb]
+    004e6051  push     0x20
+    004e6053  push     0x58
+    004e6055  push     0xc8
+    004e605a  mov      ecx, edi
+    004e605c  call     0x4ef020
+    004e6061  push     edi
+    004e6062  mov      ecx, esi
+    004e6064  call     0x5b1f80
+    004e6069  push     0x34
+    004e606b  push     0x33
+
+---- call @ 0x004e6085   [func @ ?]
+    004e6015  or       al, 0
+    004e6017  push     0x28
+    004e6019  push     0x27
+    004e601b  push     0x88d
+    004e6020  push     0x20
+    004e6022  lea      edi, [esi + 0x9b]
+    004e6028  push     0x20
+    004e602a  push     0x58
+    004e602c  push     0xa8
+    004e6031  mov      ecx, edi
+    004e6033  call     0x4ef020
+    004e6038  push     edi
+    004e6039  mov      ecx, esi
+    004e603b  call     0x5b1f80
+    004e6040  push     0x32
+    004e6042  push     0x31
+    004e6044  push     0x88e
+    004e6049  push     0x20
+    004e604b  lea      edi, [esi + 0xcb]
+    004e6051  push     0x20
+    004e6053  push     0x58
+    004e6055  push     0xc8
+    004e605a  mov      ecx, edi
+    004e605c  call     0x4ef020
+    004e6061  push     edi
+    004e6062  mov      ecx, esi
+    004e6064  call     0x5b1f80
+    004e6069  push     0x34
+    004e606b  push     0x33
+    004e606d  push     0x88f
+    004e6072  push     0x20
+    004e6074  lea      edi, [esi + 0xfb]
+    004e607a  push     0x20
+    004e607c  push     0x58
+    004e607e  push     0xe8
+    004e6083  mov      ecx, edi
+    004e6085  call     0x4ef020
+    004e608a  push     edi
+    004e608b  mov      ecx, esi
+    004e608d  call     0x5b1f80
+    004e6092  push     7
+    004e6094  mov      ecx, esi
+
+---- call @ 0x004ef0f3   [func @ ?]
+    004ef083  inc      eax
+    004ef084  push     1
+    004ef087  push     eax
+    004ef088  push     0
+    004ef08a  push     edi
+    004ef08b  push     esi
+    004ef08c  call     0x575cd0
+    004ef091  pop      edi
+    004ef092  pop      esi
+    004ef093  ret      4
+    004ef096  mov      ax, word ptr [eax + 0x2c]
+    004ef09a  push     1
+    004ef09c  push     eax
+    004ef09d  push     0
+    004ef09f  push     edi
+    004ef0a0  push     esi
+    004ef0a1  call     0x575cd0
+    004ef0a6  pop      edi
+    004ef0a7  pop      esi
+    004ef0a8  ret      4
+    004ef0ab  nop      
+    004ef0ac  nop      
+    004ef0ad  nop      
+    004ef0ae  nop      
+    004ef0af  nop      
+    004ef0b0  push     ecx
+    004ef0b1  push     esi
+    004ef0b2  mov      esi, ecx
+    004ef0b4  lea      eax, [esp + 6]
+    004ef0b8  lea      ecx, [esp + 4]
+    004ef0bc  push     eax
+    004ef0bd  push     ecx
+    004ef0be  call     0x501b80
+    004ef0c3  add      esp, 8
+    004ef0c6  cmp      word ptr [esp + 4], 0
+    004ef0cc  jne      0x4ef0d9
+    004ef0ce  push     0x2d
+    004ef0d0  push     0x2c
+    004ef0d2  push     0x86e
+    004ef0d7  jmp      0x4ef0e2
+    004ef0d9  push     0x30
+    004ef0db  push     0x2f
+    004ef0dd  push     0x871
+    004ef0e2  push     0x20
+    004ef0e4  push     0x20
+    004ef0e6  push     0x68
+    004ef0e8  push     0x80
+    004ef0ed  lea      ecx, [esi + 0x126]
+    004ef0f3  call     0x4ef020
+    004ef0f8  pop      esi
+    004ef0f9  pop      ecx
+    004ef0fa  ret      
+    004ef0fb  nop      
+    004ef0fc  nop      
+    004ef0fd  nop      
+    004ef0fe  nop      
+    004ef0ff  nop      
+    004ef100  mov      edx, dword ptr [esp + 4]
+
+---- call @ 0x004ef1f3   [func @ ?]
+    004ef183  clc      
+    004ef184  add      eax, 0x40
+    004ef187  push     eax
+    004ef188  push     0
+    004ef18a  push     0x40d
+    004ef18f  call     0x574630
+    004ef194  lea      edi, [esi + 0x1b6]
+    004ef19a  push     0x872
+    004ef19f  push     0xf0
+    004ef1a4  push     0x10
+    004ef1a6  mov      ecx, edi
+    004ef1a8  call     0x5764b0
+    004ef1ad  push     edi
+    004ef1ae  mov      ecx, esi
+    004ef1b0  call     0x5b1f80
+    004ef1b5  lea      edi, [esi + 0x1e2]
+    004ef1bb  push     0x873
+    004ef1c0  mov      ecx, edi
+    004ef1c2  call     0x576450
+    004ef1c7  push     edi
+    004ef1c8  mov      ecx, esi
+    004ef1ca  call     0x5b1f80
+    004ef1cf  lea      eax, [esi + 0x72]
+    004ef1d2  mov      ecx, esi
+    004ef1d4  push     eax
+    004ef1d5  call     0x5b1f80
+    004ef1da  push     0x1f
+    004ef1dc  push     0x1e
+    004ef1de  push     0x86b
+    004ef1e3  push     0x20
+    004ef1e5  lea      edi, [esi + 0x96]
+    004ef1eb  push     0x20
+    004ef1ed  push     0x68
+    004ef1ef  push     0x20
+    004ef1f1  mov      ecx, edi
+    004ef1f3  call     0x4ef020
+    004ef1f8  push     edi
+    004ef1f9  mov      ecx, esi
+    004ef1fb  call     0x5b1f80
+    004ef200  push     0x28
+    004ef202  push     0x27
+
+---- call @ 0x004ef219   [func @ ?]
+    004ef1a9  add      esi, dword ptr [ebx + 8]
+    004ef1ac  add      byte ptr [edi - 0x75], dl
+    004ef1af  into     
+    004ef1b0  call     0x5b1f80
+    004ef1b5  lea      edi, [esi + 0x1e2]
+    004ef1bb  push     0x873
+    004ef1c0  mov      ecx, edi
+    004ef1c2  call     0x576450
+    004ef1c7  push     edi
+    004ef1c8  mov      ecx, esi
+    004ef1ca  call     0x5b1f80
+    004ef1cf  lea      eax, [esi + 0x72]
+    004ef1d2  mov      ecx, esi
+    004ef1d4  push     eax
+    004ef1d5  call     0x5b1f80
+    004ef1da  push     0x1f
+    004ef1dc  push     0x1e
+    004ef1de  push     0x86b
+    004ef1e3  push     0x20
+    004ef1e5  lea      edi, [esi + 0x96]
+    004ef1eb  push     0x20
+    004ef1ed  push     0x68
+    004ef1ef  push     0x20
+    004ef1f1  mov      ecx, edi
+    004ef1f3  call     0x4ef020
+    004ef1f8  push     edi
+    004ef1f9  mov      ecx, esi
+    004ef1fb  call     0x5b1f80
+    004ef200  push     0x28
+    004ef202  push     0x27
+    004ef204  push     0x86c
+    004ef209  push     0x20
+    004ef20b  lea      edi, [esi + 0xc6]
+    004ef211  push     0x20
+    004ef213  push     0x68
+    004ef215  push     0x40
+    004ef217  mov      ecx, edi
+    004ef219  call     0x4ef020
+    004ef21e  push     edi
+    004ef21f  mov      ecx, esi
+    004ef221  call     0x5b1f80
+    004ef226  push     0x2b
+    004ef228  push     0x2a
+
+---- call @ 0x004ef23f   [func @ ?]
+    004ef1cf  lea      eax, [esi + 0x72]
+    004ef1d2  mov      ecx, esi
+    004ef1d4  push     eax
+    004ef1d5  call     0x5b1f80
+    004ef1da  push     0x1f
+    004ef1dc  push     0x1e
+    004ef1de  push     0x86b
+    004ef1e3  push     0x20
+    004ef1e5  lea      edi, [esi + 0x96]
+    004ef1eb  push     0x20
+    004ef1ed  push     0x68
+    004ef1ef  push     0x20
+    004ef1f1  mov      ecx, edi
+    004ef1f3  call     0x4ef020
+    004ef1f8  push     edi
+    004ef1f9  mov      ecx, esi
+    004ef1fb  call     0x5b1f80
+    004ef200  push     0x28
+    004ef202  push     0x27
+    004ef204  push     0x86c
+    004ef209  push     0x20
+    004ef20b  lea      edi, [esi + 0xc6]
+    004ef211  push     0x20
+    004ef213  push     0x68
+    004ef215  push     0x40
+    004ef217  mov      ecx, edi
+    004ef219  call     0x4ef020
+    004ef21e  push     edi
+    004ef21f  mov      ecx, esi
+    004ef221  call     0x5b1f80
+    004ef226  push     0x2b
+    004ef228  push     0x2a
+    004ef22a  push     0x86d
+    004ef22f  push     0x20
+    004ef231  lea      edi, [esi + 0xf6]
+    004ef237  push     0x20
+    004ef239  push     0x68
+    004ef23b  push     0x60
+    004ef23d  mov      ecx, edi
+    004ef23f  call     0x4ef020
+    004ef244  push     edi
+    004ef245  mov      ecx, esi
+    004ef247  call     0x5b1f80
+    004ef24c  push     0x2d
+    004ef24e  push     0x2c
+
+---- call @ 0x004ef268   [func @ ?]
+    004ef1f8  push     edi
+    004ef1f9  mov      ecx, esi
+    004ef1fb  call     0x5b1f80
+    004ef200  push     0x28
+    004ef202  push     0x27
+    004ef204  push     0x86c
+    004ef209  push     0x20
+    004ef20b  lea      edi, [esi + 0xc6]
+    004ef211  push     0x20
+    004ef213  push     0x68
+    004ef215  push     0x40
+    004ef217  mov      ecx, edi
+    004ef219  call     0x4ef020
+    004ef21e  push     edi
+    004ef21f  mov      ecx, esi
+    004ef221  call     0x5b1f80
+    004ef226  push     0x2b
+    004ef228  push     0x2a
+    004ef22a  push     0x86d
+    004ef22f  push     0x20
+    004ef231  lea      edi, [esi + 0xf6]
+    004ef237  push     0x20
+    004ef239  push     0x68
+    004ef23b  push     0x60
+    004ef23d  mov      ecx, edi
+    004ef23f  call     0x4ef020
+    004ef244  push     edi
+    004ef245  mov      ecx, esi
+    004ef247  call     0x5b1f80
+    004ef24c  push     0x2d
+    004ef24e  push     0x2c
+    004ef250  push     0x86e
+    004ef255  push     0x20
+    004ef257  lea      edi, [esi + 0x126]
+    004ef25d  push     0x20
+    004ef25f  push     0x68
+    004ef261  push     0x80
+    004ef266  mov      ecx, edi
+    004ef268  call     0x4ef020
+    004ef26d  push     edi
+    004ef26e  mov      ecx, esi
+    004ef270  call     0x5b1f80
+    004ef275  push     0x32
+    004ef277  push     0x31
+
+---- call @ 0x004ef291   [func @ ?]
+    004ef221  call     0x5b1f80
+    004ef226  push     0x2b
+    004ef228  push     0x2a
+    004ef22a  push     0x86d
+    004ef22f  push     0x20
+    004ef231  lea      edi, [esi + 0xf6]
+    004ef237  push     0x20
+    004ef239  push     0x68
+    004ef23b  push     0x60
+    004ef23d  mov      ecx, edi
+    004ef23f  call     0x4ef020
+    004ef244  push     edi
+    004ef245  mov      ecx, esi
+    004ef247  call     0x5b1f80
+    004ef24c  push     0x2d
+    004ef24e  push     0x2c
+    004ef250  push     0x86e
+    004ef255  push     0x20
+    004ef257  lea      edi, [esi + 0x126]
+    004ef25d  push     0x20
+    004ef25f  push     0x68
+    004ef261  push     0x80
+    004ef266  mov      ecx, edi
+    004ef268  call     0x4ef020
+    004ef26d  push     edi
+    004ef26e  mov      ecx, esi
+    004ef270  call     0x5b1f80
+    004ef275  push     0x32
+    004ef277  push     0x31
+    004ef279  push     0x86f
+    004ef27e  push     0x20
+    004ef280  lea      edi, [esi + 0x156]
+    004ef286  push     0x20
+    004ef288  push     0x68
+    004ef28a  push     0xa0
+    004ef28f  mov      ecx, edi
+    004ef291  call     0x4ef020
+    004ef296  push     edi
+    004ef297  mov      ecx, esi
+    004ef299  call     0x5b1f80
+    004ef29e  push     0x34
+    004ef2a0  push     0x33
+
+---- call @ 0x004ef2ba   [func @ ?]
+    004ef24a  or       al, 0
+    004ef24c  push     0x2d
+    004ef24e  push     0x2c
+    004ef250  push     0x86e
+    004ef255  push     0x20
+    004ef257  lea      edi, [esi + 0x126]
+    004ef25d  push     0x20
+    004ef25f  push     0x68
+    004ef261  push     0x80
+    004ef266  mov      ecx, edi
+    004ef268  call     0x4ef020
+    004ef26d  push     edi
+    004ef26e  mov      ecx, esi
+    004ef270  call     0x5b1f80
+    004ef275  push     0x32
+    004ef277  push     0x31
+    004ef279  push     0x86f
+    004ef27e  push     0x20
+    004ef280  lea      edi, [esi + 0x156]
+    004ef286  push     0x20
+    004ef288  push     0x68
+    004ef28a  push     0xa0
+    004ef28f  mov      ecx, edi
+    004ef291  call     0x4ef020
+    004ef296  push     edi
+    004ef297  mov      ecx, esi
+    004ef299  call     0x5b1f80
+    004ef29e  push     0x34
+    004ef2a0  push     0x33
+    004ef2a2  push     0x870
+    004ef2a7  push     0x20
+    004ef2a9  lea      edi, [esi + 0x186]
+    004ef2af  push     0x20
+    004ef2b1  push     0x68
+    004ef2b3  push     0xc0
+    004ef2b8  mov      ecx, edi
+    004ef2ba  call     0x4ef020
+    004ef2bf  push     edi
+    004ef2c0  mov      ecx, esi
+    004ef2c2  call     0x5b1f80
+    004ef2c7  push     7
+    004ef2c9  mov      ecx, esi
+
+---- call @ 0x004f3b33   [func @ ?]
+    004f3ac3  add      byte ptr [eax], ah
+    004f3ac5  add      byte ptr [eax], al
+    004f3ac7  push     0x411
+    004f3acc  call     0x574630
+    004f3ad1  lea      edi, [esi + 0x12b]
+    004f3ad7  push     0x889
+    004f3adc  push     0x100
+    004f3ae1  push     0x10
+    004f3ae3  mov      ecx, edi
+    004f3ae5  call     0x5764b0
+    004f3aea  push     edi
+    004f3aeb  mov      ecx, esi
+    004f3aed  call     0x5b1f80
+    004f3af2  lea      edi, [esi + 0x157]
+    004f3af8  push     0x88a
+    004f3afd  mov      ecx, edi
+    004f3aff  call     0x576450
+    004f3b04  push     edi
+    004f3b05  mov      ecx, esi
+    004f3b07  call     0x5b1f80
+    004f3b0c  lea      eax, [esi + 0x77]
+    004f3b0f  mov      ecx, esi
+    004f3b11  push     eax
+    004f3b12  call     0x5b1f80
+    004f3b17  push     0x28
+    004f3b19  push     0x27
+    004f3b1b  push     0x886
+    004f3b20  push     0x20
+    004f3b22  lea      edi, [esi + 0x9b]
+    004f3b28  push     0x20
+    004f3b2a  push     0x58
+    004f3b2c  push     0xa8
+    004f3b31  mov      ecx, edi
+    004f3b33  call     0x4ef020
+    004f3b38  push     edi
+    004f3b39  mov      ecx, esi
+    004f3b3b  call     0x5b1f80
+    004f3b40  push     0x32
+    004f3b42  push     0x31
+
+---- call @ 0x004f3b5c   [func @ ?]
+    004f3aec  into     
+    004f3aed  call     0x5b1f80
+    004f3af2  lea      edi, [esi + 0x157]
+    004f3af8  push     0x88a
+    004f3afd  mov      ecx, edi
+    004f3aff  call     0x576450
+    004f3b04  push     edi
+    004f3b05  mov      ecx, esi
+    004f3b07  call     0x5b1f80
+    004f3b0c  lea      eax, [esi + 0x77]
+    004f3b0f  mov      ecx, esi
+    004f3b11  push     eax
+    004f3b12  call     0x5b1f80
+    004f3b17  push     0x28
+    004f3b19  push     0x27
+    004f3b1b  push     0x886
+    004f3b20  push     0x20
+    004f3b22  lea      edi, [esi + 0x9b]
+    004f3b28  push     0x20
+    004f3b2a  push     0x58
+    004f3b2c  push     0xa8
+    004f3b31  mov      ecx, edi
+    004f3b33  call     0x4ef020
+    004f3b38  push     edi
+    004f3b39  mov      ecx, esi
+    004f3b3b  call     0x5b1f80
+    004f3b40  push     0x32
+    004f3b42  push     0x31
+    004f3b44  push     0x887
+    004f3b49  push     0x20
+    004f3b4b  lea      edi, [esi + 0xcb]
+    004f3b51  push     0x20
+    004f3b53  push     0x58
+    004f3b55  push     0xc8
+    004f3b5a  mov      ecx, edi
+    004f3b5c  call     0x4ef020
+    004f3b61  push     edi
+    004f3b62  mov      ecx, esi
+    004f3b64  call     0x5b1f80
+    004f3b69  push     0x34
+    004f3b6b  push     0x33
+
+---- call @ 0x004f3b85   [func @ ?]
+    004f3b15  or       eax, dword ptr [eax]
+    004f3b17  push     0x28
+    004f3b19  push     0x27
+    004f3b1b  push     0x886
+    004f3b20  push     0x20
+    004f3b22  lea      edi, [esi + 0x9b]
+    004f3b28  push     0x20
+    004f3b2a  push     0x58
+    004f3b2c  push     0xa8
+    004f3b31  mov      ecx, edi
+    004f3b33  call     0x4ef020
+    004f3b38  push     edi
+    004f3b39  mov      ecx, esi
+    004f3b3b  call     0x5b1f80
+    004f3b40  push     0x32
+    004f3b42  push     0x31
+    004f3b44  push     0x887
+    004f3b49  push     0x20
+    004f3b4b  lea      edi, [esi + 0xcb]
+    004f3b51  push     0x20
+    004f3b53  push     0x58
+    004f3b55  push     0xc8
+    004f3b5a  mov      ecx, edi
+    004f3b5c  call     0x4ef020
+    004f3b61  push     edi
+    004f3b62  mov      ecx, esi
+    004f3b64  call     0x5b1f80
+    004f3b69  push     0x34
+    004f3b6b  push     0x33
+    004f3b6d  push     0x888
+    004f3b72  push     0x20
+    004f3b74  lea      edi, [esi + 0xfb]
+    004f3b7a  push     0x20
+    004f3b7c  push     0x58
+    004f3b7e  push     0xe8
+    004f3b83  mov      ecx, edi
+    004f3b85  call     0x4ef020
+    004f3b8a  push     edi
+    004f3b8b  mov      ecx, esi
+    004f3b8d  call     0x5b1f80
+    004f3b92  push     7
+    004f3b94  mov      ecx, esi
+
+==============================================================================
+唯一 byte[+0x2d] 写入点 0x43de0c 所在函数上下文
+  (bad addr)

@@ -1,0 +1,336 @@
+{
+  "module": "HJMAPDAT section A 结构重定性（续67）",
+  "status": "结构已重定性；命名仍未闭合",
+  "date": "2026-08-28",
+  "reference_impl": "scripts/sectA2_ref.py",
+  "self_test": "38/38 ALL PASS",
+  "data_source": "Taikou2 Original/HJMAPDAT.DAT (64600B = 38 × 1700B)",
+  "headline": {
+    "claim": "section A 不是「9 类实体 × 20 属性」的参数矩阵，而是 20 列 × 9 行的空间网格",
+    "overturns": "sectA_spec.json 的 rows/cols 占位命名（tier_0..8 / 20 tuning slots）及其隐含的「实体×属性」假设",
+    "confidence": "高（空间映射公式确定 + 相关性显著高于随机基线）"
+  },
+  "layout_raw": {
+    "record_size": 1700,
+    "sectA": {
+      "offset": 0,
+      "len": 180,
+      "dims": "9 rows × 20 cols"
+    },
+    "terrain": {
+      "offset": 180,
+      "len": 760,
+      "dims": "19 rows × 40 cols",
+      "cell": "code 0..15 + mod"
+    },
+    "deploy": {
+      "offset": 940,
+      "len": 760,
+      "dims": "19 rows × 40 cols",
+      "cell": "byte; 0xFF = 空"
+    }
+  },
+  "spatial_mapping": {
+    "formula_off": "off = (col<<1) + 40*((col&1)^1) + 80*row",
+    "equivalent_yx": {
+      "X": "2*col",
+      "Y": "2*row + ((col&1) ^ 1)"
+    },
+    "properties": [
+      "X 只取偶数列（0,2,...,38）",
+      "col 奇 → Y = 2*row（偶行）；col 偶 → Y = 2*row+1（奇行）",
+      "覆盖 deploy 的 Y 0..17（18 行）、X 偶数 0..38"
+    ],
+    "source_va": "0x438c60",
+    "note": "section A 是 deploy 图在偶数 X 列上的抽样，Y 按 col 奇偶交错 —— 半分辨率逻辑网格"
+  },
+  "indexing": {
+    "getLo": {
+      "va": "0x439050",
+      "disasm": "mov eax,[esp+8] ; mov ecx,[esp+4] ; and eax,0xff ; and ecx,0xff ; lea eax,[eax+eax*4] ; mov al,byte[ecx+eax*4+0x512e58] ; and eax,0xf",
+      "formula": "sectA[col + row*20] & 0xF",
+      "arg1_esp4": "col（直接加，0..19）",
+      "arg2_esp8": "row（lea ×5 后 ×4 = ×20，0..8）",
+      "call_sites": 29,
+      "note": "调用点从 unit struct 取参：byte[unit+0]=col、byte[unit+2]=row（见 0x42d270 damage、0x428b5c feint spawn）"
+    }
+  },
+  "falsifications": [
+    {
+      "claim": "section A = terrain 图降采样",
+      "verdict": "证伪",
+      "evidence": "同位置 terrain code 低4位与 sectA 值一致率仅 9.8%（668/6840）"
+    },
+    {
+      "claim": "sectA_spec 的「99.5% populated SECT_A cells land on non-space deploy chars」",
+      "verdict": "不成立（纠偏）",
+      "evidence": "实测 deploy 非空 → sectA≠0 仅 61.9%（n=2451）；deploy 空 → sectA==0 为 79.1%（n=4389）"
+    },
+    {
+      "claim": "section A 值 = deploy 字节的高4位或低4位",
+      "verdict": "证伪",
+      "evidence": "值 1 的高4位纯度仅 50%、低4位纯度仅 22%；0xFF 亦跨多个 sectA 值（非确定性函数）"
+    }
+  ],
+  "evidence_for_spatial_grid": {
+    "correlation": {
+      "deploy_nonempty_to_sectA_nonzero": "61.9%",
+      "deploy_empty_to_sectA_zero": "79.1%",
+      "random_baseline_approx": "36% / 64%",
+      "interpretation": "显著高于随机基线 ⇒ 空间对应成立，但非 100% 确定性（section A 与 deploy 是同一地图的两种独立表示）"
+    },
+    "value1_semantics": "值 1 的格子 100% 对应 deploy 的可打印 ASCII 部队字符（0x30–0x5A，如 J/K/I/H/A/2/9/8/3）⇒ 值 1 = 部队占据格",
+    "value0_semantics": "值 0 以 0xFF（空）为主（79%）"
+  },
+  "value_distribution_38_battles": {
+    "0": {
+      "n": 4403,
+      "top_deploy": "0xFF(3470), '='(140), 'S'(128), '0'(91), 'U'(91)"
+    },
+    "1": {
+      "n": 761,
+      "top_deploy": "J(105), 2(98), K(86), I(85), 9(84), 8(80), 3(76), H(72) — 全部可打印"
+    },
+    "2": {
+      "n": 887,
+      "top_deploy": "0xFF(470), I(25), 0x8c(23), 0x9c(23)"
+    },
+    "3": {
+      "n": 271,
+      "top_deploy": "0xFF(270)"
+    },
+    "4": {
+      "n": 183,
+      "top_deploy": "0xFF(51), k(14), 0x60(12), T(11)"
+    },
+    "5": {
+      "n": 128,
+      "top_deploy": "0xFF(24), 0x94(15), 0x8a(13), 0xb3(10)"
+    },
+    "6": {
+      "n": 153,
+      "top_deploy": "0xFF(77), 0x09(12), 0x00(11), 0x01(11)"
+    },
+    "7": {
+      "n": 54,
+      "top_deploy": "0xFF(27), 0xa5(9), 0xa0(6), 0xb2(6)"
+    },
+    "note": "值 2/5/7 偏向高位字节(0x80–0xBF)，值 6 偏向控制字符(0x00–0x1F) —— 提示 deploy 字节本身是复合编码，但无确定性映射"
+  },
+  "consumers_of_value": {
+    "attack_divisor": "0x43a9c0 → 0x503770(攻城 8项)/0x503778(野战 12项)",
+    "move_cost": "0x438a60/aa0/af0/b30 → 0x5036a0/a8/c0/c8",
+    "lut_remap": "0x423f90/423fa0 → 0x503138/0x503140",
+    "interpretation": "值被当作 terrain_class_idx 消费（查移动/攻击表），但它与 terrain 图的 code 并不同源 ⇒ 是第三套分类"
+  },
+  "still_unknown": [
+    "9 行 / 20 列的中文命名（若确为空间网格，应命名为「行/列」或「纵向带/横向带」，而非兵种/属性）",
+    "值 0..7 的确定中文名（EXE 无名表 ⇒ 已判定不可静态获得；仅有 🔶 推断命名）",
+    "section A 与 deploy 为何非确定性对应",
+    "deploy 字节的编码规则（可打印 ASCII / 高位字节 / 控制字符 三类各自含义）",
+    "为何 X 只取偶数列",
+    "section A 由设计者手工配置 ⇒ 各 battle 的配置意图（是否与剧本/剧情相关）"
+  ],
+  "next_steps": [
+    "用 Unicorn 实跑战斗初始化，dump section A 的写入来源（0x43a080 battle prep 填充 0x512f28）",
+    "反汇编 0x438c60（映射公式来源）确认抽样意图",
+    "对照 deploy 字节三类（可打印/高位/控制）与游戏内实际表现（部队/地形/设施）"
+  ],
+  "falsifications_round2_20260828": [
+    {
+      "claim": "section A 值由 terrain 图派生（任意降采样/取位方式）",
+      "verdict": "全部证伪",
+      "rates": {
+        "单点 code&0xF": "9.8%",
+        "单点 code&7": "13.6%",
+        "2x2块众数 code&7": "13.0%",
+        "2x2块最小 code&7": "14.0%",
+        "2x2块最大 code&7": "9.1%"
+      },
+      "conclusion": "section A 是独立手工配置数据，与渲染地形图是两套分类体系"
+    },
+    {
+      "claim": "EXE 内存在地形中文名表可给 cls 0..7 命名",
+      "verdict": "证伪（结论性负结果）",
+      "evidence": "全镜像 GBK 串搜索：平地/荒地/草地/森林/河流/山地 均 0 命中；仅 桥/城/阵 命中且属剧情文本（墨俣一夜城）。terrain 中文名来自 JSON 侧硬编码，非 EXE。",
+      "conclusion": "性质同「阵形名不在 EXE」——复刻应用 terrain_cls_0..7 数值命名"
+    }
+  ],
+  "eight_class_profile": {
+    "source_tables": {
+      "atk_siege": {
+        "va": "0x503770",
+        "len": 8,
+        "values": [
+          10,
+          12,
+          15,
+          7,
+          7,
+          15,
+          100,
+          100
+        ]
+      },
+      "atk_field": {
+        "va": "0x503778",
+        "len": 12,
+        "values": [
+          10,
+          10,
+          12,
+          7,
+          7,
+          10,
+          10,
+          8,
+          100,
+          100,
+          12,
+          12
+        ]
+      },
+      "mv_a": {
+        "va": "0x5036a0",
+        "len": 8,
+        "values": [
+          3,
+          4,
+          4,
+          5,
+          5,
+          4,
+          100,
+          100
+        ]
+      },
+      "mv_c": {
+        "va": "0x5036c0",
+        "len": 8,
+        "values": [
+          1,
+          2,
+          3,
+          3,
+          3,
+          3,
+          100,
+          100
+        ]
+      },
+      "mv_b0": {
+        "va": "0x5036a8",
+        "len": 12,
+        "values": [
+          3,
+          3,
+          4,
+          12,
+          11,
+          4,
+          8,
+          9,
+          100,
+          100,
+          6,
+          20
+        ]
+      },
+      "mv_b1": {
+        "va": "0x5036a8+12",
+        "len": 12,
+        "values": [
+          1,
+          3,
+          4,
+          12,
+          11,
+          4,
+          8,
+          9,
+          100,
+          100,
+          6,
+          4
+        ]
+      }
+    },
+    "divisor_semantics": "dmg = E*7 // divisor // (def//4+50) + 1 ⇒ divisor 越大伤害越低（防御越好）",
+    "table": [
+      {
+        "cls": 0,
+        "mv_a": 3,
+        "mv_c": 1,
+        "mv_b0": 3,
+        "atk_siege": 10,
+        "atk_field": 10,
+        "inferred": "平地/街道（最易通行）"
+      },
+      {
+        "cls": 1,
+        "mv_a": 4,
+        "mv_c": 2,
+        "mv_b0": 3,
+        "atk_siege": 12,
+        "atk_field": 10,
+        "inferred": "荒地"
+      },
+      {
+        "cls": 2,
+        "mv_a": 4,
+        "mv_c": 3,
+        "mv_b0": 4,
+        "atk_siege": 15,
+        "atk_field": 12,
+        "inferred": "草地·森（高防御）"
+      },
+      {
+        "cls": 3,
+        "mv_a": 5,
+        "mv_c": 3,
+        "mv_b0": 12,
+        "atk_siege": 7,
+        "atk_field": 7,
+        "inferred": "河川·浅滩（最难走且易受伤）"
+      },
+      {
+        "cls": 4,
+        "mv_a": 5,
+        "mv_c": 3,
+        "mv_b0": 11,
+        "atk_siege": 7,
+        "atk_field": 7,
+        "inferred": "河川·湿地"
+      },
+      {
+        "cls": 5,
+        "mv_a": 4,
+        "mv_c": 3,
+        "mv_b0": 4,
+        "atk_siege": 15,
+        "atk_field": 10,
+        "inferred": "山地·丘陵（高防御）"
+      },
+      {
+        "cls": 6,
+        "mv_a": 100,
+        "mv_c": 100,
+        "mv_b0": 8,
+        "atk_siege": 100,
+        "atk_field": 10,
+        "inferred": "城壁·本城（攻城不可入，野战可通行）"
+      },
+      {
+        "cls": 7,
+        "mv_a": 100,
+        "mv_c": 100,
+        "mv_b0": 9,
+        "atk_siege": 100,
+        "atk_field": 8,
+        "inferred": "城门·设施（攻城不可入，野战可通行）"
+      }
+    ],
+    "key_finding": "同一 cls 在两种模式下通行性不同：攻城(8B表) cls6/7 不可通行；野战(12B表) cls6/7 可通行(消耗8/9)、cls8/9 不可通行 ⇒ 两套模式各有自己的不可通行类。",
+    "confidence": "🔶 推断命名（基于数值特征），无 EXE 主名表佐证"
+  }
+}

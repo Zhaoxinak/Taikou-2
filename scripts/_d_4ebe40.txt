@@ -1,0 +1,69 @@
+=== 0x4ebe40 predicate(0x28) @ 004ebe40 ===
+004ebe40  push 0x64
+004ebe42  call 0x4ebd60
+004ebe47  add esp, 4
+004ebe4a  cmp ax, word ptr [esp + 4]
+004ebe4f  sbb eax, eax
+004ebe51  neg eax
+004ebe53  ret 
+004ebe54  nop 
+004ebe55  nop 
+004ebe56  nop 
+004ebe57  nop 
+004ebe58  nop 
+004ebe59  nop 
+004ebe5a  nop 
+004ebe5b  nop 
+004ebe5c  nop 
+004ebe5d  nop 
+004ebe5e  nop 
+004ebe5f  nop 
+004ebe60  mov eax, dword ptr [esp + 4]
+004ebe64  mov edx, dword ptr [esp + 0xc]
+004ebe68  push esi
+004ebe69  mov esi, dword ptr [esp + 0xc]
+004ebe6d  test ax, ax
+004ebe70  mov ecx, esi
+004ebe72  jge 0x4ebe82
+004ebe74  cmp dx, 0xa
+004ebe78  jne 0x4ebe82
+004ebe7a  mov byte ptr [esi], 0x2d
+004ebe7d  lea ecx, [esi + 1]
+004ebe80  neg eax
+004ebe82  push edx
+004ebe83  push ecx
+004ebe84  push eax
+004ebe85  call 0x4ebea0
+004ebe8a  add esp, 0xc
+004ebe8d  mov eax, esi
+004ebe8f  pop esi
+004ebe90  ret 
+004ebe91  nop 
+004ebe92  nop 
+004ebe93  nop 
+004ebe94  nop 
+004ebe95  nop 
+004ebe96  nop 
+004ebe97  nop 
+004ebe98  nop 
+004ebe99  nop 
+004ebe9a  nop 
+004ebe9b  nop 
+004ebe9c  nop 
+004ebe9d  nop 
+004ebe9e  nop 
+004ebe9f  nop 
+004ebea0  push esi
+004ebea1  mov esi, dword ptr [esp + 0x10]
+004ebea5  push edi
+004ebea6  mov di, word ptr [esp + 0xc]
+004ebeab  cmp di, si
+004ebeae  jl 0x4ebecc
+004ebeb0  mov eax, dword ptr [esp + 0x10]
+004ebeb4  push esi
+004ebeb5  push eax
+004ebeb6  movsx eax, di
+004ebeb9  movsx ecx, si
+004ebebc  cdq 
+004ebebd  idiv ecx
+004ebebf  push eax

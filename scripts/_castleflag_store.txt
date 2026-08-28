@@ -1,0 +1,7 @@
+=== 0x516638 store-form search ===
+mov [addr],al (a2): 0 -> []
+mov [addr],eax (a3): 0 -> []
+mov [addr],al (88 05): 0 -> []
+or  [addr],imm (80 0c 25): 0 -> []
+and [addr],imm (80 24 25): 0 -> []
+mov [addr],imm32 (c7 05): 0 -> []

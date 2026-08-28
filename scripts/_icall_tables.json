@@ -1,0 +1,68 @@
+[
+ {
+  "table": "0x50c950",
+  "n": 16,
+  "sites": [
+   {
+    "at": "0x4c55b5",
+    "ins": "jmp dword ptr [eax*4 + 0x50c950]",
+    "func": "0x4c55b0"
+   }
+  ]
+ },
+ {
+  "table": "0x4f2796",
+  "n": 14,
+  "sites": [
+   {
+    "at": "0x4f273e",
+    "ins": "jmp dword ptr [eax*4 + 0x4f2796]",
+    "func": "0x4f2715"
+   }
+  ]
+ },
+ {
+  "table": "0x504898",
+  "n": 13,
+  "sites": [
+   {
+    "at": "0x46040d",
+    "ins": "call dword ptr [eax*4 + 0x504898]",
+    "func": "0x4603f0"
+   }
+  ]
+ },
+ {
+  "table": "0x503328",
+  "n": 11,
+  "sites": [
+   {
+    "at": "0x42fcb3",
+    "ins": "call dword ptr [edx*4 + 0x503328]",
+    "func": "0x42fc80"
+   }
+  ]
+ },
+ {
+  "table": "0x505b00",
+  "n": 4,
+  "sites": [
+   {
+    "at": "0x474597",
+    "ins": "jmp dword ptr [eax*4 + 0x505b00]",
+    "func": "0x474490"
+   }
+  ]
+ },
+ {
+  "table": "0x50a5e8",
+  "n": 4,
+  "sites": [
+   {
+    "at": "0x49086d",
+    "ins": "call dword ptr [eax*4 + 0x50a5e8]",
+    "func": "0x490810"
+   }
+  ]
+ }
+]

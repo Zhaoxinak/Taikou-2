@@ -1,0 +1,179 @@
+=== 任务名表 0x00504b28（12 项指针表）===
+原始: a0 4a 50 00 b0 4a 50 00 c0 4a 50 00 c8 4a 50 00 d0 4a 50 00 e0 4a 50 00 e8 4a 50 00 f0 4a 50 00 f8 4a 50 00 00 4b 50 00 10 4b 50 00 20 4b 50 00 c8 cb b8 f1 b5 c4 f7 c8 c1 a6 00 00 00 00 00 00
+  [ 0] ptr=0x00504aa0  '贩卖军粮'
+  [ 1] ptr=0x00504ab0  '购买军粮'
+  [ 2] ptr=0x00504ac0  '军马'
+  [ 3] ptr=0x00504ac8  '洋枪'
+  [ 4] ptr=0x00504ad0  '开垦农田'
+  [ 5] ptr=0x00504ae0  '改建'
+  [ 6] ptr=0x00504ae8  '筑城'
+  [ 7] ptr=0x00504af0  '进贡'
+  [ 8] ptr=0x00504af8  '威吓'
+  [ 9] ptr=0x00504b00  '朝廷工作'
+  [10] ptr=0x00504b10  '收集情报'
+  [11] ptr=0x00504b20  '谋略'
+  [12] ptr=0xf1b8cbc8  None
+  [13] ptr=0xc8f7c4b5  None
+
+=== 执行 handler 表 0x00504898（13 项）===
+原始: 00 e7 45 00 90 e7 45 00 70 e8 45 00 e0 e8 45 00 70 e9 45 00 f0 e9 45 00 90 ea 45 00 80 eb 45 00 10 ec 45 00 80 ed 45 00 f0 ed 45 00 c0 ee 45 00 40 ef 45 00 00 00 00 00 a1 a1 d7 a1 a1 a1 cb de
+  [ 0] handler = 0x0045e700
+  [ 1] handler = 0x0045e790
+  [ 2] handler = 0x0045e870
+  [ 3] handler = 0x0045e8e0
+  [ 4] handler = 0x0045e970
+  [ 5] handler = 0x0045e9f0
+  [ 6] handler = 0x0045ea90
+  [ 7] handler = 0x0045eb80
+  [ 8] handler = 0x0045ec10
+  [ 9] handler = 0x0045ed80
+  [10] handler = 0x0045edf0
+  [11] handler = 0x0045eec0
+  [12] handler = 0x0045ef40
+  [13] handler = 0x00000000
+  [14] handler = 0xa1d7a1a1
+
+---- 任务执行分发器 0x004603f0 .. 0x00460570
+  004603f0  push     esi
+  004603f1  mov      esi, dword ptr [esp + 8]
+  004603f5  cmp      si, 0x16
+  004603f9  jne      0x460402
+  004603fb  call     0x460550
+  00460400  pop      esi
+  00460401  ret      
+  00460402  call     0x460420
+  00460407  and      eax, 0xffff
+  0046040c  push     esi
+  0046040d  call     dword ptr [eax*4 + 0x504898]
+  00460414  add      esp, 4
+  00460417  pop      esi
+  00460418  ret      
+  00460419  nop      
+  0046041a  nop      
+  0046041b  nop      
+  0046041c  nop      
+  0046041d  nop      
+  0046041e  nop      
+  0046041f  nop      
+  00460420  push     esi
+  00460421  push     edi
+  00460422  call     0x49f6b0
+  00460427  mov      di, word ptr [eax]
+  0046042a  xor      esi, esi
+  0046042c  cmp      di, 9
+  00460430  jne      0x460485
+  00460432  cmp      word ptr [0x513fcc], 3
+  0046043a  jae      0x460449
+  0046043c  call     0x460500
+  00460441  cmp      ax, 1
+  00460445  jne      0x46045c
+  00460447  jmp      0x460499
+  00460449  call     0x460500
+  0046044e  and      eax, 0xffff
+  00460453  dec      eax
+  00460454  je       0x460481
+  00460456  dec      eax
+  00460457  je       0x46047a
+  00460459  dec      eax
+  0046045a  jne      0x460463
+  0046045c  call     0x460530
+  00460461  mov      esi, eax
+  00460463  mov      eax, esi
+  00460465  pop      edi
+  00460466  and      eax, 0xffff
+  0046046b  mov      word ptr [eax*2 + 0x513fe0], 0
+  00460475  mov      ax, si
+  00460478  pop      esi
+  00460479  ret      
+  0046047a  mov      esi, 1
+  0046047f  jmp      0x460463
+  00460481  xor      esi, esi
+  00460483  jmp      0x460463
+  00460485  call     0x460500
+  0046048a  cmp      ax, 1
+  0046048e  jne      0x4604ad
+  00460490  cmp      word ptr [0x513fcc], ax
+  00460497  jbe      0x4604ad
+  00460499  push     0x28
+  0046049b  call     0x4ebe40
+  004604a0  add      esp, 4
+  004604a3  mov      esi, eax
+  004604a5  neg      esi
+  004604a7  sbb      esi, esi
+  004604a9  neg      esi
+  004604ab  jmp      0x460463
+  004604ad  call     0x460500
+  004604b2  cmp      ax, 2
+  004604b6  jne      0x46045c
+  004604b8  cmp      word ptr [0x513fcc], ax
+  004604bf  jb       0x46045c
+  004604c1  test     di, di
+  004604c4  je       0x4604e2
+  004604c6  cmp      di, 1
+  004604ca  je       0x4604e2
+  004604cc  cmp      di, ax
+  004604cf  jne      0x46045c
+  004604d1  cmp      word ptr [0x513ff6], 0
+  004604d9  je       0x46045c
+  004604db  mov      esi, 0xb
+  004604e0  jmp      0x460463
+  004604e2  cmp      word ptr [0x513ff8], 0
+  004604ea  je       0x46045c
+  004604f0  mov      esi, 0xc
+  004604f5  jmp      0x460463
+  004604fa  nop      
+  004604fb  nop      
+  004604fc  nop      
+  004604fd  nop      
+  004604fe  nop      
+  004604ff  nop      
+  00460500  mov      edx, dword ptr [0x513fcc]
+  00460506  xor      eax, eax
+  00460508  test     dx, dx
+  0046050b  jbe      0x460525
+  0046050d  mov      ecx, 0x513fd4
+  00460512  and      edx, 0xffff
+  00460518  test     byte ptr [ecx + 1], 0x80
+  0046051c  je       0x46051f
+  0046051e  inc      eax
+  0046051f  add      ecx, 2
+  00460522  dec      edx
+  00460523  jne      0x460518
+  00460525  ret      
+  00460526  nop      
+  00460527  nop      
+  00460528  nop      
+  00460529  nop      
+  0046052a  nop      
+  0046052b  nop      
+  0046052c  nop      
+  0046052d  nop      
+  0046052e  nop      
+  0046052f  nop      
+  00460530  push     0xd
+  00460532  call     0x4ebd60
+  00460537  mov      ecx, eax
+  00460539  add      esp, 4
+  0046053c  and      ecx, 0xffff
+  00460542  cmp      word ptr [ecx*2 + 0x513fe0], 0
+  0046054b  je       0x460530
+  0046054d  ret      
+  0046054e  nop      
+  0046054f  nop      
+  00460550  push     ebx
+  00460551  push     ebp
+  00460552  push     esi
+  00460553  push     edi
+  00460554  call     0x49f6b0
+  00460559  mov      ebp, eax
+  0046055b  mov      ax, word ptr [ebp + 8]
+  0046055f  cmp      al, 0xc8
+  00460561  jae      0x460577
+  00460563  and      eax, 0xff
+  00460568  mov      edi, eax
+  0046056a  shl      edi, 5
+  0046056d  sub      edi, eax
+
+=== 0x4603f0 调用者 ===
+callers: 1
+  0x004602f8  [func ~0x00000000]

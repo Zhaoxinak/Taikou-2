@@ -1,0 +1,117 @@
+{
+  "module": "大名/城主 任命·继承路径（職位/晋升系统最后支线）",
+  "status": "已破",
+  "date": "2026-08-28",
+  "reference_impl": "scripts/promote3_ref.py",
+  "self_test": "42/42 ALL PASS",
+
+  "key_correction": {
+    "claim": "城主(8) 不是職位字段值，而是城表派生状态",
+    "evidence": "set_rank(0x49a7e0) 掩码 and eax,0xF8FF 仅清 bit8..10（3 bit）→ 職位字段只能存 0..7；而職位名表 0x50d850 有 9 项（8=城主），8 仅用于显示映射",
+    "overturns": "续63「浪人(0)/大名(7)/城主(8) 不在表内，7/8 走任命/继承」——7 确实走 set_rank，8 不走",
+    "correct_rule": "某武将是城主 ⟺ ∃城 c, word[城表 + c*31 + 0x0a] == 该武将编号"
+  },
+
+  "rank_encoding": {
+    "field": "word[实体+0x2c] bit8..10 (3 bit, 0..7)",
+    "setter": "0x49a7e0  set_rank(rank)",
+    "getter": "(word[+0x2c] >> 8) & 7",
+    "mask": "0xF8FF",
+    "ladder_table": "0x50d850 (9 项指针表)",
+    "ladder": ["浪人", "步兵头", "队长", "侍大将", "部将", "家老", "宿老", "大名", "城主"],
+    "note": "ladder[8]='城主' 仅用于显示派生，不可写入職位字段"
+  },
+
+  "entity_setters": {
+    "0x49a750": "byte[+0x24] = v",
+    "0x49a760": "byte[+0x25] = v  (所属城索引)",
+    "0x49a770": "word[+0x26] = min(v, 60000)  (勲功, 上限 0xea60)",
+    "0x49a790": "byte[+0x28] = min(v, 200)    (俸禄, 上限 0xc8)",
+    "0x49a7b0": "word[+0x2a?] 忠诚",
+    "0x49a7d0": "set_主君(-1=无)",
+    "0x49a7e0": "set_rank (bit8..10)",
+    "0x49a800": "旗标 setter",
+    "0x49a880": "setter(0)",
+    "0x49a990": "word[城+0x0a] = 武将编号  ★城主登记原语"
+  },
+
+  "castle_lord_appointment": {
+    "entry": "0x4d7c20",
+    "gates": [
+      {"check": "byte[0x516638] & 4", "fail": "静默退出 (0x4d7fd4)"},
+      {"check": "rank = (word[+0x2c]>>8)&7 ; 必须 > 4", "fail": "静默退出 (cmp eax,4; jle 0x4d7fd4)"},
+      {"check": "0x4ac690(edi) 候选检查", "fail": "0x4d7fae → msg 3153 无适当城池"},
+      {"check": "0x4ac7f0(我, edi) 取目标城非空", "fail": "0x4d7fae → msg 3153"},
+      {"check": "test byte[+0x11], 3  (礼法技能)", "fail": "msg 3155/3156/3157 → return 0"}
+    ],
+    "writeback_chain": [
+      "0x4a05a0(我, 旧城)  从旧城链表摘除  (旧城 = 0x51eb88 + byte[我+0x25]*31)",
+      "0x49a760(新城索引)   set_所属城 byte[+0x25]",
+      "0x4a0540(新城, 我, 1) 挂入新城家臣链表",
+      "0x49a990(新城, 我编号) ★word[城+0x0a] = 我  ← 城主登记",
+      "word[0x52062c] = 1   全局标志"
+    ],
+    "dialogue": {
+      "success": [3158, 3159, 3160, 3161, 3172, 3173, 3174],
+      "no_castle": [3153, 3154],
+      "no_etiquette": [3155, 3156, 3157]
+    },
+    "rename_event": {
+      "branch_expr": "(word[0x520604] >> 12) & 3",
+      "branches": {
+        "0": {"already_renamed_id": 695, "extra_check": "byte[+0x24]==0x0d", "rename_msg": 3162},
+        "1": {"already_renamed_id": 743, "rename_msg": 3186},
+        "2": {"already_renamed_id": 744, "rename_msg": 3186}
+      },
+      "rename_fn": "0x4a0cb0(我)",
+      "name_write_targets": ["0x521aa8 + idx*7", "0x520660 + idx*7"],
+      "note": "idx = (实体指针 - 0x519868)/47 ; stride 7 与 council 対象名表同源"
+    },
+    "related": {"0x4bfbe0": "城主任命确认 (msg 3447/3449/3451)", "0x4cecc0": "就任祝贺 (msg 5488/5492)"}
+  },
+
+  "daimyo_inheritance": {
+    "entry": "0x4a42c0",
+    "flow": [
+      "0x49f5e0() → ebp = 我",
+      "0x49f5a0(edi) → ebx = 死亡者实体",
+      "0x4a43e0(死亡者) 判是否继承人；0x4a3be0(死亡者) 找继承人",
+      "无继承人 → 0x4a4410(死亡者, 参数) + 0x4a3980(死亡者) 绝嗣处理",
+      "0x47bfe0() 判是否显示对话 → msg 1415/1416 + (1417 或 1418) + 1419",
+      "0x4a3d70(死亡者, 我, 继承人) ★继承核心写入",
+      "0x4a3660(死亡者) 死亡后处理"
+    ],
+    "name_msg_branch": "test byte[继承人+0x2d], 8 → je 走 0x49c2b0 取名(msg 1418 遗言); 否则 0x49c310(msg 1417)",
+    "core_0x4a3d70": {
+      "retainer_loop": "遍历死亡者家臣链表 (esi = [esi+4])",
+      "loyalty": "max( rand%(50 - (byte[死亡者+0xe]>>1)) + byte[家臣+0x29], 30 )  → 0x49a7b0",
+      "heir_of_blood": "word[家臣+0x2a] == 死亡者编号 → set_rank(6) 宿老 + 忠诚 100 + 0x49a7d0(0xffff) + 0x49a880(0)",
+      "successor": "word[家臣+0x1d] == word[死亡者+2] → set_rank(6) 宿老 (0x4a3e82)",
+      "city_transfer": "word[城+0x0a] 转移 (0x49a990)",
+      "heir_promotion": [
+        "0x49b580 / 0x49b5b0(0) / 0x49b5d0(0) 清死亡者状态",
+        "set_rank(继承人, 7)  ★大名",
+        "0x49a770(继承人, 0xea60)  ★勲功拉满 60000"
+      ]
+    },
+    "loyalty_floor": 30
+  },
+
+  "tables": {
+    "0x50d850": "職位名指针表 9 项 (0..8)",
+    "0x51eb88": "城表 stride 31, +0x0a = 城主武将编号",
+    "0x519868": "武将实体表 stride 47",
+    "0x521aa8": "运行时名表 stride 7（改名写入）",
+    "0x520660": "运行时名表 2 stride 7（改名写入）",
+    "0x51e9c0": "继承用临时数组指针"
+  },
+
+  "still_unknown": [
+    "0x4ac690 / 0x4ac7f0 的内部选取策略（候选城如何产生）",
+    "0x4ebca0(勲功, ?, 60000) 的勲功增量语义（評定路径先增勲功再判阈值）",
+    "0x49ffc0(target, lord) 与 0x4a3260 的忠诚增量基数",
+    "byte[+0x11] 的 bit0/bit1 具体对应哪个技能（推定礼法，待 MSGX 交叉验证）",
+    "绝嗣路径 0x4a4410 的完整语义",
+    "byte[+0x2d] bit3 在继承取名分支中的确切含义"
+  ]
+}

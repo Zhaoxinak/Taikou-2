@@ -1,0 +1,154 @@
+=== word[reg+0x2c] 写入点（rank 位于 bit8..10）===
+total: 2
+  004e3681  mov w [ecx+0x2c], dx
+  004ef02a  mov w [ecx+0x2c], ax
+
+=== 全局签名扫描 ===
+  and ax, 0xF8FF   (清 rank 位8..10)   : 0 处  
+  and eax, 0xF8FF                    : 0 处  
+  shr ax, 8        (取 rank)          : 0 处  
+  shr eax, 8       (取 rank)          : 12 处  0x004e4586 0x004e4a0c 0x00507812 0x00508fc9 0x0050bfd4 0x005119a8 0x0051634b 0x0051aa64 0x0051aabd 0x0051ab80 0x005204cc 0x0052627c
+  shl ax, 8        (rank 复位到 bit8..10) : 0 处  
+  shl eax, 8                         : 6 处  0x004cb52d 0x004cb537 0x004cb541 0x004ddae4 0x0050c1e9 0x0050c78f
+
+=== 各写入点上下文（自函数序言对齐反汇编）===
+
+---- 004e3681  mov w [ecx+0x2c], dx      [func @ ?]
+    004e3621  dec      ebx
+    004e3622  jne      0x4e360e
+    004e3624  mov      edi, 8
+    004e3629  mov      ebx, 0x12
+    004e362e  push     1
+    004e3630  push     0x6f
+    004e3632  push     0
+    004e3634  push     0
+    004e3636  push     edi
+    004e3637  mov      ecx, esi
+    004e3639  call     0x575cd0
+    004e363e  add      edi, 8
+    004e3641  dec      ebx
+    004e3642  jne      0x4e362e
+    004e3644  push     0x508c10
+    004e3649  push     8
+    004e364b  push     0x67
+    004e364d  push     0x97
+    004e3652  push     8
+    004e3654  push     8
+    004e3656  mov      ecx, esi
+    004e3658  call     0x575c30
+    004e365d  pop      edi
+    004e365e  pop      esi
+    004e365f  pop      ebx
+    004e3660  ret      
+    004e3661  nop      
+    004e3662  nop      
+    004e3663  nop      
+    004e3664  nop      
+    004e3665  nop      
+    004e3666  nop      
+    004e3667  nop      
+    004e3668  nop      
+    004e3669  nop      
+    004e366a  nop      
+    004e366b  nop      
+    004e366c  nop      
+    004e366d  nop      
+    004e366e  nop      
+    004e366f  nop      
+    004e3670  mov      al, byte ptr [esp + 0x10]
+    004e3674  mov      dx, word ptr [esp + 4]
+    004e3679  mov      byte ptr [ecx + 0x32], al
+    004e367c  mov      ax, word ptr [esp + 8]
+    004e3681  mov      word ptr [ecx + 0x2c], dx
+    004e3685  mov      dx, word ptr [esp + 0xc]
+    004e368a  mov      word ptr [ecx + 0x2e], ax
+    004e368e  mov      word ptr [ecx + 0x30], dx
+    004e3692  ret      0x10
+    004e3695  nop      
+    004e3696  nop      
+    004e3697  nop      
+    004e3698  nop      
+    004e3699  nop      
+    004e369a  nop      
+    004e369b  nop      
+    004e369c  nop      
+    004e369d  nop      
+    004e369e  nop      
+    004e369f  nop      
+    004e36a0  mov      eax, dword ptr [esp + 0x24]
+    004e36a4  mov      edx, dword ptr [esp + 0x1c]
+    004e36a8  push     esi
+    004e36a9  mov      esi, ecx
+    004e36ab  mov      ecx, dword ptr [esp + 0x24]
+    004e36af  push     eax
+    004e36b0  mov      eax, dword ptr [esp + 0x20]
+
+---- 004ef02a  mov w [ecx+0x2c], ax      [func @ ?]
+    004eefca  nop      
+    004eefcb  nop      
+    004eefcc  nop      
+    004eefcd  nop      
+    004eefce  nop      
+    004eefcf  nop      
+    004eefd0  push     0
+    004eefd2  call     0x501a30
+    004eefd7  add      esp, 4
+    004eefda  xor      ecx, ecx
+    004eefdc  mov      dl, 1
+    004eefde  test     byte ptr [eax + 0x2c], dl
+    004eefe1  jne      0x4eefed
+    004eefe3  inc      ecx
+    004eefe4  add      eax, 0x30
+    004eefe7  cmp      cx, 4
+    004eefeb  jle      0x4eefde
+    004eefed  ret      
+    004eefee  nop      
+    004eefef  nop      
+    004eeff0  mov      eax, dword ptr [esp + 4]
+    004eeff4  push     1
+    004eeff6  push     0
+    004eeff8  push     0xf
+    004eeffa  push     0x1e
+    004eeffc  push     0x88
+    004ef001  push     0xf8
+    004ef006  push     0x10
+    004ef008  push     0
+    004ef00a  push     eax
+    004ef00b  call     0x500e90
+    004ef010  add      esp, 0x24
+    004ef013  ret      
+    004ef014  nop      
+    004ef015  nop      
+    004ef016  nop      
+    004ef017  nop      
+    004ef018  nop      
+    004ef019  nop      
+    004ef01a  nop      
+    004ef01b  nop      
+    004ef01c  nop      
+    004ef01d  nop      
+    004ef01e  nop      
+    004ef01f  nop      
+    004ef020  mov      ax, word ptr [esp + 0x18]
+    004ef025  mov      dx, word ptr [esp + 0x1c]
+    004ef02a  mov      word ptr [ecx + 0x2c], ax
+    004ef02e  mov      eax, dword ptr [esp + 0x14]
+    004ef032  mov      word ptr [ecx + 0x2e], dx
+    004ef036  mov      edx, dword ptr [esp + 0x10]
+    004ef03a  push     0
+    004ef03c  push     eax
+    004ef03d  mov      eax, dword ptr [esp + 0x14]
+    004ef041  push     edx
+    004ef042  mov      edx, dword ptr [esp + 0x14]
+    004ef046  push     eax
+    004ef047  mov      eax, dword ptr [esp + 0x14]
+    004ef04b  push     edx
+    004ef04c  push     eax
+    004ef04d  call     0x576400
+    004ef052  ret      0x1c
+    004ef055  nop      
+    004ef056  nop      
+    004ef057  nop      
+    004ef058  nop      
+    004ef059  nop      
+    004ef05a  nop      

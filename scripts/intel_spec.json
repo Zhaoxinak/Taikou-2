@@ -1,0 +1,138 @@
+{
+  "module": "情报收集子系统 / 武将实体表 / MSGX 编号（2026-08-28 续61）",
+  "image": "scripts/_unpacked_mem.bin",
+  "base": "0x400000",
+  "reference_impl": "scripts/intel_ref.py",
+  "selfcheck": "13/13 PASS",
+
+  "msgx_id_scheme": {
+    "resolver": "0x493500",
+    "rule": "file = msgid // 2000；序号 = msgid - file*2000（以 add 0xf830/0xf060/0xe890 实现补码减法）",
+    "magic": "0x10624dd3，imul 后 sar edx,7（合计 >>39），再 shr 0x1f+add 做符号修正",
+    "files": [
+      {"id_range": "0x0000-0x07CF (0-1999)", "file": "MESSAGE1.LZW", "handle": "0x5249d8", "actual_count": 1735},
+      {"id_range": "0x07D0-0x0F9F (2000-3999)", "file": "MESSAGE2.LZW", "handle": "0x524a08", "actual_count": 1559},
+      {"id_range": "0x0FA0-0x176F (4000-5999)", "file": "MESSAGE3.LZW", "handle": "0x524a50", "actual_count": 1876},
+      {"id_range": "0x1770-0x1F3F (6000-7999)", "file": "MESSAGE4.LZW", "handle": "0x524870", "actual_count": 1041, "note": "🔶 纠偏（续62）：本条原写「未解码」有误 —— all_messages.txt 早已含全部 6211 条（含 M4 1041 条）；缺的只是 id↔文本映射，续62 已补齐（scripts/msgx_id_map.json）"}
+    ],
+    "anchors": [
+      {"id": "0x370", "resolved": "MESSAGE1#880", "text": "那好，给我吧。"},
+      {"id": "0x1202", "resolved": "MESSAGE3#610", "text": "我去过%s城。"}
+    ],
+    "note": "此前文档默认「MSGX 全局连续累加编号」是错的；真规则为 4 文件 × 2000 槽。🔶 续62 纠偏：MESSAGE4 并非未解码（all_messages.txt 含全部 6211 条），真正补上的是 id↔文本映射。"
+  },
+
+  "entity_table": {
+    "va": "0x519868",
+    "stride": 47,
+    "count": 370,
+    "end": "0x51dc56",
+    "static": "全 0（运行时从 SNDATA XOR 流填充）",
+    "stride_evidence": [
+      "0x45e3e0: add esi, 0x2f 且循环上限 0x172(370)",
+      "0x45ee28: lea esi,[eax+eax*2]; shl esi,4; sub esi,eax  → 47*idx"
+    ],
+    "fields": {
+      "+0x0a": "统御力 byte 0..100",
+      "+0x0b": "武力 byte 0..100",
+      "+0x0c": "内政力 byte 0..100",
+      "+0x0d": "外交力 byte 0..100",
+      "+0x0e": "魅力 byte 0..100",
+      "+0x0f..+0x11": "10 技能 × 2bit，等级 0..3（与既有「NPC[+0xf..+0x11]」结论一致）",
+      "+0x25": "byte —— handler[7] 判定 ≤ 0x30（身份/年龄类）",
+      "+0x26": "word —— kind=5 要求 ≥ 0x1b58(7000)（石高/功勋类）",
+      "+0x2a": "word —— 得力助手实体索引（0xffff = 无；< 370 有效）",
+      "+0x2c": "word 位域：低字节 bit7 = 隐藏/死亡；高字节低3位 = 状态类；ax>>4 &1 = 卧病标志",
+      "+0x2d": "byte bit7 = 隐藏/死亡"
+    },
+    "validity": "0x470690(ent) = !(byte[+0x2d]&0x80) && !(byte[+0x2c]&0x80)"
+  },
+
+  "task_command_system": {
+    "id_space": "2..0x27（任务 ID）",
+    "name_getter_full": "0x4637f0（任务全名）",
+    "name_getter_report": "0x464220（报告屏用语）",
+    "exec_dispatcher": "0x4603f0(cmd) → 0x460420() 取索引 → call dword ptr [idx*4 + 0x504898]",
+    "special_case": "cmd == 0x16 → 直接 call 0x460550()",
+    "id_map": {
+      "2..0x0d": "12 项内政/军备/外交任务（名表 0x504b28 → 0x504aa0 起）",
+      "0x0e,0x0f,0x10,0x12,0x13": "未使用（0x4637f0 回 0）",
+      "0x11": "暗杀（串 0x504b68）",
+      "0x14": "任职（串 0x504c18）",
+      "0x15..0x18": "某件大事（串 0x504c20）",
+      "0x19..0x27": "武者修行（0x463930 子表，科目 0x507fc0 stride 7 ×5）"
+    },
+    "task_names_12": ["贩卖军粮", "购买军粮", "军马", "洋枪", "开垦农田", "改建", "筑城", "进贡", "威吓", "朝廷工作", "收集情报", "谋略"],
+    "suffix_strings": {
+      "0x504b70": "的购入（ID 4,5）",
+      "0x504b78": "的使者任务（ID 9,0xa）",
+      "0x504b88": "的强化（ID 0x19-0x1d）",
+      "0x504b90": "的学习（ID 0x1e,0x21,0x23,0x25）",
+      "0x504b98": "的掌握（ID 0x1f,0x20,0x24）",
+      "0x504ba0": "的修行（ID 0x22,0x26,0x27）"
+    }
+  },
+
+  "intel_handlers": {
+    "table": "0x504898 (13 项 dword，末项后 0 守卫)",
+    "report_target": "0x5176a8 —— 30 × 4B 任务报告目标槽（arg < 0x1e 时取 &0x5176a8[arg]）",
+    "display": "0x47b900(target_entity, msgid, str...)",
+    "common_flow": "构建候选池 → rand()%n (0x4ebd60) → 取实体 → 组串(0x44df20/0x44e400) → 报消息",
+    "entries": [
+      {"idx": 0, "va": "0x45e700", "msgid": null, "text": "（默认：0x441750(0x5176a8+arg*4, 0)）", "pool": "—"},
+      {"idx": 1, "va": "0x45e790", "msgid": "0x1202", "text": "我去过%s城。", "pool": "城表 0x51eb88 stride 31 ×200（身份=9 时 1/3 概率走 0x45e730 随机城）"},
+      {"idx": 2, "va": "0x45e870", "msgid": "0x1203", "text": "%s如今好像在%s城。", "pool": "0x45e6d0 → 0x49f5a0 → 城"},
+      {"idx": 3, "va": "0x45e8e0", "msgid": "0x1204", "text": "%s家的%s好像擅长%s。", "pool": "武将：五维 ≥ 90（科目由 0x513fd0 选，谓词 0x45e500）"},
+      {"idx": 4, "va": "0x45e970", "msgid": "0x1205", "text": "%s家的%s好像是%s天才。", "pool": "武将：技能 2bit == 3（技能由 0x513fc8 选，谓词 0x45e590）"},
+      {"idx": 5, "va": "0x45e9f0", "msgid": "0x1206", "text": "说起%s家头号家臣，当然是%s了。", "pool": "武将：word[+0x26] ≥ 7000（谓词 kind=5）"},
+      {"idx": 6, "va": "0x45ea90", "msgid": "0x1207", "text": "名叫%s的%s在%s。", "pool": "NPC 池 0x517850 stride 12 ×30（0x45eb30 过滤 byte[+4]!=0xb 且 byte[+7]<0xa）；职业名 0x5076f0 stride 11 ×10"},
+      {"idx": 7, "va": "0x45eb80", "msgid": "0x1208", "text": "名叫%s的浪人在%s。", "pool": "武将：非本人且 byte[+0x25] ≤ 0x30（kind=7）"},
+      {"idx": 8, "va": "0x45ec10", "msgid": "0x1209", "text": "在%s见过名叫%s的%s。", "pool": "物品池 0x51e1f6 stride 10 ×200（0x45ecc0 过滤 word[+0]!=0xffff 且 ch&0x80）；虚表调用 [vtable+4]/[+8]"},
+      {"idx": 9, "va": "0x45ed80", "msgid": "0x120a", "text": "%s家的%s好像卧病不起。", "pool": "武将：word[+0x2c]>>4 &1（kind=9）"},
+      {"idx": 10, "va": "0x45edf0", "msgid": "0x120b", "text": "%s家的%s有个名叫%s的得力助手。", "pool": "武将：word[+0x2a] != 0xffff（kind=10）；助手实体 = 0x519868 + word[+0x2a]*47"},
+      {"idx": 11, "va": "0x45eec0", "msgid": "0x120c", "text": "听说奥州的马贩子去了%s。", "pool": "0x45ef20：扫 49 国表找 byte[+4]&0x20 的国 → 0x519548 + idx*5"},
+      {"idx": 12, "va": "0x45ef40", "msgid": "0x120e", "text": "啊，你正从事稻米贩卖吗？那我就告诉你%s这一带的米价吧。", "pool": "rand()%9 → 地域名 0x506c68 + r*7；再扫 49 国表匹配 byte[+1]==r"}
+    ],
+    "self_message": {"msgid": "0x120d", "text": "哈哈哈┅┅，正是区区在下我。", "used_by": "handler[5] / handler[10]：当选中的武将=玩家本人时追加"}
+  },
+
+  "candidate_builder": {
+    "fn": "0x45e3e0(kind, stop_after_first)",
+    "out_array": "0x51e9c0（dword 指针数组）",
+    "loop": "for i in 0..0x171(370): ent = 0x519868 + i*47",
+    "gate1": "if (byte[ent+0x2d] & 7) == 0 → 仅 kind==7 分支（非本人 && byte[+0x25] ≤ 0x30）",
+    "gate2": "else switch(kind-3)：3→0x45e500 五维≥90；4→0x45e590 技能==3；5→word[+0x26]≥7000；6/7/8→不入选（另有专用池）；9→(word[+0x2c]>>4)&1；10→word[+0x2a]!=0xffff",
+    "gate3": "0x470690(ent) 有效性过滤",
+    "note": "kind 6/7/8 在通用构建器中不入选 —— handler[6] 用 0x45eb30（NPC 池）、handler[8] 用 0x45ecc0（物品池）各自建池"
+  },
+
+  "name_tables": {
+    "0x506c68": {"n": 9, "stride": 7, "names": ["奥州", "关东", "甲信越", "东海", "北陆", "近畿", "中国", "四国", "九州"], "note": "日本 9 地方 —— 新增第 12 张静态名表"},
+    "0x5076f0": {"n": 10, "stride": 11, "names": ["大商人", "茶道大师", "洋枪铸造", "南蛮商人", "传教士", "剑客", "公卿", "画匠", "僧侣", "忍者"], "note": "町人/浪人职业 —— 新增第 13 张静态名表"},
+    "0x507fc0": {"n": 5, "stride": 7, "names": ["统御力", "武力", "内政力", "外交力", "魅力"]},
+    "0x507b58": {"n": 10, "stride": 5, "names": ["口才", "马术", "算术", "剑术", "忍术", "兵法", "洋枪", "筑城", "礼法", "茶道"]},
+    "0x504b28": {"n": 12, "type": "指针表", "targets": "0x504aa0 起"}
+  },
+
+  "province_table_refinement": {
+    "va": "0x519548",
+    "stride": 5,
+    "count": 49,
+    "+1": "地方 ID 0..8（0=奥州 1=关东 2=甲信越 3=东海 4=北陆 5=近畿 6=中国 7=四国 8=九州）—— 续60 记为「climate_group」实为地方 ID；{0,2,4}=奥州/甲信越/北陆 即雪国，与日本气候自洽",
+    "+4 bit5 (0x20)": "马贩子出没标志（handler[11]「奥州的马贩子」）"
+  },
+
+  "thresholds": {
+    "stat_good": "五维 ≥ 90 (0x5a) → 情报称「擅长」",
+    "skill_max": "技能 2bit == 3 → 情报称「天才」",
+    "aide_none": "0xffff = 无得力助手"
+  },
+
+  "still_unknown": [
+    "handler[1]/[2] 的城表 0x51eb88（200×31B）静态全 0，字段语义需运行时 dump 或 SNDATA XOR 流对照（流内 200 城町）",
+    "实体 +0x25 / +0x26 / +0x2c 位域的人类可读语义（年龄? 石高? 伤病?）待 emu 实跑",
+    "0x49a900 / 0x49b440 / 0x49b140 / 0x49b2e0 / 0x49bff0 等取值函数的返回语义",
+    "任务 ID 0x0e-0x10、0x12-0x13 为何为空（可能是未实装或走别的分发）",
+    "MESSAGE4.LZW（id 6000+）尚未解码"
+  ]
+}

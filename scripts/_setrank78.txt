@@ -1,0 +1,5 @@
+=== set_rank callers pushing rank 7/8 (大名/城主) : 4 ===
+0040fedf  push 7
+00416ca1  push 7
+004a4059  push 7
+004c2d9a  push 7

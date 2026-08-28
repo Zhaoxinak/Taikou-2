@@ -1,0 +1,12 @@
+  [OK  ] 職位名表 0x50d850 = 浪人/步兵头/队长/侍大将/部将/家老/宿老/大名/城主
+  [OK  ] 9 项指针均指向合法 GBK 串
+  [OK  ] 第 10 项非職位串（表长=9）
+  [OK  ] rank_of: byte[+0x2d]=0x05 -> rank 5 (家老)
+  [OK  ] 死亡标志 bit7 + rank 共存
+  [OK  ] flag[0x516638]&4 + rank6 -> 显示 城主(8)
+  [OK  ] flag 设 + rank7(大名) 跳过覆盖 -> 仍大名(7)
+  [OK  ] flag 设 + rank0 -> 城主(8)（确认）
+  [OK  ] byte[+0x2e]>>4 = 4
+  [OK  ] status_string 末位職位名 = '?浪人'
+  [OK  ] rand()%n 边界保护：n<2 => 0（跨模块一致）
+self_test: 11/11 ALL PASS

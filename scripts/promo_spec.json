@@ -1,0 +1,98 @@
+{
+  "module": "職位/晋升系统 (Rank / Promotion)",
+  "broken": "2026-08-28 (续63)",
+  "data_structure": {
+    "rank_name_table": {
+      "va": "0x50d850",
+      "type": "指针表 stride 4",
+      "count": 9,
+      "index_to_rank": [
+        "0 浪人", "1 步兵头", "2 队长", "3 侍大将", "4 部将",
+        "5 家老", "6 宿老", "7 大名", "8 城主"
+      ],
+      "note": "索引 0..7 为常规 ladder；8=城主 是特殊覆盖态。第 10 项(0x50d870)非串，表长精确为 9。"
+    },
+    "rank_storage": {
+      "field": "byte[武将实体 + 0x2d] & 0x07",
+      "value": "rank 索引 0..7",
+      "special_castle_lord": "当 byte[0x516638] & 4 且 rank != 7 时，状态面板显示 城主(索引8)",
+      "evidence": "状态渲染器 0x4e87e0: mov cl,[esi+0x2d]; and ecx,7; cmp di,7; je skip; test [0x516638],4; je skip; mov edi,8"
+    },
+    "flag_bits_in_0x2d": {
+      "bit3_0x08": "标志A (0x49a808 置位, 0x49a80f 清 word[+0x2c] bit11)",
+      "bit4_0x10": "标志B (0x49a828 置位, 0x49a82f 清 word[+0x2c] bit12)",
+      "bit7_0x80": "死亡/隐藏 (0x49a868 置位, 0x49a86f 清 word[+0x2c] bit15)",
+      "mirror": "byte[+0x2d] bit3/4/7 分别镜像到 word[+0x2c] bit11/12/15（互为冗余位域）",
+      "rank_preserved": "三个标志置位函数只 or 标志位，不触碰低3位 rank，故 rank 与标志共存"
+    },
+    "parallel_class_field": {
+      "field": "byte[武将实体 + 0x2e] >> 4 (高4位)",
+      "range": "0..15 (实际 0..7 有效)",
+      "getter": "0x41ac40 (读 byte[+0x2e], shr 4, 跳表 0x41aca8 映射为 0x59/0x5b/0x5d/0x5f/0x69/0x6b/0x6d 等枚举)",
+      "note": "与職位 ladder(0x50d850) 平行的另一个 8 类职种/兵种字段"
+    },
+    "status_renderer": {
+      "va": "0x4e87e0",
+      "logic": "读 rank(byte[+0x2d]&7 / 特殊城主) → 拼 '%s%s' = 在城名 + 職位名",
+      "castle_name": "byte[+0x25] 若 <200 查城表 0x51eb88 (×31)；>=200 表示无固定在城"
+    }
+  },
+  "two_axes": {
+    "axis_A_职位(0x50d850)": "家门内職位，主君任命家臣；浪人→…→城主",
+    "axis_B_朝廷官位": "独立轴（正一位等 court rank），受「我家的支配力」限制，派使者去朝廷晋升",
+    "evidence_B": [
+      "M2#196: 以目前我家的支配力，得不到更高的官位",
+      "M1#1486: 朝廷决定任命其为正一位%s",
+      "M1#38: 朝廷的信赖度上升到一定值时，官位就会上升",
+      "M2#194: 为了得到更高的官位，我想派人去朝廷"
+    ]
+  },
+  "role_assignment_dialogues": {
+    "城主": ["M2#515 任命其为那座城池的城主吗？", "M2#517 %s，任命你为%s城城主。"],
+    "副将": ["M2#533 任命哪座城池的副将？", "M2#535 %s，任命你为%s城的副将。"],
+    "军师": ["M2#514 任命此人为军师吗？", "M2#578 任命%s为%s。俸禄%u贯。"],
+    "generic": "M1#224 任命你为%s，俸禄%u贯。"
+  },
+  "promotion_formula": {
+    "status": "SOLVED 2026-08-28 (续63)",
+    "set_rank": {
+      "va": "0x49a7e0",
+      "asm": "mov ax,word[ecx+0x2c]; mov dh,byte[esp+4]; and eax,0xF8FF; or eax,edx; mov word[ecx+0x2c],ax; ret 4",
+      "note": "職位 = word[+0x2c] bit8..10（等价 byte[+0x2d]&7）。属实体属性库 0x49a600..0x49a8e0。"
+    },
+    "merit_field": "word[武将实体 + 0x26]，上限 60000(0xea60)，setter 0x49a770",
+    "stipend_field": "byte[武将实体 + 0x28]，setter 0x49a790",
+    "threshold_table": {
+      "va": "0x50bf88",
+      "stride": 8,
+      "entries": 6,
+      "layout": "dword rank / word 勲功阈值 / word 俸禄",
+      "rows": [
+        {"rank": 1, "name": "步兵头", "merit": 100, "stipend": 1},
+        {"rank": 2, "name": "队长", "merit": 500, "stipend": 10},
+        {"rank": 3, "name": "侍大将", "merit": 1500, "stipend": 30},
+        {"rank": 4, "name": "部将", "merit": 5000, "stipend": 50},
+        {"rank": 5, "name": "家老", "merit": 10000, "stipend": 100},
+        {"rank": 6, "name": "宿老", "merit": 30000, "stipend": 200}
+      ],
+      "not_in_table": "浪人(0) 无職位；大名(7)/城主(8) 走任命·继承，非勲功晋升"
+    },
+    "accessors": {
+      "threshold_of(rank)": "0x49fc30 -> 勲功阈值，未命中 -1",
+      "stipend_of(rank)": "0x49fc90 -> 俸禄",
+      "rank_from_merit(merit)": "0x49fc60 自条目5递减，首个 阈值<=勲功；兜底 1"
+    },
+    "rule": "new_rank = rank+1；须 new_rank < 主君職位；须 勲功 >= threshold[new_rank]；通过则 set_rank + 更新俸禄 + 忠诚 += base+rand()%3",
+    "promote_sites": {
+      "城内": "0x4ab1d0（前置：我非浪人且同城则跳过）",
+      "評定": "0x4b9ae0（先经 0x4ebca0 增勲功再判阈值）"
+    },
+    "lord_lookup": "城表 0x51eb88 + 城×31，+0x0a = 城主武将编号 -> 0x519868 + idx*47；idx>=370 视为无主君"
+  },
+  "still_unknown": [
+    "0x4ebca0(勲功,?,60000) 的勲功增量语义（評定路径先增勲功再判阈值）",
+    "注：0x504780 表(按 rank 递减 10→9→8→6→4→3→2→0)经核查是买卖/商人交互用(其消费者 0x45d300 推的是商店对话 0x33d-0x343『军马已经没有了』等)，非晋升阈值",
+    "任命提交函数 0x435740 实为『新武将记录初始化器』(复制模板 rank + 设初始字段 + 调 0x43dbe0/0x43dc00..)，非晋升判定"
+  ],
+  "reference_impl": "promo_ref.py (11/11 数据层) + promo2_ref.py (18/18 晋升公式)"
+}

@@ -1,36 +1,33 @@
 # -*- coding: utf-8 -*-
-"""Find all `call rel32` sites targeting the given VAs (and their host funcs)."""
-import sys, io, struct, bisect
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+"""太阁2 — 在映像中查找对给定目标 VA 的 call（e8 rel32）调用点。
+用法：python _callers.py 0x46336c 0x463200 0x4607f0
+"""
+import sys, os
+from capstone import Cs, CS_ARCH_X86, CS_MODE_32
+HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
-TEXT_START, TEXT_END = 0x401000, 0x4d0000
+MEM = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+SZ = len(MEM)
+md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
 
-def all_calls():
+def callers_of(target):
     out = []
-    i = 0
-    while True:
-        i = MEM.find(b'\xe8', i, TEXT_END - BASE)
-        if i < 0:
-            break
-        rel = struct.unpack_from('<i', MEM, i + 1)[0]
-        t = (i + BASE) + 5 + rel
-        if TEXT_START <= t < TEXT_END:
-            out.append((i + BASE, t))
-        i += 1
+    off = 0
+    # 扫描所有 e8 rel32
+    while off < SZ - 5:
+        if MEM[off] == 0xe8:
+            rel = int.from_bytes(MEM[off+1:off+5], "little", signed=True)
+            dest = BASE + off + 5 + rel
+            if dest == target:
+                out.append(BASE + off)
+        off += 1
     return out
 
-CALLS = all_calls()
-STARTS = sorted({t for _, t in CALLS})
-
-def host(va):
-    k = bisect.bisect_right(STARTS, va) - 1
-    return STARTS[k] if k >= 0 else 0
-
-if __name__ == '__main__':
-    for a in sys.argv[1:]:
-        tgt = int(a, 0)
-        sites = [s for s, t in CALLS if t == tgt]
-        print(f'\n=== callers of {tgt:#x}: {len(sites)} ===')
-        for s in sites:
-            print(f'   call @{s:#08x}   (host func {host(s):#x})')
+for arg in sys.argv[1:]:
+    t = int(arg, 16) if arg.lower().startswith("0x") else int(arg)
+    cs = callers_of(t)
+    print("===== callers of %#x (%d) =====" % (t, len(cs)))
+    for c in cs[:40]:
+        print("   call @%08x" % c)
+    if not cs:
+        print("   (none via e8 rel32)")

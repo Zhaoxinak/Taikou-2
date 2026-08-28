@@ -1,0 +1,433 @@
+
+==========================================================================
+---- 評定模块 开头（任务槽初始化）  0x004601b0..0x004602c0
+  004601b0  add      byte ptr [esi - 0x3d], bl
+  004601b3  cmp      word ptr [0x52544c], 1
+  004601bb  jb       0x4601e7
+  004601bd  mov      ecx, 0x526c50
+  004601c2  call     0x4edf70
+  004601c7  push     0x504878
+  004601cc  call     0x47b2d0
+  004601d1  add      esp, 4
+  004601d4  test     eax, eax
+  004601d6  jne      0x4601dd
+  004601d8  mov      esi, 1
+  004601dd  mov      ecx, 0x526c50
+  004601e2  call     0x4edfa0
+  004601e7  mov      eax, esi
+  004601e9  pop      esi
+  004601ea  ret      
+  004601eb  nop      
+  004601ec  nop      
+  004601ed  nop      
+  004601ee  nop      
+  004601ef  nop      
+  004601f0  push     0x11df
+  004601f5  call     0x49f5e0
+  004601fa  push     eax
+  004601fb  call     0x47b900
+  00460200  add      esp, 8
+  00460203  call     0x49f7a0
+  00460208  neg      eax
+  0046020a  sbb      eax, eax
+  0046020c  neg      eax
+  0046020e  add      eax, 0x6b
+  00460211  push     eax
+  00460212  call     0x496ba0
+  00460217  mov      ax, word ptr [0x513fcc]
+  0046021d  add      esp, 4
+  00460220  push     eax
+  00460221  call     0x4ebd60
+  00460226  and      eax, 0xffff
+  0046022b  add      esp, 4
+  0046022e  mov      ax, word ptr [eax*2 + 0x513fd4]
+  00460236  and      eax, 0x7fff
+  0046023b  cmp      ax, 0x16
+  0046023f  jne      0x46024c
+  00460241  mov      ax, word ptr [0x513fd6]
+  00460247  and      eax, 0x7fff
+  0046024c  cmp      ax, 0x1e
+  00460250  jae      0x460260
+  00460252  and      eax, 0xffff
+  00460257  lea      eax, [eax*4 + 0x5176a8]
+  0046025e  jmp      0x460262
+  00460260  xor      eax, eax
+  00460262  push     0x11e0
+  00460267  push     eax
+  00460268  call     0x47b900
+  0046026d  add      esp, 8
+  00460270  jmp      0x460280
+  00460275  nop      
+  00460276  nop      
+  00460277  nop      
+  00460278  nop      
+  00460279  nop      
+  0046027a  nop      
+  0046027b  nop      
+  0046027c  nop      
+  0046027d  nop      
+  0046027e  nop      
+  0046027f  nop      
+  00460280  push     esi
+  00460281  push     edi
+  00460282  call     0x460320
+  00460287  mov      edi, eax
+  00460289  cmp      di, -1
+  0046028d  je       0x460314
+  00460293  movsx    eax, di
+  00460296  mov      si, word ptr [eax*2 + 0x513fd4]
+  0046029e  test     esi, 0x8000
+  004602a4  je       0x4602e2
+  004602a6  and      esi, 0x7fff
+  004602ac  cmp      si, 0x1e
+  004602b0  jae      0x4602d0
+  004602b2  mov      eax, esi
+  004602b4  push     0x11e1
+  004602b9  and      eax, 0xffff
+  004602be  lea      eax, [eax*4 + 0x5176a8]
+
+==========================================================================
+---- 評定模块 后半（分配/结算）  0x00460680..0x00460910
+  00460680  cmp      eax, 0x1175000f
+  00460685  mov      eax, dword ptr [esp + 8]
+  00460689  add      eax, 0x64
+  0046068c  push     eax
+  0046068d  call     0x496ba0
+  00460692  add      esp, 4
+  00460695  ret      
+  00460696  cmp      ax, 0x11
+  0046069a  jne      0x4606ac
+  0046069c  mov      ecx, dword ptr [esp + 8]
+  004606a0  add      ecx, 0x5e
+  004606a3  push     ecx
+  004606a4  call     0x496ba0
+  004606a9  add      esp, 4
+  004606ac  ret      
+  004606ad  nop      
+  004606ae  nop      
+  004606af  nop      
+  004606b0  sub      esp, 0xc
+  004606b3  push     0
+  004606b5  push     0
+  004606b7  lea      eax, [esp + 8]
+  004606bb  push     4
+  004606bd  push     eax
+  004606be  push     3
+  004606c0  mov      dword ptr [esp + 0x14], 0x5048d0
+  004606c8  mov      dword ptr [esp + 0x18], 0x5048e0
+  004606d0  mov      dword ptr [esp + 0x1c], 0x5048f0
+  004606d8  call     0x47bed0
+  004606dd  add      esp, 0x14
+  004606e0  add      esp, 0xc
+  004606e3  ret      
+  004606e4  nop      
+  004606e5  nop      
+  004606e6  nop      
+  004606e7  nop      
+  004606e8  nop      
+  004606e9  nop      
+  004606ea  nop      
+  004606eb  nop      
+  004606ec  nop      
+  004606ed  nop      
+  004606ee  nop      
+  004606ef  nop      
+  004606f0  push     ecx
+  004606f1  mov      al, byte ptr [0x520603]
+  004606f6  push     esi
+  004606f7  xor      esi, esi
+  004606f9  cmp      al, 0x18
+  004606fb  push     edi
+  004606fc  je       0x460702
+  004606fe  cmp      al, 0x17
+  00460700  jne      0x46071e
+  00460702  push     0x10
+  00460704  call     0x444220
+  00460709  add      esp, 4
+  0046070c  test     eax, eax
+  0046070e  je       0x46071e
+  00460710  mov      word ptr [0x513fd4], 0x16
+  00460719  mov      esi, 1
+  0046071e  push     3
+  00460720  call     0x4ebd60
+  00460725  and      eax, 0xffff
+  0046072a  add      esp, 4
+  0046072d  sub      eax, 0
+  00460730  je       0x460746
+  00460732  dec      eax
+  00460733  je       0x46073f
+  00460735  dec      eax
+  00460736  jne      0x46074d
+  00460738  mov      edi, 0x10
+  0046073d  jmp      0x460751
+  0046073f  mov      edi, 0x11
+  00460744  jmp      0x460751
+  00460746  mov      edi, 0xf
+  0046074b  jmp      0x460751
+  0046074d  mov      edi, dword ptr [esp + 8]
+  00460751  mov      eax, esi
+  00460753  and      eax, 0xffff
+  00460758  inc      esi
+  00460759  cmp      di, 0xf
+  0046075d  mov      word ptr [eax*2 + 0x513fd4], di
+  00460765  je       0x460789
+  00460767  push     2
+  00460769  call     0x4ebd60
+  0046076e  add      esp, 4
+  00460771  test     ax, ax
+  00460774  jne      0x460789
+  00460776  mov      ecx, esi
+  00460778  and      ecx, 0xffff
+  0046077e  inc      esi
+  0046077f  mov      word ptr [ecx*2 + 0x513fd4], 0xf
+  00460789  cmp      di, 0x11
+  0046078d  je       0x4607b7
+  0046078f  push     2
+  00460791  call     0x4ebd60
+  00460796  add      esp, 4
+  00460799  test     ax, ax
+  0046079c  jne      0x4607b7
+  0046079e  cmp      si, 3
+  004607a2  jae      0x4607b7
+  004607a4  mov      edx, esi
+  004607a6  and      edx, 0xffff
+  004607ac  inc      esi
+  004607ad  mov      word ptr [edx*2 + 0x513fd4], 0x11
+  004607b7  cmp      di, 0x10
+  004607bb  je       0x4607e4
+  004607bd  push     2
+  004607bf  call     0x4ebd60
+  004607c4  add      esp, 4
+  004607c7  test     ax, ax
+  004607ca  jne      0x4607e4
+  004607cc  cmp      si, 3
+  004607d0  jae      0x4607e4
+  004607d2  mov      eax, esi
+  004607d4  and      eax, 0xffff
+  004607d9  inc      esi
+  004607da  mov      word ptr [eax*2 + 0x513fd4], 0x10
+  004607e4  mov      word ptr [0x513fcc], si
+  004607eb  pop      edi
+  004607ec  pop      esi
+  004607ed  pop      ecx
+  004607ee  ret      
+  004607ef  nop      
+  004607f0  push     ecx
+  004607f1  push     edi
+  004607f2  push     0x56
+  004607f4  call     0x496ba0
+  004607f9  xor      edi, edi
+  004607fb  add      esp, 4
+  004607fe  cmp      word ptr [0x513fcc], di
+  00460805  jbe      0x460868
+  00460807  push     esi
+  00460808  mov      esi, dword ptr [esp + 8]
+  0046080c  mov      eax, edi
+  0046080e  and      eax, 0xffff
+  00460813  mov      cx, word ptr [eax*2 + 0x513fd4]
+  0046081b  mov      edx, ecx
+  0046081d  and      edx, 0xffff
+  00460823  lea      eax, [edx - 0xf]
+  00460826  cmp      eax, 7
+  00460829  ja       0x46084c
+  0046082b  jmp      dword ptr [eax*4 + 0x46086c]
+  00460832  mov      esi, 0x61
+  00460837  jmp      0x46084c
+  00460839  mov      esi, 0x5b
+  0046083e  jmp      0x46084c
+  00460840  mov      esi, 0x58
+  00460845  jmp      0x46084c
+  00460847  mov      esi, 0x67
+  0046084c  cmp      cx, 0x16
+  00460850  je       0x460854
+  00460852  add      esi, edi
+  00460854  push     esi
+  00460855  call     0x496ba0
+  0046085a  add      esp, 4
+  0046085d  inc      edi
+  0046085e  cmp      di, word ptr [0x513fcc]
+  00460865  jb       0x46080c
+  00460867  pop      esi
+  00460868  pop      edi
+  00460869  pop      ecx
+  0046086a  ret      
+  0046086b  nop      
+  0046086c  xor      cl, byte ptr [eax]
+  0046086e  inc      esi
+  0046086f  add      byte ptr [eax + 8], al
+  00460872  inc      esi
+  00460873  add      byte ptr [ecx], bh
+  00460875  or       byte ptr [esi], al
+  00460878  dec      esp
+  00460879  or       byte ptr [esi], al
+  0046087c  dec      esp
+  0046087d  or       byte ptr [esi], al
+  00460880  dec      esp
+  00460881  or       byte ptr [esi], al
+  00460884  dec      esp
+  00460885  or       byte ptr [esi], al
+  00460888  inc      edi
+  00460889  or       byte ptr [esi], al
+  0046088c  nop      
+  0046088d  nop      
+  0046088e  nop      
+  0046088f  nop      
+  00460890  mov      dword ptr [0x52063c], 0x5179ac
+  0046089a  call     0x461da0
+  0046089f  test     eax, eax
+  004608a1  jne      0x4608b7
+  004608a3  mov      eax, dword ptr [0x52063c]
+  004608a8  push     0xfad
+  004608ad  push     eax
+  004608ae  call     0x47b900
+  004608b3  add      esp, 8
+  004608b6  ret      
+  004608b7  call     0x49f6b0
+  004608bc  xor      ecx, ecx
+  004608be  mov      cx, word ptr [eax]
+  004608c1  cmp      ecx, 3
+  004608c4  ja       0x4608b6
+  004608c6  jmp      dword ptr [ecx*4 + 0x4608e8]
+  004608cd  cmp      word ptr [eax + 6], 0
+  004608d2  je       0x4608d9
+  004608d4  jmp      0x460900
+  004608d9  jmp      0x460fa0
+  004608de  jmp      0x461410
+  004608e3  jmp      0x4619b0
+  004608e8  int      8
+  004608ea  inc      esi
+  004608eb  add      ch, cl
+  004608ed  or       byte ptr [esi], al
+  004608f0  fimul    word ptr [eax]
+  004608f2  inc      esi
+  004608f3  add      bl, ah
+  004608f5  or       byte ptr [esi], al
+  004608f8  nop      
+  004608f9  nop      
+  004608fa  nop      
+  004608fb  nop      
+  004608fc  nop      
+  004608fd  nop      
+  004608fe  nop      
+  004608ff  nop      
+  00460900  push     esi
+  00460901  call     0x49f6b0
+  00460906  push     1
+  00460908  call     0x47b620
+  0046090d  mov      eax, dword ptr [0x52063c]
+
+==========================================================================
+---- 任务名表 0x504b28 使用处（菜单构建）  0x00463300..0x00463420
+  00463300  add      bl, ch
+  00463302  add      dh, byte ptr [ebx]
+  00463304  imul     al
+  00463306  push     es
+  00463307  ret      
+  00463308  add      eax, dword ptr [eax]
+  0046330a  mov      edi, eax
+  0046330c  test     edi, edi
+  0046330e  je       0x463334
+  00463310  push     esi
+  00463311  call     0x44df40
+  00463316  add      esp, 4
+  00463319  push     eax
+  0046331a  push     0x11bd
+  0046331f  push     edi
+  00463320  call     0x47b900
+  00463325  add      esp, 0xc
+  00463328  push     esi
+  00463329  call     0x462ad0
+  0046332e  add      esp, 4
+  00463331  pop      edi
+  00463332  pop      esi
+  00463333  ret      
+  00463334  push     0x11bc
+  00463339  call     0x49f5e0
+  0046333e  push     eax
+  0046333f  call     0x47b900
+  00463344  add      esp, 8
+  00463347  push     esi
+  00463348  call     0x462ad0
+  0046334d  add      esp, 4
+  00463350  pop      edi
+  00463351  pop      esi
+  00463352  ret      
+  00463353  nop      
+  00463354  nop      
+  00463355  nop      
+  00463356  nop      
+  00463357  nop      
+  00463358  nop      
+  00463359  nop      
+  0046335a  nop      
+  0046335b  nop      
+  0046335c  nop      
+  0046335d  nop      
+  0046335e  nop      
+  0046335f  nop      
+  00463360  mov      eax, dword ptr [esp + 4]
+  00463364  and      eax, 0xffff
+  00463369  mov      eax, dword ptr [eax*4 + 0x504b28]
+  00463370  ret      
+  00463371  nop      
+  00463372  nop      
+  00463373  nop      
+  00463374  nop      
+  00463375  nop      
+  00463376  nop      
+  00463377  nop      
+  00463378  nop      
+  00463379  nop      
+  0046337a  nop      
+  0046337b  nop      
+  0046337c  nop      
+  0046337d  nop      
+  0046337e  nop      
+  0046337f  nop      
+  00463380  mov      al, byte ptr [0x516638]
+  00463385  sub      esp, 0x14
+  00463388  test     al, 2
+  0046338a  je       0x46339d
+  0046338c  push     0x504c50
+  00463391  call     0x47b160
+  00463396  add      esp, 4
+  00463399  add      esp, 0x14
+  0046339c  ret      
+  0046339d  mov      eax, dword ptr [0x5224ec]
+  004633a2  push     edi
+  004633a3  xor      edi, edi
+  004633a5  push     0x12
+  004633a7  push     edi
+  004633a8  push     eax
+  004633a9  call     0x47ae00
+  004633ae  add      esp, 0xc
+  004633b1  mov      ecx, 0x526c50
+  004633b6  mov      dword ptr [0x520640], 1
+  004633c0  mov      dword ptr [0x520648], edi
+  004633c6  call     0x4ee0d0
+  004633cb  test     eax, eax
+  004633cd  jne      0x46344c
+  004633cf  push     esi
+  004633d0  lea      ecx, [esp + 8]
+  004633d4  push     ecx
+  004633d5  mov      ecx, 0x526c58
+  004633da  call     0x4eefa0
+  004633df  cmp      dword ptr [0x520648], edi
+  004633e5  je       0x46343d
+  004633e7  mov      ecx, 0x526c50
+  004633ec  call     0x4edfa0
+  004633f1  call     0x48acd0
+  004633f6  mov      ecx, 0x526c50
+  004633fb  mov      esi, eax
+  004633fd  call     0x4edf70
+  00463402  cmp      esi, edi
+  00463404  je       0x463437
+  00463406  mov      edx, dword ptr [0x5224f4]
+  0046340c  push     edi
+  0046340d  push     edi
+  0046340e  push     edx
+  0046340f  call     0x47ae00
+  00463414  mov      eax, dword ptr [0x520648]
+  00463419  add      esp, 0xc
+  0046341c  push     eax
+  0046341d  call     0x463470

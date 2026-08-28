@@ -1,0 +1,198 @@
+=== and al,0xf8 (24 f8) ===
+  10 处: 0x41ac87 0x41ac91 0x41aca0 0x44c0d8 0x45d359 0x4731a7 0x47fd5a 0x49cb3c 0x49cc17 0x49d8ad
+  涉及函数 8: 0x41ac40 0x44c030 0x45d300 0x473160 0x47fd10 0x49ca90 0x49cbb0 0x49d810
+
+--- func 0x0041ac40 @ 0x0041ac87 (and al,0xf8) ---
+      0x0041ac57  8bc2               mov      eax, edx
+      0x0041ac59  33d2               xor      edx, edx
+      0x0041ac5b  8a512e             mov      dl, byte ptr [ecx + 0x2e]
+      0x0041ac5e  8bca               mov      ecx, edx
+      0x0041ac60  c1e904             shr      ecx, 4
+      0x0041ac63  83f907             cmp      ecx, 7
+      0x0041ac66  7734               ja       0x41ac9c
+      0x0041ac68  ff248da8ac4100     jmp      dword ptr [ecx*4 + 0x41aca8]
+      0x0041ac6f  66b85900           mov      ax, 0x59
+      0x0041ac73  c3                 ret      
+      0x0041ac74  66b85b00           mov      ax, 0x5b
+      0x0041ac78  c3                 ret      
+      0x0041ac79  66b85d00           mov      ax, 0x5d
+      0x0041ac7d  c3                 ret      
+      0x0041ac7e  66b85f00           mov      ax, 0x5f
+      0x0041ac82  c3                 ret      
+      0x0041ac83  f7d8               neg      eax
+      0x0041ac85  1bc0               sbb      eax, eax
+  >>> 0x0041ac87  24f8               and      al, 0xf8
+      0x0041ac89  83c069             add      eax, 0x69
+      0x0041ac8c  c3                 ret      
+      0x0041ac8d  f7d8               neg      eax
+      0x0041ac8f  1bc0               sbb      eax, eax
+      0x0041ac91  24f8               and      al, 0xf8
+      0x0041ac93  83c06b             add      eax, 0x6b
+      0x0041ac96  c3                 ret      
+      0x0041ac97  66b86700           mov      ax, 0x67
+      0x0041ac9b  c3                 ret      
+      0x0041ac9c  f7d8               neg      eax
+      0x0041ac9e  1bc0               sbb      eax, eax
+      0x0041aca0  24f8               and      al, 0xf8
+      0x0041aca2  83c06d             add      eax, 0x6d
+      0x0041aca5  c3                 ret      
+      0x0041aca6  8bff               mov      edi, edi
+      0x0041aca8  6f                 outsd    dx, dword ptr [esi]
+      0x0041aca9  ac                 lodsb    al, byte ptr [esi]
+      0x0041acaa  41                 inc      ecx
+      0x0041acab  0074ac41           add      byte ptr [esp + ebp*4 + 0x41], dh
+      0x0041acaf  0079ac             add      byte ptr [ecx - 0x54], bh
+      0x0041acb2  41                 inc      ecx
+      0x0041acb3  007eac             add      byte ptr [esi - 0x54], bh
+      0x0041acb6  41                 inc      ecx
+      0x0041acb7  0083ac410083       add      byte ptr [ebx - 0x7cffbe54], al
+      0x0041acbd  ac                 lodsb    al, byte ptr [esi]
+      0x0041acbe  41                 inc      ecx
+      0x0041acbf  008dac410097       add      byte ptr [ebp - 0x68ffbe54], cl
+      0x0041acc5  ac                 lodsb    al, byte ptr [esi]
+      0x0041acc6  41                 inc      ecx
+      0x0041acc7  009090909090       add      byte ptr [eax - 0x6f6f6f70], dl
+      0x0041accd  90                 nop      
+      0x0041acce  90                 nop      
+      0x0041accf  90                 nop      
+
+--- func 0x0041ac40 @ 0x0041ac91 (and al,0xf8) ---
+      0x0041ac63  83f907             cmp      ecx, 7
+      0x0041ac66  7734               ja       0x41ac9c
+      0x0041ac68  ff248da8ac4100     jmp      dword ptr [ecx*4 + 0x41aca8]
+      0x0041ac6f  66b85900           mov      ax, 0x59
+      0x0041ac73  c3                 ret      
+      0x0041ac74  66b85b00           mov      ax, 0x5b
+      0x0041ac78  c3                 ret      
+      0x0041ac79  66b85d00           mov      ax, 0x5d
+      0x0041ac7d  c3                 ret      
+      0x0041ac7e  66b85f00           mov      ax, 0x5f
+      0x0041ac82  c3                 ret      
+      0x0041ac83  f7d8               neg      eax
+      0x0041ac85  1bc0               sbb      eax, eax
+      0x0041ac87  24f8               and      al, 0xf8
+      0x0041ac89  83c069             add      eax, 0x69
+      0x0041ac8c  c3                 ret      
+      0x0041ac8d  f7d8               neg      eax
+      0x0041ac8f  1bc0               sbb      eax, eax
+  >>> 0x0041ac91  24f8               and      al, 0xf8
+      0x0041ac93  83c06b             add      eax, 0x6b
+      0x0041ac96  c3                 ret      
+      0x0041ac97  66b86700           mov      ax, 0x67
+      0x0041ac9b  c3                 ret      
+      0x0041ac9c  f7d8               neg      eax
+      0x0041ac9e  1bc0               sbb      eax, eax
+      0x0041aca0  24f8               and      al, 0xf8
+      0x0041aca2  83c06d             add      eax, 0x6d
+      0x0041aca5  c3                 ret      
+      0x0041aca6  8bff               mov      edi, edi
+      0x0041aca8  6f                 outsd    dx, dword ptr [esi]
+      0x0041aca9  ac                 lodsb    al, byte ptr [esi]
+      0x0041acaa  41                 inc      ecx
+      0x0041acab  0074ac41           add      byte ptr [esp + ebp*4 + 0x41], dh
+      0x0041acaf  0079ac             add      byte ptr [ecx - 0x54], bh
+      0x0041acb2  41                 inc      ecx
+      0x0041acb3  007eac             add      byte ptr [esi - 0x54], bh
+      0x0041acb6  41                 inc      ecx
+      0x0041acb7  0083ac410083       add      byte ptr [ebx - 0x7cffbe54], al
+      0x0041acbd  ac                 lodsb    al, byte ptr [esi]
+      0x0041acbe  41                 inc      ecx
+      0x0041acbf  008dac410097       add      byte ptr [ebp - 0x68ffbe54], cl
+      0x0041acc5  ac                 lodsb    al, byte ptr [esi]
+      0x0041acc6  41                 inc      ecx
+      0x0041acc7  009090909090       add      byte ptr [eax - 0x6f6f6f70], dl
+      0x0041accd  90                 nop      
+      0x0041acce  90                 nop      
+      0x0041accf  90                 nop      
+
+--- func 0x0041ac40 @ 0x0041aca0 (and al,0xf8) ---
+      0x0041ac73  c3                 ret      
+      0x0041ac74  66b85b00           mov      ax, 0x5b
+      0x0041ac78  c3                 ret      
+      0x0041ac79  66b85d00           mov      ax, 0x5d
+      0x0041ac7d  c3                 ret      
+      0x0041ac7e  66b85f00           mov      ax, 0x5f
+      0x0041ac82  c3                 ret      
+      0x0041ac83  f7d8               neg      eax
+      0x0041ac85  1bc0               sbb      eax, eax
+      0x0041ac87  24f8               and      al, 0xf8
+      0x0041ac89  83c069             add      eax, 0x69
+      0x0041ac8c  c3                 ret      
+      0x0041ac8d  f7d8               neg      eax
+      0x0041ac8f  1bc0               sbb      eax, eax
+      0x0041ac91  24f8               and      al, 0xf8
+      0x0041ac93  83c06b             add      eax, 0x6b
+      0x0041ac96  c3                 ret      
+      0x0041ac97  66b86700           mov      ax, 0x67
+      0x0041ac9b  c3                 ret      
+      0x0041ac9c  f7d8               neg      eax
+      0x0041ac9e  1bc0               sbb      eax, eax
+  >>> 0x0041aca0  24f8               and      al, 0xf8
+      0x0041aca2  83c06d             add      eax, 0x6d
+      0x0041aca5  c3                 ret      
+      0x0041aca6  8bff               mov      edi, edi
+      0x0041aca8  6f                 outsd    dx, dword ptr [esi]
+      0x0041aca9  ac                 lodsb    al, byte ptr [esi]
+      0x0041acaa  41                 inc      ecx
+      0x0041acab  0074ac41           add      byte ptr [esp + ebp*4 + 0x41], dh
+      0x0041acaf  0079ac             add      byte ptr [ecx - 0x54], bh
+      0x0041acb2  41                 inc      ecx
+      0x0041acb3  007eac             add      byte ptr [esi - 0x54], bh
+      0x0041acb6  41                 inc      ecx
+      0x0041acb7  0083ac410083       add      byte ptr [ebx - 0x7cffbe54], al
+      0x0041acbd  ac                 lodsb    al, byte ptr [esi]
+      0x0041acbe  41                 inc      ecx
+      0x0041acbf  008dac410097       add      byte ptr [ebp - 0x68ffbe54], cl
+      0x0041acc5  ac                 lodsb    al, byte ptr [esi]
+      0x0041acc6  41                 inc      ecx
+      0x0041acc7  009090909090       add      byte ptr [eax - 0x6f6f6f70], dl
+      0x0041accd  90                 nop      
+      0x0041acce  90                 nop      
+      0x0041accf  90                 nop      
+
+--- func 0x0045d300 @ 0x0045d359 (and al,0xf8) ---
+      0x0045d329  e8d2e50100         call     0x47b900
+      0x0045d32e  83c408             add      esp, 8
+      0x0045d331  683e030000         push     0x33e
+      0x0045d336  55                 push     ebp
+      0x0045d337  e8c4e50100         call     0x47b900
+      0x0045d33c  83c408             add      esp, 8
+      0x0045d33f  e8bce20100         call     0x47b600
+      0x0045d344  6a2a               push     0x2a
+      0x0045d346  e855980300         call     0x496ba0
+      0x0045d34b  83c404             add      esp, 4
+      0x0045d34e  e89de20100         call     0x47b5f0
+      0x0045d353  8bc6               mov      eax, esi
+      0x0045d355  f7d8               neg      eax
+      0x0045d357  1bc0               sbb      eax, eax
+  >>> 0x0045d359  24f8               and      al, 0xf8
+      0x0045d35b  0547030000         add      eax, 0x347
+      0x0045d360  50                 push     eax
+      0x0045d361  57                 push     edi
+      0x0045d362  e899e50100         call     0x47b900
+      0x0045d367  83c408             add      esp, 8
+      0x0045d36a  57                 push     edi
+      0x0045d36b  e8c0280100         call     0x46fc30
+      0x0045d370  83c404             add      esp, 4
+      0x0045d373  f7d8               neg      eax
+      0x0045d375  1bc0               sbb      eax, eax
+      0x0045d377  83e013             and      eax, 0x13
+      0x0045d37a  0540030000         add      eax, 0x340
+      0x0045d37f  50                 push     eax
+      0x0045d380  55                 push     ebp
+      0x0045d381  e87ae50100         call     0x47b900
+      0x0045d386  83c408             add      esp, 8
+      0x0045d389  85f6               test     esi, esi
+      0x0045d38b  750e               jne      0x45d39b
+      0x0045d38d  683f030000         push     0x33f
+      0x0045d392  57                 push     edi
+      0x0045d393  e868e50100         call     0x47b900
+      0x0045d398  83c408             add      esp, 8
+      0x0045d39b  6841030000         push     0x341
+      0x0045d3a0  68b0765100         push     0x5176b0
+      0x0045d3a5  e856e50100         call     0x47b900
+      0x0045d3aa  83c408             add      esp, 8
+      0x0045d3ad  6842030000         push     0x342
+      0x0045d3b2  57                 push     edi
+      0x0045d3b3  e848e50100         call     0x47b900
+      0x0045d3b8  8b5c2420           mov      ebx, dword ptr [esp + 0x20]

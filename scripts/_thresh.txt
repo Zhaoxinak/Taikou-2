@@ -1,0 +1,30 @@
+=== 0x504780 rank 阈值表 (word x16) ===
+  rank= 0  threshold=0x000a (10)
+  rank= 1  threshold=0x0009 (9)
+  rank= 2  threshold=0x0008 (8)
+  rank= 3  threshold=0x0006 (6)
+  rank= 4  threshold=0x0004 (4)
+  rank= 5  threshold=0x0003 (3)
+  rank= 6  threshold=0x0002 (2)
+  rank= 7  threshold=0x0000 (0)
+  rank= 8  threshold=0xa1a1 (41377)
+  rank= 9  threshold=0xcdbe (52670)
+  rank=10  threshold=0xcbb4 (52148)
+  rank=11  threshold=0xebc0 (60352)
+  rank=12  threshold=0xaabf (43711)
+  rank=13  threshold=0xa1a1 (41377)
+  rank=14  threshold=0x0000 (0)
+  rank=15  threshold=0x0000 (0)
+
+=== all_messages.txt 格式样例 ===
+[MESSAGE1.LZW#0] 武将的军饷。每月从城池的收入中，按俸禄支付给武将。
+[MESSAGE1.LZW#1] 武将的体力。左边为现在值，右边为最大值。负伤或疲劳状况下，其值会下降，但每日会逐步回升。
+[MESSAGE1.LZW#2] 统御属下的能力。关系到交战中，战斗力的强弱及士兵们士气的变化。
+ERROR:
+Traceback (most recent call last):
+  File "F:\Games\Taikou 2\scripts\_probe_thresh.py", line 43, in <module>
+    d = find_by_global(pat)
+  File "F:\Games\Taikou 2\scripts\_probe_thresh.py", line 34, in find_by_global
+    res[int(m.group(1), 16)] = m.group(2)
+        ~~~^^^^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 16: 'MESSAGE1.LZW'
