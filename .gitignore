@@ -1,6 +1,3 @@
-# AI / local tooling
-.workbuddy/
-
 # Godot
 .godot/
 *.translation
@@ -12,22 +9,18 @@ __pycache__/
 .venv/
 venv/
 
-# Original game assets (copyrighted; load from external DataLoader path)
-Taikou2 Original/
-
-# Huge reverse-engineering dumps / caches
+# Huge reverse-engineering dumps / caches (regenerable, multi-GB)
 scripts/_sk_thunk.asm
 scripts/_unpacked_mem.bin
 scripts/_global_xref.cache
 scripts/_string_index.json
 scripts/_sndata_trace.json
 
-# Temporary probe / decode outputs
+# Temporary probe / decode outputs under scripts/
 scripts/_probe/
 scripts/_cand/
 scripts/_pal_candidates/
 scripts/_decoded_grp/
-**/.preview/
 
 # Proprietary Windows system fonts (keep open NotoSansSC)
 fonts/msyh.ttc
