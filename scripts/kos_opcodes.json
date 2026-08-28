@@ -1,0 +1,229 @@
+{
+  "note": "Single byte immediately before mapped MESSAGE uint16 in KOS bytecode",
+  "opcodes": {
+    "29": {
+      "count": 2,
+      "guess": "show_message"
+    },
+    "16": {
+      "count": 2,
+      "guess": "show_message"
+    },
+    "41": {
+      "count": 2,
+      "guess": "show_message"
+    },
+    "1": {
+      "count": 1,
+      "guess": "noop"
+    },
+    "107": {
+      "count": 1,
+      "guess": "branch"
+    },
+    "10": {
+      "count": 1,
+      "guess": "show_message"
+    },
+    "9": {
+      "count": 3,
+      "guess": "show_message"
+    },
+    "59": {
+      "count": 1,
+      "guess": "unknown"
+    },
+    "21": {
+      "count": 1,
+      "guess": "show_message"
+    },
+    "162": {
+      "count": 1,
+      "guess": "unknown"
+    },
+    "78": {
+      "count": 1,
+      "guess": "unknown"
+    },
+    "27": {
+      "count": 1,
+      "guess": "unknown"
+    },
+    "66": {
+      "count": 1,
+      "guess": "unknown"
+    },
+    "70": {
+      "count": 1,
+      "guess": "unknown"
+    },
+    "18": {
+      "count": 1,
+      "guess": "unknown"
+    },
+    "62": {
+      "count": 1,
+      "guess": "unknown"
+    },
+    "40": {
+      "count": 1,
+      "guess": "unknown"
+    },
+    "45": {
+      "count": 1,
+      "guess": "unknown"
+    },
+    "76": {
+      "count": 2,
+      "guess": "show_message"
+    },
+    "163": {
+      "count": 1,
+      "guess": "unknown"
+    },
+    "0": {
+      "count": 1,
+      "guess": "unknown"
+    },
+    "100": {
+      "count": 1,
+      "guess": "unknown"
+    },
+    "80": {
+      "count": 1,
+      "guess": "unknown"
+    },
+    "50": {
+      "count": 1,
+      "guess": "unknown"
+    }
+  },
+  "top_pairs": [
+    {
+      "b0": 87,
+      "b1": 41,
+      "count": 2
+    },
+    {
+      "b0": 43,
+      "b1": 29,
+      "count": 1
+    },
+    {
+      "b0": 22,
+      "b1": 16,
+      "count": 1
+    },
+    {
+      "b0": 23,
+      "b1": 1,
+      "count": 1
+    },
+    {
+      "b0": 110,
+      "b1": 107,
+      "count": 1
+    },
+    {
+      "b0": 43,
+      "b1": 10,
+      "count": 1
+    },
+    {
+      "b0": 31,
+      "b1": 9,
+      "count": 1
+    },
+    {
+      "b0": 79,
+      "b1": 59,
+      "count": 1
+    },
+    {
+      "b0": 8,
+      "b1": 9,
+      "count": 1
+    },
+    {
+      "b0": 29,
+      "b1": 21,
+      "count": 1
+    },
+    {
+      "b0": 71,
+      "b1": 29,
+      "count": 1
+    },
+    {
+      "b0": 152,
+      "b1": 162,
+      "count": 1
+    }
+  ],
+  "samples": {
+    "GINOUUP.KOS": [
+      {
+        "offset": 5786,
+        "b0": 43,
+        "b1": 29,
+        "msg_id": 3855
+      }
+    ],
+    "IATSU.KOS": [
+      {
+        "offset": 8306,
+        "b0": 22,
+        "b1": 16,
+        "msg_id": 777
+      }
+    ],
+    "IDOU.KOS": [
+      {
+        "offset": 9414,
+        "b0": 87,
+        "b1": 41,
+        "msg_id": 777
+      }
+    ],
+    "IGENSYOU.KOS": [
+      {
+        "offset": 286,
+        "b0": 23,
+        "b1": 1,
+        "msg_id": 0
+      }
+    ],
+    "IKARI.KOS": [
+      {
+        "offset": 15184,
+        "b0": 110,
+        "b1": 107,
+        "msg_id": 5933
+      }
+    ],
+    "INOTIGOI.KOS": [
+      {
+        "offset": 11947,
+        "b0": 43,
+        "b1": 10,
+        "msg_id": 0
+      }
+    ],
+    "IZOUKA.KOS": [
+      {
+        "offset": 254,
+        "b0": 31,
+        "b1": 9,
+        "msg_id": 0
+      }
+    ],
+    "KAISHIN.KOS": [
+      {
+        "offset": 1412,
+        "b0": 79,
+        "b1": 59,
+        "msg_id": 280
+      }
+    ]
+  }
+}

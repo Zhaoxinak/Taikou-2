@@ -1,0 +1,34 @@
+{
+  "decompressed_size": 24576,
+  "note": "samples use region-relative offsets; lengths clamped to region bounds",
+  "regions": [
+    {"id": 0, "offset": 6, "length": 1532},
+    {"id": 1, "offset": 1539, "length": 1535},
+    {"id": 2, "offset": 3075, "length": 1532},
+    {"id": 3, "offset": 4608, "length": 9209},
+    {"id": 4, "offset": 13832, "length": 6114},
+    {"id": 5, "offset": 19969, "length": 4604}
+  ],
+  "samples": {
+    "hit": {
+      "region": 0,
+      "offset": 1445,
+      "length": 512,
+      "rate": 11025
+    },
+    "town_bgm": {
+      "region": 2,
+      "offset": 775,
+      "length": 757,
+      "rate": 11025,
+      "loop": true
+    },
+    "end_bgm": {
+      "region": 3,
+      "offset": 3148,
+      "length": 6061,
+      "rate": 11025,
+      "loop": true
+    }
+  }
+}

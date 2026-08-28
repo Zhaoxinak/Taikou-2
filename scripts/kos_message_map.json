@@ -1,0 +1,156 @@
+{
+  "note": "MESSAGE global index from KOS bytecode uint16 scan",
+  "message_count": 6211,
+  "events": {
+    "CANCEL.KOS": {
+      "msg_id": -1,
+      "text": "",
+      "ui_only": true
+    },
+    "CLICK.KOS": {
+      "msg_id": -1,
+      "text": "",
+      "ui_only": true
+    },
+    "GIHEI.KOS": {
+      "msg_id": 596,
+      "text": "喂，别开玩笑呀！再怎么赶也不可能呀！不过如果你愿意来帮忙的话，也许可以。"
+    },
+    "GINOUUP.KOS": {
+      "msg_id": 3855,
+      "text": "怎么样，掌握%s的要领了吗？"
+    },
+    "IATSU.KOS": {
+      "msg_id": 777,
+      "text": "%s！我已经具备照料马的本事了！"
+    },
+    "IDOU.KOS": {
+      "msg_id": 777,
+      "text": "%s！我已经具备照料马的本事了！"
+    },
+    "IGENSYOU.KOS": {
+      "msg_id": 0,
+      "text": "武将的军饷。每月从城池的收入中，按俸禄支付给武将。"
+    },
+    "IKARI.KOS": {
+      "msg_id": 5933,
+      "text": "在新地点重新建设，地点定在琵琶湖东岸一带，知道为什么吗？"
+    },
+    "INOTIGOI.KOS": {
+      "msg_id": 0,
+      "text": "武将的军饷。每月从城池的收入中，按俸禄支付给武将。"
+    },
+    "IZOUKA.KOS": {
+      "msg_id": 0,
+      "text": "武将的军饷。每月从城池的收入中，按俸禄支付给武将。"
+    },
+    "KAISHIN.KOS": {
+      "msg_id": 280,
+      "text": "在下购买了%u支洋枪。"
+    },
+    "KAKEI.KOS": {
+      "msg_id": 5906,
+      "text": "哪里哪里，我的增援不值得一提，这全是多亏%s大人英勇奋战，才得以全身而退。"
+    },
+    "KAMINARI.KOS": {
+      "msg_id": 4112,
+      "text": "听贫僧讲道，也许有点沉闷，不过为了主公，请忍耐。"
+    },
+    "KEMURI.KOS": {
+      "msg_id": 0,
+      "text": "武将的军饷。每月从城池的收入中，按俸禄支付给武将。"
+    },
+    "KOATARI.KOS": {
+      "msg_id": 2412,
+      "text": "他与主公性情配合度%s，%s忠诚。"
+    },
+    "KOUGEKI1.KOS": {
+      "msg_id": 2,
+      "text": "统御属下的能力。关系到交战中，战斗力的强弱及士兵们士气的变化。"
+    },
+    "KOUGEKI2.KOS": {
+      "msg_id": 1315,
+      "text": "啊，也没有这么┅┅"
+    },
+    "MACHIMES.KOS": {
+      "msg_id": 5656,
+      "text": "是，我们一定铭记在心。"
+    },
+    "MATISIRO.KOS": {
+      "msg_id": 2592,
+      "text": "噢┅┅那么，说吧，你想干什么工作？"
+    },
+    "METUBUSI.KOS": {
+      "msg_id": 959,
+      "text": "由于实力上的差距，灭亡%s家指日可待。"
+    },
+    "MI_AME.KOS": {
+      "msg_id": 1327,
+      "text": "下雨天、下雪天洋枪一点用场也派不上了。"
+    },
+    "MI_HARE.KOS": {
+      "msg_id": 2601,
+      "text": "唔，我知道了。是\n%s┅┅，%s，你干的非常好。你很为你的主人着想，我会奖赏你的。"
+    },
+    "NIGERU.KOS": {
+      "msg_id": 3341,
+      "text": "糟糕，钱不够了┅┅。"
+    },
+    "NINJA.KOS": {
+      "msg_id": 4112,
+      "text": "听贫僧讲道，也许有点沉闷，不过为了主公，请忍耐。"
+    },
+    "OOATARI.KOS": {
+      "msg_id": 0,
+      "text": "武将的军饷。每月从城池的收入中，按俸禄支付给武将。"
+    },
+    "RAKUSEKI.KOS": {
+      "msg_id": 6170,
+      "text": "前将军义辉被杀后，拥戴这个义昭的有细川藤孝等历代幕臣和另一个人。"
+    },
+    "SEIKOU.KOS": {
+      "msg_id": 6174,
+      "text": "而且，明智光秀成为织田家的家臣，开始了新的人生。"
+    },
+    "SHIKI.KOS": {
+      "msg_id": 3097,
+      "text": "大人，有一位叫做%s%s的武将毛遂自荐，想在我家为官。"
+    },
+    "SHIPPAI.KOS": {
+      "msg_id": 1732,
+      "text": "我要向你坦白说一句，我失败了。今后我要努力工作超过你。"
+    },
+    "SIKAKU.KOS": {
+      "msg_id": 3855,
+      "text": "怎么样，掌握%s的要领了吗？"
+    },
+    "SYUUZEN.KOS": {
+      "msg_id": 1,
+      "text": "武将的体力。左边为现在值，右边为最大值。负伤或疲劳状况下，其值会下降，但每日会逐步回升。"
+    },
+    "TEPPOU.KOS": {
+      "msg_id": 14,
+      "text": "运用洋枪的技能。关系到开枪的速度及命中率。"
+    },
+    "TOTUGEKI.KOS": {
+      "msg_id": 777,
+      "text": "%s！我已经具备照料马的本事了！"
+    },
+    "UKETA.KOS": {
+      "msg_id": 15,
+      "text": "忍者和武装农民所专长的技能。能够使普通的武将达成潜入城中等，难度较高的工作。"
+    },
+    "UMETATE.KOS": {
+      "msg_id": 3354,
+      "text": "10支洋枪15贯钱，最多可以卖到300支。请任意挑选您中意的洋枪。"
+    },
+    "YOKETA.KOS": {
+      "msg_id": 5673,
+      "text": "%s大人，信长主公有命“马上去%s城！！”"
+    },
+    "ZANSYU.KOS": {
+      "msg_id": 1292,
+      "text": "对，对，如果去见%s，最初的两个是%s，然后就要随机应变，应该学会忍术，或者带有能力的人去。"
+    }
+  }
+}

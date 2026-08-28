@@ -1,0 +1,130 @@
+{
+  "skill_enumeration": {
+    "source": "EXE static .rdata @ VA 0x507b58 (file 0x107b58), 5 bytes/entry x10 (2-char GBK name + null)",
+    "canonical_order": [
+      {"index": 0, "name": "口才", "doc_old": "口才",   "note": "辩才/口才"},
+      {"index": 1, "name": "马术", "doc_old": "马术",   "note": "骑术"},
+      {"index": 2, "name": "算术", "doc_old": "算用",   "note": "EXE 用『算术』，文档旧记『算用』为误"},
+      {"index": 3, "name": "剑术", "doc_old": "剑术",   "note": "剑术"},
+      {"index": 4, "name": "忍术", "doc_old": "忍术",   "note": "忍术"},
+      {"index": 5, "name": "兵法", "doc_old": "军学",   "note": "EXE 用『兵法』，文档旧记『军学』为误"},
+      {"index": 6, "name": "洋枪", "doc_old": "洋枪",   "note": "铁炮"},
+      {"index": 7, "name": "筑城", "doc_old": "筑城",   "note": "筑城"},
+      {"index": 8, "name": "礼法", "doc_old": "礼法",   "note": "礼法"},
+      {"index": 9, "name": "茶道", "doc_old": "茶道",   "note": "茶道"}
+    ],
+    "bit_packing": "每武将 10 技能 x 2 bit 存于 BSDATA 字节 27-29（每技能 0-3 级），位序与上方 index 对应（🔶 待逐武将验证，但枚举顺序已由 EXE 名表实锤）"
+  },
+  "court_rank_enumeration": {
+    "source": "EXE static .rdata @ VA 0x507b90 (file 0x107b90), 7 bytes/entry x10 (3-char GBK + null)",
+    "ranks": [
+      {"index": 0, "name": "从五位"},
+      {"index": 1, "name": "正五位"},
+      {"index": 2, "name": "从四位"},
+      {"index": 3, "name": "正四位"},
+      {"index": 4, "name": "从三位"},
+      {"index": 5, "name": "正三位"},
+      {"index": 6, "name": "从二位"},
+      {"index": 7, "name": "正二位"},
+      {"index": 8, "name": "从一位"},
+      {"index": 9, "name": "正一位"}
+    ],
+    "note": "补 §3.3 缺口——官位具体字符串此前未在静态段/MSGX 定位，现于技能名表之后实锤"
+  },
+  "training_menu_strings": {
+    "source": "EXE @ VA 0x504800-0x504878 (修行/町内修行动作菜单)",
+    "actions": ["学习刀术", "读书", "学习口才", "学习筑城", "学习兵法", "学习剑术", "艺术鉴赏", "宝物鉴赏", "什么也不做", "继续住宿"],
+    "note": "binary 逐字节验证：学习刀术@0x504800 / 读书@0x504813 / 学习口才 / 学习筑城 / 学习兵法 / 学习剑术@0x504839 / 艺术鉴赏 / 宝物鉴赏 / 什么也不做 / 继续住宿(动作标签，相邻提示文案『继续住宿吗？』@0x50486a)。学习刀术 与 学习剑术 并存(疑不同修行项)；读书 另有全角间隔变体 读　　书(疑不同读书子项)。"
+  },
+  "apprenticeship_system": {
+    "eligibility_fn": "0x4b5620",
+    "eligibility_logic": "取学习者(pA)与师父(pB)两角色结构体，比较三字段；任一和达阈值则该修行动作不可执行：",
+    "fields": [
+      {"offset": "0xf", "mask": "3", "label": "技能(的技能)", "threshold_sum": 6,  "meaning": "技能等级和 >=6（双方均已满级3）则不可再学"},
+      {"offset": "0xd", "mask": "ff", "label": "外交",       "threshold_sum": 100, "meaning": "外交值和 >=100 则不可"},
+      {"offset": "0xe", "mask": "ff", "label": "魅力",       "threshold_sum": 100, "meaning": "魅力值和 >=100 则不可"}
+    ],
+    "success_path": "三检查全过 → 调 0x47b900 带码 0xae8/0xae9 执行修行",
+    "menu_builder_fn": "0x45f600",
+    "skill_selector_fn": "0x45f690",
+    "routing": "菜单构建器按角色 word@8>>8&3 得 esi(0-3) 选修行类别；0x45f690 在技能注册表 0x517838（运行时指针，指向技能对象数组）中搜 byte@8&7 匹配项：esi0→cat4 / esi1→cat1 / esi2→cat6,7 / esi3→cat5,3",
+    "skill_registry": {
+      "global_ptr": "0x517838 (静态=0，运行时填充：指向技能对象指针数组)",
+      "object_field": "byte@8 & 7 = 技能类别(0-7)",
+      "status": "routing_hints_complete (2026-08-28); per-town spawn table runtime-only",
+      "table_json": "scripts/skill_master_table.json"
+    }
+  },
+  "teach_duration_and_growth": {
+    "status": "closed_2026-08-28_续28+续29",
+    "emu": "scripts/_emu_teach.py (54 PASS)",
+    "entry": "0x45f1e0",
+    "days": {
+      "note": "玩家自选天数，无固定「技能级数→天数」表",
+      "cap": "min(0x1F - byte[0x5205f2], word[0x51662e] >> 1)",
+      "meaning": "本月剩余日(31-日) 与 金钱/2 取小；金钱 <2 不可修",
+      "ui_confirm_msgx": ["0x11db", "0x11dc"],
+      "reject_if_late_for_meeting": "MSGX MESSAGE3#553/#554（会议冲突文案；由日历/会议逻辑另判）"
+    },
+    "cost_per_day": {
+      "gold": 2,
+      "fn": "0x44e350(2) → 0x44e300(0,2) → 0x4a35c0 扣 0x51662e",
+      "fatigue": "0x44e360(5) → 角色 +0x21 向 +0x20 靠拢"
+    },
+    "money_va": {
+      "struct": "0x516610",
+      "gold_word": "0x51662e = struct+0x1e",
+      "note": "纠偏：0x4a3590/0x4a35c0 操作的是金钱不是日历"
+    },
+    "action_menu": {
+      "builder": "0x45f710",
+      "thresholds_0x504870": [3, 5, 10],
+      "labels_0x504818_stride_0xb": [
+        "学习内政", "学习外交", "学习魅力", "学习剑术",
+        "读书", "艺术鉴赏", "宝物鉴赏", "什么也不做"
+      ],
+      "mode7": "什么也不做 → 0x45f8f0 早退"
+    },
+    "growth": {
+      "after_days": "0x45fca0(learner, helper, mode, item?)",
+      "mode_0_1_2": {
+        "0": {"menu": "学习内政", "inc": "0x4a3040 NPC[+0xf] bits0-1", "skill_announce_idx": 0, "name": "口才", "p": "rand%(16-sub)==0"},
+        "1": {"menu": "学习外交", "inc": "0x4a3120 NPC[+0x10] bits6-7", "skill_announce_idx": 7, "name": "筑城", "p": "rand%600 < attr_sum(+0xa..)"},
+        "2": {"menu": "学习魅力", "inc": "0x4a30e0 NPC[+0x10] bits2-3", "skill_announce_idx": 5, "name": "兵法", "p": "rand%(16-sub)==0"},
+        "note": "菜单文案为内政/外交/魅力，升一级写的是 口才/筑城/兵法 位并按 0x507b58 报名"
+      },
+      "mode_ge_3": {
+        "status": "closed_2026-08-28_续29",
+        "fn": "0x45feb0 → 0x4600d0",
+        "note": "加的是五维属性 NPC[+0xa..+0xe]，不是技能 2bit",
+        "attrs_0x507fc0": ["统御力", "武力", "内政力", "外交力", "魅力"],
+        "attr_layout": "+0xa统御 +0xb武力 +0xc内政 +0xd外交 +0xe魅力；封顶 100（0x4a2f80 系）",
+        "base_mod": "mode==4(读书)→16；mode 3/5/6→20；再减 item.sub",
+        "solo_no_helper": "P = 1/(base-sub)（rand%n==0）",
+        "with_helper_tier_match": {
+          "expected_tier": {"3剑术": 0, "4读书": 1, "5艺术": 2, "6宝物": 3},
+          "tier_field": "helper.word[+8]>>8 & 3",
+          "P": "1 / (|base-sub|/2)；成功则学习者与师父各试一次 0x4600d0"
+        },
+        "with_helper_mismatch": {
+          "learner_P": "1/(base-sub)",
+          "helper_P": "1 / (|base-sub|*3/2)"
+        },
+        "attr_target": {
+          "3_学习剑术": "武力 +1",
+          "4_读书": "50% 内政力 +1（0x4ebe40(50)）否则 统御力 +1",
+          "5_艺术鉴赏": "魅力 +1",
+          "6_宝物鉴赏": "外交力 +1"
+        },
+        "announce": "名表 0x507fc0 stride7；已满100 返回 0xFFFF 跳过报名"
+      },
+      "on_success_skill_modes": "mode0-2: new_level=old+1; fame += new_level*500 via 0x4a3210; MSGX 0x11fb",
+      "bit_pack_10_skills": "NPC[+0xf..+0x11] 每技能 2bit，index0..9 对应 0x4a3040..0x4a3160；封顶 3"
+    },
+    "not_teach": {
+      "0x4422b0": "茶具出售（MSGX 0x369=#873 我想卖茶具），非授艺",
+      "price": "getValue(item)*(100-(player[+7]>>1))/100*90/100",
+      "on_deal": "0x442470 写 owner + 0x44e2f0 加金钱；或然 +7 += sub"
+    }
+  }
+}

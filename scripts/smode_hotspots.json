@@ -1,0 +1,28 @@
+{
+  "note": "SMODE.GRP 320x200 hotspots; split_x from pixel valley; tail 5537B TBD",
+  "width": 320,
+  "height": 200,
+  "split_x": 221,
+  "scenarios": [
+    {
+      "id": 1,
+      "label": "剧本一（尾张·入门）",
+      "rect": [
+        20,
+        70,
+        211,
+        170
+      ]
+    },
+    {
+      "id": 2,
+      "label": "剧本二（近江·进阶）",
+      "rect": [
+        231,
+        70,
+        300,
+        170
+      ]
+    }
+  ]
+}

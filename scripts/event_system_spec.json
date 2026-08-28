@@ -1,0 +1,425 @@
+{
+  "event_taxonomy": {
+    "name_table_va": "0x50da40",
+    "name_table_base_index": 2,
+    "count": 27,
+    "lookup_fn": "0x4eaf70 reads EventCtx+0x72 (word) -> 0x50da40[type_id*4]",
+    "xref": "0x50da40 referenced @0x4eafaa",
+    "entries": [
+      {
+        "taxonomy_index": 2,
+        "name": "          寺院      "
+      },
+      {
+        "taxonomy_index": 3,
+        "name": "        历史事件    "
+      },
+      {
+        "taxonomy_index": 4,
+        "name": "    木下藤吉郎的主题"
+      },
+      {
+        "taxonomy_index": 5,
+        "name": "         大商人     "
+      },
+      {
+        "taxonomy_index": 6,
+        "name": "      新武将的主题  "
+      },
+      {
+        "taxonomy_index": 7,
+        "name": "     柴田胜家的主题 "
+      },
+      {
+        "taxonomy_index": 8,
+        "name": "     明智光秀的主题 "
+      },
+      {
+        "taxonomy_index": 9,
+        "name": "       普通的城镇   "
+      },
+      {
+        "taxonomy_index": 10,
+        "name": "          京都      "
+      },
+      {
+        "taxonomy_index": 11,
+        "name": "          界镇      "
+      },
+      {
+        "taxonomy_index": 12,
+        "name": "          城内      "
+      },
+      {
+        "taxonomy_index": 13,
+        "name": "          自宅      "
+      },
+      {
+        "taxonomy_index": 14,
+        "name": "          茶会      "
+      },
+      {
+        "taxonomy_index": 15,
+        "name": "          会议    "
+      },
+      {
+        "taxonomy_index": 16,
+        "name": "          酒馆      "
+      },
+      {
+        "taxonomy_index": 17,
+        "name": "         剑术道场     "
+      },
+      {
+        "taxonomy_index": 18,
+        "name": "     教堂-旅店-医生 "
+      },
+      {
+        "taxonomy_index": 19,
+        "name": "          行军      "
+      },
+      {
+        "taxonomy_index": 20,
+        "name": "          战斗      "
+      },
+      {
+        "taxonomy_index": 21,
+        "name": "        个人战斗    "
+      },
+      {
+        "taxonomy_index": 22,
+        "name": "        墨俣筑城    "
+      },
+      {
+        "taxonomy_index": 23,
+        "name": "       阿市的悲剧   "
+      },
+      {
+        "taxonomy_index": 24,
+        "name": "       金崎撤退战   "
+      },
+      {
+        "taxonomy_index": 25,
+        "name": "       本能寺大火   "
+      },
+      {
+        "taxonomy_index": 26,
+        "name": "        游戏开始    "
+      },
+      {
+        "taxonomy_index": 27,
+        "name": "          开始      "
+      },
+      {
+        "taxonomy_index": 28,
+        "name": "          结局      "
+      }
+    ]
+  },
+  "event_ctx_struct": {
+    "constructor_fn": "0x4eae50",
+    "fields": {
+      "0x72": "word  event_type_id (taxonomy index)",
+      "0x74": "dword param0",
+      "0x78": "dword param1",
+      "0x7c": "dword param2",
+      "0x80": "dword param3",
+      "0x84": "dword param4"
+    },
+    "display_fn": "0x4eaf70 (shows name from 0x50da40[type_id*4])"
+  },
+  "event_list_config_table": {
+    "va": "0x50dab0",
+    "record_size": 4,
+    "record_count": 27,
+    "indexed_by": "taxonomy order (record i <-> taxonomy idx i+2)",
+    "passed_to": "0x47ad90 @0x4eb38e (list-window data setter)",
+    "notes": "4 bytes/type = 4 per-type attributes (BGM/scene/params) shown in event-history list; exact column semantics TBD",
+    "records": [
+      {
+        "taxonomy_index": 2,
+        "name": "          寺院      ",
+        "bytes": [
+          0,
+          0,
+          0,
+          3
+        ]
+      },
+      {
+        "taxonomy_index": 3,
+        "name": "        历史事件    ",
+        "bytes": [
+          6,
+          5,
+          5,
+          4
+        ]
+      },
+      {
+        "taxonomy_index": 4,
+        "name": "    木下藤吉郎的主题",
+        "bytes": [
+          5,
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "taxonomy_index": 5,
+        "name": "         大商人     ",
+        "bytes": [
+          11,
+          11,
+          11,
+          6
+        ]
+      },
+      {
+        "taxonomy_index": 6,
+        "name": "      新武将的主题  ",
+        "bytes": [
+          6,
+          6,
+          13,
+          13
+        ]
+      },
+      {
+        "taxonomy_index": 7,
+        "name": "     柴田胜家的主题 ",
+        "bytes": [
+          13,
+          15,
+          15,
+          15
+        ]
+      },
+      {
+        "taxonomy_index": 8,
+        "name": "     明智光秀的主题 ",
+        "bytes": [
+          5,
+          9,
+          7,
+          11
+        ]
+      },
+      {
+        "taxonomy_index": 9,
+        "name": "       普通的城镇   ",
+        "bytes": [
+          7,
+          7,
+          3,
+          10
+        ]
+      },
+      {
+        "taxonomy_index": 10,
+        "name": "          京都      ",
+        "bytes": [
+          7,
+          2,
+          11,
+          9
+        ]
+      },
+      {
+        "taxonomy_index": 11,
+        "name": "          界镇      ",
+        "bytes": [
+          10,
+          7,
+          9,
+          10
+        ]
+      },
+      {
+        "taxonomy_index": 12,
+        "name": "          城内      ",
+        "bytes": [
+          8,
+          10,
+          8,
+          11
+        ]
+      },
+      {
+        "taxonomy_index": 13,
+        "name": "          自宅      ",
+        "bytes": [
+          10,
+          10,
+          12,
+          11
+        ]
+      },
+      {
+        "taxonomy_index": 14,
+        "name": "          茶会      ",
+        "bytes": [
+          32,
+          1,
+          248,
+          0
+        ]
+      },
+      {
+        "taxonomy_index": 15,
+        "name": "          会议    ",
+        "bytes": [
+          32,
+          1,
+          248,
+          0
+        ]
+      },
+      {
+        "taxonomy_index": 16,
+        "name": "          酒馆      ",
+        "bytes": [
+          216,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "taxonomy_index": 17,
+        "name": "         剑术道场     ",
+        "bytes": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "taxonomy_index": 18,
+        "name": "     教堂-旅店-医生 ",
+        "bytes": [
+          112,
+          0,
+          208,
+          0
+        ]
+      },
+      {
+        "taxonomy_index": 19,
+        "name": "          行军      ",
+        "bytes": [
+          208,
+          0,
+          176,
+          0
+        ]
+      },
+      {
+        "taxonomy_index": 20,
+        "name": "          战斗      ",
+        "bytes": [
+          176,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "taxonomy_index": 21,
+        "name": "        个人战斗    ",
+        "bytes": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "taxonomy_index": 22,
+        "name": "        墨俣筑城    ",
+        "bytes": [
+          32,
+          0,
+          32,
+          0
+        ]
+      },
+      {
+        "taxonomy_index": 23,
+        "name": "       阿市的悲剧   ",
+        "bytes": [
+          32,
+          0,
+          16,
+          0
+        ]
+      },
+      {
+        "taxonomy_index": 24,
+        "name": "       金崎撤退战   ",
+        "bytes": [
+          16,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "taxonomy_index": 25,
+        "name": "       本能寺大火   ",
+        "bytes": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "taxonomy_index": 26,
+        "name": "        游戏开始    ",
+        "bytes": [
+          0,
+          0,
+          0,
+          2
+        ]
+      },
+      {
+        "taxonomy_index": 27,
+        "name": "          开始      ",
+        "bytes": [
+          0,
+          4,
+          0,
+          6
+        ]
+      },
+      {
+        "taxonomy_index": 28,
+        "name": "          结局      ",
+        "bytes": [
+          0,
+          7,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "event_history_screen": {
+    "build_fn": "0x4eaf00",
+    "count_global": "0x50db1c (reset 0 @0x4eb09a; tested @0x4eae09)",
+    "gui_globals": "0x526c00 / 0x526c50"
+  },
+  "personal_encounter_handler": {
+    "fn": "0x4547f0(general1, general2)",
+    "decides_event_by": "byte[+0x21] age? (cmp 0x3c=60,0x32=50), status bits [+0x8]&0x80, word[+0x2c]",
+    "message_dispatch": "0x47b900/0x46fd20 with codes 0x403/0x405/0x516/0x518/0x51c/0x514/0x51a",
+    "sub_checks": "0x49ffc0, 0x44df20 (menu builder), 0x45a220 (event sub-type w/ 0xa/0xb/0xc)"
+  },
+  "hardcoded_historical_example": {
+    "honnoji_fire": "0x41c160 (fills date template 0x502638, plays death cutscene; dispatched via vtable)"
+  }
+}

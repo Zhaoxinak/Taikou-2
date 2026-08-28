@@ -1,0 +1,396 @@
+{
+  "note": ".KOS = KOEI SFX; byte0=0xAE marker, rest=XOR(0xAE) of RIFF/WAVE",
+  "count": 39,
+  "files": [
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 3022,
+      "wav_size": 3066,
+      "name": "CANCEL.KOS",
+      "wav": "CANCEL.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 2283,
+      "wav_size": 2328,
+      "name": "CLICK.KOS",
+      "wav": "CLICK.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 986,
+      "wav_size": 1030,
+      "name": "GIHEI.KOS",
+      "wav": "GIHEI.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 32128,
+      "wav_size": 32172,
+      "name": "GINOUUP.KOS",
+      "wav": "GINOUUP.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 66044,
+      "wav_size": 66088,
+      "name": "IATSU.KOS",
+      "wav": "IATSU.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 17276,
+      "wav_size": 17320,
+      "name": "IDOU.KOS",
+      "wav": "IDOU.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 3648,
+      "wav_size": 3692,
+      "name": "IGENSYOU.KOS",
+      "wav": "IGENSYOU.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 28928,
+      "wav_size": 28972,
+      "name": "IKARI.KOS",
+      "wav": "IKARI.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 35616,
+      "wav_size": 35660,
+      "name": "INOTIGOI.KOS",
+      "wav": "INOTIGOI.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 3744,
+      "wav_size": 3788,
+      "name": "IZOUKA.KOS",
+      "wav": "IZOUKA.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 16544,
+      "wav_size": 16588,
+      "name": "KAISHIN.KOS",
+      "wav": "KAISHIN.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 85500,
+      "wav_size": 85544,
+      "name": "KAKEI.KOS",
+      "wav": "KAKEI.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 75900,
+      "wav_size": 75944,
+      "name": "KAMINARI.KOS",
+      "wav": "KAMINARI.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 18944,
+      "wav_size": 18988,
+      "name": "KEMURI.KOS",
+      "wav": "KEMURI.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 20480,
+      "wav_size": 20524,
+      "name": "KOATARI.KOS",
+      "wav": "KOATARI.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 13846,
+      "wav_size": 13890,
+      "name": "KOUGEKI1.KOS",
+      "wav": "KOUGEKI1.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 12892,
+      "wav_size": 12936,
+      "name": "KOUGEKI2.KOS",
+      "wav": "KOUGEKI2.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 20288,
+      "wav_size": 20332,
+      "name": "MACHIMES.KOS",
+      "wav": "MACHIMES.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 26880,
+      "wav_size": 26924,
+      "name": "MATISIRO.KOS",
+      "wav": "MATISIRO.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 20476,
+      "wav_size": 20520,
+      "name": "METUBUSI.KOS",
+      "wav": "METUBUSI.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 57724,
+      "wav_size": 57768,
+      "name": "MI_AME.KOS",
+      "wav": "MI_AME.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 60416,
+      "wav_size": 60460,
+      "name": "MI_HARE.KOS",
+      "wav": "MI_HARE.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 24637,
+      "wav_size": 24682,
+      "name": "NIGERU.KOS",
+      "wav": "NIGERU.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 33968,
+      "wav_size": 34012,
+      "name": "NINJA.KOS",
+      "wav": "NINJA.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 21441,
+      "wav_size": 21486,
+      "name": "OOATARI.KOS",
+      "wav": "OOATARI.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 29116,
+      "wav_size": 29160,
+      "name": "OPENGATE.KOS",
+      "wav": "OPENGATE.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 81916,
+      "wav_size": 81960,
+      "name": "RAKUSEKI.KOS",
+      "wav": "RAKUSEKI.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 16256,
+      "wav_size": 16300,
+      "name": "SEIKOU.KOS",
+      "wav": "SEIKOU.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 16064,
+      "wav_size": 16108,
+      "name": "SHIKI.KOS",
+      "wav": "SHIKI.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 9468,
+      "wav_size": 9512,
+      "name": "SHIPPAI.KOS",
+      "wav": "SHIPPAI.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 12924,
+      "wav_size": 12968,
+      "name": "SIKAKU.KOS",
+      "wav": "SIKAKU.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 8756,
+      "wav_size": 8800,
+      "name": "SYUUZEN.KOS",
+      "wav": "SYUUZEN.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 36348,
+      "wav_size": 36392,
+      "name": "TEPPOU.KOS",
+      "wav": "TEPPOU.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 12544,
+      "wav_size": 12588,
+      "name": "TGENSYOU.KOS",
+      "wav": "TGENSYOU.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 16764,
+      "wav_size": 16808,
+      "name": "TOTUGEKI.KOS",
+      "wav": "TOTUGEKI.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 24192,
+      "wav_size": 24236,
+      "name": "UKETA.KOS",
+      "wav": "UKETA.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 25820,
+      "wav_size": 25864,
+      "name": "UMETATE.KOS",
+      "wav": "UMETATE.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 22656,
+      "wav_size": 22700,
+      "name": "YOKETA.KOS",
+      "wav": "YOKETA.wav",
+      "ok": true
+    },
+    {
+      "rate": 22050,
+      "channels": 1,
+      "bits": 8,
+      "data_bytes": 4860,
+      "wav_size": 4904,
+      "name": "ZANSYU.KOS",
+      "wav": "ZANSYU.wav",
+      "ok": true
+    }
+  ]
+}

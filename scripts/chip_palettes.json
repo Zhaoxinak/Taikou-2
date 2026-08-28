@@ -1,0 +1,27 @@
+{
+  "ega16": {
+    "note": "KOEI Taikou2 HBCHAR muted EGA16 (desaturated; index usage 1/4/2/6 heavy)",
+    "colors": [
+      "#000000", "#1C2840", "#2C5028", "#385858",
+      "#702828", "#482848", "#785028", "#A0A090",
+      "#282828", "#405888", "#509050", "#60A0A0",
+      "#984040", "#885888", "#C0A040", "#E8E8D8"
+    ]
+  },
+  "koei4bpp": {
+    "note": "KOEI 4bpp palette refined from MAPCHIP land tones + san4 layout (2026-08-23)",
+    "colors": [
+      "#283018", "#487028", "#904028", "#B89860",
+      "#203858", "#488090", "#886038", "#C8C0A0",
+      "#182010", "#385820", "#703018", "#988850",
+      "#183048", "#387080", "#685028", "#A8A088"
+    ]
+  },
+  "face8": {
+    "note": "Taikou2 FACE.LZW NPK 8-color portrait palette (kaodata taikoh reference).",
+    "colors": [
+      "#000000", "#41C341", "#F35100", "#F3D300",
+      "#2061A2", "#00C3F3", "#F361B2", "#F3F3F3"
+    ]
+  }
+}

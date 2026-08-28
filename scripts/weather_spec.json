@@ -1,0 +1,141 @@
+{
+  "_meta": {
+    "title": "太阁立志传2 · 天气/季节/地域气候 系统规格",
+    "source": "TAIK2W95.exe 脱壳映像 scripts/_unpacked_mem.bin（基址 0x400000）逐指令反汇编",
+    "date": "2026-08-27",
+    "confidence": "高（4 张概率表已与映像逐字节自校验；蒙特卡洛涌现行为与设计语义自洽）",
+    "reference_impl": "scripts/weather_ref.py",
+    "supersedes": "BREAKTHROUGHS.md [2026-08-27 凌晨（续3）] 中「0x5037b8 = 地形攻防修正矩阵」的结论（已证伪）"
+  },
+
+  "globals": {
+    "0x513530": { "size": "word", "name": "weather_state", "domain": "0=晴 1=曇 2=雨 3=雪", "getter": "0x43cad0", "setter": "0x43cae0", "xrefs": 3 },
+    "0x51352c": { "size": "dword", "name": "wet_flag", "meaning": "降水中/湿润标志；战斗中使铁炮(kind2)战力 ×2/3", "getter": "0x43cb10", "setter": "0x43cb20", "getter_callers": 16 },
+    "0x513534": { "size": "dword", "name": "unknown_masked_value", "accessor": "0x43cb50 = dword[0x513534] & mask(0x43ca10)" },
+    "0x513538": { "size": "byte", "name": "scene_mode?", "setter": "0x43cb40", "note": "0x434790 处以 6 / 7 写入" },
+    "0x513540": { "size": "byte", "name": "day_counter", "getter": "0x43ca60", "note": "简版天气仅在 counter%4==0 时推进（0x4347ad and eax,3 / jne）" },
+    "0x513548": { "size": "byte", "name": "battle_type", "note": "此前已破：0x43a9c0 攻击除数表窗口选择 +0/+8" },
+    "0x5205f1": { "size": "byte", "name": "current_month", "xrefs": 50, "note": "季节 = (month//3)&3" },
+    "0x524866": { "size": "word", "name": "current_province_id", "domain": "0..48（>=49 视为无效）", "xrefs": 16 }
+  },
+
+  "season": {
+    "formula": "season = (month // 3) & 3",
+    "asm": "0x43cff0 mov dl,byte[0x5205f1] / mov eax,0x55555556 / imul edx / ... / and eax,3 / lea eax,[eax+eax*2]",
+    "mapping": { "0": "冬 {12,1,2}", "1": "春 {3,4,5}", "2": "夏 {6,7,8}", "3": "秋 {9,10,11}" }
+  },
+
+  "probability_tables": {
+    "_semantics": "值 = 百分比 = 「天气保持不变」的概率；rand()%100 < 值 ⇒ 不变",
+    "T_SIMPLE": {
+      "va": "0x5037b8",
+      "index": "season*3 + weather（weather 只到 2，雪另路处理）",
+      "raw": [90, 80, 40, 80, 60, 70, 90, 20, 50, 80, 60, 90],
+      "rows": { "冬": [90, 80, 40], "春": [80, 60, 70], "夏": [90, 20, 50], "秋": [80, 60, 90] },
+      "used_by": "0x43cfc0 简版（无地域）",
+      "xrefs": ["0x43d01e"]
+    },
+    "T_SEASON": {
+      "va": "0x5037c5",
+      "index": "season*3 + weather（season 取 1..3；weather 可为 3 并 alias 到下一行首列）",
+      "raw": [0, 0, 0, 70, 60, 50, 80, 20, 60, 60, 50, 70, 0, 0, 0],
+      "rows": { "春": [70, 60, 50], "夏": [80, 20, 60], "秋": [60, 50, 70] },
+      "alias_note": "春·雪→80(=夏晴) / 夏·雪→60(=秋晴) / 秋·雪→0（0% 保持 ⇒ 残雪必消）——原版 stride 3 但有 4 列，故意/沿用",
+      "used_by": "0x43d0e0 完整版·非冬季",
+      "xrefs": ["0x43d251"]
+    },
+    "T_WINTER_SNOWREG": {
+      "va": "0x5037d4",
+      "index": "weather (0..2)",
+      "raw": [20, 50, 0],
+      "used_by": "0x43d0e0 完整版·冬季·雪国（mode=2）",
+      "xrefs": ["0x43d20d"]
+    },
+    "T_WINTER_NORMAL": {
+      "va": "0x5037d8",
+      "index": "weather (0..2)",
+      "raw": [90, 40, 20],
+      "used_by": "0x43d0e0 完整版·冬季·非雪国（mode=1）",
+      "xrefs": ["0x43d1b8"]
+    }
+  },
+
+  "transition_fn": {
+    "va": "0x43d060",
+    "signature": "int16 transition(uint16 threshold /*arg1*/, uint16 mode /*arg2*/)",
+    "returns": "-1 = 天气不变；否则为新天气",
+    "logic": [
+      "r1 = rand()%100；若 r1 < threshold ⇒ 返回 -1（不变）",
+      "cur = getWeather()",
+      "cur==0(晴) ⇒ 1(曇)",
+      "cur==1(曇) 且 mode==2 ⇒ rand()%100<10 ? 0(晴) : 3(雪)   ← 雪国冬季 90% 直转雪",
+      "cur==1(曇) 且 mode!=2 ⇒ (r1 奇) ? 0(晴) : 2(雨)",
+      "cur>=2 ⇒ mode!=0 ? 3(雪) : 1(曇)                       ← mode 0 禁止转雪"
+    ],
+    "mode_meaning": { "0": "非冬季 / 简版：禁止生成雪", "1": "冬季·非雪国：允许 雨→雪", "2": "冬季·雪国：允许 雨→雪 且 曇→雪(90%)" },
+    "callers": ["0x43d023 (简版, mode=0)", "0x43d212 (完整版冬季, mode=1/2)", "0x43d252 (完整版非冬季, mode=0)"]
+  },
+
+  "tick_simple": {
+    "va": "0x43cfc0",
+    "callers": ["0x4347b6（仅 1 处；上游 0x4347ad 判 day_counter%4==0）"],
+    "logic": [
+      "r1 = rand()%100",
+      "若 weather==3(雪)：r1<20 ⇒ wet_flag ^= 1；否则不动（简版永不脱离雪态）",
+      "否则 thr = T_SIMPLE[season*3+weather]，new = transition(thr, 0, r1)",
+      "new 有效 ⇒ wet_flag = (new==2)，weather = new"
+    ]
+  },
+
+  "tick_region": {
+    "va": "0x43d0e0",
+    "callers": ["0x434e6c"],
+    "inputs": ["month = byte[0x5205f1]", "province = word[0x524866]", "climate_group = byte[0x519548 + province*5 + 1]（province>=49 ⇒ 指针置 0，取 climate 0）"],
+    "snow_region_groups": [0, 2, 4],
+    "branches": {
+      "非冬季 (season!=0)": "thr = T_SEASON[season*3+weather]；mode=0；new 后 wet_flag = (new==2)",
+      "冬季·雪国·weather==3": "thr = wet_flag ? 80 : 60；r1>=thr 后：wet_flag!=0 ⇒ 留雪+清标志；wet_flag==0 且 r1>=70 ⇒ 留雪+置标志；否则转晴",
+      "冬季·非雪国·weather==3": "thr = wet_flag ? 20 : 40；cut = 80（其余同上）",
+      "冬季·雪国·weather<3": "mode=2，thr = T_WINTER_SNOWREG[weather]；new 后 wet_flag = (new in {2,3})",
+      "冬季·非雪国·weather<3": "mode=1，thr = T_WINTER_NORMAL[weather]；new 后 wet_flag = (new in {2,3})"
+    }
+  },
+
+  "province_table": {
+    "va": "0x519548",
+    "layout": "49 记录 × 5 字节（国 id 0..48，与名称表 0x506ca8 前 49 条一一对应）",
+    "guard": "所有访问点都先 cmp id,0x31 (=49)；越界则指针置 0",
+    "access_sites": 153,
+    "abs_refs": 205,
+    "fill": "运行时填充（静态映像全 0）",
+    "adjacency": "紧跟在 700 字节武将登场标志（0x519288，700B 至 0x519544）之后",
+    "fields": {
+      "+0": "未定（多数访问点把整条指针存栈后传给函数，静态难追）",
+      "+1": "地域/气候组。{0,2,4} = 雪国（0x43d14f/0x43d154/0x43d15a）；事件条件 opcode 14 也比对此字段（0x4e8354）",
+      "+2": "未定",
+      "+3": "位域：访问器取 (byte>>2)&0x1f（5 bit，0..31）；点位 0x4cfd96 / 0x4d003f / 0x4d0055",
+      "+4": "未定"
+    }
+  },
+
+  "event_condition_evaluator": {
+    "va": "0x4e82c0",
+    "helpers": { "0x49f6b0": "取条件/事件对象（word[+0]=opcode，word[+8]=参数）", "0x44e280": "取当前主角记录（byte[+8]=所在国 id，byte[+0xc]=?）" },
+    "flags_global": "byte[0x516638]（test 0x10 / test 0x04）",
+    "opcodes": { "13": "条件：位于指定国（参数 = 国 id，由指针反算 (ptr-0x519548)/5）", "14": "条件：位于指定地域/气候组（参数 = 国记录 byte[+1]）" }
+  },
+
+  "battle_coupling": {
+    "site": "0x42d62e（位于战力汇总 0x42d5d0 内）",
+    "logic": "if getWetFlag() != 0 and unit_kind == 2 (铁炮/洋枪): strength = strength*2//3",
+    "asm": "0x42d62e call 0x43cb10 / 0x42d643 shl eax,1 ; imul 0x55555556（=×2/3）",
+    "unit_kind_src": "0x43e140: byte[unit+0x13] & 3  ⇒ 0/1/2"
+  },
+
+  "monte_carlo_validation": {
+    "note": "scripts/weather_ref.py 跑 20 年 × 每月 4 tick 的涌现分布（完整版）",
+    "雪国": { "冬": "晴3.8 曇12.1 雨0.0 雪84.2", "春": "晴20.4 曇37.5 雨16.2 雪25.8", "夏": "晴51.2 曇31.7 雨17.1 雪0.0", "秋": "晴32.9 曇42.5 雨24.6 雪0.0" },
+    "非雪国": { "冬": "晴55.4 曇10.4 雨6.2 雪27.9", "春": "晴37.1 曇41.7 雨11.7 雪9.6", "夏": "晴53.8 曇22.1 雨24.2 雪0.0", "秋": "晴25.0 曇44.2 雨30.8 雪0.0" },
+    "consistency": "雪只在冬季生成、残雪延续至春、夏秋绝无雪、秋雨占比最高、雪国冬季雪 84% —— 与 KOEI 设计语义完全自洽"
+  }
+}

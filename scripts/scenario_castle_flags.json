@@ -1,0 +1,1208 @@
+{
+  "note": "SNDATA flag byte at index == castle code (0x00-0xC7); hypothesis, 90/200 ones in scenario1",
+  "castle_count": 200,
+  "scenario1_ones_under_200": 90,
+  "scenario2_ones_under_200": 86,
+  "castles": [
+    {
+      "id": 0,
+      "code_hex": "0x00",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 1,
+      "code_hex": "0x01",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 2,
+      "code_hex": "0x02",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 3,
+      "code_hex": "0x03",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 4,
+      "code_hex": "0x04",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 5,
+      "code_hex": "0x05",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 6,
+      "code_hex": "0x06",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 7,
+      "code_hex": "0x07",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 8,
+      "code_hex": "0x08",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 9,
+      "code_hex": "0x09",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 10,
+      "code_hex": "0x0A",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 11,
+      "code_hex": "0x0B",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 12,
+      "code_hex": "0x0C",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 13,
+      "code_hex": "0x0D",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 14,
+      "code_hex": "0x0E",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 15,
+      "code_hex": "0x0F",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 16,
+      "code_hex": "0x10",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 17,
+      "code_hex": "0x11",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 18,
+      "code_hex": "0x12",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 19,
+      "code_hex": "0x13",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 20,
+      "code_hex": "0x14",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 21,
+      "code_hex": "0x15",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 22,
+      "code_hex": "0x16",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 23,
+      "code_hex": "0x17",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 24,
+      "code_hex": "0x18",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 25,
+      "code_hex": "0x19",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 26,
+      "code_hex": "0x1A",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 27,
+      "code_hex": "0x1B",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 28,
+      "code_hex": "0x1C",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 29,
+      "code_hex": "0x1D",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 30,
+      "code_hex": "0x1E",
+      "scenario1": 0,
+      "scenario2": 1
+    },
+    {
+      "id": 31,
+      "code_hex": "0x1F",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 32,
+      "code_hex": "0x20",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 33,
+      "code_hex": "0x21",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 34,
+      "code_hex": "0x22",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 35,
+      "code_hex": "0x23",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 36,
+      "code_hex": "0x24",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 37,
+      "code_hex": "0x25",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 38,
+      "code_hex": "0x26",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 39,
+      "code_hex": "0x27",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 40,
+      "code_hex": "0x28",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 41,
+      "code_hex": "0x29",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 42,
+      "code_hex": "0x2A",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 43,
+      "code_hex": "0x2B",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 44,
+      "code_hex": "0x2C",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 45,
+      "code_hex": "0x2D",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 46,
+      "code_hex": "0x2E",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 47,
+      "code_hex": "0x2F",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 48,
+      "code_hex": "0x30",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 49,
+      "code_hex": "0x31",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 50,
+      "code_hex": "0x32",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 51,
+      "code_hex": "0x33",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 52,
+      "code_hex": "0x34",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 53,
+      "code_hex": "0x35",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 54,
+      "code_hex": "0x36",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 55,
+      "code_hex": "0x37",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 56,
+      "code_hex": "0x38",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 57,
+      "code_hex": "0x39",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 58,
+      "code_hex": "0x3A",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 59,
+      "code_hex": "0x3B",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 60,
+      "code_hex": "0x3C",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 61,
+      "code_hex": "0x3D",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 62,
+      "code_hex": "0x3E",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 63,
+      "code_hex": "0x3F",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 64,
+      "code_hex": "0x40",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 65,
+      "code_hex": "0x41",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 66,
+      "code_hex": "0x42",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 67,
+      "code_hex": "0x43",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 68,
+      "code_hex": "0x44",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 69,
+      "code_hex": "0x45",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 70,
+      "code_hex": "0x46",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 71,
+      "code_hex": "0x47",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 72,
+      "code_hex": "0x48",
+      "scenario1": 0,
+      "scenario2": 1
+    },
+    {
+      "id": 73,
+      "code_hex": "0x49",
+      "scenario1": 0,
+      "scenario2": 1
+    },
+    {
+      "id": 74,
+      "code_hex": "0x4A",
+      "scenario1": 0,
+      "scenario2": 1
+    },
+    {
+      "id": 75,
+      "code_hex": "0x4B",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 76,
+      "code_hex": "0x4C",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 77,
+      "code_hex": "0x4D",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 78,
+      "code_hex": "0x4E",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 79,
+      "code_hex": "0x4F",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 80,
+      "code_hex": "0x50",
+      "scenario1": 1,
+      "scenario2": 0
+    },
+    {
+      "id": 81,
+      "code_hex": "0x51",
+      "scenario1": 1,
+      "scenario2": 0
+    },
+    {
+      "id": 82,
+      "code_hex": "0x52",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 83,
+      "code_hex": "0x53",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 84,
+      "code_hex": "0x54",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 85,
+      "code_hex": "0x55",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 86,
+      "code_hex": "0x56",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 87,
+      "code_hex": "0x57",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 88,
+      "code_hex": "0x58",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 89,
+      "code_hex": "0x59",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 90,
+      "code_hex": "0x5A",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 91,
+      "code_hex": "0x5B",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 92,
+      "code_hex": "0x5C",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 93,
+      "code_hex": "0x5D",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 94,
+      "code_hex": "0x5E",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 95,
+      "code_hex": "0x5F",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 96,
+      "code_hex": "0x60",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 97,
+      "code_hex": "0x61",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 98,
+      "code_hex": "0x62",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 99,
+      "code_hex": "0x63",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 100,
+      "code_hex": "0x64",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 101,
+      "code_hex": "0x65",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 102,
+      "code_hex": "0x66",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 103,
+      "code_hex": "0x67",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 104,
+      "code_hex": "0x68",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 105,
+      "code_hex": "0x69",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 106,
+      "code_hex": "0x6A",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 107,
+      "code_hex": "0x6B",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 108,
+      "code_hex": "0x6C",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 109,
+      "code_hex": "0x6D",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 110,
+      "code_hex": "0x6E",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 111,
+      "code_hex": "0x6F",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 112,
+      "code_hex": "0x70",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 113,
+      "code_hex": "0x71",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 114,
+      "code_hex": "0x72",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 115,
+      "code_hex": "0x73",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 116,
+      "code_hex": "0x74",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 117,
+      "code_hex": "0x75",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 118,
+      "code_hex": "0x76",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 119,
+      "code_hex": "0x77",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 120,
+      "code_hex": "0x78",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 121,
+      "code_hex": "0x79",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 122,
+      "code_hex": "0x7A",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 123,
+      "code_hex": "0x7B",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 124,
+      "code_hex": "0x7C",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 125,
+      "code_hex": "0x7D",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 126,
+      "code_hex": "0x7E",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 127,
+      "code_hex": "0x7F",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 128,
+      "code_hex": "0x80",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 129,
+      "code_hex": "0x81",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 130,
+      "code_hex": "0x82",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 131,
+      "code_hex": "0x83",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 132,
+      "code_hex": "0x84",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 133,
+      "code_hex": "0x85",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 134,
+      "code_hex": "0x86",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 135,
+      "code_hex": "0x87",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 136,
+      "code_hex": "0x88",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 137,
+      "code_hex": "0x89",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 138,
+      "code_hex": "0x8A",
+      "scenario1": 1,
+      "scenario2": 0
+    },
+    {
+      "id": 139,
+      "code_hex": "0x8B",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 140,
+      "code_hex": "0x8C",
+      "scenario1": 0,
+      "scenario2": 1
+    },
+    {
+      "id": 141,
+      "code_hex": "0x8D",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 142,
+      "code_hex": "0x8E",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 143,
+      "code_hex": "0x8F",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 144,
+      "code_hex": "0x90",
+      "scenario1": 1,
+      "scenario2": 0
+    },
+    {
+      "id": 145,
+      "code_hex": "0x91",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 146,
+      "code_hex": "0x92",
+      "scenario1": 0,
+      "scenario2": 1
+    },
+    {
+      "id": 147,
+      "code_hex": "0x93",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 148,
+      "code_hex": "0x94",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 149,
+      "code_hex": "0x95",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 150,
+      "code_hex": "0x96",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 151,
+      "code_hex": "0x97",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 152,
+      "code_hex": "0x98",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 153,
+      "code_hex": "0x99",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 154,
+      "code_hex": "0x9A",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 155,
+      "code_hex": "0x9B",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 156,
+      "code_hex": "0x9C",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 157,
+      "code_hex": "0x9D",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 158,
+      "code_hex": "0x9E",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 159,
+      "code_hex": "0x9F",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 160,
+      "code_hex": "0xA0",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 161,
+      "code_hex": "0xA1",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 162,
+      "code_hex": "0xA2",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 163,
+      "code_hex": "0xA3",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 164,
+      "code_hex": "0xA4",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 165,
+      "code_hex": "0xA5",
+      "scenario1": 1,
+      "scenario2": 0
+    },
+    {
+      "id": 166,
+      "code_hex": "0xA6",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 167,
+      "code_hex": "0xA7",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 168,
+      "code_hex": "0xA8",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 169,
+      "code_hex": "0xA9",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 170,
+      "code_hex": "0xAA",
+      "scenario1": 1,
+      "scenario2": 0
+    },
+    {
+      "id": 171,
+      "code_hex": "0xAB",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 172,
+      "code_hex": "0xAC",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 173,
+      "code_hex": "0xAD",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 174,
+      "code_hex": "0xAE",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 175,
+      "code_hex": "0xAF",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 176,
+      "code_hex": "0xB0",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 177,
+      "code_hex": "0xB1",
+      "scenario1": 1,
+      "scenario2": 0
+    },
+    {
+      "id": 178,
+      "code_hex": "0xB2",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 179,
+      "code_hex": "0xB3",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 180,
+      "code_hex": "0xB4",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 181,
+      "code_hex": "0xB5",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 182,
+      "code_hex": "0xB6",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 183,
+      "code_hex": "0xB7",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 184,
+      "code_hex": "0xB8",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 185,
+      "code_hex": "0xB9",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 186,
+      "code_hex": "0xBA",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 187,
+      "code_hex": "0xBB",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 188,
+      "code_hex": "0xBC",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 189,
+      "code_hex": "0xBD",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 190,
+      "code_hex": "0xBE",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 191,
+      "code_hex": "0xBF",
+      "scenario1": 0,
+      "scenario2": 0
+    },
+    {
+      "id": 192,
+      "code_hex": "0xC0",
+      "scenario1": 1,
+      "scenario2": 0
+    },
+    {
+      "id": 193,
+      "code_hex": "0xC1",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 194,
+      "code_hex": "0xC2",
+      "scenario1": 1,
+      "scenario2": 0
+    },
+    {
+      "id": 195,
+      "code_hex": "0xC3",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 196,
+      "code_hex": "0xC4",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 197,
+      "code_hex": "0xC5",
+      "scenario1": 1,
+      "scenario2": 1
+    },
+    {
+      "id": 198,
+      "code_hex": "0xC6",
+      "scenario1": 1,
+      "scenario2": 0
+    },
+    {
+      "id": 199,
+      "code_hex": "0xC7",
+      "scenario1": 1,
+      "scenario2": 1
+    }
+  ]
+}

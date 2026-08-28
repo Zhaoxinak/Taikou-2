@@ -1,0 +1,224 @@
+{
+  "note": "bytecode_flags = uint16 in KOS body that match SNDATA1 story indices 200-399 with value 1",
+  "story_range": [
+    200,
+    399
+  ],
+  "events": {
+    "CANCEL.KOS": {
+      "kos_index": 0,
+      "hypothesis_flag": 200,
+      "bytecode_flags": []
+    },
+    "CLICK.KOS": {
+      "kos_index": 1,
+      "hypothesis_flag": 201,
+      "bytecode_flags": []
+    },
+    "GIHEI.KOS": {
+      "kos_index": 2,
+      "hypothesis_flag": 202,
+      "bytecode_flags": []
+    },
+    "GINOUUP.KOS": {
+      "kos_index": 3,
+      "hypothesis_flag": 203,
+      "bytecode_flags": []
+    },
+    "IATSU.KOS": {
+      "kos_index": 4,
+      "hypothesis_flag": 204,
+      "bytecode_flags": [
+        256
+      ]
+    },
+    "IDOU.KOS": {
+      "kos_index": 5,
+      "hypothesis_flag": 205,
+      "bytecode_flags": []
+    },
+    "IGENSYOU.KOS": {
+      "kos_index": 6,
+      "hypothesis_flag": 206,
+      "bytecode_flags": [
+        256,
+        279
+      ]
+    },
+    "IKARI.KOS": {
+      "kos_index": 7,
+      "hypothesis_flag": 207,
+      "bytecode_flags": []
+    },
+    "INOTIGOI.KOS": {
+      "kos_index": 8,
+      "hypothesis_flag": 208,
+      "bytecode_flags": [
+        286
+      ]
+    },
+    "IZOUKA.KOS": {
+      "kos_index": 9,
+      "hypothesis_flag": 209,
+      "bytecode_flags": [
+        296
+      ]
+    },
+    "KAISHIN.KOS": {
+      "kos_index": 10,
+      "hypothesis_flag": 210,
+      "bytecode_flags": [
+        280
+      ]
+    },
+    "KAKEI.KOS": {
+      "kos_index": 11,
+      "hypothesis_flag": 211,
+      "bytecode_flags": []
+    },
+    "KAMINARI.KOS": {
+      "kos_index": 12,
+      "hypothesis_flag": 212,
+      "bytecode_flags": []
+    },
+    "KEMURI.KOS": {
+      "kos_index": 13,
+      "hypothesis_flag": 213,
+      "bytecode_flags": [
+        256
+      ]
+    },
+    "KOATARI.KOS": {
+      "kos_index": 14,
+      "hypothesis_flag": 214,
+      "bytecode_flags": []
+    },
+    "KOUGEKI1.KOS": {
+      "kos_index": 15,
+      "hypothesis_flag": 215,
+      "bytecode_flags": []
+    },
+    "KOUGEKI2.KOS": {
+      "kos_index": 16,
+      "hypothesis_flag": 216,
+      "bytecode_flags": []
+    },
+    "MACHIMES.KOS": {
+      "kos_index": 17,
+      "hypothesis_flag": 217,
+      "bytecode_flags": []
+    },
+    "MATISIRO.KOS": {
+      "kos_index": 18,
+      "hypothesis_flag": 218,
+      "bytecode_flags": []
+    },
+    "METUBUSI.KOS": {
+      "kos_index": 19,
+      "hypothesis_flag": 219,
+      "bytecode_flags": []
+    },
+    "MI_AME.KOS": {
+      "kos_index": 20,
+      "hypothesis_flag": 220,
+      "bytecode_flags": []
+    },
+    "MI_HARE.KOS": {
+      "kos_index": 21,
+      "hypothesis_flag": 221,
+      "bytecode_flags": []
+    },
+    "NIGERU.KOS": {
+      "kos_index": 22,
+      "hypothesis_flag": 222,
+      "bytecode_flags": []
+    },
+    "NINJA.KOS": {
+      "kos_index": 23,
+      "hypothesis_flag": 223,
+      "bytecode_flags": []
+    },
+    "OOATARI.KOS": {
+      "kos_index": 24,
+      "hypothesis_flag": 224,
+      "bytecode_flags": [
+        256,
+        379
+      ]
+    },
+    "OPENGATE.KOS": {
+      "kos_index": 25,
+      "hypothesis_flag": 225,
+      "bytecode_flags": []
+    },
+    "RAKUSEKI.KOS": {
+      "kos_index": 26,
+      "hypothesis_flag": 226,
+      "bytecode_flags": []
+    },
+    "SEIKOU.KOS": {
+      "kos_index": 27,
+      "hypothesis_flag": 227,
+      "bytecode_flags": []
+    },
+    "SHIKI.KOS": {
+      "kos_index": 28,
+      "hypothesis_flag": 228,
+      "bytecode_flags": []
+    },
+    "SHIPPAI.KOS": {
+      "kos_index": 29,
+      "hypothesis_flag": 229,
+      "bytecode_flags": []
+    },
+    "SIKAKU.KOS": {
+      "kos_index": 30,
+      "hypothesis_flag": 230,
+      "bytecode_flags": [
+        363
+      ]
+    },
+    "SYUUZEN.KOS": {
+      "kos_index": 31,
+      "hypothesis_flag": 231,
+      "bytecode_flags": [
+        256
+      ]
+    },
+    "TEPPOU.KOS": {
+      "kos_index": 32,
+      "hypothesis_flag": 232,
+      "bytecode_flags": []
+    },
+    "TGENSYOU.KOS": {
+      "kos_index": 33,
+      "hypothesis_flag": 233,
+      "bytecode_flags": []
+    },
+    "TOTUGEKI.KOS": {
+      "kos_index": 34,
+      "hypothesis_flag": 234,
+      "bytecode_flags": []
+    },
+    "UKETA.KOS": {
+      "kos_index": 35,
+      "hypothesis_flag": 235,
+      "bytecode_flags": []
+    },
+    "UMETATE.KOS": {
+      "kos_index": 36,
+      "hypothesis_flag": 236,
+      "bytecode_flags": []
+    },
+    "YOKETA.KOS": {
+      "kos_index": 37,
+      "hypothesis_flag": 237,
+      "bytecode_flags": []
+    },
+    "ZANSYU.KOS": {
+      "kos_index": 38,
+      "hypothesis_flag": 238,
+      "bytecode_flags": []
+    }
+  }
+}

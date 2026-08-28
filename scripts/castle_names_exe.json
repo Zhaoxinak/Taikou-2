@@ -1,0 +1,558 @@
+{
+ "source": "EXE name table @0x506ca8, castle block = name_table[88 + id]",
+ "note": "EXE names are authoritative in-game names; community table differs in 10 cases (5 are historical alt names: 泷山/泷川, 兴津/兴泽, 稻叶山/岐阜, 朽木谷/二条, 本愿寺/大阪; 5 are variant kanji of same reading: 二俣/二俁, 长筱/长篠, 桢岛/槙岛, 高规/高槻, 御著/御着).",
+ "castles": [
+  {
+   "id": 0,
+   "exe_name": "三户",
+   "community_name": "三户",
+   "is_alt": false
+  },
+  {
+   "id": 1,
+   "exe_name": "八户",
+   "community_name": "八户",
+   "is_alt": false
+  },
+  {
+   "id": 2,
+   "exe_name": "弘前",
+   "community_name": "弘前",
+   "is_alt": false
+  },
+  {
+   "id": 3,
+   "exe_name": "米泽",
+   "community_name": "米泽",
+   "is_alt": false
+  },
+  {
+   "id": 4,
+   "exe_name": "岩出山",
+   "community_name": "岩出山",
+   "is_alt": false
+  },
+  {
+   "id": 5,
+   "exe_name": "登米",
+   "community_name": "登米",
+   "is_alt": false
+  },
+  {
+   "id": 6,
+   "exe_name": "白石",
+   "community_name": "白石",
+   "is_alt": false
+  },
+  {
+   "id": 7,
+   "exe_name": "桑折",
+   "community_name": "桑折",
+   "is_alt": false
+  },
+  {
+   "id": 8,
+   "exe_name": "山形",
+   "community_name": "山形",
+   "is_alt": false
+  },
+  {
+   "id": 9,
+   "exe_name": "横手",
+   "community_name": "横手",
+   "is_alt": false
+  },
+  {
+   "id": 10,
+   "exe_name": "鲑延",
+   "community_name": "鲑延",
+   "is_alt": false
+  },
+  {
+   "id": 11,
+   "exe_name": "鹤冈",
+   "community_name": "鹤冈",
+   "is_alt": false
+  },
+  {
+   "id": 12,
+   "exe_name": "黑川",
+   "community_name": "黑川",
+   "is_alt": false
+  },
+  {
+   "id": 13,
+   "exe_name": "二本松",
+   "community_name": "二本松",
+   "is_alt": false
+  },
+  {
+   "id": 14,
+   "exe_name": "须贺川",
+   "community_name": "须贺川",
+   "is_alt": false
+  },
+  {
+   "id": 15,
+   "exe_name": "厩桥",
+   "community_name": "厩桥",
+   "is_alt": false
+  },
+  {
+   "id": 16,
+   "exe_name": "沼田",
+   "community_name": "沼田",
+   "is_alt": false
+  },
+  {
+   "id": 17,
+   "exe_name": "箕轮",
+   "community_name": "箕轮",
+   "is_alt": false
+  },
+  {
+   "id": 18,
+   "exe_name": "松井田",
+   "community_name": "松井田",
+   "is_alt": false
+  },
+  {
+   "id": 19,
+   "exe_name": "馆林",
+   "community_name": "馆林",
+   "is_alt": false
+  },
+  {
+   "id": 20,
+   "exe_name": "宇都宫",
+   "community_name": "宇都宫",
+   "is_alt": false
+  },
+  {
+   "id": 21,
+   "exe_name": "唐泽山",
+   "community_name": "唐泽山",
+   "is_alt": false
+  },
+  {
+   "id": 22,
+   "exe_name": "小山",
+   "community_name": "小山",
+   "is_alt": false
+  },
+  {
+   "id": 23,
+   "exe_name": "太田",
+   "community_name": "太田",
+   "is_alt": false
+  },
+  {
+   "id": 24,
+   "exe_name": "水户",
+   "community_name": "水户",
+   "is_alt": false
+  },
+  {
+   "id": 25,
+   "exe_name": "小田",
+   "community_name": "小田",
+   "is_alt": false
+  },
+  {
+   "id": 26,
+   "exe_name": "国府台",
+   "community_name": "国府台",
+   "is_alt": false
+  },
+  {
+   "id": 27,
+   "exe_name": "结",
+   "community_name": "结",
+   "is_alt": false
+  },
+  {
+   "id": 28,
+   "exe_name": "久留里",
+   "community_name": "久留里",
+   "is_alt": false
+  },
+  {
+   "id": 29,
+   "exe_name": "稻村",
+   "community_name": "稻村",
+   "is_alt": false
+  },
+  {
+   "id": 30,
+   "exe_name": "河越",
+   "community_name": "河越",
+   "is_alt": false
+  },
+  {
+   "id": 31,
+   "exe_name": "忍",
+   "community_name": "忍",
+   "is_alt": false
+  },
+  {
+   "id": 32,
+   "exe_name": "钵形",
+   "community_name": "钵形",
+   "is_alt": false
+  },
+  {
+   "id": 33,
+   "exe_name": "江户",
+   "community_name": "江户",
+   "is_alt": false
+  },
+  {
+   "id": 34,
+   "exe_name": "泷山",
+   "community_name": "泷川",
+   "is_alt": true
+  },
+  {
+   "id": 35,
+   "exe_name": "小田原",
+   "community_name": "小田原",
+   "is_alt": false
+  },
+  {
+   "id": 36,
+   "exe_name": "玉绳",
+   "community_name": "玉绳",
+   "is_alt": false
+  },
+  {
+   "id": 37,
+   "exe_name": "津久井",
+   "community_name": "津久井",
+   "is_alt": false
+  },
+  {
+   "id": 38,
+   "exe_name": "三浦",
+   "community_name": "三浦",
+   "is_alt": false
+  },
+  {
+   "id": 39,
+   "exe_name": "韭山",
+   "community_name": "韭山",
+   "is_alt": false
+  },
+  {
+   "id": 40,
+   "exe_name": "踯躅崎",
+   "community_name": "踯躅崎",
+   "is_alt": false
+  },
+  {
+   "id": 41,
+   "exe_name": "下山",
+   "community_name": "下山",
+   "is_alt": false
+  },
+  {
+   "id": 42,
+   "exe_name": "岩殿",
+   "community_name": "岩殿",
+   "is_alt": false
+  },
+  {
+   "id": 43,
+   "exe_name": "韭崎",
+   "community_name": "韭崎",
+   "is_alt": false
+  },
+  {
+   "id": 44,
+   "exe_name": "海津",
+   "community_name": "海津",
+   "is_alt": false
+  },
+  {
+   "id": 45,
+   "exe_name": "饭山",
+   "community_name": "饭山",
+   "is_alt": false
+  },
+  {
+   "id": 46,
+   "exe_name": "小诸",
+   "community_name": "小诸",
+   "is_alt": false
+  },
+  {
+   "id": 47,
+   "exe_name": "木曾福岛",
+   "community_name": "木曾福岛",
+   "is_alt": false
+  },
+  {
+   "id": 48,
+   "exe_name": "高远",
+   "community_name": "高远",
+   "is_alt": false
+  },
+  {
+   "id": 49,
+   "exe_name": "饭田",
+   "community_name": "饭田",
+   "is_alt": false
+  },
+  {
+   "id": 50,
+   "exe_name": "春日山",
+   "community_name": "春日山",
+   "is_alt": false
+  },
+  {
+   "id": 51,
+   "exe_name": "本庄",
+   "community_name": "本庄",
+   "is_alt": false
+  },
+  {
+   "id": 52,
+   "exe_name": "新发田",
+   "community_name": "新发田",
+   "is_alt": false
+  },
+  {
+   "id": 53,
+   "exe_name": "枥尾",
+   "community_name": "枥尾",
+   "is_alt": false
+  },
+  {
+   "id": 54,
+   "exe_name": "骏府",
+   "community_name": "骏府",
+   "is_alt": false
+  },
+  {
+   "id": 55,
+   "exe_name": "深泽",
+   "community_name": "深泽",
+   "is_alt": false
+  },
+  {
+   "id": 56,
+   "exe_name": "兴津",
+   "community_name": "兴泽",
+   "is_alt": true
+  },
+  {
+   "id": 57,
+   "exe_name": "花泽",
+   "community_name": "花泽",
+   "is_alt": false
+  },
+  {
+   "id": 58,
+   "exe_name": "滨松",
+   "community_name": "滨松",
+   "is_alt": false
+  },
+  {
+   "id": 59,
+   "exe_name": "二俣",
+   "community_name": "二俁",
+   "is_alt": true
+  },
+  {
+   "id": 60,
+   "exe_name": "挂川",
+   "community_name": "挂川",
+   "is_alt": false
+  },
+  {
+   "id": 61,
+   "exe_name": "高天神",
+   "community_name": "高天神",
+   "is_alt": false
+  },
+  {
+   "id": 62,
+   "exe_name": "冈崎",
+   "community_name": "冈崎",
+   "is_alt": false
+  },
+  {
+   "id": 63,
+   "exe_name": "长筱",
+   "community_name": "长篠",
+   "is_alt": true
+  },
+  {
+   "id": 64,
+   "exe_name": "野田",
+   "community_name": "野田",
+   "is_alt": false
+  },
+  {
+   "id": 65,
+   "exe_name": "吉田",
+   "community_name": "吉田",
+   "is_alt": false
+  },
+  {
+   "id": 66,
+   "exe_name": "清洲",
+   "community_name": "清洲",
+   "is_alt": false
+  },
+  {
+   "id": 67,
+   "exe_name": "鸣海",
+   "community_name": "鸣海",
+   "is_alt": false
+  },
+  {
+   "id": 68,
+   "exe_name": "小牧山",
+   "community_name": "小牧山",
+   "is_alt": false
+  },
+  {
+   "id": 69,
+   "exe_name": "犬山",
+   "community_name": "犬山",
+   "is_alt": false
+  },
+  {
+   "id": 70,
+   "exe_name": "守山",
+   "community_name": "守山",
+   "is_alt": false
+  },
+  {
+   "id": 71,
+   "exe_name": "那古野",
+   "community_name": "那古野",
+   "is_alt": false
+  },
+  {
+   "id": 72,
+   "exe_name": "稻叶山",
+   "community_name": "稻叶山",
+   "is_alt": false
+  },
+  {
+   "id": 73,
+   "exe_name": "墨俣",
+   "community_name": "墨俣",
+   "is_alt": false
+  },
+  {
+   "id": 74,
+   "exe_name": "大垣",
+   "community_name": "大垣",
+   "is_alt": false
+  },
+  {
+   "id": 75,
+   "exe_name": "曾根",
+   "community_name": "曾根",
+   "is_alt": false
+  },
+  {
+   "id": 76,
+   "exe_name": "岩村",
+   "community_name": "岩村",
+   "is_alt": false
+  },
+  {
+   "id": 77,
+   "exe_name": "北方",
+   "community_name": "北方",
+   "is_alt": false
+  },
+  {
+   "id": 78,
+   "exe_name": "安浓津",
+   "community_name": "安浓津",
+   "is_alt": false
+  },
+  {
+   "id": 79,
+   "exe_name": "长岛",
+   "community_name": "长岛",
+   "is_alt": false
+  },
+  {
+   "id": 80,
+   "exe_name": "桑名",
+   "community_name": "桑名",
+   "is_alt": false
+  },
+  {
+   "id": 81,
+   "exe_name": "伊势龟山",
+   "community_name": "伊势龟山",
+   "is_alt": false
+  },
+  {
+   "id": 82,
+   "exe_name": "大河内",
+   "community_name": "大河内",
+   "is_alt": false
+  },
+  {
+   "id": 83,
+   "exe_name": "鸟羽",
+   "community_name": "鸟羽",
+   "is_alt": false
+  },
+  {
+   "id": 84,
+   "exe_name": "富山",
+   "community_name": "富山",
+   "is_alt": false
+  },
+  {
+   "id": 85,
+   "exe_name": "鱼津",
+   "community_name": "鱼津",
+   "is_alt": false
+  },
+  {
+   "id": 86,
+   "exe_name": "七尾",
+   "community_name": "七尾",
+   "is_alt": false
+  },
+  {
+   "id": 87,
+   "exe_name": "金泽",
+   "community_name": "金泽",
+   "is_alt": false
+  },
+  {
+   "id": 88,
+   "exe_name": "小松",
+   "community_name": "小松",
+   "is_alt": false
+  },
+  {
+   "id": 89,
+   "exe_name": "大圣寺",
+   "community_name": "大圣寺",
+   "is_alt": false
+  },
+  {
+   "id": 90,
+   "exe_name": "一乘谷",
+   "community_name": "一乘谷",
+   "is_alt": false
+  },
+  {
+   "id": 91,
+   "exe_name": "北之庄",
+   "community_name": "北之庄",
+   "is_alt": false
+  }
+ ]
+}

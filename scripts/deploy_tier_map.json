@@ -1,0 +1,1041 @@
+{
+  "source": "hjmapdat_battles.json (38 battles)",
+  "deploy_grid": "40x19 ASCII section C",
+  "sect_a_rows": 9,
+  "global_deploy_char_freq": {
+    "�": 20892,
+    "J": 550,
+    "K": 514,
+    "I": 415,
+    "9": 409,
+    "8": 403,
+    "2": 375,
+    "3": 368,
+    "H": 367,
+    "+": 199,
+    ".": 186,
+    "t": 171,
+    "=": 156,
+    "@": 154,
+    "q": 146,
+    "A": 139,
+    ",": 132,
+    "?": 124,
+    "s": 122,
+    ">": 114,
+    "~": 113,
+    "|": 113,
+    "<": 111,
+    "v": 111
+  },
+  "token_given_tier": {
+    "0": {
+      "battles_populated": 37,
+      "mean_nibble_cells": 8.32,
+      "tokens": {
+        "+": {
+          "label": "center",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.865,
+          "global_rate": 0.868
+        },
+        "-": {
+          "label": "center_reserve",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.784,
+          "global_rate": 0.789
+        },
+        "/": {
+          "label": "left_special",
+          "count_when_populated": 25,
+          "rate_when_populated": 0.676,
+          "global_rate": 0.684
+        },
+        "1": {
+          "label": "left_marker",
+          "count_when_populated": 2,
+          "rate_when_populated": 0.054,
+          "global_rate": 0.053
+        },
+        "2": {
+          "label": "right_wing",
+          "count_when_populated": 31,
+          "rate_when_populated": 0.838,
+          "global_rate": 0.842
+        },
+        "3": {
+          "label": "center_general",
+          "count_when_populated": 31,
+          "rate_when_populated": 0.838,
+          "global_rate": 0.842
+        },
+        "5": {
+          "label": "right_special",
+          "count_when_populated": 31,
+          "rate_when_populated": 0.838,
+          "global_rate": 0.842
+        },
+        "7": {
+          "label": "right_marker",
+          "count_when_populated": 10,
+          "rate_when_populated": 0.27,
+          "global_rate": 0.263
+        },
+        "8": {
+          "label": "right_troop",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.865,
+          "global_rate": 0.868
+        },
+        "9": {
+          "label": "right_general",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.865,
+          "global_rate": 0.868
+        },
+        "H": {
+          "label": "center_troop",
+          "count_when_populated": 34,
+          "rate_when_populated": 0.919,
+          "global_rate": 0.921
+        },
+        "I": {
+          "label": "left_wing",
+          "count_when_populated": 33,
+          "rate_when_populated": 0.892,
+          "global_rate": 0.895
+        },
+        "J": {
+          "label": "left_general",
+          "count_when_populated": 34,
+          "rate_when_populated": 0.919,
+          "global_rate": 0.921
+        },
+        "K": {
+          "label": "left_troop",
+          "count_when_populated": 34,
+          "rate_when_populated": 0.919,
+          "global_rate": 0.921
+        }
+      }
+    },
+    "1": {
+      "battles_populated": 38,
+      "mean_nibble_cells": 8.68,
+      "tokens": {
+        "+": {
+          "label": "center",
+          "count_when_populated": 33,
+          "rate_when_populated": 0.868,
+          "global_rate": 0.868
+        },
+        "-": {
+          "label": "center_reserve",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.789,
+          "global_rate": 0.789
+        },
+        "/": {
+          "label": "left_special",
+          "count_when_populated": 26,
+          "rate_when_populated": 0.684,
+          "global_rate": 0.684
+        },
+        "1": {
+          "label": "left_marker",
+          "count_when_populated": 2,
+          "rate_when_populated": 0.053,
+          "global_rate": 0.053
+        },
+        "2": {
+          "label": "right_wing",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.842,
+          "global_rate": 0.842
+        },
+        "3": {
+          "label": "center_general",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.842,
+          "global_rate": 0.842
+        },
+        "5": {
+          "label": "right_special",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.842,
+          "global_rate": 0.842
+        },
+        "7": {
+          "label": "right_marker",
+          "count_when_populated": 10,
+          "rate_when_populated": 0.263,
+          "global_rate": 0.263
+        },
+        "8": {
+          "label": "right_troop",
+          "count_when_populated": 33,
+          "rate_when_populated": 0.868,
+          "global_rate": 0.868
+        },
+        "9": {
+          "label": "right_general",
+          "count_when_populated": 33,
+          "rate_when_populated": 0.868,
+          "global_rate": 0.868
+        },
+        "H": {
+          "label": "center_troop",
+          "count_when_populated": 35,
+          "rate_when_populated": 0.921,
+          "global_rate": 0.921
+        },
+        "I": {
+          "label": "left_wing",
+          "count_when_populated": 34,
+          "rate_when_populated": 0.895,
+          "global_rate": 0.895
+        },
+        "J": {
+          "label": "left_general",
+          "count_when_populated": 35,
+          "rate_when_populated": 0.921,
+          "global_rate": 0.921
+        },
+        "K": {
+          "label": "left_troop",
+          "count_when_populated": 35,
+          "rate_when_populated": 0.921,
+          "global_rate": 0.921
+        }
+      }
+    },
+    "2": {
+      "battles_populated": 35,
+      "mean_nibble_cells": 7.13,
+      "tokens": {
+        "+": {
+          "label": "center",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.857,
+          "global_rate": 0.868
+        },
+        "-": {
+          "label": "center_reserve",
+          "count_when_populated": 27,
+          "rate_when_populated": 0.771,
+          "global_rate": 0.789
+        },
+        "/": {
+          "label": "left_special",
+          "count_when_populated": 25,
+          "rate_when_populated": 0.714,
+          "global_rate": 0.684
+        },
+        "1": {
+          "label": "left_marker",
+          "count_when_populated": 2,
+          "rate_when_populated": 0.057,
+          "global_rate": 0.053
+        },
+        "2": {
+          "label": "right_wing",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.829,
+          "global_rate": 0.842
+        },
+        "3": {
+          "label": "center_general",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.829,
+          "global_rate": 0.842
+        },
+        "5": {
+          "label": "right_special",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.829,
+          "global_rate": 0.842
+        },
+        "7": {
+          "label": "right_marker",
+          "count_when_populated": 10,
+          "rate_when_populated": 0.286,
+          "global_rate": 0.263
+        },
+        "8": {
+          "label": "right_troop",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.857,
+          "global_rate": 0.868
+        },
+        "9": {
+          "label": "right_general",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.857,
+          "global_rate": 0.868
+        },
+        "H": {
+          "label": "center_troop",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.914,
+          "global_rate": 0.921
+        },
+        "I": {
+          "label": "left_wing",
+          "count_when_populated": 31,
+          "rate_when_populated": 0.886,
+          "global_rate": 0.895
+        },
+        "J": {
+          "label": "left_general",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.914,
+          "global_rate": 0.921
+        },
+        "K": {
+          "label": "left_troop",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.914,
+          "global_rate": 0.921
+        }
+      }
+    },
+    "3": {
+      "battles_populated": 32,
+      "mean_nibble_cells": 5.92,
+      "tokens": {
+        "+": {
+          "label": "center",
+          "count_when_populated": 27,
+          "rate_when_populated": 0.844,
+          "global_rate": 0.868
+        },
+        "-": {
+          "label": "center_reserve",
+          "count_when_populated": 25,
+          "rate_when_populated": 0.781,
+          "global_rate": 0.789
+        },
+        "/": {
+          "label": "left_special",
+          "count_when_populated": 24,
+          "rate_when_populated": 0.75,
+          "global_rate": 0.684
+        },
+        "1": {
+          "label": "left_marker",
+          "count_when_populated": 0,
+          "rate_when_populated": 0.0,
+          "global_rate": 0.053
+        },
+        "2": {
+          "label": "right_wing",
+          "count_when_populated": 27,
+          "rate_when_populated": 0.844,
+          "global_rate": 0.842
+        },
+        "3": {
+          "label": "center_general",
+          "count_when_populated": 28,
+          "rate_when_populated": 0.875,
+          "global_rate": 0.842
+        },
+        "5": {
+          "label": "right_special",
+          "count_when_populated": 27,
+          "rate_when_populated": 0.844,
+          "global_rate": 0.842
+        },
+        "7": {
+          "label": "right_marker",
+          "count_when_populated": 8,
+          "rate_when_populated": 0.25,
+          "global_rate": 0.263
+        },
+        "8": {
+          "label": "right_troop",
+          "count_when_populated": 28,
+          "rate_when_populated": 0.875,
+          "global_rate": 0.868
+        },
+        "9": {
+          "label": "right_general",
+          "count_when_populated": 28,
+          "rate_when_populated": 0.875,
+          "global_rate": 0.868
+        },
+        "H": {
+          "label": "center_troop",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.906,
+          "global_rate": 0.921
+        },
+        "I": {
+          "label": "left_wing",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.906,
+          "global_rate": 0.895
+        },
+        "J": {
+          "label": "left_general",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.906,
+          "global_rate": 0.921
+        },
+        "K": {
+          "label": "left_troop",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.906,
+          "global_rate": 0.921
+        }
+      }
+    },
+    "4": {
+      "battles_populated": 31,
+      "mean_nibble_cells": 5.39,
+      "tokens": {
+        "+": {
+          "label": "center",
+          "count_when_populated": 27,
+          "rate_when_populated": 0.871,
+          "global_rate": 0.868
+        },
+        "-": {
+          "label": "center_reserve",
+          "count_when_populated": 25,
+          "rate_when_populated": 0.806,
+          "global_rate": 0.789
+        },
+        "/": {
+          "label": "left_special",
+          "count_when_populated": 22,
+          "rate_when_populated": 0.71,
+          "global_rate": 0.684
+        },
+        "1": {
+          "label": "left_marker",
+          "count_when_populated": 0,
+          "rate_when_populated": 0.0,
+          "global_rate": 0.053
+        },
+        "2": {
+          "label": "right_wing",
+          "count_when_populated": 27,
+          "rate_when_populated": 0.871,
+          "global_rate": 0.842
+        },
+        "3": {
+          "label": "center_general",
+          "count_when_populated": 28,
+          "rate_when_populated": 0.903,
+          "global_rate": 0.842
+        },
+        "5": {
+          "label": "right_special",
+          "count_when_populated": 27,
+          "rate_when_populated": 0.871,
+          "global_rate": 0.842
+        },
+        "7": {
+          "label": "right_marker",
+          "count_when_populated": 7,
+          "rate_when_populated": 0.226,
+          "global_rate": 0.263
+        },
+        "8": {
+          "label": "right_troop",
+          "count_when_populated": 28,
+          "rate_when_populated": 0.903,
+          "global_rate": 0.868
+        },
+        "9": {
+          "label": "right_general",
+          "count_when_populated": 28,
+          "rate_when_populated": 0.903,
+          "global_rate": 0.868
+        },
+        "H": {
+          "label": "center_troop",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.935,
+          "global_rate": 0.921
+        },
+        "I": {
+          "label": "left_wing",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.935,
+          "global_rate": 0.895
+        },
+        "J": {
+          "label": "left_general",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.935,
+          "global_rate": 0.921
+        },
+        "K": {
+          "label": "left_troop",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.935,
+          "global_rate": 0.921
+        }
+      }
+    },
+    "5": {
+      "battles_populated": 33,
+      "mean_nibble_cells": 5.39,
+      "tokens": {
+        "+": {
+          "label": "center",
+          "count_when_populated": 28,
+          "rate_when_populated": 0.848,
+          "global_rate": 0.868
+        },
+        "-": {
+          "label": "center_reserve",
+          "count_when_populated": 27,
+          "rate_when_populated": 0.818,
+          "global_rate": 0.789
+        },
+        "/": {
+          "label": "left_special",
+          "count_when_populated": 24,
+          "rate_when_populated": 0.727,
+          "global_rate": 0.684
+        },
+        "1": {
+          "label": "left_marker",
+          "count_when_populated": 0,
+          "rate_when_populated": 0.0,
+          "global_rate": 0.053
+        },
+        "2": {
+          "label": "right_wing",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.879,
+          "global_rate": 0.842
+        },
+        "3": {
+          "label": "center_general",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.879,
+          "global_rate": 0.842
+        },
+        "5": {
+          "label": "right_special",
+          "count_when_populated": 28,
+          "rate_when_populated": 0.848,
+          "global_rate": 0.842
+        },
+        "7": {
+          "label": "right_marker",
+          "count_when_populated": 7,
+          "rate_when_populated": 0.212,
+          "global_rate": 0.263
+        },
+        "8": {
+          "label": "right_troop",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.879,
+          "global_rate": 0.868
+        },
+        "9": {
+          "label": "right_general",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.879,
+          "global_rate": 0.868
+        },
+        "H": {
+          "label": "center_troop",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.909,
+          "global_rate": 0.921
+        },
+        "I": {
+          "label": "left_wing",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.909,
+          "global_rate": 0.895
+        },
+        "J": {
+          "label": "left_general",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.909,
+          "global_rate": 0.921
+        },
+        "K": {
+          "label": "left_troop",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.909,
+          "global_rate": 0.921
+        }
+      }
+    },
+    "6": {
+      "battles_populated": 35,
+      "mean_nibble_cells": 6.76,
+      "tokens": {
+        "+": {
+          "label": "center",
+          "count_when_populated": 31,
+          "rate_when_populated": 0.886,
+          "global_rate": 0.868
+        },
+        "-": {
+          "label": "center_reserve",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.829,
+          "global_rate": 0.789
+        },
+        "/": {
+          "label": "left_special",
+          "count_when_populated": 25,
+          "rate_when_populated": 0.714,
+          "global_rate": 0.684
+        },
+        "1": {
+          "label": "left_marker",
+          "count_when_populated": 2,
+          "rate_when_populated": 0.057,
+          "global_rate": 0.053
+        },
+        "2": {
+          "label": "right_wing",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.857,
+          "global_rate": 0.842
+        },
+        "3": {
+          "label": "center_general",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.829,
+          "global_rate": 0.842
+        },
+        "5": {
+          "label": "right_special",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.857,
+          "global_rate": 0.842
+        },
+        "7": {
+          "label": "right_marker",
+          "count_when_populated": 9,
+          "rate_when_populated": 0.257,
+          "global_rate": 0.263
+        },
+        "8": {
+          "label": "right_troop",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.857,
+          "global_rate": 0.868
+        },
+        "9": {
+          "label": "right_general",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.857,
+          "global_rate": 0.868
+        },
+        "H": {
+          "label": "center_troop",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.914,
+          "global_rate": 0.921
+        },
+        "I": {
+          "label": "left_wing",
+          "count_when_populated": 31,
+          "rate_when_populated": 0.886,
+          "global_rate": 0.895
+        },
+        "J": {
+          "label": "left_general",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.914,
+          "global_rate": 0.921
+        },
+        "K": {
+          "label": "left_troop",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.914,
+          "global_rate": 0.921
+        }
+      }
+    },
+    "7": {
+      "battles_populated": 37,
+      "mean_nibble_cells": 8.45,
+      "tokens": {
+        "+": {
+          "label": "center",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.865,
+          "global_rate": 0.868
+        },
+        "-": {
+          "label": "center_reserve",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.784,
+          "global_rate": 0.789
+        },
+        "/": {
+          "label": "left_special",
+          "count_when_populated": 25,
+          "rate_when_populated": 0.676,
+          "global_rate": 0.684
+        },
+        "1": {
+          "label": "left_marker",
+          "count_when_populated": 2,
+          "rate_when_populated": 0.054,
+          "global_rate": 0.053
+        },
+        "2": {
+          "label": "right_wing",
+          "count_when_populated": 31,
+          "rate_when_populated": 0.838,
+          "global_rate": 0.842
+        },
+        "3": {
+          "label": "center_general",
+          "count_when_populated": 31,
+          "rate_when_populated": 0.838,
+          "global_rate": 0.842
+        },
+        "5": {
+          "label": "right_special",
+          "count_when_populated": 31,
+          "rate_when_populated": 0.838,
+          "global_rate": 0.842
+        },
+        "7": {
+          "label": "right_marker",
+          "count_when_populated": 10,
+          "rate_when_populated": 0.27,
+          "global_rate": 0.263
+        },
+        "8": {
+          "label": "right_troop",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.865,
+          "global_rate": 0.868
+        },
+        "9": {
+          "label": "right_general",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.865,
+          "global_rate": 0.868
+        },
+        "H": {
+          "label": "center_troop",
+          "count_when_populated": 34,
+          "rate_when_populated": 0.919,
+          "global_rate": 0.921
+        },
+        "I": {
+          "label": "left_wing",
+          "count_when_populated": 33,
+          "rate_when_populated": 0.892,
+          "global_rate": 0.895
+        },
+        "J": {
+          "label": "left_general",
+          "count_when_populated": 34,
+          "rate_when_populated": 0.919,
+          "global_rate": 0.921
+        },
+        "K": {
+          "label": "left_troop",
+          "count_when_populated": 34,
+          "rate_when_populated": 0.919,
+          "global_rate": 0.921
+        }
+      }
+    },
+    "8": {
+      "battles_populated": 35,
+      "mean_nibble_cells": 8.08,
+      "tokens": {
+        "+": {
+          "label": "center",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.857,
+          "global_rate": 0.868
+        },
+        "-": {
+          "label": "center_reserve",
+          "count_when_populated": 27,
+          "rate_when_populated": 0.771,
+          "global_rate": 0.789
+        },
+        "/": {
+          "label": "left_special",
+          "count_when_populated": 23,
+          "rate_when_populated": 0.657,
+          "global_rate": 0.684
+        },
+        "1": {
+          "label": "left_marker",
+          "count_when_populated": 2,
+          "rate_when_populated": 0.057,
+          "global_rate": 0.053
+        },
+        "2": {
+          "label": "right_wing",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.829,
+          "global_rate": 0.842
+        },
+        "3": {
+          "label": "center_general",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.829,
+          "global_rate": 0.842
+        },
+        "5": {
+          "label": "right_special",
+          "count_when_populated": 29,
+          "rate_when_populated": 0.829,
+          "global_rate": 0.842
+        },
+        "7": {
+          "label": "right_marker",
+          "count_when_populated": 9,
+          "rate_when_populated": 0.257,
+          "global_rate": 0.263
+        },
+        "8": {
+          "label": "right_troop",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.857,
+          "global_rate": 0.868
+        },
+        "9": {
+          "label": "right_general",
+          "count_when_populated": 30,
+          "rate_when_populated": 0.857,
+          "global_rate": 0.868
+        },
+        "H": {
+          "label": "center_troop",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.914,
+          "global_rate": 0.921
+        },
+        "I": {
+          "label": "left_wing",
+          "count_when_populated": 31,
+          "rate_when_populated": 0.886,
+          "global_rate": 0.895
+        },
+        "J": {
+          "label": "left_general",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.914,
+          "global_rate": 0.921
+        },
+        "K": {
+          "label": "left_troop",
+          "count_when_populated": 32,
+          "rate_when_populated": 0.914,
+          "global_rate": 0.921
+        }
+      }
+    }
+  },
+  "wing_correlation": {
+    "tier_0": {
+      "wing": "left_band",
+      "populated": 37,
+      "has_wing_token": 34,
+      "wing_token_rate": 0.919
+    },
+    "tier_1": {
+      "wing": "left_band",
+      "populated": 38,
+      "has_wing_token": 35,
+      "wing_token_rate": 0.921
+    },
+    "tier_2": {
+      "wing": "left_band",
+      "populated": 35,
+      "has_wing_token": 32,
+      "wing_token_rate": 0.914
+    },
+    "tier_3": {
+      "wing": "center_band",
+      "populated": 32,
+      "has_wing_token": 29,
+      "wing_token_rate": 0.906
+    },
+    "tier_4": {
+      "wing": "center_band",
+      "populated": 31,
+      "has_wing_token": 29,
+      "wing_token_rate": 0.935
+    },
+    "tier_5": {
+      "wing": "center_band",
+      "populated": 33,
+      "has_wing_token": 30,
+      "wing_token_rate": 0.909
+    },
+    "tier_6": {
+      "wing": "right_band",
+      "populated": 35,
+      "has_wing_token": 31,
+      "wing_token_rate": 0.886
+    },
+    "tier_7": {
+      "wing": "right_band",
+      "populated": 37,
+      "has_wing_token": 33,
+      "wing_token_rate": 0.892
+    },
+    "tier_8": {
+      "wing": "right_band",
+      "populated": 35,
+      "has_wing_token": 31,
+      "wing_token_rate": 0.886
+    }
+  },
+  "proposed_tier_tokens": {
+    "tier_0": {
+      "primary_tokens": [],
+      "labels": [],
+      "note": {
+        "wing": "left_band",
+        "populated": 37,
+        "has_wing_token": 34,
+        "wing_token_rate": 0.919
+      }
+    },
+    "tier_1": {
+      "primary_tokens": [],
+      "labels": [],
+      "note": {
+        "wing": "left_band",
+        "populated": 38,
+        "has_wing_token": 35,
+        "wing_token_rate": 0.921
+      }
+    },
+    "tier_2": {
+      "primary_tokens": [
+        "/",
+        "7"
+      ],
+      "labels": [
+        "left_special",
+        "right_marker"
+      ],
+      "note": {
+        "wing": "left_band",
+        "populated": 35,
+        "has_wing_token": 32,
+        "wing_token_rate": 0.914
+      }
+    },
+    "tier_3": {
+      "primary_tokens": [
+        "/",
+        "3"
+      ],
+      "labels": [
+        "left_special",
+        "center_general"
+      ],
+      "note": {
+        "wing": "center_band",
+        "populated": 32,
+        "has_wing_token": 29,
+        "wing_token_rate": 0.906
+      }
+    },
+    "tier_4": {
+      "primary_tokens": [
+        "3",
+        "I",
+        "9",
+        "8"
+      ],
+      "labels": [
+        "center_general",
+        "left_wing",
+        "right_general",
+        "right_troop"
+      ],
+      "note": {
+        "wing": "center_band",
+        "populated": 31,
+        "has_wing_token": 29,
+        "wing_token_rate": 0.935
+      }
+    },
+    "tier_5": {
+      "primary_tokens": [
+        "/",
+        "3",
+        "2",
+        "-"
+      ],
+      "labels": [
+        "left_special",
+        "center_general",
+        "right_wing",
+        "center_reserve"
+      ],
+      "note": {
+        "wing": "center_band",
+        "populated": 33,
+        "has_wing_token": 30,
+        "wing_token_rate": 0.909
+      }
+    },
+    "tier_6": {
+      "primary_tokens": [
+        "-",
+        "/"
+      ],
+      "labels": [
+        "center_reserve",
+        "left_special"
+      ],
+      "note": {
+        "wing": "right_band",
+        "populated": 35,
+        "has_wing_token": 31,
+        "wing_token_rate": 0.886
+      }
+    },
+    "tier_7": {
+      "primary_tokens": [],
+      "labels": [],
+      "note": {
+        "wing": "right_band",
+        "populated": 37,
+        "has_wing_token": 33,
+        "wing_token_rate": 0.892
+      }
+    },
+    "tier_8": {
+      "primary_tokens": [],
+      "labels": [],
+      "note": {
+        "wing": "right_band",
+        "populated": 35,
+        "has_wing_token": 31,
+        "wing_token_rate": 0.886
+      }
+    }
+  },
+  "mapping_status": "heuristic_wing_band; not 1:1 char->tier (tokens co-occur on full map)",
+  "exe_row_semantics": {
+    "0": "left_wing_template_primary",
+    "1": "left_wing_template_main",
+    "2": "left_secondary",
+    "3": "center_reserve",
+    "4": "center_reserve_sparse",
+    "5": "center_reserve_sparse",
+    "6": "right_secondary",
+    "7": "right_wing_template_main",
+    "8": "right_wing_template_primary"
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "file": {
+    "path": "F:\\Games\\Taikou2\\TAIK2W95.exe",
+    "size": 451584,
+    "sha256": "2a9bac1e1130d5f48d6d1d184e5917d654a4bafe84cf5ad7083b0b90f7ff13eb",
+    "mtime": 1223506084.0
+  },
+  "pe": {
+    "valid": true,
+    "notes": [
+      "解析成功: 3 节, PE32"
+    ],
+    "machine": "0x014c",
+    "machine_name": "i386",
+    "num_sections": 3,
+    "timestamp": 956134344,
+    "characteristics": "0x010f",
+    "is_dll": false,
+    "pe_type": "PE32",
+    "entry_point_rva": "0x001311a0",
+    "image_base": "0x00400000",
+    "section_alignment": 4096,
+    "file_alignment": 512,
+    "subsystem": "GUI",
+    "dll_characteristics": "0x0000",
+    "data_directories": {
+      "export": {
+        "va": 0,
+        "size": 0
+      },
+      "import": {
+        "va": 1255876,
+        "size": 316
+      },
+      "resource": {
+        "va": 1253376,
+        "size": 2500
+      },
+      "exception": {
+        "va": 0,
+        "size": 0
+      },
+      "security": {
+        "va": 0,
+        "size": 0
+      },
+      "basereloc": {
+        "va": 0,
+        "size": 0
+      },
+      "debug": {
+        "va": 0,
+        "size": 0
+      },
+      "architecture": {
+        "va": 0,
+        "size": 0
+      },
+      "globalptr": {
+        "va": 0,
+        "size": 0
+      },
+      "tls": {
+        "va": 0,
+        "size": 0
+      },
+      "load_config": {
+        "va": 0,
+        "size": 0
+      },
+      "bound_import": {
+        "va": 0,
+        "size": 0
+      },
+      "iat": {
+        "va": 0,
+        "size": 0
+      },
+      "delay_import": {
+        "va": 0,
+        "size": 0
+      },
+      "com_descriptor": {
+        "va": 0,
+        "size": 0
+      },
+      "reserved": {
+        "va": 0,
+        "size": 0
+      }
+    }
+  },
+  "sections": [
+    {
+      "index": 0,
+      "name": "FuckALI",
+      "vsize": 798720,
+      "vaddr": 4096,
+      "rsize": 0,
+      "roff": 1024,
+      "chars_hex": "0xe0000080",
+      "flags": [
+        "CNT_UNINIT_DATA",
+        "MEM_DISCARDABLE"
+      ],
+      "is_exec": false,
+      "entropy": 0.0,
+      "raw_len": 0
+    },
+    {
+      "index": 1,
+      "name": "FuckALI",
+      "vsize": 450560,
+      "vaddr": 802816,
+      "rsize": 447488,
+      "roff": 1024,
+      "chars_hex": "0xe0000040",
+      "flags": [
+        "CNT_INIT_DATA",
+        "MEM_DISCARDABLE"
+      ],
+      "is_exec": false,
+      "entropy": 7.9204,
+      "raw_len": 447488
+    },
+    {
+      "index": 2,
+      "name": ".rsrc",
+      "vsize": 4096,
+      "vaddr": 1253376,
+      "rsize": 3072,
+      "roff": 448512,
+      "chars_hex": "0xc0000040",
+      "flags": [
+        "CNT_INIT_DATA",
+        "MEM_DISCARDABLE"
+      ],
+      "is_exec": false,
+      "entropy": 3.443,
+      "raw_len": 3072
+    }
+  ],
+  "imports": {
+    "KERNEL32.DLL": [
+      "LoadLibraryA",
+      "GetProcAddress",
+      "VirtualProtect",
+      "VirtualAlloc",
+      "VirtualFree",
+      "ExitProcess"
+    ],
+    "GDI32.dll": [
+      "BitBlt"
+    ],
+    "USER32.dll": [
+      "GetDC"
+    ],
+    "WINMM.dll": [
+      "timeGetTime"
+    ]
+  },
+  "strings_summary": {
+    "ascii_total": 6481,
+    "utf16_total": 23,
+    "interesting_count": 19,
+    "interesting_sample": [
+      "APPMENU",
+      "APPVERSION",
+      "Copyright(C) 1997, 2000 KOEI CO., LTD.",
+      "FileVersion",
+      "KOEI CO., LTD.",
+      "KOU2_SAVEFILE)/NEW",
+      "LoadLibraryA",
+      "MESSAGE1!",
+      "ProductVersion",
+      "TAIK2WIN95",
+      "TAIK2WIN95.EXE",
+      "TOWN",
+      "Taik2w",
+      "VS_VERSION_INFO",
+      "bAM/SCENARIO",
+      "ffKOEILOGO.3Q",
+      "ime error 6",
+      "o_HD.GRP",
+      "v:HBMAP.LZW+"
+    ]
+  },
+  "packer_hints": [
+    "节名含 'FuckALI' / 'Fuck' 反逆向标记 → 典型保护器/混淆行为",
+    "导入表可静态解析: 4 个 DLL, 共 9 个 API"
+  ]
+}

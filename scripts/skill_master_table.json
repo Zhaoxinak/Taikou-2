@@ -1,0 +1,279 @@
+{
+  "source": "skills_spec + name_table + MSGX hints + EXE skill registry arch (0x443d80/0x517850)",
+  "status": "object_pool_model_closed; inventory+skill shared 200x10B @0x51e1f0; getValue emu 19/19",
+  "skill_stream_record": {
+    "stride_bytes": 10,
+    "count": 200,
+    "base_va": "0x51e1f0",
+    "scanner_ptr_va": "0x51e1f8",
+    "note": "C++ objects; init stamps vtable 0x4fc0e0; see item_pool_spec.json",
+    "fields": {
+      "vptr": "+0  0x4fc0e0",
+      "scratch_word": "+4",
+      "level_byte": "+5",
+      "owner_key_word": "+6  player_id@0x516624 OR (npc_index|0x8000)",
+      "flags_word": "+8  bit7=owned, bits0-2=category, bits3-6=sub"
+    },
+    "categories_507ea8": ["酒", "书籍", "道具", "财宝", "武器", "南蛮物", "美术品", "茶具"],
+    "emu": "scripts/_emu_item_pool.py 19/19 PASS; scripts/_emu_skill_registry.py ALL PASS"
+  },
+  "skill_stream_fill_chain": {
+    "record_base_va": "0x51e1f0",
+    "scanner_ptr_va": "0x51e1f8",
+    "secondary_stream_va": "0x517728",
+    "init": "0x47a390",
+    "town_enter": {"func": "0x44a8e0", "msgx": "0x1362", "rebuild": "0x44e020"},
+    "teach_or_give": {"func": "0x442470", "msgx": "0x370=#880 那好，给我吧。", "rebuild": "0x442010"},
+    "note": "Pool is inventory objects; skill menus scan owned entries"
+  },
+  "skill_registry": {
+    "builder": "0x443d80",
+    "global_ptr": "0x517838",
+    "character_pool_base": "0x517850",
+    "character_stride_bytes": 12,
+    "skill_stream_va": "0x51e1f8",
+    "skill_stream_count": 200,
+    "skill_stream_stride_bytes": 10,
+    "match_key": "index = (npc_ptr - 0x517850) / 12; word with ah|=0x80, al&7 = category",
+    "menu_builder": "0x45f600",
+    "selector": "0x45f690",
+    "menu_category_map": {
+      "0": "skill objects with byte@8&7 == 4",
+      "1": "byte@8&7 == 1",
+      "2": "byte@8&7 in {6,7}",
+      "3": "byte@8&7 in {5,3}"
+    }
+  },
+  "training_duration_msg": "MSGX MESSAGE3#553/#554: 学习%s需%u天（会议冲突拒修文案）",
+  "teach_duration_closed": {
+    "see": "skills_spec.json → teach_duration_and_growth",
+    "entry": "0x45f1e0",
+    "days_cap": "min(31-day, gold/2)",
+    "gold_per_day": 2,
+    "mode_ge3_attrs": "0x45feb0/0x4600d0 → 统御/武力/内政/外交/魅力 @+0xa..+0xe",
+    "emu": "scripts/_emu_teach.py 54/54"
+  },
+  "master_name_pool_exe": [
+    "大师",
+    "枪铸造",
+    "南蛮商人",
+    "画匠",
+    "僧侣",
+    "秘商人",
+    "队长",
+    "大将",
+    "宿老",
+    "大名",
+    "末吉",
+    "芝迂",
+    "国友",
+    "梅斯",
+    "阿尔梅",
+    "近卫",
+    "山科",
+    "快川",
+    "百地",
+    "施药院",
+    "孙四郎",
+    "仙斋",
+    "善兵卫",
+    "伊达",
+    "舟斋",
+    "前久",
+    "言继",
+    "绍喜",
+    "丹波",
+    "全宗",
+    "酒馆女",
+    "马行",
+    "步兵"
+  ],
+  "extra_town_names": [
+    "白河",
+    "佐仓",
+    "江户",
+    "田原",
+    "直江津",
+    "清洲",
+    "井之口",
+    "金泽",
+    "奈良",
+    "杂贺",
+    "长船",
+    "仓敷",
+    "丸龟",
+    "博多",
+    "平户",
+    "鹿儿岛"
+  ],
+  "skills": [
+    {
+      "index": 0,
+      "name": "口才",
+      "training_mode": "general_high_口才",
+      "recommended_places": [],
+      "master_keywords": [],
+      "mechanism_note": "MSGX: 辩才受教于辩才高超的武将（非固定师父）",
+      "msgx_evidence": [
+        "[MESSAGE2.LZW#364] 学习了口才的技巧，我想在谋略和外交等方面会派上用场。",
+        "[MESSAGE2.LZW#925] 据说辩才的技能，要受教于辩才高超的武将，才能提高。",
+        "[MESSAGE4.LZW#122] 要有口才技能才能进行挑衅。"
+      ]
+    },
+    {
+      "index": 1,
+      "name": "马术",
+      "training_mode": "facility",
+      "recommended_places": [
+        "马行"
+      ],
+      "master_keywords": [
+        "马行"
+      ],
+      "mechanism_note": "MSGX: 在马行做杂工学习马术",
+      "msgx_evidence": [
+        "[MESSAGE2.LZW#926] 马术的技能，要在马行边做杂工边学习，才能掌握。"
+      ]
+    },
+    {
+      "index": 2,
+      "name": "算术",
+      "training_mode": "town_npc",
+      "recommended_places": [
+        "京",
+        "界镇"
+      ],
+      "master_keywords": [
+        "大商人"
+      ],
+      "mechanism_note": "MSGX: 京/界镇大商人；需交涉，非即时传授",
+      "msgx_evidence": [
+        "[MESSAGE1.LZW#9] 算术的技能。关系到与商人之间的价格交涉，及考察各地米市行情时的成果。",
+        "[MESSAGE3.LZW#1747] 算术的技能，我听说受教于京镇或界镇的大商人，就可以提高。只是对方是商人。即使去了也不会立即就教给你的。"
+      ]
+    },
+    {
+      "index": 3,
+      "name": "剑术",
+      "training_mode": "town_master",
+      "recommended_places": [
+        "鹿岛"
+      ],
+      "master_keywords": [
+        "上泉伊势守"
+      ],
+      "mechanism_note": "MSGX#1597: 关东鹿岛镇，剑术道场",
+      "msgx_evidence": [
+        "[MESSAGE1.LZW#1597] 我师父上泉伊势守，住在关东的鹿岛镇。你去拜访我的师父，请他教你剑术吧。"
+      ]
+    },
+    {
+      "index": 4,
+      "name": "忍术",
+      "training_mode": "town_facility",
+      "recommended_places": [
+        "小田原",
+        "奈良"
+      ],
+      "master_keywords": [
+        "百地",
+        "忍者"
+      ],
+      "mechanism_note": "MSGX#1748: 小田原/奈良忍者；最好带忍术能力者",
+      "msgx_evidence": [
+        "[MESSAGE1.LZW#15] 忍者和武装农民所专长的技能。能够使普通的武将达成潜入城中等，难度较高的工作。",
+        "[MESSAGE3.LZW#1748] 忍术的技能，据说向小田原或奈良的忍者学习就可以掌握。但是屋内有机关，见面时最好带着具有忍术能力的人同行。",
+        "[MESSAGE4.LZW#358] 说到动脑筋，我们得先有得力的帮手。想必大哥也知道，清洲镇有个蜂须贺小六，是有名的忍者！",
+        "[MESSAGE4.LZW#370] 连我家最聪明的人%s都如此烦恼，这事可真够难的┅┅，对了，想起来了，听说清洲城中有个蜂须贺小六，是个有名的忍者？",
+        "[MESSAGE4.LZW#372] 忍者熟悉墨俣的地形，也许有所帮助。",
+        "[MESSAGE4.LZW#377] %s大人说清洲镇的蜂须贺小六是个有名的忍者。不愧是我家第一聪明人，如果利用忍者的力量，在墨俣城也不是不可能。"
+      ]
+    },
+    {
+      "index": 5,
+      "name": "兵法",
+      "training_mode": "general_high_统率",
+      "recommended_places": [],
+      "master_keywords": [],
+      "mechanism_note": "MSGX: 受教军事才能卓越武将；统御/内政亦可通过寺院讲道",
+      "msgx_evidence": [
+        "[MESSAGE2.LZW#928] 听说兵法技能，要受教于军事才能卓越的武将，才能提高。"
+      ]
+    },
+    {
+      "index": 6,
+      "name": "洋枪",
+      "training_mode": "town_craft",
+      "recommended_places": [
+        "杂贺",
+        "界镇"
+      ],
+      "master_keywords": [
+        "国友",
+        "枪铸造"
+      ],
+      "mechanism_note": "MSGX: 杂贺洋枪；EXE 名池含国友(铁炮师)",
+      "msgx_evidence": []
+    },
+    {
+      "index": 7,
+      "name": "筑城",
+      "training_mode": "general_or_craft",
+      "recommended_places": [
+        "近江"
+      ],
+      "master_keywords": [
+        "穴太众"
+      ],
+      "mechanism_note": "MSGX: 筑城高武将/穴太众(近江)；巧匠事件链",
+      "msgx_evidence": [
+        "[MESSAGE2.LZW#265] 实在抱歉，家中连一个懂得筑城的武将也没有。",
+        "[MESSAGE2.LZW#930] 听说筑城的技能，要师从于筑城能力高超的武将，才能获得提高。",
+        "[MESSAGE2.LZW#1510] 对了，我听说有一些专门修筑城池的巧匠。",
+        "[MESSAGE3.LZW#1724] 啊，你们要建筑城池吗？这么说来，在近畿地方好像有一些专门从事筑城的穴太众。"
+      ]
+    },
+    {
+      "index": 8,
+      "name": "礼法",
+      "training_mode": "temple",
+      "recommended_places": [
+        "京",
+        "甲府",
+        "严岛"
+      ],
+      "master_keywords": [
+        "高僧",
+        "施药院",
+        "快川"
+      ],
+      "mechanism_note": "MSGX#1749/#1675: 寺院高僧；礼法需政治+武功",
+      "msgx_evidence": [
+        "[MESSAGE1.LZW#1675] 在%s镇上有一位叫做%s的高僧。在那里学习学习礼法吧。",
+        "[MESSAGE2.LZW#780] 这是高僧%s写给%s的信",
+        "[MESSAGE2.LZW#1234] 为了这次茶会，需要高僧您的墨迹。",
+        "[MESSAGE3.LZW#851] 我希望与%s家的交涉能够成功，请高僧多费唇舌吧。",
+        "[MESSAGE3.LZW#876] 想留在这寺中一日，听高僧讲道┅┅。",
+        "[MESSAGE3.LZW#887] ┅┅恕我冒昧，今天能让我聆听高僧讲道吗？"
+      ]
+    },
+    {
+      "index": 9,
+      "name": "茶道",
+      "training_mode": "town_master",
+      "recommended_places": [
+        "界镇",
+        "博多"
+      ],
+      "master_keywords": [
+        "千宗易",
+        "绍鸥",
+        "茶道大师"
+      ],
+      "mechanism_note": "MSGX#412/#1206: 千宗易(界镇)；需茶具",
+      "msgx_evidence": [
+        "[MESSAGE2.LZW#1209] 若说精通茶道之人，一定要邀请千宗易。好像住在界镇和博多的大商人，也有许多精通茶道的人。"
+      ]
+    }
+  ]
+}

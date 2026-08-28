@@ -1,0 +1,99 @@
+{
+  "name": "item_skill_object_pool",
+  "status": "object_model_closed_emu_pass",
+  "base_va": "0x51e1f0",
+  "scanner_ptr_va": "0x51e1f8",
+  "count": 200,
+  "stride_bytes": 10,
+  "init": {
+    "func": "0x47a390",
+    "thunk_table_slot": "0x501128",
+    "action": "stamp dword[+0]=vtable 0x4fc0e0 for all 200 slots"
+  },
+  "vtable": {
+    "va": "0x4fc0e0",
+    "methods": {
+      "0": {"va": "0x49c070", "name": "getValue"},
+      "1": {"va": "0x49c010", "name": "getTypeName", "table": "0x507ea8 stride7"},
+      "2": {"va": "0x49c030", "name": "getPoolIndex"},
+      "4": {"va": "0x49c250", "name": "getValueAlt"},
+      "5": {"va": "0x49c1f0", "name": "getShortName", "table": "0x507ee0"},
+      "6": {"va": "0x49c200", "name": "getSecondaryName", "table": "0x507a50"}
+    }
+  },
+  "secondary_pool": {
+    "base_va": "0x517728",
+    "note": "scanners also use 0x517730 (=base+8)",
+    "count": 20,
+    "stride_bytes": 12,
+    "vtable": "0x4fc0f0",
+    "init": "0x47a3c0"
+  },
+  "fields": {
+    "+0": "dword vptr (0x4fc0e0 after init)",
+    "+4": "word (qty delta / scratch; cleared in some trade paths)",
+    "+5": "byte level/quantity input to getValue",
+    "+6": "word owner_key: player_id@0x516624 OR (npc_pool_index|0x8000)",
+    "+8": "word flags: bit7=owned/active; bits0-2=category; bits3-6=sub"
+  },
+  "categories": {
+    "0": "酒",
+    "1": "书籍",
+    "2": "道具",
+    "3": "财宝",
+    "4": "武器",
+    "5": "南蛮物",
+    "6": "美术品",
+    "7": "茶具"
+  },
+  "getValue_formulas": {
+    "0": "clamp(level, 1, 250)",
+    "1": "clamp((level + sub*10)*10, 10, 6500)",
+    "2": "clamp(level*20, 20, 5000)",
+    "3": "clamp((level + sub*50)*10, 100, 32496)",
+    "4": "clamp((level + max(sub-5,0)*5)*200, 200, 60000)",
+    "5_6_7": "clamp((level*(sub+5))<<2, 200, 50000)"
+  },
+  "setters": {
+    "setFlagsWord": "0x49bfc0(ecx=obj, word)",
+    "setOwnedBit7": "0x49bff0(ecx=obj, nonzero→or 0x80)",
+    "getPlayerOwnerKey": "0x49f5d0 → word[0x516624]"
+  },
+  "registry_reuse": {
+    "note": "Same pool is scanned for skill-teach menus; bit7 + (cat!=7) filters. Skill display names come from skills_spec / MSGX, not 0x507ea8.",
+    "builders": ["0x443d80", "0x442010", "0x44e020"],
+    "registry_ptr": "0x517838"
+  },
+  "msgx_hints": {
+    "0x370": "MESSAGE1#880 那好，给我吧。 (give/receive object)",
+    "teach_path": "0x442470 writes owner_key to +6 then rebuilds registry"
+  },
+  "slot_binding": {
+    "empty_owner": "0xFFFF at +6",
+    "free_writers": ["0x444a3e", "0x45e074", "0x461690"],
+    "free_by_owner": "0x4a3960(owner) — scan all 200, matching +6 → FFFF (entity remove)",
+    "owner_remap": "0x4a4115 — bulk rewrite owner si→dx when entity index changes",
+    "npc_slot_index": "NPC.byte[+0xb] indexes 0x51e1f0[i*10] when <0xc8",
+    "bind_setter": "0x49bfe0",
+    "bind_on_town": "0x44ae80 -> 0x44af00 -> 0x49bfe0",
+    "not_in_save_window": "VA[0x5178dc,0x51c8dc); pool at 0x51e1f0 is +0x6914 past end"
+  },
+  "lifecycle": {
+    "no_first_fit_allocator": true,
+    "note": "EXE has no scan-FFFF-then-fill factory. Empty slots are only skipped by scanners and written by free paths. Items are bound/transferred/activated (setOwned/setFlags/write +6), not allocated from free list.",
+    "high_value_picker": "0x456b90 — skip FFFF; collect sub>=0x50 then rand pick (NOT allocator)",
+    "exe_seed_factory": {
+      "status": "absent_static_negative_续35",
+      "proof": "scripts/_analyze_item_seed_negative.py PASS",
+      "findings": [
+        "only bulk write @0x47a390 stamps vtable 0x4fc0e0 (no level/flags)",
+        "12 absolute 0x51e1f0 refs = init/index/scanners only",
+        "45× setFlags(0x49bfc0) never pairs with byte[+5] store; typical ecx=player/NPC/town",
+        "0x49c540/560/580 write +5 but on entity+0xe / 0x51661e — not pool objects",
+        "free paths only owner→FFFF; no category clear/seed"
+      ],
+      "residual": "category/level must arrive via MSGX VM generic stores, alternate save mapping, or runtime blob not referenced by absolute 0x51e1f0"
+    }
+  },
+  "emu": "scripts/_emu_item_pool.py 23/23 PASS (incl. free-by-owner); seed negative PASS"
+}

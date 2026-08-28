@@ -1,0 +1,3985 @@
+{
+ "method": "derived from BSDATA home_city@49 + status@57, filtered by SAVEDATA gen-flags(0x1ac)",
+ "caveat": "roster baseline; scenario save may override; runtime buffers 0x522c60/0x522c70/0x522ca0 hold live state",
+ "castle_count_with_owner": 56,
+ "castles": {
+  "0": {
+   "castle_name": "长船",
+   "owner_id": 69,
+   "owner_name": "南部晴政",
+   "occupant_ids": [
+    69,
+    70
+   ],
+   "occupant_names": [
+    "南部晴政",
+    "北信爱"
+   ]
+  },
+  "1": {
+   "castle_name": "严岛",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "2": {
+   "castle_name": "鸣门",
+   "owner_id": 71,
+   "owner_name": "津轻为则",
+   "occupant_ids": [
+    71
+   ],
+   "occupant_names": [
+    "津轻为则"
+   ]
+  },
+  "3": {
+   "castle_name": "今治",
+   "owner_id": 81,
+   "owner_name": "伊达晴宗",
+   "occupant_ids": [
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    89,
+    92,
+    96,
+    100,
+    102,
+    105
+   ],
+   "occupant_names": [
+    "鬼庭左月",
+    "田村隆显",
+    "石母光赖",
+    "伊达晴宗",
+    "中野宗时",
+    "守屋亲成",
+    "伊达实元",
+    "小梁亲宗",
+    "留守显宗",
+    "亘理元宗",
+    "远藤基信",
+    "大立右卫门",
+    "牧野久仲",
+    "伊达辉宗",
+    "鬼庭纲元",
+    "小梁盛宗"
+   ]
+  },
+  "4": {
+   "castle_name": "小仓",
+   "owner_id": 76,
+   "owner_name": "大崎义直",
+   "occupant_ids": [
+    76
+   ],
+   "occupant_names": [
+    "大崎义直"
+   ]
+  },
+  "5": {
+   "castle_name": "平户",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "6": {
+   "castle_name": "八代",
+   "owner_id": 88,
+   "owner_name": "白石宗利",
+   "occupant_ids": [
+    88
+   ],
+   "occupant_names": [
+    "白石宗利"
+   ]
+  },
+  "7": {
+   "castle_name": "鹿儿岛",
+   "owner_id": 90,
+   "owner_name": "桑折宗长",
+   "occupant_ids": [
+    90
+   ],
+   "occupant_names": [
+    "桑折宗长"
+   ]
+  },
+  "8": {
+   "castle_name": "",
+   "owner_id": 116,
+   "owner_name": "最上义守",
+   "occupant_ids": [
+    115,
+    116,
+    120,
+    165
+   ],
+   "occupant_names": [
+    "氏家定直",
+    "最上义守",
+    "最上义光",
+    "太田资正"
+   ]
+  },
+  "9": {
+   "castle_name": "前",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "10": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "11": {
+   "castle_name": "�",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "12": {
+   "castle_name": "",
+   "owner_id": 127,
+   "owner_name": "芦名盛氏",
+   "occupant_ids": [
+    127,
+    128
+   ],
+   "occupant_names": [
+    "芦名盛氏",
+    "相马盛胤"
+   ]
+  },
+  "13": {
+   "castle_name": "",
+   "owner_id": 129,
+   "owner_name": "二本义国",
+   "occupant_ids": [
+    129
+   ],
+   "occupant_names": [
+    "二本义国"
+   ]
+  },
+  "14": {
+   "castle_name": "鲑延",
+   "owner_id": 131,
+   "owner_name": "二阶盛义",
+   "occupant_ids": [
+    131
+   ],
+   "occupant_names": [
+    "二阶盛义"
+   ]
+  },
+  "15": {
+   "castle_name": "",
+   "owner_id": 253,
+   "owner_name": "北条高广",
+   "occupant_ids": [
+    253
+   ],
+   "occupant_names": [
+    "北条高广"
+   ]
+  },
+  "16": {
+   "castle_name": "�本松",
+   "owner_id": 6,
+   "owner_name": "蜂须小六",
+   "occupant_ids": [
+    6,
+    8,
+    23
+   ],
+   "occupant_names": [
+    "蜂须小六",
+    "前野长康",
+    "木下小一郎"
+   ]
+  },
+  "17": {
+   "castle_name": "",
+   "owner_id": 332,
+   "owner_name": "竹中半兵卫",
+   "occupant_ids": [
+    332
+   ],
+   "occupant_names": [
+    "竹中半兵卫"
+   ]
+  },
+  "18": {
+   "castle_name": "田",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "19": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "20": {
+   "castle_name": "�",
+   "owner_id": 141,
+   "owner_name": "宇都广纲",
+   "occupant_ids": [
+    138,
+    141
+   ],
+   "occupant_names": [
+    "芳贺高定",
+    "宇都广纲"
+   ]
+  },
+  "21": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "22": {
+   "castle_name": "",
+   "owner_id": 376,
+   "owner_name": "富田景政",
+   "occupant_ids": [
+    376
+   ],
+   "occupant_names": [
+    "富田景政"
+   ]
+  },
+  "23": {
+   "castle_name": "水户",
+   "owner_id": 144,
+   "owner_name": "佐竹义昭",
+   "occupant_ids": [
+    143,
+    144,
+    148
+   ],
+   "occupant_names": [
+    "冈本禅哲",
+    "佐竹义昭",
+    "佐竹义重"
+   ]
+  },
+  "24": {
+   "castle_name": "",
+   "owner_id": 456,
+   "owner_name": "杉谷善住坊",
+   "occupant_ids": [
+    456
+   ],
+   "occupant_names": [
+    "杉谷善住坊"
+   ]
+  },
+  "25": {
+   "castle_name": "�",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "26": {
+   "castle_name": "",
+   "owner_id": 152,
+   "owner_name": "里见义尧",
+   "occupant_ids": [
+    151,
+    152,
+    153,
+    154,
+    155
+   ],
+   "occupant_names": [
+    "正木时茂",
+    "里见义尧",
+    "正木时忠",
+    "里见义弘",
+    "里见义赖"
+   ]
+  },
+  "27": {
+   "castle_name": "越",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "28": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "29": {
+   "castle_name": "�",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "30": {
+   "castle_name": "",
+   "owner_id": 172,
+   "owner_name": "大道政繁",
+   "occupant_ids": [
+    172
+   ],
+   "occupant_names": [
+    "大道政繁"
+   ]
+  },
+  "31": {
+   "castle_name": "",
+   "owner_id": 163,
+   "owner_name": "成田长泰",
+   "occupant_ids": [
+    163
+   ],
+   "occupant_names": [
+    "成田长泰"
+   ]
+  },
+  "32": {
+   "castle_name": "三浦",
+   "owner_id": 181,
+   "owner_name": "北条氏邦",
+   "occupant_ids": [
+    181
+   ],
+   "occupant_names": [
+    "北条氏邦"
+   ]
+  },
+  "33": {
+   "castle_name": "",
+   "owner_id": 158,
+   "owner_name": "远山纲景",
+   "occupant_ids": [
+    158
+   ],
+   "occupant_names": [
+    "远山纲景"
+   ]
+  },
+  "34": {
+   "castle_name": "律�",
+   "owner_id": 176,
+   "owner_name": "北条氏照",
+   "occupant_ids": [
+    176
+   ],
+   "occupant_names": [
+    "北条氏照"
+   ]
+  },
+  "35": {
+   "castle_name": "",
+   "owner_id": 159,
+   "owner_name": "北条氏康",
+   "occupant_ids": [
+    156,
+    157,
+    159,
+    161,
+    164,
+    167,
+    168,
+    169,
+    170,
+    171,
+    174,
+    175,
+    177,
+    183
+   ],
+   "occupant_names": [
+    "北条幻庵",
+    "上田朝直",
+    "北条氏康",
+    "远山直次",
+    "安藤良整",
+    "笠原康胜",
+    "松田宪秀",
+    "清水康英",
+    "远山政景",
+    "猪俣邦宪",
+    "板部江雪斋",
+    "北条氏政",
+    "成田氏长",
+    "山角定胜"
+   ]
+  },
+  "36": {
+   "castle_name": "津",
+   "owner_id": 160,
+   "owner_name": "北条纲成",
+   "occupant_ids": [
+    160,
+    173
+   ],
+   "occupant_names": [
+    "北条纲成",
+    "北条氏繁"
+   ]
+  },
+  "37": {
+   "castle_name": "",
+   "owner_id": 179,
+   "owner_name": "内藤纲秀",
+   "occupant_ids": [
+    179
+   ],
+   "occupant_names": [
+    "内藤纲秀"
+   ]
+  },
+  "38": {
+   "castle_name": "�福岛",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "39": {
+   "castle_name": "",
+   "owner_id": 186,
+   "owner_name": "北条氏规",
+   "occupant_ids": [
+    186
+   ],
+   "occupant_names": [
+    "北条氏规"
+   ]
+  },
+  "40": {
+   "castle_name": "山",
+   "owner_id": 199,
+   "owner_name": "武田信玄",
+   "occupant_ids": [
+    192,
+    193,
+    194,
+    196,
+    197,
+    198,
+    199,
+    202,
+    203,
+    204,
+    205,
+    206,
+    207,
+    210,
+    212,
+    220,
+    221,
+    222,
+    223,
+    224,
+    227,
+    231
+   ],
+   "occupant_names": [
+    "原虎胤",
+    "原昌胤",
+    "山本勘助",
+    "真田幸隆",
+    "马场信房",
+    "饭富虎昌",
+    "武田信玄",
+    "下条信氏",
+    "内藤昌丰",
+    "武田信繁",
+    "高阪昌信",
+    "武田信廉",
+    "山县昌景",
+    "秋山信友",
+    "矢泽赖纲",
+    "真田信纲",
+    "三枝守友",
+    "武田义信",
+    "小山信茂",
+    "真田昌辉",
+    "穴山信君",
+    "真田昌幸"
+   ]
+  },
+  "41": {
+   "castle_name": "新发田",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "42": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "43": {
+   "castle_name": "钤�",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "44": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "45": {
+   "castle_name": "松",
+   "owner_id": 242,
+   "owner_name": "高梨政赖",
+   "occupant_ids": [
+    242
+   ],
+   "occupant_names": [
+    "高梨政赖"
+   ]
+  },
+  "46": {
+   "castle_name": "",
+   "owner_id": 200,
+   "owner_name": "乐岩雅方",
+   "occupant_ids": [
+    200,
+    201
+   ],
+   "occupant_names": [
+    "乐岩雅方",
+    "屋代政国"
+   ]
+  },
+  "47": {
+   "castle_name": "焐�",
+   "owner_id": 215,
+   "owner_name": "木曾义昌",
+   "occupant_ids": [
+    215
+   ],
+   "occupant_names": [
+    "木曾义昌"
+   ]
+  },
+  "48": {
+   "castle_name": "",
+   "owner_id": 195,
+   "owner_name": "保科正俊",
+   "occupant_ids": [
+    195
+   ],
+   "occupant_names": [
+    "保科正俊"
+   ]
+  },
+  "49": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "50": {
+   "castle_name": "清洲",
+   "owner_id": 257,
+   "owner_name": "上杉谦信",
+   "occupant_ids": [
+    238,
+    239,
+    240,
+    241,
+    243,
+    244,
+    246,
+    247,
+    248,
+    249,
+    250,
+    251,
+    252,
+    254,
+    256,
+    257,
+    265
+   ],
+   "occupant_names": [
+    "宇佐定满",
+    "直江景纲",
+    "村上义清",
+    "色部胜长",
+    "长尾政景",
+    "斋藤朝信",
+    "须田满亲",
+    "鬼小弥太郎",
+    "河田长亲",
+    "神余亲纲",
+    "上杉景信",
+    "吉江景资",
+    "柿崎景家",
+    "安田长秀",
+    "安田显元",
+    "上杉谦信",
+    "本庄繁长"
+   ]
+  },
+  "51": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "52": {
+   "castle_name": "�山",
+   "owner_id": 260,
+   "owner_name": "新发长敦",
+   "occupant_ids": [
+    260,
+    267
+   ],
+   "occupant_names": [
+    "新发长敦",
+    "新发重家"
+   ]
+  },
+  "53": {
+   "castle_name": "",
+   "owner_id": 245,
+   "owner_name": "本庄实乃",
+   "occupant_ids": [
+    245
+   ],
+   "occupant_names": [
+    "本庄实乃"
+   ]
+  },
+  "54": {
+   "castle_name": "叶山",
+   "owner_id": 287,
+   "owner_name": "今川氏真",
+   "occupant_ids": [
+    278,
+    279,
+    284,
+    285,
+    286,
+    287,
+    288
+   ],
+   "occupant_names": [
+    "阿部元真",
+    "鹈殿长照",
+    "葛山氏元",
+    "天野景贯",
+    "由比正纯",
+    "今川氏真",
+    "冈部正纲"
+   ]
+  },
+  "55": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "56": {
+   "castle_name": "�",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "57": {
+   "castle_name": "",
+   "owner_id": 280,
+   "owner_name": "关口氏广",
+   "occupant_ids": [
+    280
+   ],
+   "occupant_names": [
+    "关口氏广"
+   ]
+  },
+  "58": {
+   "castle_name": "津",
+   "owner_id": 283,
+   "owner_name": "饭尾连龙",
+   "occupant_ids": [
+    283
+   ],
+   "occupant_names": [
+    "饭尾连龙"
+   ]
+  },
+  "59": {
+   "castle_name": "桑名",
+   "owner_id": 277,
+   "owner_name": "松井宗信",
+   "occupant_ids": [
+    277
+   ],
+   "occupant_names": [
+    "松井宗信"
+   ]
+  },
+  "60": {
+   "castle_name": "晟�",
+   "owner_id": 282,
+   "owner_name": "朝比泰朝",
+   "occupant_ids": [
+    282
+   ],
+   "occupant_names": [
+    "朝比泰朝"
+   ]
+  },
+  "61": {
+   "castle_name": "裼�",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "62": {
+   "castle_name": "",
+   "owner_id": 304,
+   "owner_name": "德川家康",
+   "occupant_ids": [
+    290,
+    291,
+    292,
+    294,
+    295,
+    296,
+    298,
+    300,
+    301,
+    304,
+    305,
+    306,
+    307,
+    309,
+    310,
+    692
+   ],
+   "occupant_names": [
+    "酒井忠次",
+    "本多重次",
+    "高力清长",
+    "大久忠世",
+    "中根正信",
+    "夏目吉信",
+    "石川数正",
+    "大久忠佐",
+    "鸟居元忠",
+    "德川家康",
+    "服部半藏",
+    "渡边守纲",
+    "平岩亲吉",
+    "神原康政",
+    "本多忠胜",
+    "大须康高"
+   ]
+  },
+  "63": {
+   "castle_name": "尾",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "64": {
+   "castle_name": "",
+   "owner_id": 281,
+   "owner_name": "菅沼定盈",
+   "occupant_ids": [
+    281
+   ],
+   "occupant_names": [
+    "菅沼定盈"
+   ]
+  },
+  "65": {
+   "castle_name": "ニ�",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "66": {
+   "castle_name": "",
+   "owner_id": 13,
+   "owner_name": "织田信长",
+   "occupant_ids": [
+    1,
+    2,
+    3,
+    4,
+    7,
+    10,
+    11,
+    12,
+    13,
+    15,
+    16,
+    17,
+    19,
+    20,
+    21
+   ],
+   "occupant_names": [
+    "柴田胜家",
+    "森可成",
+    "金森长近",
+    "泷川一益",
+    "生驹亲政",
+    "平手汛秀",
+    "佐久信盛",
+    "拜乡家嘉",
+    "织田信长",
+    "丹羽长秀",
+    "木下藤吉郎",
+    "池田恒兴",
+    "前田利家",
+    "河尻秀隆",
+    "佐佐成政"
+   ]
+  },
+  "67": {
+   "castle_name": "",
+   "owner_id": 289,
+   "owner_name": "冈部元信",
+   "occupant_ids": [
+    289
+   ],
+   "occupant_names": [
+    "冈部元信"
+   ]
+  },
+  "68": {
+   "castle_name": "金崎",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "69": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "70": {
+   "castle_name": "嵘�",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "71": {
+   "castle_name": "",
+   "owner_id": 0,
+   "owner_name": "林通胜",
+   "occupant_ids": [
+    0
+   ],
+   "occupant_names": [
+    "林通胜"
+   ]
+  },
+  "72": {
+   "castle_name": "滨",
+   "owner_id": 335,
+   "owner_name": "斋藤龙兴",
+   "occupant_ids": [
+    323,
+    327,
+    328,
+    330,
+    335
+   ],
+   "occupant_names": [
+    "长井道利",
+    "日根弘就",
+    "不破光治",
+    "斋藤利三",
+    "斋藤龙兴"
+   ]
+  },
+  "73": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "74": {
+   "castle_name": "馑�",
+   "owner_id": 326,
+   "owner_name": "氏家卜全",
+   "occupant_ids": [
+    326
+   ],
+   "occupant_names": [
+    "氏家卜全"
+   ]
+  },
+  "75": {
+   "castle_name": "",
+   "owner_id": 325,
+   "owner_name": "稻叶一铁",
+   "occupant_ids": [
+    325
+   ],
+   "occupant_names": [
+    "稻叶一铁"
+   ]
+  },
+  "76": {
+   "castle_name": "郡山",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "77": {
+   "castle_name": "多闻",
+   "owner_id": 324,
+   "owner_name": "安藤守就",
+   "occupant_ids": [
+    324
+   ],
+   "occupant_names": [
+    "安藤守就"
+   ]
+  },
+  "78": {
+   "castle_name": "弦�",
+   "owner_id": 339,
+   "owner_name": "北田具教",
+   "occupant_ids": [
+    337,
+    339,
+    340,
+    343,
+    347
+   ],
+   "occupant_names": [
+    "鸟屋满荣",
+    "北田具教",
+    "神户具盛",
+    "木造具政",
+    "北田具房"
+   ]
+  },
+  "79": {
+   "castle_name": "�条",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "80": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "81": {
+   "castle_name": "龙寺",
+   "owner_id": 338,
+   "owner_name": "关盛信",
+   "occupant_ids": [
+    338
+   ],
+   "occupant_names": [
+    "关盛信"
+   ]
+  },
+  "82": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "83": {
+   "castle_name": "�",
+   "owner_id": 345,
+   "owner_name": "九鬼嘉隆",
+   "occupant_ids": [
+    345
+   ],
+   "occupant_names": [
+    "九鬼嘉隆"
+   ]
+  },
+  "84": {
+   "castle_name": "",
+   "owner_id": 351,
+   "owner_name": "神保长职",
+   "occupant_ids": [
+    351,
+    352,
+    353
+   ],
+   "occupant_names": [
+    "神保长职",
+    "小岛职镇",
+    "神保长住"
+   ]
+  },
+  "85": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "86": {
+   "castle_name": "茨木",
+   "owner_id": 357,
+   "owner_name": "田山义续",
+   "occupant_ids": [
+    355,
+    356,
+    357,
+    360
+   ],
+   "occupant_names": [
+    "长续连",
+    "游佐续光",
+    "田山义续",
+    "田山义纲"
+   ]
+  },
+  "87": {
+   "castle_name": "",
+   "owner_id": 422,
+   "owner_name": "七里赖周",
+   "occupant_ids": [
+    422
+   ],
+   "occupant_names": [
+    "七里赖周"
+   ]
+  },
+  "88": {
+   "castle_name": "崞�",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "89": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  },
+  "90": {
+   "castle_name": "屋",
+   "owner_id": 368,
+   "owner_name": "朝仓义景",
+   "occupant_ids": [
+    361,
+    364,
+    365,
+    368,
+    369,
+    371,
+    372,
+    373,
+    374
+   ],
+   "occupant_names": [
+    "朝仓景隆",
+    "明智光秀",
+    "朝仓景连",
+    "朝仓义景",
+    "朝仓景镜",
+    "朝仓景健",
+    "真柄直隆",
+    "真柄直澄",
+    "明智光春"
+   ]
+  },
+  "91": {
+   "castle_name": "",
+   "owner_id": null,
+   "owner_name": null,
+   "occupant_ids": [],
+   "occupant_names": []
+  }
+ },
+ "generals": {
+  "0": {
+   "name": "林通胜",
+   "castle_id": 71,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "1": {
+   "name": "柴田胜家",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 4,
+   "lord_id": 13,
+   "lord_name": "织田信长"
+  },
+  "2": {
+   "name": "森可成",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 3,
+   "lord_id": 13,
+   "lord_name": "织田信长"
+  },
+  "3": {
+   "name": "金森长近",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 3,
+   "lord_id": 13,
+   "lord_name": "织田信长"
+  },
+  "4": {
+   "name": "泷川一益",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 3,
+   "lord_id": 13,
+   "lord_name": "织田信长"
+  },
+  "6": {
+   "name": "蜂须小六",
+   "castle_id": 16,
+   "castle_name": "�本松",
+   "status": 0,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "7": {
+   "name": "生驹亲政",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 1,
+   "lord_id": 13,
+   "lord_name": "织田信长"
+  },
+  "8": {
+   "name": "前野长康",
+   "castle_id": 16,
+   "castle_name": "�本松",
+   "status": 0,
+   "lord_id": 6,
+   "lord_name": "蜂须小六"
+  },
+  "10": {
+   "name": "平手汛秀",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 2,
+   "lord_id": 13,
+   "lord_name": "织田信长"
+  },
+  "11": {
+   "name": "佐久信盛",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 4,
+   "lord_id": 13,
+   "lord_name": "织田信长"
+  },
+  "12": {
+   "name": "拜乡家嘉",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 1,
+   "lord_id": 13,
+   "lord_name": "织田信长"
+  },
+  "13": {
+   "name": "织田信长",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "15": {
+   "name": "丹羽长秀",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 4,
+   "lord_id": 13,
+   "lord_name": "织田信长"
+  },
+  "16": {
+   "name": "木下藤吉郎",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 1,
+   "lord_id": 13,
+   "lord_name": "织田信长"
+  },
+  "17": {
+   "name": "池田恒兴",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 2,
+   "lord_id": 13,
+   "lord_name": "织田信长"
+  },
+  "19": {
+   "name": "前田利家",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 1,
+   "lord_id": 13,
+   "lord_name": "织田信长"
+  },
+  "20": {
+   "name": "河尻秀隆",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 1,
+   "lord_id": 13,
+   "lord_name": "织田信长"
+  },
+  "21": {
+   "name": "佐佐成政",
+   "castle_id": 66,
+   "castle_name": "",
+   "status": 2,
+   "lord_id": 13,
+   "lord_name": "织田信长"
+  },
+  "23": {
+   "name": "木下小一郎",
+   "castle_id": 16,
+   "castle_name": "�本松",
+   "status": 0,
+   "lord_id": 6,
+   "lord_name": "蜂须小六"
+  },
+  "69": {
+   "name": "南部晴政",
+   "castle_id": 0,
+   "castle_name": "长船",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "70": {
+   "name": "北信爱",
+   "castle_id": 0,
+   "castle_name": "长船",
+   "status": 5,
+   "lord_id": 69,
+   "lord_name": "南部晴政"
+  },
+  "71": {
+   "name": "津轻为则",
+   "castle_id": 2,
+   "castle_name": "鸣门",
+   "status": 6,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "76": {
+   "name": "大崎义直",
+   "castle_id": 4,
+   "castle_name": "小仓",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "78": {
+   "name": "鬼庭左月",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 4,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "79": {
+   "name": "田村隆显",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 5,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "80": {
+   "name": "石母光赖",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 4,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "81": {
+   "name": "伊达晴宗",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "82": {
+   "name": "中野宗时",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 5,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "83": {
+   "name": "守屋亲成",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 2,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "84": {
+   "name": "伊达实元",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 5,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "85": {
+   "name": "小梁亲宗",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 3,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "86": {
+   "name": "留守显宗",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 4,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "87": {
+   "name": "亘理元宗",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 5,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "88": {
+   "name": "白石宗利",
+   "castle_id": 6,
+   "castle_name": "八代",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "89": {
+   "name": "远藤基信",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 2,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "90": {
+   "name": "桑折宗长",
+   "castle_id": 7,
+   "castle_name": "鹿儿岛",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "92": {
+   "name": "大立右卫门",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 1,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "96": {
+   "name": "牧野久仲",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 3,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "100": {
+   "name": "伊达辉宗",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 14,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "102": {
+   "name": "鬼庭纲元",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 2,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "105": {
+   "name": "小梁盛宗",
+   "castle_id": 3,
+   "castle_name": "今治",
+   "status": 3,
+   "lord_id": 81,
+   "lord_name": "伊达晴宗"
+  },
+  "115": {
+   "name": "氏家定直",
+   "castle_id": 8,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": 116,
+   "lord_name": "最上义守"
+  },
+  "116": {
+   "name": "最上义守",
+   "castle_id": 8,
+   "castle_name": "",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "120": {
+   "name": "最上义光",
+   "castle_id": 8,
+   "castle_name": "",
+   "status": 14,
+   "lord_id": 116,
+   "lord_name": "最上义守"
+  },
+  "127": {
+   "name": "芦名盛氏",
+   "castle_id": 12,
+   "castle_name": "",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "128": {
+   "name": "相马盛胤",
+   "castle_id": 12,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": 127,
+   "lord_name": "芦名盛氏"
+  },
+  "129": {
+   "name": "二本义国",
+   "castle_id": 13,
+   "castle_name": "",
+   "status": 6,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "131": {
+   "name": "二阶盛义",
+   "castle_id": 14,
+   "castle_name": "鲑延",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "138": {
+   "name": "芳贺高定",
+   "castle_id": 20,
+   "castle_name": "�",
+   "status": 6,
+   "lord_id": 141,
+   "lord_name": "宇都广纲"
+  },
+  "141": {
+   "name": "宇都广纲",
+   "castle_id": 20,
+   "castle_name": "�",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "143": {
+   "name": "冈本禅哲",
+   "castle_id": 23,
+   "castle_name": "水户",
+   "status": 5,
+   "lord_id": 144,
+   "lord_name": "佐竹义昭"
+  },
+  "144": {
+   "name": "佐竹义昭",
+   "castle_id": 23,
+   "castle_name": "水户",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "148": {
+   "name": "佐竹义重",
+   "castle_id": 23,
+   "castle_name": "水户",
+   "status": 14,
+   "lord_id": 144,
+   "lord_name": "佐竹义昭"
+  },
+  "151": {
+   "name": "正木时茂",
+   "castle_id": 26,
+   "castle_name": "",
+   "status": 3,
+   "lord_id": 152,
+   "lord_name": "里见义尧"
+  },
+  "152": {
+   "name": "里见义尧",
+   "castle_id": 26,
+   "castle_name": "",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "153": {
+   "name": "正木时忠",
+   "castle_id": 26,
+   "castle_name": "",
+   "status": 3,
+   "lord_id": 152,
+   "lord_name": "里见义尧"
+  },
+  "154": {
+   "name": "里见义弘",
+   "castle_id": 26,
+   "castle_name": "",
+   "status": 14,
+   "lord_id": 152,
+   "lord_name": "里见义尧"
+  },
+  "155": {
+   "name": "里见义赖",
+   "castle_id": 26,
+   "castle_name": "",
+   "status": 6,
+   "lord_id": 152,
+   "lord_name": "里见义尧"
+  },
+  "156": {
+   "name": "北条幻庵",
+   "castle_id": 35,
+   "castle_name": "",
+   "status": 6,
+   "lord_id": 159,
+   "lord_name": "北条氏康"
+  },
+  "157": {
+   "name": "上田朝直",
+   "castle_id": 35,
+   "castle_name": "",
+   "status": 4,
+   "lord_id": 159,
+   "lord_name": "北条氏康"
+  },
+  "158": {
+   "name": "远山纲景",
+   "castle_id": 33,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "159": {
+   "name": "北条氏康",
+   "castle_id": 35,
+   "castle_name": "",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "160": {
+   "name": "北条纲成",
+   "castle_id": 36,
+   "castle_name": "津",
+   "status": 6,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "161": {
+   "name": "远山直次",
+   "castle_id": 35,
+   "castle_name": "",
+   "status": 4,
+   "lord_id": 159,
+   "lord_name": "北条氏康"
+  },
+  "163": {
+   "name": "成田长泰",
+   "castle_id": 31,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "164": {
+   "name": "安藤良整",
+   "castle_id": 35,
+   "castle_name": "",
+   "status": 2,
+   "lord_id": 159,
+   "lord_name": "北条氏康"
+  },
+  "165": {
+   "name": "太田资正",
+   "castle_id": 8,
+   "castle_name": "",
+   "status": 0,
+   "lord_id": 116,
+   "lord_name": "最上义守"
+  },
+  "167": {
+   "name": "笠原康胜",
+   "castle_id": 35,
+   "castle_name": "",
+   "status": 1,
+   "lord_id": 159,
+   "lord_name": "北条氏康"
+  },
+  "168": {
+   "name": "松田宪秀",
+   "castle_id": 35,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": 159,
+   "lord_name": "北条氏康"
+  },
+  "169": {
+   "name": "清水康英",
+   "castle_id": 35,
+   "castle_name": "",
+   "status": 3,
+   "lord_id": 159,
+   "lord_name": "北条氏康"
+  },
+  "170": {
+   "name": "远山政景",
+   "castle_id": 35,
+   "castle_name": "",
+   "status": 4,
+   "lord_id": 159,
+   "lord_name": "北条氏康"
+  },
+  "171": {
+   "name": "猪俣邦宪",
+   "castle_id": 35,
+   "castle_name": "",
+   "status": 3,
+   "lord_id": 159,
+   "lord_name": "北条氏康"
+  },
+  "172": {
+   "name": "大道政繁",
+   "castle_id": 30,
+   "castle_name": "",
+   "status": 6,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "173": {
+   "name": "北条氏繁",
+   "castle_id": 36,
+   "castle_name": "津",
+   "status": 5,
+   "lord_id": 160,
+   "lord_name": "北条纲成"
+  },
+  "174": {
+   "name": "板部江雪斋",
+   "castle_id": 35,
+   "castle_name": "",
+   "status": 3,
+   "lord_id": 159,
+   "lord_name": "北条氏康"
+  },
+  "175": {
+   "name": "北条氏政",
+   "castle_id": 35,
+   "castle_name": "",
+   "status": 14,
+   "lord_id": 159,
+   "lord_name": "北条氏康"
+  },
+  "176": {
+   "name": "北条氏照",
+   "castle_id": 34,
+   "castle_name": "律�",
+   "status": 6,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "177": {
+   "name": "成田氏长",
+   "castle_id": 35,
+   "castle_name": "",
+   "status": 4,
+   "lord_id": 159,
+   "lord_name": "北条氏康"
+  },
+  "179": {
+   "name": "内藤纲秀",
+   "castle_id": 37,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "181": {
+   "name": "北条氏邦",
+   "castle_id": 32,
+   "castle_name": "三浦",
+   "status": 6,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "183": {
+   "name": "山角定胜",
+   "castle_id": 35,
+   "castle_name": "",
+   "status": 2,
+   "lord_id": 159,
+   "lord_name": "北条氏康"
+  },
+  "186": {
+   "name": "北条氏规",
+   "castle_id": 39,
+   "castle_name": "",
+   "status": 6,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "192": {
+   "name": "原虎胤",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 4,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "193": {
+   "name": "原昌胤",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 3,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "194": {
+   "name": "山本勘助",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 1,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "195": {
+   "name": "保科正俊",
+   "castle_id": 48,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "196": {
+   "name": "真田幸隆",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 4,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "197": {
+   "name": "马场信房",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 4,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "198": {
+   "name": "饭富虎昌",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 5,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "199": {
+   "name": "武田信玄",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "200": {
+   "name": "乐岩雅方",
+   "castle_id": 46,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "201": {
+   "name": "屋代政国",
+   "castle_id": 46,
+   "castle_name": "",
+   "status": 4,
+   "lord_id": 200,
+   "lord_name": "乐岩雅方"
+  },
+  "202": {
+   "name": "下条信氏",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 1,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "203": {
+   "name": "内藤昌丰",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 4,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "204": {
+   "name": "武田信繁",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 6,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "205": {
+   "name": "高阪昌信",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 4,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "206": {
+   "name": "武田信廉",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 5,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "207": {
+   "name": "山县昌景",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 4,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "210": {
+   "name": "秋山信友",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 3,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "212": {
+   "name": "矢泽赖纲",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 3,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "215": {
+   "name": "木曾义昌",
+   "castle_id": 47,
+   "castle_name": "焐�",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "220": {
+   "name": "真田信纲",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 3,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "221": {
+   "name": "三枝守友",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 1,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "222": {
+   "name": "武田义信",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 6,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "223": {
+   "name": "小山信茂",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 5,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "224": {
+   "name": "真田昌辉",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 3,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "227": {
+   "name": "穴山信君",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 5,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "231": {
+   "name": "真田昌幸",
+   "castle_id": 40,
+   "castle_name": "山",
+   "status": 2,
+   "lord_id": 199,
+   "lord_name": "武田信玄"
+  },
+  "238": {
+   "name": "宇佐定满",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 5,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "239": {
+   "name": "直江景纲",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 5,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "240": {
+   "name": "村上义清",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 4,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "241": {
+   "name": "色部胜长",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 3,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "242": {
+   "name": "高梨政赖",
+   "castle_id": 45,
+   "castle_name": "松",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "243": {
+   "name": "长尾政景",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 6,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "244": {
+   "name": "斋藤朝信",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 3,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "245": {
+   "name": "本庄实乃",
+   "castle_id": 53,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "246": {
+   "name": "须田满亲",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 2,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "247": {
+   "name": "鬼小弥太郎",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 2,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "248": {
+   "name": "河田长亲",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 3,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "249": {
+   "name": "神余亲纲",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 2,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "250": {
+   "name": "上杉景信",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 6,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "251": {
+   "name": "吉江景资",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 2,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "252": {
+   "name": "柿崎景家",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 4,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "253": {
+   "name": "北条高广",
+   "castle_id": 15,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "254": {
+   "name": "安田长秀",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 2,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "256": {
+   "name": "安田显元",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 2,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "257": {
+   "name": "上杉谦信",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "260": {
+   "name": "新发长敦",
+   "castle_id": 52,
+   "castle_name": "�山",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "265": {
+   "name": "本庄繁长",
+   "castle_id": 50,
+   "castle_name": "清洲",
+   "status": 4,
+   "lord_id": 257,
+   "lord_name": "上杉谦信"
+  },
+  "267": {
+   "name": "新发重家",
+   "castle_id": 52,
+   "castle_name": "�山",
+   "status": 4,
+   "lord_id": 260,
+   "lord_name": "新发长敦"
+  },
+  "277": {
+   "name": "松井宗信",
+   "castle_id": 59,
+   "castle_name": "桑名",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "278": {
+   "name": "阿部元真",
+   "castle_id": 54,
+   "castle_name": "叶山",
+   "status": 4,
+   "lord_id": 287,
+   "lord_name": "今川氏真"
+  },
+  "279": {
+   "name": "鹈殿长照",
+   "castle_id": 54,
+   "castle_name": "叶山",
+   "status": 3,
+   "lord_id": 287,
+   "lord_name": "今川氏真"
+  },
+  "280": {
+   "name": "关口氏广",
+   "castle_id": 57,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "281": {
+   "name": "菅沼定盈",
+   "castle_id": 64,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "282": {
+   "name": "朝比泰朝",
+   "castle_id": 60,
+   "castle_name": "晟�",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "283": {
+   "name": "饭尾连龙",
+   "castle_id": 58,
+   "castle_name": "津",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "284": {
+   "name": "葛山氏元",
+   "castle_id": 54,
+   "castle_name": "叶山",
+   "status": 3,
+   "lord_id": 287,
+   "lord_name": "今川氏真"
+  },
+  "285": {
+   "name": "天野景贯",
+   "castle_id": 54,
+   "castle_name": "叶山",
+   "status": 4,
+   "lord_id": 287,
+   "lord_name": "今川氏真"
+  },
+  "286": {
+   "name": "由比正纯",
+   "castle_id": 54,
+   "castle_name": "叶山",
+   "status": 3,
+   "lord_id": 287,
+   "lord_name": "今川氏真"
+  },
+  "287": {
+   "name": "今川氏真",
+   "castle_id": 54,
+   "castle_name": "叶山",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "288": {
+   "name": "冈部正纲",
+   "castle_id": 54,
+   "castle_name": "叶山",
+   "status": 5,
+   "lord_id": 287,
+   "lord_name": "今川氏真"
+  },
+  "289": {
+   "name": "冈部元信",
+   "castle_id": 67,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "290": {
+   "name": "酒井忠次",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 4,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "291": {
+   "name": "本多重次",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 3,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "292": {
+   "name": "高力清长",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 3,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "294": {
+   "name": "大久忠世",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 2,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "295": {
+   "name": "中根正信",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 1,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "296": {
+   "name": "夏目吉信",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 1,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "298": {
+   "name": "石川数正",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 4,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "300": {
+   "name": "大久忠佐",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 2,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "301": {
+   "name": "鸟居元忠",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 3,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "304": {
+   "name": "德川家康",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "305": {
+   "name": "服部半藏",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 2,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "306": {
+   "name": "渡边守纲",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 1,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "307": {
+   "name": "平岩亲吉",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 3,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "309": {
+   "name": "神原康政",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 2,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "310": {
+   "name": "本多忠胜",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 2,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "323": {
+   "name": "长井道利",
+   "castle_id": 72,
+   "castle_name": "滨",
+   "status": 5,
+   "lord_id": 335,
+   "lord_name": "斋藤龙兴"
+  },
+  "324": {
+   "name": "安藤守就",
+   "castle_id": 77,
+   "castle_name": "多闻",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "325": {
+   "name": "稻叶一铁",
+   "castle_id": 75,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "326": {
+   "name": "氏家卜全",
+   "castle_id": 74,
+   "castle_name": "馑�",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "327": {
+   "name": "日根弘就",
+   "castle_id": 72,
+   "castle_name": "滨",
+   "status": 3,
+   "lord_id": 335,
+   "lord_name": "斋藤龙兴"
+  },
+  "328": {
+   "name": "不破光治",
+   "castle_id": 72,
+   "castle_name": "滨",
+   "status": 1,
+   "lord_id": 335,
+   "lord_name": "斋藤龙兴"
+  },
+  "330": {
+   "name": "斋藤利三",
+   "castle_id": 72,
+   "castle_name": "滨",
+   "status": 1,
+   "lord_id": 335,
+   "lord_name": "斋藤龙兴"
+  },
+  "332": {
+   "name": "竹中半兵卫",
+   "castle_id": 17,
+   "castle_name": "",
+   "status": 0,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "335": {
+   "name": "斋藤龙兴",
+   "castle_id": 72,
+   "castle_name": "滨",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "337": {
+   "name": "鸟屋满荣",
+   "castle_id": 78,
+   "castle_name": "弦�",
+   "status": 4,
+   "lord_id": 339,
+   "lord_name": "北田具教"
+  },
+  "338": {
+   "name": "关盛信",
+   "castle_id": 81,
+   "castle_name": "龙寺",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "339": {
+   "name": "北田具教",
+   "castle_id": 78,
+   "castle_name": "弦�",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "340": {
+   "name": "神户具盛",
+   "castle_id": 78,
+   "castle_name": "弦�",
+   "status": 5,
+   "lord_id": 339,
+   "lord_name": "北田具教"
+  },
+  "343": {
+   "name": "木造具政",
+   "castle_id": 78,
+   "castle_name": "弦�",
+   "status": 5,
+   "lord_id": 339,
+   "lord_name": "北田具教"
+  },
+  "345": {
+   "name": "九鬼嘉隆",
+   "castle_id": 83,
+   "castle_name": "�",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "347": {
+   "name": "北田具房",
+   "castle_id": 78,
+   "castle_name": "弦�",
+   "status": 14,
+   "lord_id": 339,
+   "lord_name": "北田具教"
+  },
+  "351": {
+   "name": "神保长职",
+   "castle_id": 84,
+   "castle_name": "",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "352": {
+   "name": "小岛职镇",
+   "castle_id": 84,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": 351,
+   "lord_name": "神保长职"
+  },
+  "353": {
+   "name": "神保长住",
+   "castle_id": 84,
+   "castle_name": "",
+   "status": 6,
+   "lord_id": 351,
+   "lord_name": "神保长职"
+  },
+  "355": {
+   "name": "长续连",
+   "castle_id": 86,
+   "castle_name": "茨木",
+   "status": 5,
+   "lord_id": 357,
+   "lord_name": "田山义续"
+  },
+  "356": {
+   "name": "游佐续光",
+   "castle_id": 86,
+   "castle_name": "茨木",
+   "status": 5,
+   "lord_id": 357,
+   "lord_name": "田山义续"
+  },
+  "357": {
+   "name": "田山义续",
+   "castle_id": 86,
+   "castle_name": "茨木",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "360": {
+   "name": "田山义纲",
+   "castle_id": 86,
+   "castle_name": "茨木",
+   "status": 14,
+   "lord_id": 357,
+   "lord_name": "田山义续"
+  },
+  "361": {
+   "name": "朝仓景隆",
+   "castle_id": 90,
+   "castle_name": "屋",
+   "status": 5,
+   "lord_id": 368,
+   "lord_name": "朝仓义景"
+  },
+  "363": {
+   "name": "朝仓景恒",
+   "castle_id": 94,
+   "castle_name": "城94",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "364": {
+   "name": "明智光秀",
+   "castle_id": 90,
+   "castle_name": "屋",
+   "status": 2,
+   "lord_id": 368,
+   "lord_name": "朝仓义景"
+  },
+  "365": {
+   "name": "朝仓景连",
+   "castle_id": 90,
+   "castle_name": "屋",
+   "status": 4,
+   "lord_id": 368,
+   "lord_name": "朝仓义景"
+  },
+  "368": {
+   "name": "朝仓义景",
+   "castle_id": 90,
+   "castle_name": "屋",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "369": {
+   "name": "朝仓景镜",
+   "castle_id": 90,
+   "castle_name": "屋",
+   "status": 5,
+   "lord_id": 368,
+   "lord_name": "朝仓义景"
+  },
+  "371": {
+   "name": "朝仓景健",
+   "castle_id": 90,
+   "castle_name": "屋",
+   "status": 4,
+   "lord_id": 368,
+   "lord_name": "朝仓义景"
+  },
+  "372": {
+   "name": "真柄直隆",
+   "castle_id": 90,
+   "castle_name": "屋",
+   "status": 2,
+   "lord_id": 368,
+   "lord_name": "朝仓义景"
+  },
+  "373": {
+   "name": "真柄直澄",
+   "castle_id": 90,
+   "castle_name": "屋",
+   "status": 2,
+   "lord_id": 368,
+   "lord_name": "朝仓义景"
+  },
+  "374": {
+   "name": "明智光春",
+   "castle_id": 90,
+   "castle_name": "屋",
+   "status": 1,
+   "lord_id": 368,
+   "lord_name": "朝仓义景"
+  },
+  "376": {
+   "name": "富田景政",
+   "castle_id": 22,
+   "castle_name": "",
+   "status": 0,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "377": {
+   "name": "雨森弥兵卫",
+   "castle_id": 96,
+   "castle_name": "城96",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "378": {
+   "name": "海北纲亲",
+   "castle_id": 96,
+   "castle_name": "城96",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "379": {
+   "name": "矶野员昌",
+   "castle_id": 99,
+   "castle_name": "城99",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "380": {
+   "name": "赤尾清纲",
+   "castle_id": 96,
+   "castle_name": "城96",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "384": {
+   "name": "浅井长政",
+   "castle_id": 96,
+   "castle_name": "城96",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "387": {
+   "name": "蒲生定秀",
+   "castle_id": 101,
+   "castle_name": "城101",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "388": {
+   "name": "三云定持",
+   "castle_id": 101,
+   "castle_name": "城101",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "389": {
+   "name": "六角承侦",
+   "castle_id": 101,
+   "castle_name": "城101",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "390": {
+   "name": "后藤贤丰",
+   "castle_id": 101,
+   "castle_name": "城101",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "392": {
+   "name": "蒲生贤秀",
+   "castle_id": 104,
+   "castle_name": "城104",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "397": {
+   "name": "松永久秀",
+   "castle_id": 107,
+   "castle_name": "城107",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "398": {
+   "name": "冈国高",
+   "castle_id": 107,
+   "castle_name": "城107",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "401": {
+   "name": "筒井顺庆",
+   "castle_id": 110,
+   "castle_name": "城110",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "403": {
+   "name": "松仓右近",
+   "castle_id": 110,
+   "castle_name": "城110",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "405": {
+   "name": "细川藤孝",
+   "castle_id": 111,
+   "castle_name": "城111",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "406": {
+   "name": "足利义辉",
+   "castle_id": 111,
+   "castle_name": "城111",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "407": {
+   "name": "足利义昭",
+   "castle_id": 255,
+   "castle_name": "城255",
+   "status": 8,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "410": {
+   "name": "波多宗长",
+   "castle_id": 115,
+   "castle_name": "城115",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "411": {
+   "name": "赤井直正",
+   "castle_id": 115,
+   "castle_name": "城115",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "412": {
+   "name": "波多秀治",
+   "castle_id": 115,
+   "castle_name": "城115",
+   "status": 14,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "413": {
+   "name": "奥田忠高",
+   "castle_id": 107,
+   "castle_name": "城107",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "414": {
+   "name": "稻井教业",
+   "castle_id": 115,
+   "castle_name": "城115",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "416": {
+   "name": "下间丹后",
+   "castle_id": 124,
+   "castle_name": "城124",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "418": {
+   "name": "波多秀尚",
+   "castle_id": 115,
+   "castle_name": "城115",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "419": {
+   "name": "下间兵库",
+   "castle_id": 124,
+   "castle_name": "城124",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "421": {
+   "name": "下间赖照",
+   "castle_id": 92,
+   "castle_name": "城92",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "422": {
+   "name": "七里赖周",
+   "castle_id": 87,
+   "castle_name": "",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "423": {
+   "name": "本愿显如",
+   "castle_id": 124,
+   "castle_name": "城124",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "427": {
+   "name": "三好笑岩",
+   "castle_id": 128,
+   "castle_name": "城128",
+   "status": 6,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "428": {
+   "name": "伊丹亲兴",
+   "castle_id": 123,
+   "castle_name": "城123",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "429": {
+   "name": "三好长庆",
+   "castle_id": 120,
+   "castle_name": "城120",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "430": {
+   "name": "香川元景",
+   "castle_id": 163,
+   "castle_name": "城163",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "431": {
+   "name": "三好长逸",
+   "castle_id": 120,
+   "castle_name": "城120",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "432": {
+   "name": "岩成友通",
+   "castle_id": 120,
+   "castle_name": "城120",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "433": {
+   "name": "海部友光",
+   "castle_id": 161,
+   "castle_name": "城161",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "434": {
+   "name": "三好义贤",
+   "castle_id": 160,
+   "castle_name": "城160",
+   "status": 6,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "435": {
+   "name": "三好政康",
+   "castle_id": 120,
+   "castle_name": "城120",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "436": {
+   "name": "筱原长房",
+   "castle_id": 160,
+   "castle_name": "城160",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "437": {
+   "name": "十河一存",
+   "castle_id": 162,
+   "castle_name": "城162",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "438": {
+   "name": "高山友照",
+   "castle_id": 107,
+   "castle_name": "城107",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "439": {
+   "name": "安宅冬康",
+   "castle_id": 120,
+   "castle_name": "城120",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "441": {
+   "name": "池田长正",
+   "castle_id": 120,
+   "castle_name": "城120",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "442": {
+   "name": "荒木村重",
+   "castle_id": 122,
+   "castle_name": "城122",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "446": {
+   "name": "三好义继",
+   "castle_id": 120,
+   "castle_name": "城120",
+   "status": 14,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "453": {
+   "name": "杂贺佐太夫",
+   "castle_id": 130,
+   "castle_name": "城130",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "456": {
+   "name": "杉谷善住坊",
+   "castle_id": 24,
+   "castle_name": "",
+   "status": 0,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "457": {
+   "name": "杂贺孙市",
+   "castle_id": 130,
+   "castle_name": "城130",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "458": {
+   "name": "铃木重朝",
+   "castle_id": 130,
+   "castle_name": "城130",
+   "status": 13,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "460": {
+   "name": "别所长胜",
+   "castle_id": 132,
+   "castle_name": "城132",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "461": {
+   "name": "别所贺相",
+   "castle_id": 132,
+   "castle_name": "城132",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "465": {
+   "name": "小寺政职",
+   "castle_id": 135,
+   "castle_name": "城135",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "470": {
+   "name": "山名佑丰",
+   "castle_id": 139,
+   "castle_name": "城139",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "474": {
+   "name": "山名丰国",
+   "castle_id": 139,
+   "castle_name": "城139",
+   "status": 14,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "475": {
+   "name": "牛尾幸清",
+   "castle_id": 141,
+   "castle_name": "城141",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "476": {
+   "name": "三刀久佑",
+   "castle_id": 142,
+   "castle_name": "城142",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "477": {
+   "name": "宇山久兼",
+   "castle_id": 141,
+   "castle_name": "城141",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "478": {
+   "name": "佐世清宗",
+   "castle_id": 141,
+   "castle_name": "城141",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "480": {
+   "name": "南条元续",
+   "castle_id": 140,
+   "castle_name": "城140",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "481": {
+   "name": "尼子义久",
+   "castle_id": 141,
+   "castle_name": "城141",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "483": {
+   "name": "山中鹿之介",
+   "castle_id": 141,
+   "castle_name": "城141",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "487": {
+   "name": "花房正幸",
+   "castle_id": 145,
+   "castle_name": "城145",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "488": {
+   "name": "长船贞亲",
+   "castle_id": 145,
+   "castle_name": "城145",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "489": {
+   "name": "宇喜直家",
+   "castle_id": 145,
+   "castle_name": "城145",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "492": {
+   "name": "宇喜忠家",
+   "castle_id": 145,
+   "castle_name": "城145",
+   "status": 14,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "500": {
+   "name": "毛利元就",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "501": {
+   "name": "国司元相",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "502": {
+   "name": "天野隆重",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "503": {
+   "name": "熊谷信直",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "504": {
+   "name": "桂元澄",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "505": {
+   "name": "儿玉就方",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "506": {
+   "name": "吉见正赖",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "507": {
+   "name": "穴户隆家",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "508": {
+   "name": "桂元忠",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "509": {
+   "name": "口羽通良",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "512": {
+   "name": "毛利隆元",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 14,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "515": {
+   "name": "乃美宗胜",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 2,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "516": {
+   "name": "平贺广相",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 2,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "518": {
+   "name": "吉川元春",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "521": {
+   "name": "小早隆景",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "522": {
+   "name": "村上武吉",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "523": {
+   "name": "杉原盛重",
+   "castle_id": 152,
+   "castle_name": "城152",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "525": {
+   "name": "杉重良",
+   "castle_id": 157,
+   "castle_name": "城157",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "526": {
+   "name": "清水宗治",
+   "castle_id": 149,
+   "castle_name": "城149",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "528": {
+   "name": "三村元亲",
+   "castle_id": 151,
+   "castle_name": "城151",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "530": {
+   "name": "吉川经家",
+   "castle_id": 153,
+   "castle_name": "城153",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "540": {
+   "name": "来岛通康",
+   "castle_id": 164,
+   "castle_name": "城164",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "541": {
+   "name": "河野通宣",
+   "castle_id": 164,
+   "castle_name": "城164",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "543": {
+   "name": "西园公广",
+   "castle_id": 166,
+   "castle_name": "城166",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "545": {
+   "name": "吉田重俊",
+   "castle_id": 167,
+   "castle_name": "城167",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "546": {
+   "name": "吉田孝赖",
+   "castle_id": 167,
+   "castle_name": "城167",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "547": {
+   "name": "福留亲政",
+   "castle_id": 167,
+   "castle_name": "城167",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "548": {
+   "name": "公文重忠",
+   "castle_id": 167,
+   "castle_name": "城167",
+   "status": 1,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "550": {
+   "name": "中岛可之助",
+   "castle_id": 167,
+   "castle_name": "城167",
+   "status": 2,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "551": {
+   "name": "江村亲家",
+   "castle_id": 167,
+   "castle_name": "城167",
+   "status": 2,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "553": {
+   "name": "谷忠澄",
+   "castle_id": 167,
+   "castle_name": "城167",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "555": {
+   "name": "久武亲信",
+   "castle_id": 167,
+   "castle_name": "城167",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "557": {
+   "name": "�A�C元亲",
+   "castle_id": 167,
+   "castle_name": "城167",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "561": {
+   "name": "泷本非有",
+   "castle_id": 167,
+   "castle_name": "城167",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "565": {
+   "name": "吉良亲贞",
+   "castle_id": 167,
+   "castle_name": "城167",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "568": {
+   "name": "�B�C亲泰",
+   "castle_id": 168,
+   "castle_name": "城168",
+   "status": 6,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "569": {
+   "name": "入交藏人",
+   "castle_id": 167,
+   "castle_name": "城167",
+   "status": 1,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "584": {
+   "name": "土居宗珊",
+   "castle_id": 170,
+   "castle_name": "城170",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "585": {
+   "name": "一条兼定",
+   "castle_id": 170,
+   "castle_name": "城170",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "586": {
+   "name": "原田高种",
+   "castle_id": 173,
+   "castle_name": "城173",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "587": {
+   "name": "筑紫惟门",
+   "castle_id": 173,
+   "castle_name": "城173",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "588": {
+   "name": "秋月种实",
+   "castle_id": 173,
+   "castle_name": "城173",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "590": {
+   "name": "有马义贞",
+   "castle_id": 180,
+   "castle_name": "城180",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "591": {
+   "name": "木下昌直",
+   "castle_id": 178,
+   "castle_name": "城178",
+   "status": 1,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "592": {
+   "name": "龙造隆信",
+   "castle_id": 178,
+   "castle_name": "城178",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "593": {
+   "name": "龙造家就",
+   "castle_id": 178,
+   "castle_name": "城178",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "594": {
+   "name": "松浦隆信",
+   "castle_id": 181,
+   "castle_name": "城181",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "595": {
+   "name": "龙造信周",
+   "castle_id": 178,
+   "castle_name": "城178",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "596": {
+   "name": "大村纯忠",
+   "castle_id": 180,
+   "castle_name": "城180",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "597": {
+   "name": "锅岛直茂",
+   "castle_id": 178,
+   "castle_name": "城178",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "599": {
+   "name": "久武亲直",
+   "castle_id": 167,
+   "castle_name": "城167",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "600": {
+   "name": "百武贤兼",
+   "castle_id": 178,
+   "castle_name": "城178",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "601": {
+   "name": "圆城信胤",
+   "castle_id": 178,
+   "castle_name": "城178",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "604": {
+   "name": "成松信胜",
+   "castle_id": 178,
+   "castle_name": "城178",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "606": {
+   "name": "江里信常",
+   "castle_id": 178,
+   "castle_name": "城178",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "609": {
+   "name": "角隅石宗",
+   "castle_id": 182,
+   "castle_name": "城182",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "610": {
+   "name": "吉冈长增",
+   "castle_id": 182,
+   "castle_name": "城182",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "611": {
+   "name": "志贺亲守",
+   "castle_id": 184,
+   "castle_name": "城184",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "612": {
+   "name": "门注鉴丰",
+   "castle_id": 182,
+   "castle_name": "城182",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "613": {
+   "name": "立花道雪",
+   "castle_id": 182,
+   "castle_name": "城182",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "614": {
+   "name": "蒲地鉴盛",
+   "castle_id": 177,
+   "castle_name": "城177",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "615": {
+   "name": "高桥鉴种",
+   "castle_id": 171,
+   "castle_name": "城171",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "616": {
+   "name": "田原绍忍",
+   "castle_id": 182,
+   "castle_name": "城182",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "617": {
+   "name": "吉弘鉴理",
+   "castle_id": 182,
+   "castle_name": "城182",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "618": {
+   "name": "大友宗麟",
+   "castle_id": 182,
+   "castle_name": "城182",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "620": {
+   "name": "宗像氏贞",
+   "castle_id": 174,
+   "castle_name": "城174",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "626": {
+   "name": "高桥绍运",
+   "castle_id": 182,
+   "castle_name": "城182",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "633": {
+   "name": "上村赖孝",
+   "castle_id": 187,
+   "castle_name": "城187",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "634": {
+   "name": "犬童赖安",
+   "castle_id": 187,
+   "castle_name": "城187",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "638": {
+   "name": "深水长智",
+   "castle_id": 187,
+   "castle_name": "城187",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "640": {
+   "name": "相良义阳",
+   "castle_id": 187,
+   "castle_name": "城187",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "642": {
+   "name": "土持亲成",
+   "castle_id": 192,
+   "castle_name": "城192",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "644": {
+   "name": "伊东义佑",
+   "castle_id": 191,
+   "castle_name": "城191",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "647": {
+   "name": "肝付兼续",
+   "castle_id": 199,
+   "castle_name": "城199",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "648": {
+   "name": "菱刈重猛",
+   "castle_id": 199,
+   "castle_name": "城199",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "649": {
+   "name": "伊地重兴",
+   "castle_id": 199,
+   "castle_name": "城199",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "650": {
+   "name": "祢寝重长",
+   "castle_id": 199,
+   "castle_name": "城199",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "651": {
+   "name": "岛津贵久",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 7,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "652": {
+   "name": "伊集忠仓",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "653": {
+   "name": "村田经定",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "654": {
+   "name": "木胁佑昌",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "656": {
+   "name": "种子时尧",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "660": {
+   "name": "新纳忠元",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "661": {
+   "name": "喜入季久",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "662": {
+   "name": "岛津义久",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 14,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "663": {
+   "name": "伊集忠栋",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "664": {
+   "name": "肝付兼盛",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 2,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "665": {
+   "name": "伊地重秀",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 2,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "666": {
+   "name": "岛津义弘",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 13,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "668": {
+   "name": "猿渡信光",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 2,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "669": {
+   "name": "岛津义虎",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "671": {
+   "name": "岛津岁久",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "673": {
+   "name": "五代友喜",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 2,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "675": {
+   "name": "山田有信",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 4,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "676": {
+   "name": "上井觉兼",
+   "castle_id": 195,
+   "castle_name": "城195",
+   "status": 3,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "689": {
+   "name": "朽木元纲",
+   "castle_id": 112,
+   "castle_name": "城112",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  },
+  "692": {
+   "name": "大须康高",
+   "castle_id": 62,
+   "castle_name": "",
+   "status": 2,
+   "lord_id": 304,
+   "lord_name": "德川家康"
+  },
+  "693": {
+   "name": "杉坊明算",
+   "castle_id": 131,
+   "castle_name": "城131",
+   "status": 5,
+   "lord_id": null,
+   "lord_name": null
+  }
+ }
+}

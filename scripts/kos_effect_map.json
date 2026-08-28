@@ -1,0 +1,163 @@
+{
+  "note": "KOS event stat effects; skill_hint from bytecode uint8 before MESSAGE ref",
+  "skills": [
+    "算用",
+    "剑术",
+    "口才",
+    "马术",
+    "洋枪",
+    "筑城",
+    "忍术",
+    "军学",
+    "礼法",
+    "茶道"
+  ],
+  "events": {
+    "MACHIMES.KOS": {
+      "money": [
+        5,
+        25
+      ],
+      "charm": [
+        0,
+        1
+      ]
+    },
+    "GINOUUP.KOS": {
+      "skill_up": 1
+    },
+    "KAKEI.KOS": {
+      "money": [
+        -30,
+        -5
+      ]
+    },
+    "KOATARI.KOS": {
+      "money": [
+        10,
+        40
+      ]
+    },
+    "OOATARI.KOS": {
+      "money": [
+        50,
+        120
+      ]
+    },
+    "KAMINARI.KOS": {
+      "hp": [
+        -15,
+        -5
+      ]
+    },
+    "MI_AME.KOS": {
+      "charm": [
+        1,
+        2
+      ]
+    },
+    "MI_HARE.KOS": {
+      "hp": [
+        5,
+        15
+      ]
+    },
+    "NINJA.KOS": {
+      "might": [
+        1,
+        2
+      ],
+      "hp": [
+        -8,
+        -2
+      ]
+    },
+    "TEPPOU.KOS": {
+      "skill": "洋枪"
+    },
+    "KEMURI.KOS": {
+      "hp": [
+        8,
+        20
+      ]
+    },
+    "SEIKOU.KOS": {
+      "lead": [
+        1,
+        2
+      ]
+    },
+    "SHIPPAI.KOS": {
+      "money": [
+        -20,
+        -8
+      ],
+      "charm": [
+        -1,
+        0
+      ]
+    },
+    "SYUUZEN.KOS": {
+      "politics": [
+        1,
+        2
+      ],
+      "money": [
+        0,
+        15
+      ],
+      "skill_hint": "算用",
+      "skill": "算用"
+    },
+    "GIHEI.KOS": {
+      "might": [
+        1,
+        1
+      ],
+      "lead": [
+        1,
+        1
+      ]
+    },
+    "TOTUGEKI.KOS": {
+      "skill": "马术"
+    },
+    "ZANSYU.KOS": {
+      "lead": [
+        1,
+        2
+      ],
+      "skill": "忍术"
+    },
+    "SHIKI.KOS": {
+      "charm": [
+        1,
+        2
+      ],
+      "politics": [
+        1,
+        1
+      ]
+    },
+    "IKARI.KOS": {
+      "lead": [
+        1,
+        2
+      ],
+      "ambition_stat": [
+        1,
+        2
+      ]
+    },
+    "MATISIRO.KOS": {
+      "politics": [
+        1,
+        2
+      ],
+      "money": [
+        0,
+        20
+      ]
+    }
+  }
+}

@@ -1,0 +1,827 @@
+{
+  "buffer": "0x512e58",
+  "source": "HJMAPDAT.DAT section A (180B per battle record)",
+  "deploy_tier_ref": "scripts/deploy_tier_map.json (wing-band co-occurrence; not 1:1 token map)",
+  "deploy_spatial_map": {
+    "ref": "scripts/sectA_deploy_map.json",
+    "formula": "off = (col<<1) + 40*((col&1)^1) + 80*row",
+    "validation": "38 battles: 99.5% populated SECT_A cells land on non-space deploy chars",
+    "source_va": "0x438c60"
+  },
+  "layout": {
+    "formula": "index = col + 20 * row",
+    "cols": 20,
+    "rows": 9,
+    "getLo": "0x439050  SECT_A[col + 20*row] & 0xF",
+    "getHi": "0x4390c0  SECT_A[col + 20*row] >> 4  (dead: hi nibble always 0 in 38 battles)",
+    "setLo": "0x439080  write low nibble preserving hi"
+  },
+  "entity_binding": {
+    "commander_or_unit": {
+      "byte_at_0": "col (0..19) → SECT_A column index",
+      "byte_at_2": "row (0..8) → SECT_A row index",
+      "evidence": [
+        "0x42d270 damage",
+        "0x42d321 atkDivisor",
+        "0x423a13",
+        "0x438a6b movement family"
+      ]
+    },
+    "unit_slot_0x513910": {
+      "byte_at_5": "map_x (0..19, cmp 0x14)",
+      "byte_at_7": "map_y (coarse, pairs with x for getLo in move AI 0x423fb0)"
+    },
+    "index_helpers": {
+      "0x43a420": "DIR8 word table @0x503710",
+      "0x43a440": "SPAWN_TYPE word table @0x503712 (feint/dummy spawn)",
+      "0x43a410": "runtime byte table @0x512f28 (filled at battle prep 0x43a080)"
+    }
+  },
+  "cell_value_semantics": {
+    "low_nibble": {
+      "name": "terrain_class_idx",
+      "range": "0..7 (8-15 unused in HJMAPDAT)",
+      "consumers": {
+        "move_cost": "0x438a60/aa0/af0/b30 → 0x5036a0/a8/c0/c8 (+snow via 0x43cad0)",
+        "attack_divisor": "0x43a9c0 → 0x503770/778 (+ facility/height adjust)",
+        "lut_remap": "0x423f90/423fa0 → 0x503138/140 (UI/placement remap)"
+      }
+    },
+    "high_nibble": {
+      "name": "combat_mod_tier",
+      "live": false,
+      "intended": "0x436840 fire +50 if atk_hi > def_hi; 0x42d270 damage ±1 divisor"
+    }
+  },
+  "rows": {
+    "0": {
+      "label": "tier_0",
+      "note": "battle0 mirror of tier_1; primary left-wing template band"
+    },
+    "1": {
+      "label": "tier_1",
+      "note": "most frequently populated row (38/38 battles)"
+    },
+    "2": {
+      "label": "tier_2",
+      "note": "secondary line; often paired with tier_3"
+    },
+    "3": {
+      "label": "tier_3",
+      "note": "mid/ reserve; lower mean values"
+    },
+    "4": {
+      "label": "tier_4",
+      "note": "reserve / sparse"
+    },
+    "5": {
+      "label": "tier_5",
+      "note": "reserve / sparse"
+    },
+    "6": {
+      "label": "tier_6",
+      "note": "right_secondary; wing_band right ~89% when populated"
+    },
+    "7": {
+      "label": "tier_7",
+      "note": "right_wing_template_main; pairs tier_8"
+    },
+    "8": {
+      "label": "tier_8",
+      "note": "right_wing_template_primary; battle0 mirror of tier_7"
+    }
+  },
+  "cols": [
+    {
+      "col": 0,
+      "label": "param_slot_00",
+      "between_tier_spread": 0.58,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 1,
+      "label": "param_slot_01",
+      "between_tier_spread": 0.84,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 2,
+      "label": "param_slot_02",
+      "between_tier_spread": 0.84,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 3,
+      "label": "param_slot_03",
+      "between_tier_spread": 0.97,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 4,
+      "label": "param_slot_04",
+      "between_tier_spread": 0.55,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 5,
+      "label": "param_slot_05",
+      "between_tier_spread": 0.45,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 6,
+      "label": "param_slot_06",
+      "between_tier_spread": 0.61,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 7,
+      "label": "param_slot_07",
+      "between_tier_spread": 0.68,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 8,
+      "label": "param_slot_08",
+      "between_tier_spread": 0.79,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 9,
+      "label": "param_slot_09",
+      "between_tier_spread": 1.0,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 10,
+      "label": "param_slot_10",
+      "between_tier_spread": 1.03,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 11,
+      "label": "param_slot_11",
+      "between_tier_spread": 0.89,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 12,
+      "label": "param_slot_12",
+      "between_tier_spread": 0.89,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 13,
+      "label": "param_slot_13",
+      "between_tier_spread": 0.89,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 14,
+      "label": "param_slot_14",
+      "between_tier_spread": 1.03,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 15,
+      "label": "param_slot_15",
+      "between_tier_spread": 1.03,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 16,
+      "label": "param_slot_16",
+      "between_tier_spread": 0.61,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 17,
+      "label": "param_slot_17",
+      "between_tier_spread": 1.0,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 18,
+      "label": "param_slot_18",
+      "between_tier_spread": 0.71,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    },
+    {
+      "col": 19,
+      "label": "param_slot_19",
+      "between_tier_spread": 0.53,
+      "note": "slot value indexes move/atk LUT (0..7); not a named stat column in EXE"
+    }
+  ],
+  "row_symmetry_battle0": [
+    {
+      "rows": [
+        0,
+        1
+      ],
+      "battle0_identical": true
+    },
+    {
+      "rows": [
+        7,
+        8
+      ],
+      "battle0_identical": true
+    },
+    {
+      "rows": [
+        2,
+        3
+      ],
+      "battle0_identical": false
+    },
+    {
+      "rows": [
+        4,
+        5
+      ],
+      "battle0_identical": true
+    }
+  ],
+  "row_profiles": {
+    "0": {
+      "active_battles": 37,
+      "col_means": [
+        1.08,
+        1.13,
+        1,
+        1.16,
+        1.03,
+        1.08,
+        1.24,
+        1.29,
+        1.32,
+        1.37,
+        1.03,
+        1,
+        1.16,
+        0.97,
+        1,
+        1.05,
+        0.79,
+        1.32,
+        1.37,
+        1.24
+      ]
+    },
+    "1": {
+      "active_battles": 38,
+      "col_means": [
+        1,
+        1.13,
+        0.89,
+        1.29,
+        0.79,
+        0.74,
+        1.32,
+        1.32,
+        1.37,
+        1.47,
+        1.32,
+        1.13,
+        1.24,
+        1.32,
+        0.92,
+        1.03,
+        0.92,
+        1.13,
+        1.08,
+        1.08
+      ]
+    },
+    "2": {
+      "active_battles": 35,
+      "col_means": [
+        0.74,
+        0.63,
+        0.92,
+        0.74,
+        0.55,
+        1.03,
+        1.21,
+        1.13,
+        0.87,
+        1.16,
+        0.92,
+        1.18,
+        0.76,
+        1.24,
+        0.89,
+        0.71,
+        0.66,
+        1.03,
+        1.37,
+        0.84
+      ]
+    },
+    "3": {
+      "active_battles": 32,
+      "col_means": [
+        1.05,
+        0.95,
+        0.68,
+        0.42,
+        0.61,
+        0.89,
+        1.03,
+        1.05,
+        0.79,
+        0.71,
+        0.55,
+        1.24,
+        0.76,
+        0.84,
+        0.47,
+        0.29,
+        0.39,
+        0.89,
+        0.76,
+        0.92
+      ]
+    },
+    "4": {
+      "active_battles": 31,
+      "col_means": [
+        1.18,
+        0.79,
+        0.42,
+        0.37,
+        0.47,
+        0.71,
+        0.74,
+        1.03,
+        0.71,
+        0.71,
+        0.47,
+        0.71,
+        0.42,
+        0.68,
+        0.39,
+        0.37,
+        0.32,
+        0.47,
+        0.76,
+        0.79
+      ]
+    },
+    "5": {
+      "active_battles": 33,
+      "col_means": [
+        0.97,
+        1.03,
+        0.89,
+        0.32,
+        0.55,
+        0.63,
+        0.71,
+        0.63,
+        0.58,
+        0.47,
+        0.29,
+        0.5,
+        0.37,
+        0.42,
+        0.66,
+        0.71,
+        0.53,
+        0.45,
+        0.76,
+        0.79
+      ]
+    },
+    "6": {
+      "active_battles": 35,
+      "col_means": [
+        1.05,
+        0.84,
+        0.87,
+        0.82,
+        0.53,
+        0.68,
+        0.79,
+        0.95,
+        0.84,
+        0.63,
+        0.55,
+        0.34,
+        0.68,
+        0.45,
+        1.03,
+        0.89,
+        0.66,
+        0.32,
+        0.66,
+        0.92
+      ]
+    },
+    "7": {
+      "active_battles": 37,
+      "col_means": [
+        1.32,
+        1.47,
+        1.26,
+        0.74,
+        0.95,
+        0.68,
+        0.87,
+        0.82,
+        1.26,
+        0.84,
+        0.97,
+        0.95,
+        1.26,
+        1,
+        1.42,
+        1.18,
+        0.68,
+        0.42,
+        0.68,
+        0.92
+      ]
+    },
+    "8": {
+      "active_battles": 35,
+      "col_means": [
+        1.32,
+        1.37,
+        1.08,
+        0.76,
+        0.97,
+        1.08,
+        1,
+        1.03,
+        0.92,
+        0.95,
+        0.76,
+        1.16,
+        1.03,
+        1.21,
+        1.32,
+        1.32,
+        0.82,
+        0.71,
+        0.84,
+        0.71
+      ]
+    }
+  },
+  "call_sites": {
+    "getLo_count": 29,
+    "getLo": [
+      {
+        "va": "0x00423a13",
+        "consumer_role": "unknown",
+        "arg_hints": [
+          "arg_row_from_entity+2"
+        ],
+        "post_call": "mov dl, byte ptr [edi + 2] add esp, 8 mov bl, al mov al, byte ptr [edi] push edx push eax mov byte ptr [esp + 0x30], bl "
+      },
+      {
+        "va": "0x00423a28",
+        "consumer_role": "unknown",
+        "arg_hints": [],
+        "post_call": "mov esi, dword ptr [esp + 0x30] add esp, 8 mov byte ptr [esp + 0x18], al push esi call 0x423fa0 add esp, 4 mov edi, dwor"
+      },
+      {
+        "va": "0x00428b5c",
+        "consumer_role": "class_threshold_check",
+        "arg_hints": [
+          "map_spawn_derivation"
+        ],
+        "post_call": "add esp, 8 cmp al, 2 ja 0x428b70 mov dword ptr [esp + 0x14], edi mov dword ptr [esp + 0x24], esi mov eax, dword ptr [esp"
+      },
+      {
+        "va": "0x00428de7",
+        "consumer_role": "unknown",
+        "arg_hints": [
+          "map_spawn_derivation"
+        ],
+        "post_call": "add esp, 8 cmp al, 3 je 0x428e11 cmp al, 4 je 0x428e11 mov ecx, dword ptr [esp + 0x54] movsx eax, cx shl eax, 1 inc ecx "
+      },
+      {
+        "va": "0x00429bdc",
+        "consumer_role": "class_threshold_check",
+        "arg_hints": [
+          "map_spawn_derivation",
+          "bounds_col_lt_20"
+        ],
+        "post_call": "add esp, 8 cmp al, 7 je 0x429bec cmp al, 8 jne 0x429c00 mov eax, ebp and eax, 0xffff shl eax, 1 inc ebp mov word ptr [es"
+      },
+      {
+        "va": "0x0042c16d",
+        "consumer_role": "class_threshold_check",
+        "arg_hints": [
+          "arg_row_from_entity+2"
+        ],
+        "post_call": "mov dl, byte ptr [esi + 0x2b] add esp, 8 and dl, 0xc0 mov bl, al cmp dl, 0x40 je 0x42c1d1 mov ecx, esi call 0x43da00 tes"
+      },
+      {
+        "va": "0x004306e1",
+        "consumer_role": "unknown",
+        "arg_hints": [
+          "arg_row_from_entity+2"
+        ],
+        "post_call": "mov byte ptr [esp + 0x14], al add esp, 8 mov edx, dword ptr [esp + 0xc] and edx, 0xff mov ax, word ptr [edx*2 + 0x503360"
+      },
+      {
+        "va": "0x00436f37",
+        "consumer_role": "class_threshold_check",
+        "arg_hints": [
+          "map_spawn_derivation",
+          "bounds_col_lt_20"
+        ],
+        "post_call": "movzx ax, al add esp, 8 cmp ax, 3 je 0x436f57 cmp ax, 4 je 0x436f57 mov dword ptr [esp + 0x18], 1 push 6 call 0x4a0c60 m"
+      },
+      {
+        "va": "0x00437286",
+        "consumer_role": "unknown",
+        "arg_hints": [
+          "arg_row_from_entity+2"
+        ],
+        "post_call": "mov esi, dword ptr [esp + 0x28] add esp, 8 mov ecx, ebp push esi call 0x43d980 test di, di jge 0x4372c9 neg edi push edi"
+      },
+      {
+        "va": "0x00438a6b",
+        "consumer_role": "move_cost_lut",
+        "arg_hints": [],
+        "post_call": "mov byte ptr [esp + 0x14], al add esp, 8 mov edx, dword ptr [esp + 0xc] and edx, 0xff mov bl, byte ptr [edx + 0x5036a0] "
+      },
+      {
+        "va": "0x00438aab",
+        "consumer_role": "move_cost_lut",
+        "arg_hints": [],
+        "post_call": "mov edx, dword ptr [esp + 0x18] mov byte ptr [esp + 0x14], al mov ecx, dword ptr [esp + 0x14] add esp, 8 mov al, byte pt"
+      },
+      {
+        "va": "0x00438afb",
+        "consumer_role": "move_cost_lut",
+        "arg_hints": [],
+        "post_call": "mov byte ptr [esp + 0x14], al add esp, 8 mov edx, dword ptr [esp + 0xc] and edx, 0xff mov bl, byte ptr [edx + 0x5036c0] "
+      },
+      {
+        "va": "0x00438b3b",
+        "consumer_role": "move_cost_lut",
+        "arg_hints": [],
+        "post_call": "mov edx, dword ptr [esp + 0x18] mov byte ptr [esp + 0x14], al mov ecx, dword ptr [esp + 0x14] add esp, 8 mov al, byte pt"
+      },
+      {
+        "va": "0x00438b95",
+        "consumer_role": "unknown",
+        "arg_hints": [
+          "bounds_col_lt_20"
+        ],
+        "post_call": "add esp, 8 mov bl, al call 0x43ca10 mov esi, dword ptr [esp + 0x14] test al, al jne 0x438bd7 mov al, byte ptr [esi + 0x2"
+      },
+      {
+        "va": "0x00438c24",
+        "consumer_role": "unknown",
+        "arg_hints": [
+          "bounds_col_lt_20"
+        ],
+        "post_call": "add esp, 8 mov bl, al call 0x43ca10 test al, al jne 0x438c4c mov eax, 1 mov cl, bl shl eax, cl test ah, 3 je 0x438c51 mo"
+      },
+      {
+        "va": "0x00438ce6",
+        "consumer_role": "unknown",
+        "arg_hints": [],
+        "post_call": "add esp, 8 cmp al, 0xb jne 0x438d51 mov eax, dword ptr [esp + 0x430] test eax, eax jne 0x438d14 mov cl, byte ptr [esi + "
+      },
+      {
+        "va": "0x0043911a",
+        "consumer_role": "unknown",
+        "arg_hints": [],
+        "post_call": "mov dl, 2 add esp, 8 cmp dl, al sbb eax, eax neg eax ret  nop  nop  nop  nop  nop  mov eax, dword ptr [esp + 8]"
+      },
+      {
+        "va": "0x00439b2b",
+        "consumer_role": "unknown",
+        "arg_hints": [],
+        "post_call": "mov edx, 1 mov cl, al mov al, byte ptr [ebp + 0x2c] add esp, 8 shl edx, cl and al, 4 xor cx, cx mov cl, al shl ecx, 9 an"
+      },
+      {
+        "va": "0x00439b73",
+        "consumer_role": "unknown",
+        "arg_hints": [
+          "bounds_col_lt_20"
+        ],
+        "post_call": "add esp, 8 cmp al, 6 sbb edx, edx inc edx inc esi mov byte ptr [edi], dl inc edi cmp si, 0x14 jb 0x439b71 inc ebx cmp bx"
+      },
+      {
+        "va": "0x00439faf",
+        "consumer_role": "unknown",
+        "arg_hints": [],
+        "post_call": "mov byte ptr [esp + 0x18], al mov edx, 1 mov ecx, dword ptr [esp + 0x18] add esp, 8 and ecx, 0xff shl edx, cl and edx, 0"
+      },
+      {
+        "va": "0x0043a014",
+        "consumer_role": "unknown",
+        "arg_hints": [
+          "bounds_col_lt_20"
+        ],
+        "post_call": "add esp, 8 cmp al, 6 sbb eax, eax inc eax inc edi mov byte ptr [esi], al inc esi cmp di, 0x14 jb 0x43a012 inc ebx cmp bx"
+      },
+      {
+        "va": "0x0043a7eb",
+        "consumer_role": "unknown",
+        "arg_hints": [],
+        "post_call": "add esp, 8 mov bl, al call 0x43ca10 test al, al jne 0x43a807 cmp bl, 2 je 0x43a81a xor eax, eax pop ebx ret  cmp bl, 1 j"
+      },
+      {
+        "va": "0x0043a9cb",
+        "consumer_role": "atk_divisor_lut",
+        "arg_hints": [],
+        "post_call": "add esp, 8 mov byte ptr [esp], al call 0x43ca10 test al, al jne 0x43aa59 mov edx, dword ptr [esp] mov al, byte ptr [esp]"
+      },
+      {
+        "va": "0x0043b2ef",
+        "consumer_role": "class_threshold_check",
+        "arg_hints": [],
+        "post_call": "add esp, 8 cmp al, 4 je 0x43b2ff cmp al, 3 jne 0x43b372 mov al, byte ptr [esi + 0x24] push 0 mov ecx, esi mov byte ptr ["
+      },
+      {
+        "va": "0x0043bf70",
+        "consumer_role": "class_threshold_check",
+        "arg_hints": [],
+        "post_call": "add esp, 8 cmp al, 1 jne 0x43bf97 mov edx, dword ptr [esp + 0x14] push edx push edi push esi call 0x438b80 add esp, 0xc "
+      },
+      {
+        "va": "0x0043bfba",
+        "consumer_role": "class_threshold_check",
+        "arg_hints": [
+          "bounds_col_lt_20"
+        ],
+        "post_call": "add esp, 8 test al, al je 0x43bfca cmp al, 0xa jne 0x43bfe5 mov eax, dword ptr [esp + 0x14] push eax push edi push esi c"
+      },
+      {
+        "va": "0x0043c3a1",
+        "consumer_role": "unknown",
+        "arg_hints": [
+          "map_spawn_derivation",
+          "bounds_col_lt_20"
+        ],
+        "post_call": "movzx ax, al add esp, 8 cmp ax, 3 je 0x43c3b9 cmp ax, 4 jne 0x43c418 push edi push esi call 0x4390c0 mov edx, dword ptr "
+      },
+      {
+        "va": "0x0043c535",
+        "consumer_role": "unknown",
+        "arg_hints": [],
+        "post_call": "movzx ax, al add esp, 8 cmp ax, 3 je 0x43c54d cmp ax, 4 jne 0x43c55f mov eax, dword ptr [esp + 0x1c] mov ecx, dword ptr "
+      },
+      {
+        "va": "0x0043c786",
+        "consumer_role": "class_threshold_check",
+        "arg_hints": [
+          "map_spawn_derivation",
+          "bounds_col_lt_20"
+        ],
+        "post_call": "add esp, 8 cmp al, 7 je 0x43c796 cmp al, 8 jne 0x43c7c8 mov ecx, dword ptr [esp + 0x24] mov ebp, esi movsx eax, cx lea e"
+      }
+    ],
+    "getHi_count": 11,
+    "getHi": [
+      {
+        "va": "0x0042a027",
+        "consumer_role": "hi_nibble_combat_mod",
+        "post_call": "mov cl, byte ptr [ebp] add esp, 8 mov byte ptr [esp + 0x14], al mov al, byte ptr [ebp + 2] push eax "
+      },
+      {
+        "va": "0x0042a03b",
+        "consumer_role": "hi_nibble_combat_mod",
+        "post_call": "add esp, 8 cmp bl, 3 ja 0x42a066 cmp al, byte ptr [esp + 0x14] jb 0x42a066 push ebp call 0x43de50 ad"
+      },
+      {
+        "va": "0x0042d2fa",
+        "consumer_role": "hi_nibble_combat_mod",
+        "post_call": "mov cl, byte ptr [ebx + 2] mov dl, byte ptr [ebx] add esp, 8 mov byte ptr [esp + 0x12], al push ecx "
+      },
+      {
+        "va": "0x0042d30d",
+        "consumer_role": "hi_nibble_combat_mod",
+        "post_call": "mov cl, byte ptr [ebp] add esp, 8 mov byte ptr [esp + 0x13], al mov al, byte ptr [ebp + 2] push eax "
+      },
+      {
+        "va": "0x00436906",
+        "consumer_role": "hi_nibble_combat_mod",
+        "post_call": "mov byte ptr [esp + 0x1b], al mov eax, dword ptr [esp + 0x38] add esp, 8 mov cl, byte ptr [eax + 3] "
+      },
+      {
+        "va": "0x0043691e",
+        "consumer_role": "fire_tactic_hi_compare",
+        "post_call": "mov cl, byte ptr [esp + 0x1b] add esp, 8 cmp cl, al jbe 0x436935 add ebx, 0x32 mov dword ptr [esp + "
+      },
+      {
+        "va": "0x00437c55",
+        "consumer_role": "hi_nibble_combat_mod",
+        "post_call": "add esp, 8 test al, al jne 0x437c65 push 1 jmp 0x437c67 push 0 push edi push esi call 0x439080 add e"
+      },
+      {
+        "va": "0x0043c3bb",
+        "consumer_role": "hi_nibble_combat_mod",
+        "post_call": "mov edx, dword ptr [esp + 0x18] add esp, 8 mov byte ptr [esp + 0x18], al push edx push ebx call 0x43"
+      },
+      {
+        "va": "0x0043c3cd",
+        "consumer_role": "hi_nibble_combat_mod",
+        "post_call": "mov cl, byte ptr [esp + 0x20] add esp, 8 cmp cl, al jbe 0x43c418 mov ecx, dword ptr [esp + 0x10] mov"
+      },
+      {
+        "va": "0x0043c4d0",
+        "consumer_role": "hi_nibble_combat_mod",
+        "post_call": "mov edx, dword ptr [esp + 0x1c] add esp, 8 mov byte ptr [esp + 0x13], al push edx push ebx call 0x43"
+      },
+      {
+        "va": "0x0043c4e2",
+        "consumer_role": "hi_nibble_combat_mod",
+        "post_call": "mov cl, byte ptr [esp + 0x1b] add esp, 8 cmp cl, al jbe 0x43c55f mov esi, dword ptr [esp + 0x20] mov"
+      }
+    ]
+  },
+  "static_lut": {
+    "0x503138_first20": [
+      0,
+      1,
+      2,
+      3,
+      6,
+      2,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      2,
+      0,
+      0,
+      2,
+      2,
+      5,
+      5
+    ],
+    "0x503140_first20": [
+      0,
+      0,
+      1,
+      0,
+      0,
+      2,
+      0,
+      0,
+      2,
+      2,
+      5,
+      5,
+      8,
+      8,
+      11,
+      11,
+      14,
+      14,
+      17,
+      17
+    ],
+    "atk_divisor_table": [
+      10,
+      12,
+      15,
+      7,
+      7,
+      15,
+      100,
+      100,
+      10,
+      10,
+      12,
+      7,
+      7,
+      10,
+      10,
+      8,
+      100,
+      100,
+      12,
+      12
+    ],
+    "move_cost_table_A": [
+      3,
+      4,
+      4,
+      5,
+      5,
+      4,
+      100,
+      100
+    ]
+  },
+  "naming_status": {
+    "rows": "partial — 9 internal tiers mapped; human JP names not in EXE (3-class table is display-only)",
+    "cols": "structural only — 20 tuning slots; no 20-string master table exists",
+    "values": "closed — terrain_class_idx into static LUTs (§3.12)"
+  }
+}

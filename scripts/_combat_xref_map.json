@@ -1,0 +1,173 @@
+{
+ "0x423910": {
+  "getLo": 2
+ },
+ "0x427830": {
+  "terrainAttr": 1
+ },
+ "0x4278c0": {
+  "terrainAttr": 1
+ },
+ "0x4281d0": {
+  "terrainAttr": 1
+ },
+ "0x428990": {
+  "terrainAttr": 1
+ },
+ "0x428ae0": {
+  "getLo": 1
+ },
+ "0x428cf0": {
+  "getLo": 1
+ },
+ "0x428f30": {
+  "terrainAttr": 1
+ },
+ "0x429650": {
+  "terrainAttr": 1
+ },
+ "0x429730": {
+  "terrainAttr": 1
+ },
+ "0x429b50": {
+  "getLo": 1
+ },
+ "0x429fd0": {
+  "getHi": 2
+ },
+ "0x42a5e0": {
+  "terrainAttr": 1
+ },
+ "0x42aa60": {
+  "terrainAttr": 1
+ },
+ "0x42b140": {
+  "terrainAttr": 1
+ },
+ "0x42c160": {
+  "getLo": 1
+ },
+ "0x42d270": {
+  "getHi": 2
+ },
+ "0x42de00": {
+  "setLo": 1
+ },
+ "0x4306a0": {
+  "getLo": 1
+ },
+ "0x430b40": {
+  "terrainAttr": 1
+ },
+ "0x432f60": {
+  "terrainScan": 1
+ },
+ "0x434ea0": {
+  "terrainAttr": 1
+ },
+ "0x436840": {
+  "getHi": 2
+ },
+ "0x436d70": {
+  "getLo": 1
+ },
+ "0x4370b0": {
+  "getLo": 1
+ },
+ "0x437ad0": {
+  "getHi": 1,
+  "setLo": 1
+ },
+ "0x438a60": {
+  "getLo": 1
+ },
+ "0x438aa0": {
+  "getLo": 1
+ },
+ "0x438af0": {
+  "getLo": 1
+ },
+ "0x438b30": {
+  "getLo": 1
+ },
+ "0x438b80": {
+  "getLo": 1
+ },
+ "0x438c10": {
+  "getLo": 1
+ },
+ "0x438c60": {
+  "getLo": 1
+ },
+ "0x439110": {
+  "getLo": 1
+ },
+ "0x439190": {
+  "terrainAttr": 1
+ },
+ "0x439b10": {
+  "getLo": 2
+ },
+ "0x439f90": {
+  "getLo": 2
+ },
+ "0x43a580": {
+  "terrainAttr": 1
+ },
+ "0x43a7e0": {
+  "getLo": 1
+ },
+ "0x43a9c0": {
+  "getLo": 1
+ },
+ "0x43ad80": {
+  "terrainAttr": 1
+ },
+ "0x43b0d0": {
+  "getLo": 1
+ },
+ "0x43b910": {
+  "terrainAttr": 1
+ },
+ "0x43b9e0": {
+  "terrainAttr": 1
+ },
+ "0x43baa0": {
+  "terrainAttr": 1
+ },
+ "0x43bf40": {
+  "getLo": 2
+ },
+ "0x43c130": {
+  "terrainAttr": 1
+ },
+ "0x43c1c0": {
+  "terrainAttr": 1
+ },
+ "0x43c2e0": {
+  "getLo": 1,
+  "getHi": 2
+ },
+ "0x43c430": {
+  "getHi": 2,
+  "getLo": 1
+ },
+ "0x43c6f0": {
+  "getLo": 1
+ },
+ "0x43e870": {
+  "terrainAttr": 1
+ },
+ "0x43e8b0": {
+  "terrainAttr": 1
+ },
+ "0x43e8e0": {
+  "terrainAttr": 1
+ },
+ "0x43e920": {
+  "terrainAttr": 2
+ },
+ "0x43e950": {
+  "terrainAttr": 1
+ }
+}

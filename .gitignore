@@ -1,0 +1,42 @@
+# AI / local tooling
+.workbuddy/
+
+# Godot
+.godot/
+*.translation
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Original game assets (copyrighted; load from external DataLoader path)
+Taikou2 Original/
+
+# Huge reverse-engineering dumps / caches
+scripts/_sk_thunk.asm
+scripts/_unpacked_mem.bin
+scripts/_global_xref.cache
+scripts/_string_index.json
+scripts/_sndata_trace.json
+
+# Temporary probe / decode outputs
+scripts/_probe/
+scripts/_cand/
+scripts/_pal_candidates/
+scripts/_decoded_grp/
+**/.preview/
+
+# Proprietary Windows system fonts (keep open NotoSansSC)
+fonts/msyh.ttc
+fonts/msyh.ttc.import
+fonts/simhei.ttf
+fonts/simhei.ttf.import
+
+# OS junk
+Thumbs.db
+Desktop.ini
+.DS_Store
+*~

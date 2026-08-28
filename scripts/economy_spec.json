@@ -1,0 +1,206 @@
+{
+  "currency": {
+    "unit": "貫(kan) / 文(mon)",
+    "ratio": "1 貫 = 1000 文",
+    "format_strings": {
+      "held_gold":   {"va": "0x509b88", "text": "所持金∶%4u贯 %u00文"},
+      "payment":     {"va": "0x509f90", "text": "貨  款     贯000文"},
+      "budget_left": {"va": "0x509fa3", "text": "预算剩     贯000文"},
+      "held_gold2":  {"va": "0x509fb6", "text": "所持金        00文"}
+    },
+    "verified": "GBK 逐字节核对脱壳映像"
+  },
+  "town_economy_menu": {
+    "builder_fn": "0x459700",
+    "dispatch": "按『当前城 byte@4(城种)』→ 索引 0..10 → 菜单串 = 索引*5 + 0x504658 → 0x44df20(加菜单项)",
+    "note": "0x459798 是『菜单构造』跳表（决定显示哪些项），非处理函数派发表；处理函数走相对 call/间接派发",
+    "actions_base_va": "0x5045b0",
+    "actions": [
+      {"va": "0x5045d0", "text": "购入宝物"},
+      {"va": "0x5045e1", "text": "卖出宝物"},
+      {"va": "0x5045f2", "text": "学习算术"},
+      {"va": "0x504603", "text": "了解米市行情"},
+      {"va": "0x504614", "text": "购入洋枪"},
+      {"va": "0x504625", "text": "调度筑城物资"},
+      {"va": "0x504636", "text": "委托参加茶会"}
+    ],
+    "facility_type_names_stride5": {
+      "base_va": "0x504658",
+      "note": "城种索引→设施名（非内政『开发商业』指令）；0x459700 只拼 MSGX 0x490 文案",
+      "names": ["商业", "茶道", "铸造", "说教", "剑术", "艺术", "忍术", "医术"]
+    },
+    "tea_ware_names_stride9": {
+      "base_va": "0x5045b0",
+      "examples": ["绍鸥茄子", "势高茶罐", "雪峰茶碗"]
+    }
+  },
+  "castle_materials_mission": {
+    "status": "closed_2026-08-28_续32",
+    "menu": "调度筑城物资 @0x504625",
+    "entry": "0x459280 → bit0(player[+8]) ? 0x4592e0(继续/结算) : 0x4593e0(启动)",
+    "town_special_fn": "0x4b36a0(town): (town[+0x1b]&7)∈{2,3,6}",
+    "days_formula": "days = (special?12:14) - player[+6]",
+    "on_confirm": "setFlags(player,1)=0x49bfc0; setByte[+0xa](player,days)=0x49bfd0；写 town.word[+6] 标志位",
+    "note": "旧说『0x459456=商业指令加成城商业值』已证伪。+0xa 与统御力槽位复用，任务期写入剩余天数",
+    "debunked": "0x504658『商业』仅为设施名表首项，不驱动 0x459456"
+  },
+  "rice_market_levels": {
+    "base_va": "0x504978",
+    "levels": [
+      {"va": "0x504978", "text": "便宜", "meaning": "cheap"},
+      {"va": "0x504980", "text": "普通", "meaning": "normal"},
+      {"va": "0x504988", "text": "昂貴", "meaning": "expensive"}
+    ]
+  },
+  "buy_price_formula": {
+    "summary": "买价 = 基价 × 1.5（买卖差价/税）",
+    "markup_fn": {
+      "va": "0x445ff0",
+      "logic": "x × 1.5: lea eax,[eax+eax*2] (×3) 后 sar eax,1 (÷2) = ×3/2；x≥500 时再 call 0x4ebc80(0x5a, x×1.5)。Unicorn 实跑(2026-08-27)确认：base=1..499 与 500/600/1000/2000/3000 均返回 base×1.5（eax 精确等于 base*3//2），0x4ebc80 在纯净调用下不改变结果（其钳制依赖运行时全局，纯净时为恒等）",
+      "clamp_helper": "0x4ebc80 → 0x4ebc50 (战斗同款 muldiv/clamp 助手)"
+    },
+    "base_fetch_chain": {
+      "buy_handler": "0x446500（置 [0x52418e]=4 后 call 0x47bd10(0x513ea8,0x64,item,3,-1)，返回 eax=基价）",
+      "wrapper": "0x47bd10 = 数值格式化壳（按阈值 100000/10000/1000/100/10 建位数档）+ 内调 0x489400 取结构体字段",
+      "struct_reader": "0x489400(ptr=0x513ea8)：读 selector word @+0x426（0..5）；≥5→字段@+0x102；1..4→跳表选@+0xba 或 @+0xde",
+      "managed_accessors": "字段经 0x4ee3f0 后 0x4ee340 取出（托管/惰性字段，非裸数值）→ 基价数值运行时才确定"
+    },
+    "verified": "✅ Unicorn 2.1.4 实跑 0x445ff0 验证通过（base×3//2，base<500 八例全中、base≥500 五例全中）；0x47bd10 壳、0x489400 选择器与字段偏移均逐指令核对。参考实现 scripts/economy_price_probe.py"
+  },
+  "price_struct_layout": {
+    "struct_base": "0x513ea8",
+    "static_state": "全 0（已 dump file 0x113ea8 验证，含 0x102/0xba/0xde/0x426 全 0）→ 运行时托管填充，与战斗表同模式",
+    "fields": {
+      "selector":  {"offset": "0x426", "width": "word", "meaning": "价格类别选择（0..5）：≥5→+0x102；1..4→+0xba/+0xde"},
+      "field_102": {"offset": "0x102", "meaning": "selector≥5 时选用的价格字段（经 0x4ee3f0/0x4ee340 取）"},
+      "field_ba":  {"offset": "0xba",  "meaning": "selector 1..4 跳表分支价格字段之一"},
+      "field_de":  {"offset": "0xde",  "meaning": "selector 1..4 跳表分支价格字段之一"}
+    },
+    "accessors": {
+      "pre":  "0x4ee3f0",
+      "get":  "0x4ee340",
+      "note": "🔶 纠偏(2026-08-27)：0x4ee3f0=侵入式双向链表 unlink、0x4ee340=free(析构清理)，并非'字段读取器'。故 0x489400 实为**价格对象析构函数**（按 selector@+0x426 对 +0x102/+0xba/+0xde 字段 unlink+free）。真正取价格数值的读取函数另在别处（沿 0x47bd10→0x4e2ef0 价格计算入口追溯）。基价数值由运行期初始化写入，静态不可得"
+    }
+  },
+  "price_globals_and_alt_formula": {
+    "globals": {
+      "base_price":  "0x52417a",
+      "multiplier":   "0x52418c",
+      "mode":         "0x52418e",
+      "misc1":        "0x524182",
+      "misc2":        "0x524188",
+      "raw_value":    "0x52417e"
+    },
+    "buy_screen_fn": "0x488810",
+    "alt_formula": "若 [0x52418e] != 4: price = [0x52418c] × [0x52417a] ÷ 3（魔数 0x66666667 = ÷3，0x52418c 疑为数量/倍率）；若 == 4: price = 0x445ff0([0x52417a])（×1.5 路径）",
+    "mode4_set_by": "买入处理 0x446500 等: mov word [0x52418e], 4"
+  },
+  "sell_handler": {
+    "status": "closed_tea_续30 + treasure_续31",
+    "tea_commerce": {
+      "menu_dispatch": "0x441d80 jump → buy 0x441e70 / sell 0x4422b0 / show 0x442550",
+      "msgx": {"buy": "0x35c=#860 我想见识一下你的茶具", "sell": "0x369=#873 我想卖茶具"},
+      "offer_fn": "0x442270: getValue(item)*(100-(player[+7]>>1))/100",
+      "buy_price": "offer（扣金 0x44e350）",
+      "sell_price": "offer*90/100（加金 0x44e2f0）",
+      "sell_coeff_vs_buy": 0.9,
+      "note": "买卖均随 player[+7] 升高而降价；卖价恒为同时点买价的 90%"
+    },
+    "treasure_commerce": {
+      "menu": "0x4595f0 → dispatch 0x4577d8；购入 0x4578d0 / 卖出 0x457f00",
+      "base": "getValue/10（0x66666667 sar2）",
+      "buy_quote_fn": "0x44f4e0",
+      "buy_quote": "base + base*(100-(prog>>1))/100",
+      "sell_quote_fn": "0x458000",
+      "sell_quote_normal": "base + AE147AE1_sar6((100-prog)*base)  ≈ base + (100-prog)*base/94.12",
+      "sell_quote_nanban_cat5": "base + base*prog/200（进度越高越好卖）",
+      "sell_gold": "quote*10 via 0x44e2f0；金上限检查 0x46f940(quote*10)",
+      "sell_side_effect": "0x458090：改 owner；+7 += (sub/3+1)*5；",
+      "note": "买用 prog>>1，卖用全程 prog；曲线不同，无单一卖/买系数"
+    },
+    "shop_buy": "0x445ff0: base×3/2（已破）"
+  },
+  "rice_market_trade": {
+    "status": "closed_2026-08-28_续30；续31 纠偏 gold 除数为 /10",
+    "entry": "0x4e2ce0",
+    "town_object": "0x44e280 → 0x51eb88 + town_idx*31；word[+0x12] 为持有/行情相关量",
+    "ui_pick": "0x4e3090 → 分支 0=买 0x4e2d80 / 1=卖 0x4e2f20",
+    "buy_cap": "min(price*2, (30000 - gold/10)*10)；成交扣金 qty*10；写入 +0x12",
+    "sell_cap": "price>500 且 gold/10≤5990 时 min((price-500)*10, (6000-gold/10)*2)；成交加金 qty*10",
+    "bounds": {"price_floor_sell": 500, "gold_div10_hi": 5990, "gold_cap": 30000},
+    "tier_display": {
+      "fn": "0x462280",
+      "labels": {"便宜": "level<5 @0x504978", "普通": "约 5..11 @0x504980", "昂贵": "≥12 @0x504988"}
+    },
+    "msg_codes": "0xa3d–0xa4c"
+  },
+  "monthly_fluctuation": {
+    "status": "✅ 城产月结公式闭合（续33）；店面 0x513ea8 基价月度仍开",
+    "calendar_advance": "0x4a0d50（时→日→月→年；换月 call 0x4a4c60）",
+    "month_change_hub": "0x4a4c60 → 0x4a59d0 / 0x4a5aa0 / 0x4a6340 / …",
+    "month_hub_no_513ea8": "续35 扫过：换月 hub 子调用均无绝对引用 0x513ea8；店面改价不在城产月结同路径",
+    "town_domestic_tick": {
+      "status": "closed_2026-08-28_续33",
+      "fn": "0x4a5aa0",
+      "loop": "200 城 @0x51eb88 stride 0x1f；跳过 town[+0x1b] bit4",
+      "per_town": ["0x4a5b50", "0x4a5c80", "0x4a5d80"],
+      "gate_4a5d80": "0x49ace0 必须为真（城主/所属检查）才跑米→军粮",
+      "fields": {
+        "+0x9": {"width": "byte", "label": "农商乘数", "evidence": "低/高4bit setter 49b790/49b7b0；整字节×城种基档→49f9b0"},
+        "+0xc": {"width": "byte", "label": "农商等级", "cap": 100, "evidence": "49fa40 容量=+0xc×300；4a32a0 加算；开发 4aa290；软顶 49f9b0"},
+        "+0xd": {"width": "byte", "label": "次级等级", "cap": 250, "evidence": "4a32c0 加算"},
+        "+0xe": {"width": "byte", "label": "民心/治安", "cap": 200, "evidence": "缺金时按 shortfall×50/need 下降；米转军粮时与地形低4位混合"},
+        "+0xf": {"width": "byte", "label": "生产率", "cap": 100, "evidence": "0x4a5b50 月增；prod=(+0xc×+0xf)/2"},
+        "+0x10": {"width": "word", "label": "军粮", "cap": 50000, "evidence": "米转化写入；月耗金=max(1,军粮/20)"},
+        "+0x12": {"width": "word", "label": "米持有", "cap": 30000, "evidence": "米市买入 4a33f0 加量；月产 +=prod/4"},
+        "+0x14": {"width": "word", "label": "资金", "cap": 30000, "evidence": "月产 +=prod；维持费从中扣；藩镇上缴 4a5fc0"},
+        "+0x1a": {"width": "byte", "label": "次级民情", "cap": 200, "evidence": "米转军粮混合；城主属性再抬升"},
+        "+0x1b&7": {"label": "城种", "evidence": "49f960→基档0..3；亦用于调度筑城特殊判定"}
+      },
+      "formula_4a5b50": {
+        "lord_stat": "max(corps[+0xa], corps[+0xe])；若 49ac90 则 ×4/5",
+        "tile": "(map[town[+8]]>>4)&3",
+        "delta": "max(1, max(0, lord_stat/5 − (2×tile+5)))",
+        "apply": "+0xf = min(+0xf+delta, 100)",
+        "penalty": "若 !49ace0 且 !4a5c40（非本藩）：+0xf = max(0, +0xf−15)"
+      },
+      "commerce_rating_49f9b0": {
+        "type_base": "{0→0,1→1,2..4→2,5..6→3}",
+        "rating": "max(1, type_base × byte[+9] × 4 / 3)",
+        "note": "农商等级软顶；开发/月度自然增长均朝此顶靠拢"
+      },
+      "develop_4aa290": {
+        "grow": "(officer_内政[+0xc]−30)/10 + 1（不足30则 grow=1）",
+        "add": "min(rating−town[+0xc], grow)",
+        "write": "0x4a32a0(add) → +0xc = min(+0xc+add, 100)"
+      },
+      "formula_4a5c80": {
+        "prod": "(+0xc * +0xf) / 2",
+        "rice": "min(rice + prod/4, 30000)",
+        "gold": "min(gold + prod, 30000)",
+        "upkeep": "need = max(1, food/20)",
+        "ok": "gold -= need",
+        "famine": "pen=shortfall*50/need；+0xe=max(1,+0xe-pen)；food-=(food/(rand%6+5)/10)*10；gold=0"
+      },
+      "formula_4a5d80": {
+        "cap": "min(+0xc*300, 50000)（国主匹配时另取 49faf0 放大）",
+        "take": "min(cap/10, rice*4/10, cap-food)",
+        "add": "(take/10)*10",
+        "convert": "rice -= add/10；food = min(food+add, cap)  ⇒ 1 米 ≈ 10 军粮",
+        "blend_e": "((+0xe)*old_food + (tile&0xf)*add*10) / new_food",
+        "blend_1a": "((+0x1a)*old_food + add*50) / new_food"
+      },
+      "emu": "scripts/_emu_town_month.py 33/33 PASS"
+    },
+    "map_tile_tick": "0x4a59d0：49 格×stride5 @0x519548，写 0x49b280（与了解米市同表，非标价）",
+    "note": "了解米市行情 0x4591a0 只揭示地图；0x4e2ce0=米市 UI；店面商品价另册"
+  },
+  "open_questions": [
+    "逐商品基价数值（米/洋枪/宝物…）→ 需 Unicorn 跑初始化或定位状态数组 VA",
+    "0x513ea8 店面商品真·月度改价（若存在；不在 0x4a4c60 城产月结链）",
+    "物品池 category/level 运行时灌入（EXE 工厂已否定；MSGX/另存档）",
+    "+0x9 高/低半字节玩法名；+0xe/+0x1a 面板显示名",
+    "开发指令 UI 入口与 4aa290 的完整菜单链"
+  ],
+  "emu": "scripts/_emu_economy.py + scripts/_emu_town_month.py"
+}
