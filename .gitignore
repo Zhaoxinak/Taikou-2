@@ -9,18 +9,26 @@ __pycache__/
 .venv/
 venv/
 
-# Huge reverse-engineering dumps / caches (regenerable, multi-GB)
+# Huge reverse-engineering dumps / caches (regenerable)
 scripts/_sk_thunk.asm
 scripts/_unpacked_mem.bin
 scripts/_global_xref.cache
 scripts/_string_index.json
 scripts/_sndata_trace.json
+scripts/_all_strings.json
+scripts/_all_strings.txt
+scripts/_dec_*.bin
 
 # Temporary probe / decode outputs under scripts/
 scripts/_probe/
 scripts/_cand/
 scripts/_pal_candidates/
 scripts/_decoded_grp/
+scripts/_dumps/
+scripts/*.log
+scripts/*.out
+scripts/_d_*.txt
+scripts/_f_*.txt
 
 # Proprietary Windows system fonts (keep open NotoSansSC)
 fonts/msyh.ttc
