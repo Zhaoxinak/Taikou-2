@@ -1,0 +1,18 @@
+﻿[OK  ] dispatch-0: got=4621399
+[OK  ] dispatch-3: got=4621472
+[OK  ] dispatch-4: got=4621481
+[OK  ] large-dmg: got=99
+[OK  ] large-half-false: got=False
+[OK  ] large-half-true: got=(9, True)
+[OK  ] g995-bound: got=20
+[OK  ] crit-roll-true-fixed: got=False
+[OK  ] crit-roll-p0: got=False
+[OK  ] instakill-false: got=False
+[OK  ] instakill-true: got=True
+[OK  ] non-large-0: got=False
+[OK  ] non-large-1: got=False
+[OK  ] non-large-2: got=False
+[OK  ] bad-action: got=exc
+
+self_test: 15/15 ALL PASS
+

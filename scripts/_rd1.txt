@@ -1,0 +1,40 @@
+
+===== func 0x47d910  (until 0x47d96a, 90 bytes) =====
+0x47d910  6683b98c00000000     cmp      word ptr [ecx + 0x8c], 0
+0x47d918  7408                 je       0x47d922
+0x47d91a  e8f1000000           call     0x47da10
+0x47d91f  c20400               ret      4
+0x47d922  e8e9000000           call     0x47da10
+0x47d927  8b4c2404             mov      ecx, dword ptr [esp + 4]
+0x47d92b  8801                 mov      byte ptr [ecx], al
+0x47d92d  c20400               ret      4
+0x47d930  6683b98c00000000     cmp      word ptr [ecx + 0x8c], 0
+0x47d938  7408                 je       0x47d942
+0x47d93a  e811010000           call     0x47da50
+0x47d93f  c20400               ret      4
+0x47d942  e809010000           call     0x47da50
+0x47d947  8b4c2404             mov      ecx, dword ptr [esp + 4]
+0x47d94b  668901               mov      word ptr [ecx], ax
+0x47d94e  c20400               ret      4
+0x47d951  90                   nop      
+0x47d952  90                   nop      
+0x47d953  90                   nop      
+0x47d954  90                   nop      
+0x47d955  90                   nop      
+0x47d956  90                   nop      
+0x47d957  90                   nop      
+0x47d958  90                   nop      
+0x47d959  90                   nop      
+0x47d95a  90                   nop      
+0x47d95b  90                   nop      
+0x47d95c  90                   nop      
+0x47d95d  90                   nop      
+0x47d95e  90                   nop      
+0x47d95f  90                   nop      
+0x47d960  53                   push     ebx
+0x47d961  56                   push     esi
+0x47d962  8bf1                 mov      esi, ecx
+0x47d964  6a00                 push     0
+0x47d966  b9                   (bad)
+0x47d967  7849                 js       0x47d9b2
+0x47d969  52                   push     edx

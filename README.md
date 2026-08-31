@@ -63,11 +63,26 @@
 ## 常用命令
 
 ```powershell
+# —— 工程健康检查（续94 新增，先跑这两个）——
 cd "F:\Games\Taikou 2\scripts"
-python diplomacy_ref.py          # 自检 ALL PASS
-python event_id_dispatch_ref.py
-python item_table_ref.py
-# 反汇编单函数
+python _run_all_selfchecks.py    # 批量跑全部 31 个 *_ref.py → 应 31/31 PASS
+python _audit_progress.py        # 扫全部 *_spec.json 的 still_unknown → 未破项清单
+
+# —— 单个参考实现 ——
+# ⚠️ cwd 不统一：多数 ref 用 'scripts/_unpacked_mem.bin'（须 cwd=工程根），
+#    少数用裸 '_unpacked_mem.bin'（须 cwd=scripts/）。跑单个若报
+#    FileNotFoundError，换另一个目录重试即可（_run_all_selfchecks.py 已自动兜住）。
+cd "F:\Games\Taikou 2"
+python scripts\diplomacy_ref.py
+python scripts\event_id_dispatch_ref.py
+python scripts\item_table_ref.py
+
+# —— 反汇编单函数 ——
+cd "F:\Games\Taikou 2\scripts"
 python _fdis.py 0x4c41e0
 python _dumpfn.py 0x4c41e0
 ```
+
+> **MSGX 文本查询**：权威索引是 `scripts/msgx_all_texts.json`（6211 条，键=全局 id
+> `file_base + index`）。**勿用** `scripts/_probe/msgx/all_messages.txt` —— 它在可再生
+> gitignore 目录内、常不存在，且仅覆盖 3091 条（续94 已把 `council_ref`/`duel_ref` 切到权威索引）。

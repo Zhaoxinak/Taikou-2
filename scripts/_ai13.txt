@@ -1,0 +1,1 @@
+=== genuine this+0xc immediate stores (mov word [reg+0xc], imm) in action region ===

@@ -1,0 +1,4 @@
+
+===== HP_A(我方) 0x00514995 : 0 dword-store refs =====
+
+===== HP_B(敌方) 0x00514835 : 0 dword-store refs =====

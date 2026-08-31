@@ -55,6 +55,55 @@ wrongly assumed everything was runtime-filled C++ voodoo).
   NOTE: the two handlers only SET UP the mission; the actual relationship
   change when the messenger reaches the target still needs to be traced
   (see still_unknown below).
+
+--------------------------------------------------------------------------
+4. WORK-TYPE EXECUTION / ASSIGN DISPATCH  (本会话扩展; ⚠️ 已被 续95 对齐)
+--------------------------------------------------------------------------
+  ⚠️ 续95 纠正：0x4c56a0 区实为【工作指令下发】(与 0x4c5699 同簇)而非使者归还
+  结算；真正的使者归还结算(读 general +0x16/+0x17/+0x18 并应用效果)在
+  0x4b9250 -> 0x4b981c(详见 续95/96 + diplomacy2_ref.py, 183/183 PASS)。
+  本节保留的是「玩家侧即时执行 / 指派派发」分支，与 0x4b9250 递延结算互补，非冲突。
+  原错误标注 SETTLEMENT 已作废，勿据本节定位结算主函数。
+
+  After a work order is queued (or executed immediately on the player side),
+  the entry is:
+
+    0x4c56a0   work-execution / assign dispatch entry
+        reads MESSENGER_SLOT (0x525ea4)  -> envoy general-entity pointer
+              (0x519868 + id*47 ; [ptr+4] = province idx, cmp ax,0x172)
+        reads 0x525ea0                   -> TARGET city/castle entry
+              (0x51eb88 + idx*31 ; idx = (ptr-0x51eb88)/31 via magic 0x84210843)
+        iterates the work order list with stride 0x12
+        builds a RESULT RECORD:  [esi+4] = result type, [esi+6] = value
+        shows the result message via 0x47b900 (MSGX ids 0x89e..0x8a7)
+        dispatch:  cmp edx,0xf ; ja end ;  jmp dword ptr [edx*4 + 0x4c5b70]
+
+    0x4c5b70   16-entry jump table  -> per-work-type settlement handler
+        (the SECOND dispatch layer; 0x50c950 was the ASSIGN layer)
+
+  Settlement handlers (result-type recorded):
+    [0] 高压外交 -> 0x4c57cc  (type 0xa)   [1] 友好外交 -> 0x4c57ed (type 9)
+    [2] 谋略     -> 0x4c5813  (type 0xd)   [3] 卖出军粮 -> 0x4c5871
+    [4] 购入军粮 -> 0x4c58ab  [5] 购入军马 -> 0x4c58db  [6] 购入洋枪 -> 0x4c58fe
+    [7] 开垦农田 -> 0x4c5929  [8] 训练     -> 0x4c5954  [9] 修复     -> 0x4c59d2
+   [10] 筑城     -> 0x4c59fd  [11] 朝廷工作 -> 0x4c5a49  [12] 收集情报 -> 0x4c5a62
+   [13] 移动居城 -> 0x4c5ad4 (nop)         [14] 武者修行 -> 0x4c5a80  [15] 茶会 -> 0x4c5ab0
+
+  0x4c5d00   "pick best target general for 谋略"  (called from 0x4c5813)
+        walks a linked list ([esi+4]=next), minimizes
+            f = 0xc8 - 2*byte[entity+0xd] + byte[entity+0x29]
+        returns the selected general's index (0x519868 base, stride 47)
+
+--------------------------------------------------------------------------
+5. RELATION-LEVEL NAME TABLE  0x5080cc  (续90 correction)
+--------------------------------------------------------------------------
+  NOT a numeric relation matrix. It is the 八级国关系 LEVEL-NAME string
+  pool, reached indirectly (0 literal xrefs to the VA found):
+    axis A (友好度 8 levels): 盟友 亲密 良好 普通 敌视 险恶 绝交 交战
+    axis B (主从度 8 levels): 同盟 从属 支配 最坏 较坏 普通 良好 最好
+  => the live relation value is a 0..7 index into this table. The byte that
+     holds it is still unwritten via simple [base+0xb..0xd] offsets in the
+     functions scanned (see still_unknown).
 """
 
 # ---------------------------------------------------------------- tables ----
@@ -103,6 +152,43 @@ DIPLOMACY = {
     '友好外交': 0x4c4320,
 }
 
+# ---------------------------------------------------------------------------
+# 4. SETTLEMENT / EXECUTION LAYER  (续90, 2026-08-30)
+# ---------------------------------------------------------------------------
+SETTLE_FN     = 0x4c56a0   # work-order settlement entry
+SETTLE_JT     = 0x4c5b70   # 16-entry jump table -> per-work-type settlement handler
+TARGET_SLOT   = 0x525ea0   # dword, target city/castle entry (0x51eb88 + idx*31)
+STRAT_SELECT  = 0x4c5d00   # 谋略: pick best target general (linked-list minimizer)
+MSGX_RESULT   = 0x47b900   # result-message display (ids 0x89e .. 0x8a7)
+
+# result-type byte written into the result record [esi+4] for each work type
+SETTLE_HANDLERS = [
+    (0,  '高压外交', 0x4c57cc, 0x0a),
+    (1,  '友好外交', 0x4c57ed, 0x09),
+    (2,  '谋略',     0x4c5813, 0x0d),
+    (3,  '卖出军粮', 0x4c5871, None),
+    (4,  '购入军粮', 0x4c58ab, None),
+    (5,  '购入军马', 0x4c58db, None),
+    (6,  '购入洋枪', 0x4c58fe, None),
+    (7,  '开垦农田', 0x4c5929, None),
+    (8,  '训练',     0x4c5954, None),
+    (9,  '修复',     0x4c59d2, None),
+    (10, '筑城',     0x4c59fd, None),
+    (11, '朝廷工作', 0x4c5a49, None),
+    (12, '收集情报', 0x4c5a62, None),
+    (13, '移动居城', 0x4c5ad4, None),
+    (14, '武者修行', 0x4c5a80, None),
+    (15, '茶会',     0x4c5ab0, None),
+]
+
+# ---------------------------------------------------------------------------
+# 5. RELATION-LEVEL NAME TABLE  0x5080cc  (续90 correction)
+# ---------------------------------------------------------------------------
+RELNAME_TBL  = 0x5080cc   # 八级国关系 level-name string pool (indirect refs only)
+# axis A (友好度 8 levels) then axis B (主从度 8 levels)
+RELNAME_AXIS_A = ['盟友', '亲密', '良好', '普通', '敌视', '险恶', '绝交', '交战']
+RELNAME_AXIS_B = ['同盟', '从属', '支配', '最坏', '较坏', '普通', '良好', '最好']
+
 def general_entity_va(general_id):
     """0x519868 + id*47 (the EXE computes it as ((id*3)<<4) - id + 0x519868)."""
     if general_id >= 370:      # cmp ax, 0x172 -> jae (null)
@@ -150,6 +236,21 @@ def _self_test():
     # params
     assert work_params(0) == (0, 2, 255)
     assert work_params(3) == (1, 3, 4)
+    # ---- settlement layer (续90) ----
+    assert SETTLE_FN == 0x4c56a0
+    assert SETTLE_JT == 0x4c5b70
+    assert TARGET_SLOT == 0x525ea0
+    assert STRAT_SELECT == 0x4c5d00
+    assert len(SETTLE_HANDLERS) == 16
+    # diplomacy settlement handlers + result-type bytes
+    assert SETTLE_HANDLERS[0] == (0, '高压外交', 0x4c57cc, 0x0a)
+    assert SETTLE_HANDLERS[1] == (1, '友好外交', 0x4c57ed, 0x09)
+    assert SETTLE_HANDLERS[2] == (2, '谋略',     0x4c5813, 0x0d)
+    assert SETTLE_HANDLERS[15] == (15, '茶会',   0x4c5ab0, None)
+    # relation-name table (correction): two 8-level axes
+    assert RELNAME_TBL == 0x5080cc
+    assert RELNAME_AXIS_A == ['盟友','亲密','良好','普通','敌视','险恶','绝交','交战']
+    assert RELNAME_AXIS_B == ['同盟','从属','支配','最坏','较坏','普通','良好','最好']
     print("diplomacy_ref self-test: ALL PASS")
 
 if __name__ == '__main__':

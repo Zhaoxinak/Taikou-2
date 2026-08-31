@@ -1,0 +1,24 @@
+=== callers of fn_4a84e0 (8 diplo ops) (0x4a84e0) : 2 ===
+  0x4a70ed  (in fn 0x4a70b0)
+  0x4a7105  (in fn 0x4a70b0)
+=== callers of fn_4e8220 (4 diplo ops) (0x4e8220) : 1 ===
+  0x4e81e7  (in fn 0x4e81d0)
+=== callers of fn_4a7af0 (2 diplo ops) (0x4a7af0) : 2 ===
+  0x4a7ab7  (in fn 0x4a7a60)
+  0x4a80d9  (in fn 0x4a8090)
+=== callers of settlement_main_4b9250 (0x4b9250) : 1 ===
+  0x4b922f  (in fn 0x4b91d0)
+=== callers of work_dispatch_4c5699 (0x4c5699) : 0 ===
+=== callers of player_pressure_4c41e0 (0x4c41e0) : 0 ===
+=== callers of player_friendly_4c4320 (0x4c4320) : 0 ===
+=== callers of rise_alliance_event_416a60 (0x416a60) : 1 ===
+  0x416a4c  (in fn 0x416a30)
+=== callers of setup_daimyo_4c2c50 (0x4c2c50) : 1 ===
+  0x4c2bda  (in fn 0x4c2b30)
+=== callers of ruin_worsen_4c75f0 (0x4c75f0) : 1 ===
+  0x4c675f  (in fn 0x4c6700)
+=== callers of friendly_success_fn_4b5b60 (0x4b5b60) : 2 ===
+  0x4b588f  (in fn 0x4b57e0)
+  0x4b5d6d  (in fn 0x4b5c90)
+=== callers of pressure_submit_fn_4b5fa0 (0x4b5fa0) : 1 ===
+  0x4b5dc4  (in fn 0x4b5c90)

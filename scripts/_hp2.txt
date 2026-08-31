@@ -1,0 +1,7 @@
+﻿===== Approach A: 'mov r32, 0x514995/0x514835' =====
+
+Approach A total: 0
+
+===== Approach B: capstone detail scan for stores w/ effective addr in 0x514900..0x5149ff =====
+
+Approach B total unique: 0

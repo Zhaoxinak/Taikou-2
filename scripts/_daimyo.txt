@@ -1,0 +1,246 @@
+
+==== CALLER 0x4c2d9a set_rank(7) @ 0x004c2d70 (120B) ====
+  0x004c2d70  add bl, ch
+  0x004c2d72  sbb ecx, dword ptr [ebx + 0x2493b8ce]
+  0x004c2d78  dec ecx
+  0x004c2d79  xchg edx, eax
+  0x004c2d7a  sub ecx, 0x5179b8
+  0x004c2d80  imul ecx
+  0x004c2d82  add edx, ecx
+  0x004c2d84  sar edx, 3
+  0x004c2d87  mov ecx, edx
+  0x004c2d89  shr ecx, 0x1f
+  0x004c2d8c  add edx, ecx
+  0x004c2d8e  push edx
+  0x004c2d8f  mov ecx, edi
+  0x004c2d91  call 0x49a750
+  0x004c2d96  push 7
+  0x004c2d98  mov ecx, edi
+  0x004c2d9a  call 0x49a7e0
+  0x004c2d9f  push ebx
+  0x004c2da0  call 0x49f5a0
+  0x004c2da5  add esp, 4
+  0x004c2da8  mov ecx, 0x517c70
+  0x004c2dad  push eax
+  0x004c2dae  push 0xb
+  0x004c2db0  call 0x408960
+  0x004c2db5  push 0xea60
+  0x004c2dba  mov ecx, edi
+  0x004c2dbc  call 0x49a770
+  0x004c2dc1  push 1
+  0x004c2dc3  mov ecx, 0x516610
+  0x004c2dc8  call 0x49bc10
+  0x004c2dcd  call 0x49f6b0
+  0x004c2dd2  mov word ptr [eax], 0xffff
+  0x004c2dd7  mov word ptr [eax + 0xc], bp
+  0x004c2ddb  mov word ptr [eax + 0xa], bp
+  0x004c2ddf  mov word ptr [eax + 8], bp
+  0x004c2de3  mov word ptr [eax + 6], bp
+
+==== CALLER 0x416ca1 set_rank(7) (territory) @ 0x00416c80 (130B) ====
+  0x00416c80  push ecx
+  0x00416c81  add byte ptr [eax - 0x6db6db6d], bh
+  0x00416c87  imul esi
+  0x00416c89  add edx, esi
+  0x00416c8b  sar edx, 3
+  0x00416c8e  mov ecx, edx
+  0x00416c90  shr ecx, 0x1f
+  0x00416c93  add edx, ecx
+  0x00416c95  push edx
+  0x00416c96  mov ecx, edi
+  0x00416c98  call 0x49a750
+  0x00416c9d  push 7
+  0x00416c9f  mov ecx, edi
+  0x00416ca1  call 0x49a7e0
+  0x00416ca6  push 0xea60
+  0x00416cab  mov ecx, edi
+  0x00416cad  call 0x49a770
+  0x00416cb2  push 0xc8
+  0x00416cb7  mov ecx, edi
+  0x00416cb9  call 0x49a790
+  0x00416cbe  pop edi
+  0x00416cbf  pop esi
+  0x00416cc0  pop ebx
+  0x00416cc1  ret 
+  0x00416cc2  nop 
+  0x00416cc3  nop 
+  0x00416cc4  nop 
+  0x00416cc5  nop 
+  0x00416cc6  nop 
+  0x00416cc7  nop 
+  0x00416cc8  nop 
+  0x00416cc9  nop 
+  0x00416cca  nop 
+  0x00416ccb  nop 
+  0x00416ccc  nop 
+  0x00416ccd  nop 
+  0x00416cce  nop 
+  0x00416ccf  nop 
+  0x00416cd0  mov ecx, dword ptr [esp + 4]
+  0x00416cd4  xor eax, eax
+  0x00416cd6  test ecx, ecx
+  0x00416cd8  push esi
+  0x00416cd9  je 0x416ce7
+  0x00416cdb  mov eax, dword ptr [0x517848]
+  0x00416ce0  mov dword ptr [eax], ecx
+  0x00416ce2  mov eax, 1
+  0x00416ce7  mov ecx, dword ptr [esp + 0xc]
+  0x00416ceb  test ecx, ecx
+  0x00416ced  je 0x416d01
+  0x00416cef  mov esi, dword ptr [0x517848]
+  0x00416cf5  mov edx, eax
+  0x00416cf7  and edx, 0xffff
+  0x00416cfd  inc eax
+  0x00416cfe  mov dword ptr [esi + edx*4], ecx
+
+==== CALLER 0x4a4059 set_rank(7) (succession) @ 0x004a4030 (80B) ====
+  0x004a4030  mov eax, dword ptr [esp + 0x1c]
+  0x004a4034  mov edi, dword ptr [esp + 0x30]
+  0x004a4038  add esp, 8
+  0x004a403b  mov ecx, edi
+  0x004a403d  push eax
+  0x004a403e  call 0x49b580
+  0x004a4043  xor esi, esi
+  0x004a4045  mov ecx, edi
+  0x004a4047  push esi
+  0x004a4048  call 0x49b5b0
+  0x004a404d  push esi
+  0x004a404e  mov ecx, edi
+  0x004a4050  call 0x49b5d0
+  0x004a4055  push 7
+  0x004a4057  mov ecx, ebx
+  0x004a4059  call 0x49a7e0
+  0x004a405e  push 0xea60
+  0x004a4063  mov ecx, ebx
+  0x004a4065  call 0x49a770
+  0x004a406a  call 0x49f5e0
+  0x004a406f  cmp ebx, eax
+  0x004a4071  jne 0x4a40ad
+  0x004a4073  push 1
+  0x004a4075  mov ecx, 0x516610
+  0x004a407a  call 0x49bc10
+
+==== TABLE @ 0x005179b8 stride=8 count=16 ====
+  [ 0] 0x0 0x0
+  [ 1] 0x0 0x0
+  [ 2] 0x0 0x0
+  [ 3] 0x0 0x0
+  [ 4] 0x0 0x0
+  [ 5] 0x0 0x0
+  [ 6] 0x0 0x0
+  [ 7] 0x0 0x0
+  [ 8] 0x0 0x0
+  [ 9] 0x0 0x0
+  [10] 0x0 0x0
+  [11] 0x0 0x0
+  [12] 0x0 0x0
+  [13] 0x0 0x0
+  [14] 0x0 0x0
+  [15] 0x0 0x0
+
+==== FLAG setter 0x47e879 push 0x516638 @ 0x0047e850 (90B) ====
+  0x0047e850  call 0x47d930
+  0x0047e855  push 0x516632
+  0x0047e85a  mov ecx, esi
+  0x0047e85c  call 0x47d930
+  0x0047e861  push 0x516634
+  0x0047e866  mov ecx, esi
+  0x0047e868  call 0x47d930
+  0x0047e86d  push 0x516636
+  0x0047e872  mov ecx, esi
+  0x0047e874  call 0x47d930
+  0x0047e879  push 0x516638
+  0x0047e87e  mov ecx, esi
+  0x0047e880  call 0x47d930
+  0x0047e885  push 0x51663a
+  0x0047e88a  mov ecx, esi
+  0x0047e88c  call 0x47d930
+  0x0047e891  push 0x51663c
+  0x0047e896  mov ecx, esi
+  0x0047e898  call 0x47d930
+  0x0047e89d  pop esi
+  0x0047e89e  ret 
+  0x0047e89f  nop 
+  0x0047e8a0  push ecx
+  0x0047e8a1  mov eax, dword ptr [0x516610]
+  0x0047e8a6  push esi
+  0x0047e8a7  mov esi, ecx
+  0x0047e8a9  push eax
+
+==== FLAG add 0x4cbdbf [ecx+0x516638] @ 0x004cbd90 (90B) ====
+  0x004cbd90  in eax, dx
+  0x004cbd91  jne 0x4cbd9c
+  0x004cbd93  push esi
+  0x004cbd94  call 0x4cbc80
+  0x004cbd99  add esp, 4
+  0x004cbd9c  pop edi
+  0x004cbd9d  mov eax, ebp
+  0x004cbd9f  pop esi
+  0x004cbda0  pop ebp
+  0x004cbda1  pop ebx
+  0x004cbda2  pop ecx
+  0x004cbda3  ret 
+  0x004cbda4  idiv dword ptr [esp + ecx*2 + 0x4cbd0200]
+  0x004cbdab  add byte ptr [0x1c004cbd], cl
+  0x004cbdb1  mov ebp, 0xbd26004c
+  0x004cbdb6  dec esp
+  0x004cbdb7  add byte ptr [ebx], dh
+  0x004cbdb9  mov ebp, 0xbd33004c
+  0x004cbdbe  dec esp
+  0x004cbdbf  add byte ptr [ecx + 0x516638], ah
+  0x004cbdc5  and eax, 0xff
+  0x004cbdca  shr eax, 2
+  0x004cbdcd  and eax, 1
+  0x004cbdd0  ret 
+  0x004cbdd1  nop 
+  0x004cbdd2  nop 
+  0x004cbdd3  nop 
+  0x004cbdd4  nop 
+  0x004cbdd5  nop 
+  0x004cbdd6  nop 
+  0x004cbdd7  nop 
+  0x004cbdd8  nop 
+  0x004cbdd9  nop 
+  0x004cbdda  nop 
+  0x004cbddb  nop 
+  0x004cbddc  nop 
+  0x004cbddd  nop 
+  0x004cbdde  nop 
+  0x004cbddf  nop 
+  0x004cbde0  sub esp, 0x28
+  0x004cbde3  push ebx
+  0x004cbde4  push ebp
+  0x004cbde5  push esi
+  0x004cbde6  push edi
+
+==== before 0x5179b8 @ 0x005179a0 (60B) ====
+  0x005179a0  add byte ptr [eax], al
+  0x005179a2  add byte ptr [eax], al
+  0x005179a4  add byte ptr [eax], al
+  0x005179a6  add byte ptr [eax], al
+  0x005179a8  add byte ptr [eax], al
+  0x005179aa  add byte ptr [eax], al
+  0x005179ac  add byte ptr [eax], al
+  0x005179ae  add byte ptr [eax], al
+  0x005179b0  add byte ptr [eax], al
+  0x005179b2  add byte ptr [eax], al
+  0x005179b4  add byte ptr [eax], al
+  0x005179b6  add byte ptr [eax], al
+  0x005179b8  add byte ptr [eax], al
+  0x005179ba  add byte ptr [eax], al
+  0x005179bc  add byte ptr [eax], al
+  0x005179be  add byte ptr [eax], al
+  0x005179c0  add byte ptr [eax], al
+  0x005179c2  add byte ptr [eax], al
+  0x005179c4  add byte ptr [eax], al
+  0x005179c6  add byte ptr [eax], al
+  0x005179c8  add byte ptr [eax], al
+  0x005179ca  add byte ptr [eax], al
+  0x005179cc  add byte ptr [eax], al
+  0x005179ce  add byte ptr [eax], al
+  0x005179d0  add byte ptr [eax], al
+  0x005179d2  add byte ptr [eax], al
+  0x005179d4  add byte ptr [eax], al
+  0x005179d6  add byte ptr [eax], al
+  0x005179d8  add byte ptr [eax], al
+  0x005179da  add byte ptr [eax], al

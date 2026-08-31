@@ -1,0 +1,7 @@
+=== data references to the 4 handlers (dword in image) ===
+  0x00469480: []
+  0x00469530: []
+  0x004694a0: []
+  0x004694e0: []
+
+=== context around each hit (disasm 0x60 before .. 0x10 after) ===

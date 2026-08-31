@@ -8,7 +8,7 @@ from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UcError
 import unicorn.x86_const as X
 
 IMG = open('scripts/_unpacked_mem.bin','rb').read()
-DISK = open('F:/Games/Taikou2/SNDATA1.TR2','rb').read()
+DISK = open('F:/Games/Taikou 2/Taikou2 Original/SNDATA1.TR2','rb').read()
 assert len(DISK) == 40856, len(DISK)
 
 BASE = 0x400000
@@ -39,7 +39,7 @@ uc.mem_write(BASE, IMG)
 uc.mem_map(STACK, 0x20000, 7)
 uc.mem_map(OBJ, 0x1000, 7)
 uc.mem_map(SCRATCH, SCRATCH_END-SCRATCH, 7)
-uc.mem_write(OBJ+0x8c, struct.pack('<H',1))
+uc.mem_write(OBJ+0x8c, struct.pack('<H',0))
 uc.reg_write(X.UC_X86_REG_ESP, STACK_TOP)
 uc.reg_write(X.UC_X86_REG_ECX, OBJ)
 

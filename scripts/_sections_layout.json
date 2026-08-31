@@ -1,0 +1,146 @@
+{
+ "S0": {
+  "func": "0x47dae0",
+  "raw_calls": 22,
+  "bytes": 22,
+  "period_fields": 15,
+  "period_bytes": 22,
+  "pattern": "BBBBBBWWWWWWBBW"
+ },
+ "S1": {
+  "func": "0x47dce0",
+  "raw_calls": 21830,
+  "bytes": 21830,
+  "period_fields": 49,
+  "period_bytes": 59,
+  "pattern": "BBBBBBBBBBBBBBWWWWBBBBBBBBBBBBBBWBWWBBBBBBBWBBWWB"
+ },
+ "S2": {
+  "func": "0x47e130",
+  "raw_calls": 5200,
+  "bytes": 5200,
+  "period_fields": 17,
+  "period_bytes": 26,
+  "pattern": "WBBBWBBBBWWWWWBWW"
+ },
+ "S3": {
+  "func": "0x47e3a0",
+  "raw_calls": 245,
+  "bytes": 245,
+  "period_fields": 4,
+  "period_bytes": 5,
+  "pattern": "BBBW"
+ },
+ "S4": {
+  "func": "0x47e440",
+  "raw_calls": 539,
+  "bytes": 539,
+  "period_fields": 9,
+  "period_bytes": 11,
+  "pattern": "BWWBBBBBB"
+ },
+ "S5": {
+  "func": "0x47e5a0",
+  "raw_calls": 180,
+  "bytes": 180,
+  "period_fields": 17,
+  "period_bytes": 30,
+  "pattern": "WWWWWWWBBWBBWWWWW"
+ },
+ "S6": {
+  "func": "0x47e770",
+  "raw_calls": 46,
+  "bytes": 46,
+  "period_fields": 25,
+  "period_bytes": 46,
+  "pattern": "WWWWWWWBBWBBWWWWWWWWWWWWW"
+ },
+ "S7": {
+  "func": "0x47ea80",
+  "raw_calls": 3200,
+  "bytes": 3200,
+  "period_fields": 11,
+  "period_bytes": 16,
+  "pattern": "BBWWWWWBBBB"
+ },
+ "S8": {
+  "func": "0x47ebb0",
+  "raw_calls": 360,
+  "bytes": 360,
+  "period_fields": 9,
+  "period_bytes": 12,
+  "pattern": "WWBBBBWBB"
+ },
+ "S9": {
+  "func": "0x47ecb0",
+  "raw_calls": 80,
+  "bytes": 80,
+  "period_fields": 1,
+  "period_bytes": 2,
+  "pattern": "W"
+ },
+ "S10": {
+  "func": "0x47ed10",
+  "raw_calls": 120,
+  "bytes": 120,
+  "period_fields": 1,
+  "period_bytes": 2,
+  "pattern": "W"
+ },
+ "S11": {
+  "func": "0x47ed70",
+  "raw_calls": 3800,
+  "bytes": 3800,
+  "period_fields": 17,
+  "period_bytes": 19,
+  "pattern": "BBBBBBBBBBBBBBBWW"
+ },
+ "S12": {
+  "func": "0x47ee50",
+  "raw_calls": 160,
+  "bytes": 160,
+  "period_fields": 5,
+  "period_bytes": 8,
+  "pattern": "BBWWW"
+ },
+ "S13": {
+  "func": "0x47ef00",
+  "raw_calls": 2280,
+  "bytes": 2280,
+  "period_fields": 59,
+  "period_bytes": 114,
+  "pattern": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWBBBB"
+ },
+ "S14": {
+  "func": "0x47f050",
+  "raw_calls": 1176,
+  "bytes": 1176,
+  "period_fields": 1,
+  "period_bytes": 1,
+  "pattern": "B"
+ },
+ "S15": {
+  "func": "0x47f0a0",
+  "raw_calls": 25,
+  "bytes": 25,
+  "period_fields": 1,
+  "period_bytes": 1,
+  "pattern": "B"
+ },
+ "S16": {
+  "func": "0x47f1b0",
+  "raw_calls": 40,
+  "bytes": 40,
+  "period_fields": 1,
+  "period_bytes": 2,
+  "pattern": "W"
+ },
+ "S17": {
+  "func": "0x47f210",
+  "raw_calls": 133,
+  "bytes": 133,
+  "period_fields": 1,
+  "period_bytes": 1,
+  "pattern": "B"
+ }
+}

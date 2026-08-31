@@ -1,0 +1,76 @@
+===== HP_A(我方体力) 0x00514995 : 4 refs =====
+
+-- ref @ off 0x04854a (va 0x44854a) : LOAD16(reg)
+  0x448533: jb 0x44853a
+  0x448535: add bh, dh
+  0x448537: fcomp dword ptr [ebx]
+  0x448539: sal bh, 0xd8
+  0x44853c: add eax, 0xa5
+  0x448541: push eax
+  0x448542: call 0x496ba0
+  0x448547: mov bp, word ptr [0x514995]
+  0x44854e: mov ax, word ptr [0x514835]
+  0x448554: movsx ebx, bx
+  0x448557: movsx ecx, bp
+
+-- ref @ off 0x048a6e (va 0x448a6e) : LOAD16(reg)
+  0x448a57: insd dword ptr es:[edi], dx
+  0x448a58: add eax, 0x1bd8f700
+  0x448a5d: sal bh, 0xd8
+  0x448a60: add eax, 0xa5
+  0x448a65: push eax
+  0x448a66: call 0x496ba0
+  0x448a6b: mov bp, word ptr [0x514995]
+  0x448a72: mov ax, word ptr [0x514835]
+  0x448a78: movsx edi, di
+  0x448a7b: movsx ecx, bp
+
+-- ref @ off 0x06637e (va 0x46637e) : INC/DEC16
+  0x466367: push ecx
+  0x466368: add byte ptr [ebp + 0x660e74c0], al
+  0x46636e: dec dword ptr [0x514835]
+  0x466374: mov ecx, 0x5147d2
+  0x466379: jmp 0x466387
+  0x46637b: dec word ptr [0x514995]
+  0x466382: mov ecx, 0x514952
+  0x466387: call 0x46d0c0
+  0x46638c: push 1
+
+-- ref @ off 0x06d0da (va 0x46d0da) : LOAD16(reg)
+  0x46d0c3: mov ebp, dword ptr [ecx + 0x18]
+  0x46d0c6: push esi
+  0x46d0c7: push edi
+  0x46d0c8: mov eax, dword ptr [ebp + 4]
+  0x46d0cb: and eax, 0xfff
+  0x46d0d0: cmp eax, 0x41b
+  0x46d0d5: jne 0x46d0e7
+  0x46d0d7: mov di, word ptr [0x514995]
+  0x46d0de: mov bx, word ptr [0x514999]
+  0x46d0e5: jmp 0x46d0f5
+
+===== HP_B(敌方体力) 0x00514835 : 3 refs =====
+
+-- ref @ off 0x047c8c (va 0x447c8c) : LOAD16(reg)
+  0x447c75: sal bh, 0xd8
+  0x447c78: add eax, 0xa9
+  0x447c7d: push eax
+  0x447c7e: call 0x496ba0
+  0x447c83: mov ax, word ptr [0x514995]
+  0x447c89: mov bp, word ptr [0x514835]
+  0x447c90: movsx ebx, word ptr [esp + 0x28]
+  0x447c95: movsx edx, ax
+  0x447c98: sub ebx, edx
+
+-- ref @ off 0x066370 (va 0x466370) : INC/DEC16
+  0x466359: les eax, ptr [edi + ecx]
+  0x46635c: mov edi, 0x85f633fb
+
+-- ref @ off 0x06d0ea (va 0x46d0ea) : LOAD16(reg)
+  0x46d0d3: add byte ptr [eax], al
+  0x46d0d5: jne 0x46d0e7
+  0x46d0d7: mov di, word ptr [0x514995]
+  0x46d0de: mov bx, word ptr [0x514999]
+  0x46d0e5: jmp 0x46d0f5
+  0x46d0e7: mov di, word ptr [0x514835]
+  0x46d0ee: mov bx, word ptr [0x514839]
+  0x46d0f5: mov ecx, ebp

@@ -93,7 +93,20 @@ def load_texts():
     if _texts is not None:
         return _texts
     _texts = {}
+    # 数据源 1（权威，续94 修正）: msgx_all_texts.json — 全量 6211 条,
+    # texts 键即 MSGX 全局 id (= file*2000 + 序号)，直查即可。
+    jp = os.path.join(HERE, 'msgx_all_texts.json')
+    if os.path.exists(jp):
+        import json
+        d = json.load(open(jp, encoding='utf-8'))
+        _texts = {int(k): v for k, v in d.get('texts', {}).items()}
+        if _texts:
+            return _texts
+    # 数据源 2（回退）: 旧解码产物, 位于可再生 gitignore 目录 _probe/,
+    # 常不存在且仅覆盖 3091 条。
     path = os.path.join(HERE, '_probe', 'msgx', 'all_messages.txt')
+    if not os.path.exists(path):
+        return _texts
     for fi, fn in enumerate(MSG_FILES):
         pat = re.compile(r'^\[' + re.escape(fn) + r'#(\d+)\] (.*)$')
         for line in open(path, encoding='utf-8'):

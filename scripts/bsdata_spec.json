@@ -4,57 +4,371 @@
   "record_size": 59,
   "count": 700,
   "files": [
-    {"path": "BSDATA1.TR2", "size": 41300, "scenario": 1},
-    {"path": "BSDATA2.TR2", "size": 41300, "scenario": 2}
+    {
+      "path": "BSDATA1.TR2",
+      "size": 41300,
+      "scenario": 1
+    },
+    {
+      "path": "BSDATA2.TR2",
+      "size": 41300,
+      "scenario": 2
+    }
   ],
   "byte_exact": false,
   "scenario_note": "两文件 size 同,内容字节不同(剧情独立初始态);@31==@49 700/700 一致 → 同字段双写",
   "fields": [
-    {"off": "0..6",   "type": "GBK",  "name": "姓",     "width": 4, "note": "GBK 4 字节,后 3B 填充 00"},
-    {"off": "7..12",  "type": "GBK",  "name": "名",     "width": 6, "note": "GBK 6 字节,后 1B 填充 00;但名最长 4 字(8B),后 2B 00"},
-    {"off": 13,       "type": "byte", "name": "padding", "width": 1, "value": "0x00", "static": true},
-    {"off": 14,       "type": "byte", "name": "padding", "width": 1, "value": "0xFF", "static": true},
-    {"off": 15,       "type": "byte", "name": "padding", "width": 1, "value": "0xFF", "static": true},
-    {"off": 16,       "type": "byte", "name": "脸谱 face", "width": 1, "range": "0..255", "evidence": "min=0 max=255 uniq=256,均 118.4;3/700 为 0(无名/隐藏)"},
-    {"off": 17,       "type": "byte", "name": "位域/朝向(低 2bit)", "width": 1, "range": "{0,1,2}", "evidence": "uniq=3;续57+58 联合映射表闭合:@17=身份大类 2bit + @42=在世 2bit + @57=身份码 0..7(11 档)→ 三字段联合编码 156 状态;@17=0(@42=0) 配 @57∈{0..6,14}=普通大名/足轻头/家臣;@17=1(@42=1) 配 @57∈{1..6,13,14}=大名家臣/浪人;@17=2(@42=2) 配 @57 全档=出家(覆盖全身份)"},
-    {"off": 18,       "type": "byte", "name": "padding", "width": 1, "value": "0xFF", "static": true},
-    {"off": 19,       "type": "byte", "name": "padding", "width": 1, "value": "0xFF", "static": true},
-    {"off": 20,       "type": "byte", "name": "compat_a(NPC 关系初值 A)", "width": 1, "range": "0..255", "evidence": "min=0 max=255 mean=170.7;9/700=0;与 @21/@48 无线性/显著相关性"},
-    {"off": 21,       "type": "byte", "name": "compat_b(NPC 关系初值 B,饱和低)", "width": 1, "range": "0..95", "evidence": "min=0 max=95 mean=46.6;27/700=0;与 @57 status 无强关联(同一 @21=80 跨 status=4/5/6/14)"},
-    {"off": 22,       "type": "byte", "name": "统率", "width": 1, "range": "0..100", "evidence": "min=0 max=99 mean=65;与『forces』对齐"},
-    {"off": 23,       "type": "byte", "name": "武力", "width": 1, "range": "0..100", "evidence": "min=0 max=100"},
-    {"off": 24,       "type": "byte", "name": "内政", "width": 1, "range": "0..99"},
-    {"off": 25,       "type": "byte", "name": "外交", "width": 1, "range": "0..100"},
-    {"off": 26,       "type": "byte", "name": "魅力", "width": 1, "range": "0..99"},
-    {"off": 27,       "type": "byte", "name": "技能 nibble pack A(nibble×2 = 技能 0,1)", "width": 1, "range": "0..255", "evidence": "10 技能 2bit 打包于 +0xf..+0x11(运行时);BSDATA 实际位于 +0x1B..+0x1D;nibble 4 bit 可能为 技能值(高 2bit) + 级数(低 2bit) = 0..15"},
-    {"off": 28,       "type": "byte", "name": "技能 nibble pack B(技能 2,3)", "width": 1, "range": "0..255"},
-    {"off": 29,       "type": "byte", "name": "技能 nibble pack C(技能 4 跨剧情敏感)", "width": 1, "range": "0..15", "evidence": "uniq=16(=0..15);续55 bit 拆分:high 4bit 跨剧情恒同(全 0)、low 4bit 是 bit0 跨剧情 11/700 + bit1 6/700 的跨剧情标记→ low 4bit uniq 16=值 0..15 全用,不是「2bit 值 nibble」而是「4bit 跨剧情标记」;修正续46 推论:BSDATA 3 字节只能存 5 技能(而非 10 技能);其余 5 技能在 NPC[+0xf..+0x11] 运行时"},
-    {"off": 30,       "type": "byte", "name": "padding", "width": 1, "value": "0xFF", "static": true},
-    {"off": 31,       "type": "byte", "name": "现城 id(主源)", "width": 1, "range": "0..255", "evidence": "min=0 max=255 mean=156.3,与 @49 完全相同 700/700(冗余写);255=空槽"},
-    {"off": 32,       "type": "byte", "name": "padding", "width": 7, "value": "0x00", "static": true, "range": "32..38"},
-    {"off": 39,       "type": "byte", "name": "出身月(起始月偏移)", "width": 1, "range": "3..220", "evidence": "min=3,无 0/1/2;续59 跨剧情 139/700 不等(=20% 生日调整);uniq=128;@39=生日月;@40=当前年龄(跨剧本+1,跨剧本 561/700 不等);@41=生日年(恒同,0/700);@58=初始预期寿命(恒同,0/700)"},
-    {"off": 40,       "type": "byte", "name": "出身年/日 字段 2", "width": 1, "range": "2..251", "evidence": "min=2,无 0/1;续59=当前年龄,跨剧本+1,561/700 不等;@39/@41 联合"},
-    {"off": 41,       "type": "byte", "name": "出身年/日 字段 3", "width": 1, "range": "0..255", "evidence": "0..255 全域"},
-    {"off": 42,       "type": "enum", "name": "生死/状态(枚举)", "width": 1, "values": {"0": "在世(大名/家臣?)", "1": "在世(浪人?)", "2": "在世(出家?)", "255": "未启用/槽空"}, "evidence": "分布 {255:544, 0:69, 1:52, 2:35};id=699 全 255 → 槽空"},
-    {"off": 43,       "type": "byte", "name": "起始月(从游戏开局回推的月数偏移)", "width": 1, "range": "0..62", "evidence": "mean=27.7,uniq=55;0..62 ≈ 5 年范围;@58=0/16/32/112 时恒 17(剧情固定 NPC)"},
-    {"off": 44,       "type": "byte", "name": "体力上限(初始)", "width": 1, "range": "0..100", "evidence": "uniq=38;开档时 = 现役体力(@45)"},
-    {"off": 45,       "type": "byte", "name": "体力(现役,初始)", "width": 1, "range": "0..100", "evidence": "@44 == @45 700/700"},
-    {"off": 46,       "type": "byte", "name": "体力消耗(初始经验?)", "width": 1, "range": "0..100", "evidence": "uniq=16(0/10/20/.../100)→ 10 进位档"},
-    {"off": 47,       "type": "byte", "name": "野心(默认 50)", "width": 1, "value": "50", "static": true, "evidence": "700/700 恒 50"},
-    {"off": 48,       "type": "byte", "name": "亲密度 intimacy 初值", "width": 1, "range": "0..44 + 255(隐藏)", "evidence": "7/700=0;max=44 + 255(隐藏/不启用);与 @20/@21 无线性关系"},
-    {"off": 49,       "type": "byte", "name": "现城 id(冗余)", "width": 1, "range": "0..255", "evidence": "== @31 100%"},
-    {"off": "50..51", "type": "word LE", "name": "信赖 trust", "width": 2, "evidence": "37+118=155 个 0(隐藏武将低信赖);max=65280"},
-    {"off": 52,       "type": "byte", "name": "俸禄 salary(阶梯档位)", "width": 1, "range": "{0,1,10,30,50,100,200,250}", "evidence": "uniq=8,KOEI 典型俸禄阶梯"},
-    {"off": 53,       "type": "byte", "name": "武艺/熟练度(?)", "width": 1, "range": "0..100", "evidence": "uniq=45,均 82.6;35/700=0"},
-    {"off": 54,       "type": "byte", "name": "位域 flagset_a(隐藏 NPC 配置)", "width": 1, "range": "0..255", "evidence": "674/700 = 0xFF;其余 9 种值集中于 @42=255 的隐藏 NPC + 3 个在世特殊 NPC(林通政/柴田胜丰/立花宗茂)"},
-    {"off": 55,       "type": "byte", "name": "位域 flagset_b(@54 的镜像/简化版)", "width": 1, "range": "0..255", "evidence": "674/700 = 0xFF;@42=255 时几近 0;与 @54 不完全相等(非严格双写,但高度相关)"},
-    {"off": 56,       "type": "enum", "name": "俸禄等级 loyalty_class", "width": 1, "values": {"15": "下级(足轻级)", "47": "中级(足轻头级)", "175": "上级(侍大将级)"}, "evidence": "分布 {47:348, 15:346, 175:6}"},
-    {"off": 57,       "type": "enum", "name": "身份 status + 剧情锁定档", "width": 1, "values": {"0": "无", "1": "足轻组头", "2": "足轻工头", "3": "足轻头", "4": "家老", "5": "组头", "6": "家臣", "7": "大名", "8": "(身份外 8档:剧情事件)", "13": "(身份外 13档:战死/被俘?)", "14": "(身份外 14档:出家/隐藏?)"}, "evidence": "uniq=11={0..8, 13, 14};GAME_DATA_SPEC §1.2 身份仅记 0..7 三档,8/13/14 未记;续54 MSGX 扫词验证:侍大将 4、城主 37、国主 3、宿老 2 都是剧情文案描述(不入身份码);身份 8/13/14 验证为 EXE 运行时状态码(战死/被俘/出家/隐藏)"},
-    {"off": 58,       "type": "byte", "name": "lifespan(续59=初始预期寿命,跨剧情恒同 0/700 不等);8 档 0/16/32/64/80/96/112/128 = 剧情锁/1/2/4/5/6/7/8 年;与 @43 起始月联动算实际寿终月", "width": 1, "range": "{0,16,32,64,80,96,112,128}", "evidence": "GAME_DATA_SPEC §1.2 表述«0=剧情锁定不老»但实测有 8 档 → 十六倍速编码(可能是游戏内月数 ÷ 16 等)"}
+    {
+      "off": "0..6",
+      "type": "GBK",
+      "name": "姓",
+      "width": 4,
+      "note": "GBK 4 字节,后 3B 填充 00"
+    },
+    {
+      "off": "7..12",
+      "type": "GBK",
+      "name": "名",
+      "width": 6,
+      "note": "GBK 6 字节,后 1B 填充 00;但名最长 4 字(8B),后 2B 00"
+    },
+    {
+      "off": 13,
+      "type": "byte",
+      "name": "padding",
+      "width": 1,
+      "value": "0x00",
+      "static": true
+    },
+    {
+      "off": 14,
+      "type": "byte",
+      "name": "padding",
+      "width": 1,
+      "value": "0xFF",
+      "static": true
+    },
+    {
+      "off": 15,
+      "type": "byte",
+      "name": "padding",
+      "width": 1,
+      "value": "0xFF",
+      "static": true
+    },
+    {
+      "off": 16,
+      "type": "byte",
+      "name": "脸谱 face",
+      "width": 1,
+      "range": "0..255",
+      "evidence": "min=0 max=255 uniq=256,均 118.4;3/700 为 0(无名/隐藏)"
+    },
+    {
+      "off": 17,
+      "type": "byte",
+      "name": "位域/朝向(低 2bit)",
+      "width": 1,
+      "range": "{0,1,2}",
+      "evidence": "uniq=3;续57+58 联合映射表闭合:@17=身份大类 2bit + @42=在世 2bit + @57=身份码 0..7(11 档)→ 三字段联合编码 156 状态;@17=0(@42=0) 配 @57∈{0..6,14}=普通大名/足轻头/家臣;@17=1(@42=1) 配 @57∈{1..6,13,14}=大名家臣/浪人;@17=2(@42=2) 配 @57 全档=出家(覆盖全身份)"
+    },
+    {
+      "off": 18,
+      "type": "byte",
+      "name": "padding",
+      "width": 1,
+      "value": "0xFF",
+      "static": true
+    },
+    {
+      "off": 19,
+      "type": "byte",
+      "name": "padding",
+      "width": 1,
+      "value": "0xFF",
+      "static": true
+    },
+    {
+      "off": 20,
+      "type": "byte",
+      "name": "compat_a(NPC 关系初值 A)",
+      "width": 1,
+      "range": "0..255",
+      "evidence": "min=0 max=255 mean=170.7;9/700=0;与 @21/@48 无线性/显著相关性"
+    },
+    {
+      "off": 21,
+      "type": "byte",
+      "name": "compat_b(NPC 关系初值 B,饱和低)",
+      "width": 1,
+      "range": "0..95",
+      "evidence": "min=0 max=95 mean=46.6;27/700=0;与 @57 status 无强关联(同一 @21=80 跨 status=4/5/6/14)"
+    },
+    {
+      "off": 22,
+      "type": "byte",
+      "name": "统率",
+      "width": 1,
+      "range": "0..100",
+      "evidence": "min=0 max=99 mean=65;与『forces』对齐"
+    },
+    {
+      "off": 23,
+      "type": "byte",
+      "name": "武力",
+      "width": 1,
+      "range": "0..100",
+      "evidence": "min=0 max=100"
+    },
+    {
+      "off": 24,
+      "type": "byte",
+      "name": "内政",
+      "width": 1,
+      "range": "0..99"
+    },
+    {
+      "off": 25,
+      "type": "byte",
+      "name": "外交",
+      "width": 1,
+      "range": "0..100"
+    },
+    {
+      "off": 26,
+      "type": "byte",
+      "name": "魅力",
+      "width": 1,
+      "range": "0..99"
+    },
+    {
+      "off": 27,
+      "type": "byte",
+      "name": "技能 nibble pack A(nibble×2 = 技能 0,1)",
+      "width": 1,
+      "range": "0..255",
+      "evidence": "10 技能 2bit 打包于 +0xf..+0x11(运行时);BSDATA 实际位于 +0x1B..+0x1D;nibble 4 bit 可能为 技能值(高 2bit) + 级数(低 2bit) = 0..15"
+    },
+    {
+      "off": 28,
+      "type": "byte",
+      "name": "技能 nibble pack B(技能 2,3)",
+      "width": 1,
+      "range": "0..255"
+    },
+    {
+      "off": 29,
+      "type": "byte",
+      "name": "技能 nibble pack C(技能 4 跨剧情敏感)",
+      "width": 1,
+      "range": "0..15",
+      "evidence": "uniq=16(=0..15);续55 bit 拆分:high 4bit 跨剧情恒同(全 0)、low 4bit 是 bit0 跨剧情 11/700 + bit1 6/700 的跨剧情标记→ low 4bit uniq 16=值 0..15 全用,不是「2bit 值 nibble」而是「4bit 跨剧情标记」;修正续46 推论:BSDATA 3 字节只能存 5 技能(而非 10 技能);其余 5 技能在 NPC[+0xf..+0x11] 运行时"
+    },
+    {
+      "off": 30,
+      "type": "byte",
+      "name": "padding",
+      "width": 1,
+      "value": "0xFF",
+      "static": true
+    },
+    {
+      "off": 31,
+      "type": "byte",
+      "name": "現城 id (主源)",
+      "width": 1,
+      "range": "0..255",
+      "evidence": "min=0 max=255 mean=156.3,与 @49 完全相同 700/700(冗余写);255=空槽"
+    },
+    {
+      "off": 32,
+      "type": "byte",
+      "name": "padding",
+      "width": 7,
+      "value": "0x00",
+      "static": true,
+      "range": "32..38"
+    },
+    {
+      "off": 39,
+      "type": "byte",
+      "name": "出身月(起始月偏移)",
+      "width": 1,
+      "range": "3..220",
+      "evidence": "min=3,无 0/1/2;续59 跨剧情 139/700 不等(=20% 生日调整);uniq=128;@39=生日月;@40=当前年龄(跨剧本+1,跨剧本 561/700 不等);@41=生日年(恒同,0/700);@58=初始预期寿命(恒同,0/700)"
+    },
+    {
+      "off": 40,
+      "type": "byte",
+      "name": "出身年/日 字段 2",
+      "width": 1,
+      "range": "2..251",
+      "evidence": "min=2,无 0/1;续59=当前年龄,跨剧本+1,561/700 不等;@39/@41 联合"
+    },
+    {
+      "off": 41,
+      "type": "byte",
+      "name": "出身年/日 字段 3",
+      "width": 1,
+      "range": "0..255",
+      "evidence": "0..255 全域"
+    },
+    {
+      "off": 42,
+      "type": "enum",
+      "name": "生死/状态(枚举)",
+      "width": 1,
+      "values": {
+        "0": "在世(大名/家臣?)",
+        "1": "在世(浪人?)",
+        "2": "在世(出家?)",
+        "255": "未启用/槽空"
+      },
+      "evidence": "分布 {255:544, 0:69, 1:52, 2:35};id=699 全 255 → 槽空"
+    },
+    {
+      "off": 43,
+      "type": "byte",
+      "name": "起始月(从游戏开局回推的月数偏移)",
+      "width": 1,
+      "range": "0..62",
+      "evidence": "mean=27.7,uniq=55;0..62 ≈ 5 年范围;@58=0/16/32/112 时恒 17(剧情固定 NPC)"
+    },
+    {
+      "off": 44,
+      "type": "byte",
+      "name": "体力上限(初始)",
+      "width": 1,
+      "range": "0..100",
+      "evidence": "uniq=38;开档时 = 现役体力(@45)"
+    },
+    {
+      "off": 45,
+      "type": "byte",
+      "name": "体力(现役,初始)",
+      "width": 1,
+      "range": "0..100",
+      "evidence": "@44 == @45 700/700"
+    },
+    {
+      "off": 46,
+      "type": "byte",
+      "name": "体力消耗(初始经验?)",
+      "width": 1,
+      "range": "0..100",
+      "evidence": "uniq=16(0/10/20/.../100)→ 10 进位档"
+    },
+    {
+      "off": 47,
+      "type": "byte",
+      "name": "野心(默认 50)",
+      "width": 1,
+      "value": "50",
+      "static": true,
+      "evidence": "700/700 恒 50"
+    },
+    {
+      "off": 48,
+      "type": "byte",
+      "name": "亲密度 intimacy 初值",
+      "width": 1,
+      "range": "0..44 + 255(隐藏)",
+      "evidence": "7/700=0;max=44 + 255(隐藏/不启用);与 @20/@21 无线性关系"
+    },
+    {
+      "off": 49,
+      "type": "byte",
+      "name": "現城 id (冗余/双写)",
+      "width": 1,
+      "range": "0..255",
+      "evidence": "== @31 100%"
+    },
+    {
+      "off": "50..51",
+      "type": "word LE",
+      "name": "信赖 trust",
+      "width": 2,
+      "evidence": "37+118=155 个 0(隐藏武将低信赖);max=65280"
+    },
+    {
+      "off": 52,
+      "type": "byte",
+      "name": "俸禄 salary(阶梯档位)",
+      "width": 1,
+      "range": "{0,1,10,30,50,100,200,250}",
+      "evidence": "uniq=8,KOEI 典型俸禄阶梯"
+    },
+    {
+      "off": 53,
+      "type": "byte",
+      "name": "忠诚 loyalty",
+      "width": 1,
+      "range": "0..100",
+      "evidence": "max=100 与实体 +0x29 setter 钳 100 吻合; 分布 top 100/89/88 均值高; 🔴 原记『武艺/熟练度』系猜测, 续135 改判为忠诚"
+    },
+    {
+      "off": 54,
+      "type": "byte",
+      "name": "位域 flagset_a(隐藏 NPC 配置)",
+      "width": 1,
+      "range": "0..255",
+      "evidence": "674/700 = 0xFF;其余 9 种值集中于 @42=255 的隐藏 NPC + 3 个在世特殊 NPC(林通政/柴田胜丰/立花宗茂)"
+    },
+    {
+      "off": 55,
+      "type": "byte",
+      "name": "位域 flagset_b(@54 的镜像/简化版)",
+      "width": 1,
+      "range": "0..255",
+      "evidence": "674/700 = 0xFF;@42=255 时几近 0;与 @54 不完全相等(非严格双写,但高度相关)"
+    },
+    {
+      "off": 56,
+      "type": "enum",
+      "name": "俸禄等级 loyalty_class",
+      "width": 1,
+      "values": {
+        "15": "下级(足轻级)",
+        "47": "中级(足轻头级)",
+        "175": "上级(侍大将级)"
+      },
+      "evidence": "分布 {47:348, 15:346, 175:6}"
+    },
+    {
+      "off": 57,
+      "type": "enum",
+      "name": "身份 status + 剧情锁定档",
+      "width": 1,
+      "values": {
+        "0": "无",
+        "1": "足轻组头",
+        "2": "足轻工头",
+        "3": "足轻头",
+        "4": "家老",
+        "5": "组头",
+        "6": "家臣",
+        "7": "大名",
+        "8": "(身份外 8档:剧情事件)",
+        "13": "(身份外 13档:战死/被俘?)",
+        "14": "(身份外 14档:出家/隐藏?)"
+      },
+      "evidence": "uniq=11={0..8, 13, 14};GAME_DATA_SPEC §1.2 身份仅记 0..7 三档,8/13/14 未记;续54 MSGX 扫词验证:侍大将 4、城主 37、国主 3、宿老 2 都是剧情文案描述(不入身份码);身份 8/13/14 验证为 EXE 运行时状态码(战死/被俘/出家/隐藏)"
+    },
+    {
+      "off": 58,
+      "type": "byte",
+      "name": "lifespan(续59=初始预期寿命,跨剧情恒同 0/700 不等);8 档 0/16/32/64/80/96/112/128 = 剧情锁/1/2/4/5/6/7/8 年;与 @43 起始月联动算实际寿终月",
+      "width": 1,
+      "range": "{0,16,32,64,80,96,112,128}",
+      "evidence": "GAME_DATA_SPEC §1.2 表述«0=剧情锁定不老»但实测有 8 档 → 十六倍速编码(可能是游戏内月数 ÷ 16 等)"
+    }
   ],
   "field_correlations": [
     {
-      "pair": ["@52", "@56"],
+      "pair": [
+        "@52",
+        "@56"
+      ],
       "type": "独立字段",
       "evidence": "同一 @52 下 @56 取值不唯一(如 @52=100 出现 @56∈{15:30,47:103}),→ 两字段独立 setter/getter",
       "deduction": {
@@ -65,23 +379,350 @@
     }
   ],
   "skill_mapping": {
-    "source": "0x507b58(EXE 静态段,续26 已逐字节验证,5B×10 = 50B)",
-    "official_order": ["口才", "马术", "算术", "剑术", "忍术", "兵法", "洋枪", "筑城", "礼法", "茶道"],
-    "bsd_bit_layout": "BSDATA 字节 27..29 五 nibble,每 nibble 装 2 技能(高 2bit + 低 2bit);续28『10 技能 2bit 打包坐实:NPC[+0xf..+0x11]』(运行时),BSDATA 与之对应但字段名『+0x1B..+0x1D』",
-    "disambiguation": "⚠️ _extract_bsdata.py 用『算用/剑术/口才/马术/洋枪/筑城/忍术/军学/礼法/茶道』—— 与官方顺序不一致(『算用→算术』『军学→兵法』系别名混用;且把 5 nibble 重排时位序需对照 0x507b58)",
-    "remap_recipe": "用 0x507b58 字符串表 10 条按顺序铺成 5 nibble 槽:27h nibble=口才/马术,27l=算术/剑术,28h=忍术/兵法,28l=洋枪/筑城,29h=礼法/茶道,29l=备用(uniq=16 但实际只取高 2bit = 0..3)"
+    "source": "0x507b58(EXE 静态段, 5B×10 GBK, 续26 逐字节验证; 续130 dump 解码确认)",
+    "official_order": [
+      "口才",
+      "马术",
+      "算术",
+      "剑术",
+      "忍术",
+      "兵法",
+      "洋枪",
+      "筑城",
+      "礼法",
+      "茶道"
+    ],
+    "status": "✅ 定案(续130)",
+    "packing": "10 技能 × 2 bit = 20 bit, 打包于 3 字节",
+    "bsd_bit_layout": {
+      "_": "BSDATA @27/@28/@29 与运行时武将实体 +0xf/+0x10/+0x11 是同一套打包(逐字节对应)",
+      "27": {
+        "skills": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "bits": "0-1 / 2-3 / 4-5 / 6-7",
+        "range": "0..255"
+      },
+      "28": {
+        "skills": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "bits": "0-1 / 2-3 / 4-5 / 6-7",
+        "range": "0..255"
+      },
+      "29": {
+        "skills": [
+          8,
+          9
+        ],
+        "bits": "0-1 / 2-3",
+        "high_nibble": "未用(700/700 恒 0)",
+        "range": "0..15"
+      }
+    },
+    "entity_bit_layout": {
+      "+0x0f": "技能0 口才(b0-1) / 1 马术(b2-3) / 2 算术(b4-5) / 3 剑术(b6-7)",
+      "+0x10": "技能4 忍术(b0-1) / 5 兵法(b2-3) / 6 洋枪(b4-5) / 7 筑城(b6-7)",
+      "+0x11": "技能8 礼法(b0-1) / 9 茶道(b2-3); 高4位未用"
+    },
+    "extraction": "skill_i = (byte[27 + i//4] >> (2*(i%4))) & 3   // BSDATA\nskill_i = (byte[0x0f + i//4] >> (2*(i%4))) & 3 // 实体(需 +i//4 映射到 f/10/11)",
+    "evidence": [
+      "属性取值器 0x4c7c30: cmp ebx,0x13; ja -> jmp dword[ebx*4 + 0x4c7e84] (20 项跳表), 各分支体直接给出字节/移位/&3 (attr13=+0xf&3 口才, attr5=+0xf>>2&3 马术, attr3=+0xf>>4&3 算术, attr12=+0x10&3 忍术, attr14=+0x10>>2&3 兵法, attr8=+0x10>>4&3 洋枪, attr9=+0x10>>6 筑城, attr10=+0x11&3 礼法, attr15=+0x11>>2&3 茶道)",
+      "剑术 = byte[+0x0f]>>6: 0x4447948 'mov al,byte[edi+0xf]; shr al,6' 等 9 处",
+      "数据侧: @29 高 nibble 700/700 恒 0",
+      "史实锚点: 武田信玄/上杉谦信/毛利元就 兵法=3; 服部半藏 忍术=3 且 剑术=3"
+    ],
+    "🔴_correction": "推翻续55「BSDATA 3 字节只能存 5 技能(每 nibble 一个 4bit 技能)」。实为 10 技能 × 2bit = 20bit, @27/@28 各 4 技能、@29 低4位 2 技能, 与运行时实体 +0xf..+0x11 完全同构。",
+    "reference_impl": "scripts/bsdata_fields_ref.py (1096/1096 PASS)"
   },
   "still_unknown": [
-    "@17 字段语义(2 bit 朝向?6 bit 备位)",
-    "🟡 @20/@21/NPC 关系初值(续44):与 @48/@57 无明显线性关系;各自独立,具体语义需 EXE 访问器钉(0x47d890)",
-    "@27..29 nibble 与官方技能 10 项的精确位序(需 0x47d890 / 0x4b5620 反汇或 Unicorn)",
-    "🟡 @39/@40/@41 生日三元组(续43):@43 ∈ [0..62] 为起始月;@39/@40/@41 三者联动精确粒度待 EXE 访问器钉",
+    "@17 字段语义(2 bit 朝向?6 bit 备位) — 已知联合映射:@17=身份大类 2bit(@42=在世档, @57=身份码 0..7), universe={0,1,2}; 6 高位备位语义仍待钉",
+    "🟡 @20/@21 NPC 关系初值(续44):与 @48/@57 无明显线性关系; 0x47d890 经核实是 49 字节 stride 的另一结构读取器(非 BSDATA, BSDATA 文件实测 41300=59×700 明文无头), 需另找访问器",
+    "✅ [已破·续130] @27..29 与官方技能 10 项的精确位序 — **10 技能 × 2bit**:@27=技能0..3 / @28=技能4..7 / @29 低4位=技能8..9(高nibble 700/700恒0); 与运行时实体 +0x0f/+0x10/+0x11 同构。🔴 推翻续55「5 技能×4bit nibble」旧说。参考实现 bsdata_fields_ref.py (1096/1096)",
+    "🟡 [部分破·续131] 原「@39/@40/@41 生日三元组」: **@39 已定案 = 生年−1490**(低7位), bit7 为独立 flag; 年龄(数え年) = (byte[0x5205F0]+1560) − 生年 + 1, getter 0x49a5c0 / setter 0x49a5e0。🔴 但 @40/@41 并非年龄/生日年(见 refuted_hypotheses_131), 需另找语义。参考实现 bsdata_lifespan_ref.py (220/220)",
     "✅ @52 vs @56 俸禄档与俸禄等级独立字段(续41,详见 §field_correlations)",
     "🟡 @54/@55 = 隐藏 NPC 配置 flag(续42):@42=255 集中 13 条特殊配置 + 3 个在世特殊 NPC;位语义需 EXE 访问器钉",
-    "🟡 @58 预期寿命编码(续43):8 档 {0,16,32,64,80,96,112,128} 均为 16 倍数 → 与 @43 起始月换算为实际岁数需 EXE 钉"
+    "🟡 [纠偏·续131] @58 非预期寿命: 实为 (高 nibble)<<4, nibble∈{0,1,2,4,5,6,7,8}; 非生年函数(64/82 生年多值)且与寿命 corr 仅 −0.142。旧注「8 档 16 倍数寿命编码」不成立, 需重新定性"
   ],
   "verification": {
     "byte_stats": "scripts/_bsdata_byte_stats.py(本次输出)",
     "decision_rule": "本环境无 _unpacked_mem.bin,字段语义无法用 EXE 访问器钉死;以上均为静态字节指纹 + 与续26/续28 一致性推算。复核路径:把 EXE 拷回工程 → 反汇 0x47d890/0x4b5620 → 钉字段偏移;或 Unicorn 实跑开局 dump NPC 池结构"
+  },
+  "ability_names": {
+    "source": "0x507fc0, stride 7, 5 项 GBK (续130 dump 解码)",
+    "values": [
+      "统御力",
+      "武力",
+      "内政力",
+      "外交力",
+      "魅力"
+    ],
+    "entity_offsets": {
+      "+0x0d": "外交力 (硬证据: 0x4b5620 取 byte[+0xd] 后查 0x50c3cc='外交')",
+      "+0x0e": "魅力   (硬证据: 0x4b5620 取 byte[+0xe] 后查 0x507fdc='魅力')",
+      "+0x0b": "统御力/武力/内政力 之一 (待钉)",
+      "+0x0c": "统御力/武力/内政力 之一 (待钉)",
+      "note": "全镜像 byte[+0xa..+0x11] 的 mov 写入点 = 0 ⇒ setter 经 setAbility(char,idx,val) 参数化, 静态不可见(MEMORY.md 已记的『只写用间接寻址』墙)"
+    }
+  },
+  "attr_score_table": {
+    "getter": "0x4c7c30 (任务适性评分器: 遍历武将列表, 按属性 id 算分, 取最优)",
+    "jump_table": "0x4c7e84, 20 项 (cmp ebx,0x13; ja ⇒ id 0..19)",
+    "table": [
+      "0x4c7cd7",
+      "0x4c7cd7",
+      "0x4c7ce5",
+      "0x4c7d00",
+      "0x4c7d11",
+      "0x4c7d1b",
+      "0x4c7d2d",
+      "0x4c7d37",
+      "0x4c7d41",
+      "0x4c7d52",
+      "0x4c7d61",
+      "0x4c7d6f",
+      "0x4c7d79",
+      "0x4c7d88",
+      "0x4c7d93",
+      "0x4c7da2",
+      "0x4c7db0",
+      "0x4c7dd0",
+      "0x4c7dea",
+      "0x4c7dff"
+    ],
+    "semantics": {
+      "0/1": "身分码 = (word[+0x2c]>>8) & 7",
+      "2": "外交力 + 口才*10",
+      "3": "算术",
+      "4": "能力@+0x0b",
+      "5": "马术",
+      "6": "能力@+0x0c",
+      "7": "外交力",
+      "8": "洋枪",
+      "9": "筑城",
+      "10": "礼法",
+      "11": "魅力",
+      "12": "忍术",
+      "13": "口才",
+      "14": "兵法",
+      "15": "茶道",
+      "16": "筑城*10 / (4-N)",
+      "17": "能力@+0x0c / (4-N)",
+      "18": "外交力 + 身分码*10",
+      "19": "身分码 + 礼法*2"
+    },
+    "note": "N = 传入的除数参数(esp+0x1c 相关); 剑术未单独成项(仅出现在 BSDATA/位域), 说明该表是「职务适性」评分而非「属性枚举」。"
+  },
+  "reference_impl": "scripts/bsdata_fields_ref.py (1096/1096 PASS); scripts/bsdata_lifespan_ref.py (220/220 PASS); scripts/entity_methods_ref.py (102/102 PASS); scripts/entity_tail_methods_ref.py (88/88 PASS); scripts/bsdata_entity_remap_ref.py (49/49 PASS)",
+  "birth_age_encoding": {
+    "status": "✅ 定案(续131)",
+    "birth_year": {
+      "formula": "生年 = 1490 + (BSDATA @39 & 0x7F)   // 实体: 1490 + (byte[+0x1b] & 0x7F)",
+      "base": 1490,
+      "base_hex": "0x5d2",
+      "range": "1493..1582 (全 700 条), 82 个不同值",
+      "bit7": "独立 flag, 非生日位; 232/700 置位, 跨剧本 139 条翻转(90 置位/49 清除)"
+    },
+    "age": {
+      "formula": "年齢(数え年) = (byte[0x5205F0] + 1560) − 生年 + 1",
+      "getter": "0x49a5c0",
+      "setter": "0x49a5e0 (按新年龄反设生年字段)",
+      "setter_guard": "(byte[0x5205F0] − 年齢 + 1561) < 1490 ⇒ 不写入",
+      "setter_idiom": "XOR 位域惯用法: dl=旧值; eax=(Y−age+1561+46); al^=dl; eax&=0x7f; word[+0x1b] ^= ax  ⇒ 只替换低 7 位, bit7 原样保留",
+      "setter_simplified": "new_low7 = (Y − 年齢 + 71) & 0x7F  (0x619+0x2e=1607; 1607−71=1536=0x600, &0x7f 下等价)",
+      "inverse_consistency": "生年 = 今年 + 1 − 年齢 ⇔ getter 的数え年定义, 两者互为逆运算"
+    },
+    "offset_remap": "BSDATA @39 (off 0x27) → 运行时武将实体 +0x1b；两者编码相同但偏移不同, 存在一次带重映射的拷贝, 勿按同名偏移直查",
+    "evidence": [
+      "EXE 0x49a5c0: mov cl,byte[ecx+0x1b]; movzx ax,byte[0x5205f0]; and ecx,0x7f; add eax,0x618; add ecx,0x5d2; sub eax,ecx; inc eax; ret",
+      "全镜像搜 4 字节立即数 1490(0x5d2) 仅 1 处命中, 即上述 add ecx,0x5d2",
+      "史实锚点 21/21 全中（织田信长1534 / 武田信玄1521 / 上杉谦信1530 / 德川家康1542 / 毛利元就1497 / 伊达政宗1567 / 真田幸村1567 / 石田三成1560 …）"
+    ],
+    "🔴_correction": "推翻续43/59「@39=生日月、@40=当前年龄、@41=生日年」。@39 是生年；@40/@41 并非年龄/生日年（见下）。",
+    "reference_impl": "scripts/bsdata_lifespan_ref.py (220/220 PASS)"
+  },
+  "refuted_hypotheses_131": {
+    "@40": {
+      "old": "当前年龄（续59: 跨剧本 +1）",
+      "actual": "打包字段 @40 = 32*A + B, A=@40>>5∈0..7, B=@40&31∈0..31; 492/700 的 B=0, 跨剧本差值以 +4 为主(435 条)",
+      "evidence": "corr(生年, @40&31)=+0.628, 但 max(0,生年−1548)==B 仅 510/700 (纯 B=0 主群假象); 82 个生年中 41 个映射到多个 B",
+      "verdict": "非年龄、非生日；真语义待定"
+    },
+    "@41": {
+      "old": "生日年（续43）",
+      "actual": "544/700 = 255 哨兵; 其余 156 条 0..253, 与生年/寿命均无相关性",
+      "verdict": "非生日年；疑为剧本专属事件/登场槽, 待定"
+    },
+    "@43": {
+      "old": "起始月（续43: 从开局回推的月数偏移, 0..62）",
+      "actual": "82 个生年中有 71 个映射到多个 @43 ⇒ 不是生年的函数; corr(生年,@43)=−0.015, corr(寿命,@43)=+0.028",
+      "verdict": "「起始月」缺乏支撑, 应重新定性"
+    },
+    "@58": {
+      "old": "初始预期寿命（续43: 8 档 {0,16,32,64,80,96,112,128}, 16 倍数）",
+      "actual": "低 nibble 恒 0 ⇒ 实为 (高 nibble)<<4, 高 nibble∈{0,1,2,4,5,6,7,8}; 82 个生年中 64 个映射到多个 @58 ⇒ 非生年函数; corr(寿命,@58)=−0.142, @58 分组下生年均值几乎相同(1529.8~1538.5)",
+      "verdict": "「预期寿命」不成立；真语义待定"
+    }
+  },
+  "entity_offset_remap": {
+    "status": "✅ 定稿(续135)",
+    "rule": "**武将实体 = BSDATA 记录去掉前 12 字节姓名区**，即 `entity[i] = bsdata[i + 12]`，i ∈ [0, 47)。结构恒等式：**59 − 12 = 47 = 实体 stride**。",
+    "applies_to": "@22 .. @55 （确认）；@56..@58 为**推定**（值域不冲突但证据不足）",
+    "structural_identity": "59 - 12 = 47",
+    "pairs": [
+      {
+        "bsd": "22..26",
+        "ent": "+0x0a..+0x0e",
+        "name": "五维能力",
+        "clamp": 100,
+        "evidence": "setter 族钳 100；实测 max ≤ 100"
+      },
+      {
+        "bsd": "27..29",
+        "ent": "+0x0f..+0x11",
+        "name": "10 技能 ×2bit",
+        "evidence": "@29 高 nibble 700/700 恒 0"
+      },
+      {
+        "bsd": "31 / 49",
+        "ent": "+0x13 / +0x25",
+        "name": "現城 id（双写）",
+        "evidence": "@31==@49 700/700 ↔ 续114 实测 `+0x13` 是 `+0x25` 的副本；哨兵 255 ↔ setter 常量 0xff"
+      },
+      {
+        "bsd": "39",
+        "ent": "+0x1b",
+        "name": "生年",
+        "evidence": "EXE 0x49a5c0 硬证据"
+      },
+      {
+        "bsd": "44..47",
+        "ent": "+0x20..+0x23",
+        "name": "体力上限/体力/体力消耗/野心",
+        "evidence": "@44==@45 700/700；@47 恒 50 ↔ setter 常量 0x32"
+      },
+      {
+        "bsd": "48",
+        "ent": "+0x24",
+        "name": "親密度",
+        "evidence": "@48=13 出现 57 次 ↔ setter 常量 0xd；@48=255 ↔ 常量 0xff"
+      },
+      {
+        "bsd": "50..51",
+        "ent": "+0x26 (word)",
+        "name": "功勲",
+        "clamp": 60000,
+        "evidence": "非占位 max 30000 ≤ 60000"
+      },
+      {
+        "bsd": "52",
+        "ent": "+0x28",
+        "name": "俸禄",
+        "clamp": 200,
+        "evidence": "非占位 max 200 = 钳 200"
+      },
+      {
+        "bsd": "53",
+        "ent": "+0x29",
+        "name": "**忠诚**",
+        "clamp": 100,
+        "evidence": "max 100 = 钳 100；分布 top 100/89/88 均值高，符合忠诚"
+      },
+      {
+        "bsd": "54..55",
+        "ent": "+0x2a (word)",
+        "name": "状态字",
+        "evidence": "0xFFFF 占 674/700 ↔ +0x2a 哨兵"
+      },
+      {
+        "bsd": "56..58",
+        "ent": "+0x2c..+0x2e",
+        "name": "状态/身份/寿命（推定）",
+        "evidence": "值域不冲突，证据不足"
+      }
+    ],
+    "🔴_key_resolution_135": "续134 曾因两组「越界」把通则边界收紧到 @22..@47，本轮证明是**假象**：@50..@51 > 60000 的值只有 0xFFFF（45 条），非哨兵 max = 30000；@52 > 200 的值只有 250（同样 45 条）。**两组越界是同一批 45 条占位记录**，非偏移错位 ⇒ 边界撤销，通则扩至 @22..@55。",
+    "placeholder_records": {
+      "count": 45,
+      "marker": "@50..@51 == 0xFFFF（同时 @52 == 250）",
+      "distinct_from": "BSDATA @42=255 的 544 条未启用槽（另一套标记，勿混）"
+    },
+    "🔴_correction_135": "原 spec 的 `@53 武艺/熟练度(?)` 是猜测；实为 **忠诚 loyalty**（max 100 与 `+0x29` setter 钳 100 吻合，且续122 的钳制点 `0x49a7bf` 正落在 `0x49a7b0` 函数体内已坐实 `+0x29`=忠诚）。",
+    "reference_impl": "scripts/bsdata_entity_remap_ref.py (49/49 PASS)"
+  },
+  "entity_ability_block": {
+    "status": "✅ 定案(续132) — 闭合续130 留的「+0x0b/+0x0c 待钉」",
+    "block": "+0x0a..+0x0e (5 字节, 顺序与能力名表 0x507fc0 严格一致)",
+    "mapping": {
+      "+0x0a": "统御力",
+      "+0x0b": "武力",
+      "+0x0c": "内政力",
+      "+0x0d": "外交力",
+      "+0x0e": "魅力"
+    },
+    "hard_evidence": "+0x0d=外交力 / +0x0e=魅力 由 0x4b5620 查 0x50c3cc='外交'、0x507fdc='魅力' 硬钉（续130）；其余三者由能力块的连续性 + 能力名表顺序对齐钉死。",
+    "setter_family": "0x49a2b0 + 0x20*k (k=0..4), 各写 byte[ecx+k], 一律 `cmp ax, 0x64; jbe` 钳制到 100；调用方传 ecx = base + 0x0a",
+    "🔴_why_static_zero_writes": "全镜像 byte[reg+0x0b] 形式的 mov 写入点为 0 处，原因是 setter 按 `ecx = base + N` **参数化传入偏移**，函数体内只有 `mov byte[ecx+k], al`（k=0..4），故静态扫描绝对偏移永远抓不到。续130 判为「须 emu」系误判。"
+  },
+  "entity_method_table": {
+    "status": "✅ 定案(续132)",
+    "object_pointer": "dword[0x513b14] (武将对象基址)",
+    "range": "0x49a2b0 .. 0x49a870 (规则间隔排布的方法表)",
+    "entries": {
+      "ability_setters": "0x49a2b0 + 0x20*k, k=0..4  → byte[base+0x0a+k], 钳 100",
+      "skill_setters": "0x49a350/0x49a370/0x49a3a0/0x49a3d0 (+0x0f bit0/2/4/6); 0x49a400/0x49a420/0x49a450/0x49a480 (+0x10 bit0/2/4/6); 0x49a4b0/0x49a4d0 (+0x11 bit0/2)  → 钳 3",
+      "skill_name_getters": "0x49a500 + 0x10*k, k=0..9 → 返回 0x507b58 + 5*k",
+      "word8_setter": "0x49a5a0 (ecx = base+8) → word[ecx] bits 11-14",
+      "age_getter": "0x49a5c0 → byte[+0x1b]",
+      "birth_setter": "0x49a5e0 → byte[+0x1b] (XOR 位域惯用法)"
+    },
+    "caller_pattern": "调用点一律先 `mov reg, dword[0x513b14]` 再 `lea ecx,[reg+N]` / `add ecx, N`, 然后 `push 值; call 方法`",
+    "reference_impl": "scripts/entity_methods_ref.py (102/102 PASS)"
+  },
+  "entity_tail_method_table": {
+    "status": "✅ 定案(续133)",
+    "range": "0x49a5f0 .. 0x49a8b0 (武将实体尾段 +0x20..+0x2e 的 setter/getter 方法表)",
+    "object": "同续132: 对象基址 = dword[0x513b14], 布局与实体表 0x519868(stride47) 一致",
+    "fields": {
+      "+0x20": "byte = **体力上限 (max HP)**, 钳 100 (setter 0x49a650)",
+      "+0x21": "byte = **体力（现役 / 当前 HP）** (setter 0x49a630, 29 调用); 初始化 `+0x21 = +0x20`; 运行时 `+0x21 = min(+0x20, +0x21)` 钳到上限",
+      "+0x22": "byte = **体力消耗**, 钳 100 (setter 0x49a670)",
+      "+0x23": "byte = **野心**, 钳 100 (setter 0x49a690, 常量 0x32=50 / 0x50=80 / 0x64=100)",
+      "+0x24": "byte = 被搜索匹配的目标 ID (setter 0x49a750; 续114 消费方 `cmp byte[+0x24],bl; je FOUND`)",
+      "+0x25": "byte = 实体基础值 (setter 0x49a760; 续114 复制到 +0x13 / +0x18)",
+      "+0x26": "word = 功勲/勲功, **钳 60000 (0xEA60)** (setter 0x49a770)",
+      "+0x28": "byte, 钳 200 (setter 0x49a790)",
+      "+0x29": "byte = **忠诚 loyalty, 钳 100** (setter 0x49a7b0; 续122 钳制点 0x49a7bf 正在此函数体内 ✓)",
+      "+0x2a": "word, 哨兵 0xffff (setter 0x49a7d0)",
+      "+0x2c": "word = 16-bit 状态字 (见 status_word)",
+      "+0x2d": "byte = 状态字高字节 (bit3 flag / bit4 谋反 / bit7 已故)",
+      "+0x2e": "byte = 1-byte 状态 (setter 0x49a880 / 0x49a8a0)"
+    },
+    "status_word_0x2c": {
+      "bits 0-3": "低 nibble — getter 0x49a610 (`& 0xf`, `cmp 0xc` ⇒ <12 有效); setter 0x49a6b0 用 XOR 惯用法 (`xor al,dl; and eax,0xf; xor word[+0x2c],ax`)",
+      "bits 4-7": "四个独立 or-flag setter: 0x49a6d0/0x10, 0x49a6f0/0x20, 0x49a710/0x40, 0x49a730/0x80",
+      "bits 11-13": "(= +0x2d bits 3-5) setter 0x49a7e0, 掩码 0xF8FF, 3-bit 域",
+      "bits 13-14": "(= +0x2d bits 5-6) = **F2B 序列関係**, setter 0x49a840, 掩码 0x9FFF, `cmp 4` ⇒ 钳 0..3 (与续127「24 调用 {3:12,2:5,1:6}」吻合 ✓)",
+      "bit 15": "(= +0x2d bit7) = **已故/除籍**, setter 0x49a860",
+      "+0x2d bit3": "flag, setter 0x49a800 (续122/127 消费者 0x4a3ddf / 0x4e9beb)",
+      "+0x2d bit4": "F4 谋反/背叛标记, setter **0x49a820**"
+    },
+    "🔴_entry_address_correction": "续127 把 F4 setter 记为 `0x49a828`——那是函数体地址；真实 e8 调用入口是 **0x49a820**（nop 滑橇之后）。本表一律用真实入口。同类坑见续92/续95。",
+    "reference_impl": "scripts/entity_tail_methods_ref.py (88/88 PASS)",
+    "vitals_evidence_134": {
+      "method": "由续132 的「-12 通则」(实体偏移 = BSDATA 偏移 − 12) 反推，再用数据侧三重印证",
+      "@44 → +0x20 体力上限": "setter `0x49a650` 含 `cmp 0x64` 钳 100；@44 实测 0..100、uniq=38 ✓",
+      "@45 → +0x21 体力(现役)": "初始化路径 `movzx cx,byte[+0x20]; call 0x49a630` ⇒ 现役=上限；@44 == @45 实测 700/700 ✓✓",
+      "@46 → +0x22 体力消耗": "setter `0x49a670` 钳 100；@46 实测 ≤100、uniq=16 ✓",
+      "@47 → +0x23 野心": "setter `0x49a690` 调用常量含 `0x32`(50)；@47 实测 **700/700 恒 50** ✓✓",
+      "runtime_clamp": "0x4042a0: `movzx ax,byte[+0x21]; movzx cx,byte[+0x20]; cmp cx,ax; jae; mov eax,ecx` ⇒ **+0x21 = min(+0x20, +0x21)**（当前体力不得高于上限）",
+      "aging_or_damage": "0x404286: `push 0xa; push byte[+0x20]; call 0x4ebcd0` ⇒ **体力上限每次 −10**（饱和减，0x4ebcd0: a>b 时返回 a−b），随后钳当前体力"
+    }
   }
 }

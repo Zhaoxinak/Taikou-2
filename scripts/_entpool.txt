@@ -1,0 +1,69 @@
+
+===== func 0x47dce0  (until 0x47dda8, 200 bytes) =====
+0x47dce0  83ec0c               sub      esp, 0xc
+0x47dce3  53                   push     ebx
+0x47dce4  55                   push     ebp
+0x47dce5  56                   push     esi
+0x47dce6  57                   push     edi
+0x47dce7  8bf1                 mov      esi, ecx
+0x47dce9  bf6a985100           mov      edi, 0x51986a
+0x47dcee  c744241000000000     mov      dword ptr [esp + 0x10], 0
+0x47dcf6  c744241472010000     mov      dword ptr [esp + 0x14], 0x172
+0x47dcfe  8b442410             mov      eax, dword ptr [esp + 0x10]
+0x47dd02  bd07000000           mov      ebp, 7
+0x47dd07  8d98a81a5200         lea      ebx, [eax + 0x521aa8]
+0x47dd0d  53                   push     ebx
+0x47dd0e  8bce                 mov      ecx, esi
+0x47dd10  e8fbfbffff           call     0x47d910
+0x47dd15  43                   inc      ebx
+0x47dd16  4d                   dec      ebp
+0x47dd17  75f4                 jne      0x47dd0d
+0x47dd19  8b4c2410             mov      ecx, dword ptr [esp + 0x10]
+0x47dd1d  bd07000000           mov      ebp, 7
+0x47dd22  8d9960065200         lea      ebx, [ecx + 0x520660]
+0x47dd28  53                   push     ebx
+0x47dd29  8bce                 mov      ecx, esi
+0x47dd2b  e8e0fbffff           call     0x47d910
+0x47dd30  43                   inc      ebx
+0x47dd31  4d                   dec      ebp
+0x47dd32  75f4                 jne      0x47dd28
+0x47dd34  8d57fe               lea      edx, [edi - 2]
+0x47dd37  8bce                 mov      ecx, esi
+0x47dd39  52                   push     edx
+0x47dd3a  e8f1fbffff           call     0x47d930
+0x47dd3f  57                   push     edi
+0x47dd40  8bce                 mov      ecx, esi
+0x47dd42  e8e9fbffff           call     0x47d930
+0x47dd47  8d442418             lea      eax, [esp + 0x18]
+0x47dd4b  8bce                 mov      ecx, esi
+0x47dd4d  50                   push     eax
+0x47dd4e  e8ddfbffff           call     0x47d930
+0x47dd53  8b4c2418             mov      ecx, dword ptr [esp + 0x18]
+0x47dd57  6681f97201           cmp      cx, 0x172
+0x47dd5c  7315                 jae      0x47dd73
+0x47dd5e  81e1ffff0000         and      ecx, 0xffff
+0x47dd64  8d0449               lea      eax, [ecx + ecx*2]
+0x47dd67  c1e004               shl      eax, 4
+0x47dd6a  2bc1                 sub      eax, ecx
+0x47dd6c  0568985100           add      eax, 0x519868   ; ENTITY_TAB
+0x47dd71  eb02                 jmp      0x47dd75
+0x47dd73  33c0                 xor      eax, eax
+0x47dd75  8d4f06               lea      ecx, [edi + 6]
+0x47dd78  894702               mov      dword ptr [edi + 2], eax
+0x47dd7b  51                   push     ecx
+0x47dd7c  8bce                 mov      ecx, esi
+0x47dd7e  e8adfbffff           call     0x47d930
+0x47dd83  8d5708               lea      edx, [edi + 8]
+0x47dd86  8bce                 mov      ecx, esi
+0x47dd88  52                   push     edx
+0x47dd89  e882fbffff           call     0x47d910
+0x47dd8e  8d4709               lea      eax, [edi + 9]
+0x47dd91  8bce                 mov      ecx, esi
+0x47dd93  50                   push     eax
+0x47dd94  e877fbffff           call     0x47d910
+0x47dd99  8d4f0a               lea      ecx, [edi + 0xa]
+0x47dd9c  51                   push     ecx
+0x47dd9d  8bce                 mov      ecx, esi
+0x47dd9f  e86cfbffff           call     0x47d910
+0x47dda4  8d570b               lea      edx, [edi + 0xb]
+0x47dda7  8b                   (bad)

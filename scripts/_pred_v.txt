@@ -1,0 +1,309 @@
+handler    ctx   arg   flg  calls                                  globals
+0x45dc50 eax   None  False 44dc60,47b900                          
+0x461510 eax   None  False                                        
+0x488993 eax   None  False 420210,488810,4b1190,4b11d0,4b12b0,4b1d40 0x5050d0,0x509530,0x509f90,0x509fa3,0x509fb6,0x50a098,0x50a09c
+0x447520 eax   None  False                                        
+0x450b90 eax   None  False                                        
+0x4608b7 eax   None  False                                        
+0x461da0 eax   None  False                                        
+0x44d950 esi   di    False 4441a0,44da10                          
+0x41ddd5 eax   None  True 49b8a0                                 0x51987e
+0x4c9db0 ebx   None  False 47b900,496ba0,4edf70                   0x526c50
+0x4a7000 eax   ax    False 49aba0,49abc0,49ac00,49ac30,4c9d90     0x51eb88
+0x45cc40 eax   None  False 45a700                                 
+0x4d1080 esi   ax    True 49b550,49f5e0                          0x51eb88
+0x44a120 eax   None  True                                        
+0x441750 eax   bx    False 4ebd60                                 
+0x45e78c eax   si    False 45e730,470260,47b900,49b140,4ebd60     0x51eb88
+0x460420 eax   None  False 460500,460530                          
+0x46e2e0 ebp   si    False 403c90,46e4b0,46e520,47ae00,480890,498b90,49f430 0x514de8,0x522cc0,0x525560
+0x470260 ebp   si    False 470370,470450,498b90,49bf50,49bf90,49f430,4b49f0,4eefa0 0x516a28,0x51eb88,0x525560,0x526c58
+0x4b4d10 edi   cx    False 47b900,49bf90,49f430,4b49f0,4b4a90     
+0x4d34cb edi   None  True 4340f0,4a0d50,4eeda0                   0x524740,0x526c58
+0x4146c0 ebp   None  True 414a00,419cf0,47b900,47bac0,47bed0,493500,4952f0,495640,495d10,496690,496ba0,498f80,49b670,49b690,49c310,49c420,49f040,49f070,49f5e0,49f830,4bb530,4dcc80 0x5029f8,0x502b08,0x502b20,0x517a6e,0x5196a8,0x5203c0
+0x415b70 ebx   None  True 415e20,419cf0,47b900,47bac0,493500,4952f0,495d10,496ba0,498f80,49c310,49f5e0,49f830,4bb530,4dcc80 0x5029f8
+0x41adb0 eax   None  False                                        
+0x4c34cf eax   ax    False 49f5e0                                 
+0x4c3610 esi   bx    False 49f5e0,49f670                          0x51eb90
+0x4d5560 edi   None  True 44df20,47b5f0,47b900,49c2b0,49c310,4d3f90,4d5230,4d56d0,4d5700,4d5780 0x519868
+0x4d83e0 ecx   None  False 4dcc80                                 
+0x41d980 esi   cx    True 41da80,47b8d0,47bfe0,47c080,49b400,49c2b0,49f5e0,4a0170 0x502e08,0x502e40,0x506c68,0x517710,0x5197b0,0x519868
+0x444220 eax   ax    False 4b36a0                                 0x51eb88
+0x460660 esp   eax   False 496ba0,4ebd60                          
+0x4b3890 eax   None  False                                        
+0x4b3b58 ecx   None  False 49a9a0,49a9e0,49aac0,49ac00,49f9b0,4a32c0 
+0x4d5a20 eax   None  True                                        
+0x441cf0 eax   None  False                                        
+0x4a7160 eax   None  True 49b840                                 
+0x4a3df3 eax   None  True 49a760,49a770,49a7b0,49a7d0,49a7e0,49a800,49a880,49a990,49b580,49b5b0,49b5d0,49bbd0,49bc10,49f5e0,4a04e0,4a0540,4a05a0,4a40c0,4ebcd0,4ebd60 0x516610,0x51eb88
+0x4c2d5b eax   None  True 408960,49a750,49a770,49a7e0,49b5a0,49bc10,49f5a0,49f5d0,4a0540,4a05a0 0x516610,0x5179b8,0x517c70
+0x45f020 eax   None  False 45e3e0,45eb30,45ecc0,45ef20,4ebd60     0x513fe6
+0x4accb0 esi   None  True 4ebd60                                 
+0x4da170 ecx   None  False 47b5f0,47b900,496ba0,49c310,49f5e0,49f6a0,4d7800,4d8f00,4d9120,4d9860,4da540,4dac40,4dace0,4dad80 0x519868
+0x4daf20 ebp   None  False 47b5f0,47b600,47b900,4955b0,495920,496ba0,49c310,49f370,49f5e0,49f6a0,4a0c20,4d7800,4d9120,4d9860,4dac40,4dace0 0x519868
+0x484f34 ecx   None  False 47b160,4edf70,4edfa0                   0x509af8,0x526c50
+0x4e82c0 esi   bp    False 44e280,470210,47b280,4e83e0,4e84b0,4ebca0 0x50d1bc,0x50d804,0x50d814,0x519548
+0x4e7e10 edi   bx    False 47b900                                 0x5179b8
+0x4b4b20 None  None  False 49f5e0,49f610                          
+0x44ca90 None  None  False 47b5f0,47b900,49f5e0                   
+0x4b3ac0 None  None  False                                        0x51eb88
+0x4499f0 ecx   None  False 448f10,4491a0,44dc60,496ba0,49b280,49b2b0,4a0d50,4ebd60 
+
+=== signature groups (calls+globals) ===
+
+[10] calls=() globals=()
+    ['0x41adb0', '0x441cf0', '0x447520', '0x44a120', '0x450b90', '0x4608b7', '0x461510', '0x461da0', '0x4b3890', '0x4d5a20']
+
+[2] calls=(4ebd60) globals=()
+    ['0x441750', '0x4accb0']
+
+[1] calls=(44dc60,47b900) globals=()
+    ['0x45dc50']
+
+[1] calls=(420210,488810,4b1190,4b11d0,4b12b0,4b1d40) globals=(0x5050d0,0x509530,0x509f90,0x509fa3,0x509fb6,0x50a098,0x50a09c)
+    ['0x488993']
+
+[1] calls=(4441a0,44da10) globals=()
+    ['0x44d950']
+
+[1] calls=(49b8a0) globals=(0x51987e)
+    ['0x41ddd5']
+
+[1] calls=(47b900,496ba0,4edf70) globals=(0x526c50)
+    ['0x4c9db0']
+
+[1] calls=(49aba0,49abc0,49ac00,49ac30,4c9d90) globals=(0x51eb88)
+    ['0x4a7000']
+
+[1] calls=(45a700) globals=()
+    ['0x45cc40']
+
+[1] calls=(49b550,49f5e0) globals=(0x51eb88)
+    ['0x4d1080']
+
+[1] calls=(45e730,470260,47b900,49b140,4ebd60) globals=(0x51eb88)
+    ['0x45e78c']
+
+[1] calls=(460500,460530) globals=()
+    ['0x460420']
+
+[1] calls=(403c90,46e4b0,46e520,47ae00,480890,498b90,49f430) globals=(0x514de8,0x522cc0,0x525560)
+    ['0x46e2e0']
+
+[1] calls=(470370,470450,498b90,49bf50,49bf90,49f430,4b49f0,4eefa0) globals=(0x516a28,0x51eb88,0x525560,0x526c58)
+    ['0x470260']
+
+[1] calls=(47b900,49bf90,49f430,4b49f0,4b4a90) globals=()
+    ['0x4b4d10']
+
+[1] calls=(4340f0,4a0d50,4eeda0) globals=(0x524740,0x526c58)
+    ['0x4d34cb']
+
+[1] calls=(414a00,419cf0,47b900,47bac0,47bed0,493500,4952f0,495640,495d10,496690,496ba0,498f80,49b670,49b690,49c310,49c420,49f040,49f070,49f5e0,49f830,4bb530,4dcc80) globals=(0x5029f8,0x502b08,0x502b20,0x517a6e,0x5196a8,0x5203c0)
+    ['0x4146c0']
+
+[1] calls=(415e20,419cf0,47b900,47bac0,493500,4952f0,495d10,496ba0,498f80,49c310,49f5e0,49f830,4bb530,4dcc80) globals=(0x5029f8)
+    ['0x415b70']
+
+[1] calls=(49f5e0) globals=()
+    ['0x4c34cf']
+
+[1] calls=(49f5e0,49f670) globals=(0x51eb90)
+    ['0x4c3610']
+
+[1] calls=(44df20,47b5f0,47b900,49c2b0,49c310,4d3f90,4d5230,4d56d0,4d5700,4d5780) globals=(0x519868)
+    ['0x4d5560']
+
+[1] calls=(4dcc80) globals=()
+    ['0x4d83e0']
+
+[1] calls=(41da80,47b8d0,47bfe0,47c080,49b400,49c2b0,49f5e0,4a0170) globals=(0x502e08,0x502e40,0x506c68,0x517710,0x5197b0,0x519868)
+    ['0x41d980']
+
+[1] calls=(4b36a0) globals=(0x51eb88)
+    ['0x444220']
+
+[1] calls=(496ba0,4ebd60) globals=()
+    ['0x460660']
+
+[1] calls=(49a9a0,49a9e0,49aac0,49ac00,49f9b0,4a32c0) globals=()
+    ['0x4b3b58']
+
+[1] calls=(49b840) globals=()
+    ['0x4a7160']
+
+[1] calls=(49a760,49a770,49a7b0,49a7d0,49a7e0,49a800,49a880,49a990,49b580,49b5b0,49b5d0,49bbd0,49bc10,49f5e0,4a04e0,4a0540,4a05a0,4a40c0,4ebcd0,4ebd60) globals=(0x516610,0x51eb88)
+    ['0x4a3df3']
+
+[1] calls=(408960,49a750,49a770,49a7e0,49b5a0,49bc10,49f5a0,49f5d0,4a0540,4a05a0) globals=(0x516610,0x5179b8,0x517c70)
+    ['0x4c2d5b']
+
+[1] calls=(45e3e0,45eb30,45ecc0,45ef20,4ebd60) globals=(0x513fe6)
+    ['0x45f020']
+
+[1] calls=(47b5f0,47b900,496ba0,49c310,49f5e0,49f6a0,4d7800,4d8f00,4d9120,4d9860,4da540,4dac40,4dace0,4dad80) globals=(0x519868)
+    ['0x4da170']
+
+[1] calls=(47b5f0,47b600,47b900,4955b0,495920,496ba0,49c310,49f370,49f5e0,49f6a0,4a0c20,4d7800,4d9120,4d9860,4dac40,4dace0) globals=(0x519868)
+    ['0x4daf20']
+
+[1] calls=(47b160,4edf70,4edfa0) globals=(0x509af8,0x526c50)
+    ['0x484f34']
+
+[1] calls=(44e280,470210,47b280,4e83e0,4e84b0,4ebca0) globals=(0x50d1bc,0x50d804,0x50d814,0x519548)
+    ['0x4e82c0']
+
+[1] calls=(47b900) globals=(0x5179b8)
+    ['0x4e7e10']
+
+[1] calls=(49f5e0,49f610) globals=()
+    ['0x4b4b20']
+
+[1] calls=(47b5f0,47b900,49f5e0) globals=()
+    ['0x44ca90']
+
+[1] calls=() globals=(0x51eb88)
+    ['0x4b3ac0']
+
+[1] calls=(448f10,4491a0,44dc60,496ba0,49b280,49b2b0,4a0d50,4ebd60) globals=()
+    ['0x4499f0']
+
+===== 0x44d950 ctx=esi arg=di (loaded @0x44d958 if any) flags=False =====
+   0x44d957: push edi
+   0x44d958: mov di, word ptr [esi + 8]
+   0x44d97c: test edi, 0x8000
+
+===== 0x4a7000 ctx=eax arg=ax (loaded @0x4a700d if any) flags=False =====
+   0x4a700a: mov bp, word ptr [eax]
+   0x4a700d: mov ax, word ptr [eax + 8]
+   0x4a7011: mov word ptr [esp + 0x10], ax
+   0x4a705d: mov word ptr [0x5261a4], ax
+   0x4a706c: xor eax, eax
+   0x4a7071: cmp ax, 0xff
+   0x4a7077: test ax, ax
+   0x4a707c: dec eax
+   0x4a707f: push eax
+
+===== 0x4d1080 ctx=esi arg=ax (loaded @0x4d10db if any) flags=True =====
+   0x4d1096: mov eax, dword ptr [esp + 0x18]
+   0x4d109a: and eax, 0xff
+   0x4d109f: mov ebp, eax
+   0x4d10a4: sub ebp, eax
+   0x4d10b5: mov esi, eax
+   0x4d10bc: mov dword ptr [esp + 0x10], eax
+   0x4d10c0: xor eax, eax
+   0x4d10c2: mov ax, word ptr [esi]
+   0x4d10c7: cmp eax, 6
+   0x4d10d0: cmp eax, 7
+   0x4d10db: mov ax, word ptr [esi + 8]
+   0x4d10e3: and eax, 0xff
+   0x4d10e8: mov ecx, eax
+   0x4d10ed: sub ecx, eax
+
+===== 0x441750 ctx=eax arg=bx (loaded @0x44175f if any) flags=False =====
+   0x441753: push ebx
+   0x44175f: mov bx, word ptr [eax + 8]
+   0x44176b: mov dword ptr [esp + 0x14], ebx
+   0x44178b: mov eax, ebx
+
+===== 0x45e78c ctx=eax arg=si (loaded @0x45e79c if any) flags=False =====
+   0x45e791: push esi
+   0x45e79c: mov si, word ptr [eax + 8]
+   0x45e7b1: push esi
+   0x45e7ba: mov esi, eax
+   0x45e7dc: mov esi, eax
+   0x45e7de: shl esi, 5
+   0x45e7e1: sub esi, eax
+   0x45e7e3: add esi, 0x51eb88
+   0x45e7eb: xor esi, esi
+   0x45e807: mov ecx, esi
+   0x45e81d: test esi, esi
+   0x45e82b: push esi
+   0x45e836: pop esi
+
+===== 0x46e2e0 ctx=ebp arg=si (loaded @0x46e35b if any) flags=False =====
+   0x46e2ea: push esi
+   0x46e35b: mov si, word ptr [ebp + 8]
+   0x46e36d: cmp cx, si
+
+===== 0x470260 ctx=ebp arg=si (loaded @0x470337 if any) flags=False =====
+   0x47026b: push esi
+   0x470299: mov esi, eax
+   0x47029d: xor esi, esi
+   0x4702a6: mov al, byte ptr [esi + 0xf]
+   0x4702bb: mov ecx, esi
+   0x4702c4: mov ecx, esi
+   0x4702cb: push esi
+   0x470337: mov si, word ptr [ebp + 8]
+   0x470349: cmp cx, si
+   0x470363: pop esi
+
+===== 0x4b4d10 ctx=edi arg=cx (loaded @0x4b4d4e if any) flags=False =====
+   0x4b4d4e: mov cx, word ptr [edi + 8]
+   0x4b4d53: mov word ptr [esp + 0x30], cx
+   0x4b4d6b: mov cx, word ptr [edi + 6]
+   0x4b4d7b: mov word ptr [esp + 0x10], cx
+   0x4b4da4: mov ecx, esi
+   0x4b4dce: mov ecx, dword ptr [esp + 0x20]
+   0x4b4de0: push ecx
+
+===== 0x4c34cf ctx=eax arg=ax (loaded @0x4c34f9 if any) flags=False =====
+   0x4c34cf: shr eax, 0x1f
+   0x4c34d2: add edx, eax
+   0x4c34dd: mov cx, word ptr [eax + 0x2c]
+   0x4c34f6: mov cx, word ptr [eax]
+   0x4c34f9: mov ax, word ptr [eax + 8]
+   0x4c3503: cmp ax, di
+   0x4c3515: cmp ax, dx
+
+===== 0x4c3610 ctx=esi arg=bx (loaded @0x4c362f if any) flags=False =====
+   0x4c3613: push ebx
+   0x4c362f: mov bx, word ptr [esi + 8]
+   0x4c366d: cmp cx, bx
+   0x4c3678: cmp ax, bx
+
+===== 0x41d980 ctx=esi arg=cx (loaded @0x41d9ce if any) flags=True =====
+   0x41d9b4: shr ecx, 1
+   0x41d9b6: and ecx, 1
+   0x41d9b9: cmp edi, ecx
+   0x41d9cc: xor ecx, ecx
+   0x41d9ce: mov cx, word ptr [esi + 8]
+   0x41d9d2: mov eax, ecx
+   0x41d9d7: sub eax, ecx
+   0x41d9ed: lea ecx, [eax + eax*4 + 0x519548]
+   0x41d9f6: xor ecx, ecx
+   0x41da10: mov ecx, ebx
+   0x41da44: mov ecx, eax
+   0x41da46: lea eax, [ecx + ecx*2]
+   0x41da4c: sub eax, ecx
+
+===== 0x444220 ctx=eax arg=ax (loaded @0x44423c if any) flags=False =====
+   0x444227: cmp word ptr [eax], 0xf
+   0x44422d: mov cx, word ptr [eax + 6]
+   0x44423c: mov ax, word ptr [eax + 8]
+   0x444244: and eax, 0xff
+   0x444249: mov esi, eax
+   0x44424e: sub esi, eax
+   0x444263: test eax, eax
+   0x444273: mov eax, 1
+
+===== 0x460660 ctx=esp arg=eax (loaded @0x460685 if any) flags=False =====
+   0x46066a: test ax, ax
+   0x460674: cmp word ptr [eax], 0xf
+   0x46067a: mov ax, word ptr [esp + 4]
+   0x46067f: cmp ax, 0xf
+   0x460685: mov eax, dword ptr [esp + 8]
+   0x460689: add eax, 0x64
+   0x46068c: push eax
+
+===== 0x4e82c0 ctx=esi arg=bp (loaded @0x4e82cf if any) flags=False =====
+   0x4e82c2: push ebp
+   0x4e82cf: mov bp, word ptr [esi + 8]
+   0x4e8345: cmp bp, dx
+   0x4e8359: cmp bp, ax
+   0x4e8389: push ebp
+   0x4e83d8: pop ebp
+
+===== 0x4e7e10 ctx=edi arg=bx (loaded @0x4e7e61 if any) flags=False =====
+   0x4e7e10: push ebx
+   0x4e7e61: mov bx, word ptr [edi + 8]

@@ -1,0 +1,1476 @@
+insns: 293198 funcs: 5015
+raw hits: 108
+
+=== 命中函数汇总（按特征数降序）===
+  0x46a4a0  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370', 'stride47']
+  0x47df00  n_hits=  2  feat=['/47magic', 'base519868', 'cnt370', 'stride47']
+  0x4c0130  n_hits=  2  feat=['/47magic', 'base519868', 'cnt370', 'stride47']
+  0x4c9650  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370', 'stride47']
+  0x41e810  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x456150  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x45e3e0  n_hits=  1  feat=['base519868', 'cnt370', 'stride47']
+  0x45f580  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x46b1f0  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x46ffd0  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x487a00  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x488100  n_hits=  1  feat=['base519868', 'cnt370', 'stride47']
+  0x4a3920  n_hits=  1  feat=['base519868', 'cnt370', 'stride47']
+  0x4a3d70  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x4a4d10  n_hits=  2  feat=['base519868', 'cnt370', 'stride47']
+  0x4a5010  n_hits=  1  feat=['base519868', 'cnt370', 'stride47']
+  0x4a9920  n_hits=  3  feat=['/47magic', 'base519868', 'cnt370']
+  0x4aa820  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x4b7ab0  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x4bffa0  n_hits=  2  feat=['/47magic', 'base519868', 'cnt370']
+  0x4d5160  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x4df2a0  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x4e7f60  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x4e84f0  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x4e94f0  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x4eac10  n_hits=  1  feat=['/47magic', 'base519868', 'cnt370']
+  0x417310  n_hits=  3  feat=['base519868', 'cnt370']
+  0x418110  n_hits=  3  feat=['base519868', 'cnt370']
+  0x454fe0  n_hits=  1  feat=['base519868', 'cnt370']
+  0x4552d0  n_hits=  1  feat=['base519868', 'cnt370']
+  0x4635b0  n_hits=  1  feat=['base519868', 'cnt370']
+  0x487c30  n_hits=  2  feat=['cnt370', 'stride47']
+  0x49e620  n_hits=  1  feat=['base519868', 'cnt370']
+  0x4a5370  n_hits=  1  feat=['base519868', 'stride47']
+  0x4a6970  n_hits=  2  feat=['cnt370', 'stride47']
+  0x4aa690  n_hits=  1  feat=['base519868', 'cnt370']
+  0x4aeab0  n_hits=  1  feat=['cnt370', 'stride47']
+  0x4c2eb0  n_hits=  3  feat=['base519868', 'cnt370']
+  0x4c96c0  n_hits=  1  feat=['base519868', 'cnt370']
+  0x4d7fe0  n_hits=  2  feat=['cnt370', 'stride47']
+  0x4df930  n_hits=  1  feat=['cnt370', 'stride47']
+  0x4d9fb0  n_hits=  1  feat=['cnt370']
+  0x4dd7c0  n_hits=  1  feat=['cnt370']
+  0x405de0  n_hits=  1  feat=[]
+  0x4064c0  n_hits=  1  feat=[]
+  0x4096a0  n_hits=  1  feat=[]
+  0x409920  n_hits=  1  feat=[]
+  0x415130  n_hits=  1  feat=[]
+  0x4160f0  n_hits=  1  feat=[]
+  0x416e10  n_hits=  1  feat=[]
+  0x41b290  n_hits=  1  feat=[]
+  0x41c630  n_hits=  1  feat=[]
+  0x41c8b0  n_hits=  2  feat=[]
+  0x420870  n_hits=  1  feat=[]
+  0x427f10  n_hits=  1  feat=[]
+  0x42d9e0  n_hits=  1  feat=[]
+  0x42e820  n_hits=  2  feat=[]
+  0x442010  n_hits=  1  feat=[]
+  0x443d80  n_hits=  1  feat=[]
+  0x444440  n_hits=  1  feat=[]
+  0x44af00  n_hits=  1  feat=[]
+  0x44e020  n_hits=  1  feat=[]
+  0x452730  n_hits=  1  feat=[]
+  0x4537b0  n_hits=  1  feat=[]
+  0x453e90  n_hits=  1  feat=[]
+  0x456030  n_hits=  1  feat=[]
+  0x45e2b0  n_hits=  1  feat=[]
+  0x462cf0  n_hits=  1  feat=[]
+  0x46fbb0  n_hits=  1  feat=[]
+  0x47e680  n_hits=  1  feat=[]
+  0x47ec30  n_hits=  1  feat=[]
+  0x47ece0  n_hits=  1  feat=[]
+  0x47ed40  n_hits=  1  feat=[]
+  0x48cc20  n_hits=  1  feat=[]
+  0x48f2a0  n_hits=  1  feat=[]
+  0x495270  n_hits=  1  feat=[]
+  0x495d10  n_hits=  1  feat=[]
+  0x497400  n_hits=  2  feat=[]
+  0x49a7d0  n_hits=  1  feat=[]
+  0x49ba30  n_hits=  2  feat=[]
+  0x49ba70  n_hits=  3  feat=[]
+  0x49f3b0  n_hits=  1  feat=[]
+  0x4a5350  n_hits=  1  feat=[]
+  0x4bd3e0  n_hits=  1  feat=[]
+  0x4c6590  n_hits=  1  feat=[]
+  0x4d4100  n_hits=  1  feat=[]
+  0x4e0090  n_hits=  1  feat=[]
+
+=== 明细：+0x2a 相关指令 ±5 条上下文 ===
+
+----- func 0x46a4a0 .. 0x46a680  feat=['/47magic', 'base519868', 'cnt370', 'stride47'] -----
+  0x46a63d  shr ecx, 0x1f
+  0x46a640  add edx, ecx
+  0x46a642  mov ebx, edx
+  0x46a644  mov esi, 0x519868
+  0x46a649  mov edi, 0x172
+  0x46a64e  cmp word ptr [esi + 0x2a], bx   <<<< HIT
+  0x46a652  jne 0x46a669
+  0x46a654  push 0xffff
+  0x46a659  mov ecx, esi
+  0x46a65b  call 0x49a7d0
+  0x46a660  push 0
+  ----------------------------------------------
+
+----- func 0x47df00 .. 0x47e130  feat=['/47magic', 'base519868', 'cnt370', 'stride47'] -----
+  0x47df4e  push eax
+  0x47df4f  call 0x47da80
+  0x47df54  inc ebx
+  0x47df55  dec ebp
+  0x47df56  jne 0x47df4a
+  0x47df58  mov cx, word ptr [edi - 2]   <<<< HIT
+  0x47df5c  push ecx
+  0x47df5d  mov ecx, esi
+  0x47df5f  call 0x47dac0
+  0x47df64  mov dx, word ptr [edi]
+  0x47df67  mov ecx, esi
+  ----------------------------------------------
+  0x47e0de  call 0x47da80
+  0x47e0e3  mov ax, word ptr [edi + 0x28]
+  0x47e0e7  mov ecx, esi
+  0x47e0e9  push eax
+  0x47e0ea  call 0x47dac0
+  0x47e0ef  mov cx, word ptr [edi + 0x2a]   <<<< HIT
+  0x47e0f3  push ecx
+  0x47e0f4  mov ecx, esi
+  0x47e0f6  call 0x47dac0
+  0x47e0fb  mov dl, byte ptr [edi + 0x2c]
+  0x47e0fe  mov ecx, esi
+  ----------------------------------------------
+
+----- func 0x4c0130 .. 0x4c04a0  feat=['/47magic', 'base519868', 'cnt370', 'stride47'] -----
+  0x4c02ae  test eax, eax
+  0x4c02b0  jne 0x4c0258
+  0x4c02b2  mov esi, 0x519868
+  0x4c02b7  mov dword ptr [esp + 0x14], 0x172
+  0x4c02bf  mov edi, dword ptr [esp + 0x10]
+  0x4c02c3  cmp word ptr [esi + 0x2a], di   <<<< HIT
+  0x4c02c7  jne 0x4c0303
+  0x4c02c9  push esi
+  0x4c02ca  push ebp
+  0x4c02cb  call 0x4a05a0
+  0x4c02d0  mov eax, dword ptr [esp + 0x2c]
+  ----------------------------------------------
+  0x4c03cd  call 0x4ebfe0
+  0x4c03d2  add esp, 8
+  0x4c03d5  push 1
+  0x4c03d7  call 0x49f830
+  0x4c03dc  add esp, 4
+  0x4c03df  cmp word ptr [eax + 0x2a], di   <<<< HIT
+  0x4c03e3  jne 0x4c043f
+  0x4c03e5  test eax, eax
+  0x4c03e7  jne 0x4c03f0
+  0x4c03e9  mov edx, 0x172
+  0x4c03ee  jmp 0x4c040a
+  ----------------------------------------------
+
+----- func 0x4c9650 .. 0x4c96c0  feat=['/47magic', 'base519868', 'cnt370', 'stride47'] -----
+  0x4c968b  cmp esi, ebx
+  0x4c968d  je 0x4c96b4
+  0x4c968f  test byte ptr [ebx + 0x2d], 0x80
+  0x4c9693  jne 0x4c96b4
+  0x4c9695  mov cx, word ptr [esp + 0x14]
+  0x4c969a  cmp word ptr [esi + 0x2a], cx   <<<< HIT
+  0x4c969e  jne 0x4c96b4
+  0x4c96a0  mov di, word ptr [esi + 0x26]
+  0x4c96a4  mov ecx, esi
+  0x4c96a6  push edi
+  0x4c96a7  call 0x4a3210
+  ----------------------------------------------
+
+----- func 0x41e810 .. 0x41ea00  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x41e991  call 0x49a750
+  0x41e996  mov ecx, dword ptr [esp + 0x10]
+  0x41e99a  push ecx
+  0x41e99b  mov ecx, esi
+  0x41e99d  call 0x49a760
+  0x41e9a2  cmp word ptr [esi + 0x2a], 0xffff   <<<< HIT
+  0x41e9a8  je 0x41e9b3
+  0x41e9aa  push 1
+  0x41e9ac  mov ecx, esi
+  0x41e9ae  call 0x49a880
+  0x41e9b3  mov edx, dword ptr [esp + 0x18]
+  ----------------------------------------------
+
+----- func 0x456150 .. 0x456270  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x45615e  call 0x46fb90
+  0x456163  add esp, 8
+  0x456166  mov ebx, eax
+  0x456168  push esi
+  0x456169  call 0x46fc00
+  0x45616e  mov bp, word ptr [esi + 0x2a]   <<<< HIT
+  0x456172  add esp, 4
+  0x456175  test edi, edi
+  0x456177  mov dword ptr [esp + 0x18], eax
+  0x45617b  jne 0x456184
+  0x45617d  mov edx, 0x172
+  ----------------------------------------------
+
+----- func 0x45e3e0 .. 0x45e500  feat=['base519868', 'cnt370', 'stride47'] -----
+  0x45e47f  shr ecx, 4
+  0x45e482  and ecx, 1
+  0x45e485  mov eax, ecx
+  0x45e487  jmp 0x45e494
+  0x45e489  xor eax, eax
+  0x45e48b  cmp word ptr [esi + 0x2a], 0xffff   <<<< HIT
+  0x45e491  setne al
+  0x45e494  test eax, eax
+  0x45e496  je 0x45e4be
+  0x45e498  push esi
+  0x45e499  call 0x470690
+  ----------------------------------------------
+
+----- func 0x45f580 .. 0x45f600  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x45f5a8  shr eax, 0x1f
+  0x45f5ab  add edx, eax
+  0x45f5ad  mov eax, dword ptr [esp + 0x18]
+  0x45f5b1  mov ecx, 0x51e1f8
+  0x45f5b6  mov esi, 0xc8
+  0x45f5bb  cmp word ptr [ecx - 2], dx   <<<< HIT
+  0x45f5bf  jne 0x45f5ec
+  0x45f5c1  mov bx, word ptr [ecx]
+  0x45f5c4  test bl, 0x78
+  0x45f5c7  jbe 0x45f5ec
+  0x45f5c9  mov edi, dword ptr [esp + 0x1c]
+  ----------------------------------------------
+
+----- func 0x46b1f0 .. 0x46b290  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x46b21c  add edx, eax
+  0x46b21e  mov edi, edx
+  0x46b220  xor ecx, ecx
+  0x46b222  mov eax, 0x51e1f8
+  0x46b227  mov esi, 0xc8
+  0x46b22c  cmp word ptr [eax - 2], di   <<<< HIT
+  0x46b230  jne 0x46b252
+  0x46b232  mov dl, byte ptr [eax]
+  0x46b234  and dl, 7
+  0x46b237  cmp dl, 4
+  0x46b23a  jne 0x46b252
+  ----------------------------------------------
+
+----- func 0x46ffd0 .. 0x470090  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x47003e  add esp, 4
+  0x470041  test eax, eax
+  0x470043  je 0x470073
+  0x470045  test byte ptr [0x516638], 4
+  0x47004c  jne 0x470054
+  0x47004e  cmp word ptr [esi + 0x2a], bp   <<<< HIT
+  0x470052  je 0x470073
+  0x470054  push esi
+  0x470055  call 0x470690
+  0x47005a  add esp, 4
+  0x47005d  test eax, eax
+  ----------------------------------------------
+
+----- func 0x487a00 .. 0x487c30  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x487b61  call 0x49ba10
+  0x487b66  lea eax, [edi + edi*2]
+  0x487b69  mov esi, 0x5197b0
+  0x487b6e  mov ebx, 6
+  0x487b73  lea edi, [eax*8 + 0x509de2]
+  0x487b7a  mov ax, word ptr [edi - 2]   <<<< HIT
+  0x487b7e  cmp ax, 0xffff
+  0x487b82  je 0x487bbd
+  0x487b84  push eax
+  0x487b85  call 0x49f8b0
+  0x487b8a  add esp, 4
+  ----------------------------------------------
+
+----- func 0x488100 .. 0x488190  feat=['base519868', 'cnt370', 'stride47'] -----
+  0x488109  mov edi, 0x172
+  0x48810e  mov ebx, 0x700
+  0x488113  push 0
+  0x488115  mov ecx, esi
+  0x488117  call 0x49a880
+  0x48811c  mov dx, word ptr [esi + 0x2a]   <<<< HIT
+  0x488120  cmp dx, 0xffff
+  0x488125  je 0x488181
+  0x488127  cmp dx, 0x172
+  0x48812c  jae 0x488145
+  0x48812e  mov ecx, edx
+  ----------------------------------------------
+
+----- func 0x4a3920 .. 0x4a3960  feat=['base519868', 'cnt370', 'stride47'] -----
+  0x4a3921  mov bx, word ptr [esp + 8]
+  0x4a3926  push esi
+  0x4a3927  push edi
+  0x4a3928  mov esi, 0x519868
+  0x4a392d  mov edi, 0x172
+  0x4a3932  cmp word ptr [esi + 0x2a], bx   <<<< HIT
+  0x4a3936  jne 0x4a394d
+  0x4a3938  push 0xffff
+  0x4a393d  mov ecx, esi
+  0x4a393f  call 0x49a7d0
+  0x4a3944  push 0
+  ----------------------------------------------
+
+----- func 0x4a3d70 .. 0x4a40c0  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x4a3e8b  call 0x49a800
+  0x4a3e90  push 0x64
+  0x4a3e92  mov ecx, esi
+  0x4a3e94  call 0x49a7b0
+  0x4a3e99  mov cx, word ptr [esp + 0x14]
+  0x4a3e9e  cmp word ptr [esi + 0x2a], cx   <<<< HIT
+  0x4a3ea2  jne 0x4a3ec2
+  0x4a3ea4  push 0xffff
+  0x4a3ea9  mov ecx, esi
+  0x4a3eab  call 0x49a7d0
+  0x4a3eb0  push 0
+  ----------------------------------------------
+
+----- func 0x4a4d10 .. 0x4a4f70  feat=['base519868', 'cnt370', 'stride47'] -----
+  0x4a4e85  cmp ax, bx
+  0x4a4e88  jbe 0x4a4e8f
+  0x4a4e8a  mov esi, 1
+  0x4a4e8f  test esi, esi
+  0x4a4e91  je 0x4a4ebe
+  0x4a4e93  mov cx, word ptr [edx - 2]   <<<< HIT
+  0x4a4e97  mov ax, word ptr [esp + edi + 0xc8]
+  0x4a4e9f  mov word ptr [esp + edi + 0xc8], cx
+  0x4a4ea7  mov cx, word ptr [edx]
+  0x4a4eaa  mov word ptr [esp + edi + 0xca], cx
+  0x4a4eb2  mov word ptr [edx - 2], ax
+  ----------------------------------------------
+  0x4a4eb6  mov ax, word ptr [esp + 0x14]
+  0x4a4ebb  mov word ptr [edx], ax
+  0x4a4ebe  add edx, 4
+  0x4a4ec1  dec ebp
+  0x4a4ec2  jne 0x4a4e55
+  ----------------------------------------------
+
+----- func 0x4a5010 .. 0x4a50b0  feat=['base519868', 'cnt370', 'stride47'] -----
+  0x4a5016  push esi
+  0x4a5017  push edi
+  0x4a5018  push 0
+  0x4a501a  mov ecx, ebx
+  0x4a501c  call 0x49a880
+  0x4a5021  mov bp, word ptr [ebx + 0x2a]   <<<< HIT
+  0x4a5025  cmp bp, 0xffff
+  0x4a502a  je 0x4a50a0
+  0x4a502c  push 0xffff
+  0x4a5031  mov ecx, ebx
+  0x4a5033  call 0x49a7d0
+  ----------------------------------------------
+
+----- func 0x4a9920 .. 0x4a9c80  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x4a9a73  cmp di, 0xa
+  0x4a9a77  jb 0x4a9b0a
+  0x4a9a7d  mov edx, dword ptr [0x51e9c0]
+  0x4a9a83  and eax, 0xffff
+  0x4a9a88  mov esi, dword ptr [edx + eax*4]
+  0x4a9a8b  mov ax, word ptr [esi + 0x2a]   <<<< HIT
+  0x4a9a8f  cmp ax, 0xffff
+  0x4a9a93  je 0x4a9a9c
+  0x4a9a95  cmp ax, word ptr [esp + 0x14]
+  0x4a9a9a  jne 0x4a9af6
+  0x4a9a9c  mov eax, dword ptr [esp + 0x24]
+  ----------------------------------------------
+  0x4a9b0e  mov edi, dword ptr [esp + 0x24]
+  0x4a9b12  mov eax, dword ptr [ebp]
+  0x4a9b15  xor ecx, ecx
+  0x4a9b17  test eax, eax
+  0x4a9b19  je 0x4a9b3a
+  0x4a9b1b  cmp word ptr [eax + 0x2a], bx   <<<< HIT
+  0x4a9b1f  jne 0x4a9b33
+  0x4a9b21  mov esi, dword ptr [0x51e9c0]
+  0x4a9b27  mov edx, ecx
+  0x4a9b29  and edx, 0xffff
+  0x4a9b2f  inc ecx
+  ----------------------------------------------
+  0x4a9bda  push 1
+  0x4a9bdc  call 0x49f830
+  0x4a9be1  add esp, 4
+  0x4a9be4  cmp word ptr [eax + 2], 0x17
+  0x4a9be9  jne 0x4a9c4b
+  0x4a9beb  cmp word ptr [eax + 0x2a], bx   <<<< HIT
+  0x4a9bef  jne 0x4a9c4b
+  0x4a9bf1  test eax, eax
+  0x4a9bf3  jne 0x4a9bfc
+  0x4a9bf5  mov edx, 0x172
+  0x4a9bfa  jmp 0x4a9c16
+  ----------------------------------------------
+
+----- func 0x4aa820 .. 0x4aabd0  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x4aaa36  and edi, 0xffff
+  0x4aaa3c  mov eax, dword ptr [0x51e9c0]
+  0x4aaa41  mov ecx, dword ptr [esp + 0x10]
+  0x4aaa45  mov dx, word ptr [esp + 0x1c]
+  0x4aaa4a  mov esi, dword ptr [eax + ecx]
+  0x4aaa4d  cmp word ptr [esi + 0x2a], dx   <<<< HIT
+  0x4aaa51  jne 0x4aaa79
+  0x4aaa53  mov eax, dword ptr [esp + 0x24]
+  0x4aaa57  mov cl, byte ptr [eax + 0x24]
+  0x4aaa5a  push ecx
+  0x4aaa5b  mov ecx, esi
+  ----------------------------------------------
+
+----- func 0x4b7ab0 .. 0x4b7ba0  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x4b7b13  shl esi, 2
+  0x4b7b16  push eax
+  0x4b7b17  lea ecx, [esp + 0x14]
+  0x4b7b1b  mov eax, dword ptr [edx + esi]
+  0x4b7b1e  push ecx
+  0x4b7b1f  mov cx, word ptr [eax + 0x2a]   <<<< HIT
+  0x4b7b23  push ecx
+  0x4b7b24  call 0x4b7ba0
+  0x4b7b29  add esp, 0xc
+  0x4b7b2c  test eax, eax
+  0x4b7b2e  je 0x4b7b88
+  ----------------------------------------------
+
+----- func 0x4bffa0 .. 0x4c0130  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x4c0007  je 0x4c00a1
+  0x4c000d  mov cx, word ptr [esi + 0x2c]
+  0x4c0011  and ecx, 0x700
+  0x4c0017  cmp ecx, 0x400
+  0x4c001d  ja 0x4c0089
+  0x4c001f  mov di, word ptr [esi + 0x2a]   <<<< HIT
+  0x4c0023  call 0x49f5d0
+  0x4c0028  cmp di, ax
+  0x4c002b  je 0x4c0089
+  0x4c002d  mov di, word ptr [esi + 2]
+  0x4c0031  push 3
+  ----------------------------------------------
+  0x4c0101  add esp, 4
+  0x4c0104  test eax, eax
+  0x4c0106  jne 0x4c011e
+  0x4c0108  cmp esi, dword ptr [esp + 0x10]
+  0x4c010c  je 0x4c011e
+  0x4c010e  cmp word ptr [esi + 0x2a], 0xffff   <<<< HIT
+  0x4c0114  jne 0x4c011e
+  0x4c0116  mov dword ptr [edi*4 + 0x525e00], esi
+  0x4c011d  inc ebx
+  0x4c011e  mov esi, dword ptr [esi + 4]
+  0x4c0121  test esi, esi
+  ----------------------------------------------
+
+----- func 0x4d5160 .. 0x4d5230  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x4d518f  cmp esi, edi
+  0x4d5191  je 0x4d5210
+  0x4d5193  mov eax, dword ptr [esp + 0x20]
+  0x4d5197  test eax, eax
+  0x4d5199  je 0x4d51cf
+  0x4d519b  mov bx, word ptr [esi + 0x2a]   <<<< HIT
+  0x4d519f  test edi, edi
+  0x4d51a1  jne 0x4d51aa
+  0x4d51a3  mov edx, 0x172
+  0x4d51a8  jmp 0x4d51c5
+  0x4d51aa  mov ecx, edi
+  ----------------------------------------------
+
+----- func 0x4df2a0 .. 0x4df510  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x4df336  add edx, eax
+  0x4df338  mov edi, edx
+  0x4df33a  xor edx, edx
+  0x4df33c  xor esi, esi
+  0x4df33e  mov ecx, 0x51e1f8
+  0x4df343  cmp word ptr [ecx - 2], di   <<<< HIT
+  0x4df347  jne 0x4df360
+  0x4df349  mov ax, word ptr [ecx]
+  0x4df34c  mov bl, al
+  0x4df34e  and bl, 7
+  0x4df351  cmp bl, 7
+  ----------------------------------------------
+
+----- func 0x4e7f60 .. 0x4e8150  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x4e8035  and ecx, 0xffff
+  0x4e803b  mov dword ptr [esp + 0x14], ecx
+  0x4e803f  mov ecx, dword ptr [0x51e9c0]
+  0x4e8045  mov dx, word ptr [esp + 0x28]
+  0x4e804a  mov esi, dword ptr [ecx + edi]
+  0x4e804d  cmp word ptr [esi + 0x2a], dx   <<<< HIT
+  0x4e8051  je 0x4e8090
+  0x4e8053  movzx ax, byte ptr [esi + 0x29]
+  0x4e8058  mov ecx, 0x65
+  0x4e805d  sub ecx, eax
+  0x4e805f  push ecx
+  ----------------------------------------------
+
+----- func 0x4e84f0 .. 0x4e8600  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x4e8559  test eax, eax
+  0x4e855b  je 0x4e8585
+  0x4e855d  cmp eax, edi
+  0x4e855f  je 0x4e857e
+  0x4e8561  mov cx, word ptr [esp + 0x1c]
+  0x4e8566  cmp word ptr [eax + 0x2a], cx   <<<< HIT
+  0x4e856a  jne 0x4e857e
+  0x4e856c  mov ecx, dword ptr [0x51e9c0]
+  0x4e8572  mov edx, esi
+  0x4e8574  and edx, 0xffff
+  0x4e857a  inc esi
+  ----------------------------------------------
+
+----- func 0x4e94f0 .. 0x4e9680  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x4e9531  mov ecx, dword ptr [esp + 0x1c]
+  0x4e9535  add esp, 0xc
+  0x4e9538  push ecx
+  0x4e9539  mov ecx, esi
+  0x4e953b  call 0x49a760
+  0x4e9540  mov bp, word ptr [esi + 0x2a]   <<<< HIT
+  0x4e9544  mov ecx, esi
+  0x4e9546  call 0x49a900
+  0x4e954b  test eax, eax
+  0x4e954d  je 0x4e959c
+  0x4e954f  test esi, esi
+  ----------------------------------------------
+
+----- func 0x4eac10 .. 0x4ead50  feat=['/47magic', 'base519868', 'cnt370'] -----
+  0x4eac60  jmp 0x4eac64
+  0x4eac62  xor eax, eax
+  0x4eac64  mov esi, dword ptr [eax]
+  0x4eac66  test esi, esi
+  0x4eac68  je 0x4eac80
+  0x4eac6a  cmp word ptr [esi + 0x2a], di   <<<< HIT
+  0x4eac6e  jne 0x4eac79
+  0x4eac70  push 1
+  0x4eac72  mov ecx, esi
+  0x4eac74  call 0x49a880
+  0x4eac79  mov esi, dword ptr [esi + 4]
+  ----------------------------------------------
+
+----- func 0x417310 .. 0x417490  feat=['base519868', 'cnt370'] -----
+  0x41737a  mov eax, dword ptr [edi]
+  0x41737c  xor ecx, ecx
+  0x41737e  test eax, eax
+  0x417380  je 0x4173a4
+  0x417382  mov ebp, 0xffff
+  0x417387  cmp word ptr [eax + 0x2a], bp   <<<< HIT
+  0x41738b  jne 0x41739b
+  0x41738d  mov esi, dword ptr [0x51e9c0]
+  0x417393  mov edx, ecx
+  0x417395  and edx, ebp
+  0x417397  inc ecx
+  ----------------------------------------------
+  0x4173ef  mov ebp, 0xffff
+  0x4173f4  mov eax, dword ptr [edi]
+  0x4173f6  xor ecx, ecx
+  0x4173f8  test eax, eax
+  0x4173fa  je 0x417417
+  0x4173fc  cmp word ptr [eax + 0x2a], bp   <<<< HIT
+  0x417400  je 0x417410
+  0x417402  mov esi, dword ptr [0x51e9c0]
+  0x417408  mov edx, ecx
+  0x41740a  and edx, ebp
+  0x41740c  inc ecx
+  ----------------------------------------------
+  0x41741c  xor esi, esi
+  0x41741e  and ecx, ebp
+  0x417420  mov ebx, ecx
+  0x417422  mov eax, dword ptr [0x51e9c0]
+  0x417427  mov edx, dword ptr [eax + esi]
+  0x41742a  mov ax, word ptr [edx + 0x2a]   <<<< HIT
+  0x41742e  cmp ax, 0x172
+  0x417432  jae 0x417447
+  0x417434  and eax, ebp
+  0x417436  mov ecx, eax
+  0x417438  lea eax, [ecx + ecx*2]
+  ----------------------------------------------
+
+----- func 0x418110 .. 0x4182a0  feat=['base519868', 'cnt370'] -----
+  0x41817a  mov eax, dword ptr [edi]
+  0x41817c  xor ecx, ecx
+  0x41817e  test eax, eax
+  0x418180  je 0x4181a4
+  0x418182  mov ebp, 0xffff
+  0x418187  cmp word ptr [eax + 0x2a], bp   <<<< HIT
+  0x41818b  jne 0x41819b
+  0x41818d  mov esi, dword ptr [0x51e9c0]
+  0x418193  mov edx, ecx
+  0x418195  and edx, ebp
+  0x418197  inc ecx
+  ----------------------------------------------
+  0x4181f9  mov ebp, 0xffff
+  0x4181fe  mov eax, dword ptr [edi]
+  0x418200  xor ecx, ecx
+  0x418202  test eax, eax
+  0x418204  je 0x418221
+  0x418206  cmp word ptr [eax + 0x2a], bp   <<<< HIT
+  0x41820a  je 0x41821a
+  0x41820c  mov esi, dword ptr [0x51e9c0]
+  0x418212  mov edx, ecx
+  0x418214  and edx, ebp
+  0x418216  inc ecx
+  ----------------------------------------------
+  0x418226  xor esi, esi
+  0x418228  and ecx, ebp
+  0x41822a  mov ebx, ecx
+  0x41822c  mov eax, dword ptr [0x51e9c0]
+  0x418231  mov edx, dword ptr [eax + esi]
+  0x418234  mov ax, word ptr [edx + 0x2a]   <<<< HIT
+  0x418238  cmp ax, 0x172
+  0x41823c  jae 0x418251
+  0x41823e  and eax, ebp
+  0x418240  mov ecx, eax
+  0x418242  lea eax, [ecx + ecx*2]
+  ----------------------------------------------
+
+----- func 0x454fe0 .. 0x45505d  feat=['base519868', 'cnt370'] -----
+  0x454fe0  push esi
+  0x454fe1  mov esi, dword ptr [esp + 0xc]
+  0x454fe5  push edi
+  0x454fe6  mov ax, word ptr [esi + 0x2a]   <<<< HIT
+  0x454fea  movzx di, byte ptr [esi + 0x29]
+  0x454fef  cmp ax, 0xffff
+  0x454ff3  je 0x45501e
+  0x454ff5  cmp ax, 0x172
+  0x454ff9  jae 0x455015
+  ----------------------------------------------
+
+----- func 0x4552d0 .. 0x455540  feat=['base519868', 'cnt370'] -----
+  0x455476  call 0x47b900
+  0x45547b  add esp, 8
+  0x45547e  jmp 0x45551c
+  0x455483  test byte ptr [esi + 0x2e], 1
+  0x455487  je 0x4554d4
+  0x455489  mov ax, word ptr [esi + 0x2a]   <<<< HIT
+  0x45548d  cmp ax, 0xffff
+  0x455491  je 0x4554d4
+  0x455493  cmp ax, 0x172
+  0x455497  jae 0x4554af
+  0x455499  and eax, 0xffff
+  ----------------------------------------------
+
+----- func 0x4635b0 .. 0x463680  feat=['base519868', 'cnt370'] -----
+  0x4635b0  push esi
+  0x4635b1  push edi
+  0x4635b2  mov edi, dword ptr [esp + 0x10]
+  0x4635b6  test byte ptr [edi + 0x2d], 0x60
+  0x4635ba  jne 0x46361f
+  0x4635bc  mov si, word ptr [edi + 0x2a]   <<<< HIT
+  0x4635c0  cmp si, 0xffff
+  0x4635c5  je 0x463614
+  0x4635c7  call 0x49f5d0
+  0x4635cc  cmp si, ax
+  0x4635cf  je 0x463614
+  ----------------------------------------------
+
+----- func 0x487c30 .. 0x487df0  feat=['cnt370', 'stride47'] -----
+  0x487c4d  mov dword ptr [esp + 0x20], edx
+  0x487c51  mov dword ptr [esp + 0x1c], edi
+  0x487c55  mov al, byte ptr [edx + 0x24]
+  0x487c58  mov esi, 0x172
+  0x487c5d  mov byte ptr [esp + 0x13], al
+  0x487c61  mov eax, 0x519894   <<<< HIT
+  0x487c66  mov cx, word ptr [eax]
+  0x487c69  test ch, 0x80
+  0x487c6c  jne 0x487ca8
+  0x487c6e  test cl, 0x80
+  0x487c71  jne 0x487ca8
+  ----------------------------------------------
+  0x487c81  jne 0x487ca8
+  0x487c83  mov bx, word ptr [edx + 0x2c]
+  0x487c87  xor bx, cx
+  0x487c8a  test bh, 7
+  0x487c8d  jne 0x487ca8
+  0x487c8f  cmp word ptr [eax - 2], 0xffff   <<<< HIT
+  0x487c95  jne 0x487ca8
+  0x487c97  mov ebp, dword ptr [0x51e9c0]
+  0x487c9d  lea ecx, [eax - 0x2c]
+  0x487ca0  movsx ebx, di
+  0x487ca3  inc edi
+  ----------------------------------------------
+
+----- func 0x49e620 .. 0x49e6a0  feat=['base519868', 'cnt370'] -----
+  0x49e64a  cmp esi, eax
+  0x49e64c  je 0x49e691
+  0x49e64e  call 0x49f610
+  0x49e653  cmp esi, eax
+  0x49e655  je 0x49e691
+  0x49e657  mov ax, word ptr [esi + 0x2a]   <<<< HIT
+  0x49e65b  cmp ax, 0x172
+  0x49e65f  jae 0x49e677
+  0x49e661  and eax, 0xffff
+  0x49e666  mov ecx, eax
+  0x49e668  lea eax, [ecx + ecx*2]
+  ----------------------------------------------
+
+----- func 0x4a5370 .. 0x4a5420  feat=['base519868', 'stride47'] -----
+  0x4a53df  push esi
+  0x4a53e0  call 0x4a5420
+  0x4a53e5  add esp, 4
+  0x4a53e8  test eax, eax
+  0x4a53ea  jne 0x4a5410
+  0x4a53ec  mov di, word ptr [esi + 0x2a]   <<<< HIT
+  0x4a53f0  call 0x49f5d0
+  0x4a53f5  cmp di, ax
+  0x4a53f8  je 0x4a5410
+  0x4a53fa  push esi
+  0x4a53fb  call 0x4a5500
+  ----------------------------------------------
+
+----- func 0x4a6970 .. 0x4a6a00  feat=['cnt370', 'stride47'] -----
+  0x4a69a6  push esi
+  0x4a69a7  push ebp
+  0x4a69a8  push ebx
+  0x4a69a9  call 0x49f5d0
+  0x4a69ae  mov ebp, eax
+  0x4a69b0  mov esi, 0x519894   <<<< HIT
+  0x4a69b5  mov ebx, 0x172
+  0x4a69ba  cmp word ptr [esi - 2], bp
+  0x4a69be  jne 0x4a69dd
+  0x4a69c0  mov ax, word ptr [esi]
+  0x4a69c3  test al, 0x80
+  ----------------------------------------------
+  0x4a69c5  jne 0x4a69dd
+  0x4a69c7  test ah, 0x80
+  ----------------------------------------------
+
+----- func 0x4aa690 .. 0x4aa820  feat=['base519868', 'cnt370'] -----
+  0x4aa737  mov ax, word ptr [esi + 0x2c]
+  0x4aa73b  test ah, 0x80
+  0x4aa73e  jne 0x4aa817
+  0x4aa744  test al, 0x10
+  0x4aa746  jne 0x4aa817
+  0x4aa74c  cmp word ptr [esi + 0x2a], 0xffff   <<<< HIT
+  0x4aa752  jne 0x4aa817
+  0x4aa758  push esi
+  0x4aa759  call 0x4a04a0
+  0x4aa75e  add esp, 4
+  0x4aa761  test eax, eax
+  ----------------------------------------------
+
+----- func 0x4aeab0 .. 0x4aebf0  feat=['cnt370', 'stride47'] -----
+  0x4aead1  add ecx, 0xc8
+  0x4aead7  xor ebx, ebx
+  0x4aead9  mov dword ptr [esp + 0x18], eax
+  0x4aeadd  mov dword ptr [esp + 0x1c], ecx
+  0x4aeae1  mov dword ptr [esp + 0x10], ebx
+  0x4aeae5  mov edi, 0x519894   <<<< HIT
+  0x4aeaea  cmp bp, 0xb
+  0x4aeaee  jae 0x4aebdd
+  0x4aeaf4  mov edx, dword ptr [esp + 0x14]
+  0x4aeaf8  lea eax, [edi - 0x2c]
+  0x4aeafb  cmp eax, edx
+  ----------------------------------------------
+
+----- func 0x4c2eb0 .. 0x4c3360  feat=['base519868', 'cnt370'] -----
+  0x4c3040  mov eax, dword ptr [0x51e9c0]
+  0x4c3045  mov edi, dword ptr [eax + edx]
+  0x4c3048  mov edx, dword ptr [esp + 0x10]
+  0x4c304c  mov ebx, dword ptr [eax + ecx]
+  0x4c304f  push edx
+  0x4c3050  mov bp, word ptr [edi + 0x2a]   <<<< HIT
+  0x4c3054  push edi
+  0x4c3055  call 0x49ffc0
+  0x4c305a  lea eax, [eax + eax*2]
+  0x4c305d  add esp, 8
+  0x4c3060  movzx cx, byte ptr [edi + 0x29]
+  ----------------------------------------------
+  0x4c3065  lea esi, [eax + eax*4]
+  0x4c3068  xor eax, eax
+  0x4c306a  cmp bp, word ptr [esp + 0x20]
+  0x4c306f  mov edx, dword ptr [esp + 0x10]
+  0x4c3073  mov di, word ptr [ebx + 0x2a]   <<<< HIT
+  0x4c3077  push edx
+  0x4c3078  setne al
+  0x4c307b  dec eax
+  0x4c307c  push ebx
+  0x4c307d  and eax, 0x1e
+  ----------------------------------------------
+  0x4c311d  mov ecx, dword ptr [0x51e9c0]
+  0x4c3123  mov edx, dword ptr [esp + 0x1c]
+  0x4c3127  push ebx
+  0x4c3128  mov esi, dword ptr [ecx + edx]
+  0x4c312b  push esi
+  0x4c312c  mov di, word ptr [esi + 0x2a]   <<<< HIT
+  0x4c3130  call 0x49ffc0
+  0x4c3135  add esp, 8
+  0x4c3138  and eax, 0xffff
+  0x4c313d  xor ecx, ecx
+  0x4c313f  cmp di, word ptr [esp + 0x20]
+  ----------------------------------------------
+
+----- func 0x4c96c0 .. 0x4c97e0  feat=['base519868', 'cnt370'] -----
+  0x4c96fe  and eax, 0xffff
+  0x4c9703  lea esi, [eax + eax*2]
+  0x4c9706  shl esi, 4
+  0x4c9709  sub esi, eax
+  0x4c970b  add esi, 0x519868
+  0x4c9711  cmp word ptr [esi + 0x2a], 0xffff   <<<< HIT
+  0x4c9717  jne 0x4c97ba
+  0x4c971d  mov di, word ptr [esi + 0x2c]
+  0x4c9721  shr edi, 8
+  0x4c9724  and edi, 7
+  0x4c9727  cmp edi, 6
+  ----------------------------------------------
+
+----- func 0x4d7fe0 .. 0x4d8030  feat=['cnt370', 'stride47'] -----
+  0x4d7fe0  push ebx
+  0x4d7fe1  push esi
+  0x4d7fe2  push edi
+  0x4d7fe3  call 0x49f5d0
+  0x4d7fe8  mov ebx, eax
+  0x4d7fea  mov esi, 0x519894   <<<< HIT
+  0x4d7fef  mov edi, 0x172
+  0x4d7ff4  cmp word ptr [esi - 2], bx
+  0x4d7ff8  jne 0x4d801a
+  0x4d7ffa  test byte ptr [esi], 0x80
+  0x4d7ffd  jne 0x4d801a
+  ----------------------------------------------
+  0x4d7fff  mov ax, word ptr [esi - 6]
+  0x4d8003  shl ax, 1
+  ----------------------------------------------
+
+----- func 0x4df930 .. 0x4df9a0  feat=['cnt370', 'stride47'] -----
+  0x4df94d  sar edx, 4
+  0x4df950  mov eax, edx
+  0x4df952  shr eax, 0x1f
+  0x4df955  add edx, eax
+  0x4df957  xor esi, esi
+  0x4df959  mov ecx, 0x519894   <<<< HIT
+  0x4df95e  mov ax, word ptr [ecx]
+  0x4df961  test ah, 0x80
+  0x4df964  jne 0x4df985
+  0x4df966  test al, 0x80
+  0x4df968  jne 0x4df985
+  ----------------------------------------------
+
+----- func 0x4d9fb0 .. 0x4da100  feat=['cnt370'] -----
+  0x4d9ffe  jne 0x4d9fee
+  0x4da000  xor edi, edi
+  0x4da002  mov edx, 0x51e1f8
+  0x4da007  mov esi, 0xc8
+  0x4da00c  mov ax, word ptr [esp + 0x10]
+  0x4da011  cmp word ptr [edx - 2], ax   <<<< HIT
+  0x4da015  jne 0x4da02b
+  0x4da017  mov cx, word ptr [edx]
+  0x4da01a  mov al, cl
+  0x4da01c  and al, 7
+  0x4da01e  cmp al, 7
+  ----------------------------------------------
+
+----- func 0x4dd7c0 .. 0x4dd820  feat=['cnt370'] -----
+  0x4dd7ee  mov bp, word ptr [ecx - 4]
+  0x4dd7f2  cmp bp, word ptr [eax + 8]
+  0x4dd7f6  jne 0x4dd813
+  0x4dd7f8  mov word ptr [ecx - 0xc], di
+  0x4dd7fc  mov word ptr [ecx], dx
+  0x4dd7ff  mov word ptr [ecx - 2], dx   <<<< HIT
+  0x4dd803  mov word ptr [ecx - 4], dx
+  0x4dd807  mov word ptr [ecx - 6], dx
+  0x4dd80b  mov word ptr [ecx - 8], dx
+  0x4dd80f  mov word ptr [ecx - 0xa], dx
+  0x4dd813  add ecx, 0x1e
+  ----------------------------------------------
+
+----- func 0x405de0 .. 0x405e60  feat=[] -----
+  0x405e2c  push 4
+  0x405e2e  push 0
+  0x405e30  push 0
+  0x405e32  mov ecx, 0x5105b8
+  0x405e37  call 0x4ecac0
+  0x405e3c  mov cx, word ptr [esi - 2]   <<<< HIT
+  0x405e40  push eax
+  0x405e41  mov ax, word ptr [esi]
+  0x405e44  push eax
+  0x405e45  push ecx
+  0x405e46  call 0x41cf00
+  ----------------------------------------------
+
+----- func 0x4064c0 .. 0x406550  feat=[] -----
+  0x406501  push 0
+  0x406503  mov ecx, 0x5105b8
+  0x406508  call 0x4ecac0
+  0x40650d  mov dx, word ptr [esi]
+  0x406510  push eax
+  0x406511  mov ax, word ptr [esi - 2]   <<<< HIT
+  0x406515  push edx
+  0x406516  push eax
+  0x406517  call 0x41cf00
+  0x40651c  add esp, 0x10
+  0x40651f  add ebx, 0x2580
+  ----------------------------------------------
+
+----- func 0x4096a0 .. 0x409740  feat=[] -----
+  0x4096ba  je 0x4096f5
+  0x4096bc  mov ecx, esi
+  0x4096be  call 0x49a900
+  0x4096c3  test eax, eax
+  0x4096c5  jne 0x4096ee
+  0x4096c7  cmp word ptr [esi + 0x2a], bp   <<<< HIT
+  0x4096cb  jne 0x4096ee
+  0x4096cd  test byte ptr [esi + 0x2c], 0x90
+  0x4096d1  jne 0x4096ee
+  0x4096d3  push esi
+  0x4096d4  call 0x4bb4e0
+  ----------------------------------------------
+
+----- func 0x409920 .. 0x409960  feat=[] -----
+  0x409932  call 0x49a730
+  0x409937  mov al, byte ptr [esi + 0x2e]
+  0x40993a  and al, 1
+  0x40993c  cmp al, 1
+  0x40993e  jne 0x40994e
+  0x409940  mov di, word ptr [esi + 0x2a]   <<<< HIT
+  0x409944  call 0x49f5d0
+  0x409949  cmp di, ax
+  0x40994c  je 0x409957
+  0x40994e  push esi
+  0x40994f  call 0x4e9930
+  ----------------------------------------------
+
+----- func 0x415130 .. 0x4153a0  feat=[] -----
+  0x4151ae  call 0x49a760
+  0x4151b3  push 1
+  0x4151b5  push esi
+  0x4151b6  push 0x51f7e2
+  0x4151bb  call 0x4a0540
+  0x4151c0  mov di, word ptr [esi + 0x2a]   <<<< HIT
+  0x4151c4  add esp, 0xc
+  0x4151c7  call 0x49f5d0
+  0x4151cc  cmp di, ax
+  0x4151cf  jne 0x4151da
+  0x4151d1  push 1
+  ----------------------------------------------
+
+----- func 0x4160f0 .. 0x416180  feat=[] -----
+  0x416107  push eax
+  0x416108  call 0x49a770
+  0x41610d  mov byte ptr [esi + 0x12], 0xff
+  0x416111  mov byte ptr [esi + 0x13], 0x66
+  0x416115  mov byte ptr [esi + 0x16], 0
+  0x416119  mov di, word ptr [esi + 0x2a]   <<<< HIT
+  0x41611d  call 0x49f5d0
+  0x416122  cmp di, ax
+  0x416125  jne 0x416130
+  0x416127  push 1
+  0x416129  mov ecx, esi
+  ----------------------------------------------
+
+----- func 0x416e10 .. 0x416ee0  feat=[] -----
+  0x416e8c  mov eax, dword ptr [0x51e9c0]
+  0x416e91  mov eax, dword ptr [eax + esi]
+  0x416e94  test byte ptr [eax + 0x2e], bl
+  0x416e97  jne 0x416eac
+  0x416e99  mov cx, word ptr [esp + 0x10]
+  0x416e9e  cmp word ptr [eax + 0x2a], cx   <<<< HIT
+  0x416ea2  je 0x416eac
+  0x416ea4  push eax
+  0x416ea5  call 0x4e9930
+  0x416eaa  jmp 0x416eb2
+  0x416eac  push eax
+  ----------------------------------------------
+
+----- func 0x41b290 .. 0x41b2f0  feat=[] -----
+  0x41b2a0  cmp word ptr [esi + 8], 0xffff
+  0x41b2a6  je 0x41b2dc
+  0x41b2a8  lea edi, [esi - 0xc]
+  0x41b2ab  mov word ptr [esi], bx
+  0x41b2ae  push edi
+  0x41b2af  mov word ptr [esi - 2], bx   <<<< HIT
+  0x41b2b3  mov word ptr [edi], 0xffff
+  0x41b2b8  mov word ptr [esi - 4], bx
+  0x41b2bc  mov word ptr [esi - 6], bx
+  0x41b2c0  mov word ptr [esi - 8], bx
+  0x41b2c4  mov word ptr [esi - 0xa], bx
+  ----------------------------------------------
+
+----- func 0x41c630 .. 0x41c8b0  feat=[] -----
+  0x41c857  push 0xf
+  0x41c859  call 0x4a0c20
+  0x41c85e  add esp, 4
+  0x41c861  mov esi, 0x502c9a
+  0x41c866  mov edi, 0xc
+  0x41c86b  mov ax, word ptr [esi - 2]   <<<< HIT
+  0x41c86f  push eax
+  0x41c870  push 0x40
+  0x41c872  push 0x100
+  0x41c877  call 0x41c940
+  0x41c87c  mov cx, word ptr [esi]
+  ----------------------------------------------
+
+----- func 0x41c8b0 .. 0x41c940  feat=[] -----
+  0x41c8d0  call 0x492b60
+  0x41c8d5  movzx cx, byte ptr [eax + 0xc]
+  0x41c8da  add eax, 0xc
+  0x41c8dd  add esp, 4
+  0x41c8e0  inc eax
+  0x41c8e1  mov word ptr [esi - 2], cx   <<<< HIT
+  0x41c8e5  push 0x7d0
+  0x41c8ea  movzx dx, byte ptr [eax]
+  0x41c8ee  shl edx, 8
+  0x41c8f1  add word ptr [esi - 2], dx
+  0x41c8f5  inc eax
+  ----------------------------------------------
+  0x41c8f6  movzx cx, byte ptr [eax]
+  0x41c8fa  inc eax
+  0x41c8fb  mov word ptr [esi], cx
+  0x41c8fe  mov ecx, 0x524978
+  ----------------------------------------------
+
+----- func 0x420870 .. 0x420ac0  feat=[] -----
+  0x420a13  push 5
+  0x420a15  call 0x4ebd60
+  0x420a1a  add esp, 4
+  0x420a1d  cmp ax, 2
+  0x420a21  jbe 0x420a55
+  0x420a23  mov bp, word ptr [edi + 0x2a]   <<<< HIT
+  0x420a27  call 0x49f5d0
+  0x420a2c  cmp bp, ax
+  0x420a2f  je 0x420a55
+  0x420a31  push esi
+  0x420a32  call 0x420b00
+  ----------------------------------------------
+
+----- func 0x427f10 .. 0x428040  feat=[] -----
+  0x427fbf  movsx edx, si
+  0x427fc2  movsx ebx, di
+  0x427fc5  lea ecx, [esp + edx*4 + 0x40]
+  0x427fc9  lea eax, [esp + edx*2 + 0x18]
+  0x427fcd  sub edx, ebx
+  0x427fcf  mov bx, word ptr [eax - 2]   <<<< HIT
+  0x427fd3  dec esi
+  0x427fd4  mov word ptr [eax], bx
+  0x427fd7  mov ebx, dword ptr [ecx - 4]
+  0x427fda  mov dword ptr [ecx], ebx
+  0x427fdc  sub eax, 2
+  ----------------------------------------------
+
+----- func 0x42d9e0 .. 0x42dae0  feat=[] -----
+  0x42da63  test al, al
+  0x42da65  je 0x42da70
+  0x42da67  call 0x4a0d10
+  0x42da6c  test eax, eax
+  0x42da6e  jne 0x42dac4
+  0x42da70  mov di, word ptr [edi + 0x2a]   <<<< HIT
+  0x42da74  xor ebp, ebp
+  0x42da76  call 0x49f5d0
+  0x42da7b  cmp di, ax
+  0x42da7e  jne 0x42da85
+  0x42da80  mov ebp, 1
+  ----------------------------------------------
+
+----- func 0x42e820 .. 0x42eb90  feat=[] -----
+  0x42e871  mov eax, esi
+  0x42e873  add edi, 2
+  0x42e876  cdq 
+  0x42e877  idiv ecx
+  0x42e879  shl eax, 4
+  0x42e87c  mov word ptr [edi - 2], ax   <<<< HIT
+  0x42e880  mov eax, esi
+  0x42e882  cdq 
+  0x42e883  idiv ecx
+  0x42e885  mov eax, 0x66666667
+  0x42e88a  mov esi, edx
+  ----------------------------------------------
+  0x42e991  mov eax, esi
+  0x42e993  add edi, 2
+  0x42e996  cdq 
+  0x42e997  idiv ecx
+  0x42e999  shl eax, 4
+  0x42e99c  mov word ptr [edi - 2], ax   <<<< HIT
+  0x42e9a0  mov eax, esi
+  0x42e9a2  cdq 
+  0x42e9a3  idiv ecx
+  0x42e9a5  mov eax, 0x66666667
+  0x42e9aa  mov esi, edx
+  ----------------------------------------------
+
+----- func 0x442010 .. 0x442130  feat=[] -----
+  0x44205f  xor ebp, ebp
+  0x442061  mov edi, 0x51e1f8
+  0x442066  mov dword ptr [esp + 0x10], 0xc8
+  0x44206e  jmp 0x442074
+  0x442070  mov eax, dword ptr [esp + 0x1c]
+  0x442074  cmp word ptr [edi - 2], ax   <<<< HIT
+  0x442078  jne 0x442112
+  0x44207e  mov cx, word ptr [edi]
+  0x442081  mov dl, cl
+  0x442083  and dl, 7
+  0x442086  cmp dl, 7
+  ----------------------------------------------
+
+----- func 0x443d80 .. 0x443e10  feat=[] -----
+  0x443d89  push esi
+  0x443d8a  push edi
+  0x443d8b  xor ebp, ebp
+  0x443d8d  mov esi, 0x51e1f8
+  0x443d92  mov dword ptr [esp + 0x10], 0xc8
+  0x443d9a  mov di, word ptr [esi - 2]   <<<< HIT
+  0x443d9e  test ebx, ebx
+  0x443da0  jne 0x443da9
+  0x443da2  mov edx, 0x1e
+  0x443da7  jmp 0x443dc1
+  0x443da9  mov ecx, ebx
+  ----------------------------------------------
+
+----- func 0x444440 .. 0x4444f0  feat=[] -----
+  0x444489  call 0x49f5d0
+  0x44448e  mov edi, eax
+  0x444490  xor eax, eax
+  0x444492  mov ecx, 0x51e1f8
+  0x444497  mov esi, 0xc8
+  0x44449c  cmp word ptr [ecx - 2], di   <<<< HIT
+  0x4444a0  jne 0x4444d7
+  0x4444a2  mov edx, dword ptr [esp + 0x18]
+  0x4444a6  test edx, edx
+  0x4444a8  je 0x4444bc
+  0x4444aa  mov dx, word ptr [ecx]
+  ----------------------------------------------
+
+----- func 0x44af00 .. 0x44afe0  feat=[] -----
+  0x44af01  push esi
+  0x44af02  push edi
+  0x44af03  xor edi, edi
+  0x44af05  mov esi, 0x51e1f8
+  0x44af0a  mov ebp, 0xc8
+  0x44af0f  mov cx, word ptr [esi - 2]   <<<< HIT
+  0x44af13  cmp cx, 0xffff
+  0x44af18  je 0x44af88
+  0x44af1a  mov ax, word ptr [esi]
+  0x44af1d  test al, 0x80
+  0x44af1f  je 0x44af88
+  ----------------------------------------------
+
+----- func 0x44e020 .. 0x44e110  feat=[] -----
+  0x44e079  mov ecx, 0x517730
+  0x44e07e  mov esi, 0x14
+  0x44e083  mov dx, word ptr [ecx]
+  0x44e086  test dl, 7
+  0x44e089  jne 0x44e0ac
+  0x44e08b  cmp word ptr [ecx - 2], di   <<<< HIT
+  0x44e08f  je 0x44e096
+  0x44e091  test dh, 0x80
+  0x44e094  je 0x44e0ac
+  0x44e096  mov ebp, dword ptr [0x517838]
+  0x44e09c  mov ebx, eax
+  ----------------------------------------------
+
+----- func 0x452730 .. 0x452a10  feat=[] -----
+  0x452753  and eax, 7
+  0x452756  mov dword ptr [esp + 0x20], eax
+  0x45275a  mov eax, dword ptr [esp + 0x24]
+  0x45275e  test eax, eax
+  0x452760  je 0x45279f
+  0x452762  mov bx, word ptr [esi + 0x2a]   <<<< HIT
+  0x452766  call 0x49f5d0
+  0x45276b  cmp bx, ax
+  0x45276e  mov ecx, esi
+  0x452770  jne 0x45277f
+  0x452772  call 0x49c310
+  ----------------------------------------------
+
+----- func 0x4537b0 .. 0x453870  feat=[] -----
+  0x4537c7  push edi
+  0x4537c8  call 0x46fb90
+  0x4537cd  add esp, 8
+  0x4537d0  test eax, eax
+  0x4537d2  jne 0x45385c
+  0x4537d8  mov bx, word ptr [esi + 0x2a]   <<<< HIT
+  0x4537dc  call 0x49f5d0
+  0x4537e1  cmp bx, ax
+  0x4537e4  je 0x45385c
+  0x4537e6  call 0x47b5f0
+  0x4537eb  mov ecx, esi
+  ----------------------------------------------
+
+----- func 0x453e90 .. 0x454100  feat=[] -----
+  0x453f04  call 0x47b900
+  0x453f09  mov al, byte ptr [0x516638]
+  0x453f0e  add esp, 8
+  0x453f11  test al, 0x10
+  0x453f13  jne 0x45405a
+  0x453f19  mov cx, word ptr [esi + 0x2a]   <<<< HIT
+  0x453f1d  mov word ptr [esp + 0x14], cx
+  0x453f22  call 0x49f5d0
+  0x453f27  cmp word ptr [esp + 0x14], ax
+  0x453f2c  je 0x45405a
+  0x453f32  cmp word ptr [esp + 0x1c], bx
+  ----------------------------------------------
+
+----- func 0x456030 .. 0x4560d0  feat=[] -----
+  0x45603d  mov ebx, eax
+  0x45603f  mov al, byte ptr [0x516638]
+  0x456044  add esp, 4
+  0x456047  test al, 0x10
+  0x456049  jne 0x4560bb
+  0x45604b  mov si, word ptr [edi + 0x2a]   <<<< HIT
+  0x45604f  call 0x49f5d0
+  0x456054  cmp si, ax
+  0x456057  je 0x4560bb
+  0x456059  cmp bx, 1
+  0x45605d  je 0x45608d
+  ----------------------------------------------
+
+----- func 0x45e2b0 .. 0x45e360  feat=[] -----
+  0x45e2d1  and eax, 7
+  0x45e2d4  test ax, ax
+  0x45e2d7  je 0x45e2df
+  0x45e2d9  cmp ax, 1
+  0x45e2dd  jne 0x45e300
+  0x45e2df  cmp word ptr [ecx - 2], bx   <<<< HIT
+  0x45e2e3  je 0x45e2ea
+  0x45e2e5  test dh, 0x80
+  0x45e2e8  je 0x45e300
+  0x45e2ea  mov ebp, dword ptr [0x517838]
+  0x45e2f0  mov edx, edi
+  ----------------------------------------------
+
+----- func 0x462cf0 .. 0x462d40  feat=[] -----
+  0x462d00  push eax
+  0x462d01  call 0x4a0aa0
+  0x462d06  add esp, 4
+  0x462d09  mov ecx, 0x517730
+  0x462d0e  mov edx, 0x14
+  0x462d13  cmp word ptr [ecx - 2], si   <<<< HIT
+  0x462d17  je 0x462d1f
+  0x462d19  test byte ptr [ecx + 1], 0x80
+  0x462d1d  je 0x462d30
+  0x462d1f  mov ebp, dword ptr [0x517838]
+  0x462d25  lea edi, [ecx - 8]
+  ----------------------------------------------
+
+----- func 0x46fbb0 .. 0x46fc00  feat=[] -----
+  0x46fbd6  mov dl, byte ptr [ecx + 0x24]
+  0x46fbd9  cmp al, dl
+  0x46fbdb  je 0x46fbf1
+  0x46fbdd  test byte ptr [ecx + 0x2e], 1
+  0x46fbe1  je 0x46fbf9
+  0x46fbe3  mov si, word ptr [ecx + 0x2a]   <<<< HIT
+  0x46fbe7  call 0x49f5d0
+  0x46fbec  cmp si, ax
+  0x46fbef  jne 0x46fbf9
+  0x46fbf1  mov eax, 1
+  0x46fbf6  pop esi
+  ----------------------------------------------
+
+----- func 0x47e680 .. 0x47e770  feat=[] -----
+  0x47e681  push esi
+  0x47e682  push edi
+  0x47e683  mov edi, ecx
+  0x47e685  mov esi, 0x5197b2
+  0x47e68a  mov ebx, 6
+  0x47e68f  mov ax, word ptr [esi - 2]   <<<< HIT
+  0x47e693  mov ecx, edi
+  0x47e695  push eax
+  0x47e696  call 0x47dac0
+  0x47e69b  mov cx, word ptr [esi]
+  0x47e69e  push ecx
+  ----------------------------------------------
+
+----- func 0x47ec30 .. 0x47ecb0  feat=[] -----
+  0x47ec31  push esi
+  0x47ec32  push edi
+  0x47ec33  mov edi, ecx
+  0x47ec35  mov esi, 0x517852
+  0x47ec3a  mov ebx, 0x1e
+  0x47ec3f  mov ax, word ptr [esi - 2]   <<<< HIT
+  0x47ec43  mov ecx, edi
+  0x47ec45  push eax
+  0x47ec46  call 0x47dac0
+  0x47ec4b  mov cx, word ptr [esi]
+  0x47ec4e  push ecx
+  ----------------------------------------------
+
+----- func 0x47ece0 .. 0x47ed10  feat=[] -----
+  0x47ece1  push esi
+  0x47ece2  push edi
+  0x47ece3  mov edi, ecx
+  0x47ece5  mov esi, 0x51923a
+  0x47ecea  mov ebx, 0x14
+  0x47ecef  mov ax, word ptr [esi - 2]   <<<< HIT
+  0x47ecf3  mov ecx, edi
+  0x47ecf5  push eax
+  0x47ecf6  call 0x47dac0
+  0x47ecfb  mov cx, word ptr [esi]
+  0x47ecfe  push ecx
+  ----------------------------------------------
+
+----- func 0x47ed40 .. 0x47ed70  feat=[] -----
+  0x47ed41  push esi
+  0x47ed42  push edi
+  0x47ed43  mov edi, ecx
+  0x47ed45  mov esi, 0x5176aa
+  0x47ed4a  mov ebx, 0x1e
+  0x47ed4f  mov ax, word ptr [esi - 2]   <<<< HIT
+  0x47ed53  mov ecx, edi
+  0x47ed55  push eax
+  0x47ed56  call 0x47dac0
+  0x47ed5b  mov cx, word ptr [esi]
+  0x47ed5e  push ecx
+  ----------------------------------------------
+
+----- func 0x48cc20 .. 0x48ceb0  feat=[] -----
+  0x48cd25  mov edi, 0x50a432
+  0x48cd2a  mov dword ptr [esp + 0x14], 8
+  0x48cd32  mov al, byte ptr [ebp + 0x524718]
+  0x48cd38  test al, al
+  0x48cd3a  jne 0x48cdd4
+  0x48cd40  mov ax, word ptr [edi - 2]   <<<< HIT
+  0x48cd44  mov cx, word ptr [esp + 0x10]
+  0x48cd49  add ax, word ptr [esp + 0x12]
+  0x48cd4e  add cx, word ptr [edi]
+  0x48cd51  test ax, ax
+  0x48cd54  jl 0x48cd7c
+  ----------------------------------------------
+
+----- func 0x48f2a0 .. 0x48f65d  feat=[] -----
+  0x48f2d3  mov dword ptr [esp + 0x1c], 4
+  0x48f2db  mov dword ptr [esp + 0x10], ebp
+  0x48f2df  shl ebp, 4
+  0x48f2e2  add ebp, 0x50a51a
+  0x48f2e8  mov si, word ptr [ebp]
+  0x48f2ec  mov di, word ptr [ebp - 2]   <<<< HIT
+  0x48f2f0  and esi, 0xffff
+  0x48f2f6  and edi, 0xffff
+  0x48f2fc  mov eax, esi
+  0x48f2fe  mov ecx, edi
+  0x48f300  shl eax, 0xc
+  ----------------------------------------------
+
+----- func 0x495270 .. 0x4952f0  feat=[] -----
+  0x4952bf  nop 
+  0x4952c0  push esi
+  0x4952c1  push edi
+  0x4952c2  mov esi, 0x51785a
+  0x4952c7  mov edi, 0x1e
+  0x4952cc  cmp word ptr [esi - 2], 0   <<<< HIT
+  0x4952d1  je 0x4952e4
+  0x4952d3  cmp byte ptr [esi], 0
+  0x4952d6  jne 0x4952e4
+  0x4952d8  lea eax, [esi - 0xa]
+  0x4952db  push eax
+  ----------------------------------------------
+
+----- func 0x495d10 .. 0x495d70  feat=[] -----
+  0x495d16  mov edx, 0x14
+  0x495d1b  mov ecx, 0xffff
+  0x495d20  xor esi, esi
+  0x495d22  mov word ptr [eax + 2], cx
+  0x495d26  mov word ptr [eax], cx
+  0x495d29  mov word ptr [eax - 2], cx   <<<< HIT
+  0x495d2d  mov word ptr [eax - 4], cx
+  0x495d31  mov word ptr [eax - 6], cx
+  0x495d35  mov word ptr [eax + 4], si
+  0x495d39  add eax, 0xc
+  0x495d3c  dec edx
+  ----------------------------------------------
+
+----- func 0x497400 .. 0x497540  feat=[] -----
+  0x497403  push esi
+  0x497404  push edi
+  0x497405  mov ebp, 0x525352
+  0x49740a  mov dword ptr [esp + 0x10], 0x14
+  0x497412  mov si, word ptr [ebp + 8]
+  0x497416  mov ax, word ptr [ebp - 2]   <<<< HIT
+  0x49741a  add si, word ptr [ebp + 6]
+  0x49741e  cmp ax, word ptr [0x5197ac]
+  0x497425  jae 0x497522
+  0x49742b  mov cx, word ptr [ebp]
+  0x49742f  cmp cx, word ptr [0x51dc58]
+  ----------------------------------------------
+  0x4974d1  shl edx, 8
+  0x4974d4  sub edx, 0x2f400
+  0x4974da  push edx
+  0x4974db  call 0x4eb600
+  0x4974e0  mov di, word ptr [ebp]
+  0x4974e4  mov si, word ptr [ebp - 2]   <<<< HIT
+  0x4974e8  mov ecx, dword ptr [esp + 0x18]
+  0x4974ec  push ebx
+  0x4974ed  shl di, 4
+  0x4974f1  push 0xf
+  0x4974f3  push 2
+  ----------------------------------------------
+
+----- func 0x49a7d0 .. 0x49a7e0  feat=[] -----
+  0x49a7d0  mov ax, word ptr [esp + 4]
+  0x49a7d5  mov word ptr [ecx + 0x2a], ax   <<<< HIT
+  0x49a7d9  ret 4
+  ----------------------------------------------
+
+----- func 0x49ba30 .. 0x49ba60  feat=[] -----
+  0x49ba30  mov al, byte ptr [esp + 4]
+  0x49ba34  cmp al, 6
+  0x49ba36  jae 0x49ba52
+  0x49ba38  mov dx, word ptr [ecx + 0x2a]   <<<< HIT
+  0x49ba3c  movzx ax, al
+  0x49ba40  and edx, 0xffe3
+  0x49ba46  shl eax, 2
+  0x49ba49  or edx, eax
+  0x49ba4b  mov word ptr [ecx + 0x2a], dx
+  ----------------------------------------------
+  0x49ba4f  ret 4
+  ----------------------------------------------
+
+----- func 0x49ba70 .. 0x49baa0  feat=[] -----
+  0x49ba70  mov eax, dword ptr [esp + 4]
+  0x49ba74  and word ptr [ecx + 0x2a], 0xfffc   <<<< HIT
+  0x49ba7a  mov dx, word ptr [ecx + 0x2a]
+  0x49ba7e  and eax, 0xffff
+  0x49ba83  cmp eax, 3
+  0x49ba86  jbe 0x49ba8d
+  0x49ba88  mov eax, 3
+  ----------------------------------------------
+  0x49ba8d  or edx, eax
+  ----------------------------------------------
+  0x49ba8f  mov word ptr [ecx + 0x2a], dx   <<<< HIT
+  0x49ba93  ret 4
+  ----------------------------------------------
+
+----- func 0x49f3b0 .. 0x49f400  feat=[] -----
+  0x49f3db  and eax, 0xffff
+  0x49f3e0  add esp, 4
+  0x49f3e3  add esi, 2
+  0x49f3e6  mov dx, word ptr [ebp + eax*2]
+  0x49f3eb  lea eax, [ebp + eax*2]
+  0x49f3ef  mov word ptr [esi - 2], dx   <<<< HIT
+  0x49f3f3  dec edi
+  0x49f3f4  mov word ptr [eax], cx
+  0x49f3f7  jne 0x49f3d2
+  0x49f3f9  pop edi
+  0x49f3fa  pop esi
+  ----------------------------------------------
+
+----- func 0x4a5350 .. 0x4a5370  feat=[] -----
+  0x4a5350  call 0x49f5d0
+  0x4a5355  mov ecx, dword ptr [esp + 4]
+  0x4a5359  cmp word ptr [ecx + 0x2a], ax   <<<< HIT
+  0x4a535d  jne 0x4a5363
+  0x4a535f  mov byte ptr [ecx + 0x16], 0x2d
+  0x4a5363  ret 
+  ----------------------------------------------
+
+----- func 0x4bd3e0 .. 0x4bd470  feat=[] -----
+  0x4bd429  mov eax, 0x5197ba
+  0x4bd42e  mov ecx, 6
+  0x4bd433  mov word ptr [eax - 0xa], di
+  0x4bd437  mov word ptr [eax + 2], si
+  0x4bd43b  mov word ptr [eax], si
+  0x4bd43e  mov word ptr [eax - 2], si   <<<< HIT
+  0x4bd442  mov word ptr [eax - 4], si
+  0x4bd446  mov word ptr [eax - 6], si
+  0x4bd44a  mov word ptr [eax - 8], si
+  0x4bd44e  add eax, 0x1e
+  0x4bd451  dec ecx
+  ----------------------------------------------
+
+----- func 0x4c6590 .. 0x4c6610  feat=[] -----
+  0x4c65f5  jmp 0x4c65f9
+  0x4c65f7  xor eax, eax
+  0x4c65f9  test byte ptr [eax + 0x1b], 0x10
+  0x4c65fd  jne 0x4c660c
+  0x4c65ff  xor eax, eax
+  0x4c6601  cmp word ptr [edx + 0x2a], 0xffff   <<<< HIT
+  0x4c6607  sete al
+  0x4c660a  pop esi
+  0x4c660b  ret 
+  ----------------------------------------------
+
+----- func 0x4d4100 .. 0x4d4120  feat=[] -----
+  0x4d4100  mov eax, dword ptr [esp + 4]
+  0x4d4104  push esi
+  0x4d4105  mov si, word ptr [eax + 0x2a]   <<<< HIT
+  0x4d4109  call 0x44e280
+  0x4d410e  mov ax, word ptr [eax + 0xa]
+  0x4d4112  xor ecx, ecx
+  0x4d4114  cmp si, ax
+  0x4d4117  pop esi
+  ----------------------------------------------
+
+----- func 0x4e0090 .. 0x4e0100  feat=[] -----
+  0x4e0094  call 0x49f5d0
+  0x4e0099  mov ebp, eax
+  0x4e009b  xor esi, esi
+  0x4e009d  mov ecx, 0x51e1f8
+  0x4e00a2  mov edi, 0xc8
+  0x4e00a7  cmp word ptr [ecx - 2], bp   <<<< HIT
+  0x4e00ab  jne 0x4e00d1
+  0x4e00ad  mov dx, word ptr [ecx]
+  0x4e00b0  mov al, dl
+  0x4e00b2  and al, 0x78
+  0x4e00b4  cmp al, 0x40
+  ----------------------------------------------

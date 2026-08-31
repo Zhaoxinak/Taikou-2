@@ -1,0 +1,7 @@
+
+=== 0x00441ce4  (insns=349) ctx=True fire=False ===
+  assertion sites:
+    0x00441cf5: cmp word ptr [eax], 0x10
+    0x0044207e: mov cx, word ptr [edi]   ; load id
+  base eax: field offsets read = [-1869574000, 0, 7]
+  base edi: field offsets read = [-2, 0]

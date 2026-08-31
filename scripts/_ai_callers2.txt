@@ -1,0 +1,40 @@
+=== callers of ai_turn_perprov_4a70b0 (0x4a70b0) : 1 ===
+  0x4a6d06  (in fn 0x4a6ba0)
+=== callers of ai_dec_A_4a8250 (0x4a8250) : 3 ===
+  0x4881aa  (in fn 0x488190)
+  0x4a710e  (in fn 0x4a70b0)
+  0x4bd993  (in fn 0x4bd980)
+=== callers of ai_dec_B_4a8870 (0x4a8870) : 7 ===
+  0x40fea4  (in fn 0x40fdc0)
+  0x4881b3  (in fn 0x488190)
+  0x4a2089  (in fn 0x4a2040)
+  0x4a7117  (in fn 0x4a70b0)
+  0x4abcf2  (in fn 0x4abb50)
+  0x4b61b4  (in fn 0x4b6120)
+  0x4bd99c  (in fn 0x4bd980)
+=== callers of ai_dec_C_4a8e80 (0x4a8e80) : 6 ===
+  0x4881bc  (in fn 0x488190)
+  0x4a2092  (in fn 0x4a2040)
+  0x4a7120  (in fn 0x4a70b0)
+  0x4abcfb  (in fn 0x4abb50)
+  0x4b61bd  (in fn 0x4b6120)
+  0x4bd9a5  (in fn 0x4bd980)
+=== callers of ai_dec_D_4a97d0 (0x4a97d0) : 1 ===
+  0x4a7129  (in fn 0x4a70b0)
+=== callers of ai_dec_E_4a92c0 (0x4a92c0) : 1 ===
+  0x4a7132  (in fn 0x4a70b0)
+=== callers of ai_dec_F_4a94e0 (0x4a94e0) : 1 ===
+  0x4a713f  (in fn 0x4a70b0)
+=== callers of ai_active_guard_4a0d10 (0x4a0d10) : 9 ===
+  0x4209ec  (in fn 0x420870)
+  0x42da67  (in fn 0x42d9e0)
+  0x49cca8  (in fn 0x49cc90)
+  0x4a4211  (in fn 0x4a4210)
+  0x4a4759  (in fn 0x4a4740)
+  0x4a4951  (in fn 0x4a4940)
+  0x4a70b4  (in fn 0x4a70b0)
+  0x4a94e3  (in fn 0x4a94e0)
+  0x4ac1a1  (in fn 0x4ac1a0)
+=== callers of ai_diplo_dec_4a84e0 (0x4a84e0) : 2 ===
+  0x4a70ed  (in fn 0x4a70b0)
+  0x4a7105  (in fn 0x4a70b0)

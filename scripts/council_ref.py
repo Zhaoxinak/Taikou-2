@@ -20,7 +20,7 @@
   else       -> 0x507978 + (id-3000)*7
   ID 17 特例  -> 字符串 0x504888 = '商　人'；菜单末项 0x504890 = '停　止'
 """
-import struct, os, sys, re
+import struct, os, sys, re, json
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
@@ -96,8 +96,31 @@ def _load_msgs():
             _MSG[(int(m.group(1)), int(m.group(2)))] = m.group(3).strip()
     return _MSG
 
+_MSG_GID = {}
+def _load_msgs_gid():
+    """权威全量索引 msgx_all_texts.json（6211 条，续72 建立）。
+    texts 键 = MSGX 全局 id（= file_base + index，slot 2000）。"""
+    global _MSG_GID
+    if _MSG_GID:
+        return _MSG_GID
+    p = os.path.join(HERE, "msgx_all_texts.json")
+    if not os.path.exists(p):
+        return _MSG_GID
+    d = json.load(open(p, encoding="utf-8"))
+    _MSG_GID = {int(k): v for k, v in d.get("texts", {}).items()}
+    return _MSG_GID
+
 def msg_text(mid):
-    """MSGX 编号：file = id // 2000，序号 = id % 2000"""
+    """MSGX 编号：file = id // 2000，序号 = id % 2000。
+
+    数据源优先级（续94 修正）：
+      1. `msgx_all_texts.json` — 权威全量索引 6211 条，按全局 id 直查；
+      2. `_probe/msgx/all_messages.txt` — 旧解码产物，位于可再生 gitignore
+         目录，常不存在且仅覆盖 3091 条。仅作回退。
+    """
+    t = _load_msgs_gid().get(mid)
+    if t is not None:
+        return t
     return _load_msgs().get((mid // 2000 + 1, mid % 2000))
 
 # ---------------------------------------------------------------- 表访问

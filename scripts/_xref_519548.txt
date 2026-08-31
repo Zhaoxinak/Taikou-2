@@ -1,0 +1,43 @@
+
+=== 0x519548 : 字节串匹配 205 处, 指令对齐真命中 152 处 ===
+  0x403f83 [fn 0x403df0]  lea ecx, [eax + eax*4 + 0x519548]
+  0x40451b [fn 0x404340]  lea ecx, [eax + eax*4 + 0x519548]
+  0x40dab4 [fn 0x40da70]  lea ecx, [eax + eax*4 + 0x519548]
+  0x415ccd [fn 0x415b20]  lea ecx, [eax + eax*4 + 0x519548]
+  0x415f5e [fn 0x415ec0]  lea ecx, [ebx + ebx*4 + 0x519548]
+  0x41644c [fn 0x416400]  lea ecx, [ebx + ebx*4 + 0x519548]
+  0x41d9ed [fn 0x41d980]  lea ecx, [eax + eax*4 + 0x519548]
+  0x41db7f [fn 0x41db40]  lea eax, [eax + eax*4 + 0x519548]
+  0x41dcce [fn 0x41dc60]  lea eax, [eax + eax*4 + 0x519548]
+  0x431b65 [fn 0x431aa0]  lea ecx, [eax + eax*4 + 0x519548]
+  0x43d136 [fn 0x43d0e0]  lea edx, [edx + edx*4 + 0x519548]
+  0x4432c6 [fn 0x443280]  lea eax, [eax + eax*4 + 0x519548]
+  0x447f7b [fn 0x447910]  lea esi, [ecx + ecx*4 + 0x519548]
+  0x448c90 [fn 0x448c30]  lea edi, [eax + eax*4 + 0x519548]
+  0x44d0a3 [fn 0x44d010]  lea ebx, [eax + eax*4 + 0x519548]
+  0x44dc77 [fn 0x44dc60]  lea eax, [eax + eax*4 + 0x519548]
+  0x44e4f9 [fn 0x44e440]  lea ecx, [eax + eax*4 + 0x519548]
+  0x44ef74 [fn 0x44ef50]  sub ecx, 0x519548
+  0x454d65 [fn 0x454d40]  lea esi, [eax + eax*4 + 0x519548]
+  0x4564e8 [fn 0x4564d0]  lea eax, [eax + eax*4 + 0x519548]
+  0x456588 [fn 0x456570]  lea eax, [eax + eax*4 + 0x519548]
+  0x4567ea [fn 0x4567d0]  lea eax, [eax + eax*4 + 0x519548]
+  0x45693a [fn 0x456920]  lea eax, [eax + eax*4 + 0x519548]
+  0x456a17 [fn 0x456a00]  lea eax, [eax + eax*4 + 0x519548]
+  0x456ab8 [fn 0x456aa0]  lea eax, [eax + eax*4 + 0x519548]
+  0x456d17 [fn 0x456d00]  sub ecx, 0x519548
+  0x45923a [fn 0x4591a0]  mov esi, 0x519548
+  0x45f138 [fn 0x45f120]  lea ecx, [eax + eax*4 + 0x519548]
+  0x460acf [fn 0x460a90]  lea eax, [eax + eax*4 + 0x519548]
+  0x460ca5 [fn 0x460c60]  lea eax, [eax + eax*4 + 0x519548]
+  0x46104f [fn 0x461010]  lea eax, [eax + eax*4 + 0x519548]
+  0x4611a5 [fn 0x461160]  lea eax, [eax + eax*4 + 0x519548]
+  0x461f8f [fn 0x461ed0]  lea eax, [eax + eax*4 + 0x519548]
+  0x46204f [fn 0x461ed0]  mov edi, 0x519548
+  0x46b4d4 [fn 0x46b420]  lea edi, [eax + eax*4 + 0x519548]
+  0x46d3c9 [fn 0x46d3b0]  lea edi, [eax + eax*4 + 0x519548]
+  0x46f90e [fn 0x46f8d0]  lea eax, [eax + eax*4 + 0x519548]
+  0x46fe88 [fn 0x46fe40]  lea eax, [eax + eax*4 + 0x519548]
+  0x476071 [fn 0x475ff0]  lea eax, [eax + eax*4 + 0x519548]
+  0x476096 [fn 0x475ff0]  lea eax, [eax + eax*4 + 0x519548]
+  ... 另有 112 处

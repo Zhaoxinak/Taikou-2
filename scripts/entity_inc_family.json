@@ -1,0 +1,146 @@
+[
+  {
+    "fn": "0x43e2f0",
+    "field": 14,
+    "read": null,
+    "cap": 60000,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0xea60 | push eax | mov cx, word ptr [esi + 0xe] | push ecx | call 0x4ebca0 | add esp, 0xc | mov word ptr [esi + 0xe], ax | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a3180",
+    "field": 33,
+    "read": 32,
+    "cap": null,
+    "width": "B",
+    "code": "push esi | mov esi, ecx | mov ecx, dword ptr [esp + 8] | movzx ax, byte ptr [esi + 0x20] | movzx dx, byte ptr [esi + 0x21] | push eax | push ecx | push edx | call 0x4ebca0 | add esp, 0xc | mov byte ptr [esi + 0x21], al | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a31d0",
+    "field": 35,
+    "read": 35,
+    "cap": 100,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0x64 | push eax | movzx cx, byte ptr [esi + 0x23] | push ecx | call 0x4ebca0 | add esp, 0xc | mov byte ptr [esi + 0x23], al | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a3210",
+    "field": 38,
+    "read": null,
+    "cap": 60000,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0xea60 | push eax | mov cx, word ptr [esi + 0x26] | push ecx | call 0x4ebca0 | add esp, 0xc | mov word ptr [esi + 0x26], ax | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a3260",
+    "field": 41,
+    "read": 41,
+    "cap": 100,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0x64 | push eax | movzx cx, byte ptr [esi + 0x29] | push ecx | call 0x4ebca0 | add esp, 0xc | mov byte ptr [esi + 0x29], al | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a32a0",
+    "field": 12,
+    "read": 12,
+    "cap": 100,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0x64 | push eax | movzx cx, byte ptr [esi + 0xc] | push ecx | call 0x4ebca0 | add esp, 0xc | mov byte ptr [esi + 0xc], al | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a32c0",
+    "field": 13,
+    "read": 13,
+    "cap": 250,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0xfa | push eax | movzx cx, byte ptr [esi + 0xd] | push ecx | call 0x4ebca0 | add esp, 0xc | mov byte ptr [esi + 0xd], al | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a3310",
+    "field": 14,
+    "read": 14,
+    "cap": 200,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0xc8 | push eax | movzx cx, byte ptr [esi + 0xe] | push ecx | call 0x4ebca0 | add esp, 0xc | mov byte ptr [esi + 0xe], al | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a3360",
+    "field": 15,
+    "read": 15,
+    "cap": 100,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0x64 | push eax | movzx cx, byte ptr [esi + 0xf] | push ecx | call 0x4ebca0 | add esp, 0xc | mov byte ptr [esi + 0xf], al | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a33a0",
+    "field": 16,
+    "read": null,
+    "cap": 50000,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0xc350 | push eax | mov cx, word ptr [esi + 0x10] | push ecx | call 0x4ebca0 | add esp, 0xc | mov word ptr [esi + 0x10], ax | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a33f0",
+    "field": 18,
+    "read": null,
+    "cap": 30000,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0x7530 | push eax | mov cx, word ptr [esi + 0x12] | push ecx | call 0x4ebca0 | add esp, 0xc | mov word ptr [esi + 0x12], ax | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a3440",
+    "field": 20,
+    "read": null,
+    "cap": 30000,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0x7530 | push eax | mov cx, word ptr [esi + 0x14] | push ecx | call 0x4ebca0 | add esp, 0xc | mov word ptr [esi + 0x14], ax | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a3490",
+    "field": 22,
+    "read": null,
+    "cap": 2000,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0x7d0 | push eax | mov cx, word ptr [esi + 0x16] | push ecx | call 0x4ebca0 | add esp, 0xc | mov word ptr [esi + 0x16], ax | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a34e0",
+    "field": 24,
+    "read": null,
+    "cap": 2000,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0x7d0 | push eax | mov cx, word ptr [esi + 0x18] | push ecx | call 0x4ebca0 | add esp, 0xc | mov word ptr [esi + 0x18], ax | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a3530",
+    "field": 26,
+    "read": 26,
+    "cap": 200,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0xc8 | push eax | movzx cx, byte ptr [esi + 0x1a] | push ecx | call 0x4ebca0 | add esp, 0xc | mov byte ptr [esi + 0x1a], al | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a3590",
+    "field": 30,
+    "read": null,
+    "cap": 60000,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0xea60 | push eax | mov cx, word ptr [esi + 0x1e] | push ecx | call 0x4ebca0 | add esp, 0xc | mov word ptr [esi + 0x1e], ax | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4a35e0",
+    "field": 32,
+    "read": null,
+    "cap": 60000,
+    "width": "B",
+    "code": "mov eax, dword ptr [esp + 4] | push esi | mov esi, ecx | push 0xea60 | push eax | mov cx, word ptr [esi + 0x20] | push ecx | call 0x4ebca0 | add esp, 0xc | mov word ptr [esi + 0x20], ax | pop esi | ret 4"
+  },
+  {
+    "fn": "0x4e8220",
+    "field": 20,
+    "read": null,
+    "cap": null,
+    "width": "B",
+    "code": "push ebx | push ebp | push esi | push edi | call 0x49f670 | mov ebp, dword ptr [esp + 0x14] | mov ebx, eax | mov al, byte ptr [ebp + 0x24] | cmp al, 0x31 | mov byte ptr [esp + 0x14], al | jae 0x4e8253 | mov eax, dword ptr [esp + 0x14] | and eax, 0xff | mov ecx, eax | shl ecx, 3 | sub ecx, eax | lea esi, [ecx*2 + 0x5179b8] | jmp 0x4e8255 | xor esi, esi | push esi | push ebx | call 0x49fd60 | mov cx, word ptr [ebp + 0x2c] | mov edi, eax | shr ecx, 8 | and ecx, 7 | mov eax, 0x55555556 | imul ecx | mov eax, edx | add esp, 8 | shr eax, 0x1f | add edx, eax | push 7 | push edx | push edi | call 0x4ebca0"
+  }
+]

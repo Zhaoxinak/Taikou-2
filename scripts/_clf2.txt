@@ -1,0 +1,12 @@
+
+==== [LOAD] mov reg,0x516638: 1 ====
+  0x0047e879  push 0x516638
+
+==== [STORE] 写 0x516638 (绝对): 2 ====
+  0x004ab185  dec dword ptr [edx + 0x5166380d]
+  0x004cbdbf  add byte ptr [ecx + 0x516638], ah
+
+==== [REGIND] 含 0x516638 的其它形式(含间接写): 0 ====
+
+==== [CALL] call 0x4e87e0: 1 ====
+  0x004e87ba  call 0x4e87e0

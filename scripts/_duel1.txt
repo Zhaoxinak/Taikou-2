@@ -1,0 +1,132 @@
+==== JUMP TABLE 0x4684c0 (5 dwords) ====
+  [0] -> 0x00468457
+  [1] -> 0x00468489
+  [2] -> 0x00468495
+  [3] -> 0x004684a0
+  [4] -> 0x004684a9
+
+==== ATTACK JUDGE 0x468290 @ 0x00468290 (200B) ====
+  0x00468290  push esi
+  0x00468291  push edi
+  0x00468292  mov edi, ecx
+  0x00468294  mov esi, 4
+  0x00468299  call 0x466470
+  0x0046829e  test eax, eax
+  0x004682a0  je 0x4682a9
+  0x004682a2  mov esi, 2
+  0x004682a7  jmp 0x4682d3
+  0x004682a9  call 0x49f7a0
+  0x004682ae  test eax, eax
+  0x004682b0  je 0x4682d3
+  0x004682b2  mov eax, dword ptr [edi + 0x18]
+  0x004682b5  mov cl, 1
+  0x004682b7  test eax, eax
+  0x004682b9  jne 0x4682c7
+  0x004682bb  mov edx, dword ptr [edi + 4]
+  0x004682be  cmp byte ptr [edx + 0x21], cl
+  0x004682c1  jae 0x4682ce
+  0x004682c3  test eax, eax
+  0x004682c5  je 0x4682d3
+  0x004682c7  mov eax, dword ptr [edi]
+  0x004682c9  cmp byte ptr [eax + 0x21], cl
+  0x004682cc  jb 0x4682d3
+  0x004682ce  mov esi, 5
+  0x004682d3  push 0
+  0x004682d5  push 0x4682f0
+  0x004682da  push esi
+  0x004682db  call 0x47b5c0
+  0x004682e0  add esp, 0xc
+  0x004682e3  cmp ax, 0xffff
+  0x004682e7  je 0x4682d3
+  0x004682e9  pop edi
+  0x004682ea  pop esi
+  0x004682eb  ret 
+  0x004682ec  nop 
+  0x004682ed  nop 
+  0x004682ee  nop 
+  0x004682ef  nop 
+  0x004682f0  sub esp, 0x14
+  0x004682f3  movsx eax, word ptr [esp + 0x18]
+  0x004682f8  mov dword ptr [esp], 0x504ff8
+  0x00468300  mov dword ptr [esp + 4], 0x505000
+  0x00468308  mov dword ptr [esp + 8], 0x505008
+  0x00468310  mov dword ptr [esp + 0xc], 0x505010
+  0x00468318  mov dword ptr [esp + 0x10], 0x505018
+  0x00468320  mov ecx, dword ptr [esp + eax*4]
+  0x00468324  push ecx
+  0x00468325  push 0x5196a8
+  0x0046832a  call 0x4ebfe0
+  0x0046832f  add esp, 8
+  0x00468332  add esp, 0x14
+  0x00468335  ret 
+  0x00468336  nop 
+  0x00468337  nop 
+  0x00468338  nop 
+  0x00468339  nop 
+  0x0046833a  nop 
+  0x0046833b  nop 
+  0x0046833c  nop 
+  0x0046833d  nop 
+  0x0046833e  nop 
+  0x0046833f  nop 
+  0x00468340  push ebp
+  0x00468341  push esi
+  0x00468342  push edi
+  0x00468343  push 0
+  0x00468345  push 0
+  0x00468347  mov esi, ecx
+  0x00468349  push 0
+  0x0046834b  push 0
+  0x0046834d  push 2
+  0x0046834f  mov ecx, 0x5143e0
+
+==== around JUMPTABLE 0x4684c0 @ 0x004684a0 (120B) ====
+  0x004684a0  mov ecx, esi
+  0x004684a2  call 0x467c80
+  0x004684a7  jmp 0x4684b0
+  0x004684a9  mov ecx, esi
+  0x004684ab  call 0x468000
+  0x004684b0  test edi, edi
+  0x004684b2  je 0x46843c
+  0x004684b4  call 0x46b6e0
+  0x004684b9  mov eax, dword ptr [esi + 0x14]
+  0x004684bc  pop edi
+  0x004684bd  pop esi
+  0x004684be  pop ebp
+  0x004684bf  ret 
+  0x004684c0  push edi
+  0x004684c1  test byte ptr [esi], al
+  0x004684c4  mov dword ptr [esi + eax*2 + 0x46849500], eax
+  0x004684cb  add byte ptr [eax - 0x56ffb97c], ah
+  0x004684d1  test byte ptr [esi], al
+  0x004684d4  nop 
+  0x004684d5  nop 
+  0x004684d6  nop 
+  0x004684d7  nop 
+  0x004684d8  nop 
+  0x004684d9  nop 
+  0x004684da  nop 
+  0x004684db  nop 
+  0x004684dc  nop 
+  0x004684dd  nop 
+  0x004684de  nop 
+  0x004684df  nop 
+  0x004684e0  push esi
+  0x004684e1  push edi
+  0x004684e2  mov edi, ecx
+  0x004684e4  call 0x466e80
+  0x004684e9  test ax, ax
+  0x004684ec  je 0x468553
+  0x004684ee  mov ecx, edi
+  0x004684f0  call 0x466fc0
+  0x004684f5  test ax, ax
+  0x004684f8  jne 0x468553
+  0x004684fa  mov ecx, edi
+  0x004684fc  call 0x466f80
+  0x00468501  test ax, ax
+  0x00468504  jne 0x468553
+  0x00468506  mov ecx, edi
+  0x00468508  call 0x466fe0
+  0x0046850d  test ax, ax
+  0x00468510  jne 0x468553
+  0x00468512  mov ecx, edi

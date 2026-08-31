@@ -1,0 +1,84 @@
+========================================================================
+(A) 完整方法表 0x49b960..0x49bda8
+========================================================================
+0x49b960  disp=['0x14']  consts=[]
+          mov ax, word ptr [esp + 4] | mov word ptr [ecx + 0x14], ax | ret 4
+0x49b970  disp=['0x16']  consts=['0xea60']
+          mov eax, dword ptr [esp + 4] | cmp ax, 0xea60 | jb 0x49b97f | mov eax, 0xea60 | mov word ptr [ecx + 0x16], ax | ret 4
+0x49b990  disp=['0x18']  consts=['0xea60']
+          mov eax, dword ptr [esp + 4] | cmp ax, 0xea60 | jb 0x49b99f | mov eax, 0xea60 | mov word ptr [ecx + 0x18], ax | ret 4
+0x49b9b0  disp=['0x1a']  consts=['0xea60']
+          mov eax, dword ptr [esp + 4] | cmp ax, 0xea60 | jb 0x49b9bf | mov eax, 0xea60 | mov word ptr [ecx + 0x1a], ax | ret 4
+0x49b9d0  disp=['0x1c']  consts=[]
+          mov al, byte ptr [esp + 4] | mov dl, byte ptr [ecx + 0x1c] | xor al, dl | and eax, 7 | xor word ptr [ecx + 0x1c], ax | ret 4
+0x49b9f0  disp=['0x1e']  consts=[]
+          mov ax, word ptr [esp + 4] | mov word ptr [ecx + 0x1e], ax | ret 4
+0x49ba00  disp=['0x20']  consts=[]
+          mov ax, word ptr [esp + 4] | mov word ptr [ecx + 0x20], ax | ret 4
+0x49ba10  disp=['0x22']  consts=[]
+          mov ax, word ptr [esp + 4] | mov word ptr [ecx + 0x22], ax | ret 4
+0x49ba20  disp=['0x24']  consts=[]
+          mov ax, word ptr [esp + 4] | mov word ptr [ecx + 0x24], ax | ret 4
+0x49ba30  disp=['0x2a']  consts=['0xffe3']
+          mov al, byte ptr [esp + 4] | cmp al, 6 | jae 0x49ba52 | mov dx, word ptr [ecx + 0x2a] | movzx ax, al | and edx, 0xffe3 | shl eax, 2 | or edx, eax
+0x49ba60  disp=['0x2a']  consts=[]
+          mov al, byte ptr [ecx + 0x2a] | shr al, 2 | and al, 7 | cmp al, 6 | jb 0x49ba6e | or al, 0xff | ret 
+0x49ba70  disp=['0x2a']  consts=['0xfffc', '0xffff']
+          mov eax, dword ptr [esp + 4] | and word ptr [ecx + 0x2a], 0xfffc | mov dx, word ptr [ecx + 0x2a] | and eax, 0xffff | cmp eax, 3 | jbe 0x49ba8d | mov eax, 3 | or edx, eax
+0x49baa0  disp=['0x2a']  consts=[]
+          mov al, byte ptr [ecx + 0x2a] | and eax, 3 | ret 
+0x49bab0  disp=['0x26']  consts=[]
+          mov al, byte ptr [ecx + 0x26] | and eax, 0xf | ret 
+0x49bac0  disp=['0x26']  consts=[]
+          mov al, byte ptr [ecx + 0x26] | shr eax, 4 | and eax, 0xf | ret 
+0x49bad0  disp=['0x26']  consts=[]
+          mov ax, word ptr [ecx + 0x26] | shr eax, 8 | and eax, 0xf | ret 
+0x49bae0  disp=['0x26']  consts=[]
+          xor eax, eax | mov ax, word ptr [ecx + 0x26] | shr eax, 0xc | ret 
+0x49baf0  disp=['0x26']  consts=[]
+          mov ax, word ptr [esp + 4] | cmp ax, 0xa | ja 0x49bb05 | xor al, byte ptr [ecx + 0x26] | and eax, 0xf | xor word ptr [ecx + 0x26], ax | ret 4
+0x49bb10  disp=['0x26']  consts=['0xff0f']
+          mov ax, word ptr [esp + 4] | cmp ax, 0xa | ja 0x49bb31 | mov dx, word ptr [ecx + 0x26] | and eax, 0xf | and edx, 0xff0f | shl eax, 4 | or edx, eax
+0x49bb40  disp=['0x26']  consts=['0xf0ff']
+          mov ax, word ptr [esp + 4] | cmp ax, 0xa | ja 0x49bb63 | mov dx, word ptr [ecx + 0x26] | push ebx | and al, 0xf | xor ebx, ebx | and edx, 0xf0ff
+0x49bb70  disp=['0x26', '0x28']  consts=['0xfff']
+          mov eax, dword ptr [esp + 4] | cmp ax, 0xa | ja 0x49bb8d | mov dx, word ptr [ecx + 0x26] | shl eax, 0xc | and edx, 0xfff | or eax, edx | mov word ptr [ecx + 0x26], ax
+0x49bb90  disp=['0x28']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bb9f | or byte ptr [ecx + 0x28], 1 | ret 4
+0x49bbb0  disp=['0x28']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bbbf | or byte ptr [ecx + 0x28], 2 | ret 4
+0x49bbd0  disp=['0x28']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bbdf | or byte ptr [ecx + 0x28], 4 | ret 4
+0x49bbf0  disp=['0x28']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bbff | or byte ptr [ecx + 0x28], 8 | ret 4
+0x49bc10  disp=['0x28']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bc1f | or byte ptr [ecx + 0x28], 0x10 | ret 4
+0x49bc30  disp=['0x28']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bc3f | or byte ptr [ecx + 0x28], 0x20 | ret 4
+0x49bc50  disp=['0x28']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bc5f | or byte ptr [ecx + 0x28], 0x40 | ret 4
+0x49bc70  disp=['0x28']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bc7f | or byte ptr [ecx + 0x28], 0x80 | ret 4
+0x49bc90  disp=['0x29']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bc9f | or byte ptr [ecx + 0x29], 1 | ret 4
+0x49bcb0  disp=['0x29']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bcbf | or byte ptr [ecx + 0x29], 2 | ret 4
+0x49bcd0  disp=['0x28']  consts=['0xe3ff']
+          mov dl, byte ptr [esp + 4] | mov ax, word ptr [ecx + 0x28] | and edx, 7 | and eax, 0xe3ff | shl edx, 0xa | or eax, edx | mov word ptr [ecx + 0x28], ax | ret 4
+0x49bcf0  disp=['0x29']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bcff | or byte ptr [ecx + 0x29], 0x40 | ret 4
+0x49bd10  disp=['0x29']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bd1f | or byte ptr [ecx + 0x29], 0x80 | ret 4
+0x49bd30  disp=['0x2a']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bd3f | or byte ptr [ecx + 0x2a], 0x20 | ret 4
+0x49bd50  disp=['0x2c']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bd5f | or byte ptr [ecx + 0x2c], 1 | ret 4
+0x49bd70  disp=['0x2c']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bd7f | or byte ptr [ecx + 0x2c], 2 | ret 4
+0x49bd90  disp=['0x2c']  consts=[]
+          mov eax, dword ptr [esp + 4] | test eax, eax | je 0x49bd9f | or byte ptr [ecx + 0x2c], 4 | ret 4
+
+========================================================================
+(B) ecx=0x5197b0 (S5) 后调用的方法 —— 全镜像扫描
+========================================================================
+命中 0 处

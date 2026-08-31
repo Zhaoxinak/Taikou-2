@@ -5,7 +5,6 @@
   "reference_impl": "scripts/duel2_ref.py",
   "self_test": "38/38 ALL PASS",
   "closes": "MEMORY.md 仍待破 #0「一击必杀/击中要害大额伤害路径」",
-
   "headline_conclusion": {
     "verdict": "不存在「一击必杀」大额伤害路径",
     "evidence": [
@@ -16,38 +15,76 @@
     "consequence": "台词分档的 9–24 / >24 两档**不可达**（冗余防御代码）；单挑伤害域就是 0..4",
     "analogy": "与「阵形名不在 EXE」「伏兵位置修正表全零」同为结论性负结果"
   },
-
   "key_correction": {
     "claim": "0x466e40(this) 返回的是**体力**，不是武力",
     "disasm": "0x466E40 mov eax,[ecx+0x10] / test eax,eax / mov ax,word[0x514995] / jne +4 / mov ax,word[0x514835]",
     "overturns": "duel_spec step1 记为「武力 B」，并推导「武力越高加成越小」",
     "correct_semantics": "体力越低 → 附加伤害越大（背水一战 / 翻盘机制），符合游戏设计直觉",
     "formula": "if 动作码 ∉ {3,4} 且 体力 < 60:  档位 += rand() % (4 - 体力//20)",
-    "moduli": {"体力 0-19": 4, "体力 20-39": 3, "体力 40-59": 2, "体力 >= 60": "不触发"}
+    "moduli": {
+      "体力 0-19": 4,
+      "体力 20-39": 3,
+      "体力 40-59": 2,
+      "体力 >= 60": "不触发"
+    }
   },
-
   "jump_table_0x4684c0": {
     "type": "5 项跳转表（[5..7] = 0x90909090 nop 填充）",
     "dispatch": "0x468443 call 0x468290 → ax (0..4) ; cmp eax,4 ; ja 退出 ; jmp dword[eax*4 + 0x4684c0]",
     "branches": [
-      {"idx": 0, "target": "0x468457", "semantics": "攻击：判 dword[0x51497a]&0x1c0；0x468220 选手札 → ax；取消(0xffff)则 edi=0 退出；否则 word[0x5149a4]=ax 并 call 0x469cb0"},
-      {"idx": 1, "target": "0x468489", "semantics": "特殊动作 call 0x46aab0(0x514978)"},
-      {"idx": 2, "target": "0x468495", "semantics": "威吓失败（胆怯）call 0x467970"},
-      {"idx": 3, "target": "0x4684a0", "semantics": "逃走失败 / 被追上 call 0x467c80"},
-      {"idx": 4, "target": "0x4684a9", "semantics": "换人 call 0x468000"}
+      {
+        "idx": 0,
+        "target": "0x468457",
+        "semantics": "攻击：判 dword[0x51497a]&0x1c0；0x468220 选手札 → ax；取消(0xffff)则 edi=0 退出；否则 word[0x5149a4]=ax 并 call 0x469cb0"
+      },
+      {
+        "idx": 1,
+        "target": "0x468489",
+        "semantics": "特殊动作 call 0x46aab0(0x514978)"
+      },
+      {
+        "idx": 2,
+        "target": "0x468495",
+        "semantics": "威吓失败（胆怯）call 0x467970"
+      },
+      {
+        "idx": 3,
+        "target": "0x4684a0",
+        "semantics": "逃走失败 / 被追上 call 0x467c80"
+      },
+      {
+        "idx": 4,
+        "target": "0x4684a9",
+        "semantics": "换人 call 0x468000"
+      }
     ],
     "loop": "0x4684B0 test edi,edi ; je 0x46843c（循环直到 edi==0 或结果码>4）"
   },
-
   "action_code_3_4": {
     "where_step1": "0x4687B0：cmp ax,4 / cmp ax,3 → je 0x468837（跳过体力加成）",
     "where_bark": "0x4665D0：mov ax,word[edi+0xc] ; cmp ax,4 ; cmp ax,3 → je 0x466735（独立台词表）",
     "semantics": "不吃「背水一战」体力加成的特殊攻击，并用另一套伤害台词",
     "bark_table_0x466735": {
-      "dmg==0": {"base": "0x17a1", "dec": 6049, "variants": 2},
-      "dmg 1-8": {"base": "0x179d", "dec": 6045, "variants": 2},
-      "dmg 9-24": {"base": "0x1799", "dec": 6041, "variants": 2},
-      "dmg >24": {"base": "0x1795", "dec": 6037, "variants": 2},
+      "dmg==0": {
+        "base": "0x17a1",
+        "dec": 6049,
+        "variants": 2
+      },
+      "dmg 1-8": {
+        "base": "0x179d",
+        "dec": 6045,
+        "variants": 2
+      },
+      "dmg 9-24": {
+        "base": "0x1799",
+        "dec": 6041,
+        "variants": 2
+      },
+      "dmg >24": {
+        "base": "0x1795",
+        "dec": 6037,
+        "variants": 2
+      },
       "msgid": "base + rand()%2",
       "view_offset": "esi = ([edi+0x10]!=0) ? -2 : 0（neg/sbb/and 0xfffffffe 技巧）",
       "followup": {
@@ -55,33 +92,40 @@
         "dmg!=0": "msg 0x1775 (6005)「%s使%s受到%d的伤害。」，含 dmg 参数"
       }
     },
-    "bark_table_normal_5": {"dmg==0": "0x17b2", "1-8": "0x17b0", "9-24": "0x17ae", ">24": "0x17ac"}
+    "bark_table_normal_5": {
+      "dmg==0": "0x17b2",
+      "1-8": "0x17b0",
+      "9-24": "0x17ae",
+      ">24": "0x17ac"
+    }
   },
-
   "0x468220_dual_semantics": {
     "disasm": "mov eax,[0x514978] ; and eax,3 ; mov cx,word[eax*2+0x504d40] ; inc cx ; push ecx ; call 0x47b5c0(0, 0x468250, cx)",
     "semantics": "手札（手牌）选择对话框；返回所选手牌编号，取消返回 0xffff",
     "resolves": "0x504d40 双重语义：既是「档位上限表 [1,2,2,3]」，又是「可出手牌数（值+1 = [2,3,3,4]）」——同一张表，技能档 a 决定能出几张牌"
   },
-
   "damage_domain_proof": {
     "tier_range": "0..3（基表 0..3 再 min 上限 [1,2,2,3]）",
     "dmg_formula": "bonus = 0 (rand%100<15) | 1 (<55) | 2 (>=55) ; dmg = bonus + (rand()%tier 若 tier>=2 否则 0)",
-    "reachable": [0, 1, 2, 3, 4],
+    "reachable": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
     "note": "0x4ebd60(n) 的 n<2 保护使 tier∈{0,1} 时附加项为 0，无除零风险"
   },
-
   "0x4665d0_is_virtual": {
     "fact": "全镜像 0 处直接 call / 0 处数据区函数指针引用 0x4665d0",
     "reason": "它是 C++ 虚函数（fastcall, this=ecx, word[this+0xc]=动作码），经**运行时虚表**调用",
     "example": "0x469A57 mov eax,[edi] ; call dword ptr [eax+0x10]（虚表第 5 项）",
     "implication": "单挑动作处理是 C++ 多态，静态无法枚举分派 ⇒ 印证项目「静态走不通需 Unicorn 实跑」"
   },
-
   "still_unknown": [
-    "体力 word[0x514995]/[0x514835] 的**初始值**赋值点（全镜像只有读/dec/cmp，初值走运行时间接填充）",
+    "✅ [已破·续121] 体力机制: 存储 word[0x514995](攻)/word[0x514835](守); 0x466340 主循环每 tick dec(0x46636d/0x46637b); 归零则 0x466490 分胜负; getter 0x466e40 依 this+0x10 选攻/守返回。**初值=角色体力**, 由决斗编排器 0x46bc00 → 设置链(0x46baa0/0x46bbb0/0x46ba20) 经计算偏移写入(全镜像绝对写仅命中 dec)。产物 duel_hp_ref.py (17/17)",
     "cmp word[0x514995], 0x14 (20) 的两处（0x467CFD / 0x4680DF）语义（疑似换人/逃走阈值）",
-    "AI 选牌逻辑",
+    "AI 选牌逻辑 — 已解 (续92/93, 见 duel_spec.json ai_selection): AI 行动谱严格 = {普通攻击(0), 一击必杀(4)}; 决策点 0x469310, 强度 = char[0xb]+((char[0xf]>>6)*10) > thr = tier*10+enemyHP+(char[8]&0x20?0:10); 其余动作(瞄准/快刀/击中要害/换人)仅玩家菜单经 0x468220 + writer 0x4694a0/0x4694e0/0x469530 触发。参考实现 duel3_ref.py (670/670 PASS)",
     "0x4698d0 完整分支（本次只解到 r<15 的 bonus=0 路径，另两档由 0x4698f6 起，结构对称）",
     "虚表具体布局（哪个类、vtable[0x10] 对应哪个动作处理器）"
   ]

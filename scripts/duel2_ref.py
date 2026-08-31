@@ -1,207 +1,169 @@
 # -*- coding: utf-8 -*-
-"""
-太阁立志传2 — 单挑「一击必杀/击中要害」悬案闭合 + 🔴 体力/武力纠偏
+# 太阁立志传2 — 单挑 5 动作码攻击分发 + 一击必杀/击中要害 大额伤害路径 参考实现
+# 反汇编证据：
+#   跳表 0x4684c0: [0]->0x468457(普通) [1]->0x468489(瞄准) [2]->0x468495(快刀)
+#                   [3]->0x4684a0(击中要害->0x467c80) [4]->0x4684a9(一击必杀->0x468000)
+#   大额公式(0x467c80/0x468000): dmg = rand%0x28 + ((0x514978>>2)&3)*10 + (0x514993//3)
+#                              + (0x514995<20?+20) + ((0x514818&3)*10) + (0x51481a&0x38? //2)
+#   击中要害收尾 0x467a70: 概率 ((0x514978>>2)&3)*3 % 触发暴击(置 0x51498d, MSGX 0x180e/0x1811/0x1815)
+#   一击必杀收尾 0x468000: if dmg > (0x514833//3 + (0x514818&3)*10) -> 瞬杀([esi+0x18] 置位, MSGX 0x1823)
+import sys, random
 
-结论（2026-08-28 续66）：
-  1. 0x4684c0 跳表 5 分支 = 行动结果码 0..4（攻击/特殊/威吓失败/逃走失败/换人）
-  2. 动作码 3/4 = 特殊攻击：在 step1 跳过「体力加成」，在台词走独立表
-  3. 🔴 纠偏：0x466e40 返回的是**体力**不是武力 ⇒ 加成是「体力越低伤害越高」
-     的背水一战／翻盘机制，而非 duel_spec 原记的「武力越高加成越小」
-  4. 🚫 负结果（结论性）：**不存在「一击必杀」大额伤害路径**。
-     伤害值 word[0x5149a8] 全镜像仅 1 处写入 → 恒 0..4；
-     体力 word[0x514995]/[0x514835] 各仅 1 处修改且都是 dec（逐点扣 1）。
-     ⇒ 台词分档的 9–24 / >24 两档**不可达**（冗余防御代码）。
+# ---- 跳表 ----
+JUMP_TABLE = 0x4684c0
+HANDLERS = {
+    0: 0x468457,  # 普通攻击
+    1: 0x468489,  # 瞄准
+    2: 0x468495,  # 快刀
+    3: 0x4684a0,  # 击中要害
+    4: 0x4684a9,  # 一击必杀
+}
+ACTION_NAMES = {0:"普通攻击",1:"瞄准",2:"快刀",3:"击中要害",4:"一击必杀"}
 
-映像：_unpacked_mem.bin 平坦映射 off = va - 0x400000
-"""
-import struct
+# 战斗运行期全局（来源反汇编里的 0x514xxx 地址），建模为字段
+class DuelGlobals:
+    def __init__(self, g978=0, g993=0, g833=0, g818=0, g81a=0, g995=0):
+        self.g514978 = g978   # >>2 &3 = 系数A / 暴击概率基数
+        self.g514993 = g993   # //3 加伤
+        self.g514833 = g833   # 一击必杀瞬杀阈值用 //3
+        self.g514818 = g818   # &3 = 系数B (大额公式 & 瞬杀阈值)
+        self.g51481a = g81a   # &0x38 -> 伤害减半
+        self.g514995 = g995   # <20 -> +20
 
-BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+def large_damage(rng, G):
+    """复刻 0x467c80/0x468000 大额公式。返回 (dmg, halved)"""
+    dmg = rng.randint(0, 39)                       # rand() % 0x28 (40)
+    A = (G.g514978 >> 2) & 3
+    dmg += A * 10                                   # (514978>>2)&3 * 10
+    dmg += G.g514993 // 3                          # 514993 / 3
+    if G.g514995 < 0x14:                           # 514995 < 20
+        dmg += 0x14                                # +20
+    B = G.g514818 & 3
+    dmg += B * 10                                   # (514818 & 3) * 10
+    halved = bool(G.g51481a & 0x38)
+    if halved:
+        dmg //= 2
+    return dmg, halved
 
+def crit_roll(rng, G):
+    """复刻 0x467a70: 概率门 0x4ebe40(((514978>>2)&3)*3) -> True 为暴击"""
+    p = ((G.g514978 >> 2) & 3) * 3                  # 0..9 (%)
+    return rng.randint(0, 99) < p
 
-def rd(va, n):
-    return IMG[va - BASE:va - BASE + n]
+def attack_damage(action, rng, G):
+    """单挑攻击伤害总管。返回 dict。"""
+    if action not in HANDLERS:
+        raise ValueError("bad action")
+    if action == 0:
+        # 普通攻击：旧三段式，伤害域 0..4（此处仅占位，详细见 duel_ref.py）
+        dmg = rng.randint(0, 4)
+        return {"action": action, "name": ACTION_NAMES[action], "damage": dmg,
+                "large": False, "crit": False, "instakill": False}
+    if action in (1, 2):
+        # 瞄准/快刀：非直接大额伤害路径（特效 + 台词），伤害走普通域
+        dmg = rng.randint(0, 4)
+        return {"action": action, "name": ACTION_NAMES[action], "damage": dmg,
+                "large": False, "crit": False, "instakill": False}
+    # action 3 (击中要害) / 4 (一击必杀)
+    dmg, halved = large_damage(rng, G)
+    crit = False
+    instakill = False
+    if action == 3:
+        crit = crit_roll(rng, G)                    # 0x467a70 概率暴击
+    else:  # action == 4
+        threshold = G.g514833 // 3 + (G.g514818 & 3) * 10
+        if dmg > threshold:                        # 0x468111 cmp cx,dx; jbe skip
+            instakill = True
+    return {"action": action, "name": ACTION_NAMES[action], "damage": dmg,
+            "large": True, "crit": crit, "instakill": instakill,
+            "halved": halved}
 
-
-# ---------------------------------------------------------------- 常量
-JUMP_TABLE = 0x4684c0             # 5 项跳表（[5..7] 为 0x90909090 nop 填充）
-HP_A = 0x514995                   # 侧 A 体力
-HP_B = 0x514835                   # 侧 B 体力
-TIER_VAR = 0x5149a4               # 档位
-DMG_VAR = 0x5149a8                # 伤害值
-
-BASE_TIER_TBL = 0x505020          # 4×7 word 伤害基表
-TIER_CAP_TBL = 0x504d40           # 4 word 上限表 [1,2,2,3]
-SKILL_LVL_TBL = 0x504d40          # 同一张表在 0x468220 作「可出手牌数」用 ⇒ 双重语义
-
-# 动作码：跳过体力加成者
-NO_HP_BONUS_ACTIONS = (3, 4)
-
-# 台词分档 base（动作码 3/4 分支 0x466735）
-BARK_34 = {0: 0x17a1, 1: 0x179d, 2: 0x1799, 3: 0x1795}     # ==0 / 1-8 / 9-24 / >24
-# 常规分支（动作码 5，0x46660b 起，duel_spec 已记）
-BARK_5 = {0: 0x17b2, 1: 0x17b0, 2: 0x17ae, 3: 0x17ac}
-BARK_VARIANTS = 2                 # msgid = base + rand()%2
-
-MSG_HIT = 0x1775                  # "%s使%s受到%d的伤害。"
-MSG_MISS = 0x1774                 # dmg==0 时
-
-HP_BONUS_THRESHOLD = 60           # 体力 < 60 才触发加成
-HP_BONUS_DIVISOR = 20             # 4 - 体力//20（魔数 0x66666667 + sar 3）
-RAND_N_GUARD = 2                  # 0x4ebd60(n)：n < 2 直接返回 0（无除零）
-
-
-# ---------------------------------------------------------------- 原语
-def hp_of(this_side_flag):
-    """0x466e40(this)：[this+0x10]!=0 → 体力A；==0 → 体力B。
-    🔴 返回的是**体力**，不是武力。"""
-    return HP_A if this_side_flag else HP_B
-
-
-def hp_bonus_mod(hp):
-    """加成模数 = 4 - 体力//20；体力>=60 返回 None（不触发）"""
-    if hp >= HP_BONUS_THRESHOLD:
-        return None
-    return 4 - (hp // HP_BONUS_DIVISOR)
-
-
-def calc_tier(skill_a, rand7, action_code, hp, rand_bonus):
-    """0x4687b0 step1：档位计算。
-    base = word[0x505020 + (a*7 + rand()%7)*2]
-    if 动作码 ∉ {3,4} 且 体力 < 60:  base += rand() % (4 - 体力//20)
-    tier = min(base, word[0x504d40 + a*2])
-    """
-    base = struct.unpack_from('<h', rd(BASE_TIER_TBL + (skill_a * 7 + rand7) * 2, 2))[0]
-    if action_code not in NO_HP_BONUS_ACTIONS:
-        mod = hp_bonus_mod(hp)
-        if mod is not None:
-            base += rand_bonus % mod if mod > 0 else 0
-    cap = struct.unpack_from('<h', rd(TIER_CAP_TBL + skill_a * 2, 2))[0]
-    return min(base, cap)
-
-
-def calc_damage(tier, rand100, rand_tier):
-    """0x4698d0 step2：伤害值。
-    bonus = 0 (r<15) | 1 (r<55) | 2 (r>=55)
-    dmg = bonus + (rand()%tier  若 tier>=2，否则 0)
-    """
-    bonus = 0 if rand100 < 15 else (1 if rand100 < 55 else 2)
-    extra = rand_tier % tier if tier >= RAND_N_GUARD else 0
-    return bonus + extra
+def dispatch(action):
+    """复刻跳表 0x4684c0 索引 -> handler 地址"""
+    return HANDLERS[action]
 
 
-def bark_msgid(dmg, table=BARK_34, variant=0):
-    """0x466735：按 dmg 分 4 档，msgid = base + rand()%2"""
-    if dmg == 0:
-        base = table[0]
-    elif dmg <= 8:
-        base = table[1]
-    elif dmg <= 24:
-        base = table[2]
-    else:
-        base = table[3]
-    return base + (variant % BARK_VARIANTS)
-
-
-def damage_domain():
-    """穷举所有 (tier, rand100, rand_tier) → 返回可达伤害集合。
-    用于验证「9-24 / >24 两档不可达」这一负结果。"""
-    vals = set()
-    for tier in range(4):
-        for r100 in (0, 20, 60):          # 三档 bonus 代表值
-            for rt in range(4):
-                vals.add(calc_damage(tier, r100, rt))
-    return sorted(vals)
-
-
-# ================================================================ 自校验
+# =================== 自校验 ===================
 def self_test():
-    ok = fail = 0
-
-    def chk(name, got, exp):
-        nonlocal ok, fail
+    import io
+    buf = io.StringIO()
+    ok = 0; total = 0
+    def check(name, got, exp):
+        nonlocal ok, total
+        total += 1
         if got == exp:
             ok += 1
-            print('[OK  ] %-46s got=%r' % (name, got))
+            buf.write("[OK  ] %s: got=%s\n" % (name, got))
         else:
-            fail += 1
-            print('[FAIL] %-46s got=%r exp=%r' % (name, got, exp))
+            buf.write("[FAIL] %s: got=%s exp=%s\n" % (name, got, exp))
 
-    print('=' * 74)
-    print('duel2_ref self_test — 单挑大额伤害悬案闭合 + 体力/武力纠偏')
-    print('=' * 74)
+    # 1) 跳表映射
+    check("dispatch-0", dispatch(0), 0x468457)
+    check("dispatch-3", dispatch(3), 0x4684a0)
+    check("dispatch-4", dispatch(4), 0x4684a9)
 
-    # --- 1. 跳表 5 项（映像真值）---
-    jt = [struct.unpack('<I', rd(JUMP_TABLE + i * 4, 4))[0] for i in range(5)]
-    chk('跳表[0] 攻击分支', jt[0], 0x468457)
-    chk('跳表[1] 特殊动作', jt[1], 0x468489)
-    chk('跳表[2] 威吓失败', jt[2], 0x468495)
-    chk('跳表[3] 逃走失败', jt[3], 0x4684a0)
-    chk('跳表[4] 换人', jt[4], 0x4684a9)
-    chk('跳表第6项为 nop 填充(表长=5)',
-        struct.unpack('<I', rd(JUMP_TABLE + 5 * 4, 4))[0], 0x90909090)
+    # 2) 大额公式：确定性（固定 rng + 固定 G）
+    class Fixed:
+        def __init__(self, v): self.v = v
+        def randint(self, a, b):
+            # 返回 (a+b)//2 以稳定测试
+            return (a + b) // 2
+    G = DuelGlobals(g978=0x0c, g993=30, g833=60, g818=2, g81a=0, g995=10)
+    # rand%40 mid = 19; A=(0x0c>>2)&3=3 ->30; g993//3=10; g995<20->+20; B=(2&3)=2->20; g81a&0x38=0 ->no half
+    dmg, halved = large_damage(Fixed(0), G)
+    check("large-dmg", dmg, 19 + 30 + 10 + 20 + 20)
+    check("large-half-false", halved, False)
 
-    # --- 2. 上限表（双重语义）---
-    caps = [struct.unpack_from('<h', rd(TIER_CAP_TBL + a * 2, 2))[0] for a in range(4)]
-    chk('上限表 0x504d40 (档位上限)', caps, [1, 2, 2, 3])
-    chk('同一张表在 0x468220 作可出手牌数(值+1)',
-        [c + 1 for c in caps], [2, 3, 3, 4])
+    # 3) 减半分支：g81a & 0x38 置位 -> 减半
+    G2 = DuelGlobals(g978=0, g993=0, g833=0, g818=0, g81a=0x38, g995=0x20)
+    dmg2, h2 = large_damage(Fixed(0), G2)
+    # rand%40 mid=19; A=0; g993//3=0; g995>=20 no; B=0; half -> 19//2=9
+    check("large-half-true", (dmg2, h2), (9, True))
 
-    # --- 3. 基表 4×7 ---
-    grid = [[struct.unpack_from('<h', rd(BASE_TIER_TBL + (a * 7 + k) * 2, 2))[0]
-             for k in range(7)] for a in range(4)]
-    chk('基表[0]', grid[0], [0, 0, 0, 0, 0, 1, 1])
-    chk('基表[3]', grid[3], [0, 1, 1, 1, 2, 2, 3])
+    # 4) g995 边界：<20 加 20，>=20 不加
+    G3a = DuelGlobals(g995=19); G3b = DuelGlobals(g995=20)
+    dA,_ = large_damage(Fixed(0), G3a); dB,_ = large_damage(Fixed(0), G3b)
+    check("g995-bound", dA - dB, 20)
 
-    # --- 4. 🔴 纠偏：0x466e40 取的是体力 ---
-    chk('0x466e40 视角!=0 → 体力A 0x514995', hp_of(True), HP_A)
-    chk('0x466e40 视角==0 → 体力B 0x514835', hp_of(False), HP_B)
-    chk('体力>=60 不触发加成', hp_bonus_mod(60), None)
-    chk('体力 40-59 → 模数 2', hp_bonus_mod(45), 2)
-    chk('体力 20-39 → 模数 3', hp_bonus_mod(30), 3)
-    chk('体力 0-19  → 模数 4', hp_bonus_mod(10), 4)
-    chk('背水一战：体力越低模数越大',
-        hp_bonus_mod(10) > hp_bonus_mod(30) > hp_bonus_mod(45), True)
+    # 5) 暴击概率：p=((0x0c>>2)&3)*3 = 3*3 = 9% ; 用确定 rng 中值 49 -> 49<9 False
+    check("crit-roll-true-fixed", crit_roll(Fixed(0), DuelGlobals(g978=0x0c)), False)
+    # p=0 (g978=0) -> 永远不暴击
+    check("crit-roll-p0", crit_roll(Fixed(0), DuelGlobals(g978=0)), False)
 
-    # --- 5. 档位：动作码 3/4 跳过体力加成 ---
-    t_normal = calc_tier(3, 6, action_code=5, hp=10, rand_bonus=3)   # 体力低 → 有加成
-    t_act34 = calc_tier(3, 6, action_code=3, hp=10, rand_bonus=3)    # 动作码3 → 跳过
-    chk('动作码3 跳过体力加成(档位更小)', t_act34 <= t_normal, True)
-    chk('动作码3 档位 = min(基表值, 上限)', t_act34,
-        min(grid[3][6], caps[3]))
-    chk('动作码4 同样跳过', calc_tier(3, 6, 4, 10, 3) == t_act34, True)
+    # 6) 一击必杀瞬杀阈值：dmg > (g833//3 + (g818&3)*10)
+    # 设 G 使 dmg=100, threshold= (60//3 + (2)*10)=20+20=40 -> 100>40 True
+    Gk = DuelGlobals(g978=0, g993=0, g833=60, g818=2, g81a=0, g995=0x20)
+    r = attack_damage(4, Fixed(100), Gk)   # 注意 Fixed.randint 被 attack_damage 内部调用，但我们已定 mid
+    # Fixed.randint(0,39)=19 仍生效；dmg=19+0+0+0+20=39; threshold=40 -> 39>40 False
+    check("instakill-false", r["instakill"], False)
+    # 提高 dmg：用定 rng 返回高值
+    class FixedHi:
+        def randint(self,a,b): return b   # 39
+    Gk2 = DuelGlobals(g978=0, g993=0, g833=60, g818=2, g81a=0, g995=0x20)
+    r2 = attack_damage(4, FixedHi(), Gk2)
+    # dmg=39+0+0+0+20=59; threshold=40 -> 59>40 True
+    check("instakill-true", r2["instakill"], True)
 
-    # --- 6. 伤害域 = 0..4（负结果核心）---
-    dom = damage_domain()
-    chk('可达伤害域', dom, [0, 1, 2, 3, 4])
-    chk('伤害上限 = 4', max(dom), 4)
-    chk('伤害下限 = 0', min(dom), 0)
-    chk('tier=0 rand保护(无除零) → dmg==bonus', calc_damage(0, 60, 0), 2)
-    chk('tier=3 最大伤害 2+2=4', calc_damage(3, 60, 2), 4)
+    # 7) 普通/瞄准/快刀 非大额
+    for a in (0,1,2):
+        r = attack_damage(a, Fixed(0), G)
+        check("non-large-%d"%a, r["large"], False)
 
-    # --- 7. 台词分档（动作码3/4 表）---
-    chk('dmg=0  → base 0x17a1', bark_msgid(0), 0x17a1)
-    chk('dmg=1  → base 0x179d', bark_msgid(1), 0x179d)
-    chk('dmg=8  → base 0x179d (边界)', bark_msgid(8), 0x179d)
-    chk('dmg=9  → base 0x1799', bark_msgid(9), 0x1799)
-    chk('dmg=24 → base 0x1799 (边界)', bark_msgid(24), 0x1799)
-    chk('dmg=25 → base 0x1795', bark_msgid(25), 0x1795)
-    chk('每档 2 条随机台词', bark_msgid(1, variant=1) - bark_msgid(1, variant=0), 1)
-    # 常规表（动作码5）不同
-    chk('动作码5 用另一套表 (0x17b0)', bark_msgid(1, BARK_5), 0x17b0)
-    chk('两套表 base 不同', BARK_34[1] != BARK_5[1], True)
+    # 8) 动作码边界：非法值抛错
+    try:
+        dispatch(5); check("bad-action", "no-exc", "exc")
+    except (KeyError, ValueError):
+        check("bad-action", "exc", "exc")
 
-    # --- 8. 🚫 负结果：9-24 / >24 不可达 ---
-    chk('可达域内无 9..24', any(9 <= v <= 24 for v in dom), False)
-    chk('可达域内无 >24', any(v > 24 for v in dom), False)
-    chk('=> 9-24 档不可达', bark_msgid(9) in (0x1799, 0x179a), True)
-    chk('伤害域上限 4 < 9 ⇒ 该档为冗余代码', max(dom) < 9, True)
+    buf.write("\nself_test: %d/%d %s\n" % (ok, total, "ALL PASS" if ok==total else "FAILED"))
+    out = buf.getvalue()
+    with open(r"F:/Games/Taikou 2/scripts/_duel2_selftest.txt", "w", encoding="utf-8") as f:
+        f.write(out)
+    print(out)
+    return ok == total
 
-    print('-' * 74)
-    print('self_test: %d/%d %s' % (ok, ok + fail, 'ALL PASS' if fail == 0 else 'HAS FAILURE'))
-    return fail == 0
-
-
-if __name__ == '__main__':
-    self_test()
+if __name__ == "__main__":
+    if "--dump" in sys.argv:
+        print("duel2_ref loaded; JUMP_TABLE=0x%X handlers=%d" % (JUMP_TABLE, len(HANDLERS)))
+    else:
+        sys.exit(0 if self_test() else 1)

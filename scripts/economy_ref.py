@@ -372,8 +372,10 @@ def verify_against_image():
     # 米市 3 档显示名
     cheap = gbk("便宜")
     checks.append(("0x504978 便宜", rd(0x504978, len(cheap)), cheap))
-    expensive = gbk("昂貴")
-    checks.append(("0x504988 昂貴", rd(0x504988, len(expensive)), expensive))
+    # 续94 修正: 映像内为简体「昂贵」(GBK B0BA B9F3), 原断言误写繁体「昂貴」
+    # (GBK B0BA D946) 致 [NG] 误报。全表其余项均为简体, 此处系笔误。
+    expensive = gbk("昂贵")
+    checks.append(("0x504988 昂贵", rd(0x504988, len(expensive)), expensive))
 
     # 城镇菜单(城种索引→设施名)前 3 项
     shangye = gbk("商业")

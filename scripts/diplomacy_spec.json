@@ -1,0 +1,169 @@
+{
+  "_meta": {
+    "module": "外交系统 · 国関係マトリクス / 使者归还结算",
+    "image": "scripts/_unpacked_mem.bin (flat, off = va - 0x400000)",
+    "solved_on": "2026-08-29 (续95)",
+    "closes": "续89 遗留 —— 关系值变更公式 / 成功率 / 0x5080cc 无 xref 之谜",
+    "reference_impl": "scripts/diplomacy2_ref.py (183/183 PASS) + scripts/diplomacy3_ref.py (2394/2394 PASS)",
+    "companion": "scripts/diplomacy_ref.py (续89, 会议/工作类型 handler 级)"
+  },
+  "relation_storage": {
+    "province_table": "0x5179b8, stride 14 B, 49 条 (索引 = (ptr-0x5179b8)/14; 汇编用 (idx*8-idx)*2)",
+    "matrix_base": "0x51dc60",
+    "matrix_size": "1176 B = 49*48/2",
+    "matrix_init_fn": "0x47f045 (mov edi, 0x498 = 1176 — 尺寸实锤; 每字节经 0x47d910 初始化)",
+    "matrix_asm_base": "0x51dc5f (lea eax,[edi + 0x51dc5f]; edi 已含 +1 偏置, 等价于 0x51dc60 + tri_index)",
+    "layout": "每个『国对』1 字节, 两个位域: bit0-2 = 外交関係(8级), bit3-4 = 主从関係(4级), bit5-7 未用",
+    "why_no_xref_before": "矩阵基址只被 0x49fd80 间接引用; 全部读写都先过 rel_lookup, 静态直查 0x5179b8 只见 lea/sub"
+  },
+  "core_api": {
+    "rel_lookup": {
+      "va": "0x49fd80",
+      "signature": "byte* rel_lookup(prov* a, prov* b)",
+      "body": "i=(a-0x5179b8)/14 (a==0 -> 49); j 同理; if i>=49||j>=49||i==j -> NULL; if i>j swap; return 0x51dc5f + (j + (48*i - i*(i-1)/2) - i)",
+      "equivalent": "0x51dc60 + tri_index(i,j), tri_index = i*49 - i*(i+1)/2 + (j-i-1)"
+    },
+    "get_diplomacy": {
+      "va": "0x49fd60",
+      "body": "rec ? (rec[0] & 7) : 0"
+    },
+    "set_diplomacy": {
+      "va": "0x49fe40",
+      "note": "真实入口在 nop 滑橇之后 (对齐入口 0x49fe37 无 e8 调用方)",
+      "body": "rec[0] = old ^ ((new ^ old) & 7)   // 只改 bit0-2",
+      "callers": "29 处 (0x40e7de, 0x4c2e73, 0x4c78b8, 0x4b3238, ...)"
+    },
+    "get_master_vassal": {
+      "va": "0x49fe70",
+      "body": "lv = (rec[0]>>3)&3; if lv in {2,3} and idx(a) > idx(b): lv = 5 - lv; return lv",
+      "semantics": "主从是有向关系, 存于无向矩阵: 存储值 3(支配) 表示【低索引国支配高索引国】"
+    },
+    "set_master_vassal": {
+      "va": "0x49ff10",
+      "note": "真实入口在 nop 滑橇之后 (对齐入口 0x49ff0d 无 e8 调用方)",
+      "body": "v = mirror(v & 3, i, j); rec[0] = (rec[0] & 0xE7) | ((v&3) << 3)",
+      "callers": "22 处 (0x40e7ae, 0x4c2e7f, 0x4c78de, 0x4b5c12, ...)"
+    }
+  },
+  "names_and_colors": {
+    "name_table": "0x5080d0, stride 5 B (4 字 GBK + NUL), 12 项",
+    "diplomacy_8": [
+      "盟友",
+      "亲密",
+      "良好",
+      "普通",
+      "敌视",
+      "险恶",
+      "绝交",
+      "交战"
+    ],
+    "master_vassal_4": [
+      "(空白)",
+      "同盟",
+      "从属",
+      "支配"
+    ],
+    "dipl_name_base": "0x5080d0 (外交, 0x44cf14: lea eax,[esi + esi*4 + 0x5080d0])",
+    "mv_name_base": "0x5080f8 (= 0x5080d0 + 8*5, 主从, 0x44cf49: lea edx,[esi + esi*4 + 0x5080f8])",
+    "dipl_color_table": "0x503e68, word[8] = [1,1,0,0,0,2,2,2]",
+    "mv_color_table": "0x503e78, word[4] = [0,4,2,1]",
+    "display_fn": "0x44ce50 (外交关系一览窗口: 同时调 0x49fd60 与 0x49fe70 并查两张名称表)"
+  },
+  "target_selection": {
+    "fn": "0x4c4270 (mode, ...)",
+    "scan": "遍历 0x5179b8 全部 49 国 (stride 0xe), 跳过自身与 word[+4] >= 370 (国主无效) 者",
+    "filter_source": "0x49fe70 —— 过滤用【主从関係】, 非外交関係",
+    "rules": {
+      "0_高压外交": "接受 主从 ∉ {2 从属, 3 支配}",
+      "1_友好外交": "接受 主从 == 0 (空白)",
+      "2_收集情报": "无条件接受"
+    },
+    "output": "命中的国指针写入 [0x517848] 数组, 返回候选数"
+  },
+  "relation_change_points": {
+    "init": {
+      "va": "0x4c2e4e",
+      "body": "对所有有效国 j != i: set_diplomacy(i,j,3=普通) + set_master_vassal(i,j,0=空白); 再与特定国 set_diplomacy(i, x, 6=绝交)"
+    },
+    "conquest_worsen": {
+      "va": "0x4c7734",
+      "body": "势力灭亡时, 对每个有效国 p (跳过灭亡方 ebx 与国 #24=0x517b08): 若 主从(p,ebx)==0 且 外交(p,ebx) < 7 则 set_diplomacy(p, ebx, 外交+1)",
+      "effect": "★ 关系恶化一级 (盟友→亲密→…→交战, 指数越大越恶劣)"
+    },
+    "special_province_24": "0x517b08 = 国索引 24, 在多处作为常量被排除/特殊处理（疑为京/朝廷所在的中立国）",
+    "improve_friendly": {
+      "va": "0x4b5bcb",
+      "trigger": "友好外交成功 (0x47bed0 -> 0x47be00 确定性跳表判定, 返回非0=失败)",
+      "body": "lv = (type<2)? diff(1,type) : (type==2 ? 0 : 2); set_diplomacy(target, me, lv); set_master_vassal(target, me, 1=同盟)",
+      "messages": "0xb01 / 0xb02",
+      "note": "友好外交成功 = 升级为【同盟】; 外交等级 lv 亦改善(0/1/2)"
+    },
+    "improve_pressure": {
+      "va": "0x4b6095",
+      "trigger": "高压外交成功/屈服 (0x47b5f0 恒返回 1, 无随机失败)",
+      "body": "lv = (type<3)? diff(1,type) : 2; set_diplomacy(target, me, lv); set_master_vassal(target, me, 3=支配/屈服)",
+      "messages": "0xaeb / 0xb08",
+      "note": "高压外交成功 = 升级为【支配/屈服】; 外交等级 lv 改善(0/1/2)"
+    },
+    "rise_event": {
+      "va": "0x416a60",
+      "body": "遍历 49 国 (跳过 word[+4]>=370 者): lv = get_diplomacy(esi, 0x517a6e); if (条件) ecx = 7 - lv (反转) else ecx = lv; set_diplomacy(esi, edi, ecx)",
+      "note": "崛起/同盟事件: 把其他国与 edi 国的关系设为 维持 或 反转(7-lv)"
+    }
+  },
+  "messenger_settlement": {
+    "entry_chain": "0x4b8f70 (使者归还处理) -> 0x4b91d0 (三态分派) -> 0x4b9228 -> 0x4b9250 (结算主分派)",
+    "general_fields": {
+      "+0x16 byte": "bit6-7 = 状态 (1=工作完了待报告, 2=, 3=); bit0-5 = 工作指令码",
+      "+0x17 byte": "目标国索引",
+      "+0x18 word": "值 / 数量"
+    },
+    "state_dispatch": "0x4b91d0: state==1 -> 0x4b9228 (报告结算); state==2 -> 0x4b920c; state==3 -> 0x4b9e60(work, player, general)",
+    "order_generator": "0x4c5699 (工作指令下发; 写 武将+0x16/+0x17/+0x18)",
+    "dispatch": "0x4b9289: idx = work - 2; if idx > 0x2c -> 默认; jmp [ byte[0x4b985c + idx] * 4 + 0x4b981c ] (16 项)",
+    "work_map": {
+      "2": "0x4b9298  msg 0x922 卖出军粮    merit = val*2 + 50",
+      "3": "0x4b92cc  msg 0x923 购入军粮    merit = val*2 + 50",
+      "4": "0x4b9307  msg 0x924 购入军马    merit = val*4 + 100",
+      "5": "0x4b933c  msg 0x925 购入洋枪",
+      "6": "0x4b9370  msg 0x926/0x927 开垦农田",
+      "7": "0x4b93e8  msg 0x928/0x929 筑城",
+      "8": "0x4b945a  -",
+      "9": "0x4b94ac  msg 0x92b ★友好外交「向%s家进贡的使者，平安完成使命」  merit = 600",
+      "10": "0x4b94f4  msg 0x92c ★高压外交「外交工作成功了，已使得%s家屈服了！」 merit = 1000",
+      "11": "0x4b953c  msg 0x92d/0x92e 朝廷工作  merit = 800 (无官位) / 1000 (得官位)",
+      "12": "0x4b956e  msg 0x92a 收集情报    merit = 城数*(lv+5) + 100",
+      "13": "0x4b960e  msg 0x92f-0x932 谋略 (拉拢武将)",
+      "18": "0x4b96a6  msg 0x935 训练",
+      "41,42": "0x4b9742  -",
+      "46": "0x4b9713  msg 0x936/0x937 武者修行",
+      "其余": "0x4b9776 默认"
+    },
+    "rating_formula": {
+      "site": "0x4b95a9..0x4b95f3 (work 12 收集情报; 同为工作成果判定式)",
+      "level": "lv = min( (general[0x10] & 3) + (general[0x0d] / 20) + 1, 7 )",
+      "merit": "merit = count_cities(target_prov) * (lv + 5) + 100",
+      "count_cities": "0x4d9e50(prov) —— 遍历 prov[0] 链表 (node = node[+4]) 计数, 即目标势力城数",
+      "divisor_note": "除数 20 由 magic 0x66666667 + sar 3 实测确认（不是 10）"
+    },
+    "common_tail": {
+      "va": "0x4b97a8",
+      "body": "if (extra) { 0x4b3040(gen); 0x495920(gen, 7, 0x33); 音效 0x1ff } ; if (0x4b9ae0(player, gen, merit) == 0) { msg 0x905 -> 玩家; msg 0x906 -> 武将; 0x4b9890(gen, merit) }",
+      "note": "ebx 传入的即【功勋 merit】; 0x4b9ae0 判升降职, 0x4b9890 加功勋"
+    }
+  },
+  "corrections_to_89": [
+    "🔴 0x525ea4 不是『使者对象』, 而是【目标国指针】: 0x4c4270 把国指针填入 [0x517848], 0x4c41e0 取回后存入; 0x4c5699 同时用 (a) mov ax,[edx+4] 取国主ID 换名 与 (b) (ptr-0x5179b8)/14 求国索引, 两种用法只在『国指针』下自洽",
+    "🔴 使者槽是 0x525ea0 (基准 0x51eb88, stride 31)",
+    "🔴 0x4c5699 不是『结算』而是【工作指令下发】, 生成 武将+0x16/+0x17/+0x18 三字段; 真正的结算在 0x4b9250",
+    "🔴 0x5080cc『8级国关系表无 xref』之谜已解: 实际名称表在 0x5080d0, stride 5 (非 8), 且是 12 项含主从 4 级; 索引用 lea [esi + esi*4 + base] (×5) 所以直查 0x5080cc 无命中"
+  ],
+  "still_unknown": [
+    "✅ [已破·续96] 外交关系【变好】写入点: 友好外交成功 0x4b5bcb (set_master_vassal=1 同盟 + set_diplomacy lv 改善), 高压外交成功/屈服 0x4b6095 (set_master_vassal=3 支配 + set_diplomacy lv 改善), 崛起事件 0x416a60 (维持/反转 7-lv)",
+    "✅ [已破·续96] 外交成败无随机失败分支: 高压 0x47b5f0 恒返回 1; 友好 0x47be00 按 [工作类型-0x82e] 跳表确定性判定 (无 RNG 调用). 续95 把 0x4b956e (收集情报工作 lv 判定, 给功勋) 误当成外交成败判定, 已纠偏",
+    "国 #24 (0x517b08) 的特殊语义（疑为京/朝廷中立国，需确认）",
+    "general[0x0d] 与 general[0x10] 的字段语义（判定式输入；+0x10 疑为能力档 &3, +0x0d /20）",
+    "0x4b9e60 (state==3 的工作) 与 0x4b920c (state==2) 的处理内容",
+    "✅ [已破·续104] AI 主动外交决策: 0x4a0d50→0x4a6ba0→0x4a70b0(49省派发)→0x4a84e0(外交决策)。先由 0x4a8840/0x49faf0 建国力表 0x5259e8(上限60000); Loop1 在 get_master_vassal==2 省中选国力最强者 → set_master_vassal(0)+set_diplomacy(min(rel+2,7))+MSGX 0xd1f; Loop2 对邻接省(mv==1)同法 +MSGX 0xd1e。确定性无 RNG。🔴 续96 设想的「AI 调 0x4b5bcb/0x4b6095」路径不存在(两者零直接调用方)。产物 ai_diplomacy_ref.py"
+  ]
+}

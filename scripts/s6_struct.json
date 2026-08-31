@@ -1,0 +1,112 @@
+{
+  "base": "0x516610",
+  "size": 46,
+  "fields": {
+    "+14": {
+      "width": "W",
+      "clamp": 60000,
+      "semantic": "玩家武将索引 (player general idx, 0..369) — getter 0x49f5d0 经 0x519868+idx*47 还原实体",
+      "xref": 6
+    },
+    "+16": {
+      "width": "W",
+      "clamp": null,
+      "semantic": "保留/未用：仅被存档序列化读取（0x47e770/0x47e8a0），静态镜像无任何 ecx=0x516610 写入路径。60000 钳制 setter 0x49b970 是共享方法库，本 build 只被 S5(0x5197b0) 与通用 stride-14 初始化器(0x4cf280)调用，不服务 S6（续138 纠错）",
+      "xref": 2
+    },
+    "+18": {
+      "width": "W",
+      "clamp": null,
+      "semantic": "保留/未用：同 +0x16（续138 纠错）。共享 setter 0x49b990 服务于 S5/G制struct",
+      "xref": 2
+    },
+    "+1a": {
+      "width": "W",
+      "clamp": null,
+      "semantic": "保留/未用：同 +0x16（续138 纠错）。共享 setter 0x49b9b0 服务于 S5/G制struct",
+      "xref": 2
+    },
+    "+1e": {
+      "width": "W",
+      "clamp": null,
+      "semantic": "所持金 (gold) — cmp 0xa(10) 不足则弹 MSGX 0x1866；cmp 0xc350(50000) 判富裕",
+      "xref": 48
+    },
+    "+20": {
+      "width": "W",
+      "clamp": null,
+      "semantic": "可读 word（getter 3 处），语义 TBD（计数/id）",
+      "xref": 4
+    },
+    "+22": {
+      "width": "W",
+      "clamp": null,
+      "semantic": "关联武将索引 #1 — getter 经 0x519868+idx*47，cmp 0x172",
+      "xref": 8
+    },
+    "+24": {
+      "width": "W",
+      "clamp": null,
+      "semantic": "关联武将索引 #2 — 与实体索引比较，哨兵 0x172/0xffff；+0x2a 与其 S5(0x5197b0) 槽号相关",
+      "xref": 8
+    },
+    "+26": {
+      "width": "W",
+      "clamp": 10,
+      "semantic": "4×4-bit 字段（各 0..10），method-table getter 钳 0xa",
+      "xref": 2
+    },
+    "+28": {
+      "width": "B",
+      "clamp": null,
+      "semantic": "瞬态状态位域字节（140 处引用，不持久化）；bit1/2/4 (0x2/0x4/0x10) 被 test",
+      "xref": 140
+    },
+    "+29": {
+      "width": "B",
+      "clamp": null,
+      "semantic": "状态字节（setter 经方法表，瞬态）",
+      "xref": 0
+    },
+    "+2a": {
+      "width": "B/W",
+      "clamp": null,
+      "semantic": "状态/槽位字节 — test 0x20；与 S5(0x5197b0) 槽号比对",
+      "xref": 4
+    },
+    "+2c": {
+      "width": "B/W",
+      "clamp": null,
+      "semantic": "状态字节 — test 8",
+      "xref": 5
+    },
+    "+0e": {
+      "width": "B",
+      "clamp": null,
+      "semantic": "byte 标志（5 处读）",
+      "xref": 5
+    },
+    "+0f": {
+      "width": "B",
+      "clamp": null,
+      "semantic": "byte 标志（2 处读）",
+      "xref": 2
+    },
+    "+12": {
+      "width": "B",
+      "clamp": null,
+      "semantic": "byte 标志 — cmp 0xff 哨兵",
+      "xref": 11
+    },
+    "+13": {
+      "width": "B",
+      "clamp": null,
+      "semantic": "byte 标志 — test 0x20",
+      "xref": 4
+    }
+  },
+  "assertions": {
+    "passed": 32,
+    "total": 32
+  }
+}

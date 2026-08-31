@@ -1,0 +1,8 @@
+﻿===== (A) definitive store-to-HP search =====
+  HP_A 0x00514995: 0 exact store patterns -> []
+  HP_B 0x00514835: 0 exact store patterns -> []
+
+===== (B) all absolute stores into 0x514800..0x5149ff =====
+  total absolute stores in block: 45
+  clusters (gap<=0x300): 10
+WROTE _hp6.txt ; clusters: 10

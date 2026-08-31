@@ -31,10 +31,28 @@
   },
   "fields": {
     "+0": "dword vptr (0x4fc0e0 after init)",
-    "+4": "word (qty delta / scratch; cleared in some trade paths)",
-    "+5": "byte level/quantity input to getValue",
-    "+6": "word owner_key: player_id@0x516624 OR (npc_pool_index|0x8000)",
-    "+8": "word flags: bit7=owned/active; bits0-2=category; bits3-6=sub"
+    "+4": "byte scratch / qty delta（init 不写；买卖路径作数量增量）",
+    "+5": "byte LEVEL（getValue 输入；本文件作者核对 0x49c070 各 cat 分支）",
+    "+6": "word OWNER_KEY: player_id@0x516624 OR (npc_pool_index|0x8000)",
+    "+8": "word FLAGS: bit7=owned/active; bits0-2=CAT(0..7); bits3-6=SUB(0..15)",
+    "_no_def_index": "THERE IS NO def-index / specific-name field in the main pool (all setters audited: 0x49bfc0=+8 word, 0x49bff0=+8 bit7, 0x49bfe0/0x49bfd0 write +0xb/+0xa = SECONDARY-pool 12B layout). 名物身份不在主池。"
+  },
+  "name_tables": {
+    "getTypeName": "0x507ea8 stride7 -> idx=CAT(0..7) -> 8 类目名 酒/书籍/道具/财宝/武器/南蛮物/美术品/茶具（vtable[1]=0x49c010 live 反汇编）",
+    "getShortName": "0x507ee0 stride5 -> idx=CAT(0..7) -> 8 类型短标（vtable[5]=0x49c1f0；非类目名，共享 item/skill vtable 的副用途：酒/药/信/道具/军…）",
+    "getSecondaryName": "0x507a50 stride13 -> idx=副池slot(0..19) -> 20 具名特殊物（惠琼的信/介绍信/南蛮酒/铭酒/浊酒/药/绍喜·惠琼的墨迹/特殊宝物0014…0019）（vtable[6]=0x49c200）"
+  },
+  "category_mapping_27_to_8": {
+    "note": "定义表 27 类(cat 0..26) 归并到主池 8 类(CAT 0..7)。数据驱动(189 件逐件核对，每 def-cat 唯一落入一 pool-cat)。二进制中无静态 27→8 查表（byte/word 均搜不到）→ 归并由 MSGX 脚本在创建物品时硬编码（续35：物品播种为脚本驱动，非 EXE 工厂）。",
+    "map": {"0":7,"1":7,"2":7,"3":7,"4":7,"5":7,"6":4,"7":4,"8":4,"9":4,"10":4,"11":1,"12":1,"13":1,"14":3,"15":3,"16":3,"17":3,"18":6,"19":6,"20":6,"22":5,"23":5,"24":5,"25":5,"26":2},
+    "coverage": {"0(酒)":[],"1(书籍)":[11,12,13],"2(道具)":[26],"3(财宝)":[14,15,16,17],"4(武器)":[6,7,8,9,10],"5(南蛮物)":[22,23,24,25],"6(美术品)":[18,19,20],"7(茶具)":[0,1,2,3,4,5]}
+  },
+  "architecture": {
+    "def_table": "189×19B SNDATA 主目录（名/类目/val/tier/flag/grp）是全部物品的总账。",
+    "main_pool": "0x51e1f0(200×10B, 扫描 0x51e1f8) 装「通用交易品」（金块/茶碗/刀…），身份=(CAT,LEVEL,SUB)，显示名=类目名，无 def-index。",
+    "secondary_pool": "0x517728(20×12B) 装 20 件「具名特殊物」（书信/特殊宝物0014-19），名=0x507a50[slot] 固定对应。",
+    "famous_items": "名物(村正/备前福耳…189 中绝大多数) 身份=定义表 idx(0..188)，存于角色/存档库存（另一结构，非本池）。⇒ 「def-idx↔池中实例」实例级绑定仅副池 20 件具名特殊物存在；主池通用品无 def-index。",
+    "doc_correction": "旧 §3.19.6 引「物品表↔物品池(0x517850/stride12)」中 0x517850 实为 **NPC/师父池**(stride12, 续21/27)，非物品池；物品副池是 0x517728。已更正。"
   },
   "categories": {
     "0": "酒",

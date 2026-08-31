@@ -1,0 +1,138 @@
+
+=== 0x0045dc50  (insns=349) ctx=True fire=True ===
+  assertion sites:
+    0x0045dc6a: cmp word ptr [eax], 2
+  base eax: field offsets read = [0, 4]
+
+=== 0x00461510  (insns=379) ctx=True fire=False ===
+  assertion sites:
+    0x00461515: mov ax, word ptr [eax]   ; load id
+    0x004617c3: mov ax, word ptr [esi]   ; load id
+    0x004617e5: mov esi, dword ptr [esi]   ; load id
+  base eax: field offsets read = [0, 4, 6]
+  base esi: field offsets read = [0, 4, 6]
+
+=== 0x00488993  (insns=451) ctx=True fire=False ===
+  assertion sites:
+    0x00488a31: cmp word ptr [eax], 2
+  base eax: field offsets read = [0, 8, 12, 24, 36]
+
+=== 0x00447520  (insns=366) ctx=True fire=False ===
+  assertion sites:
+    0x0044752d: cmp word ptr [eax], 3
+    0x00447582: mov ax, word ptr [ecx]   ; load id
+  base eax: field offsets read = [0, 7, 8]
+  base ecx: field offsets read = [0]
+
+=== 0x00450b90  (insns=355) ctx=True fire=False ===
+  assertion sites:
+    0x00450bad: cmp word ptr [eax], 3
+  base eax: field offsets read = [0, 7]
+
+=== 0x00485fc0  (insns=360) ctx=False fire=False ===
+  assertion sites:
+    0x00486011: cmp word ptr [esi], 6
+  base esi: field offsets read = [0, 6, 8, 12]
+
+=== 0x0045cc40  (insns=363) ctx=True fire=False ===
+  assertion sites:
+    0x0045cc46: mov si, word ptr [eax]   ; load id
+  base eax: field offsets read = [0, 6]
+
+=== 0x004b4f8f  (insns=366) ctx=False fire=False ===
+  assertion sites:
+    0x004b4f95: mov cx, word ptr [eax]   ; load id
+  base eax: field offsets read = [0, 12, 27]
+
+=== 0x0044a120  (insns=348) ctx=True fire=False ===
+  assertion sites:
+    0x0044a125: cmp word ptr [eax], 8
+    0x0044a409: mov eax, dword ptr [ecx]   ; load id
+  base eax: field offsets read = [0, 7, 8, 11, 12]
+  base ecx: field offsets read = [0]
+
+=== 0x004d34cb  (insns=337) ctx=True fire=False ===
+  assertion sites:
+    0x004d34d4: cmp word ptr [edi], 0xb
+  base edi: field offsets read = [0, 2, 4, 6, 8, 10, 12]
+
+=== 0x00041cf0  (insns=0) ctx=False fire=False ===
+  assertion sites:
+
+=== 0x004a7160  (insns=401) ctx=True fire=False ===
+  assertion sites:
+    0x004a7165: mov cx, word ptr [eax]   ; load id
+    0x004a72a3: mov ax, word ptr [ebp]   ; load id
+  base eax: field offsets read = [0, 2, 12, 18, 19, 37]
+  base ebp: field offsets read = [0, 12]
+
+=== 0x004d8110  (insns=355) ctx=True fire=False ===
+  assertion sites:
+    0x004d81df: mov ax, word ptr [esi]   ; load id
+    0x004d83fb: mov ax, word ptr [ecx]   ; load id
+  base ecx: field offsets read = [0]
+  base esi: field offsets read = [0, 12, 44]
+
+=== 0x004dc750  (insns=362) ctx=False fire=False ===
+  assertion sites:
+    0x004dc75b: mov ax, word ptr [edi]   ; load id
+  base edi: field offsets read = [0, 12, 38]
+
+=== 0x00475ff0  (insns=339) ctx=False fire=False ===
+  assertion sites:
+    0x00476068: mov eax, dword ptr [esp]   ; load id
+    0x00476086: cmp byte ptr [esp], 0x31
+    0x0047608d: mov eax, dword ptr [esp]   ; load id
+    0x004763ae: movzx dx, byte ptr [eax]   ; load id
+    0x004763b8: movzx dx, byte ptr [eax]   ; load id
+  base eax: field offsets read = [0, 1, 12]
+  base esp: field offsets read = [0, 12, 20, 24]
+
+=== 0x004a2e70  (insns=462) ctx=False fire=False ===
+  assertion sites:
+    0x004a2ef5: cmp word ptr [esp], 0x3f
+    0x004a2f55: mov edx, dword ptr [esp]   ; load id
+    0x004a2f8a: movzx cx, byte ptr [esi]   ; load id
+    0x004a3040: mov dl, byte ptr [ecx]   ; load id
+    0x004a3060: mov dl, byte ptr [ecx]   ; load id
+    0x004a3080: mov dl, byte ptr [ecx]   ; load id
+    0x004a30a0: mov dl, byte ptr [ecx]   ; load id
+  base ecx: field offsets read = [0, 1, 2]
+  base esi: field offsets read = [0, 1, 2, 3, 4, 32, 33, 35, 38, 41]
+  base esp: field offsets read = [0, 4, 8, 12, 16, 24]
+
+=== 0x004d5700  (insns=360) ctx=True fire=False ===
+  assertion sites:
+    0x004d571a: cmp word ptr [ecx], 0xd
+    0x004d5a2f: mov cx, word ptr [eax]   ; load id
+  base eax: field offsets read = [0, 12, 28]
+  base ecx: field offsets read = [0, 8]
+
+=== 0x004146c0  (insns=321) ctx=True fire=False ===
+  assertion sites:
+    0x0041475e: mov ax, word ptr [ebp]   ; load id
+  base ebp: field offsets read = [0, 12]
+
+=== 0x0041adb0  (insns=405) ctx=True fire=True ===
+  assertion sites:
+    0x0041adb5: mov ax, word ptr [eax]   ; load id
+    0x0041ae0e: movzx di, byte ptr [ecx]   ; load id
+  base eax: field offsets read = [0, 8, 4304872]
+  base ecx: field offsets read = [0]
+
+=== 0x004c34cf  (insns=355) ctx=True fire=False ===
+  assertion sites:
+    0x004c34f6: mov cx, word ptr [eax]   ; load id
+    0x004c362c: mov di, word ptr [esi]   ; load id
+    0x004c363e: mov cl, byte ptr [esi]   ; load id
+    0x004c379e: mov esi, dword ptr [esi]   ; load id
+  base eax: field offsets read = [0, 1, 8, 44]
+  base esi: field offsets read = [-8, 0, 4, 8, 16, 27]
+
+=== 0x0041d980  (insns=387) ctx=True fire=True ===
+  assertion sites:
+    0x0041d9c6: cmp word ptr [esi], 0xe
+    0x0041da86: mov ax, word ptr [ecx]   ; load id
+    0x0041dca7: mov ax, word ptr [esi]   ; load id
+  base ecx: field offsets read = [0]
+  base esi: field offsets read = [-10, -2, 0, 6, 8, 12, 16, 20]

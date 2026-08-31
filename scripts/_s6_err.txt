@@ -1,0 +1,9 @@
+函数起点 5121
+函数体 5119 条
+Traceback (most recent call last):
+  File "F:\Games\Taikou 2\scripts\_s6_ctx_scan.py", line 163, in <module>
+    funcs = build_funcs()
+  File "F:\Games\Taikou 2\scripts\_s6_ctx_scan.py", line 60, in build_funcs
+    pickle.dump(funcs, open(cache, 'wb'))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: ctypes objects containing pointers cannot be pickled

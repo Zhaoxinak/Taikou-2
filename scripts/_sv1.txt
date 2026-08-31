@@ -1,0 +1,168 @@
+
+===== func 0x47e260  (until 0x47e3f0, 400 bytes) =====
+0x47e260  51                   push     ecx
+0x47e261  53                   push     ebx
+0x47e262  55                   push     ebp
+0x47e263  56                   push     esi
+0x47e264  bbc8000000           mov      ebx, 0xc8
+0x47e269  57                   push     edi
+0x47e26a  8bf9                 mov      edi, ecx
+0x47e26c  be8ceb5100           mov      esi, 0x51eb8c
+0x47e271  8beb                 mov      ebp, ebx
+0x47e273  8b46fc               mov      eax, dword ptr [esi - 4]
+0x47e276  85c0                 test     eax, eax
+0x47e278  7507                 jne      0x47e281
+0x47e27a  ba72010000           mov      edx, 0x172
+0x47e27f  eb1a                 jmp      0x47e29b
+0x47e281  2d68985100           sub      eax, 0x519868   ; ENTITY_TAB
+0x47e286  8bc8                 mov      ecx, eax
+0x47e288  b85d414cae           mov      eax, 0xae4c415d
+0x47e28d  f7e9                 imul     ecx
+0x47e28f  03d1                 add      edx, ecx
+0x47e291  c1fa05               sar      edx, 5
+0x47e294  8bc2                 mov      eax, edx
+0x47e296  c1e81f               shr      eax, 0x1f
+0x47e299  03d0                 add      edx, eax
+0x47e29b  52                   push     edx
+0x47e29c  8bcf                 mov      ecx, edi
+0x47e29e  e81df8ffff           call     0x47dac0
+0x47e2a3  8b06                 mov      eax, dword ptr [esi]
+0x47e2a5  85c0                 test     eax, eax
+0x47e2a7  7506                 jne      0x47e2af
+0x47e2a9  885c2410             mov      byte ptr [esp + 0x10], bl
+0x47e2ad  eb1e                 jmp      0x47e2cd
+0x47e2af  2d88eb5100           sub      eax, 0x51eb88
+0x47e2b4  8bc8                 mov      ecx, eax
+0x47e2b6  b843082184           mov      eax, 0x84210843
+0x47e2bb  f7e9                 imul     ecx
+0x47e2bd  03d1                 add      edx, ecx
+0x47e2bf  c1fa04               sar      edx, 4
+0x47e2c2  8bca                 mov      ecx, edx
+0x47e2c4  c1e91f               shr      ecx, 0x1f
+0x47e2c7  03d1                 add      edx, ecx
+0x47e2c9  88542410             mov      byte ptr [esp + 0x10], dl
+0x47e2cd  8b542410             mov      edx, dword ptr [esp + 0x10]
+0x47e2d1  8bcf                 mov      ecx, edi
+0x47e2d3  52                   push     edx
+0x47e2d4  e8a7f7ffff           call     0x47da80
+0x47e2d9  8a4604               mov      al, byte ptr [esi + 4]
+0x47e2dc  8bcf                 mov      ecx, edi
+0x47e2de  50                   push     eax
+0x47e2df  e89cf7ffff           call     0x47da80
+0x47e2e4  8a4e05               mov      cl, byte ptr [esi + 5]
+0x47e2e7  51                   push     ecx
+0x47e2e8  8bcf                 mov      ecx, edi
+0x47e2ea  e891f7ffff           call     0x47da80
+0x47e2ef  668b5606             mov      dx, word ptr [esi + 6]
+0x47e2f3  8bcf                 mov      ecx, edi
+0x47e2f5  52                   push     edx
+0x47e2f6  e8c5f7ffff           call     0x47dac0
+0x47e2fb  8a4608               mov      al, byte ptr [esi + 8]
+0x47e2fe  8bcf                 mov      ecx, edi
+0x47e300  50                   push     eax
+0x47e301  e87af7ffff           call     0x47da80
+0x47e306  8a4e09               mov      cl, byte ptr [esi + 9]
+0x47e309  51                   push     ecx
+0x47e30a  8bcf                 mov      ecx, edi
+0x47e30c  e86ff7ffff           call     0x47da80
+0x47e311  8a560a               mov      dl, byte ptr [esi + 0xa]
+0x47e314  8bcf                 mov      ecx, edi
+0x47e316  52                   push     edx
+0x47e317  e864f7ffff           call     0x47da80
+0x47e31c  8a460b               mov      al, byte ptr [esi + 0xb]
+0x47e31f  8bcf                 mov      ecx, edi
+0x47e321  50                   push     eax
+0x47e322  e859f7ffff           call     0x47da80
+0x47e327  668b4e0c             mov      cx, word ptr [esi + 0xc]
+0x47e32b  51                   push     ecx
+0x47e32c  8bcf                 mov      ecx, edi
+0x47e32e  e88df7ffff           call     0x47dac0
+0x47e333  668b560e             mov      dx, word ptr [esi + 0xe]
+0x47e337  8bcf                 mov      ecx, edi
+0x47e339  52                   push     edx
+0x47e33a  e881f7ffff           call     0x47dac0
+0x47e33f  668b4610             mov      ax, word ptr [esi + 0x10]
+0x47e343  8bcf                 mov      ecx, edi
+0x47e345  50                   push     eax
+0x47e346  e875f7ffff           call     0x47dac0
+0x47e34b  668b4e12             mov      cx, word ptr [esi + 0x12]
+0x47e34f  51                   push     ecx
+0x47e350  8bcf                 mov      ecx, edi
+0x47e352  e869f7ffff           call     0x47dac0
+0x47e357  668b5614             mov      dx, word ptr [esi + 0x14]
+0x47e35b  8bcf                 mov      ecx, edi
+0x47e35d  52                   push     edx
+0x47e35e  e85df7ffff           call     0x47dac0
+0x47e363  8a4616               mov      al, byte ptr [esi + 0x16]
+0x47e366  8bcf                 mov      ecx, edi
+0x47e368  50                   push     eax
+0x47e369  e812f7ffff           call     0x47da80
+0x47e36e  668b4e17             mov      cx, word ptr [esi + 0x17]
+0x47e372  51                   push     ecx
+0x47e373  8bcf                 mov      ecx, edi
+0x47e375  e846f7ffff           call     0x47dac0
+0x47e37a  668b5619             mov      dx, word ptr [esi + 0x19]
+0x47e37e  8bcf                 mov      ecx, edi
+0x47e380  52                   push     edx
+0x47e381  e83af7ffff           call     0x47dac0
+0x47e386  83c61f               add      esi, 0x1f
+0x47e389  4d                   dec      ebp
+0x47e38a  0f85e3feffff         jne      0x47e273
+0x47e390  5f                   pop      edi
+0x47e391  5e                   pop      esi
+0x47e392  5d                   pop      ebp
+0x47e393  5b                   pop      ebx
+0x47e394  59                   pop      ecx
+0x47e395  c3                   ret      
+0x47e396  90                   nop      
+0x47e397  90                   nop      
+0x47e398  90                   nop      
+0x47e399  90                   nop      
+0x47e39a  90                   nop      
+0x47e39b  90                   nop      
+0x47e39c  90                   nop      
+0x47e39d  90                   nop      
+0x47e39e  90                   nop      
+0x47e39f  90                   nop      
+0x47e3a0  53                   push     ebx
+0x47e3a1  56                   push     esi
+0x47e3a2  57                   push     edi
+0x47e3a3  8bf9                 mov      edi, ecx
+0x47e3a5  be49955100           mov      esi, 0x519549
+0x47e3aa  bb31000000           mov      ebx, 0x31
+0x47e3af  8d46ff               lea      eax, [esi - 1]
+0x47e3b2  8bcf                 mov      ecx, edi
+0x47e3b4  50                   push     eax
+0x47e3b5  e856f5ffff           call     0x47d910
+0x47e3ba  56                   push     esi
+0x47e3bb  8bcf                 mov      ecx, edi
+0x47e3bd  e84ef5ffff           call     0x47d910
+0x47e3c2  8d4e01               lea      ecx, [esi + 1]
+0x47e3c5  51                   push     ecx
+0x47e3c6  8bcf                 mov      ecx, edi
+0x47e3c8  e843f5ffff           call     0x47d910
+0x47e3cd  8d5602               lea      edx, [esi + 2]
+0x47e3d0  8bcf                 mov      ecx, edi
+0x47e3d2  52                   push     edx
+0x47e3d3  e858f5ffff           call     0x47d930
+0x47e3d8  83c605               add      esi, 5
+0x47e3db  4b                   dec      ebx
+0x47e3dc  75d1                 jne      0x47e3af
+0x47e3de  5f                   pop      edi
+0x47e3df  5e                   pop      esi
+0x47e3e0  5b                   pop      ebx
+0x47e3e1  c3                   ret      
+0x47e3e2  90                   nop      
+0x47e3e3  90                   nop      
+0x47e3e4  90                   nop      
+0x47e3e5  90                   nop      
+0x47e3e6  90                   nop      
+0x47e3e7  90                   nop      
+0x47e3e8  90                   nop      
+0x47e3e9  90                   nop      
+0x47e3ea  90                   nop      
+0x47e3eb  90                   nop      
+0x47e3ec  90                   nop      
+0x47e3ed  90                   nop      
+0x47e3ee  90                   nop      
+0x47e3ef  90                   nop      
