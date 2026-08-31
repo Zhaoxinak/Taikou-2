@@ -1,3 +1,5 @@
+import os
+_HERE = os.path.dirname(os.path.abspath(__file__))
 """
 province_names_ref.py — 49 国国名表 + 国政治表 `0x5179b8` 的数据层解析
 
@@ -169,7 +171,7 @@ def self_check():
         chk('武将编号均可解析为名', all(gn.get(g, '') for g in known), f"n={len(known)}")
         json.dump({'province_names': names,
                    'records_sc1': r1, 'records_sc2': r2},
-                  open('scripts/province_politics.json', 'w', encoding='utf-8'),
+                  open(os.path.join(_HERE, r'province_politics.json'), 'w', encoding='utf-8'),
                   ensure_ascii=False, indent=1)
         print("  -> 已写 scripts/province_politics.json")
 

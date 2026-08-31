@@ -1,3 +1,5 @@
+import os
+_HERE = os.path.dirname(os.path.abspath(__file__))
 # -*- coding: utf-8 -*-
 """
 太阁立志传2 — 大名/城主「任命·继承」路径 参考实现（可执行规格）
@@ -17,7 +19,7 @@
 import struct
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(os.path.join(_HERE, r'_unpacked_mem.bin'), 'rb').read()
 
 
 def rd(va, n):

@@ -1,3 +1,5 @@
+import os
+_HERE = os.path.dirname(os.path.abspath(__file__))
 # -*- coding: utf-8 -*-
 # entity_status2c_ref.py — 武将实体表(0x519868, stride 47) 尾部状态字 +0x2c 的【低字节】位域细分 (续125 / item③)
 #
@@ -30,7 +32,7 @@ from capstone import *
 from capstone.x86 import *
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(os.path.join(_HERE, r'_unpacked_mem.bin'), 'rb').read()
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
 def off(va): return va - BASE
 

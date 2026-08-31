@@ -1,3 +1,5 @@
+import os
+_HERE = os.path.dirname(os.path.abspath(__file__))
 # -*- coding: utf-8 -*-
 """entity_status2e_ref.py — 武将实体表 (+0x2e) 状态字节 bit 解码参考实现 + 自测。
 实体表基址 0x519868, stride 47, 370 条; +0x2e 为每条记录最后一字节(1-byte 状态字)。
@@ -19,7 +21,7 @@ from capstone import *
 from capstone.x86 import *
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(os.path.join(_HERE, r'_unpacked_mem.bin'), 'rb').read()
 CODE_LO, CODE_HI = 0x400000, 0x600000
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
 def off(va): return va - BASE
@@ -105,7 +107,7 @@ def entity_static_test_immediates():
             for o in ins.operands:
                 v = None
                 if o.type == CS_OP_IMM: v = o.imm & 0xffffffff
-                elif o.type == CS_OP_MEM and o.mem.disp: v = o.mem.disp & 0xffffffff
+                elif o.type == X86_OP_MEM and o.mem.disp: v = o.mem.disp & 0xffffffff
                 if v == ENTITY_BASE:
                     sites.add(fn); break
     tests = set()
@@ -116,7 +118,7 @@ def entity_static_test_immediates():
             if ins.mnemonic == 'test':
                 # 形如 test byte ptr [reg+0x2e], imm  (动态掩码为 reg, 不计入立即数集合)
                 ops = ins.operands
-                if len(ops) == 2 and ops[0].type == CS_OP_MEM and ops[0].mem.base \
+                if len(ops) == 2 and ops[0].type == X86_OP_MEM and ops[0].mem.base \
                         and ops[0].mem.index == 0 and (ops[0].mem.disp & 0xff) == STATUS2E_OFF \
                         and ops[1].type == CS_OP_IMM:
                     tests.add(ops[1].imm & 0xff)

@@ -8,7 +8,7 @@ from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UcError
 import unicorn.x86_const as X
 
 IMG = open('scripts/_unpacked_mem.bin','rb').read()
-DISK = open('F:/Games/Taikou 2/Taikou2 Original/SNDATA1.TR2','rb').read()
+DISK = open('Taikou2 Original/SNDATA1.TR2','rb').read()
 assert len(DISK) == 40856, len(DISK)
 
 BASE = 0x400000
@@ -50,6 +50,7 @@ trace = []
 read_1byte = 0
 obj_count = 0
 obj_start = None
+bulk = []   # (section, fpos_at_call, cnt) for bulk readers 0x4411b0/0x441190
 
 def do_return(cleanup, value=None):
     esp = uc.reg_read(X.UC_X86_REG_ESP)
@@ -60,7 +61,7 @@ def do_return(cleanup, value=None):
     uc.reg_write(X.UC_X86_REG_EIP, ret)
 
 def hook_code(uc, address, size, ud):
-    global fpos, cur_section, malloc_ptr, read_1byte
+    global fpos, cur_section, malloc_ptr, read_1byte, obj_count, obj_start
     if address in SUB_LABEL:
         cur_section = SUB_LABEL[address]; return
     if address in SPEC:
@@ -89,6 +90,7 @@ def hook_code(uc, address, size, ud):
             buf = struct.unpack('<I', uc.mem_read(esp+4,4))[0]
             cnt = struct.unpack('<I', uc.mem_read(esp+8,4))[0]
             if fpos+cnt <= len(DISK): uc.mem_write(buf, DISK[fpos:fpos+cnt])
+            bulk.append((cur_section, fpos, cnt))
             fpos += cnt
             do_return(clean, cnt); return
         if kind == 'rd2':
@@ -96,10 +98,10 @@ def hook_code(uc, address, size, ud):
             buf = struct.unpack('<I', uc.mem_read(esp+4,4))[0]
             cnt = struct.unpack('<I', uc.mem_read(esp+8,4))[0]
             if fpos+cnt <= len(DISK): uc.mem_write(buf, DISK[fpos:fpos+cnt])
+            bulk.append((cur_section, fpos, cnt))
             fpos += cnt
             do_return(clean, cnt); return
-    if address == 0x47da10:   # object 1-byte reader -> trace (sequential file stream)
-        global obj_count, obj_start
+    if address == 0x47da10:   # object 1-byte reader -> trace (separate contiguous stream cursor)
         if obj_start is None: obj_start = fpos
         off = obj_start + obj_count
         b = DISK[off] if off < len(DISK) else 0
@@ -128,7 +130,7 @@ for sec,(s,e,n) in secs.items():
 # save trace + section map
 import json
 with open('scripts/_sndata_trace.json','w') as f:
-    json.dump({'obj_start':obj_start,'total':read_1byte,
+    json.dump({'obj_start':obj_start,'total_1byte':read_1byte,'fpos_end':fpos,
                'sections':{k:{'start':v[0],'end':v[1],'reads':v[2]} for k,v in secs.items()},
-               'trace':trace}, f)
+               'bulk':bulk, 'trace':trace}, f)
 print('saved scripts/_sndata_trace.json')

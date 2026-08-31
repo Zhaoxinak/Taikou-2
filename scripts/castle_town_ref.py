@@ -1,3 +1,5 @@
+import os
+_HERE = os.path.dirname(os.path.abspath(__file__))
 """
 castle_town_ref.py — 城/町表数据层：SNDATA XOR 流 21852（200 × 26B → `0x51eb88` stride 31）
 
@@ -174,7 +176,7 @@ def self_check():
         chk(f'{cname} 所属国 == {prov}', got is not None and got['province'] == prov,
             f"got={got['province'] if got else '?'}")
 
-    json.dump(rows, open('scripts/castle_town.json', 'w', encoding='utf-8'),
+    json.dump(rows, open(os.path.join(_HERE, r'castle_town.json'), 'w', encoding='utf-8'),
               ensure_ascii=False, indent=1)
     print("  -> 已写 scripts/castle_town.json")
     print(f"\n自校验结果: {ok} OK, {fail} FAIL")

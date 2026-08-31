@@ -1,3 +1,5 @@
+import os
+_HERE = os.path.dirname(os.path.abspath(__file__))
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # -*- coding: utf-8 -*-
@@ -198,7 +200,7 @@ def main():
         'architecture': '主池(0x51e1f0)装通用交易品(名=类目,无def-index);副池(0x517728,20槽)装具名特殊物;'
                         '名物(村正等)身份=定义表idx,存于角色/存档库存(非本池)。',
     }
-    with open('scripts/item_pool_binding.json', 'w', encoding='utf-8') as f:
+    with open(os.path.join(_HERE, r'item_pool_binding.json'), 'w', encoding='utf-8') as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
     print("\nwritten: scripts/item_pool_binding.json")
     raise SystemExit(1 if fail else 0)

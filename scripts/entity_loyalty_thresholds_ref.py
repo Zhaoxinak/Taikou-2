@@ -1,3 +1,5 @@
+import os
+_HERE = os.path.dirname(os.path.abspath(__file__))
 """
 entity_loyalty_thresholds_ref.py  —  +0x29 忠诚 分档阈值全解码（续126）
 
@@ -38,7 +40,7 @@ from capstone import *
 from capstone.x86 import *
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(os.path.join(_HERE, r'_unpacked_mem.bin'), 'rb').read()
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = True
 
@@ -71,7 +73,9 @@ def _run_tests():
                 break
             if ins.mnemonic in ('mov', 'movzx') and len(ins.operands) == 2:
                 s = ins.operands[1]
-                if s.type == CS_OP_MEM and (s.mem.disp & 0xff) == 0x29:
+                # 版本无关判定：内存操作数恒有 .mem 属性（capstone 通用 CS_OP_MEM=128
+                # 与 x86 架构特定 X86_OP_MEM=3 不一致，勿用常量硬比）
+                if getattr(s, "mem", None) is not None and (s.mem.disp & 0xff) == 0x29:
                     return True
         return False
 

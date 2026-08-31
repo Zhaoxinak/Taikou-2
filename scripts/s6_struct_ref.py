@@ -1,3 +1,5 @@
+import os
+_HERE = os.path.dirname(os.path.abspath(__file__))
 """S6 (0x516610, 46B) 玩家/事件上下文 结构参考实现（二进制可验证）。
 
 验证手段：
@@ -11,10 +13,10 @@ import struct, pickle, json, sys
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 from capstone.x86 import X86_OP_MEM, X86_REG_ECX
 
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(os.path.join(_HERE, r'_unpacked_mem.bin'), 'rb').read()
 BASE = 0x400000
 S6 = 0x516610
-d = pickle.load(open('scripts/_insn_addrs.pkl', 'rb'))[0]
+d = pickle.load(open(os.path.join(_HERE, r'_insn_addrs.pkl'), 'rb'))[0]
 # pickle 键是【文件偏移】，值=[size,text]；disasm_at 的 va 参数是 VA（与键区分）
 SIZE = {off: s[0] for off, s in d.items()}
 TEXT = {off: s[1] for off, s in d.items()}
@@ -92,7 +94,7 @@ for off, setter in [(0x16,0x49b970),(0x18,0x49b990),(0x1a,0x49b9b0)]:
 
 # C8 (续138/139): S6 的 +0x16/18/1a 无【直接】mov ecx,0x516610 → setter 路径
 def global_s6_setter_writes():
-    starts = pickle.load(open('scripts/_insn_addrs.pkl', 'rb'))[1]
+    starts = pickle.load(open(os.path.join(_HERE, r'_insn_addrs.pkl'), 'rb'))[1]
     TARGETS = {'0x49b970', '0x49b990', '0x49b9b0'}
     hits = []
     for fn in sorted(starts):
@@ -156,6 +158,6 @@ out = {
                for o, (w, c, s) in FIELDS.items()},
     'assertions': {'passed': passed, 'total': total},
 }
-json.dump(out, open('scripts/s6_struct.json', 'w'), ensure_ascii=False, indent=2)
+json.dump(out, open(os.path.join(_HERE, r's6_struct.json'), 'w'), ensure_ascii=False, indent=2)
 print("written scripts/s6_struct.json")
 sys.exit(0 if passed == total else 1)

@@ -1,3 +1,5 @@
+import os
+_HERE = os.path.dirname(os.path.abspath(__file__))
 # -*- coding: utf-8 -*-
 """
 太閤立志伝2 —— 地形系数系统 参考实现 (#36 / #38 CLOSED)
@@ -18,7 +20,7 @@ import struct, sys, io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(os.path.join(_HERE, r'_unpacked_mem.bin'), 'rb').read()
 
 
 def tb(va, n):
