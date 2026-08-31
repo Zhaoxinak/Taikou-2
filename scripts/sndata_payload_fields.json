@@ -1,0 +1,34 @@
+{
+ "correction_to_续183": {
+  "15": {
+   "n": 34,
+   "fill_ratio": 0.117,
+   "real_pos_count": 43,
+   "is_clean_wordarray": false
+  },
+  "38": {
+   "n": 1,
+   "fill_ratio": 0.279,
+   "real_pos_count": 31,
+   "is_clean_wordarray": false
+  },
+  "75": {
+   "n": 1,
+   "fill_ratio": 0.0,
+   "real_pos_count": 43,
+   "is_clean_wordarray": true
+  },
+  "166": {
+   "n": 1,
+   "fill_ratio": 0.349,
+   "real_pos_count": 28,
+   "is_clean_wordarray": false
+  },
+  "214": {
+   "n": 1,
+   "fill_ratio": 0.488,
+   "real_pos_count": 22,
+   "is_clean_wordarray": false
+  }
+ }
+}

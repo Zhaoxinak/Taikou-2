@@ -1,0 +1,1546 @@
+{
+ "source": "SNDATA1.TR2",
+ "total_records": 833,
+ "type_count": 171,
+ "types": {
+  "0": {
+   "count": 12,
+   "idw0": 0,
+   "subw0": 0,
+   "flag0": 0,
+   "kind": "状态开关",
+   "fill_ratio": 0.0,
+   "sample_payload": "0000000000000000000000000000000000000101"
+  },
+  "1": {
+   "count": 13,
+   "idw0": 257,
+   "subw0": 0,
+   "flag0": 256,
+   "kind": "状态开关",
+   "fill_ratio": 0.0,
+   "sample_payload": "0000010101010101010101010100010101000101"
+  },
+  "2": {
+   "count": 2,
+   "idw0": 19458,
+   "subw0": 41919,
+   "flag0": 55998,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "0c0c0cb2bccead0c0c0cb90c650db60ce0044833"
+  },
+  "3": {
+   "count": 4,
+   "idw0": 62211,
+   "subw0": 3188,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "0c0c0c0c2d4cf3f33e4d4d3e3e1574f3f3f668f3"
+  },
+  "4": {
+   "count": 3,
+   "idw0": 32772,
+   "subw0": 12416,
+   "flag0": 3036,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "b00e6c050d0c300c8e0009f3f3f3f3060e0b260c"
+  },
+  "5": {
+   "count": 1,
+   "idw0": 2309,
+   "subw0": 6156,
+   "flag0": 32780,
+   "kind": "二进制",
+   "fill_ratio": 0.26,
+   "sample_payload": "0608f3f3f3f39b2f0b0c0d06247f56d009c40c2c"
+  },
+  "6": {
+   "count": 7,
+   "idw0": 21766,
+   "subw0": 62451,
+   "flag0": 3619,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "4cdfe2dbf8cfcc0cbaa4cef60c0c0c600ce20c76"
+  },
+  "7": {
+   "count": 3,
+   "idw0": 23559,
+   "subw0": 9308,
+   "flag0": 1598,
+   "kind": "二进制",
+   "fill_ratio": 0.28,
+   "sample_payload": "243c79c44af3f3230a5cdcadc5b1c0e30cdcc9cf"
+  },
+  "8": {
+   "count": 12,
+   "idw0": 3080,
+   "subw0": 12275,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "0c0c0c0c0c2bacf3f3054040183e0a2ff80d065b"
+  },
+  "9": {
+   "count": 9,
+   "idw0": 19465,
+   "subw0": 47832,
+   "flag0": 54720,
+   "kind": "二进制",
+   "fill_ratio": 0.47,
+   "sample_payload": "0c0c0cb7f5dcc90c0c0c2e0c550c2b0cb2494730"
+  },
+  "10": {
+   "count": 7,
+   "idw0": 62218,
+   "subw0": 3119,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "0c0c0c0c3cac930c0550503e3e0a2f3c79c468f3"
+  },
+  "11": {
+   "count": 5,
+   "idw0": 24331,
+   "subw0": 15967,
+   "flag0": 1342,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "16f3f3f668f3f3230b5cd9f1c8b20c0c0cc6bdda"
+  },
+  "12": {
+   "count": 249,
+   "idw0": 50188,
+   "subw0": 13117,
+   "flag0": 52494,
+   "kind": "二进制",
+   "fill_ratio": 0.56,
+   "sample_payload": "da0c0c0c0c0cc1a4c6a80c0c0c0c0c0c0cf3f3f8"
+  },
+  "13": {
+   "count": 11,
+   "idw0": 3853,
+   "subw0": 13972,
+   "flag0": 20584,
+   "kind": "二进制",
+   "fill_ratio": 0.44,
+   "sample_payload": "f3f323094cdcadcdb6b8a40ccbdbdbd60c0c0c12"
+  },
+  "14": {
+   "count": 5,
+   "idw0": 1550,
+   "subw0": 62316,
+   "flag0": 9203,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "0e5ccbbcc0e30c0c0cccf7b0de0c0c0c030c1f0c"
+  },
+  "15": {
+   "count": 34,
+   "idw0": 3087,
+   "subw0": 3087,
+   "flag0": 3080,
+   "kind": "word数组",
+   "fill_ratio": 0.33,
+   "sample_payload": "fc4a48323a3c4b0c0c05f34e0c0c0c0c0c0c0c2e"
+  },
+  "16": {
+   "count": 2,
+   "idw0": 13584,
+   "subw0": 19005,
+   "flag0": 13619,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "1c0c0cf3390c0c0c0c0c0c0c128cf3f3015e5e12"
+  },
+  "17": {
+   "count": 1,
+   "idw0": 3601,
+   "subw0": 3084,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.44,
+   "sample_payload": "0ce60fb20e0c160d0c0c0c0c0ce70fb30e0c100d"
+  },
+  "18": {
+   "count": 6,
+   "idw0": 15890,
+   "subw0": 3853,
+   "flag0": 3576,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "065bf3f3230e4cdcadcdb6b8a40cc6aedbd60c0c"
+  },
+  "19": {
+   "count": 1,
+   "idw0": 3347,
+   "subw0": 3201,
+   "flag0": 21342,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "3a102a21300d0c07f33a0c0c0c0c0c0c0c3cacf3"
+  },
+  "20": {
+   "count": 3,
+   "idw0": 3092,
+   "subw0": 19696,
+   "flag0": 19784,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "25284f08080cf30f0c0c0c0c0c0c0c248cf3f30c"
+  },
+  "21": {
+   "count": 2,
+   "idw0": 29717,
+   "subw0": 8068,
+   "flag0": 22846,
+   "kind": "二进制",
+   "fill_ratio": 0.49,
+   "sample_payload": "f3f323084cb6afbeb30c0c0cdfddb5ee0c0c0cee"
+  },
+  "22": {
+   "count": 3,
+   "idw0": 35862,
+   "subw0": 62451,
+   "flag0": 18188,
+   "kind": "二进制",
+   "fill_ratio": 0.26,
+   "sample_payload": "47183e0d0f841f3e5af3f323085cdecdb8e30c0c"
+  },
+  "24": {
+   "count": 6,
+   "idw0": 15896,
+   "subw0": 9222,
+   "flag0": 11036,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "6859f3f323094cc2e8c0e30c0c0cdcc9dcf20c0c"
+  },
+  "26": {
+   "count": 2,
+   "idw0": 3866,
+   "subw0": 62451,
+   "flag0": 3596,
+   "kind": "二进制",
+   "fill_ratio": 0.33,
+   "sample_payload": "63c30c6c611a0ff3f3060f7dd20c7409140ff3f3"
+  },
+  "28": {
+   "count": 4,
+   "idw0": 11036,
+   "subw0": 18280,
+   "flag0": 62451,
+   "kind": "二进制",
+   "fill_ratio": 0.47,
+   "sample_payload": "23094ccbe9c7a20c0c0cb3b9dfae0c0c0c490ca5"
+  },
+  "29": {
+   "count": 4,
+   "idw0": 26653,
+   "subw0": 4712,
+   "flag0": 62270,
+   "kind": "二进制",
+   "fill_ratio": 0.47,
+   "sample_payload": "1c0c0c0c0cf3f3a30c5cc5f6b2d80c0c0ccbdbd9"
+  },
+  "30": {
+   "count": 1,
+   "idw0": 35870,
+   "subw0": 62451,
+   "flag0": 27702,
+   "kind": "二进制",
+   "fill_ratio": 0.19,
+   "sample_payload": "6c183e29ba1c2b685bf3f323094cb8ffdfdd0c0c"
+  },
+  "31": {
+   "count": 3,
+   "idw0": 15903,
+   "subw0": 62292,
+   "flag0": 9203,
+   "kind": "二进制",
+   "fill_ratio": 0.47,
+   "sample_payload": "084cbfc5c0e30c0c0cbfa8c0a50c0c0c4c0caf0c"
+  },
+  "32": {
+   "count": 1,
+   "idw0": 3360,
+   "subw0": 3884,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.28,
+   "sample_payload": "300cb80d09f3f3800c3b0100800c18684a5c841f"
+  },
+  "34": {
+   "count": 2,
+   "idw0": 2082,
+   "subw0": 3084,
+   "flag0": 8947,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "0c0c0c0c0c0c0c188cf3f3004747123e06221c2b"
+  },
+  "35": {
+   "count": 8,
+   "idw0": 547,
+   "subw0": 46428,
+   "flag0": 49633,
+   "kind": "二进制",
+   "fill_ratio": 0.49,
+   "sample_payload": "a90c0c0cb4d5d8a60c0c0c2b0c6a0c100cb00c4b"
+  },
+  "36": {
+   "count": 2,
+   "idw0": 46884,
+   "subw0": 11036,
+   "flag0": 19560,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "f3f323094cc4a2c1a30c0c0cccb9bcbe0c0c0c48"
+  },
+  "37": {
+   "count": 2,
+   "idw0": 28197,
+   "subw0": 6254,
+   "flag0": 4926,
+   "kind": "二进制",
+   "fill_ratio": 0.3,
+   "sample_payload": "81f3f3f668f3f3230b4cc5b1dadc0c0c0cceb5da"
+  },
+  "38": {
+   "count": 1,
+   "idw0": 2598,
+   "subw0": 3076,
+   "flag0": 9740,
+   "kind": "word数组",
+   "fill_ratio": 0.28,
+   "sample_payload": "0a0b0c0c140a060c0c140a000c4c140a000c0c14"
+  },
+  "39": {
+   "count": 3,
+   "idw0": 35879,
+   "subw0": 3576,
+   "flag0": 22051,
+   "kind": "二进制",
+   "fill_ratio": 0.21,
+   "sample_payload": "56303e2d951c2b6853f3f323094cb8e9c5c30c0c"
+  },
+  "40": {
+   "count": 2,
+   "idw0": 7208,
+   "subw0": 26667,
+   "flag0": 62316,
+   "kind": "二进制",
+   "fill_ratio": 0.33,
+   "sample_payload": "f323095cbce9beb3b4d80cb1a1dda5d9a70c460c"
+  },
+  "42": {
+   "count": 2,
+   "idw0": 44074,
+   "subw0": 62451,
+   "flag0": 27905,
+   "kind": "二进制",
+   "fill_ratio": 0.26,
+   "sample_payload": "6d303e09031c2b6848f3f323094cbcbec0e30c0c"
+  },
+  "43": {
+   "count": 3,
+   "idw0": 26667,
+   "subw0": 62302,
+   "flag0": 9203,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "094cbfa8c2be0c0c0cd9f2b2bc0c0c0c7d0cff0c"
+  },
+  "44": {
+   "count": 1,
+   "idw0": 15404,
+   "subw0": 3084,
+   "flag0": 62220,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "010c0c0c0c0c0c0c246cf3f30c5353303e08013c"
+  },
+  "45": {
+   "count": 1,
+   "idw0": 39213,
+   "subw0": 11036,
+   "flag0": 22376,
+   "kind": "二进制",
+   "fill_ratio": 0.44,
+   "sample_payload": "f3f323094cc4f1b8e90c0c0cd8a6cbdb0c0c0c1f"
+  },
+  "47": {
+   "count": 2,
+   "idw0": 3119,
+   "subw0": 3084,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "0c0c12acf3f3055858183e0a2ff80d065bf3f323"
+  },
+  "48": {
+   "count": 3,
+   "idw0": 15920,
+   "subw0": 22047,
+   "flag0": 11036,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "685cf3f323094cbfa3beda0c0c0cb2bcb1ad0c0c"
+  },
+  "49": {
+   "count": 1,
+   "idw0": 26673,
+   "subw0": 6248,
+   "flag0": 10046,
+   "kind": "二进制",
+   "fill_ratio": 0.28,
+   "sample_payload": "cff80d065af3f3230e5cc5b1c0e30c0c0cdfdcdc"
+  },
+  "50": {
+   "count": 1,
+   "idw0": 17202,
+   "subw0": 32838,
+   "flag0": 62222,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "240c0c0c0c0c0c0c296cf3f3075151123e062484"
+  },
+  "51": {
+   "count": 1,
+   "idw0": 19507,
+   "subw0": 3390,
+   "flag0": 60659,
+   "kind": "二进制",
+   "fill_ratio": 0.56,
+   "sample_payload": "0c0c0c0c0c0c0c3c8cf3f3176c6c123ef3140c0c"
+  },
+  "53": {
+   "count": 1,
+   "idw0": 14901,
+   "subw0": 9309,
+   "flag0": 12875,
+   "kind": "二进制",
+   "fill_ratio": 0.3,
+   "sample_payload": "4a1c580df35b0c0c0c0c0c0c0c24acf3f31b4141"
+  },
+  "54": {
+   "count": 2,
+   "idw0": 15926,
+   "subw0": 3150,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "f3690c0c0c0c0c0c0c178cf3f3166d6d183e1969"
+  },
+  "56": {
+   "count": 3,
+   "idw0": 3384,
+   "subw0": 3084,
+   "flag0": 1267,
+   "kind": "二进制",
+   "fill_ratio": 0.44,
+   "sample_payload": "0c0c0c0c0c0c0c12acf3f30c4040123e0f041c2b"
+  },
+  "57": {
+   "count": 1,
+   "idw0": 15673,
+   "subw0": 18484,
+   "flag0": 3605,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "0c0cf3ab0c0c0c0c0c0c0c3eccf3f3395151183e"
+  },
+  "58": {
+   "count": 1,
+   "idw0": 8506,
+   "subw0": 23880,
+   "flag0": 2061,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "09f3160c0c0c0c0c0c0c244c940c0b5f5f3e3e05"
+  },
+  "59": {
+   "count": 1,
+   "idw0": 16699,
+   "subw0": 17742,
+   "flag0": 1037,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "0bf3cf0c0c0c0c0c0c0c3b4cf3f3315b5b183e27"
+  },
+  "60": {
+   "count": 3,
+   "idw0": 23868,
+   "subw0": 16213,
+   "flag0": 12312,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "48680cf34e0c0c0c0c0c0c0c3d8cf3f31d686812"
+  },
+  "62": {
+   "count": 15,
+   "idw0": 23870,
+   "subw0": 62451,
+   "flag0": 2083,
+   "kind": "二进制",
+   "fill_ratio": 0.47,
+   "sample_payload": "5cbcd1c3eb0c0c0cb0deb0c20c0c0c060c000cf3"
+  },
+  "63": {
+   "count": 2,
+   "idw0": 9791,
+   "subw0": 18762,
+   "flag0": 3097,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "f34e0c0c0c0c0c0c0c2d6cf3f31f5f5f123e014e"
+  },
+  "65": {
+   "count": 1,
+   "idw0": 6209,
+   "subw0": 4158,
+   "flag0": 62344,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "f3f668f3f3230b5cbdfcc7f50c0c0cb6d4c3ec0c"
+  },
+  "66": {
+   "count": 1,
+   "idw0": 7234,
+   "subw0": 26667,
+   "flag0": 62283,
+   "kind": "二进制",
+   "fill_ratio": 0.47,
+   "sample_payload": "f323094cb2c9b5e10c0c0cb0c2cead0c0c0ca00c"
+  },
+  "67": {
+   "count": 2,
+   "idw0": 62275,
+   "subw0": 9203,
+   "flag0": 19464,
+   "kind": "二进制",
+   "fill_ratio": 0.44,
+   "sample_payload": "caddc5f60c0c0cc3c1dcef0c0c0cc50c840df3f3"
+  },
+  "68": {
+   "count": 4,
+   "idw0": 19268,
+   "subw0": 14927,
+   "flag0": 14152,
+   "kind": "二进制",
+   "fill_ratio": 0.51,
+   "sample_payload": "0e080cf3dc0c0c0c0c0c0c0c2cacf3f3045b5b3e"
+  },
+  "70": {
+   "count": 3,
+   "idw0": 15430,
+   "subw0": 20010,
+   "flag0": 2372,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "0cf3240c0c0c0c0c0c0c3e8cc80c005151123e06"
+  },
+  "71": {
+   "count": 1,
+   "idw0": 18247,
+   "subw0": 15896,
+   "flag0": 42536,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "f3f3f668f3f3230b4cd8a1c0e30c0c0cb4d3dada"
+  },
+  "72": {
+   "count": 2,
+   "idw0": 35912,
+   "subw0": 3080,
+   "flag0": 22259,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "0c0c0c0c0c0c0c248cf3f3145353183e1f56f80d"
+  },
+  "73": {
+   "count": 1,
+   "idw0": 18505,
+   "subw0": 17211,
+   "flag0": 16463,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "0d000cf3ba0c0c0c0c0c0c0c1cacf3f336414118"
+  },
+  "74": {
+   "count": 4,
+   "idw0": 3914,
+   "subw0": 3084,
+   "flag0": 44019,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "0c0c0c0c0c0c0c208cf3f3394747183e2fabd009"
+  },
+  "75": {
+   "count": 1,
+   "idw0": 47179,
+   "subw0": 47035,
+   "flag0": 257,
+   "kind": "word数组",
+   "fill_ratio": 0.0,
+   "sample_payload": "0101010001010100010101010001010100010101"
+  },
+  "76": {
+   "count": 8,
+   "idw0": 56908,
+   "subw0": 47309,
+   "flag0": 3299,
+   "kind": "二进制",
+   "fill_ratio": 0.44,
+   "sample_payload": "0c0cc6b9d8a60c0c0c110c580c2c0c17294a2040"
+  },
+  "77": {
+   "count": 1,
+   "idw0": 20045,
+   "subw0": 18755,
+   "flag0": 3908,
+   "kind": "二进制",
+   "fill_ratio": 0.47,
+   "sample_payload": "f31b0c0c0c0c0c0c0c252cf3f3085a5a3e3e041b"
+  },
+  "78": {
+   "count": 3,
+   "idw0": 3150,
+   "subw0": 3084,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "0c0c3cacf3f31d5050123e014e740c0d59f3f323"
+  },
+  "80": {
+   "count": 2,
+   "idw0": 4688,
+   "subw0": 1598,
+   "flag0": 33828,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "1f3e51f3f323084cc2e8c0e30c0c0cdcc9bbbd0c"
+  },
+  "81": {
+   "count": 1,
+   "idw0": 20817,
+   "subw0": 15934,
+   "flag0": 27672,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "f3f3f668f3f3230b5ccaddc5f60c0c0cbaa4dcef"
+  },
+  "82": {
+   "count": 3,
+   "idw0": 62290,
+   "subw0": 9203,
+   "flag0": 23567,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "b9ceb8a40c0c0cb0deb3b90c0c0c940c3c0d990c"
+  },
+  "84": {
+   "count": 3,
+   "idw0": 21588,
+   "subw0": 15908,
+   "flag0": 19201,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "1c2b6846f3f323094cbefdc0e30c0c0cc6a8b0de"
+  },
+  "85": {
+   "count": 3,
+   "idw0": 6229,
+   "subw0": 62270,
+   "flag0": 3098,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "0c0c0cf3f3230c5cdfe6c5a10c0c0ccfdabdf4c2"
+  },
+  "86": {
+   "count": 6,
+   "idw0": 62294,
+   "subw0": 9203,
+   "flag0": 23567,
+   "kind": "二进制",
+   "fill_ratio": 0.47,
+   "sample_payload": "cce3b0f70c0c0cdee9deae0c0c0c3a0c940c340c"
+  },
+  "87": {
+   "count": 2,
+   "idw0": 24151,
+   "subw0": 21842,
+   "flag0": 22360,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "c00bf32f0c0c0c0c0c0c0c158cf3f30559594a3e"
+  },
+  "90": {
+   "count": 1,
+   "idw0": 23130,
+   "subw0": 15896,
+   "flag0": 53031,
+   "kind": "二进制",
+   "fill_ratio": 0.26,
+   "sample_payload": "f80d065ff3f3230e4cb9b6b1fe0c0c0cdee9b6e7"
+  },
+  "91": {
+   "count": 1,
+   "idw0": 15963,
+   "subw0": 2110,
+   "flag0": 62208,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "f3f668f3f3230b4cc3eccee10c0c0cc6aed4bb0c"
+  },
+  "92": {
+   "count": 7,
+   "idw0": 62300,
+   "subw0": 9203,
+   "flag0": 19471,
+   "kind": "二进制",
+   "fill_ratio": 0.47,
+   "sample_payload": "bbe8dce7b6d40cdcadcdf50c0c0c090c0a0cf3f3"
+  },
+  "93": {
+   "count": 2,
+   "idw0": 22877,
+   "subw0": 23117,
+   "flag0": 2388,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "f3320c0c0c0c0c0c0c268cf3f31c6e6e3e3e0032"
+  },
+  "94": {
+   "count": 3,
+   "idw0": 15966,
+   "subw0": 19984,
+   "flag0": 24140,
+   "kind": "二进制",
+   "fill_ratio": 0.56,
+   "sample_payload": "0cf3d40c0c0c0c0c0c0c24acf3f31d5555123ef3"
+  },
+  "98": {
+   "count": 2,
+   "idw0": 2146,
+   "subw0": 62217,
+   "flag0": 62451,
+   "kind": "二进制",
+   "fill_ratio": 0.28,
+   "sample_payload": "f3f3160ac30c0b5c3024e40fac0c200d0c0c0c0c"
+  },
+  "103": {
+   "count": 1,
+   "idw0": 3175,
+   "subw0": 3084,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.33,
+   "sample_payload": "0c0c38acf3f3104343123e1a67d009125cf3f323"
+  },
+  "104": {
+   "count": 6,
+   "idw0": 26728,
+   "subw0": 15896,
+   "flag0": 12800,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "680c0d5bf3f3230d5cc3c8c8b30c0c0cb0a6dcc9"
+  },
+  "105": {
+   "count": 2,
+   "idw0": 3177,
+   "subw0": 3280,
+   "flag0": 3167,
+   "kind": "二进制",
+   "fill_ratio": 0.28,
+   "sample_payload": "b024414a3e274744090cf3240c0c0c0c0c0c0c23"
+  },
+  "108": {
+   "count": 2,
+   "idw0": 62316,
+   "subw0": 5875,
+   "flag0": 20817,
+   "kind": "二进制",
+   "fill_ratio": 0.33,
+   "sample_payload": "183e093ed0091254f3f3230f5cc5fddfec0c0c0c"
+  },
+  "109": {
+   "count": 1,
+   "idw0": 28013,
+   "subw0": 15890,
+   "flag0": 9222,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "d0091254f3f3230f4cc6b4d8ff0c0c0cccb9b4d5"
+  },
+  "111": {
+   "count": 1,
+   "idw0": 62319,
+   "subw0": 9203,
+   "flag0": 19465,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "c2e9b8f60c0c0cdfddc3be0c0c0c500dad0e550d"
+  },
+  "120": {
+   "count": 1,
+   "idw0": 3192,
+   "subw0": 3111,
+   "flag0": 15592,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "424435304605080ff3040c0c0c0c0c0c0c136cf3"
+  },
+  "121": {
+   "count": 1,
+   "idw0": 3449,
+   "subw0": 3250,
+   "flag0": 1186,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "4b571c183b8c080cf3560c0c0c0c0c0c0c268cf3"
+  },
+  "128": {
+   "count": 4,
+   "idw0": 26752,
+   "subw0": 8068,
+   "flag0": 2236,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "ac03090c680c9a0009f3f3f3f3150a023f0c1e62"
+  },
+  "130": {
+   "count": 1,
+   "idw0": 3714,
+   "subw0": 3417,
+   "flag0": 9380,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "32352c2f3e0c0c0cf3cf0c0c0c0c0c0c0c2f6cf3"
+  },
+  "131": {
+   "count": 1,
+   "idw0": 11651,
+   "subw0": 64011,
+   "flag0": 1292,
+   "kind": "二进制",
+   "fill_ratio": 0.3,
+   "sample_payload": "686230dc0b200db00e0c0c060c680809f3f3f3f3"
+  },
+  "132": {
+   "count": 2,
+   "idw0": 14468,
+   "subw0": 9774,
+   "flag0": 9002,
+   "kind": "二进制",
+   "fill_ratio": 0.49,
+   "sample_payload": "3a0c0c0cf3080c0c0c0c0c0c0c2a8cf3f30c6d6d"
+  },
+  "136": {
+   "count": 1,
+   "idw0": 3976,
+   "subw0": 3082,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "8e0809f3f3f3f37b170add0c05749d4a7409c40c"
+  },
+  "140": {
+   "count": 10,
+   "idw0": 62348,
+   "subw0": 1779,
+   "flag0": 22873,
+   "kind": "二进制",
+   "fill_ratio": 0.3,
+   "sample_payload": "183e0a2fd0091255f3f3230f4cd8bac5b10c0c0c"
+  },
+  "148": {
+   "count": 1,
+   "idw0": 3476,
+   "subw0": 38387,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "0c0c0c0c0c354cf3f3265252183e2d95841f3e56"
+  },
+  "149": {
+   "count": 2,
+   "idw0": 3221,
+   "subw0": 3084,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.28,
+   "sample_payload": "0c0c1b4cf3f3235252183e2d95d009125af3f323"
+  },
+  "150": {
+   "count": 1,
+   "idw0": 3478,
+   "subw0": 22291,
+   "flag0": 4695,
+   "kind": "二进制",
+   "fill_ratio": 0.3,
+   "sample_payload": "3e167f3c79c468f3f323024cbccec0e30c0c0cda"
+  },
+  "151": {
+   "count": 1,
+   "idw0": 57495,
+   "subw0": 62215,
+   "flag0": 3158,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "0c0c0c0c0c0c2aacf3f31f68685c3e1f56f80d06"
+  },
+  "154": {
+   "count": 3,
+   "idw0": 3226,
+   "subw0": 3360,
+   "flag0": 3221,
+   "kind": "二进制",
+   "fill_ratio": 0.3,
+   "sample_payload": "a044305e21173688080cf3320c0c0c0c0c0c0c3c"
+  },
+  "156": {
+   "count": 1,
+   "idw0": 3484,
+   "subw0": 3976,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "060c560809f3f3f3f3f30d081a0c0e74683e200d"
+  },
+  "157": {
+   "count": 1,
+   "idw0": 3229,
+   "subw0": 58079,
+   "flag0": 65201,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "bdafc2e3dfe30c0c0c071e0f8c9d0cdfd2b5d0bf"
+  },
+  "160": {
+   "count": 1,
+   "idw0": 56480,
+   "subw0": 49325,
+   "flag0": 47527,
+   "kind": "二进制",
+   "fill_ratio": 0.28,
+   "sample_payload": "ba0c0c0c04050c8ca00cb5f6b5eedbfbbac0b9ba"
+  },
+  "161": {
+   "count": 1,
+   "idw0": 3233,
+   "subw0": 3084,
+   "flag0": 47539,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "d9f20c0c0c900c390d910ca02455585d44485594"
+  },
+  "164": {
+   "count": 2,
+   "idw0": 47780,
+   "subw0": 57068,
+   "flag0": 3260,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "dcefc5dc0c0c0cdb0cae0dd90ca2383b31282f37"
+  },
+  "165": {
+   "count": 1,
+   "idw0": 3237,
+   "subw0": 7772,
+   "flag0": 42240,
+   "kind": "二进制",
+   "fill_ratio": 0.23,
+   "sample_payload": "0c12746256841fd009641c0b0c300c740009f3f3"
+  },
+  "166": {
+   "count": 1,
+   "idw0": 55718,
+   "subw0": 3306,
+   "flag0": 3084,
+   "kind": "word数组",
+   "fill_ratio": 0.35,
+   "sample_payload": "8f0c1a0d860ca014494c2a113b0c080df33a0c0c"
+  },
+  "167": {
+   "count": 1,
+   "idw0": 49319,
+   "subw0": 3285,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "cdf6dcc70c0c0caa0c430d920ccc5f28252f222a"
+  },
+  "168": {
+   "count": 2,
+   "idw0": 15528,
+   "subw0": 19020,
+   "flag0": 6444,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "24080c0cf32f0c0c0c0c0c0c0c258cf3f3055656"
+  },
+  "172": {
+   "count": 2,
+   "idw0": 62380,
+   "subw0": 13555,
+   "flag0": 16962,
+   "kind": "二进制",
+   "fill_ratio": 0.19,
+   "sample_payload": "183e29bad009125af3f3230f4ccdaeb7a40c0c0c"
+  },
+  "174": {
+   "count": 2,
+   "idw0": 54446,
+   "subw0": 3259,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "5e0ccc0c6d0cbb4c4a541f1930840c0cf3240c0c"
+  },
+  "175": {
+   "count": 2,
+   "idw0": 3247,
+   "subw0": 57050,
+   "flag0": 52422,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "0c0c0c9e0c2a0d900ca024475d132a3f48180cf3"
+  },
+  "176": {
+   "count": 4,
+   "idw0": 57008,
+   "subw0": 3084,
+   "flag0": 48652,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "bbc4a70c0c0cad0c4a0df3f3e85c44433f384c48"
+  },
+  "177": {
+   "count": 1,
+   "idw0": 55985,
+   "subw0": 55973,
+   "flag0": 3303,
+   "kind": "二进制",
+   "fill_ratio": 0.28,
+   "sample_payload": "0965c60c730cdae5b5eedcadcbdddbdf0c0c0c0f"
+  },
+  "178": {
+   "count": 2,
+   "idw0": 41650,
+   "subw0": 3084,
+   "flag0": 55820,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "bdd9f10c0c0cde0c970df3f3a03c54563f2c4284"
+  },
+  "181": {
+   "count": 2,
+   "idw0": 50357,
+   "subw0": 3084,
+   "flag0": 56332,
+   "kind": "二进制",
+   "fill_ratio": 0.33,
+   "sample_payload": "c9dabd0c0c0c0f0dfb0d0d0de03c31412e4f384c"
+  },
+  "182": {
+   "count": 2,
+   "idw0": 48822,
+   "subw0": 46564,
+   "flag0": 3282,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "0c0c0c0c0f180d8c2b0ccea7c2d1b4a60c0c0c0c"
+  },
+  "183": {
+   "count": 2,
+   "idw0": 55479,
+   "subw0": 55003,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "0c2a0c680c170c98095c48435e574a440ff30f0c"
+  },
+  "184": {
+   "count": 3,
+   "idw0": 3256,
+   "subw0": 1246,
+   "flag0": 15393,
+   "kind": "二进制",
+   "fill_ratio": 0.44,
+   "sample_payload": "262d3f0c0c0ff35a0c0c0c0c0c0c0c128cf3f31a"
+  },
+  "185": {
+   "count": 2,
+   "idw0": 47801,
+   "subw0": 3084,
+   "flag0": 2828,
+   "kind": "二进制",
+   "fill_ratio": 0.26,
+   "sample_payload": "1b0e8cb00cd8b1dadcd8fedad40c0c0c0c0c041a"
+  },
+  "186": {
+   "count": 2,
+   "idw0": 33978,
+   "subw0": 15903,
+   "flag0": 62293,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "f323084cb0a6b6e70c0c0cb0f4cce10c0c0c330d"
+  },
+  "188": {
+   "count": 1,
+   "idw0": 2236,
+   "subw0": 3576,
+   "flag0": 4068,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "090c0c0c740d08f3f3f3f3861309fc0c0921624a"
+  },
+  "189": {
+   "count": 2,
+   "idw0": 3261,
+   "subw0": 3084,
+   "flag0": 3140,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "a00cf3f33f045f3b403a4f28480df3120c0c0c0c"
+  },
+  "190": {
+   "count": 2,
+   "idw0": 47806,
+   "subw0": 3308,
+   "flag0": 48602,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "b0de0c0c0cf20ce50df30cb1545a47426c472b49"
+  },
+  "191": {
+   "count": 4,
+   "idw0": 50623,
+   "subw0": 3084,
+   "flag0": 4108,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "0c5f0c280c5c2d24284e3a342c0c0cf30f0c0c0c"
+  },
+  "192": {
+   "count": 3,
+   "idw0": 58304,
+   "subw0": 3084,
+   "flag0": 46604,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "efdcc70c0c0c020c1d0c1d0ce028475c4e235c48"
+  },
+  "193": {
+   "count": 2,
+   "idw0": 59329,
+   "subw0": 3084,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "0c0c030c8c9b0cb6d6ccdabee4c1e70c0c0c0c0c"
+  },
+  "194": {
+   "count": 3,
+   "idw0": 52418,
+   "subw0": 43276,
+   "flag0": 16396,
+   "kind": "二进制",
+   "fill_ratio": 0.47,
+   "sample_payload": "0df3f3330950425c5b544bd00af3d50c0c0c0c0c"
+  },
+  "195": {
+   "count": 1,
+   "idw0": 48835,
+   "subw0": 3251,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.49,
+   "sample_payload": "cbebd9f20c0c0c1f0c490c180cec064e323f3748"
+  },
+  "196": {
+   "count": 4,
+   "idw0": 21444,
+   "subw0": 62451,
+   "flag0": 2595,
+   "kind": "二进制",
+   "fill_ratio": 0.49,
+   "sample_payload": "4cc5c3c0e30c0c0cbfa3dabd0c0c0c370c910c4a"
+  },
+  "197": {
+   "count": 6,
+   "idw0": 3269,
+   "subw0": 3073,
+   "flag0": 3100,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "0a0cf109582655526d2f880cf34e0c0c0c0c0c0c"
+  },
+  "198": {
+   "count": 2,
+   "idw0": 3270,
+   "subw0": 3084,
+   "flag0": 3189,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "f70c780cb4544f303a3a5d0c0c0cf33e0c0c0c0c"
+  },
+  "199": {
+   "count": 1,
+   "idw0": 45767,
+   "subw0": 57806,
+   "flag0": 42171,
+   "kind": "二进制",
+   "fill_ratio": 0.44,
+   "sample_payload": "0c0c0c0c0c0c0c001c0f8cad0cb6b6c6e50c0c0c"
+  },
+  "200": {
+   "count": 1,
+   "idw0": 45768,
+   "subw0": 57560,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "0cb2d3d9f20c0c0ca70c5b0da60cdc383a202530"
+  },
+  "203": {
+   "count": 2,
+   "idw0": 3275,
+   "subw0": 3465,
+   "flag0": 3273,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "d5563035383b440c0c05f3690c0c0c0c0c0c0c13"
+  },
+  "204": {
+   "count": 4,
+   "idw0": 50636,
+   "subw0": 7692,
+   "flag0": 6924,
+   "kind": "二进制",
+   "fill_ratio": 0.53,
+   "sample_payload": "0cf3f3310940275f475e1c0c0cf3d40c0c0c0c0c"
+  },
+  "205": {
+   "count": 5,
+   "idw0": 41165,
+   "subw0": 63181,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "0c840c170df3f39c00303b2a31210c0c05f3360c"
+  },
+  "206": {
+   "count": 1,
+   "idw0": 3278,
+   "subw0": 3084,
+   "flag0": 3099,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "420c290ca05c555e38314244860ef30f0c0c0c0c"
+  },
+  "207": {
+   "count": 1,
+   "idw0": 45263,
+   "subw0": 3304,
+   "flag0": 51676,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "c6ae0c0c0c050c070c0d0cc43f4a483e26310c08"
+  },
+  "208": {
+   "count": 1,
+   "idw0": 2512,
+   "subw0": 21522,
+   "flag0": 62451,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "230f5cb3d6dffc0c0c0cc1a4cdb00c0c0c050df1"
+  },
+  "212": {
+   "count": 1,
+   "idw0": 52180,
+   "subw0": 57086,
+   "flag0": 3275,
+   "kind": "二进制",
+   "fill_ratio": 0.49,
+   "sample_payload": "0c0c0c0c0c0c1b12068c310cc0e0cbfedecb0c0c"
+  },
+  "214": {
+   "count": 1,
+   "idw0": 52438,
+   "subw0": 3319,
+   "flag0": 3084,
+   "kind": "word数组",
+   "fill_ratio": 0.49,
+   "sample_payload": "2d0c540cf3f3c40c343829243f0c0c0cf30a0c0c"
+  },
+  "215": {
+   "count": 1,
+   "idw0": 3287,
+   "subw0": 26654,
+   "flag0": 26820,
+   "kind": "二进制",
+   "fill_ratio": 0.26,
+   "sample_payload": "dc0b200dbc08f80d120c4a0e08f3f3d50c701a0a"
+  },
+  "216": {
+   "count": 1,
+   "idw0": 51160,
+   "subw0": 3084,
+   "flag0": 19980,
+   "kind": "二进制",
+   "fill_ratio": 0.23,
+   "sample_payload": "0d7e0e360da02c595b3e3c5544940df3ba0c0c0c"
+  },
+  "217": {
+   "count": 2,
+   "idw0": 65241,
+   "subw0": 3084,
+   "flag0": 41740,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "0c6c0df3f379304f144d403a0d0c0df3580c0c0c"
+  },
+  "218": {
+   "count": 4,
+   "idw0": 3290,
+   "subw0": 3084,
+   "flag0": 57055,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "b1f00c0c0cc10c9f0df3f3f02c41463429384419"
+  },
+  "219": {
+   "count": 1,
+   "idw0": 49115,
+   "subw0": 3269,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "4b0d8e0ef3f3e034494d30484a0c080df3cc0c0c"
+  },
+  "220": {
+   "count": 4,
+   "idw0": 51676,
+   "subw0": 46011,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "0c5b0cc90c690ca020555b594c5d40c00cf3240c"
+  },
+  "221": {
+   "count": 1,
+   "idw0": 42461,
+   "subw0": 65499,
+   "flag0": 51394,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "dbda0c0c0c0b2e0d8c500cc4d9b5eedeb7c2c8db"
+  },
+  "222": {
+   "count": 2,
+   "idw0": 59870,
+   "subw0": 48306,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.42,
+   "sample_payload": "0cb50c7c0db90c470244364634420c0803f3560c"
+  },
+  "223": {
+   "count": 2,
+   "idw0": 56543,
+   "subw0": 64463,
+   "flag0": 58558,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "b5d20c0c0c0c0c0f3b088c330cbefdc1beb4a60c"
+  },
+  "224": {
+   "count": 1,
+   "idw0": 51168,
+   "subw0": 3278,
+   "flag0": 51676,
+   "kind": "二进制",
+   "fill_ratio": 0.33,
+   "sample_payload": "dad00c0c0c230d5f0e210de804404d3b304b0808"
+  },
+  "225": {
+   "count": 2,
+   "idw0": 56545,
+   "subw0": 47533,
+   "flag0": 3254,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "cfdac0a7ccc50c790cfb0cf3f3a0344a5714264f"
+  },
+  "227": {
+   "count": 1,
+   "idw0": 3299,
+   "subw0": 3084,
+   "flag0": 61886,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "dcde0c0c0c670ceb0c6a0c3351524b5e6d5d63d3"
+  },
+  "228": {
+   "count": 1,
+   "idw0": 4068,
+   "subw0": 3084,
+   "flag0": 3085,
+   "kind": "二进制",
+   "fill_ratio": 0.14,
+   "sample_payload": "5c0809f3f32c0da425072c0d1a53a65c841f7409"
+  },
+  "229": {
+   "count": 1,
+   "idw0": 3301,
+   "subw0": 23776,
+   "flag0": 16476,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "15254a481a0df3740c0c0c0c0c0c0c2accf3f33e"
+  },
+  "231": {
+   "count": 1,
+   "idw0": 46823,
+   "subw0": 3284,
+   "flag0": 47539,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "b4d30c0c0c6c0db80e9f0ca4243432212c3b0c0c"
+  },
+  "232": {
+   "count": 1,
+   "idw0": 49384,
+   "subw0": 56547,
+   "flag0": 56521,
+   "kind": "二进制",
+   "fill_ratio": 0.28,
+   "sample_payload": "f2c3fd0c0c0c1f8e188cea0cc0cac6a4dbdfcacd"
+  },
+  "233": {
+   "count": 1,
+   "idw0": 46313,
+   "subw0": 3285,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.33,
+   "sample_payload": "b80c640dbd0ce4041635233f200c0c0df35a0c0c"
+  },
+  "235": {
+   "count": 1,
+   "idw0": 3307,
+   "subw0": 3084,
+   "flag0": 3287,
+   "kind": "二进制",
+   "fill_ratio": 0.35,
+   "sample_payload": "ab0dd40c215a5a133f55560fc803f3700c0c0c0c"
+  },
+  "236": {
+   "count": 3,
+   "idw0": 62444,
+   "subw0": 3315,
+   "flag0": 22616,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "183e0c0c1c2b6857f3f323094cb1fecbed0c0c0c"
+  },
+  "238": {
+   "count": 1,
+   "idw0": 56302,
+   "subw0": 3295,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.47,
+   "sample_payload": "0c0c0c0c0c0c00010c8cb50cbfd8bee4ddf4c5f6"
+  },
+  "241": {
+   "count": 1,
+   "idw0": 19697,
+   "subw0": 13382,
+   "flag0": 18459,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "3209090cf3950c0c0c0c0c0c0c298cf3f3234747"
+  },
+  "243": {
+   "count": 111,
+   "idw0": 7667,
+   "subw0": 26728,
+   "flag0": 15890,
+   "kind": "二进制",
+   "fill_ratio": 0.28,
+   "sample_payload": "014e680c0d430d0c230d5cdaa3c0e30c0c0cdcc9"
+  },
+  "244": {
+   "count": 1,
+   "idw0": 3316,
+   "subw0": 3538,
+   "flag0": 3321,
+   "kind": "二进制",
+   "fill_ratio": 0.3,
+   "sample_payload": "a04c304d36234d1c4c0cf3810c0c0c0c0c0c0c28"
+  },
+  "245": {
+   "count": 2,
+   "idw0": 3317,
+   "subw0": 12292,
+   "flag0": 19042,
+   "kind": "二进制",
+   "fill_ratio": 0.33,
+   "sample_payload": "4008c40cf80d0c0c0c0c530809f3f3f60c822d01"
+  },
+  "246": {
+   "count": 1,
+   "idw0": 26870,
+   "subw0": 62451,
+   "flag0": 2851,
+   "kind": "二进制",
+   "fill_ratio": 0.4,
+   "sample_payload": "4cdfe2c3bebaec0cdadeb0de0c0c0cf30ce00df1"
+  },
+  "248": {
+   "count": 3,
+   "idw0": 3576,
+   "subw0": 20998,
+   "flag0": 62451,
+   "kind": "二进制",
+   "fill_ratio": 0.44,
+   "sample_payload": "230e4cb6dfc0e30c0c0cbfa8cbdb0c0c0c7a0cf4"
+  },
+  "249": {
+   "count": 1,
+   "idw0": 3321,
+   "subw0": 3084,
+   "flag0": 53175,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "eeda0c0c0c360c900c470c1f2a41155b595d5f84"
+  },
+  "252": {
+   "count": 1,
+   "idw0": 3324,
+   "subw0": 3084,
+   "flag0": 3084,
+   "kind": "二进制",
+   "fill_ratio": 0.37,
+   "sample_payload": "d8a6dade0c0c0c040df00d030d14493427364c13"
+  },
+  "255": {
+   "count": 5,
+   "idw0": 65535,
+   "subw0": 65535,
+   "flag0": 65535,
+   "kind": "二进制",
+   "fill_ratio": 0.0,
+   "sample_payload": "ffffffffffffffffffffffffffffffffffffffff"
+  }
+ }
+}

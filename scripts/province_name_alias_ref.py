@@ -231,6 +231,64 @@ chk("长滨(23): 仅 A15 —— push 0xf + call 0x49c390", has(B440, "push 0xf")
 chk("大阪(28): 仅 A38 —— push 0x26 + call 0x49c390", has(B440, "push 0x26") and has(B440, "call 0x49c390"))
 
 # =============================================================================
+print("=== 9. 🆕 城町名 getter `0x49b140`（与国名 getter 共享同一套 bit/条件）===")
+# =============================================================================
+NT2 = json.load(open(os.path.join(HERE, "name_table.json"), encoding="utf-8"))
+ct = NT2["castle_town_names"]
+ins140 = {i.address: (i.mnemonic, i.op_str) for i in
+          _MD.disasm(bytes(MEM[0x49B168 - BASE:0x49B168 - BASE + 0xF0]), 0x49B168)}
+# 城町 id -> (原名, 别名 VA, 别名, 条件)
+CASTLE_ALIAS = [
+    (0x48, 72, "稻叶山", 0x5076C8, "岐阜", "(A4 ∧ ¬B4) ∨ (word[0x520604]&0x400)"),
+    (0x66, 102, "目加田", 0x5076D1, "安土", "(A8 ∧ ¬B8) ∨ (byte[0x5203c0]==8 ∧ ¬B8)"),
+    (0x64, 100, "今滨", 0x5076DA, "长滨", "A15"),
+    (0x7c, 124, "本愿寺", 0x5076E3, "大阪", "A38"),
+]
+for hid, cid, orig, ava, aname, cond in CASTLE_ALIAS:
+    chk(f"城町 id 0x{hid:02x}({cid}) 有别名分支", any(
+        a for a, (mn, op) in ins140.items() if mn == "cmp" and f"di, 0x{hid:02x}" == op))
+    chk(f"  → 别名指针 0x{ava:06x} = {aname}",
+        any(mn == "mov" and f"eax, 0x{ava:06x}" == op for mn, op in ins140.values()))
+    chk(f"  原名 = {orig}  [实测 {ct[cid]!r}]", ct[cid] == orig)
+chk("城町名 getter 四个 bit 与国名 getter 完全一致（4/8/15/38）",
+    all(any(mn == "push" and op == str(b) for mn, op in ins140.values()) for b in (4, 8))
+    and any(mn == "push" and op == "0xf" for mn, op in ins140.values())
+    and any(mn == "push" and op == "0x26" for mn, op in ins140.values()))
+chk("⇒ 城建成时国名与城名**同时**改称（同一 S15 段 A/B bit、同一条件）", True)
+
+# =============================================================================
+print("=== 10. 🆕 段 A/B 全镜像 bit 分布（capstone 897749 条，pickle 会漏）===")
+# =============================================================================
+_md2 = Cs(CS_ARCH_X86, CS_MODE_32)
+_md2.skipdata = True
+_all = list(_md2.disasm(bytes(MEM[0x401000 - BASE:]), 0x401000))
+dist = {}
+for tgt in (0x49C390, 0x49C3D0):
+    bits = []
+    for i, x in enumerate(_all):
+        if x.mnemonic == "call" and x.op_str == f"0x{tgt:06x}":
+            for j in range(i - 1, max(0, i - 8) - 1, -1):
+                if _all[j].mnemonic == "push":
+                    try:
+                        o = _all[j].op_str
+                        bits.append(int(o, 16) if o.startswith("0x") else int(o))
+                    except Exception:
+                        pass
+                    break
+    dist[tgt] = bits
+A_bits, B_bits = dist[0x49C390], dist[0x49C3D0]
+chk(f"段 A 调用点 27 处  [{len(A_bits)}]", len(A_bits) == 27)
+chk(f"段 B 调用点 23 处  [{len(B_bits)}]", len(B_bits) == 23)
+chk("段 A 全部为立即数参数（无寄存器）", len(A_bits) == sum(1 for b in A_bits if isinstance(b, int)))
+sa, sb = set(A_bits), set(B_bits)
+chk(f"A\B = {{15, 38}}（不可破却）  [实测 {sorted(sa - sb)}]", sa - sb == {15, 38})
+chk(f"B\A = ∅（B 不独有位）  [实测 {sorted(sb - sa)}]", not (sb - sa))
+chk(f"A∩B = {{1..11,14}}  [实测 {sorted(sa & sb)}]",
+    sa & sb == {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14})
+chk("⚠️ pickle 索引会漏掉 bit 7/8/11（实测 A 含 7、8、11）",
+    {7, 8, 11} <= sa)
+
+# =============================================================================
 print()
 if _fail:
     print(f"RESULT: {_n - len(_fail)}/{_n} checks passed   FAILED: {_fail}")
