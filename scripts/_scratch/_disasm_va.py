@@ -5,10 +5,21 @@ Usage: python _disasm_va.py START_VA END_VA [BIN]
 Annotates: writes to 0x52xxxx globals, calls to XOR-stream primitives
 (0x47da10 read1B / 0x47da50 read2B / 0x47da80 write1B / 0x47dac0 write2B).
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import sys
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-BIN = r"F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+BIN = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 
 PRIM = {

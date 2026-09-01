@@ -1,10 +1,21 @@
 #!/usr/bin/env python3
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 # Disassemble the battle draw region 0x423900..0x423e00 (reads objects
 # 0x524978 / 0x524990) to extract tile width/height used for HKMAP/HJMAP.
 import struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 BASE = 0x400000
-data = open(r"F:/Games/Taikou 2/scripts/_unpacked_mem.bin", "rb").read()
+data = open(_ROOT + '/scripts/_unpacked_mem.bin', "rb").read()
 
 def disasm(lo, hi):
     chunk = data[(lo-BASE):(hi-BASE)]

@@ -1,9 +1,20 @@
 # -*- coding: utf-8 -*-
 """@50..@52 的张力到底是「映射错」还是「初值 > 运行期钳制」。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 from collections import Counter
 
-BSD1 = "F:/Games/Taikou 2/Taikou2 Original/BSDATA1.TR2"
+BSD1 = _ROOT + '/Taikou2 Original/BSDATA1.TR2'
 b1 = open(BSD1, "rb").read()
 REC, N = 59, 700
 

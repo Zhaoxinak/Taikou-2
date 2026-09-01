@@ -6,9 +6,20 @@
 2. Find xrefs (e8 rel32) to each writer within the duel module.
 3. Disassemble 0x468860 (AI turn) in full to see where this+0xc is seeded.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM = open(r"F:\Games\Taikou 2\scripts\_unpacked_mem.bin", "rb").read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', "rb").read()
 BASE = 0x400000
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = True
@@ -60,7 +71,7 @@ for va, desc in writers.items():
 out.append("\n\n############ FULL DISASM of AI turn 0x468860 (0x400 bytes) ############")
 out += disasm_range(0x468860, 0x468c60, "AI turn 0x468860")
 
-open(r"F:\Games\Taikou 2\scripts\_ai7.txt","w",encoding="utf-8").write("\n".join(out))
+open(_ROOT + '/scripts/_ai7.txt',"w",encoding="utf-8").write("\n".join(out))
 print("WROTE _ai7.txt")
 for va, desc in writers.items():
     xr = find_xrefs(va)

@@ -1,11 +1,22 @@
 # -*- coding: utf-8 -*-
 """Classify writes to the 4 battle mode flags; dump setter context."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct
 from _dis_helper import disasm
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-IMG = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+IMG = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 
 TARGETS = {0x511bf8:"mode_m1",0x51352c:"mode_m2",0x513540:"parity",0x513548:"battle_type",0x513534:"handle_stat_base"}
 

@@ -4,11 +4,22 @@
    每函数以 ecx=base，找 `mov [ecx+off], ...` 写点，按函数(以 ret 4/ret 切分)归组。
    输出每个函数写入的字段偏移集合 —— 形成 S7 全字段 setter 地图。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 BASE = 0x400000
-BIN  = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+BIN  = _ROOT + '/scripts/_unpacked_mem.bin'
 START, END = 0x49bf00, 0x49c100
 
 def load():

@@ -4,6 +4,17 @@
 这是"完美复刻"的视觉基准：iso 木地板 + 木屋/围栏/矮松 + NPC +
 右侧绿底人物面板 + 底部 5 图标 + 日期条 + 顶部菜单条。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 from PIL import Image, ImageDraw, ImageFont
 
 W, H = 640, 400
@@ -219,5 +230,5 @@ d.text((88, DY0 - 19), "講教", fill=GOLD_L, font=font_s)
 d.rectangle([(W // 2 - 70, DY0 - 22), (W // 2 + 70, DY0 - 4)], fill=PANEL_L, outline=GOLD)
 d.text((W // 2 - 50, DY0 - 19), "指定目的地", fill=GOLD_L, font=font_s)
 
-img.save("F:/Games/Taikou 2/assets/castle_town_preview.png", optimize=True)
+img.save(_ROOT + '/assets/castle_town_preview.png', optimize=True)
 print("castle_town_preview.png ->", W, "x", H)

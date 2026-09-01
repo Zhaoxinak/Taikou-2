@@ -1,10 +1,21 @@
 # -*- coding: utf-8 -*-
 """Scan for E8-relative CALL sites whose target is a given VA. This finds callers
 even when there's no absolute immediate reference (the 'no immediate ref' case)."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-IMG = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+IMG = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 BASE = 0x400000
 
 def find_callers(target):

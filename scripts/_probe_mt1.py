@@ -1,10 +1,21 @@
 # -*- coding: utf-8 -*-
 """横扫方法表剩余区段 0x49a5f0..0x49a8b0: 入口 / 函数体 / ecx 偏移 / 常量参数。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import re, struct
 from collections import Counter, defaultdict
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+MEM = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 mem = open(MEM, "rb").read()
 md = Cs(CS_ARCH_X86, CS_MODE_32)

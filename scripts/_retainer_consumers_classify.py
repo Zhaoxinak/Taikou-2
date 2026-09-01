@@ -5,11 +5,22 @@
 抽取特征向量，用于按「是否写候选池/是否读俸禄+0x28/是否读在城+0x25/是否调 MSG 显示/玩家/池构建器」自动打标。
 纯静态，不改写任何文件。输出每个函数的特征表，供人工定名。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, sys
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 BASE = 0x400000
-MEM = open(os.path.join(os.path.dirname(__file__), "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(os.path.dirname(__file__), _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 ERR = open(os.path.join(os.path.dirname(__file__), "_unpacked_mem.err.log"), "w", encoding="utf-8") if False else None
 
 # 13 个 consumer（续167 列）

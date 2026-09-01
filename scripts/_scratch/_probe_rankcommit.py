@@ -1,11 +1,22 @@
 # -*- coding: utf-8 -*-
 """在 and al,0xf8 后找 or al,imm8 再 mov [..+0x2d],al 的 rank 写回序列。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, os, bisect
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-mem = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+mem = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 
 sites = [0x41ac87, 0x41ac91, 0x41aca0, 0x44c0d8, 0x45d359, 0x4731a7,
          0x47fd5a, 0x49cb3c, 0x49cc17, 0x49d8ad]

@@ -1,5 +1,16 @@
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 import json
-with open('scripts/item_table.json','rb') as f:
+with open(_ROOT + '/scripts/item_table.json','rb') as f:
     data = f.read().decode('utf-8', errors='replace')
 items = json.loads(data)
 

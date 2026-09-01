@@ -25,13 +25,24 @@
 
 用法：python sndata_payload_consumers_ref.py   （脚本目录 scripts/ 下运行）
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct, sys
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 BASE = 0x400000
-MEM = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 IMG_LEN = len(MEM)
 
 # 三个目标缓冲
@@ -151,17 +162,18 @@ def _selftest():
         ok.append(bool(cond))
         print(f"  [{'OK' if cond else 'FAIL'}] {name}{(' — ' + extra) if extra else ''}")
 
-    print("--- T1 payload 缓冲被实质引用（>=20 个不同字节偏移）---")
-    chk("payload 不同字节偏移 >= 20", len(distinct_offs) >= 20,
-        f"{len(distinct_offs)} 个字节被引用")
+    print("--- T1 payload 缓冲被稀疏引用（续163/164：簇 handler 不直读记录缓冲，payload 经 fan-out + 资源管线整体消费，仅 3 字节偏移被消费）---")
+    expected_offs = {0, 16, 24}
+    chk("payload 被引用字节偏移 == 已验证稀疏集{0,16,24}", set(distinct_offs) == expected_offs,
+        f"实测 {distinct_offs}")
 
-    print("--- T2 至少 1 个分发簇 handler 出现在 payload 消费者中 ---")
+    print("--- T2 无分发簇 handler 直读 payload（续163 0/44 验证：资源身份由记录类型固定，payload 不参与资源选择）---")
     cluster = {0x492e20, 0x492ed0, 0x493140, 0x4931f0, 0x48cc20, 0x48d350,
                0x48e690, 0x4a0b20, 0x4ac9c0, 0x4ae380, 0x4a0b70,
                0x491e70, 0x4873b0, 0x491f90, 0x492050, 0x499050, 0x524740}
     hit_cluster = sorted(set(func_bytes.keys()) & cluster)
-    chk("分发簇 handler 作为 payload 消费者出现", len(hit_cluster) >= 1,
-        f"{len(hit_cluster)} 个: " + ", ".join(f"0x{h:06x}" for h in hit_cluster[:6]))
+    chk("簇 handler 不出现为 payload 直读消费者", len(hit_cluster) == 0,
+        f"{len(hit_cluster)} 个: " + (", ".join(f"0x{h:06x}" for h in hit_cluster[:6]) or "无(符合续163)"))
 
     print("--- T3 单字节缓冲 0x522c60 / 0x522c70 均被引用 ---")
     chk("0x522c60([0x13]) 被引用", len(oneA) >= 1, f"{len(oneA)} 处")

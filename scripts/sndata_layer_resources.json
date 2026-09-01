@@ -1,0 +1,39 @@
+{
+ "by_layer": {
+  "layer0": [],
+  "layer1": [],
+  "else": []
+ },
+ "detail": {
+  "0x492e20": {
+   "layer": "layer0",
+   "base": "0x506b20",
+   "resources": []
+  },
+  "0x493140": {
+   "layer": "layer0",
+   "base": "0x506b30",
+   "resources": []
+  },
+  "0x492ed0": {
+   "layer": "layer1",
+   "base": "0x506ba0",
+   "resources": []
+  },
+  "0x4931f0": {
+   "layer": "layer1",
+   "base": "0x506bb0",
+   "resources": []
+  },
+  "0x491e70": {
+   "layer": "else",
+   "base": null,
+   "resources": []
+  },
+  "0x4873b0": {
+   "layer": "else",
+   "base": null,
+   "resources": []
+  }
+ }
+}

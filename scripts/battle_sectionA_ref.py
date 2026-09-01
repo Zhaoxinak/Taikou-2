@@ -11,6 +11,17 @@ section A = 0x512e58 处 180B = 9 个兵种/部队类别(a=0..8) × 20 个属性
 结论：所谓「9 类实体」= 9 行兵种类别索引 a∈[0,8]；访问器按 stride 20 取 (a,c) 字节的低/高半字节。
 兵种「中文名」映射不在 EXE 静态段（BATTLE_SPEC §8 已证伪 MSGX/名表路径），属独立未定位项，不在此条范围。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 import sys
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32
@@ -18,7 +29,7 @@ from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ESP
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-IMG = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+IMG = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 STACK = 0x7F000
 SECT_A = 0x512e58
 

@@ -1,12 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """解码 MESSAGE*.LZW (MSGX+GBK) 全部文本，并按战斗词汇搜索，配对 HJMAPDAT 9 单位 id。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct, json, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from real_assets import ls11_decompress
 
 DATA_ROOT = "F:/Games/Taikou2"
-OUT = "scripts/_probe/msgx"
+OUT = _ROOT + '/scripts/_probe/msgx'
 os.makedirs(OUT, exist_ok=True)
 
 def decode_msgx(fname):

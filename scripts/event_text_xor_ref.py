@@ -41,6 +41,17 @@ event_text_xor_ref.py  —  事件文本「XOR 加密资源」轨道闭合（续
   * scripts/hexmes_texts.json  —— 283 条 HEXMES 文本（本地索引 0..282）
   * 本脚本自校验：magic / 条数 / 抽样战斗文本 / HEXMES 不在 msgx 索引内（解释旧缺口）
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct, sys, json
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -48,7 +59,7 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 from real_assets import ls11_decompress
 
-HEXMES_FILE = "Taikou2 Original/HEXMES.LZW"
+HEXMES_FILE = _ROOT + '/Taikou2 Original/HEXMES.LZW'
 MSGX_INDEX = os.path.join(HERE, "msgx_all_texts.json")
 
 # 假定全局 id 方案（slot4 = 8000 起；仅作参考，本地索引进文件方为权威）

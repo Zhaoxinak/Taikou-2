@@ -1,6 +1,17 @@
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 import os
-ROOT="F:/Games/Taikou 2"
-for sc, fn in (("sc1","Taikou2 Original/SNDATA1.TR2"),("sc2","Taikou2 Original/SNDATA2.TR2")):
+ROOT=_ROOT
+for sc, fn in (("sc1",_ROOT + '/Taikou2 Original/SNDATA1.TR2'),("sc2",_ROOT + '/Taikou2 Original/SNDATA2.TR2')):
     data=open(os.path.join(ROOT,fn),'rb').read()
     print(f"=== {sc} len={len(data)} ===")
     print("magic:", data[:16])

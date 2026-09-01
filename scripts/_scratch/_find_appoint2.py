@@ -5,11 +5,22 @@ set_rank 是 __fastcall(ecx=this) + stdcall(1 参数, ret 4)，
 典型模式：  push <imm> / mov ecx, esi / call 0x49a7e0
 重点抓参数 == 7 (大名) / 8 (城主)。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 from capstone.x86 import X86_OP_IMM
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 SET_RANK = 0x49a7e0
 
 cs = Cs(CS_ARCH_X86, CS_MODE_32)

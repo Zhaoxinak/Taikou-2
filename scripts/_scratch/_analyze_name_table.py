@@ -4,10 +4,21 @@
 _analyze_name_table.py — 深入分析名称表(0x506ca8)结构，理解9字节条目的真实格式。
 同时尝试用 Unicorn 运行 0x443b60 (构建 0x51e9c0 表) 和 0x443d80 (构建 0x517838 表)。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 
-DUMP = "scripts/_unpacked_mem.bin"
+DUMP = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 mem = open(DUMP, "rb").read()
 

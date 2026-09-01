@@ -1,0 +1,1202 @@
+{
+ "iat_range": [
+  "0x4fb000",
+  "0x4fb1f8"
+ ],
+ "fill_const": "0x3000",
+ "name_blob": [
+  "0x530007",
+  "0x530730"
+ ],
+ "dll_order_in_iat": [
+  "GDI32.dll",
+  "KERNEL32.DLL",
+  "USER32.dll",
+  "WINMM.dll"
+ ],
+ "null_separator_slots": [
+  "0x4fb068",
+  "0x4fb148",
+  "0x4fb1e4",
+  "0x4fb1f0"
+ ],
+ "slots": {
+  "0x4fb000": {
+   "slot": 0,
+   "dll": "GDI32.dll",
+   "api": "GetDeviceCaps"
+  },
+  "0x4fb004": {
+   "slot": 1,
+   "dll": "GDI32.dll",
+   "api": "GetStockObject"
+  },
+  "0x4fb008": {
+   "slot": 2,
+   "dll": "GDI32.dll",
+   "api": "RealizePalette"
+  },
+  "0x4fb00c": {
+   "slot": 3,
+   "dll": "GDI32.dll",
+   "api": "SelectPalette"
+  },
+  "0x4fb010": {
+   "slot": 4,
+   "dll": "GDI32.dll",
+   "api": "DeleteObject"
+  },
+  "0x4fb014": {
+   "slot": 5,
+   "dll": "GDI32.dll",
+   "api": "GetTextMetricsA"
+  },
+  "0x4fb018": {
+   "slot": 6,
+   "dll": "GDI32.dll",
+   "api": "GetPaletteEntries"
+  },
+  "0x4fb01c": {
+   "slot": 7,
+   "dll": "GDI32.dll",
+   "api": "CreateDIBitmap"
+  },
+  "0x4fb020": {
+   "slot": 8,
+   "dll": "GDI32.dll",
+   "api": "CreateCompatibleDC"
+  },
+  "0x4fb024": {
+   "slot": 9,
+   "dll": "GDI32.dll",
+   "api": "SetMapMode"
+  },
+  "0x4fb028": {
+   "slot": 10,
+   "dll": "GDI32.dll",
+   "api": "SelectObject"
+  },
+  "0x4fb02c": {
+   "slot": 11,
+   "dll": "GDI32.dll",
+   "api": "DeleteDC"
+  },
+  "0x4fb030": {
+   "slot": 12,
+   "dll": "GDI32.dll",
+   "api": "CreateFontA"
+  },
+  "0x4fb034": {
+   "slot": 13,
+   "dll": "GDI32.dll",
+   "api": "GetDIBits"
+  },
+  "0x4fb038": {
+   "slot": 14,
+   "dll": "GDI32.dll",
+   "api": "TextOutA"
+  },
+  "0x4fb03c": {
+   "slot": 15,
+   "dll": "GDI32.dll",
+   "api": "BitBlt"
+  },
+  "0x4fb040": {
+   "slot": 16,
+   "dll": "GDI32.dll",
+   "api": "SetBkMode"
+  },
+  "0x4fb044": {
+   "slot": 17,
+   "dll": "GDI32.dll",
+   "api": "PatBlt"
+  },
+  "0x4fb048": {
+   "slot": 18,
+   "dll": "GDI32.dll",
+   "api": "SetTextColor"
+  },
+  "0x4fb04c": {
+   "slot": 19,
+   "dll": "GDI32.dll",
+   "api": "SetStretchBltMode"
+  },
+  "0x4fb050": {
+   "slot": 20,
+   "dll": "GDI32.dll",
+   "api": "CreateDIBSection"
+  },
+  "0x4fb054": {
+   "slot": 21,
+   "dll": "GDI32.dll",
+   "api": "AnimatePalette"
+  },
+  "0x4fb058": {
+   "slot": 22,
+   "dll": "GDI32.dll",
+   "api": "SetDIBColorTable"
+  },
+  "0x4fb05c": {
+   "slot": 23,
+   "dll": "GDI32.dll",
+   "api": "CreatePalette"
+  },
+  "0x4fb060": {
+   "slot": 24,
+   "dll": "GDI32.dll",
+   "api": "GetSystemPaletteEntries"
+  },
+  "0x4fb064": {
+   "slot": 25,
+   "dll": "GDI32.dll",
+   "api": "GetObjectA"
+  },
+  "0x4fb06c": {
+   "slot": 27,
+   "dll": "KERNEL32.DLL",
+   "api": "ExitProcess"
+  },
+  "0x4fb070": {
+   "slot": 28,
+   "dll": "KERNEL32.DLL",
+   "api": "GetTickCount"
+  },
+  "0x4fb074": {
+   "slot": 29,
+   "dll": "KERNEL32.DLL",
+   "api": "GetVersionExA"
+  },
+  "0x4fb078": {
+   "slot": 30,
+   "dll": "KERNEL32.DLL",
+   "api": "WriteFile"
+  },
+  "0x4fb07c": {
+   "slot": 31,
+   "dll": "KERNEL32.DLL",
+   "api": "OpenFile"
+  },
+  "0x4fb080": {
+   "slot": 32,
+   "dll": "KERNEL32.DLL",
+   "api": "GetCurrentDirectoryA"
+  },
+  "0x4fb084": {
+   "slot": 33,
+   "dll": "KERNEL32.DLL",
+   "api": "GetLocalTime"
+  },
+  "0x4fb088": {
+   "slot": 34,
+   "dll": "KERNEL32.DLL",
+   "api": "GlobalAlloc"
+  },
+  "0x4fb08c": {
+   "slot": 35,
+   "dll": "KERNEL32.DLL",
+   "api": "GetDriveTypeA"
+  },
+  "0x4fb090": {
+   "slot": 36,
+   "dll": "KERNEL32.DLL",
+   "api": "_lwrite"
+  },
+  "0x4fb094": {
+   "slot": 37,
+   "dll": "KERNEL32.DLL",
+   "api": "GlobalUnlock"
+  },
+  "0x4fb098": {
+   "slot": 38,
+   "dll": "KERNEL32.DLL",
+   "api": "GlobalLock"
+  },
+  "0x4fb09c": {
+   "slot": 39,
+   "dll": "KERNEL32.DLL",
+   "api": "_lclose"
+  },
+  "0x4fb0a0": {
+   "slot": 40,
+   "dll": "KERNEL32.DLL",
+   "api": "_lread"
+  },
+  "0x4fb0a4": {
+   "slot": 41,
+   "dll": "KERNEL32.DLL",
+   "api": "GlobalFree"
+  },
+  "0x4fb0a8": {
+   "slot": 42,
+   "dll": "KERNEL32.DLL",
+   "api": "_llseek"
+  },
+  "0x4fb0ac": {
+   "slot": 43,
+   "dll": "KERNEL32.DLL",
+   "api": "LoadLibraryA"
+  },
+  "0x4fb0b0": {
+   "slot": 44,
+   "dll": "KERNEL32.DLL",
+   "api": "GetStringTypeW"
+  },
+  "0x4fb0b4": {
+   "slot": 45,
+   "dll": "KERNEL32.DLL",
+   "api": "GetStringTypeA"
+  },
+  "0x4fb0b8": {
+   "slot": 46,
+   "dll": "KERNEL32.DLL",
+   "api": "LCMapStringW"
+  },
+  "0x4fb0bc": {
+   "slot": 47,
+   "dll": "KERNEL32.DLL",
+   "api": "LCMapStringA"
+  },
+  "0x4fb0c0": {
+   "slot": 48,
+   "dll": "KERNEL32.DLL",
+   "api": "IsBadCodePtr"
+  },
+  "0x4fb0c4": {
+   "slot": 49,
+   "dll": "KERNEL32.DLL",
+   "api": "IsBadWritePtr"
+  },
+  "0x4fb0c8": {
+   "slot": 50,
+   "dll": "KERNEL32.DLL",
+   "api": "IsBadReadPtr"
+  },
+  "0x4fb0cc": {
+   "slot": 51,
+   "dll": "KERNEL32.DLL",
+   "api": "SetUnhandledExceptionFilter"
+  },
+  "0x4fb0d0": {
+   "slot": 52,
+   "dll": "KERNEL32.DLL",
+   "api": "GetModuleFileNameA"
+  },
+  "0x4fb0d4": {
+   "slot": 53,
+   "dll": "KERNEL32.DLL",
+   "api": "GetFileType"
+  },
+  "0x4fb0d8": {
+   "slot": 54,
+   "dll": "KERNEL32.DLL",
+   "api": "GetStdHandle"
+  },
+  "0x4fb0dc": {
+   "slot": 55,
+   "dll": "KERNEL32.DLL",
+   "api": "SetHandleCount"
+  },
+  "0x4fb0e0": {
+   "slot": 56,
+   "dll": "KERNEL32.DLL",
+   "api": "GetProcAddress"
+  },
+  "0x4fb0e4": {
+   "slot": 57,
+   "dll": "KERNEL32.DLL",
+   "api": "GetOEMCP"
+  },
+  "0x4fb0e8": {
+   "slot": 58,
+   "dll": "KERNEL32.DLL",
+   "api": "GetACP"
+  },
+  "0x4fb0ec": {
+   "slot": 59,
+   "dll": "KERNEL32.DLL",
+   "api": "GetCPInfo"
+  },
+  "0x4fb0f0": {
+   "slot": 60,
+   "dll": "KERNEL32.DLL",
+   "api": "WideCharToMultiByte"
+  },
+  "0x4fb0f4": {
+   "slot": 61,
+   "dll": "KERNEL32.DLL",
+   "api": "GetEnvironmentStringsW"
+  },
+  "0x4fb0f8": {
+   "slot": 62,
+   "dll": "KERNEL32.DLL",
+   "api": "GetEnvironmentStrings"
+  },
+  "0x4fb0fc": {
+   "slot": 63,
+   "dll": "KERNEL32.DLL",
+   "api": "FreeEnvironmentStringsW"
+  },
+  "0x4fb100": {
+   "slot": 64,
+   "dll": "KERNEL32.DLL",
+   "api": "MultiByteToWideChar"
+  },
+  "0x4fb104": {
+   "slot": 65,
+   "dll": "KERNEL32.DLL",
+   "api": "FreeEnvironmentStringsA"
+  },
+  "0x4fb108": {
+   "slot": 66,
+   "dll": "KERNEL32.DLL",
+   "api": "UnhandledExceptionFilter"
+  },
+  "0x4fb10c": {
+   "slot": 67,
+   "dll": "KERNEL32.DLL",
+   "api": "VirtualAlloc"
+  },
+  "0x4fb110": {
+   "slot": 68,
+   "dll": "KERNEL32.DLL",
+   "api": "VirtualFree"
+  },
+  "0x4fb114": {
+   "slot": 69,
+   "dll": "KERNEL32.DLL",
+   "api": "HeapCreate"
+  },
+  "0x4fb118": {
+   "slot": 70,
+   "dll": "KERNEL32.DLL",
+   "api": "HeapDestroy"
+  },
+  "0x4fb11c": {
+   "slot": 71,
+   "dll": "KERNEL32.DLL",
+   "api": "HeapSize"
+  },
+  "0x4fb120": {
+   "slot": 72,
+   "dll": "KERNEL32.DLL",
+   "api": "GetCurrentProcess"
+  },
+  "0x4fb124": {
+   "slot": 73,
+   "dll": "KERNEL32.DLL",
+   "api": "TerminateProcess"
+  },
+  "0x4fb128": {
+   "slot": 74,
+   "dll": "KERNEL32.DLL",
+   "api": "HeapReAlloc"
+  },
+  "0x4fb12c": {
+   "slot": 75,
+   "dll": "KERNEL32.DLL",
+   "api": "GetVersion"
+  },
+  "0x4fb130": {
+   "slot": 76,
+   "dll": "KERNEL32.DLL",
+   "api": "GetCommandLineA"
+  },
+  "0x4fb134": {
+   "slot": 77,
+   "dll": "KERNEL32.DLL",
+   "api": "GetStartupInfoA"
+  },
+  "0x4fb138": {
+   "slot": 78,
+   "dll": "KERNEL32.DLL",
+   "api": "GetModuleHandleA"
+  },
+  "0x4fb13c": {
+   "slot": 79,
+   "dll": "KERNEL32.DLL",
+   "api": "HeapAlloc"
+  },
+  "0x4fb140": {
+   "slot": 80,
+   "dll": "KERNEL32.DLL",
+   "api": "RtlUnwind"
+  },
+  "0x4fb144": {
+   "slot": 81,
+   "dll": "KERNEL32.DLL",
+   "api": "HeapFree"
+  },
+  "0x4fb14c": {
+   "slot": 83,
+   "dll": "USER32.dll",
+   "api": "InvalidateRect"
+  },
+  "0x4fb150": {
+   "slot": 84,
+   "dll": "USER32.dll",
+   "api": "UpdateWindow"
+  },
+  "0x4fb154": {
+   "slot": 85,
+   "dll": "USER32.dll",
+   "api": "ClientToScreen"
+  },
+  "0x4fb158": {
+   "slot": 86,
+   "dll": "USER32.dll",
+   "api": "GetClientRect"
+  },
+  "0x4fb15c": {
+   "slot": 87,
+   "dll": "USER32.dll",
+   "api": "MessageBoxA"
+  },
+  "0x4fb160": {
+   "slot": 88,
+   "dll": "USER32.dll",
+   "api": "GetWindowThreadProcessId"
+  },
+  "0x4fb164": {
+   "slot": 89,
+   "dll": "USER32.dll",
+   "api": "SetWindowsHookExA"
+  },
+  "0x4fb168": {
+   "slot": 90,
+   "dll": "USER32.dll",
+   "api": "ReleaseDC"
+  },
+  "0x4fb16c": {
+   "slot": 91,
+   "dll": "USER32.dll",
+   "api": "GetDC"
+  },
+  "0x4fb170": {
+   "slot": 92,
+   "dll": "USER32.dll",
+   "api": "MoveWindow"
+  },
+  "0x4fb174": {
+   "slot": 93,
+   "dll": "USER32.dll",
+   "api": "SetCursor"
+  },
+  "0x4fb178": {
+   "slot": 94,
+   "dll": "USER32.dll",
+   "api": "wvsprintfA"
+  },
+  "0x4fb17c": {
+   "slot": 95,
+   "dll": "USER32.dll",
+   "api": "EndDialog"
+  },
+  "0x4fb180": {
+   "slot": 96,
+   "dll": "USER32.dll",
+   "api": "PostMessageA"
+  },
+  "0x4fb184": {
+   "slot": 97,
+   "dll": "USER32.dll",
+   "api": "DialogBoxParamA"
+  },
+  "0x4fb188": {
+   "slot": 98,
+   "dll": "USER32.dll",
+   "api": "WinHelpA"
+  },
+  "0x4fb18c": {
+   "slot": 99,
+   "dll": "USER32.dll",
+   "api": "CreateWindowExA"
+  },
+  "0x4fb190": {
+   "slot": 100,
+   "dll": "USER32.dll",
+   "api": "RegisterClassA"
+  },
+  "0x4fb194": {
+   "slot": 101,
+   "dll": "USER32.dll",
+   "api": "LoadIconA"
+  },
+  "0x4fb198": {
+   "slot": 102,
+   "dll": "USER32.dll",
+   "api": "LoadCursorA"
+  },
+  "0x4fb19c": {
+   "slot": 103,
+   "dll": "USER32.dll",
+   "api": "DestroyCursor"
+  },
+  "0x4fb1a0": {
+   "slot": 104,
+   "dll": "USER32.dll",
+   "api": "ShowWindow"
+  },
+  "0x4fb1a4": {
+   "slot": 105,
+   "dll": "USER32.dll",
+   "api": "DispatchMessageA"
+  },
+  "0x4fb1a8": {
+   "slot": 106,
+   "dll": "USER32.dll",
+   "api": "TranslateMessage"
+  },
+  "0x4fb1ac": {
+   "slot": 107,
+   "dll": "USER32.dll",
+   "api": "DestroyWindow"
+  },
+  "0x4fb1b0": {
+   "slot": 108,
+   "dll": "USER32.dll",
+   "api": "CallNextHookEx"
+  },
+  "0x4fb1b4": {
+   "slot": 109,
+   "dll": "USER32.dll",
+   "api": "PostQuitMessage"
+  },
+  "0x4fb1b8": {
+   "slot": 110,
+   "dll": "USER32.dll",
+   "api": "BeginPaint"
+  },
+  "0x4fb1bc": {
+   "slot": 111,
+   "dll": "USER32.dll",
+   "api": "EndPaint"
+  },
+  "0x4fb1c0": {
+   "slot": 112,
+   "dll": "USER32.dll",
+   "api": "DefWindowProcA"
+  },
+  "0x4fb1c4": {
+   "slot": 113,
+   "dll": "USER32.dll",
+   "api": "GetWindowRect"
+  },
+  "0x4fb1c8": {
+   "slot": 114,
+   "dll": "USER32.dll",
+   "api": "SystemParametersInfoA"
+  },
+  "0x4fb1cc": {
+   "slot": 115,
+   "dll": "USER32.dll",
+   "api": "GetSystemMetrics"
+  },
+  "0x4fb1d0": {
+   "slot": 116,
+   "dll": "USER32.dll",
+   "api": "GetCursorPos"
+  },
+  "0x4fb1d4": {
+   "slot": 117,
+   "dll": "USER32.dll",
+   "api": "ScreenToClient"
+  },
+  "0x4fb1d8": {
+   "slot": 118,
+   "dll": "USER32.dll",
+   "api": "PeekMessageA"
+  },
+  "0x4fb1dc": {
+   "slot": 119,
+   "dll": "USER32.dll",
+   "api": "SetWindowPos"
+  },
+  "0x4fb1e0": {
+   "slot": 120,
+   "dll": "USER32.dll",
+   "api": "UnhookWindowsHookEx"
+  },
+  "0x4fb1e8": {
+   "slot": 122,
+   "dll": "WINMM.dll",
+   "api": "mciSendCommandA"
+  },
+  "0x4fb1ec": {
+   "slot": 123,
+   "dll": "WINMM.dll",
+   "api": "timeGetTime"
+  }
+ },
+ "call_site_counts": {
+  "_lclose": 49,
+  "mciSendCommandA": 12,
+  "GetDC": 11,
+  "ReleaseDC": 11,
+  "_llseek": 9,
+  "MessageBoxA": 8,
+  "_lread": 7,
+  "GlobalFree": 6,
+  "GlobalAlloc": 6,
+  "RealizePalette": 6,
+  "GetProcAddress": 6,
+  "GlobalUnlock": 5,
+  "GlobalLock": 5,
+  "InvalidateRect": 5,
+  "SelectPalette": 5,
+  "_lwrite": 4,
+  "WideCharToMultiByte": 4,
+  "LCMapStringW": 4,
+  "MultiByteToWideChar": 4,
+  "GetClientRect": 3,
+  "UpdateWindow": 3,
+  "MoveWindow": 3,
+  "wvsprintfA": 3,
+  "DeleteObject": 3,
+  "GetPaletteEntries": 3,
+  "DeleteDC": 3,
+  "GetDeviceCaps": 3,
+  "ExitProcess": 3,
+  "HeapAlloc": 3,
+  "HeapFree": 3,
+  "VirtualFree": 3,
+  "ClientToScreen": 2,
+  "SetWindowPos": 2,
+  "SetCursor": 2,
+  "PostMessageA": 2,
+  "CreateCompatibleDC": 2,
+  "SetMapMode": 2,
+  "BitBlt": 2,
+  "PatBlt": 2,
+  "SetBkMode": 2,
+  "SetTextColor": 2,
+  "TextOutA": 2,
+  "GetDIBits": 2,
+  "TranslateMessage": 2,
+  "DispatchMessageA": 2,
+  "SystemParametersInfoA": 2,
+  "SelectObject": 2,
+  "CreatePalette": 2,
+  "GetStartupInfoA": 2,
+  "FreeEnvironmentStringsW": 2,
+  "FreeEnvironmentStringsA": 2,
+  "GetCPInfo": 2,
+  "GetFileType": 2,
+  "SetUnhandledExceptionFilter": 2,
+  "GetStringTypeW": 2,
+  "LoadLibraryA": 2,
+  "CallNextHookEx": 1,
+  "UnhookWindowsHookEx": 1,
+  "GetLocalTime": 1,
+  "EndDialog": 1,
+  "DialogBoxParamA": 1,
+  "WinHelpA": 1,
+  "LoadIconA": 1,
+  "GetStockObject": 1,
+  "RegisterClassA": 1,
+  "CreateWindowExA": 1,
+  "OpenFile": 1,
+  "GetCurrentDirectoryA": 1,
+  "GetDriveTypeA": 1,
+  "CreateFontA": 1,
+  "CreateDIBitmap": 1,
+  "GetTextMetricsA": 1,
+  "GetVersionExA": 1,
+  "ShowWindow": 1,
+  "AnimatePalette": 1,
+  "PeekMessageA": 1,
+  "GetCursorPos": 1,
+  "ScreenToClient": 1,
+  "GetTickCount": 1,
+  "GetWindowRect": 1,
+  "PostQuitMessage": 1,
+  "BeginPaint": 1,
+  "EndPaint": 1,
+  "DefWindowProcA": 1,
+  "DestroyWindow": 1,
+  "SetStretchBltMode": 1,
+  "CreateDIBSection": 1,
+  "GetObjectA": 1,
+  "SetDIBColorTable": 1,
+  "GetSystemPaletteEntries": 1,
+  "GetVersion": 1,
+  "GetCommandLineA": 1,
+  "GetModuleHandleA": 1,
+  "HeapReAlloc": 1,
+  "GetCurrentProcess": 1,
+  "TerminateProcess": 1,
+  "HeapSize": 1,
+  "HeapCreate": 1,
+  "HeapDestroy": 1,
+  "VirtualAlloc": 1,
+  "UnhandledExceptionFilter": 1,
+  "SetHandleCount": 1,
+  "GetModuleFileNameA": 1,
+  "GetStdHandle": 1,
+  "WriteFile": 1,
+  "IsBadReadPtr": 1,
+  "IsBadWritePtr": 1,
+  "IsBadCodePtr": 1
+ },
+ "call_site_examples": {
+  "mciSendCommandA": [
+   "0x401022",
+   "0x40106d",
+   "0x4010d1",
+   "0x401121",
+   "0x4012a1",
+   "0x4012dd"
+  ],
+  "_llseek": [
+   "0x40758a",
+   "0x4075fc",
+   "0x43a50b",
+   "0x441342",
+   "0x47d880",
+   "0x47d8ac"
+  ],
+  "_lread": [
+   "0x4075ad",
+   "0x441185",
+   "0x46ebb6",
+   "0x474790",
+   "0x4747cb",
+   "0x499546"
+  ],
+  "GlobalUnlock": [
+   "0x407a9a",
+   "0x4f124b",
+   "0x4f14fe",
+   "0x4f161a",
+   "0x4f1932"
+  ],
+  "GlobalFree": [
+   "0x407aa6",
+   "0x4eca3d",
+   "0x4f1254",
+   "0x4f1507",
+   "0x4f1621",
+   "0x4f193b"
+  ],
+  "_lclose": [
+   "0x407ab6",
+   "0x423ce8",
+   "0x4240c9",
+   "0x43381d",
+   "0x4338a7",
+   "0x43a54f"
+  ],
+  "GlobalAlloc": [
+   "0x407c97",
+   "0x4ec9fd",
+   "0x4f1174",
+   "0x4f131f",
+   "0x4f15a3",
+   "0x4f1816"
+  ],
+  "GlobalLock": [
+   "0x407ca8",
+   "0x4f117e",
+   "0x4f1329",
+   "0x4f15ac",
+   "0x4f1820"
+  ],
+  "_lwrite": [
+   "0x4411a5",
+   "0x474710",
+   "0x47474f",
+   "0x499645"
+  ],
+  "CallNextHookEx": [
+   "0x46e722"
+  ],
+  "UnhookWindowsHookEx": [
+   "0x46e73a"
+  ],
+  "GetClientRect": [
+   "0x46e7ce",
+   "0x46ee4f",
+   "0x4f2203"
+  ],
+  "ClientToScreen": [
+   "0x46e869",
+   "0x46eeb8"
+  ],
+  "SetWindowPos": [
+   "0x46e898",
+   "0x4f21ed"
+  ],
+  "InvalidateRect": [
+   "0x46e936",
+   "0x46ea40",
+   "0x4ef87f",
+   "0x4f24cc",
+   "0x4f268a"
+  ],
+  "UpdateWindow": [
+   "0x46e93d",
+   "0x46ea47",
+   "0x4ef891"
+  ],
+  "MessageBoxA": [
+   "0x46ea31",
+   "0x46ec1c",
+   "0x4991f4",
+   "0x4992c4",
+   "0x4995c2",
+   "0x49967c"
+  ],
+  "GetDC": [
+   "0x46ecaa",
+   "0x4eb982",
+   "0x4ef84d",
+   "0x4efa77",
+   "0x4efcd1",
+   "0x4f1cf2"
+  ],
+  "ReleaseDC": [
+   "0x46ecd2",
+   "0x4eb9a1",
+   "0x4ef8a4",
+   "0x4efab9",
+   "0x4efd4b",
+   "0x4f1d2c"
+  ],
+  "MoveWindow": [
+   "0x46ef75",
+   "0x46f045",
+   "0x4f22cc"
+  ],
+  "SetCursor": [
+   "0x47ae12",
+   "0x4eb951"
+  ],
+  "GetLocalTime": [
+   "0x487728"
+  ],
+  "wvsprintfA": [
+   "0x4991d8",
+   "0x4992a8",
+   "0x4eb778"
+  ],
+  "EndDialog": [
+   "0x4eb7da"
+  ],
+  "DialogBoxParamA": [
+   "0x4eb812"
+  ],
+  "PostMessageA": [
+   "0x4eb826",
+   "0x4eb8db"
+  ],
+  "WinHelpA": [
+   "0x4eb88e"
+  ],
+  "LoadIconA": [
+   "0x4eba05"
+  ],
+  "GetStockObject": [
+   "0x4eba19"
+  ],
+  "RegisterClassA": [
+   "0x4eba38"
+  ],
+  "CreateWindowExA": [
+   "0x4eba6f"
+  ],
+  "OpenFile": [
+   "0x4ec91f"
+  ],
+  "GetCurrentDirectoryA": [
+   "0x4ef6a0"
+  ],
+  "GetDriveTypeA": [
+   "0x4ef6e2"
+  ],
+  "DeleteObject": [
+   "0x4ef7a7",
+   "0x4f2415",
+   "0x4f2ab0"
+  ],
+  "GetPaletteEntries": [
+   "0x4ef7d8",
+   "0x4ef9fe",
+   "0x4eff3a"
+  ],
+  "SelectPalette": [
+   "0x4ef85e",
+   "0x4efa87",
+   "0x4f1cc1",
+   "0x4f2511",
+   "0x4f2666"
+  ],
+  "RealizePalette": [
+   "0x4ef865",
+   "0x4efa8e",
+   "0x4f1cd3",
+   "0x4f2518",
+   "0x4f266d",
+   "0x4f2aa2"
+  ],
+  "CreateFontA": [
+   "0x4efc36"
+  ],
+  "CreateCompatibleDC": [
+   "0x4efcda",
+   "0x4f2815"
+  ],
+  "CreateDIBitmap": [
+   "0x4efcf4"
+  ],
+  "SetMapMode": [
+   "0x4efd15",
+   "0x4f0186"
+  ],
+  "GetTextMetricsA": [
+   "0x4efd3e"
+  ],
+  "GetVersionExA": [
+   "0x4efd62"
+  ],
+  "ShowWindow": [
+   "0x4f0138"
+  ],
+  "DeleteDC": [
+   "0x4f01bc",
+   "0x4f23da",
+   "0x4f2421"
+  ],
+  "BitBlt": [
+   "0x4f16d5",
+   "0x4f2905"
+  ],
+  "PatBlt": [
+   "0x4f1a79",
+   "0x4f1b43"
+  ],
+  "SetBkMode": [
+   "0x4f1a87",
+   "0x4f1b51"
+  ],
+  "SetTextColor": [
+   "0x4f1a98",
+   "0x4f1b62"
+  ],
+  "TextOutA": [
+   "0x4f1aac",
+   "0x4f1b76"
+  ],
+  "GetDIBits": [
+   "0x4f1aca",
+   "0x4f1b94"
+  ],
+  "AnimatePalette": [
+   "0x4f1ceb"
+  ],
+  "GetDeviceCaps": [
+   "0x4f1d01",
+   "0x4f2848",
+   "0x4f2953"
+  ],
+  "PeekMessageA": [
+   "0x4f1f09"
+  ],
+  "TranslateMessage": [
+   "0x4f1f17",
+   "0x4f1f92"
+  ],
+  "DispatchMessageA": [
+   "0x4f1f21",
+   "0x4f1f9c"
+  ],
+  "GetCursorPos": [
+   "0x4f1fda"
+  ],
+  "ScreenToClient": [
+   "0x4f1ff0"
+  ],
+  "GetTickCount": [
+   "0x4f2061"
+  ],
+  "SystemParametersInfoA": [
+   "0x4f2108",
+   "0x4f218c"
+  ],
+  "GetWindowRect": [
+   "0x4f225f"
+  ],
+  "SelectObject": [
+   "0x4f23c5",
+   "0x4f2409"
+  ],
+  "PostQuitMessage": [
+   "0x4f2457"
+  ],
+  "BeginPaint": [
+   "0x4f24fb"
+  ],
+  "EndPaint": [
+   "0x4f2558"
+  ],
+  "DefWindowProcA": [
+   "0x4f26be"
+  ],
+  "DestroyWindow": [
+   "0x4f27f9"
+  ],
+  "ExitProcess": [
+   "0x4f2800",
+   "0x4f46a0",
+   "0x4f4d3a"
+  ],
+  "SetStretchBltMode": [
+   "0x4f2824"
+  ],
+  "CreateDIBSection": [
+   "0x4f28a7"
+  ],
+  "GetObjectA": [
+   "0x4f28bf"
+  ],
+  "SetDIBColorTable": [
+   "0x4f28dc"
+  ],
+  "GetSystemPaletteEntries": [
+   "0x4f296d"
+  ],
+  "CreatePalette": [
+   "0x4f2a2b",
+   "0x4f2a8d"
+  ],
+  "HeapAlloc": [
+   "0x4f4050",
+   "0x4f4ba0",
+   "0x4f5a41"
+  ],
+  "HeapFree": [
+   "0x4f40a1",
+   "0x4f5b76",
+   "0x4f5bd7"
+  ],
+  "GetVersion": [
+   "0x4f44d6"
+  ],
+  "GetCommandLineA": [
+   "0x4f452b"
+  ],
+  "GetStartupInfoA": [
+   "0x4f45c2",
+   "0x4f6c55"
+  ],
+  "GetModuleHandleA": [
+   "0x4f45e3"
+  ],
+  "HeapReAlloc": [
+   "0x4f4bf2"
+  ],
+  "GetCurrentProcess": [
+   "0x4f4cb2"
+  ],
+  "TerminateProcess": [
+   "0x4f4cb9"
+  ],
+  "HeapSize": [
+   "0x4f4da2"
+  ],
+  "HeapCreate": [
+   "0x4f59e9"
+  ],
+  "HeapDestroy": [
+   "0x4f5a08"
+  ],
+  "VirtualFree": [
+   "0x4f5b5f",
+   "0x4f5ba0",
+   "0x4f5c29"
+  ],
+  "VirtualAlloc": [
+   "0x4f5ed2"
+  ],
+  "UnhandledExceptionFilter": [
+   "0x4f64e4"
+  ],
+  "WideCharToMultiByte": [
+   "0x4f662a",
+   "0x4f6651",
+   "0x4f72f4",
+   "0x4f7318"
+  ],
+  "FreeEnvironmentStringsW": [
+   "0x4f6667",
+   "0x4f6675"
+  ],
+  "FreeEnvironmentStringsA": [
+   "0x4f66c0",
+   "0x4f66e2"
+  ],
+  "GetCPInfo": [
+   "0x4f6765",
+   "0x4f6a13"
+  ],
+  "GetFileType": [
+   "0x4f6d23",
+   "0x4f6d96"
+  ],
+  "SetHandleCount": [
+   "0x4f6dda"
+  ],
+  "GetModuleFileNameA": [
+   "0x4f6e9b"
+  ],
+  "GetStdHandle": [
+   "0x4f6fd0"
+  ],
+  "WriteFile": [
+   "0x4f6ff5"
+  ],
+  "SetUnhandledExceptionFilter": [
+   "0x4f7095",
+   "0x4f70b6"
+  ],
+  "IsBadReadPtr": [
+   "0x4f70d0"
+  ],
+  "IsBadWritePtr": [
+   "0x4f70f0"
+  ],
+  "IsBadCodePtr": [
+   "0x4f710b"
+  ],
+  "LCMapStringW": [
+   "0x4f7145",
+   "0x4f724b",
+   "0x4f7281",
+   "0x4f72ca"
+  ],
+  "MultiByteToWideChar": [
+   "0x4f71fa",
+   "0x4f722d",
+   "0x4f7420",
+   "0x4f7448"
+  ],
+  "GetStringTypeW": [
+   "0x4f73a4",
+   "0x4f745e"
+  ],
+  "LoadLibraryA": [
+   "0x4f74d3",
+   "0x52d144"
+  ],
+  "GetProcAddress": [
+   "0x52d117",
+   "0x52d127",
+   "0x52d137",
+   "0x52d154",
+   "0x52d165",
+   "0x52d176"
+  ]
+ },
+ "named_functions": {
+  "0x4f1ef8": "PumpMessages() — PeekMessageA/TranslateMessage/DispatchMessageA",
+  "0x4f1fcb": "PollMouse() — PumpMessages + GetCursorPos + ScreenToClient"
+ }
+}

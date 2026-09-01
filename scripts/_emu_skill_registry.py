@@ -10,12 +10,23 @@
 NPC 池 @0x517850 stride 12B；当前 NPC 指针 @0x52063c。
 注册表基址指针 @0x517838 -> dword[] 条目指针。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, sys
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
 from unicorn.x86_const import UC_X86_REG_ESP, UC_X86_REG_EIP, UC_X86_REG_EAX
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 STACK = 0x600000
 SENTINEL = 0x610000
 POOL = 0x517850

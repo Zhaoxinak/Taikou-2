@@ -18,6 +18,17 @@ event_dialog_ref.py — 事件系统 §3.7 子项：武将闲谈对话生成器 
 
 运行：python scripts/event_dialog_ref.py
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json
 import os
 import struct
@@ -74,7 +85,7 @@ def msgx_global_id(file_idx, local_idx):
     return file_idx * MSGX_SLOT + local_idx
 
 
-def load_texts(path='scripts/msgx_all_texts.json'):
+def load_texts(path=_ROOT + '/scripts/msgx_all_texts.json'):
     if not os.path.exists(path):
         return {}
     d = json.load(open(path, encoding='utf-8'))
@@ -129,7 +140,7 @@ def self_check():
         sorted(EVENT_TAXONOMY) == list(range(2, 29)))
 
     # 负结果：0x50dab0 仅 1 处 xref
-    img = os.path.join(here, '_unpacked_mem.bin')
+    img = os.path.join(here, _ROOT + '/scripts/_unpacked_mem.bin')
     if os.path.exists(img):
         mem = open(img, 'rb').read()
         pat = struct.pack('<I', EVENT_LIST_TBL)
@@ -158,7 +169,7 @@ if __name__ == '__main__':
     print("事件系统 §3.7 子项 —— 武将闲谈对话 `0x4547f0` + MSGX id 规则")
     print("=" * 70)
     print("\n武将闲谈消息码（0x4547f0 实测 8 处 push）:")
-    t = load_texts('scripts/msgx_all_texts.json')
+    t = load_texts(_ROOT + '/scripts/msgx_all_texts.json')
     for mid, (tag, _) in sorted(SMALLTALK_MSGS.items()):
         alt = tone_variant(mid)
         print(f"  0x{mid:03x} [{tag}]  {t.get(mid,'')}")

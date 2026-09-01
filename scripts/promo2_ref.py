@@ -18,11 +18,22 @@
   必须  word[+0x26](勲功) >= 阈值表[new_rank].勲功阈值
   通过则 set_rank(new_rank)，并 byte[+0x28] = 阈值表[new_rank].俸禄
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-MEM = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 
 # ---------------------------------------------------------------- 常量
 RANK_NAME_TABLE   = 0x50D850

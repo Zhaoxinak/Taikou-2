@@ -46,6 +46,17 @@ event_year_ref.py — 事件系统 §3.7 子项：时间全局编码 + 按年触
 
 运行：python scripts/event_year_ref.py
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json
 import os
 
@@ -79,7 +90,7 @@ HONNOJI_BRANCH_MASK = 0x3000
 HONNOJI_BRANCH_VAL = 0x1000      # word[0x520604] & 0x3000 == 0x1000
 
 
-def load_texts(path='scripts/msgx_all_texts.json'):
+def load_texts(path=_ROOT + '/scripts/msgx_all_texts.json'):
     if not os.path.exists(path):
         return {}
     d = json.load(open(path, encoding='utf-8'))

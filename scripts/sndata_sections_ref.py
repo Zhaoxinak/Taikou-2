@@ -14,6 +14,17 @@ Ground truth 全部来自 Unicorn 实跑主解析器 0x47f350（scripts/_emu_str
     8/8 地理锚点命中（踯躅崎=10 甲斐 / 春日山=12 越後 / 骏府=13 / 滨松=14 /
     冈崎=15 / 清洲=16 / 稻叶山=17 / 金泽=21）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -143,8 +154,8 @@ def main():
             f' × {rows} 条',
             w == pb and SEC_LEN[idx] == ln and (ln % pb == 0) and (ln // pb == rows))
 
-    for sc, fn in (('scenario1', 'Taikou2 Original/SNDATA1.TR2'),
-                   ('scenario2', 'Taikou2 Original/SNDATA2.TR2')):
+    for sc, fn in (('scenario1', _ROOT + '/Taikou2 Original/SNDATA1.TR2'),
+                   ('scenario2', _ROOT + '/Taikou2 Original/SNDATA2.TR2')):
         key, s = decode(fn)
         print(f'\n--- {sc} (key={key:#x}, 流长 {len(s)}) ---')
         secs = sections(s)
@@ -163,7 +174,7 @@ def main():
         chk('unused_ffff 恒 0xffff', all(r['unused_ffff'] == 0xffff for r in recs))
         chk('castle_type &7 <= 7', all((r['castle_type'] & 7) <= 7 for r in recs))
 
-        cn = json.load(open(os.path.join(ROOT, 'scripts/castle_names_exe.json'),
+        cn = json.load(open(os.path.join(ROOT, _ROOT + '/scripts/castle_names_exe.json'),
                             encoding='utf-8'))['castles']
         name = {c['id']: c['exe_name'] for c in cn}
         hit = 0
@@ -195,7 +206,7 @@ def main():
                 'item_table_offset_in_S11': ITEM_TABLE_SLOT0 * ITEM_STRIDE,
                 'castle_names': {str(i): name.get(i) for i in range(200)},
             }
-            with open(os.path.join(ROOT, 'scripts/sndata_sections.json'), 'w',
+            with open(os.path.join(ROOT, _ROOT + '/scripts/sndata_sections.json'), 'w',
                       encoding='utf-8') as f:
                 json.dump(out, f, ensure_ascii=False, indent=1)
 

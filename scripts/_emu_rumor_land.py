@@ -10,6 +10,17 @@ Unicorn 校准：实跑 0x438c60 的「真实落地写块」(0x438cd6..0x438d4f)
 我们只 emu 真实的写块指令（跳过前导坐标计算与后续的 C++ 字符串构造/报告），
 hook 0x438d51 即停。这等价于在真实二进制上实测落地数值，且不受字符串/虚表机制干扰。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, sys
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_UNMAPPED, UC_MEM_FETCH_UNMAPPED
 from unicorn.x86_const import (
@@ -17,7 +28,7 @@ from unicorn.x86_const import (
     UC_X86_REG_ECX, UC_X86_REG_EBX)
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 assert len(IMG) == 0x200000, len(IMG)
 
 STACK = 0x600000

@@ -5,13 +5,24 @@ cdecl 2-arg: caller pushes arg2 (class) then arg1 (attr) then `call`.
 We scan backwards from the call collecting small immediates (0..0xff) that
 look like attr(0..19)/class(0..8) candidates, plus register loads from imm.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import sys, io, struct
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 from capstone import *
 from capstone.x86 import *
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 TEXT_START, TEXT_END = 0x401000, 0x4d0000
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = True

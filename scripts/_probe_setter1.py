@@ -1,9 +1,20 @@
 # -*- coding: utf-8 -*-
 """枚举 0x49a400+ 的 2-bit 域 setter 全族 + e8 调用方。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import re, struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+MEM = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 mem = open(MEM, "rb").read()
 md = Cs(CS_ARCH_X86, CS_MODE_32)

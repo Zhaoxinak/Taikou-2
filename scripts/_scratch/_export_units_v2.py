@@ -1,9 +1,20 @@
 """修正版导出：section A = 20 属性(行) x 9 类别(列)，访问 buf[attr + class*20] & 0xf。
 同时导出 getLo 结果转换 LUT (0x503138 / 0x503140)。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, json, os
 
 DATA = 'F:/Games/Taikou2'
-EXE  = 'scripts/_unpacked_mem.bin'
+EXE  = _ROOT + '/scripts/_unpacked_mem.bin'
 
 hj = open(os.path.join(DATA,'HJMAPDAT.DAT'),'rb').read()
 mem = open(EXE,'rb').read()

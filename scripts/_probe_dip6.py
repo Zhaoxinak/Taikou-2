@@ -5,10 +5,21 @@ _probe_dip6.py —
   B) 名称表 0x5080d0 两处引用 0x44cf17 / 0x47a7dd 上下文——名称索引如何算
   C) e8 调用方扫描: 0x49fd80 / 0x49fe70 / 0x49f670
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM_PATH = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+MEM_PATH = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 MEM = open(MEM_PATH, "rb").read()
 SZ = len(MEM)

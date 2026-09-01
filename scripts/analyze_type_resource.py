@@ -10,11 +10,22 @@ analyze_type_resource.py -- 静态 P0 命名语义初判（不依赖 emu 主循�
 并对照已知表规模（实体0..369 / 城0..199 / 国0..48 / 名称数千）给出「落点」初判。
 输出 scripts/sndata_type_resource_hypothesis.json。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json, os
 from collections import defaultdict
 
-ROOT="F:/Games/Taikou 2"
-data=json.load(open(os.path.join(ROOT,"scripts/sndata_emu_full_read.json"),"r",encoding="utf-8"))
+ROOT=_ROOT
+data=json.load(open(os.path.join(ROOT,_ROOT + '/scripts/sndata_emu_full_read.json'),"r",encoding="utf-8"))
 recs=data["records"]
 
 def rng(xs):
@@ -64,7 +75,7 @@ for t,info in out["by_type"].items():
     grp[key].append(t)
 out["summary"]=[{"landing":list(k),"types":v} for k,v in grp.items()]
 
-with open(os.path.join(ROOT,"scripts/sndata_type_resource_hypothesis.json"),"w",encoding="utf-8") as f:
+with open(os.path.join(ROOT,_ROOT + '/scripts/sndata_type_resource_hypothesis.json'),"w",encoding="utf-8") as f:
     json.dump(out,f,ensure_ascii=False,indent=1)
 
 # 打印 TOP

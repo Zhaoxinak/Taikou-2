@@ -1,5 +1,16 @@
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
-MEM = open(r"F:/Games/Taikou 2/scripts/_unpacked_mem.bin", "rb").read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', "rb").read()
 BASE = 0x400000
 def off_of(va): return va - BASE
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
@@ -26,7 +37,7 @@ for reg in range(8):
                     break
         s = i+1
 
-with open(r"F:/Games/Taikou 2/scripts/_castleflag_w.txt", "w", encoding="utf-8") as f:
+with open(_ROOT + '/scripts/_castleflag_w.txt', "w", encoding="utf-8") as f:
     f.write(f"=== 0x516638 载入寄存器后写入点: {len(writes)} ===\n")
     for va, reg, fwd in writes:
         f.write(f"\n@ {va:08x} load into e{['a','c','d','b','s','b','s','d'][reg]}:\n")

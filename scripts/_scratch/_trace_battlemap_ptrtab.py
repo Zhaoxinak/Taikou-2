@@ -13,9 +13,20 @@ Strategy:
  4. Find code references (CALL / PUSH / MOV) to the table base, or to
     individual entries, to locate the loaders.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, re
 
-DUMP = r"F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+DUMP = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000  # image base in the dump
 
 with open(DUMP, "rb") as f:

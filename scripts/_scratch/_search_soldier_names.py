@@ -2,9 +2,20 @@
 """Search the unpacked EXE for soldier-type (兵种) name strings (GBK) to map
 the 9 SECT_A rows (unit classes) to names. Also locate the known 3-broad-class
 table referenced by unitTypeName (0x43e150 &0x50bfe8)."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import sys, io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 BASE = 0x400000
 
 candidates = ['足轻','步兵','骑兵','铁炮','弓兵','枪兵','忍者','僧兵','水军','攻城',

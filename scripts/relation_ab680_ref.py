@@ -22,6 +22,17 @@
 
 证据：本脚本三档 emu 自测（A 0x4ebcd0 公式 / B 0x49fe40 矩阵写 / C 0x4ab680 端到端）+ 静态断言。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 import sys
 import struct
@@ -30,7 +41,7 @@ from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ESP, UC_X86_REG_ECX, UC
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-IMG = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+IMG = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 STACK = 0x7F000
 RET = 0x90000
 

@@ -1,12 +1,23 @@
 # -*- coding: utf-8 -*-
 """① BSDATA 是否 XOR 编码  ② 全镜像技能位域访问器扫描 (+0xf/+0x10/+0x11)。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, re
 from collections import Counter
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM_PATH = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
-BSD = "F:/Games/Taikou 2/Taikou2 Original/BSDATA1.TR2"
-BSD2 = "F:/Games/Taikou 2/Taikou2 Original/BSDATA2.TR2"
+MEM_PATH = _ROOT + '/scripts/_unpacked_mem.bin'
+BSD = _ROOT + '/Taikou2 Original/BSDATA1.TR2'
+BSD2 = _ROOT + '/Taikou2 Original/BSDATA2.TR2'
 BASE = 0x400000
 mem = open(MEM_PATH, "rb").read()
 md = Cs(CS_ARCH_X86, CS_MODE_32)

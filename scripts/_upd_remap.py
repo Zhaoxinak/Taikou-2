@@ -1,8 +1,19 @@
 # -*- coding: utf-8 -*-
 """续135 回填: 撤销过窄边界、通则扩到 @22..@55、@53 由「武艺」改判「忠诚」。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json
 
-P = "F:/Games/Taikou 2/scripts/bsdata_spec.json"
+P = _ROOT + '/scripts/bsdata_spec.json'
 d = json.load(open(P, encoding="utf-8"))
 
 d["entity_offset_remap"] = {
@@ -46,7 +57,7 @@ d["entity_offset_remap"] = {
     "🔴_correction_135": "原 spec 的 `@53 武艺/熟练度(?)` 是猜测；实为 **忠诚 loyalty**"
                           "（max 100 与 `+0x29` setter 钳 100 吻合，且续122 的钳制点 `0x49a7bf` "
                           "正落在 `0x49a7b0` 函数体内已坐实 `+0x29`=忠诚）。",
-    "reference_impl": "scripts/bsdata_entity_remap_ref.py (49/49 PASS)",
+    "reference_impl": _ROOT + '/scripts/bsdata_entity_remap_ref.py (49/49 PASS)',
 }
 
 # 修正 fields 里的 @53 描述

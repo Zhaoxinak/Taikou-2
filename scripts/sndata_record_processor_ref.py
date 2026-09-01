@@ -24,6 +24,17 @@ SNDATA 49B 记录处理器 0x47fc60 —— 扇出语义验证（2026-08-31 续15
     memcpy(0x522c70, &record[0x20], 1B)   ; 单字节
   这与 GAME_DATA_SPEC / SNDATA_SPEC §4 表一致（record[6:49]→0x522c88 等）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 
 import os
 import sys
@@ -34,7 +45,7 @@ import re
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-IMG = open("scripts/_unpacked_mem.bin", "rb").read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', "rb").read()
 BASE = 0x400000
 PROC = 0x47fc60
 COPY = 0x4ebfe0
@@ -129,7 +140,7 @@ def self_test():
     print("  ✅ 记录头 [0:2]/[2:4]/[4:6] -> 调用者三参数(arg2/arg3/arg4)")
 
     # 与 sndata_records.json 交叉验证: payload 长度 = 43B, 且 = record[6:49]
-    d = json.load(open("scripts/sndata_records.json"))
+    d = json.load(open(_ROOT + '/scripts/sndata_records.json'))
     for scn in ("scenario1", "scenario2"):
         recs = d[scn]["records"]
         # 抽样: 非填充、最大 real_byte_count 的记录

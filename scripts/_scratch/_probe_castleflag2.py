@@ -1,4 +1,15 @@
-MEM = open(r"F:/Games/Taikou 2/scripts/_unpacked_mem.bin", "rb").read()
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', "rb").read()
 BASE = 0x400000
 
 def find_pat(pat):
@@ -30,7 +41,7 @@ for imm in range(0x100):
     for va in find_pat(b'\xc6\x05' + a + bytes([imm])):
         movs.append((va, imm))
 
-with open(r"F:/Games/Taikou 2/scripts/_castleflag_set.txt", "w", encoding="utf-8") as f:
+with open(_ROOT + '/scripts/_castleflag_set.txt', "w", encoding="utf-8") as f:
     f.write(f"=== 0x516638 城主flag 写入 ===\n")
     f.write(f"or byte[..],4 (set 城主): {len(set_hits)} -> {[f'{x:08x}' for x in set_hits]}\n")
     f.write(f"and byte[..],0xfb (clear 城主): {len(clr_hits)} -> {[f'{x:08x}' for x in clr_hits]}\n")

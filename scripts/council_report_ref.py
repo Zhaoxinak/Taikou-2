@@ -15,6 +15,17 @@ council_report_ref.py — 太阁2 評定「报告 handler 选取策略」可执�
 
 返回 handler 索引 0..12 后，调用方会执行 word[0x513fe0 + idx*2] = 0（标记该槽已用）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import random
 
 HANDLER_COUNT = 13          # 0x504898 表项数
@@ -156,7 +167,7 @@ def self_test():
     summary = f"self_test: {ok}/{total} {'ALL PASS' if ok==total else 'FAILED'}"
     log.append("")
     log.append(summary)
-    with open(r"F:/Games/Taikou 2/scripts/_report_selftest.txt", "w", encoding="utf-8") as f:
+    with open(_ROOT + '/scripts/_report_selftest.txt', "w", encoding="utf-8") as f:
         f.write("\n".join(log) + "\n")
     print("\n".join(log))
     return ok == total

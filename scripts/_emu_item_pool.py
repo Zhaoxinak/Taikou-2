@@ -19,6 +19,17 @@ Unicorn 闭合：0x51e1f0 物品/技能对象池（200×10B）模型。
   - 0x4a3960(owner)：扫 +6，匹配则写 FFFF（实体移除时批量释放）
   - 0x4a4115：owner 批量重映射（实体索引变更）
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, sys, io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
@@ -26,7 +37,7 @@ from unicorn.x86_const import (
     UC_X86_REG_ESP, UC_X86_REG_EIP, UC_X86_REG_ECX, UC_X86_REG_EAX)
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 STACK = 0x600000
 SENTINEL = 0x610000
 

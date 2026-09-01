@@ -9,6 +9,17 @@
 ⚠️ emu 最小周期对同构数组会退化为 1（如 S9/S10 全 W），真实记录大小须由 loader 的
    循环计数 `ebx` 与消费方 `lea [reg*N + base]` 的 N 共同判定。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -89,8 +100,8 @@ def main():
         chk(f'{nm} {ln}B / stride {st} = {n} 条'
             + (f'  [{SPECIAL[nm]}]' if nm in SPECIAL else ''), ok_len and ok_div)
 
-    for sc, fn in (('scenario1', 'Taikou2 Original/SNDATA1.TR2'),
-                   ('scenario2', 'Taikou2 Original/SNDATA2.TR2')):
+    for sc, fn in (('scenario1', _ROOT + '/Taikou2 Original/SNDATA1.TR2'),
+                   ('scenario2', _ROOT + '/Taikou2 Original/SNDATA2.TR2')):
         key, s = decode(fn)
         print(f'\n--- {sc} (key={key:#x}) ---')
         S = [s[a:e] for a, e in B]
@@ -98,7 +109,7 @@ def main():
         cs = [S[2][26 * i:26 * i + 26] for i in range(200)]
         prov = [r[3] for r in cs]
         chk('城表 province(+0x08) 覆盖 0..48 共 49 值', sorted(set(prov)) == list(range(49)))
-        names = json.load(open(os.path.join(ROOT, 'scripts/castle_names_exe.json'),
+        names = json.load(open(os.path.join(ROOT, _ROOT + '/scripts/castle_names_exe.json'),
                                encoding='utf-8'))['castles']
         nm = {c['id']: c['exe_name'] for c in names}
         hit = sum(1 for i in range(200) if nm.get(i) in GEO_ANCHORS
@@ -157,7 +168,7 @@ def main():
                                 for i in range(30)],
                 's16_words': [u16(S[16], 2 * i) for i in range(20)],
             }
-            json.dump(out, open(os.path.join(ROOT, 'scripts/sndata_all_sections.json'),
+            json.dump(out, open(os.path.join(ROOT, _ROOT + '/scripts/sndata_all_sections.json'),
                                 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f'\n==== {ok} PASS / {fail} FAIL ====')
     return 0 if fail == 0 else 1

@@ -1,12 +1,23 @@
 """S6 (0x516610, 46B) 字段访问全谱：对 46 个字节地址逐个做指令包含式 xref，
    抽取每条引用的函数、指令、读/写/位宽、cmp/test 立即数。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, pickle
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 from capstone.x86 import X86_OP_MEM, X86_REG_EBP
 
-IMG = open('scripts/_unpacked_mem.bin','rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin','rb').read()
 BASE = 0x400000
-d, starts = pickle.load(open('scripts/_insn_addrs.pkl','rb'))   # d: va->(size,...) ; starts: sorted list
+d, starts = pickle.load(open(_ROOT + '/scripts/_insn_addrs.pkl','rb'))   # d: va->(size,...) ; starts: sorted list
 SIZE = {va: s[0] for va, s in d.items()}
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
 

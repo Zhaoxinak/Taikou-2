@@ -23,11 +23,22 @@
 
 自检： python scripts/intel_ref.py
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 import struct
 
 BASE = 0x400000
-IMG = os.path.join(os.path.dirname(os.path.abspath(__file__)), '_unpacked_mem.bin')
+IMG = os.path.join(os.path.dirname(os.path.abspath(__file__)), _ROOT + '/scripts/_unpacked_mem.bin')
 _mem = None
 
 

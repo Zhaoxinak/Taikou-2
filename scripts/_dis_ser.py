@@ -1,11 +1,22 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """批量反汇编剩余序列化器，自动提取：目标基址 / 字段写偏移序列 / 循环次数。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import re, sys, json
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 from capstone.x86 import *
 
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 BASE = 0x400000
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
 
@@ -69,5 +80,5 @@ for name, va, ln in SERS:
                     'bases': [hex(b) for b in sorted(bases)],
                     'dests': [[r, v] for r, v, a in dests],
                     'consts': [hex(c) for c in counts]}
-json.dump(result, open('scripts/_ser_disasm.json', 'w'), indent=1)
+json.dump(result, open(_ROOT + '/scripts/_ser_disasm.json', 'w'), indent=1)
 print('\nsaved scripts/_ser_disasm.json')

@@ -11,15 +11,26 @@ Usage:
     _global_xref.py --range 0x503000 0x504000      # what is touched in a window
     _global_xref.py --func 0x43d000                # (debug) refs inside one func
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import sys, io, struct, bisect, collections, pickle, os
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 from capstone import *
 from capstone.x86 import *
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 TEXT_START, TEXT_END = 0x401000, 0x4d0000
-CACHE = 'scripts/_global_xref.cache'
+CACHE = _ROOT + '/scripts/_global_xref.cache'
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = True
 

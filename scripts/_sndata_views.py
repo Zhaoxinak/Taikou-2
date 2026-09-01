@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """P0：dump 每类型代表记录的 3 文本视图 (rec+6/19/32)，判 payload 是否文本。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 from collections import Counter, OrderedDict
 
@@ -38,4 +49,4 @@ def dump(path, max_types=18):
         print(f"  v[32]len{v32[1]:2d}: {v32[0]!r}")
         print(f"   null? 6:{hasnull6} 19:{hasnull19} 32:{hasnull32}  raw={r.hex()}")
 
-dump('Taikou2 Original/SNDATA1.TR2')
+dump(_ROOT + '/Taikou2 Original/SNDATA1.TR2')

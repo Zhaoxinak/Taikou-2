@@ -1,8 +1,19 @@
 #!/usr/bin/env python3
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 # 解码国政治表真实流（解码后 XOR 流 偏移 27297, 49*11=539B），验证 +0x00=城/町idx, +0x04=国主, 并破解 +0x06。
 import struct, json
 
-DEC = "F:/Games/Taikou 2/scripts/_dec_SNDATA1.TR2.bin"
+DEC = _ROOT + '/scripts/_dec_SNDATA1.TR2.bin'
 data = open(DEC, "rb").read()
 STREAM_OFF = 27297
 N = 49
@@ -54,5 +65,5 @@ print("w06 >> 8 < 49 计数:", sum(1 for x in w06 if (x>>8) < 49), "/", N)
 
 # 把所有记录存盘便于后续交叉验证
 out = [{"rec":i,"castle_idx":c,"lord":lord,"w06":w,"b08_0d":rest} for i,c,lord,w,rest in recs]
-json.dump(out, open("F:/Games/Taikou 2/scripts/prov_politics_decoded.json","w"), ensure_ascii=False, indent=1)
+json.dump(out, open(_ROOT + '/scripts/prov_politics_decoded.json',"w"), ensure_ascii=False, indent=1)
 print("\nsaved prov_politics_decoded.json")

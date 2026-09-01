@@ -7,12 +7,23 @@
   0x47da59 / 0x47da64 -> 来自 0x47da50 的两次调用 => WORD (2B)
 两个 W 半调用折叠为一个 'W'，得到每段真实的字段宽序列，进而定 stride。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, json
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UcError
 import unicorn.x86_const as X
 
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
-DISK = open('F:/Games/Taikou 2/Taikou2 Original/SNDATA1.TR2', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
+DISK = open(_ROOT + '/Taikou2 Original/SNDATA1.TR2', 'rb').read()
 BASE = 0x400000
 STACK = 0x800000; STACK_TOP = STACK + 0x20000
 OBJ = 0x820000; SCRATCH = 0x840000; SCRATCH_END = 0x860000
@@ -154,5 +165,5 @@ for i in range(len(SUB1)):
                 'bytes': nb, 'period_fields': p,
                 'period_bytes': bytes_of(pat[:p]) if p else None,
                 'pattern': ''.join(pat[:p]) if p else ''.join(pat[:200])}
-json.dump(out, open('scripts/_sections_layout.json', 'w'), indent=1)
+json.dump(out, open(_ROOT + '/scripts/_sections_layout.json', 'w'), indent=1)
 print('\nsaved scripts/_sections_layout.json')

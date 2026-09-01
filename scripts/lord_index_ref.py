@@ -28,11 +28,22 @@
 
 运行：python scripts/lord_index_ref.py    （自测，打印 RESULT: n/n checks passed）
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import bisect, json, os, pickle, sys
 
 BASE = 0x400000
 HERE = os.path.dirname(os.path.abspath(__file__))
-BIN = os.path.join(HERE, "_unpacked_mem.bin")
+BIN = os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin')
 IDX = os.path.join(HERE, "_insn_addrs.pkl")
 MSGX = os.path.join(HERE, "msgx_all_texts.json")
 

@@ -3,14 +3,25 @@
 """S6 (0x516610..0x51663d) 立即数 xref —— 复用 _insn_addrs.pkl 指令边界集。
 4 字节立即数落在指令**中间**（操作数区）是常态，必须按「指令区间包含」判定。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, pickle, sys, collections
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 BASE = 0x400000
 S6 = 0x516610
 SIZE = 0x2e
-_p = pickle.load(open('scripts/_insn_addrs.pkl', 'rb'))
+_p = pickle.load(open(_ROOT + '/scripts/_insn_addrs.pkl', 'rb'))
 if isinstance(_p, tuple):
     insn, starts = _p[0], sorted(_p[1])
 else:

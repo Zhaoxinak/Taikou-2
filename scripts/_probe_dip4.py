@@ -6,10 +6,21 @@ _probe_dip4.py — 直击「关系值」本体
   C) dump 0x5080cc 附近字节（续89 称"8级国关系表无xref"之谜）
   D) 反汇编 0x4c5acd 尾巴 + 0x4c5ad4
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, re
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM_PATH = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+MEM_PATH = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 MEM = open(MEM_PATH, "rb").read()
 SZ = len(MEM)

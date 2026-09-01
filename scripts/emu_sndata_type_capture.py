@@ -37,14 +37,25 @@ emu_sndata_type_capture.py  v3 (续195 延伸)
       数据表（实体/城/国/国情/名称/S7/S15/扇出全局）的读数，计算 benum 索引区间，
       产出 sndata_handler_footprints.json（每 type×handler → 触及表与索引区间）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct, json, argparse
 from collections import defaultdict
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_READ
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_ESI, UC_X86_REG_ESP, UC_X86_REG_EIP
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BIN  = os.path.join(ROOT, "scripts/_unpacked_mem.bin")
-SND_PATH = os.path.join(ROOT, "Taikou2 Original/SNDATA1.TR2")
+BIN  = os.path.join(ROOT, _ROOT + '/scripts/_unpacked_mem.bin')
+SND_PATH = os.path.join(ROOT, _ROOT + '/Taikou2 Original/SNDATA1.TR2')
 BASE = 0x400000
 
 # ---- 已知数据表范围（VA）----
@@ -276,7 +287,7 @@ def main():
                 routing.setdefault(t, {})[str(mode)] = list(dict.fromkeys(addrs))
             print(f"  模式 {mode}: 覆盖 type 数={len(seen)}, 处理记录={qidx[0]}")
         out1 = {"routing": {f"0x{t:02x}": routing[t] for t in sorted(routing)}}
-        with open(os.path.join(ROOT,"scripts/sndata_type_to_cluster.json"),"w",encoding="utf-8") as f:
+        with open(os.path.join(ROOT,_ROOT + '/scripts/sndata_type_to_cluster.json'),"w",encoding="utf-8") as f:
             json.dump(out1, f, ensure_ascii=False, indent=1)
         print(f"落盘 scripts/sndata_type_to_cluster.json (types={len(routing)})")
 
@@ -322,7 +333,7 @@ def main():
                         if idxs: info["idx_min"]=min(idxs); info["idx_max"]=max(idxs); info["idx_samples"]=sorted(set(idxs))[:12]
                     tblinfo[name]=info
                 summary[f"0x{t:02x}"][kname]=tblinfo
-        with open(os.path.join(ROOT,"scripts/sndata_handler_footprints.json"),"w",encoding="utf-8") as f:
+        with open(os.path.join(ROOT,_ROOT + '/scripts/sndata_handler_footprints.json'),"w",encoding="utf-8") as f:
             json.dump({"footprints":summary, "crashed":crashed}, f, ensure_ascii=False, indent=1)
         print(f"落盘 scripts/sndata_handler_footprints.json (types={len(summary)}, crashed={len(crashed)})")
         if crashed[:10]:

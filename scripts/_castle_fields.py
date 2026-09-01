@@ -1,5 +1,16 @@
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 import json
-res=json.load(open("scripts/castle_values.json"))
+res=json.load(open(_ROOT + '/scripts/castle_values.json'))
 def show(c):
     print(f" id={c['id']:3d} off={c['officer_idx']:4d} par={c['parent_castle']:3d} "
           f"b08={c['b08']:3d} b09={c['b09']:3d} w0a={c['w0a']:5d} b0c={c['b0c']:3d} b0d={c['b0d']:3d} "

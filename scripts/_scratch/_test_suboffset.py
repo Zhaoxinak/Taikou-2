@@ -2,9 +2,20 @@
 # -*- coding: utf-8 -*-
 """Test decoding garbled blocks (49..87, 292..369) from sub-offsets within the
 9-byte slot, to see if a leading flag byte hides the name."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 SC = os.path.dirname(os.path.abspath(__file__))
-BIN = os.path.join(SC, "_unpacked_mem.bin")
+BIN = os.path.join(SC, _ROOT + '/scripts/_unpacked_mem.bin')
 BASE = 0x400000
 data = open(BIN, "rb").read()
 tbl_off = 0x506ca8 - BASE

@@ -11,13 +11,24 @@ Unicorn 闭合：修复(Repair) 效果 0x437910 中 0x4ebcd0(a,b) 语义 + 0x43e
 
 本脚本 emu 叶函数 0x43e7a0 / 0x43e7d0 / 0x4ebcd0 及合成路径，不跑完整 0x437910 UI 链。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, sys
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
 from unicorn.x86_const import (
     UC_X86_REG_ESP, UC_X86_REG_EIP, UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_EDX)
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 STACK = 0x600000
 SENTINEL = 0x610000
 FACILITY = 0x513a78          # slot 0 in runtime buffer

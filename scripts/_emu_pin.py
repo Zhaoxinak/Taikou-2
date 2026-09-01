@@ -7,13 +7,24 @@ Unicorn 校准：牵制(Pin) 真实 mutator 0x437590。
   contest   = rand50 + 20*(byte[corps1+8]&1) + 30*((byte[corps1+0x10]>>2)&3) + byte[corps1+0xa]
   if parity(0x43cab0): threshold += 20
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, sys
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_UNMAPPED
 from unicorn.x86_const import (
     UC_X86_REG_ESP, UC_X86_REG_EIP, UC_X86_REG_EDI, UC_X86_REG_ESI, UC_X86_REG_EAX, UC_X86_REG_EDX)
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 assert len(IMG) == 0x200000, len(IMG)
 
 STACK = 0x600000

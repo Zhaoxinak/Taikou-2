@@ -1,9 +1,20 @@
 # -*- coding: utf-8 -*-
 """用全镜像 call 目标定出 0x49a300..0x49a5c0 区间的真实函数入口, 逐条反汇编。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import re, struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+MEM = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 mem = open(MEM, "rb").read()
 md = Cs(CS_ARCH_X86, CS_MODE_32)

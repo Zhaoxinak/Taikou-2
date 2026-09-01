@@ -1,9 +1,20 @@
 # -*- coding: utf-8 -*-
 """穷举法找「字符串指针表」：连续 >=5 个 dword 都精确指向某条串首 → 判定为指针表。
 不假设表长/表址/段落，全映像 4 字节步进扫描。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, json, sys
 BASE = 0x400000
-mem = open('_unpacked_mem.bin','rb').read()
+mem = open(_ROOT + '/scripts/_unpacked_mem.bin','rb').read()
 N = len(mem)
 
 # 1) 串首集合

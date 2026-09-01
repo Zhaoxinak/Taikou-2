@@ -1,12 +1,23 @@
 # -*- coding: utf-8 -*-
 """续163 探索②：全镜像扫 `call 0x4802e0` 调用点，dump 每个调用点前的 push 参数，
 确认「资源表基址 + selector 尺寸」是硬编码常量还是记录派生。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 from capstone import CS_ARCH_X86, CS_MODE_32, Cs
 
 BASE = 0x400000
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MEM = open(os.path.join(ROOT, 'scripts', '_unpacked_mem.bin'), 'rb').read()
+MEM = open(os.path.join(ROOT, 'scripts', _ROOT + '/scripts/_unpacked_mem.bin'), 'rb').read()
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = True
 

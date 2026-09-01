@@ -4,6 +4,17 @@
 对每个 type，给出：记录数 / payload 结构特征(嵌入GBK名/word数组/byte值/填充) / 头3字 / 一致性。
 交付：scripts/sndata_type_schema.py（自检）+ sndata_type_schema.json（全表）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct, json
 from collections import Counter, defaultdict
 
@@ -36,7 +47,7 @@ def field_probe(recs):
     return ('+'.join(features)) if features else '二进制'
 
 def build():
-    recs1 = read_records('Taikou2 Original/SNDATA1.TR2')
+    recs1 = read_records(_ROOT + '/Taikou2 Original/SNDATA1.TR2')
     bytype = defaultdict(list)
     for r in recs1:
         t = struct.unpack_from('<H', r, 0)[0] & 0xff

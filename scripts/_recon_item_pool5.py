@@ -5,8 +5,19 @@ HYP mapping (data-driven): def-cat -> pool-cat(0..7)
  0..5(tea)->7, 6..10(weapon)->4, 11..13(book)->1, 14..17(treasure)->3,
  18..20(art)->6, 22..25(south)->5, 26(fabric)->2 ; cat21 empty.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 # build pattern with wildcard at index 21
 pat = [7,7,7,7,7,7, 4,4,4,4,4, 1,1,1, 3,3,3,3, 6,6,6, None, 5,5,5,5, 2]
 print("pattern len", len(pat))

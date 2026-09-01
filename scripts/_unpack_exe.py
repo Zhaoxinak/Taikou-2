@@ -8,6 +8,17 @@ _unpack_exe.py — 用 Unicorn 引擎原生执行 TAIK2W95.exe 的脱壳 stub, �
 依赖: unicorn (managed venv)
 产物: scripts/_unpacked_mem.bin (原始内存映像 0x400000..) + 控制台验证
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 import math
 from collections import Counter
@@ -103,7 +114,7 @@ def main():
     if STOP["hit_oep"]:
         # dump 内存映像
         mem = mu.mem_read(BASE, MEM_END - BASE)
-        out = r"F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+        out = _ROOT + '/scripts/_unpacked_mem.bin'
         with open(out, "wb") as f:
             f.write(bytes(mem))
         print(f"已 dump 内存映像 -> {out}  ({len(mem):,} B)")

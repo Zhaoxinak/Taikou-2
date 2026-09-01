@@ -2,10 +2,21 @@
 """Disassemble the main record loop 0x4e8625 to find how it selects the
 per-type decoder after calling the loader 0x47fc60. Look for 0x4fb09c writes,
 type tables, and indirect dispatch."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 HERE = os.path.dirname(os.path.abspath(__file__))
-IMG = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+IMG = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 BASE = 0x400000
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = False

@@ -29,6 +29,17 @@
 注：0x4ab300 的参数位于非标准偏移：level 在 [esp+0x34](=entry_esp+0x8)，prov 在 [esp+0x40](=entry_esp+0x14)。
 本脚本用偏移式入参精确对齐。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 import sys
 import struct
@@ -37,7 +48,7 @@ from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ESP, UC_X86_REG_ECX, UC
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-IMG = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+IMG = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 STACK = 0x7F000
 RET = 0x90000
 KOKU = 0x5179b8

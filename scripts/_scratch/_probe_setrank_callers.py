@@ -2,11 +2,22 @@
 """set_rank(0x49a7e0) 调用者 —— 用「末条指令正好结束于 call 地址」做对齐，
 保证上下文反汇编正确（capstone 遇内联数据会停，不能从远处序言起解）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-MEM = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 SZ = len(MEM)
 
 OUT = []

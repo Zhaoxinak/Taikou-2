@@ -10,6 +10,17 @@
   2) 对每个引用点用 capstone 反汇编上下文（前后若干指令），看是 mov/lea/cmp 等什么用途。
   3) 把两块表完整 dump 出来，按 stride 切片做成结构化预览。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, sys
 
 try:
@@ -18,7 +29,7 @@ except ImportError:
     print("capstone 未安装；部分功能跳过")
     Cs = None
 
-BIN = "scripts/_unpacked_mem.bin"
+BIN = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000  # 镜像加载基址
 
 def le_bytes(addr):

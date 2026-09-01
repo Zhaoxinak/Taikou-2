@@ -2,12 +2,23 @@
 # -*- coding: utf-8 -*-
 """0x51dc5c 被引用 111 次，紧邻 S14 blob 基址 0x51dc60 之前。
 反汇编所有引用点，找出访问 blob 的索引算术（乘 49 还是乘 24）。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, re
 from collections import Counter
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 from capstone.x86 import *
 
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 BASE = 0x400000
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
 

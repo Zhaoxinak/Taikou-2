@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """分析 HJMAPDAT.DAT section A：9 单位类型 × 40 nibble 属性；并 dump 名表候选找兵种名。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct, sys
 sys.path.insert(0, os.path.dirname(__file__))
 DATA = "F:/Games/Taikou2"
@@ -61,7 +72,7 @@ allzero = [u for u,(lo,hi) in enumerate(b0) if all(x==0 for x in lo) and all(x==
 print("\n  battle0 全零单位行:", allzero, " (若含0, 可能 U0=空/无兵)")
 
 # ── 名表候选 dump (0x506ca8, 370条 GBK 变长 null) ──
-mem = open("scripts/_unpacked_mem.bin","rb").read()
+mem = open(_ROOT + '/scripts/_unpacked_mem.bin',"rb").read()
 BASE=0x400000
 def mrd(va,sz): return mem[va-BASE:va-BASE+sz]
 tbl = mrd(0x506ca8, 370*9)

@@ -4,9 +4,20 @@ Climb the call tree: for a set of candidate MIDDLE-LAYER functions, find their
 direct callers (E8 rel32 byte-scan) and attribute to containing function.
 Goal: locate the AI turn-decision loop that initiates diplomacy.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, sys
 
-IMG = r"F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+IMG = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 
 # candidate middle-layer / dispatch functions to trace
@@ -61,7 +72,7 @@ for t, name in wanted.items():
         out.append(f"  0x{c:x}  (in fn 0x{fn:x})")
 
 txt = "\n".join(out)
-od = r"F:/Games/Taikou 2/scripts/_ai_dip_tree.txt"
+od = _ROOT + '/scripts/_ai_dip_tree.txt'
 with open(od, 'w') as f:
     f.write(txt)
 print(txt)

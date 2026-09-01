@@ -17,12 +17,23 @@ S15 事件旗 `0x5203c0` 段C 6 字节语义攻坚。
 
 运行：在 F:/Games/Taikou 2/scripts/ 下 `python sndata_s15_segc_ref.py`
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, sys, json
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 import emu_harness as H
 
 BASE=0x400000
-BIN="F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+BIN=_ROOT + '/scripts/_unpacked_mem.bin'
 SET_C=0x49c500
 GET_C=0x49c410
 

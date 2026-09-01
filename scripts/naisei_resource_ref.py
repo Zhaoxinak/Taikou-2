@@ -34,6 +34,17 @@ delta 全部为确定性的 sat_add/sat_sub 流转。
 hook 0x49ac90(→1)/0x49fa40(→pay)/0x4a6140(→g)，实体/城表写受控值，
 穷举多组 (A 资源, 城资源, pay, g) 比较 emu 与 Python 公式（含 0 除/越界/上限钳制）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 import sys
 import itertools
@@ -43,7 +54,7 @@ from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ESP
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-IMG = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+IMG = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 
 STACK = 0x7F000
 SCRATCH = 0x90000

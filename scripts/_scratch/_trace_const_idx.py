@@ -4,13 +4,24 @@ the value of EAX (arg1=col=attr 0..19) and ECX (arg2=row=class 0..8).
 Report whether the index is a CONSTANT (directly nameable attribute/class) or
 caller-derived (register/arg).
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import sys, io, struct
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 from capstone import *
 from capstone.x86 import *
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 TEXT0, TEXT1 = 0x401000, 0x4d0000
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
 

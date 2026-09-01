@@ -9,11 +9,22 @@
   4. 0x5037b0  谣言 4 修改码表      byte[k]  k=0..3 -> 4 字节
   5. 0x503560  修复 消息索引表      word[ecx*2] -> 16 项 word（ecx=byte[0x511e0d]）
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, json, io, sys
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 
 def at(va):
     return MEM[va - BASE:]
@@ -95,6 +106,6 @@ for nm, va in fmts.items():
 
 out['block_fmt_ptrs'] = fmt_ptrs
 
-with open('scripts/tactic_tables.json', 'w', encoding='utf-8') as f:
+with open(_ROOT + '/scripts/tactic_tables.json', 'w', encoding='utf-8') as f:
     json.dump(out, f, ensure_ascii=False, indent=2)
 print('\n[written] scripts/tactic_tables.json')

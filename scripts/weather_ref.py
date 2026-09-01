@@ -38,12 +38,23 @@
 战斗联动：0x42d62e 读 getWetFlag()，非零且单位兵种类别 kind==2（铁炮/洋枪）
           时战力 ×2/3（0x42d643 `shl eax,1; imul 0x55555556`）
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 
 import os, struct, random, collections
 
 BASE = 0x400000
 _HERE = os.path.dirname(os.path.abspath(__file__))
-_IMG = os.path.join(_HERE, "_unpacked_mem.bin")
+_IMG = os.path.join(_HERE, _ROOT + '/scripts/_unpacked_mem.bin')
 
 # ---------------------------------------------------------------- 静态表
 # 0x5037b8 .. 0x5037c3（12B，season*3 + weather，weather 只到 2）

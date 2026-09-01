@@ -26,6 +26,17 @@
 hook 三个外部依赖（0x4ebd60=rand、0x49fd60=rel、0x49f5a0=entity）返回受控值，
 对多组 (ctx 字节, rel, v) 穷举比较 emu 实跑结果与 Python 公式。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 import sys
 
@@ -35,7 +46,7 @@ from unicorn.x86_const import (UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_EDX,
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-IMG = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+IMG = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 
 STACK = 0x7F000
 SCRATCH = 0x90000          # 放 ctx 假结构

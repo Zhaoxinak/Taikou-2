@@ -1,6 +1,17 @@
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 import json, struct, os
 
-ROOT = "F:/Games/Taikou 2"
+ROOT = _ROOT
 def decode(fn):
     with open(fn,'rb') as f: data=f.read()
     assert data[:16]==b'TAIKOU2_SCENARIO', fn
@@ -17,7 +28,7 @@ def hexdump(b, off, n):
         out.append(f"  +{i:3d}  {h}")
     return '\n'.join(out)
 
-for sc, fn in (("sc1","Taikou2 Original/SNDATA1.TR2"),):
+for sc, fn in (("sc1",_ROOT + '/Taikou2 Original/SNDATA1.TR2'),):
     key, s = decode(os.path.join(ROOT, fn))
     print(f"=== {sc}: XOR key=0x{key:02x} streamlen={len(s)} ===")
     print(f"province@27052 = {list(s[27052:27057])}  (expect [5,0,64,28,0])")

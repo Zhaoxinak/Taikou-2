@@ -2,13 +2,24 @@
 解析其 (目标字段偏移, 位宽, 上限常量)，输出完整族表。
 饱和加 sat_add(a,b,cap) = min(a+b, cap)；饱和减 sat_sub(a,b) = (a>b)?a-b:0 @0x4ebcd0
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import pickle, re
 from collections import defaultdict
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
-d, starts = pickle.load(open('scripts/_insn_addrs.pkl', 'rb'))
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
+d, starts = pickle.load(open(_ROOT + '/scripts/_insn_addrs.pkl', 'rb'))
 SIZE = {off: s[0] for off, s in d.items()}
 TEXT = {off: s[1] for off, s in d.items()}
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = False
@@ -80,5 +91,5 @@ for (f, c, w) in sorted(agg, key=lambda x: (x[0] is None, x[0])):
 
 import json
 json.dump([{k: (hex(v) if k == 'fn' else v) for k, v in r.items()} for r in rows],
-          open('scripts/entity_inc_family.json', 'w'), ensure_ascii=False, indent=2)
+          open(_ROOT + '/scripts/entity_inc_family.json', 'w'), ensure_ascii=False, indent=2)
 print("\nwritten scripts/entity_inc_family.json")

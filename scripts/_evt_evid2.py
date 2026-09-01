@@ -9,13 +9,24 @@ For each candidate function, dump:
     conditional-jump TARGET + whether that target is a `ret` (=> top-level
     self-assertion that skips the body when id mismatches).
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import io, sys, struct
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 from capstone import *
 from capstone.x86 import *
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 CODE_LO, CODE_HI = 0x400000, 0x600000
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
 def off(va): return va - BASE

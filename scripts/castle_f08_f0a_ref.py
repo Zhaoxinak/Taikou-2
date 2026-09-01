@@ -44,12 +44,23 @@
 
 运行：python scripts/castle_f08_f0a_ref.py
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import bisect, json, os, pickle, re, sys
 from collections import Counter
 
 BASE = 0x400000
 HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = "F:/Games/Taikou 2"
+ROOT = _ROOT
 
 _d = pickle.load(open(os.path.join(HERE, "_insn_addrs.pkl"), "rb"))
 IMAP = _d[0]
@@ -105,7 +116,7 @@ def decode(fn, base=0x598):
 # =============================================================================
 print("=== 1. 🔴 第 9 处文档矛盾：CASTLE_OFF 真值 = 21845 ===")
 # =============================================================================
-S1 = decode("Taikou2 Original/SNDATA1.TR2")
+S1 = decode(_ROOT + '/Taikou2 Original/SNDATA1.TR2')
 chk("解码流长度足够（>21845+200*26）", len(S1) > 21845 + 200 * 26)
 
 

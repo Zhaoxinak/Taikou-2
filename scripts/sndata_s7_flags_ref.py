@@ -21,10 +21,21 @@ S7 每城运行时表 `0x516a28`（200 槽 x 16B）字段语义攻坚。
 运行：在 F:/Games/Taikou 2/scripts/ 下执行
   python sndata_s7_flags_ref.py
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, sys
 
 BASE = 0x400000
-BIN  = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+BIN  = _ROOT + '/scripts/_unpacked_mem.bin'
 
 SETTER_A = 0x49bf50   # 写 +0x0f 低4位 bits0-3
 SETTER_B = 0x49bf90   # 写 +0x0f 高3位 bits4-6 (0x70)

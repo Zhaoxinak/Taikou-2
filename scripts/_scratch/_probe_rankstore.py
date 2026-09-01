@@ -1,11 +1,22 @@
 # -*- coding: utf-8 -*-
 """穷举 +0x2d 写入：mov byte[reg+0x2d],r8 (88 ?? 2d) 与 inc/dec byte[reg+0x2d] (fe ?? 2d)。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, os, bisect
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-mem = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+mem = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 
 tg = set()
 i = 0

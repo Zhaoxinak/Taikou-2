@@ -1,7 +1,18 @@
 # -*- coding: utf-8 -*-
 """Trace callers of the AI turn entry + power-table builder/fn."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
-IMG = r"F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+IMG = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 wanted = {
     0x4a6ba0: "ai_turn_entry_4a6ba0",
@@ -35,5 +46,5 @@ for t,n in wanted.items():
     out.append(f"=== callers of {n} ({hex(t)}) : {len(cs)} ===")
     for c in cs: out.append(f"  0x{c:x}  (in fn 0x{cf(c):x})")
 txt="\n".join(out)
-od=r"F:/Games/Taikou 2/scripts/_ai_callers3.txt"
+od=_ROOT + '/scripts/_ai_callers3.txt'
 open(od,'w').write(txt); print(txt); print("\n[written]",od)

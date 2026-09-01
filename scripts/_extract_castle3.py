@@ -1,5 +1,16 @@
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 import os, json
-ROOT="F:/Games/Taikou 2"
+ROOT=_ROOT
 STREAM_BASE=0x598          # decode start
 CASTLE_OFF=21845           # decoded-stream offset of castle block (empirically validated)
 STRIDE=26
@@ -37,7 +48,7 @@ def parse(d):
     }
 
 res={}
-for sc,fn in (("scenario1","Taikou2 Original/SNDATA1.TR2"),("scenario2","Taikou2 Original/SNDATA2.TR2")):
+for sc,fn in (("scenario1",_ROOT + '/Taikou2 Original/SNDATA1.TR2'),("scenario2",_ROOT + '/Taikou2 Original/SNDATA2.TR2')):
     key,s=decode(fn)
     print(f"\n=== {sc}: key=0x{key:02x} stream_len={len(s)} ===")
     # validation
@@ -62,5 +73,5 @@ for c in res["scenario1"][:12]:
     print(f"  id={c['id']:3d} off={c['officer_idx']:4d} par={c['parent_castle']:3d} "
           f"w10={c['w10']:5d} w12={c['w12']:5d} w14={c['w14']:6d} w16={c['w16']:4d} w18={c['w18']:4d} b1a={c['b1a']:3d} type={c['type']}")
 
-json.dump(res, open("scripts/castle_values.json","w",encoding='utf-8'), ensure_ascii=False, indent=1)
+json.dump(res, open(_ROOT + '/scripts/castle_values.json',"w",encoding='utf-8'), ensure_ascii=False, indent=1)
 print("\nwrote scripts/castle_values.json  (", len(res["scenario1"]), "castles x2 scenarios )")

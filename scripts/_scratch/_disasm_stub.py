@@ -6,12 +6,23 @@ _disasm_stub.py — 反汇编 TAIK2W95.exe 的脱壳 stub (入口 RVA 0x1311a0)
 依赖: capstone (managed venv)
 映射: 节区1 vaddr=0xc4000 roff=0x400  ->  file_off = 0x400 + (rva-0xc4000)
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 from capstone import *
 
 EXE = r"F:/Games/Taikou2/TAIK2W95.exe"
 ENTRY_RVA = 0x1311A0
 FILE_END = 0x6E400  # 451584
-OUT = r"F:/Games/Taikou 2/scripts/_stub_disasm.txt"
+OUT = _ROOT + '/scripts/_stub_disasm.txt'
 
 def rva_to_off(rva):
     return 0x400 + (rva - 0xC4000)

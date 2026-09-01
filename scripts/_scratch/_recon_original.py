@@ -1,10 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Recon the original Taikou2 data files + anchor loaders via EXE filename strings."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct, sys
 
-BASE = r"F:\Games\Taikou 2\Taikou2 Original"
-IMG  = r"F:\Games\Taikou 2\scripts\_unpacked_mem.bin"
+BASE = _ROOT + '/Taikou2 Original'
+IMG  = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE_VA = 0x400000
 
 def hexdump(b, off=0, n=64):

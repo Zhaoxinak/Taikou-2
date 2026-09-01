@@ -45,12 +45,23 @@ setter（`0x49ab00/0x20/0x40`）**落在 `0x7f` 掩码之内** —— 置位会*
 这正是太阁2 官方**八段身分阶梯**，且**交叉坐实续122 的
 「`+0x2d` 低 3 位 = 身分码 0..7」**（`+0x2d` 即 `word[+0x2c] >> 8`）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 
 import struct
 from collections import Counter
 
-MEM_PATH = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
-BSD_PATH = "F:/Games/Taikou 2/Taikou2 Original/BSDATA1.TR2"
+MEM_PATH = _ROOT + '/scripts/_unpacked_mem.bin'
+BSD_PATH = _ROOT + '/Taikou2 Original/BSDATA1.TR2'
 BASE = 0x400000
 _mem = open(MEM_PATH, "rb").read()
 _bsd = open(BSD_PATH, "rb").read()

@@ -6,6 +6,17 @@ _verify_hjchar.py — 验证 HJCHAR.LZW 是不是 GBK 码序字体的第二部�
 HKCHAR 覆盖 0xB0A1-0xBEAE (1330 字形)。
 HJCHAR 有 1202 字形 (32B/glyph) = 可能从 0xBEAF 开始覆盖 0xBEAF-0xC3CF。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import sys, os, json
 sys.path.insert(0, os.path.dirname(__file__))
 from real_assets import ls11_decompress
@@ -124,7 +135,7 @@ for i in range(min(20, n_glyphs)):
     if ch and sys_font:
         draw.text((cx, 0), ch, fill=(255, 255, 0), font=sys_font)
 
-img.save("scripts/_probe/font_atlas/HJCHAR_test_B_first20.png")
+img.save(_ROOT + '/scripts/_probe/font_atlas/HJCHAR_test_B_first20.png')
 print("Saved: scripts/_probe/font_atlas/HJCHAR_test_B_first20.png")
 print("  If yellow chars match the white glyphs, hypothesis B is correct")
 
@@ -144,7 +155,7 @@ for i in range(min(20, n_glyphs)):
     if ch and sys_font:
         draw2.text((cx, 0), ch, fill=(255, 255, 0), font=sys_font)
 
-img2.save("scripts/_probe/font_atlas/HJCHAR_test_A_first20.png")
+img2.save(_ROOT + '/scripts/_probe/font_atlas/HJCHAR_test_A_first20.png')
 print("Saved: scripts/_probe/font_atlas/HJCHAR_test_A_first20.png")
 print("  If yellow chars match the white glyphs, hypothesis A is correct")
 
@@ -173,5 +184,5 @@ if sys_font:
         if ch:
             draw3.text((cx, 0), ch, fill=(255, 255, 0), font=sys_font)
     
-    img3.save("scripts/_probe/font_atlas/HJCHAR_test_64B.png")
+    img3.save(_ROOT + '/scripts/_probe/font_atlas/HJCHAR_test_64B.png')
     print("Saved: scripts/_probe/font_atlas/HJCHAR_test_64B.png")

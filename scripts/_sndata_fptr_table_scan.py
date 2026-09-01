@@ -10,13 +10,24 @@
     python scripts/_sndata_fptr_table_scan.py --minlen 100
     python scripts/_sndata_fptr_table_scan.py --lo 0x500000 --hi 0x530000
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import argparse
 import os
 import struct
 
 BASE = 0x400000
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MEM = open(os.path.join(ROOT, 'scripts', '_unpacked_mem.bin'), 'rb').read()
+MEM = open(os.path.join(ROOT, 'scripts', _ROOT + '/scripts/_unpacked_mem.bin'), 'rb').read()
 IMAGE_END = BASE + len(MEM)
 
 # 代码段范围（脱壳映像 text：OEP 0x4f44b0，末尾 ~0x4f0000 之后是数据/资源）

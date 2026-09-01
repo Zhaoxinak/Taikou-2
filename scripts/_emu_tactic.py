@@ -12,6 +12,17 @@ Unicorn 校准：跑真实二进制 0x436840(火计) / 0x435ed0(伏兵) / 0x436b
 unit[0](施法, stat=150) / unit[1](目标, stat=100) / entity[0..1] 镜像，
 hook 比较指令抓 atk/def 后立即 emu_stop()。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, sys
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_UNMAPPED, UC_MEM_FETCH_UNMAPPED
 from unicorn.x86_const import (
@@ -19,7 +30,7 @@ from unicorn.x86_const import (
     UC_X86_REG_ESI, UC_X86_REG_EDI, UC_X86_REG_ECX, UC_X86_REG_EDX)
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 assert len(IMG) == 0x200000, len(IMG)
 
 UNIT_BASE = 0x513910

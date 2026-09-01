@@ -7,6 +7,17 @@
 
 用法：python scripts/_sndata_buf_readers.py
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import bisect
 import os
 import struct
@@ -16,7 +27,7 @@ from capstone import CS_ARCH_X86, CS_MODE_32, Cs
 
 BASE = 0x400000
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MEM = open(os.path.join(ROOT, 'scripts', '_unpacked_mem.bin'), 'rb').read()
+MEM = open(os.path.join(ROOT, 'scripts', _ROOT + '/scripts/_unpacked_mem.bin'), 'rb').read()
 
 CODE_LO, CODE_HI = 0x401000, 0x4f0000
 # 0x522c60 / 0x522c70 各 1B，0x522c88 起 43B payload；留余量

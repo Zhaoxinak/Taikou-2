@@ -3,13 +3,24 @@
 _field_ctx.py — 对给定表某偏移的「每次读」打印所在函数 + 后续 N 条指令上下文
 用法: python scripts/_field_ctx.py <表基址> <偏移> [后续条数,默认8]
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import io, sys, struct
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 from capstone import *
 from capstone.x86 import *
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 CODE_LO, CODE_HI = 0x400000, 0x600000
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
 def off(va): return va - BASE

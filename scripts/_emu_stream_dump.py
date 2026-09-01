@@ -8,12 +8,23 @@ faithful. We only *observe* it: at entry, ecx = stream object, [ecx+0x9a] is the
 cursor and [ecx+0x94] the xor key, so decoded = mem[cursor] ^ key.
 This removes all offset guessing: we get the real byte sequence per section.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, json
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UcError
 import unicorn.x86_const as X
 
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
-DISK = open('F:/Games/Taikou 2/Taikou2 Original/SNDATA1.TR2', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
+DISK = open(_ROOT + '/Taikou2 Original/SNDATA1.TR2', 'rb').read()
 BASE = 0x400000
 STACK = 0x800000; STACK_TOP = STACK + 0x20000
 OBJ = 0x820000; SCRATCH = 0x840000; SCRATCH_END = 0x860000
@@ -119,8 +130,8 @@ for i in range(len(SUB1)):
     print('S%-5d %8d' % (i, len(b)))
     stream += b
 print('TOTAL  %8d' % len(stream))
-open('scripts/_stream_dump.bin', 'wb').write(bytes(stream))
-with open('scripts/_stream_sections.json', 'w') as f:
+open(_ROOT + '/scripts/_stream_dump.bin', 'wb').write(bytes(stream))
+with open(_ROOT + '/scripts/_stream_sections.json', 'w') as f:
     json.dump({'sections': [{'name': 'S%d' % i,
                              'func': '0x%x' % SUB1[i],
                              'len': len(sections.get('S%d' % i, bytearray()))}

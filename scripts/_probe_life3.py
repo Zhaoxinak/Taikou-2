@@ -1,9 +1,20 @@
 # -*- coding: utf-8 -*-
 """以 1490(0x5D2) 为锚反查: 全镜像搜该立即数的所有出现处。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import re, struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+MEM = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 mem = open(MEM, "rb").read()
 md = Cs(CS_ARCH_X86, CS_MODE_32)
@@ -78,7 +89,7 @@ print(f"  (共列出 {cnt} 条)")
 print("\n" + "=" * 78)
 print("D. 验证: @39&0x7f 反推生年 vs 史実 (扩大样本, 用旧历年)")
 print("=" * 78)
-B1 = "F:/Games/Taikou 2/Taikou2 Original/BSDATA1.TR2"
+B1 = _ROOT + '/Taikou2 Original/BSDATA1.TR2'
 b1 = open(B1, "rb").read()
 REC, N = 59, 700
 

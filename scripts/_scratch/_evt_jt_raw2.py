@@ -2,11 +2,22 @@
 """Raw-byte scan for BOTH jmp[reg*4+disp] (FF 24 8x) and call[reg*4+disp] (FF 14 8x)
 dispatch tables. For each table, resolve entries (abs / rel-tbl / rel-jmp) and report
 any entry matching one of the HANDLER set. This reveals the opcode -> handler map."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import io, sys, struct
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 CODE_LO, CODE_HI = 0x400000, 0x600000
 SIBS = [0x85,0x8D,0x95,0x9D,0xA5,0xAD,0xB5,0xBD]
 # handler set (from _evt_enum): functions calling both 0x49f6b0 and 0x49b860

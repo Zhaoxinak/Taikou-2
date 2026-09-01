@@ -10,10 +10,21 @@
  4. 记录 mem 操作数 base∈ctxregs 且 disp∈[0,0x2d] 的访问：宽度/读/写/助记符/立即数；
  5. 另做 0x516610..0x51663d 绝对地址扫描作为补充。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, sys, collections, json, os, pickle
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 BASE = 0x400000
 N = len(IMG)
 S6 = 0x516610
@@ -47,7 +58,7 @@ def flat(ins):
 
 
 def build_funcs():
-    cache = 'scripts/_func_bodies.pkl'
+    cache = _ROOT + '/scripts/_func_bodies.pkl'
     if os.path.exists(cache) and os.path.getsize(cache) > 1000:
         return pickle.load(open(cache, 'rb'))
     st = set()
@@ -156,5 +167,5 @@ if __name__ == '__main__':
         print(f"+{d:02x}  w={dict(ws)}  R={rw.get('R',0):3d} W={rw.get('W',0):2d}  "
               f"imm={imms}  mn={dict(mns)}")
     json.dump(dict(hits=allh, calls=len(calls)),
-              open('scripts/s6_ctx_access.json', 'w'), ensure_ascii=False, indent=1)
+              open(_ROOT + '/scripts/s6_ctx_access.json', 'w'), ensure_ascii=False, indent=1)
     print('\n-> scripts/s6_ctx_access.json')

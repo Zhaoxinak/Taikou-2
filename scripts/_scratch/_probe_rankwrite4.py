@@ -3,11 +3,22 @@
 （promo_ref.py 即以此映射读出 9 个職位名并 11/11 通过，可证。）
 本脚本用正确映射全文件重扫。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-MEM = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 SZ = len(MEM)
 
 def off2va(off):

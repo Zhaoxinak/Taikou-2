@@ -2,13 +2,24 @@
 目的：确认 +0x16/18/1a 除 setter 外是否存在绝对地址直写，并给出全部字段的读/写/位宽。
 pickle 键 = 文件偏移；IMG[off:] @ VA = BASE+off
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import pickle, struct
 from collections import Counter, defaultdict
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
-d, starts = pickle.load(open('scripts/_insn_addrs.pkl', 'rb'))
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
+d, starts = pickle.load(open(_ROOT + '/scripts/_insn_addrs.pkl', 'rb'))
 SIZE = {off: s[0] for off, s in d.items()}
 TEXT = {off: s[1] for off, s in d.items()}
 STARTS = sorted(starts)

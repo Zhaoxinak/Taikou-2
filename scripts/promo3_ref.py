@@ -1,4 +1,15 @@
 # -*- coding: utf-8 -*-
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 # 太阁立志传2 — 大名/城主 任命·继承路径 参考实现
 # 反汇编证据：
 #   領地->大名: 0x4c2b80(主) -> 0x4c2c30(find_daimyo) -> 0x4c2c50(setup_daimyo, set_rank(7)+0xea60)
@@ -133,7 +144,7 @@ def self_test():
 
     buf.write("\nself_test: %d/%d %s\n" % (ok, total, "ALL PASS" if ok==total else "FAILED"))
     out = buf.getvalue()
-    with open(r"F:/Games/Taikou 2/scripts/_promo3_selftest.txt", "w", encoding="utf-8") as f:
+    with open(_ROOT + '/scripts/_promo3_selftest.txt', "w", encoding="utf-8") as f:
         f.write(out)
     print(out)
     return ok == total

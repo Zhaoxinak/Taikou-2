@@ -1,8 +1,19 @@
 # -*- coding: utf-8 -*-
 """续136 回填: 实体中段方法表 + 身分名表 + @39..@42 第五组验证。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json
 
-P = "F:/Games/Taikou 2/scripts/bsdata_spec.json"
+P = _ROOT + '/scripts/bsdata_spec.json'
 d = json.load(open(P, encoding="utf-8"))
 
 d["entity_mid_method_table"] = {
@@ -31,7 +42,7 @@ d["entity_mid_method_table"] = {
                            "置位会改变算出的年龄。只有 bit7(`0x49ab60`) 在掩码外、与年龄互不干扰。"
                            "可能 (a) 这三个 setter 属另一对象（该区段疑似混有多个对象方法），"
                            "或 (b) 确实存在位别名。⇒ 未验证前勿把 bits4-6 当生日位使用。",
-    "reference_impl": "scripts/entity_mid_fields_ref.py (41/41 PASS)",
+    "reference_impl": _ROOT + '/scripts/entity_mid_fields_ref.py (41/41 PASS)',
 }
 
 d["rank_names_table"] = {

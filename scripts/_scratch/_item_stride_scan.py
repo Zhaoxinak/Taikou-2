@@ -1,7 +1,18 @@
 #!/usr/bin/env python3
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 # 找物品定义表索引器：搜索 ×19(0x13) 乘法 (imul reg,reg,0x13)，反汇编其前后来判断是否在索引 189×19 表。
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
-BIN = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+BIN = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 data = open(BIN,"rb").read()
 def off(va): return va-BASE

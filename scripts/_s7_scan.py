@@ -1,11 +1,22 @@
 # -*- coding: utf-8 -*-
 """S7 @0x516a28 (200x16B 每城运行时表) 写入点静态搜索。
 搜索字面值 0x516a28 在全映像中的所有出现，反汇编上下文，找 setter/直接写。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 BASE = 0x400000
-MEM = open("/Users/ts/Downloads/Taikou 2/scripts/_unpacked_mem.bin", "rb").read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', "rb").read()
 S7_BASE = 0x516a28
 S7_HI = S7_BASE + 200 * 16  # 0x5173e8
 TARGET = struct.pack("<I", S7_BASE)

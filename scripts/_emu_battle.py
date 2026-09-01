@@ -9,6 +9,17 @@
   - mode_m1 = 0 (0x511bf8)     -> 无免伤/无 >>3
   - section A 全部 0x03        -> 低4位=3(除数表[3]=7), 高4位=0(无对冲), 且 !=10(无handle_stat)
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, sys
 sys.path.insert(0, 'scripts')
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
@@ -16,7 +27,7 @@ from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_UNMAP
 from unicorn.x86_const import UC_X86_REG_ESP, UC_X86_REG_EIP, UC_X86_REG_EAX, UC_X86_REG_AX, UC_X86_REG_EDX, UC_X86_REG_ESI
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 assert len(IMG) == 0x200000, len(IMG)
 
 TABLE = [10, 12, 15, 7, 7, 15, 100, 100, 10, 10, 12, 7, 7, 10, 10, 8, 100, 100, 12, 12]

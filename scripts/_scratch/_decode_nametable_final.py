@@ -8,9 +8,20 @@ Blocks:
   292..369 role/职种 types (flag-prefixed, variable)
 We pick per-slot the decode (offset 0/1/2) that is cleanest (no U+FFFD) and longest.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json, os
 SC = os.path.dirname(os.path.abspath(__file__))
-BIN = os.path.join(SC, "_unpacked_mem.bin")
+BIN = os.path.join(SC, _ROOT + '/scripts/_unpacked_mem.bin')
 BASE = 0x400000
 data = open(BIN, "rb").read()
 tbl_off = 0x506ca8 - BASE

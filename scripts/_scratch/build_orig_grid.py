@@ -1,10 +1,21 @@
 """重建原版截图参考网格：动态列数 × 行数，按截图数量自适应。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 from PIL import Image, ImageDraw, ImageFont
 from pathlib import Path
 import os
 
-orig_dir = Path("F:/Games/Taikou 2/assets/orig_screens")
-out_path = Path("F:/Games/Taikou 2/assets/orig_grid.png")
+orig_dir = Path(_ROOT + '/assets/orig_screens')
+out_path = Path(_ROOT + '/assets/orig_grid.png')
 
 # 源: 320×200 缩放
 THUMB_W = 280

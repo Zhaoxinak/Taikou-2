@@ -38,10 +38,21 @@ setter，而是一整张 **「武将对象方法表」** 的一段，对象基�
 但 setter 是**按 `ecx = base + N` 传入偏移**的参数化家族，故静态扫描
 `byte[reg + 0x0b]` 形式的写入永远抓不到）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 
 import struct
 
-MEM_PATH = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+MEM_PATH = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 _mem = open(MEM_PATH, "rb").read()
 

@@ -6,11 +6,22 @@
 另：代码里 `mov esi, X` 的 X 通常是「真基址 + 首字段偏移」，首字段写在 [esi-k]，
     故真基址 = X - k（城表：X=0x51eb8c, 首字段 [esi-4] ⇒ 真基址 0x51eb88）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import re, json
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 from capstone.x86 import *
 
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 BASE = 0x400000
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
 
@@ -82,5 +93,5 @@ for name, va, ln in SERS:
     out[name] = {'func': hex(va), 'len': ln, 'base_reg': base_reg,
                  'base_val': hex(base_val) if base_val else None,
                  'fields': fields, 'consts': [hex(c) for c in consts]}
-json.dump(out, open('scripts/_ser_fields.json', 'w'), indent=1)
+json.dump(out, open(_ROOT + '/scripts/_ser_fields.json', 'w'), indent=1)
 print('\nsaved scripts/_ser_fields.json')

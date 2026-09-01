@@ -6,9 +6,20 @@ We recover per-DLL import counts from each IAT, split the global by-name
 region by descriptor array order, then map name->IAT slot VA and find
 `call [slot]` / `jmp [slot]` callers.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 
-MEM = open("_unpacked_mem.bin", "rb").read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', "rb").read()
 BASE = 0x400000
 
 # 1. find all ".DLL" name strings -> their RVA -> descriptor (Name field at +12)

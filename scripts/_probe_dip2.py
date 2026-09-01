@@ -5,9 +5,20 @@ _probe_dip2.py — 外交结算核心追查
   B) 反汇编 0x4c5d00（0x4c582d 处 push [0x525ea4]; call 0x4c5d00）
   C) 反汇编 0x4c4270（选目标国）确认返回值语义
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM_PATH = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+MEM_PATH = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 MEM = open(MEM_PATH, "rb").read()
 SZ = len(MEM)

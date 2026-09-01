@@ -5,9 +5,20 @@
    66 89 05/0d..3d + addr ; 89 05..3d + addr ; c7 05..3d + addr + imm32 ; a3 + addr
 (B) scan all absolute stores into 0x514800..0x5149ff block; cluster by function to find the setup fn.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM = open(r"F:\Games\Taikou 2\scripts\_unpacked_mem.bin", "rb").read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', "rb").read()
 BASE = 0x400000
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = False
@@ -90,5 +101,5 @@ for g in groups:
     out.append(f"\n--- cluster off {start:#08x}..{end:#08x} (va {BASE+start:#08x}..{BASE+end:#08x}) : {len(g)} stores ---")
     for off,va,kind in g:
         out.append(f"  {BASE+off:#08x}: {kind} -> 0x{va:08x}")
-open(r"F:\Games\Taikou 2\scripts\_hp6.txt","w",encoding="utf-8").write("\n".join(out))
+open(_ROOT + '/scripts/_hp6.txt',"w",encoding="utf-8").write("\n".join(out))
 print("WROTE _hp6.txt ; clusters:", len(groups))

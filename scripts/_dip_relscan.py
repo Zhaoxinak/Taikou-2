@@ -1,4 +1,15 @@
 #!/usr/bin/env python3
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 # 关系值写入定位：在整个映像中追踪「某寄存器被载入 0x5179b8 基址」的污点，
 # 然后检测该寄存器（或其派生）是否参与对 [reg + disp] 的写，disp ∈ {0xb,0xc,0xd}
 # （即国政治表 stride14 的关系属性字段）。按 16KB 分块并逐块 try/except，避免 capstone 崩溃。
@@ -7,7 +18,7 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 from capstone.x86 import *
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 def off(v): return v - BASE
 
 TARGET = 0x5179b8

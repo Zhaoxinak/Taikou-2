@@ -6,11 +6,22 @@
    ③ 回溯 call-site 的 ecx 来源，确认是否 = S7 条目 (0x516a28+16*idx)。
    ④ 反汇编每个跳表目标前几指令，判状态机形态。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 BASE=0x400000
-BIN="F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+BIN=_ROOT + '/scripts/_unpacked_mem.bin'
 DISP=0x49c064        # +0x08 状态机派发器 (low3 bits -> jmp [edx*4+0x49c1cc])
 JTAB=0x49c1cc        # 跳表基址
 SET08=0x49bfba       # +0x08 word setter (之前 0 E8 call-site)

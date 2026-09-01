@@ -3,11 +3,22 @@
 """回溯 +0x0f setter 调用点的 ecx 来源，确认是否 = S7 每城表条目 (base 0x516a28, stride 16)。
    若 ecx 由 `lea ecx,[base+16*idx]` 或等价方式从 S7 表基址派生 => 坐实 S7 专属。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 BASE=0x400000
-BIN="F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+BIN=_ROOT + '/scripts/_unpacked_mem.bin'
 # 选代表性 call-site：push 0xc(SNDATA 默认哨兵，最可能为 S7 init) / push ebx / push 0
 SITES=[0x4b4a7b, 0x4702bd, 0x4511e5, 0x4511ee, 0x4702c6]
 

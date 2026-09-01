@@ -20,9 +20,20 @@ castle_strategy_ref.py  —  续118 交付物
   - 枚举排除槽位字节实读：0x4ac7f0 内 `cmp dl,0x66/0x64/0x69/0x5b` 与 `cmp byte[esi+8],0x1a`
   - 绝嗣 handler 引用的三张表基址（城表 0x51eb88 / 武将实体 0x519868 / 国情 0x519548）
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct
 
-IMG = "scripts/_unpacked_mem.bin"
+IMG = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 
 def load():

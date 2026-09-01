@@ -7,12 +7,23 @@ S15 剧本事件 flag（14 个 bit）语义定名参考实现 + 自校验。
 - 国名表 0x506ca8 stride 9（国 id=索引）第 13 条 = 駿河
 - 武将名表 entity_names_sc1.json[217] = 下间赖照（石山本願寺僧官）
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, bisect, pickle, json, sys
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-MEM = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = False
 

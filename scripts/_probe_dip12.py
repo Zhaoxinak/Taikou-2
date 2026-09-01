@@ -4,17 +4,28 @@ _probe_dip12.py — 用「外交结果消息」反查结算代码
   A) 在 msgx 全文本里搜外交结算关键词
   B) 对命中的消息 id, 扫全映像的 `push imm32` (68 xx) 找引用点
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json, struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM_PATH = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+MEM_PATH = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 MEM = open(MEM_PATH, "rb").read()
 SZ = len(MEM)
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = True
 
-d = json.load(open("F:/Games/Taikou 2/scripts/msgx_all_texts.json", encoding="utf-8"))
+d = json.load(open(_ROOT + '/scripts/msgx_all_texts.json', encoding="utf-8"))
 texts = d["texts"]
 # 统一成 {int: str}
 T = {}
