@@ -17,13 +17,24 @@
   4. 精灵/结构表 @0x512f10 (20B) ← 解压流 0x6d1。
   5. HKMAPDAT.LZW 与 HKMAPNEW.LZW 解压内容**逐字节相同**（旧/新两份同数据）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 ORIG = os.path.join(ROOT, "Taikou2 Original")
-IMG = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+IMG = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 BASE = 0x400000
 
 sys.path.insert(0, HERE)

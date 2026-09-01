@@ -1,0 +1,59 @@
+{
+ "mci_iat_slot": "0x4fb1e8",
+ "devices": {
+  "A_cdaudio": {
+   "devID": "word[0x501290]",
+   "device_type": "0x204 MCI_DEVTYPE_CD_AUDIO",
+   "cur_track": "byte[0x501294]",
+   "flag": "word[0x510310]",
+   "fn": {
+    "0x401040": "CdOpen",
+    "0x401000": "CdClose",
+    "0x4010a0": "CdMediaPresent",
+    "0x4010f0": "CdNumTracks",
+    "0x401270": "CdGetMode",
+    "0x401140": "CdTrackLenMSF",
+    "0x401210": "CdTrackLenSec",
+    "0x4013b0": "CdPlayTrack",
+    "0x4012c0": "CdStopClose"
+   }
+  },
+  "B_waveaudio": {
+   "devID": "word[0x501298]",
+   "device_type": "0x20a MCI_DEVTYPE_WAVEFORM_AUDIO",
+   "cur_element": "dword[0x510314]",
+   "flag": "word[0x510318]",
+   "fn": {
+    "0x4014a0": "WavOpen",
+    "0x401450": "WavClose",
+    "0x401540": "WavIsPlaying",
+    "0x4015a0": "WavStopClose",
+    "0x4015f0": "WavPlay"
+   }
+  },
+  "C_avivideo": {
+   "devID": "dword[0x514ab0]",
+   "device_type": "\"avivideo\" @0x5056ec",
+   "fn": {
+    "0x46e8b0": "AviOpen",
+    "0x46e7b0": "AviFitWindow",
+    "0x46e900": "AviClose"
+   },
+   "err_string": "0x5056f8 无法打开动画文件。"
+  }
+ },
+ "notify_hwnd": "dword[0x526ba4]",
+ "cmd_push_counts": {
+  "MCI_OPEN": 8,
+  "MCI_STATUS": 7,
+  "MCI_CLOSE": 6,
+  "MCI_PLAY": 4,
+  "MCI_SET": 3,
+  "MCI_STOP": 3,
+  "MCI_WHERE": 3,
+  "MCI_SEEK": 2,
+  "MCI_PUT": 2,
+  "MCI_PAUSE": 1
+ },
+ "direct_call_sites": 12
+}

@@ -3,9 +3,20 @@
 """Probe 12: find all word-stores to [reg+0xc] (this+0xc = action code) in duel module 0x466000..0x46c000.
 This is where the AI (and player) action code gets written. Disassemble each writer's function head.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM = open(r"F:\Games\Taikou 2\scripts\_unpacked_mem.bin", "rb").read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', "rb").read()
 BASE = 0x400000
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = True
@@ -34,5 +45,5 @@ for va, mn, opstr in hits:
                     for i in md.disasm(MEM[s:va-BASE+2], BASE+s))
     out.append(f"\n--- store @ {va:#08x}: {mn} {opstr} ---")
     out.append(ctx)
-open(r"F:\Games\Taikou 2\scripts\_ai6.txt","w",encoding="utf-8").write("\n".join(out))
+open(_ROOT + '/scripts/_ai6.txt',"w",encoding="utf-8").write("\n".join(out))
 print("WROTE _ai6.txt ; stores:", len(hits))

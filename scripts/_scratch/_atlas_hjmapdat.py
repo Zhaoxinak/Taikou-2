@@ -2,11 +2,22 @@
 # -*- coding: utf-8 -*-
 """Generate PNG atlases of all 38 HJMAPDAT.DAT battle maps at confirmed
 40x19 layout (1 byte/cell). Terrain = low nibble, modifier = high nibble."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 from PIL import Image
 
 DAT = r"F:/Games/Taikou2/HJMAPDAT.DAT"
-OUT = r"F:/Games/Taikou 2/scripts/_probe/battle_maps"
+OUT = _ROOT + '/scripts/_probe/battle_maps'
 REC = 1700
 W, H = 40, 19
 SCALE = 6

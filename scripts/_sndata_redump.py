@@ -5,6 +5,17 @@
 3 文本视图 = rec+6 (len43), rec+19 (len30), rec+32 (len17)，均为 GBK null 结尾。
 目标：确认 payload 本质（文本 vs 二进制），并对各类型做初步文本归类。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, json
 
 def read_records(path):
@@ -52,5 +63,5 @@ def classify(path):
     print(f"  type(id_word&0xff) 去重 {len(typecnt)} 种, TOP: {typecnt.most_common(15)}")
     return recs
 
-for p in ['Taikou2 Original/SNDATA1.TR2', 'Taikou2 Original/SNDATA2.TR2']:
+for p in [_ROOT + '/Taikou2 Original/SNDATA1.TR2', _ROOT + '/Taikou2 Original/SNDATA2.TR2']:
     classify(p)

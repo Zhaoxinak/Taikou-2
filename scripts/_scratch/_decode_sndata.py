@@ -3,9 +3,20 @@
 Key = header[0x12] ^ header[0x13]. Encrypted stream = file[0x598:].
 Byte map (stream offsets): entity pool @22 (370x59), castle @21852 (200x26), province @27052 (49x5).
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, json
 
-BASE = r"F:\Games\Taikou 2\Taikou2 Original"
+BASE = _ROOT + '/Taikou2 Original'
 
 def decode(path):
     raw = open(os.path.join(BASE, path), "rb").read()

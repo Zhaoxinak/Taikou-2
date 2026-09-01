@@ -5,6 +5,17 @@
 Method (续17/续22): no constant-index call sites; (col,row) always from entity bytes or
 map-derived helpers (0x43a420/0x43a440). Cell low nibble = terrain/move class index 0..7.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json, struct, io, sys, statistics as st
 from collections import defaultdict
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
@@ -12,7 +23,7 @@ from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 TEXT_END = 0x4d0000
 
@@ -242,7 +253,7 @@ spec = {
     },
 }
 
-with open('scripts/sectA_spec.json', 'w', encoding='utf-8') as f:
+with open(_ROOT + '/scripts/sectA_spec.json', 'w', encoding='utf-8') as f:
     json.dump(spec, f, ensure_ascii=False, indent=2)
 
 # summary stdout

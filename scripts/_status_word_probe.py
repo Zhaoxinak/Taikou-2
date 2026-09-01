@@ -3,12 +3,23 @@
 """扫描实体状态字 word[entity+0x2c] 的 bit15(0x8000) 与 bit7(0x80) 两类「不在」标记
 的 setter/clear/tester，按函数聚类并附带调用锚点，用于区分两种语义。
 纯静态，不改写任何文件。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, re
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-MEM = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 
 ANCHOR = {
     0x49a7d0: "set_lord_idx", 0x49a880: "inc_loyalty", 0x49ffc0: "affinity_score",

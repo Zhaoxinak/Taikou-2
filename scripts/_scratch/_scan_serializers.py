@@ -4,9 +4,20 @@ For each call to 0x47d910 (READ1B wrapper) / 0x47d930 (READ2B wrapper),
 the destination global is the immediate pushed just before the call.
 Prints function-ish grouping by 'ret' boundaries.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-BIN = r"F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+BIN = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 START, END = 0x47dae0, 0x47f1c0
 

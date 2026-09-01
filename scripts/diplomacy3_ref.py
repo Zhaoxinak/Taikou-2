@@ -1,4 +1,15 @@
 # -*- coding: utf-8 -*-
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 # diplomacy3_ref.py — 太阁立志传2 外交系统 续95 补充参考实现
 # 主题: 关系变好写入点 + 外交成败确定性判定 (纠偏「随机失败分支」)
 #
@@ -30,7 +41,7 @@
 import struct, sys, os
 
 MEM_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                        "_unpacked_mem.bin")
+                        _ROOT + '/scripts/_unpacked_mem.bin')
 BASE = 0x400000
 REL_MATRIX = 0x51dc60
 CLAN_TABLE = 0x5179b8

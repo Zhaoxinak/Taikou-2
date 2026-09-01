@@ -2,12 +2,23 @@
 # -*- coding: utf-8 -*-
 """改进版 xref: 同时扫描 imm 与 mem.disp 对 字符串/文件表区 的引用。
 聚焦: 文件表区 [0x506000,0x50D000] 的直接(基址)访问 -> 定位各分类文件表的加载函数入口。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import re
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32, CS_OP_IMM, CS_OP_MEM
 
 BASE = 0x400000
-DUMP = r"scripts/_unpacked_mem.bin"
-OUT = r"scripts/_engine_xref2.txt"
+DUMP = _ROOT + '/scripts/_unpacked_mem.bin'
+OUT = _ROOT + '/scripts/_engine_xref2.txt'
 
 data = open(DUMP, "rb").read()
 SIZE = len(data)

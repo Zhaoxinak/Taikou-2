@@ -18,6 +18,17 @@
   S10 0x47ed10: esi=0x5176aa, ebx=0x1e, add esi,4  -> [esi-2]W +0x00 | [esi+0]W +0x02
   S16 0x47f1b0: esi=0x519680, edi=0x14, add esi,2  -> 20 × WORD
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -51,15 +62,15 @@ def main():
         if cond: ok += 1; print(f'  [PASS] {l}')
         else:    fail += 1; print(f'  [FAIL] {l}')
 
-    T = json.load(open(os.path.join(ROOT, 'scripts/msgx_all_texts.json'),
+    T = json.load(open(os.path.join(ROOT, _ROOT + '/scripts/msgx_all_texts.json'),
                        encoding='utf-8'))['texts']
     g = lambda i: T.get(str(i), T.get(i))
     B = bounds()
     result = {}
     S16_BY_SC = {}
 
-    for sc, fn in (('scenario1', 'Taikou2 Original/SNDATA1.TR2'),
-                   ('scenario2', 'Taikou2 Original/SNDATA2.TR2')):
+    for sc, fn in (('scenario1', _ROOT + '/Taikou2 Original/SNDATA1.TR2'),
+                   ('scenario2', _ROOT + '/Taikou2 Original/SNDATA2.TR2')):
         s = decode(fn)
         S = [s[a:e] for a, e in B]
         print(f'\n--- {sc} ---')
@@ -123,7 +134,7 @@ def main():
         {'idx': k, 'msgx': S16_BY_SC['scenario2'][k],
          'text': g(S16_BY_SC['scenario2'][k]) if S16_BY_SC['scenario2'][k] != 0xffff else None}
         for k in range(20)]
-    json.dump(result, open(os.path.join(ROOT, 'scripts/msgx_text_tables.json'),
+    json.dump(result, open(os.path.join(ROOT, _ROOT + '/scripts/msgx_text_tables.json'),
                            'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f'\n==== {ok} PASS / {fail} FAIL ====')
     print('saved scripts/msgx_text_tables.json')

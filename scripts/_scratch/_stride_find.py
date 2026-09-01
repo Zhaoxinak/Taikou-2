@@ -1,9 +1,20 @@
 """Detect the runtime stride used to index 0x51eb88 by finding
    imul reg,reg,K  followed by  add reg, 0x51eb88  (or lea reg,[reg*K+base])."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 from capstone.x86 import (X86_REG_EAX, X86_REG_EBX, X86_REG_ECX, X86_REG_EDX,
                           X86_REG_ESI, X86_REG_EDI, X86_REG_EBP)
-MEM = open('_unpacked_mem.bin','rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin','rb').read()
 BASE=0x400000; SZ=len(MEM)
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail=True
 TARGET=0x51eb88

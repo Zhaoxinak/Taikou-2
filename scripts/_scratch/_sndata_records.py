@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Dump SNDATA1 记录完整字节，并用武将 home_city / 城码 交叉验证记录是否按武将索引排列。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, json
 
 DATA = r"F:\Games\Taikou2"
@@ -10,7 +21,7 @@ N, SZ = 833, 49
 recs = [body[i*SZ:(i+1)*SZ] for i in range(N)]
 
 # 加载武将 home_city
-b = json.load(open("F:/Games/Taikou 2/scripts/bsdata.json", encoding="utf-8"))
+b = json.load(open(_ROOT + '/scripts/bsdata.json', encoding="utf-8"))
 gens = {c["id"]: c for c in b["characters"]}
 
 def dump(i):

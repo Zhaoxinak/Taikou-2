@@ -16,6 +16,17 @@ Unicorn 校准：跑真实二进制 修复(Repair) 效果子程 0x437ad0，
 多组 (R, value, commander) -> 抓 cx=roll，拟合 roll = R + k*value + commander，
 判定 k≈0.2(/5) / 0.1(/10) / 0(误植)。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, sys
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_UNMAPPED, UC_MEM_FETCH_UNMAPPED
 from unicorn.x86_const import (
@@ -23,7 +34,7 @@ from unicorn.x86_const import (
     UC_X86_REG_ESI, UC_X86_REG_EDI, UC_X86_REG_EBX)
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 assert len(IMG) == 0x200000, len(IMG)
 
 STACK = 0x600000

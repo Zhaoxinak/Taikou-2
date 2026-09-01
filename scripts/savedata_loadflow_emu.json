@@ -1,0 +1,77 @@
+{
+ "mode0_slot0": {
+  "res": [
+   "B:MAPCHIP.LZW",
+   "B:MAPCHAR.LZW"
+  ],
+  "clusters": [
+   "L0/0x492e20",
+   "L0/0x493140",
+   "ELSE/0x491e70",
+   "ELSE/0x4873b0"
+  ],
+  "bufs": {
+   "0x522c88": "木下藤吉郎",
+   "0x522c60": "尾张国",
+   "0x522c70": "清洲城步兵头"
+  },
+  "empty": 0,
+  "confirm": 1,
+  "load": 1,
+  "crash": null,
+  "lazy_pages": 3
+ },
+ "mode1_slot0": {
+  "res": [
+   "C:TOWNCHIP.LZW",
+   "C:TOWNCHAR.LZW"
+  ],
+  "clusters": [
+   "L1/0x492ed0",
+   "L1/0x4931f0",
+   "ELSE/0x491e70",
+   "ELSE/0x4873b0"
+  ],
+  "bufs": {
+   "0x522c88": "木下藤吉郎",
+   "0x522c60": "尾张国",
+   "0x522c70": "清洲城步兵头"
+  },
+  "empty": 0,
+  "confirm": 1,
+  "load": 1,
+  "crash": null,
+  "lazy_pages": 3
+ },
+ "mode2_slot0": {
+  "res": [],
+  "clusters": [
+   "ELSE/0x491e70",
+   "ELSE/0x4873b0"
+  ],
+  "bufs": {
+   "0x522c88": "木下藤吉郎",
+   "0x522c60": "尾张国",
+   "0x522c70": "清洲城步兵头"
+  },
+  "empty": 0,
+  "confirm": 1,
+  "load": 1,
+  "crash": null,
+  "lazy_pages": 3
+ },
+ "mode0_slot1": {
+  "res": [],
+  "clusters": [],
+  "bufs": {
+   "0x522c88": "",
+   "0x522c60": "",
+   "0x522c70": ""
+  },
+  "empty": 123361,
+  "confirm": 0,
+  "load": 0,
+  "crash": null,
+  "lazy_pages": 0
+ }
+}

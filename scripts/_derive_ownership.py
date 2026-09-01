@@ -5,11 +5,22 @@ Outputs scripts/ownership_derived.json (castle -> owner/occupants; general -> ca
 NOTE: this is the ROSTER-based baseline (historical home_city + status). The scenario
 save file may override specific placements; see SAVEDATA runtime buffers for that.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json, struct, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SC = os.path.join(ROOT, "scripts")
-BIN = os.path.join(SC, "_unpacked_mem.bin")
+BIN = os.path.join(SC, _ROOT + '/scripts/_unpacked_mem.bin')
 BASE = 0x400000
 
 # ---- 1. decode EXE name table at 0x506ca8 (370 entries, try stride 14) ----

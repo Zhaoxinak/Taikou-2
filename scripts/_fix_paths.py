@@ -1,6 +1,17 @@
 # -*- coding: utf-8 -*-
 """一次性补丁：把参考实现里脆弱的 open('scripts/X') 改为基于 __file__ 的绝对路径。
 仅做字符串替换，不改逻辑。项目有 git，可随时回退。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, re, glob
 
 SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -13,7 +24,7 @@ HEADER = "import os\n_HERE = os.path.dirname(os.path.abspath(__file__))\n"
 def fix_file(path):
     with open(path, "r", encoding="utf-8") as f:
         src = f.read()
-    if "scripts/" not in src:
+    if _ROOT + '/scripts/' not in src:
         return False
     new = PAT.sub(r"open(os.path.join(_HERE, r'\1')", src)
     if new == src:

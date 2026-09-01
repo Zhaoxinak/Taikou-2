@@ -84,6 +84,17 @@ lp2: mov dword [eax], 0x4fc0f0   ; vptr（注意与主池不同！）
 * 4 件大值（89/126/165/202）与 255 的语义（疑为通用品/孤品的 getValue 输入 LEVEL）
 * 需找到**创建物品实例**的函数（把 tier/flag/grp 转成实例 LEVEL/SUB）才能定案
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json
 import os
 
@@ -150,7 +161,7 @@ def _self_test():
     chk('非名物 0x00CA 判否', not is_namimono(0x00CA))
 
     # --- 真实数据 ---
-    p = 'scripts/item_table_200.json'
+    p = _ROOT + '/scripts/item_table_200.json'
     if not os.path.exists(p):
         print(f"  [SKIP] 缺少 {p}")
     else:

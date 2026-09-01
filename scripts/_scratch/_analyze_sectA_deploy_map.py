@@ -8,10 +8,21 @@
 
 偶数列 → 奇数 y 行；奇数列 → 偶数 y 行（隔行交织）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json, sys, io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
-OUT = 'scripts/sectA_deploy_map.json'
+OUT = _ROOT + '/scripts/sectA_deploy_map.json'
 
 
 def dep_off(col, row):

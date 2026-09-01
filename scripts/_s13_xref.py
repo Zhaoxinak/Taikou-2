@@ -2,10 +2,21 @@
 # -*- coding: utf-8 -*-
 """S13 (0x5185b6) xref scanner v2 — recovers the real instruction containing
 each 4-byte immediate by trying candidate start offsets (x86 max len 15)."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, sys
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-BIN = 'scripts/_unpacked_mem.bin'
+BIN = _ROOT + '/scripts/_unpacked_mem.bin'
 data = open(BIN, 'rb').read()
 BASE = 0x400000
 MEM_BASE = 0x5185b6

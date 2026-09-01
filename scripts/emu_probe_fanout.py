@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 """探针：确定 0x47fc60 在 emu 下的参数落点（prologue sub esp,0xd4 后读 [esp+0xd8]）。
    用哨兵值调用，hook 0x47fc7b / 0x47d890 入口，打印实际读到的 idx。"""
+import os
 import struct
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_ESP, UC_X86_REG_EIP
 
-ROOT = "F:/Games/Taikou 2"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BIN  = ROOT + "/scripts/_unpacked_mem.bin"
 BASE = 0x400000
 

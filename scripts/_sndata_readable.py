@@ -4,6 +4,17 @@
 若几乎没有 → 续165 的「3 文本列」理论对多数类型不成立，payload 是二进制字段。
 若有 → 列出类型与其文本，直接给命名/描述。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 
 def read_records(path):
@@ -45,7 +56,7 @@ def scan(path):
                 found.append((idw, off, label, t))
     return found
 
-for p in ['Taikou2 Original/SNDATA1.TR2', 'Taikou2 Original/SNDATA2.TR2']:
+for p in [_ROOT + '/Taikou2 Original/SNDATA1.TR2', _ROOT + '/Taikou2 Original/SNDATA2.TR2']:
     f = scan(p)
     print(f"### {p}  有真实可读文本的记录视图: {len(f)} 条")
     for idw, off, label, t in f[:40]:

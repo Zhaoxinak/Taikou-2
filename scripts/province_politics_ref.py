@@ -11,6 +11,17 @@ province_politics_ref.py — 49 国「政治/关系表」`0x5179b8` 可执行参
 
 运行：python scripts/province_politics_ref.py
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 import struct
 import sys
@@ -33,8 +44,8 @@ F_UNK_C      = 0x0C   # byte   未知（2 处读）
 F_FLAGS      = 0x0D   # byte   标志位域；bit4(0x10) 已见使用（opcode 13 路径）
 
 IMG_CANDIDATES = [
-    os.path.join(os.path.dirname(__file__), '_unpacked_mem.bin'),
-    'scripts/_unpacked_mem.bin',
+    os.path.join(os.path.dirname(__file__), _ROOT + '/scripts/_unpacked_mem.bin'),
+    _ROOT + '/scripts/_unpacked_mem.bin',
 ]
 
 

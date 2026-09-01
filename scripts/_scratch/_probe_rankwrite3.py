@@ -4,11 +4,22 @@
    3) 扫 and al,0xF8 并给上下文 —— 晋升的 read-modify-write 候选
    4) 反汇编 0x43dd50（唯一 byte[+0x2d] 写入所在函数）
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-MEM = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 
 e_lfanew = struct.unpack_from("<I", MEM, 0x3C)[0]
 nsec = struct.unpack_from("<H", MEM, e_lfanew + 6)[0]

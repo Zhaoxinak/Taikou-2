@@ -1,0 +1,148 @@
+{
+ "file": "GAIJI.TR2",
+ "size": 544,
+ "records": 16,
+ "stride": 34,
+ "layout": "u16 LE src_code (read-but-unused) + 32B 16x16 1bpp row-major MSB-first",
+ "notes": [
+  "前 15 条为实字形，src_code = 0x7670+i",
+  "第 16 条为终止记录：src_code=0x7721、位图 32B 全 0",
+  "安装槽位由循环计数器给出（0xA140+i），文件里的 src_code 未参与",
+  "src_code 语义待定；Unicode 假设已被证伪（与系统字体 15×15 交叉匹配自命中 0/15）"
+ ],
+ "install_slots": {
+  "base": 41280,
+  "count": 16,
+  "range": "0xA140..0xA14F"
+ },
+ "dest_buffer": {
+  "va": "0x529e38",
+  "stride": 32,
+  "total_bytes": 512
+ },
+ "functions": {
+  "load": "0x48c070",
+  "read": "0x4411b0",
+  "install": "0x4f1ae6",
+  "get_glyph": "0x4f1a06",
+  "normal_font": "0x4f1a42",
+  "memmove": "0x4f4750",
+  "loader": "0x4802e0"
+ },
+ "resource_name": "B:GAIJI.TR2",
+ "resource_name_va": "0x50a1f8",
+ "glyphs": [
+  {
+   "slot": "0xa140",
+   "src_code": "0x7670",
+   "off": 0,
+   "ink_ratio": 0.348,
+   "bitmap": "008000801ffc00807fff08083f3e08080f08707f00007fff022004211821601e"
+  },
+  {
+   "slot": "0xa141",
+   "src_code": "0x7671",
+   "off": 34,
+   "ink_ratio": 0.266,
+   "bitmap": "00001fe010071fc4100410011fc01000100310007ff014201241158218c46030"
+  },
+  {
+   "slot": "0xa142",
+   "src_code": "0x7672",
+   "off": 68,
+   "ink_ratio": 0.301,
+   "bitmap": "01c03e0004070404fff415012480446080133fc020403fc0204120423fc42040"
+  },
+  {
+   "slot": "0xa143",
+   "src_code": "0x7673",
+   "off": 102,
+   "ink_ratio": 0.285,
+   "bitmap": "2000200cff3201120012fc7f00120012fe112015203920502410221121126030"
+  },
+  {
+   "slot": "0xa144",
+   "src_code": "0x7674",
+   "off": 136,
+   "ink_ratio": 0.328,
+   "bitmap": "0100408f27e9200a024af24c028c27ea2009400943c982499249524a23c82248"
+  },
+  {
+   "slot": "0xa145",
+   "src_code": "0x7675",
+   "off": 170,
+   "ink_ratio": 0.406,
+   "bitmap": "10201f3f2848448408203f3f12207fbe00023f3e21203f3c21203f3d2121273f"
+  },
+  {
+   "slot": "0xa146",
+   "src_code": "0x7676",
+   "off": 204,
+   "ink_ratio": 0.355,
+   "bitmap": "00007f7f000815102a7e544254422a7e154200427f7e084208420e7e702400c3"
+  },
+  {
+   "slot": "0xa147",
+   "src_code": "0x7677",
+   "off": 238,
+   "ink_ratio": 0.262,
+   "bitmap": "11021084104811fe10447c441044104413ff1044148418843084410401040204"
+  },
+  {
+   "slot": "0xa148",
+   "src_code": "0x7678",
+   "off": 272,
+   "ink_ratio": 0.258,
+   "bitmap": "080008001ffe22224f2204c208723082031c00000280124412222209420901f0"
+  },
+  {
+   "slot": "0xa149",
+   "src_code": "0x7679",
+   "off": 306,
+   "ink_ratio": 0.285,
+   "bitmap": "11c81049114a10847c851102120110fc10201c20702013ff1048108411023601"
+  },
+  {
+   "slot": "0xa14a",
+   "src_code": "0x767a",
+   "off": 340,
+   "ink_ratio": 0.363,
+   "bitmap": "02001ff810081ff810081ff810001ffc10001ffe000200847fff02a00c987087"
+  },
+  {
+   "slot": "0xa14b",
+   "src_code": "0x767b",
+   "off": 374,
+   "ink_ratio": 0.379,
+   "bitmap": "008000fc7d0813ff1129114510fe7c8210fe108210fe1440187e71c4063800c7"
+  },
+  {
+   "slot": "0xa14c",
+   "src_code": "0x767c",
+   "off": 408,
+   "ink_ratio": 0.266,
+   "bitmap": "101010102054445228911111247c42107e100a1008ff2a102a104a1048100810"
+  },
+  {
+   "slot": "0xa14d",
+   "src_code": "0x767d",
+   "off": 442,
+   "ink_ratio": 0.328,
+   "bitmap": "01001fe0010801107ffe0180021c07e01a0161fe00000ff808080ff808080ff8"
+  },
+  {
+   "slot": "0xa14e",
+   "src_code": "0x767e",
+   "off": 476,
+   "ink_ratio": 0.23,
+   "bitmap": "0044004200401fff1040104010421022102417a4101820102029204940850303"
+  },
+  {
+   "slot": "0xa14f",
+   "src_code": "0x7721",
+   "off": 510,
+   "ink_ratio": 0.0,
+   "bitmap": "0000000000000000000000000000000000000000000000000000000000000000"
+  }
+ ]
+}

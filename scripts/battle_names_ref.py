@@ -17,10 +17,21 @@ battle_names_ref.py  —  兵种/阵形/计略 名称 参考 + 静态缺席验�
 
 运行：python battle_names_ref.py   （从 scripts/ 目录）
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, glob, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-BIN = os.path.join(HERE, "_unpacked_mem.bin")
+BIN = os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin')
 ORIG = os.path.join(os.path.dirname(HERE), "Taikou2 Original")
 
 # ---- cp932 字符串抽取 ----

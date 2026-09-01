@@ -8,12 +8,23 @@ TAIK2W95 脱壳后引擎静态分析器
 - 对每个 xref，反汇编其前后上下文，按被引用字符串分组输出到 _engine_xref.txt
 - 重点标注关键 target (SNDATA/SCENARIO/HJMAPDAT 等)
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import re, sys
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32, CS_OP_IMM
 
 BASE = 0x400000
-DUMP = r"scripts/_unpacked_mem.bin"
-OUT = r"scripts/_engine_xref.txt"
+DUMP = _ROOT + '/scripts/_unpacked_mem.bin'
+OUT = _ROOT + '/scripts/_engine_xref.txt'
 
 data = open(DUMP, "rb").read()
 SIZE = len(data)

@@ -33,12 +33,23 @@
   0x51e1f0                 物品对象池（200×10B，vtable 0x4fc0e0）
   0x517728                 辅物品池（20×12B）
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 
 import os, random
 
 BASE = 0x400000
 _HERE = os.path.dirname(os.path.abspath(__file__))
-_IMG = os.path.join(_HERE, "_unpacked_mem.bin")
+_IMG = os.path.join(_HERE, _ROOT + '/scripts/_unpacked_mem.bin')
 
 
 # ============================================================ 算术基元

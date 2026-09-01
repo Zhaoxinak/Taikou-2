@@ -4,6 +4,17 @@
 方法：对每条记录的 payload，按 0x0c/0x23/0x4c/0xf3 等结构字节分割，取可 GBK 解码的
 ≥2 字节段；去掉噪声后，统计高频名称片段。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, json
 from collections import Counter, defaultdict
 
@@ -37,7 +48,7 @@ def extract_names(r):
     flush()
     return out
 
-recs = read_records('Taikou2 Original/SNDATA1.TR2')
+recs = read_records(_ROOT + '/Taikou2 Original/SNDATA1.TR2')
 # 提取所有名称
 name_counter = Counter()
 bytype_names = defaultdict(list)

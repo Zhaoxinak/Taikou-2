@@ -24,12 +24,23 @@
 本脚本：解码 0x506b20/0x506ba0 两张资源表、扫描全镜像枚举所有 *.LZW/*.PK8 资源阵列、
 验证 type-0/type-1 handler 簇→资源表链接、GBK 解码 0x50d820/0x50d834 消息串。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct, re
 from capstone import CS_ARCH_X86, CS_MODE_32, Cs
 
 BASE = 0x400000
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MEM = open(os.path.join(ROOT, 'scripts', '_unpacked_mem.bin'), 'rb').read()
+MEM = open(os.path.join(ROOT, 'scripts', _ROOT + '/scripts/_unpacked_mem.bin'), 'rb').read()
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = True
 

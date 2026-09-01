@@ -8,12 +8,23 @@
   3. 线性反汇编该函数，确认 ecx 在调用前被设为 0x516610（且中间无其它 ecx 赋值）
   4. 抓 push 的实参来源（指令级），报告上下文
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import pickle, struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
-d, starts = pickle.load(open('scripts/_insn_addrs.pkl', 'rb'))
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
+d, starts = pickle.load(open(_ROOT + '/scripts/_insn_addrs.pkl', 'rb'))
 INSN = {va: (s[0], s[1]) for va, s in d.items()}  # va(=BASE+off) -> (size, text)
 SIZE = {va: s[0] for va, s in INSN.items()}
 TEXT = {va: s[1] for va, s in INSN.items()}

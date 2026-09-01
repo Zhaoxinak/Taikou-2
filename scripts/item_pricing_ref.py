@@ -86,6 +86,17 @@ getValue(0x49c070) 只读两个字段（live 反汇编坐实）：
 ⇒ **+5 与 +8 在定义期即已是最终语义**，这正是定价可全静态求解的原因。
    grp 的 bit7 = OWNED（实测 121/200 置位；定义期取值，实例期会被改写）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json
 import os
 import sys
@@ -172,7 +183,7 @@ def _self_test():
         c, s, o = grp & 7, (grp >> 3) & 0xf, bool(grp & 0x80)
         chk(f'grp {grp:#04x} 解包', 0 <= c <= 7 and 0 <= s <= 15)
 
-    p = 'scripts/item_table_200.json'
+    p = _ROOT + '/scripts/item_table_200.json'
     if not os.path.exists(p):
         print(f"  [SKIP] 缺少 {p}")
     else:

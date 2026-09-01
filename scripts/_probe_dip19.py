@@ -6,10 +6,21 @@ _probe_dip19.py — 工作完了结算【总 dump】
   C) 0x4d9e50 (目标国属性) / 0x4b9c10
   D) 0x4b956e 成功率块（精读） + 0x4b97a8 共通尾
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json, struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM_PATH = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+MEM_PATH = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 MEM = open(MEM_PATH, "rb").read()
 md = Cs(CS_ARCH_X86, CS_MODE_32)
@@ -54,7 +65,7 @@ print()
 print("=" * 78)
 print("### B) 消息 0x920..0x937")
 print("=" * 78)
-d = json.load(open("F:/Games/Taikou 2/scripts/msgx_all_texts.json", encoding="utf-8"))
+d = json.load(open(_ROOT + '/scripts/msgx_all_texts.json', encoding="utf-8"))
 T = {}
 for k, v in d["texts"].items():
     try:

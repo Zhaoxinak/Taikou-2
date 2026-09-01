@@ -3,12 +3,23 @@
 """Emulate SNDATA loader 0x47f350 under Unicorn; trace every object byte read
 (0x47da10) with its absolute on-disk offset, labeled by active sub-loader.
 Stubbed funcs return precisely per their real `ret N` cleanup."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UcError
 import unicorn.x86_const as X
 
-IMG = open('scripts/_unpacked_mem.bin','rb').read()
-DISK = open('Taikou2 Original/SNDATA1.TR2','rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin','rb').read()
+DISK = open(_ROOT + '/Taikou2 Original/SNDATA1.TR2','rb').read()
 assert len(DISK) == 40856, len(DISK)
 
 BASE = 0x400000
@@ -129,7 +140,7 @@ for sec,(s,e,n) in secs.items():
     print('%-8s %8d %8d %6d' % (sec, s, e, n))
 # save trace + section map
 import json
-with open('scripts/_sndata_trace.json','w') as f:
+with open(_ROOT + '/scripts/_sndata_trace.json','w') as f:
     json.dump({'obj_start':obj_start,'total_1byte':read_1byte,'fpos_end':fpos,
                'sections':{k:{'start':v[0],'end':v[1],'reads':v[2]} for k,v in secs.items()},
                'bulk':bulk, 'trace':trace}, f)

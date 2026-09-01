@@ -1,10 +1,21 @@
 # -*- coding: utf-8 -*-
 """_p89.py — 模式标志 setter/setter caller xref（P1 #89）"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, sys, struct
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-IMG = open("_unpacked_mem.bin", "rb").read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', "rb").read()
 BASE = 0x400000
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.skipdata = True

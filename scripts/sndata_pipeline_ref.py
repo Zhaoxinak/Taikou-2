@@ -5,13 +5,24 @@
 承接续159-166 与本次攻坚。把 P0 从「~164 种类型 payload 字段 schema」收敛为
 「粗粒度 category→resource-set 系统 + 记录为二进制场景/资产数据（非文本/非逐字段描述符）」。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 BASE = 0x400000
-MEM = open(os.path.join(HERE, '_unpacked_mem.bin'), 'rb').read()
+MEM = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), 'rb').read()
 
 def dis(va, n):
     md = Cs(CS_ARCH_X86, CS_MODE_32); md.skipdata = True
@@ -49,7 +60,7 @@ chk('else 簇(0x491e70/0x4873b0) 两模式均执行', has(0x4e8604, 'call 0x491e
 
 print('=== C. payload 非文本（本次实证）===')
 recs1 = []
-d = open(os.path.join(ROOT, 'Taikou2 Original/SNDATA1.TR2'), 'rb').read()
+d = open(os.path.join(ROOT, _ROOT + '/Taikou2 Original/SNDATA1.TR2'), 'rb').read()
 body = d[16:]
 recs1 = [body[i*49:(i+1)*49] for i in range(len(body)//49)]
 chk('记录数 == 833', len(recs1) == 833, f'{len(recs1)}')

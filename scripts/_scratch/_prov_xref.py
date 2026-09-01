@@ -1,10 +1,21 @@
 #!/usr/bin/env python3
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 # 扫描国政治表消费者：找所有引用 0x5179b8 / 0x5179bc (本表) 与 0x519868 (武将表) 的位置，
 # 反汇编其前 0x50 字节，人工看字段(+0x04/+0x05/+0x06)如何被用作索引。
 import struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-BIN = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+BIN = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 data = open(BIN, "rb").read()
 

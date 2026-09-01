@@ -1,11 +1,22 @@
 # -*- coding: utf-8 -*-
 """解码晋升消息 id 0x33e-0x342；完整反汇编候选 rank 设置/晋升函数。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, os, bisect, re
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-mem = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+mem = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 
 # ---- 消息解码 ----
 def msg_by_id(mid):

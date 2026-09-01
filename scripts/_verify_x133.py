@@ -1,7 +1,18 @@
 # -*- coding: utf-8 -*-
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 import json, glob
 
-s = open("F:/Games/Taikou 2/BREAKTHROUGHS.md", encoding="utf-8").read()
+s = open(_ROOT + '/BREAKTHROUGHS.md', encoding="utf-8").read()
 i = s.find("续133）")
 j = s.find("续132）")
 blk = s[i:j]
@@ -15,7 +26,7 @@ for t in TOK:
 print("\nMISSING:", miss if miss else "无")
 
 bad = 0
-for p in sorted(glob.glob("F:/Games/Taikou 2/scripts/*_spec.json")):
+for p in sorted(glob.glob(_ROOT + '/scripts/*_spec.json')):
     try:
         json.load(open(p, encoding="utf-8"))
     except Exception as e:
@@ -23,13 +34,13 @@ for p in sorted(glob.glob("F:/Games/Taikou 2/scripts/*_spec.json")):
         bad += 1
 print("\n全 spec JSON:", "全部有效" if bad == 0 else f"{bad} 个损坏")
 
-d = json.load(open("F:/Games/Taikou 2/scripts/bsdata_spec.json", encoding="utf-8"))
+d = json.load(open(_ROOT + '/scripts/bsdata_spec.json', encoding="utf-8"))
 print("\n尾段字段数:", len(d["entity_tail_method_table"]["fields"]))
 print("+0x26     :", d["entity_tail_method_table"]["fields"]["+0x26"])
 print("+0x29     :", d["entity_tail_method_table"]["fields"]["+0x29"])
 print("ref impl  :", d["reference_impl"])
 for fn in ("promo_spec.json", "promote3_spec.json"):
-    dd = json.load(open("F:/Games/Taikou 2/scripts/" + fn, encoding="utf-8"))
+    dd = json.load(open(_ROOT + '/scripts/' + fn, encoding="utf-8"))
     for k in ("still_unknown", "open_questions"):
         if k in dd:
             print(f"{fn}[{k}] 已闭:", sum(1 for x in dd[k] if str(x).startswith("✅")),

@@ -1,8 +1,19 @@
 # -*- coding: utf-8 -*-
 """回填 bsdata_spec.json: 闭合技能位序项 + 新增三张表 + 纠偏续55。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json
 
-P = "F:/Games/Taikou 2/scripts/bsdata_spec.json"
+P = _ROOT + '/scripts/bsdata_spec.json'
 d = json.load(open(P, encoding="utf-8"))
 
 # ---- 1. 替换 skill_mapping 为定案版
@@ -36,7 +47,7 @@ d["skill_mapping"] = {
     "🔴_correction": "推翻续55「BSDATA 3 字节只能存 5 技能(每 nibble 一个 4bit 技能)」。"
                      "实为 10 技能 × 2bit = 20bit, @27/@28 各 4 技能、@29 低4位 2 技能, "
                      "与运行时实体 +0xf..+0x11 完全同构。",
-    "reference_impl": "scripts/bsdata_fields_ref.py (1096/1096 PASS)",
+    "reference_impl": _ROOT + '/scripts/bsdata_fields_ref.py (1096/1096 PASS)',
 }
 
 # ---- 2. 新增能力名表与属性评分表
@@ -91,7 +102,7 @@ d["still_unknown"] = [
     "🟡 @58 预期寿命编码(续43):8 档 {0,16,32,64,80,96,112,128} 均为 16 倍数 → 与 @43 起始月换算为实际岁数需 EXE 钉",
 ]
 
-d["reference_impl"] = "scripts/bsdata_fields_ref.py (1096/1096 PASS)"
+d["reference_impl"] = _ROOT + '/scripts/bsdata_fields_ref.py (1096/1096 PASS)'
 
 json.dump(d, open(P, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 print("written OK")

@@ -1,8 +1,19 @@
 # -*- coding: utf-8 -*-
 """回填: 实体 +0x20..+0x23 定名(体力上限/体力/体力消耗/野心) + -12 通则 13 组验证。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json
 
-P = "F:/Games/Taikou 2/scripts/bsdata_spec.json"
+P = _ROOT + '/scripts/bsdata_spec.json'
 d = json.load(open(P, encoding="utf-8"))
 
 t = d["entity_tail_method_table"]
@@ -23,7 +34,7 @@ t["vitals_evidence_134"] = {
     "aging_or_damage": "0x404286: `push 0xa; push byte[+0x20]; call 0x4ebcd0` ⇒ "
                        "**体力上限每次 −10**（饱和减，0x4ebcd0: a>b 时返回 a−b），随后钳当前体力",
 }
-t["reference_impl"] = "scripts/entity_tail_methods_ref.py (88/88 PASS)"
+t["reference_impl"] = _ROOT + '/scripts/entity_tail_methods_ref.py (88/88 PASS)'
 
 d["entity_offset_remap"]["verified_on"]["@44..@47 (体力/野心)"] = "→ 实体 +0x20..+0x23"
 d["entity_offset_remap"]["verified_pairs"] = 13

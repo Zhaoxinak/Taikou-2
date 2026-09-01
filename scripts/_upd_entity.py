@@ -1,8 +1,19 @@
 # -*- coding: utf-8 -*-
 """回填 bsdata_spec: BSDATA↔实体偏移重映射通则 + 五维能力块定案。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json
 
-P = "F:/Games/Taikou 2/scripts/bsdata_spec.json"
+P = _ROOT + '/scripts/bsdata_spec.json'
 d = json.load(open(P, encoding="utf-8"))
 
 d["entity_offset_remap"] = {
@@ -53,7 +64,7 @@ d["entity_method_table"] = {
     },
     "caller_pattern": "调用点一律先 `mov reg, dword[0x513b14]` 再 `lea ecx,[reg+N]` / "
                       "`add ecx, N`, 然后 `push 值; call 方法`",
-    "reference_impl": "scripts/entity_methods_ref.py (102/102 PASS)",
+    "reference_impl": _ROOT + '/scripts/entity_methods_ref.py (102/102 PASS)',
 }
 
 d["reference_impl"] = ("scripts/bsdata_fields_ref.py (1096/1096 PASS); "

@@ -1,7 +1,18 @@
 # -*- coding: utf-8 -*-
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 import json, glob, subprocess, sys
 
-P = "F:/Games/Taikou 2/BREAKTHROUGHS.md"
+P = _ROOT + '/BREAKTHROUGHS.md'
 s = open(P, encoding="utf-8").read()
 i = s.find("续130）")
 j = s.find("续129）")
@@ -17,7 +28,7 @@ print("\nMISSING:", miss if miss else "无")
 
 print("\n=== 全 spec JSON 有效性 ===")
 bad = 0
-for p in sorted(glob.glob("F:/Games/Taikou 2/scripts/*_spec.json")):
+for p in sorted(glob.glob(_ROOT + '/scripts/*_spec.json')):
     try:
         json.load(open(p, encoding="utf-8"))
     except Exception as e:
@@ -26,7 +37,7 @@ for p in sorted(glob.glob("F:/Games/Taikou 2/scripts/*_spec.json")):
 print("  全部有效" if bad == 0 else f"  {bad} 个损坏")
 
 print("\n=== bsdata_spec 关键字段 ===")
-d = json.load(open("F:/Games/Taikou 2/scripts/bsdata_spec.json", encoding="utf-8"))
+d = json.load(open(_ROOT + '/scripts/bsdata_spec.json', encoding="utf-8"))
 print("  skill_mapping.status :", d["skill_mapping"]["status"])
 print("  ability_names        :", d["ability_names"]["values"])
 print("  attr_score_table     :", len(d["attr_score_table"]["table"]), "项")

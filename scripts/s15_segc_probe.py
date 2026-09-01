@@ -5,10 +5,21 @@
    getter 0x49c410 读 段C 字节。
    扫描全部 E8 call-site，提取每个调用点的 idx/val 实参，按游戏上下文分类。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 BASE=0x400000
-BIN="F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+BIN=_ROOT + '/scripts/_unpacked_mem.bin'
 SET_C=0x49c500
 GET_C=0x49c410
 

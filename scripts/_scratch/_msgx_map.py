@@ -2,11 +2,22 @@
 """全局 MSGX id → 文本 映射 + 反查 EXE 中所有消息显示点。
 用法: python _msgx_map.py [--battle]
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, re, struct, json, bisect, sys
 from capstone import *
 BASE = 0x400000
 HERE = os.path.dirname(os.path.abspath(__file__))
-mem = open(os.path.join(HERE, '_unpacked_mem.bin'), 'rb').read()
+mem = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), 'rb').read()
 
 # ---------- 1) 载入 4 个文件全部文本 ----------
 FILES = ['MESSAGE1.LZW', 'MESSAGE2.LZW', 'MESSAGE3.LZW', 'MESSAGE4.LZW']

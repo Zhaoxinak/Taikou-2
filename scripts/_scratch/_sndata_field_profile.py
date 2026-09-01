@@ -6,10 +6,21 @@ SNDATA1.TR2 / SNDATA2.TR2 = 16B "TAIKOU2_SCENARIO" + 833*49B + 23B tail.
 We classify records and profile every byte offset [0:49] to find
 id-like (small range), flag-like (0/1), and payload structure.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, collections, os, json
 
 ROOT = "F:/Games/Taikou2"
-OUT = "F:/Games/Taikou 2/scripts"
+OUT = _ROOT + '/scripts'
 
 def load(path):
     raw = open(os.path.join(ROOT, path), "rb").read()

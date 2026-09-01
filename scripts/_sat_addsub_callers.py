@@ -1,7 +1,18 @@
 """枚举饱和加 0x4ebca0 / 饱和减 0x4ebcd0 的调用方与前导 push 参数。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import pickle
 BASE = 0x400000
-d, starts = pickle.load(open('scripts/_insn_addrs.pkl', 'rb'))
+d, starts = pickle.load(open(_ROOT + '/scripts/_insn_addrs.pkl', 'rb'))
 SIZE = {off: s[0] for off, s in d.items()}
 TEXT = {off: s[1] for off, s in d.items()}
 

@@ -1,0 +1,297 @@
+{
+  "set_c_total": 25,
+  "imm_val_count": 9,
+  "runtime_var_count": 16,
+  "segC3_writers": [
+    "0x40a4f0",
+    "0x4110d0"
+  ],
+  "battle_unit_pool": {
+    "base": "0x513550",
+    "stride": 48,
+    "index_range": "0..16 (17 项)",
+    "static": "all-zero (runtime-filled)"
+  },
+  "mapping": [
+    {
+      "set_c_call": "0x409300",
+      "owner_fn": "0x409250",
+      "owner_name": "",
+      "segC_idx": 0,
+      "idx_kind": "imm",
+      "val": "eax",
+      "val_kind": "runtime-var",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x409461",
+      "owner_fn": "0x409310",
+      "owner_name": "",
+      "segC_idx": 0,
+      "idx_kind": "imm",
+      "val": "0x1e",
+      "val_kind": "imm",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x4094c5",
+      "owner_fn": "0x409470",
+      "owner_name": "",
+      "segC_idx": 0,
+      "idx_kind": "imm",
+      "val": "eax",
+      "val_kind": "runtime-var",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x409508",
+      "owner_fn": "0x4094d0",
+      "owner_name": "",
+      "segC_idx": 0,
+      "idx_kind": "imm",
+      "val": "0x1e",
+      "val_kind": "imm",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x409795",
+      "owner_fn": "0x409740",
+      "owner_name": "",
+      "segC_idx": 0,
+      "idx_kind": "imm",
+      "val": "eax",
+      "val_kind": "runtime-var",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x4097b7",
+      "owner_fn": "0x4097a0",
+      "owner_name": "",
+      "segC_idx": 0,
+      "idx_kind": "imm",
+      "val": "0x1e",
+      "val_kind": "imm",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x413d4f",
+      "owner_fn": "0x413d10",
+      "owner_name": "",
+      "segC_idx": 0,
+      "idx_kind": "imm",
+      "val": "eax",
+      "val_kind": "runtime-var",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x413d80",
+      "owner_fn": "0x413d10",
+      "owner_name": "",
+      "segC_idx": 0,
+      "idx_kind": "imm",
+      "val": "eax",
+      "val_kind": "runtime-var",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x413d9c",
+      "owner_fn": "0x413d10",
+      "owner_name": "",
+      "segC_idx": 0,
+      "idx_kind": "imm",
+      "val": "eax",
+      "val_kind": "runtime-var",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x409814",
+      "owner_fn": "0x4097a0",
+      "owner_name": "",
+      "segC_idx": 1,
+      "idx_kind": "imm",
+      "val": "edi",
+      "val_kind": "runtime-var",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x40c4f3",
+      "owner_fn": "0x40c350",
+      "owner_name": "bit2/5 将軍(足利)暗殺 handler",
+      "segC_idx": 1,
+      "idx_kind": "imm",
+      "val": "esi",
+      "val_kind": "runtime-var",
+      "event_bits": [
+        2,
+        5
+      ],
+      "event_label": "2=将軍(足利)暗殺/追放; 5=未定名(handler 0x40ea20)"
+    },
+    {
+      "set_c_call": "0x412daf",
+      "owner_fn": "0x412d90",
+      "owner_name": "bit8 安土城築城 handler",
+      "segC_idx": 1,
+      "idx_kind": "imm",
+      "val": "eax",
+      "val_kind": "runtime-var",
+      "event_bits": [
+        8
+      ],
+      "event_label": "8=安土城築城"
+    },
+    {
+      "set_c_call": "0x413d65",
+      "owner_fn": "0x413d10",
+      "owner_name": "",
+      "segC_idx": 1,
+      "idx_kind": "imm",
+      "val": "eax",
+      "val_kind": "runtime-var",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x419f09",
+      "owner_fn": "0x419ef0",
+      "owner_name": "bit11 16-bit 打包参数写者",
+      "segC_idx": 1,
+      "idx_kind": "imm",
+      "val": "ecx",
+      "val_kind": "runtime-var",
+      "event_bits": [],
+      "event_label": "bit11 16-bit 打包参数写者"
+    },
+    {
+      "set_c_call": "0x409542",
+      "owner_fn": "0x4094d0",
+      "owner_name": "",
+      "segC_idx": 2,
+      "idx_kind": "imm",
+      "val": "edx",
+      "val_kind": "runtime-var",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x419f16",
+      "owner_fn": "0x419ef0",
+      "owner_name": "bit11 16-bit 打包参数写者",
+      "segC_idx": 2,
+      "idx_kind": "imm",
+      "val": "esi",
+      "val_kind": "runtime-var",
+      "event_bits": [],
+      "event_label": "bit11 16-bit 打包参数写者"
+    },
+    {
+      "set_c_call": "0x40a6ec",
+      "owner_fn": "0x40a4f0",
+      "owner_name": "墨俣築城 handler (S13 基 0x518588)",
+      "segC_idx": 3,
+      "idx_kind": "imm",
+      "val": "eax",
+      "val_kind": "runtime-var",
+      "event_bits": [],
+      "event_label": "墨俣築城 handler (S13 基 0x518588)"
+    },
+    {
+      "set_c_call": "0x41112f",
+      "owner_fn": "0x4110d0",
+      "owner_name": "segC[3] 写者 (事件战斗单位索引)",
+      "segC_idx": 3,
+      "idx_kind": "imm",
+      "val": "ebp",
+      "val_kind": "runtime-var",
+      "event_bits": [],
+      "event_label": "segC[3] 写者 (事件战斗单位索引)"
+    },
+    {
+      "set_c_call": "0x40ad81",
+      "owner_fn": "0x40ad10",
+      "owner_name": "",
+      "segC_idx": 4,
+      "idx_kind": "imm",
+      "val": "0x2",
+      "val_kind": "imm",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x40b281",
+      "owner_fn": "0x40b200",
+      "owner_name": "",
+      "segC_idx": 4,
+      "idx_kind": "imm",
+      "val": "0x1",
+      "val_kind": "imm",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x408c6d",
+      "owner_fn": "0x408c20",
+      "owner_name": "bit1 handler (未定名)",
+      "segC_idx": 5,
+      "idx_kind": "imm",
+      "val": "0x0",
+      "val_kind": "imm",
+      "event_bits": [],
+      "event_label": "bit1 handler (未定名)"
+    },
+    {
+      "set_c_call": "0x40a62b",
+      "owner_fn": "0x40a4f0",
+      "owner_name": "墨俣築城 handler (S13 基 0x518588)",
+      "segC_idx": 5,
+      "idx_kind": "imm",
+      "val": "0x1",
+      "val_kind": "imm",
+      "event_bits": [],
+      "event_label": "墨俣築城 handler (S13 基 0x518588)"
+    },
+    {
+      "set_c_call": "0x40a79e",
+      "owner_fn": "0x40a4f0",
+      "owner_name": "墨俣築城 handler (S13 基 0x518588)",
+      "segC_idx": 5,
+      "idx_kind": "imm",
+      "val": "0x0",
+      "val_kind": "imm",
+      "event_bits": [],
+      "event_label": "墨俣築城 handler (S13 基 0x518588)"
+    },
+    {
+      "set_c_call": "0x41144a",
+      "owner_fn": "0x4113a0",
+      "owner_name": "",
+      "segC_idx": "edx",
+      "idx_kind": "runtime-var",
+      "val": "edi",
+      "val_kind": "runtime-var",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    },
+    {
+      "set_c_call": "0x411c40",
+      "owner_fn": "0x411c00",
+      "owner_name": "",
+      "segC_idx": "eax",
+      "idx_kind": "runtime-var",
+      "val": "0xff",
+      "val_kind": "imm",
+      "event_bits": [],
+      "event_label": "(helper/非直接事件handler)"
+    }
+  ]
+}

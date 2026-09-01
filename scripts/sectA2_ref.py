@@ -24,6 +24,17 @@
 
 仍未闭合：9 行 / 20 列的中文命名；值 0..7 的玩法语义。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 import collections
 
@@ -35,7 +46,7 @@ MAP_W, MAP_H = 40, 19
 ROWS, COLS = 9, 20
 
 DAT_CANDIDATES = (
-    'Taikou2 Original/HJMAPDAT.DAT',
+    _ROOT + '/Taikou2 Original/HJMAPDAT.DAT',
     os.path.join('Taikou2 Original', 'HJMAPDAT.DAT'),
 )
 
@@ -155,7 +166,7 @@ INFERRED_NAMES = {
 def read_tables(img_root='.'):
     """从 EXE 映像读 5 张系数表；映像缺失返回 None"""
     try:
-        IMG = open(os.path.join(img_root, 'scripts', '_unpacked_mem.bin'), 'rb').read()
+        IMG = open(os.path.join(img_root, 'scripts', _ROOT + '/scripts/_unpacked_mem.bin'), 'rb').read()
     except OSError:
         return None
     b = 0x400000

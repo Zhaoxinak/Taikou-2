@@ -7,16 +7,27 @@ HBCHAR2 仅覆盖 348 个名称表唯一字符。
 MESSAGE 文本有 ~1426 个唯一 CJK 字符。
 本脚本找出缺失字符，并检查 HKCHAR/TOWNCHAR/MAPCHAR 是否补充覆盖。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import sys, os, json, struct
 sys.path.insert(0, os.path.dirname(__file__))
 from real_assets import ls11_decompress, load_lzw
 
 DATA_ROOT = "F:/Games/Taikou2"
-DUMP = "scripts/_unpacked_mem.bin"
+DUMP = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 
 # ── 1. 加载 HBCHAR2 映射 ──────────────────────────────────────────────
-mapping_path = "scripts/_probe/font_atlas/hbchar2_mapping.json"
+mapping_path = _ROOT + '/scripts/_probe/font_atlas/hbchar2_mapping.json'
 with open(mapping_path, "r", encoding="utf-8") as f:
     font_data = json.load(f)
 
@@ -196,7 +207,7 @@ result = {
     "still_uncovered": len(msg_chars - all_known),
     "uncovered_list": [f"U+{ord(c):04X} {c}" for c in still_uncovered],
 }
-out_path = "scripts/_probe/font_atlas/message_coverage.json"
+out_path = _ROOT + '/scripts/_probe/font_atlas/message_coverage.json'
 with open(out_path, "w", encoding="utf-8") as f:
     json.dump(result, f, ensure_ascii=False, indent=2)
 print(f"\nSaved: {out_path}")

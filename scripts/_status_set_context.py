@@ -2,13 +2,24 @@
 # -*- coding: utf-8 -*-
 """续171：对 word[+0x2c] bit15/bit7 的 SET/CLR 站点，分析调用方 + 站点上下文。
 目标函数：实际写 bit15 / bit7 的函数。输出：每个函数的调用方、站点附近反汇编、内部调用。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, re, bisect
 from collections import defaultdict
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-MEM = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 
 def dis(va, n):
     md = Cs(CS_ARCH_X86, CS_MODE_32); md.skipdata = True

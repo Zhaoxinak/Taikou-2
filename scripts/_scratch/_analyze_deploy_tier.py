@@ -8,12 +8,23 @@ SECT_A：9×20 nibble 表；row = 内部部署 tier，col = 调参槽。
 
 输出：scripts/deploy_tier_map.json + stdout 摘要（UTF-8）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json, sys, io, collections, statistics as st
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
 BATTLES = 'hjmapdat_battles.json'
-OUT = 'scripts/deploy_tier_map.json'
+OUT = _ROOT + '/scripts/deploy_tier_map.json'
 
 # 语义分组（deployment_tactics_ref / _extract_hjmapdat DEPLOY_NAMES）
 WINGS = {

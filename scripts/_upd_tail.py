@@ -1,8 +1,19 @@
 # -*- coding: utf-8 -*-
 """回填: bsdata_spec 增实体尾段方法表; promo/promote3 记勲功上限 60000 已坐实。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json
 
-D = "F:/Games/Taikou 2/scripts/"
+D = _ROOT + '/scripts/'
 
 # ---------- 1. bsdata_spec: 实体尾段方法表
 p = D + "bsdata_spec.json"
@@ -41,7 +52,7 @@ d["entity_tail_method_table"] = {
     "🔴_entry_address_correction": "续127 把 F4 setter 记为 `0x49a828`——那是函数体地址；"
                                    "真实 e8 调用入口是 **0x49a820**（nop 滑橇之后）。"
                                    "本表一律用真实入口。同类坑见续92/续95。",
-    "reference_impl": "scripts/entity_tail_methods_ref.py (64/64 PASS)",
+    "reference_impl": _ROOT + '/scripts/entity_tail_methods_ref.py (64/64 PASS)',
 }
 
 d["reference_impl"] = ("scripts/bsdata_fields_ref.py (1096/1096 PASS); "

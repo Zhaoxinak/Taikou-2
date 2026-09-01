@@ -4,9 +4,20 @@
 1) find e8-rel32 xrefs to key fns: 0x47b5c0(menu), 0x4682f0(main-cb), 0x468250(special-cb), 0x46ade0(attack-dispatch), 0x466340(step3)
 2) disassemble each caller window + the duel main candidate.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM = open(r"F:\Games\Taikou 2\scripts\_unpacked_mem.bin", "rb").read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', "rb").read()
 BASE = 0x400000
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = False
@@ -62,5 +73,5 @@ for name, (a, b) in regions.items():
     out.append(f"\n----- disasm {name} -----")
     out.append(disasm_range(a, b))
 
-open(r"F:\Games\Taikou 2\scripts\_hp5.txt", "w", encoding="utf-8").write("\n".join(out))
+open(_ROOT + '/scripts/_hp5.txt', "w", encoding="utf-8").write("\n".join(out))
 print("WROTE _hp5.txt")

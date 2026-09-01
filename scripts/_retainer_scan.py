@@ -1,12 +1,23 @@
 """扫描所有「遍历武将实体」的循环（stride 0x2f=47 / 计数 0x172=370 / 基址 0x519868 系），
 并报告它们对 word[entity+0x2a]（主君索引）与其它字段的消费方式。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import pickle, re
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
-d, starts = pickle.load(open('scripts/_insn_addrs.pkl', 'rb'))
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
+d, starts = pickle.load(open(_ROOT + '/scripts/_insn_addrs.pkl', 'rb'))
 SIZE = {off: s[0] for off, s in d.items()}
 TEXT = {off: s[1] for off, s in d.items()}
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = False

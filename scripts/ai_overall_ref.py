@@ -115,10 +115,21 @@ ai_diplomacy_ref.py（续104）闭合，此处仅列出其在 AI 循环中的位
   scripts/_d_4a8e80.txt _d_4a97d0.txt(+0x4a9810/0x4a9920) _d_4a92c0.txt(+0x4a9470) _d_4a94e0.txt(+0x4a9610/0x4a91a0/0x4a9230/0x4a90b0)
   scripts/_ai_overall_callers.py  (E8 直接调用方扫描, 见 self_test)
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 from capstone import *
 from capstone.x86 import *
 
-IMG = r"F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+IMG = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 
 # 函数地址常量

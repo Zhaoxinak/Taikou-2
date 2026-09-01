@@ -1,3 +1,14 @@
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 import json, struct
 
 def u16(a,b): return a|(b<<8)
@@ -57,7 +68,7 @@ def parse(d):
     }
 
 res={}
-for sc, fn in (("scenario1","Taikou2 Original/SNDATA1.TR2"),("scenario2","Taikou2 Original/SNDATA2.TR2")):
+for sc, fn in (("scenario1",_ROOT + '/Taikou2 Original/SNDATA1.TR2'),("scenario2",_ROOT + '/Taikou2 Original/SNDATA2.TR2')):
     key, s = decode(fn)
     print(f"\n=== {sc}: XOR key=0x{key:02x}, stream len={len(s)} ===")
     # brute-force search for 200 records where a byte position increments 0..199
@@ -93,5 +104,5 @@ for c in res["scenario1"]:
               f"agri_lv={c['agri_comm_lv']} def_lv={c['def_lv']} pub={c['pub_order']} prod={c['productivity']} "
               f"agri_mul={c['agri_comm_mul']} type={c['type']} sub_mood={c['sub_mood']} f1d={c['f1d']}")
 
-json.dump(res, open("scripts/castle_values.json","w",encoding='utf-8'), ensure_ascii=False, indent=1)
+json.dump(res, open(_ROOT + '/scripts/castle_values.json',"w",encoding='utf-8'), ensure_ascii=False, indent=1)
 print("\nwrote scripts/castle_values.json")

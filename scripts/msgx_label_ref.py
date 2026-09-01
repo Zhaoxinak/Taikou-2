@@ -12,12 +12,23 @@
 - 0x4d7fe0 独有消息数 >> 0  ⇒ 它是主 dispatcher，承载全部人事消息池。
 - 三者共享的通用工具消息集非空（#10/#15/#100/#255/#300/#500 等）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, json, sys
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-MEM = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 msgx = json.load(open(os.path.join(HERE, "msgx_all_texts.json"), encoding="utf-8"))["texts"]
 hexm = json.load(open(os.path.join(HERE, "hexmes_texts.json"), encoding="utf-8"))["texts"]
 msgx_keys = set(int(k) for k in msgx.keys())

@@ -11,10 +11,21 @@
 - 右侧 奕喧 / 沈默 金色按钮
 - 背景金色菱形家纹(沿用主菜单同款)
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 from PIL import Image, ImageDraw, ImageFont
 
-ROOT = "F:/Games/Taikou 2"
+ROOT = _ROOT
 ASSETS = os.path.join(ROOT, "assets")
 SPRITES = os.path.join(ASSETS, "sprites")
 OUT = os.path.join(ASSETS, "battle_iso_preview.png")

@@ -1,7 +1,18 @@
 # -*- coding: utf-8 -*-
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 import json, glob
 
-s = open("F:/Games/Taikou 2/BREAKTHROUGHS.md", encoding="utf-8").read()
+s = open(_ROOT + '/BREAKTHROUGHS.md', encoding="utf-8").read()
 i = s.find("续131）")
 j = s.find("续130）")
 blk = s[i:j]
@@ -17,7 +28,7 @@ print("\nMISSING:", miss if miss else "无")
 
 print("\n=== 全 spec JSON 有效性 ===")
 bad = 0
-for p in sorted(glob.glob("F:/Games/Taikou 2/scripts/*_spec.json")):
+for p in sorted(glob.glob(_ROOT + '/scripts/*_spec.json')):
     try:
         json.load(open(p, encoding="utf-8"))
     except Exception as e:
@@ -25,7 +36,7 @@ for p in sorted(glob.glob("F:/Games/Taikou 2/scripts/*_spec.json")):
         bad += 1
 print("  全部有效" if bad == 0 else f"  {bad} 个损坏")
 
-d = json.load(open("F:/Games/Taikou 2/scripts/bsdata_spec.json", encoding="utf-8"))
+d = json.load(open(_ROOT + '/scripts/bsdata_spec.json', encoding="utf-8"))
 print("\n=== bsdata_spec ===")
 print("  birth_age_encoding.status:", d["birth_age_encoding"]["status"])
 print("  refuted:", list(d["refuted_hypotheses_131"].keys()))

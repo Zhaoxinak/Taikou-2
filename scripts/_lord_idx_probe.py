@@ -9,10 +9,21 @@
 同族判据：函数体内含 add reg,0x2f(47) / /47 魔数 0xae4c415d / 计数 370(0x172) /
           字面 0x519868 / 迭代基点 0x519894
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import bisect, pickle
 
 BASE = 0x400000
-d = pickle.load(open(r"scripts/_insn_addrs.pkl", "rb"))
+d = pickle.load(open(_ROOT + '/scripts/_insn_addrs.pkl', "rb"))
 IMAP = d[0]                      # rva -> (size, text)
 fstarts = sorted(d[1])           # 函数起点 rva 列表
 print("insns:", len(IMAP), "funcs:", len(fstarts))

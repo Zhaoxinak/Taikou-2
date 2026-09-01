@@ -9,12 +9,23 @@ _decode_sndata_names.py — Phase 5 前哨：用 0x506ca8 名称表直接解码 
 2. 0x5110d8 数据（被复制的 10B 条目表）
 3. HBCHAR.LZW 解压后前几个字形的 ASCII-art（看能否识别排列顺序）
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 import os
 import sys
 
 BASE_DIR = "F:/Games/Taikou2"
-DUMP = "scripts/_unpacked_mem.bin"
+DUMP = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 
 # Load unpacked EXE

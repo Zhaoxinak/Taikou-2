@@ -13,6 +13,17 @@
 仅渲染形状: 用 8 级灰度盘 (索引0=透明/黑 -> 7=白) 生成 contact sheet。
 真实调色板后续从 EXE/或对比定位。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import sys, os, struct, json
 sys.path.insert(0, "scripts")
 from real_assets import ls11_decompress
@@ -22,7 +33,7 @@ try:
 except ImportError:
     Image = None
 
-OUTDIR = "scripts/_decoded_grp"
+OUTDIR = _ROOT + '/scripts/_decoded_grp'
 os.makedirs(OUTDIR, exist_ok=True)
 
 def decode_entries(d):

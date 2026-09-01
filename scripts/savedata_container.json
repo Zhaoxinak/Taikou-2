@@ -1,0 +1,198 @@
+{
+  "container": {
+    "magic": "TAIKOU2_SAVEFILE",
+    "filesize": 328088,
+    "header_size": 408,
+    "meta_size": 49,
+    "n_slots": 8,
+    "slot_stride": 40960,
+    "layout": "16B magic + 8×49B slot meta (392B) + 8×40960B slot body",
+    "slot_offset_formula": "idx*40960 + 0x198   (0x47d860: lea x5 ; shl 0x0d ; add 0x198)",
+    "meta_offset_formula": "idx*49 + 0x10       (0x47d890/0x47d8d0)"
+  },
+  "slot_meta_schema": [
+    {
+      "off": "0x00",
+      "len": 2,
+      "type": "u16 LE",
+      "name": "year"
+    },
+    {
+      "off": "0x02",
+      "len": 2,
+      "type": "u16 LE",
+      "name": "month"
+    },
+    {
+      "off": "0x04",
+      "len": 2,
+      "type": "u16 LE",
+      "name": "day"
+    },
+    {
+      "off": "0x06",
+      "len": 13,
+      "type": "GBK cstr",
+      "name": "hero_name",
+      "ui_buf": "0x522c88"
+    },
+    {
+      "off": "0x13",
+      "len": 13,
+      "type": "GBK cstr",
+      "name": "country",
+      "ui_buf": "0x522c60"
+    },
+    {
+      "off": "0x20",
+      "len": 17,
+      "type": "GBK cstr",
+      "name": "place_rank",
+      "ui_buf": "0x522c70"
+    }
+  ],
+  "functions": {
+    "0x47d720": "OpenTR2(file_idx, mode)  0→SNDATA1 1→SNDATA2 >=2→SAVEDATA ; mode 0=read 1=write",
+    "0x47d780": "LoadSAVEDATA — 栈上构造 'A:SAVEDATA.TR2' 并动态替换盘符 (al=[0x526c78]+0x40)",
+    "0x47d800": "重试循环 — 失败弹「请在插入<启动盘或保存盘>。」(0x5095e8) 后 retry",
+    "0x47d850": "CloseTR2 → [0x4fb09c]",
+    "0x47d860": "SeekSlot(idx) → off=idx*40960+0x198 ; [ecx+0x96]=off ; [0x4fb0a8]",
+    "0x47d890": "ReadSlotMeta49(idx,dst) → 0x4411b0",
+    "0x47d8d0": "WriteSlotMeta49(idx,src) → 0x4411d0",
+    "0x47fb80": "LoadSaveSlot(slot) → Open(2,0) ; Seek ; 0x47f350 ×2 趟(flag 1→0)",
+    "0x47fc10": "SaveToSlot(slot) → Open(2,1) ; Seek ; 0x47f5c0 ; Close ; [0x520620]=1",
+    "0x47fc60": "ReadSlotMeta(slot,&y,&m,&d) → 3 word + 3 strcpy 到 UI 缓冲",
+    "0x47fd10": "WriteSlotMeta(slot,y,m,d,name,country,place)"
+  },
+  "ui_strings": {
+    "0x5095e8": "请在插入<启动盘或保存盘>。",
+    "0x509610": "无法使用。",
+    "0x509620": "保存的资料文件不正确。",
+    "0x509638": "资料读取失败。",
+    "0x509650": "保存资料文件制作失败"
+  },
+  "name_table_0x509590": [
+    {
+      "va": "0x509590",
+      "name": "A:SAVEDATA.TR2"
+    },
+    {
+      "va": "0x5095a0",
+      "name": "F:SNDATA1.TR2"
+    },
+    {
+      "va": "0x5095b0",
+      "name": "F:SNDATA2.TR2"
+    },
+    {
+      "va": "0x5095c0",
+      "name": "F:BSDATA1.TR2"
+    },
+    {
+      "va": "0x5095d0",
+      "name": "F:BSDATA2.TR2"
+    }
+  ],
+  "tr2_family": {
+    "SAVEFILE": [
+      "SAVEDATA.TR2"
+    ],
+    "SCENARIO": [
+      "SNDATA1.TR2",
+      "SNDATA2.TR2"
+    ],
+    "GAIJI": [
+      "GAIJI.TR2"
+    ],
+    "BSDATA": [
+      "BSDATA1.TR2",
+      "BSDATA2.TR2"
+    ]
+  },
+  "slots": [
+    {
+      "slot": 0,
+      "year": 1560,
+      "month": 5,
+      "day": 20,
+      "hero": "木下藤吉郎",
+      "country": "尾张国",
+      "place_rank": "清洲城步兵头",
+      "used": true
+    },
+    {
+      "slot": 1,
+      "year": 0,
+      "month": 0,
+      "day": 0,
+      "hero": "",
+      "country": "",
+      "place_rank": "",
+      "used": false
+    },
+    {
+      "slot": 2,
+      "year": 0,
+      "month": 0,
+      "day": 0,
+      "hero": "",
+      "country": "",
+      "place_rank": "",
+      "used": false
+    },
+    {
+      "slot": 3,
+      "year": 0,
+      "month": 0,
+      "day": 0,
+      "hero": "",
+      "country": "",
+      "place_rank": "",
+      "used": false
+    },
+    {
+      "slot": 4,
+      "year": 0,
+      "month": 0,
+      "day": 0,
+      "hero": "",
+      "country": "",
+      "place_rank": "",
+      "used": false
+    },
+    {
+      "slot": 5,
+      "year": 0,
+      "month": 0,
+      "day": 0,
+      "hero": "",
+      "country": "",
+      "place_rank": "",
+      "used": false
+    },
+    {
+      "slot": 6,
+      "year": 0,
+      "month": 0,
+      "day": 0,
+      "hero": "",
+      "country": "",
+      "place_rank": "",
+      "used": false
+    },
+    {
+      "slot": 7,
+      "year": 0,
+      "month": 0,
+      "day": 0,
+      "hero": "",
+      "country": "",
+      "place_rank": "",
+      "used": false
+    }
+  ],
+  "corrections": [
+    "SNDATA_SPEC §6/§11.1「16 槽 × 20480B」→ 实为 8 槽 × 40960B（shl 0x0d 被误读为 0x0c；且 392/16=24.5 不整）",
+    "SNDATA_SPEC §4「49B 记录 = SNDATA 833 条剧本记录」→ 实为 SAVEDATA 的 8 条存档槽元数据（0x47fc60/0x47fd10 硬编码 push 2）"
+  ]
+}

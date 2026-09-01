@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 """Replicate WorldMap._generate_procedural_map + _build_towns coordinate logic
 to visually verify the fix for '画面是乱的' (garbled WorldMap)."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json
 from PIL import Image
 
@@ -70,7 +81,7 @@ for y in range(H):
                 break
 
 # town dots on base map
-towns = json.load(open("scripts/towns.json", encoding="utf-8"))
+towns = json.load(open(_ROOT + '/scripts/towns.json', encoding="utf-8"))
 if isinstance(towns, dict):
     towns = towns.get("towns", towns)
 for t in towns:
@@ -91,7 +102,7 @@ for x in range(W):
 for y in range(H):
     px[0, y] = GOLD_D; px[W-1, y] = GOLD_D
 
-img.save("scripts/_verify_map_base.png")
+img.save(_ROOT + '/scripts/_verify_map_base.png')
 
 # Stretched preview WITH town markers (what the game shows: bg texture stretched,
 # town buttons placed at nx*MAP_RENDER_W). Draw to validate coordinate fix.
@@ -108,7 +119,7 @@ for t in towns:
                 if 0 <= cx+dx < MAP_RENDER_W and 0 <= cy+dy < MAP_RENDER_H:
                     ppx[cx+dx, cy+dy] = (212, 168, 55)
 
-prev.save("scripts/_verify_map_preview.png")
+prev.save(_ROOT + '/scripts/_verify_map_preview.png')
 print("towns:", len(towns))
 print("base saved, preview saved")
 # report coordinate spread for sanity

@@ -46,12 +46,23 @@
 - 续122 记 `+0x29` 忠诚钳制点为 `0x49a7bf` —— 该地址正在 `0x49a7b0` 函数体内，
   两者是同一处，**互为印证**（本表给出其 setter 入口 `0x49a7b0`）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 
 import struct
 from collections import Counter
 
-MEM_PATH = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
-BSD_PATH = "F:/Games/Taikou 2/Taikou2 Original/BSDATA1.TR2"
+MEM_PATH = _ROOT + '/scripts/_unpacked_mem.bin'
+BSD_PATH = _ROOT + '/Taikou2 Original/BSDATA1.TR2'
 BASE = 0x400000
 _mem = open(MEM_PATH, "rb").read()
 _bsd = open(BSD_PATH, "rb").read()

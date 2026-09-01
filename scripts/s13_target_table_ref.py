@@ -45,10 +45,21 @@ Gameplay meaning (evidence-based, hedged):
   routines (the 0x518613 / 0x51869e array refs). The exact 5x5 semantics need
   dynamic emu tracing — flagged as follow-up.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-BIN = 'scripts/_unpacked_mem.bin'
+BIN = _ROOT + '/scripts/_unpacked_mem.bin'
 data = open(BIN, 'rb').read()
 BASE = 0x400000
 def off(va): return va - BASE

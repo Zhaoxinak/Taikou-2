@@ -1,3 +1,14 @@
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 import os
 _HERE = os.path.dirname(os.path.abspath(__file__))
 """S6 (0x516610, 46B) 玩家/事件上下文 结构参考实现（二进制可验证）。
@@ -13,7 +24,7 @@ import struct, pickle, json, sys
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 from capstone.x86 import X86_OP_MEM, X86_REG_ECX
 
-IMG = open(os.path.join(_HERE, r'_unpacked_mem.bin'), 'rb').read()
+IMG = open(os.path.join(_HERE, _ROOT + '/scripts/_unpacked_mem.bin'), 'rb').read()
 BASE = 0x400000
 S6 = 0x516610
 d = pickle.load(open(os.path.join(_HERE, r'_insn_addrs.pkl'), 'rb'))[0]

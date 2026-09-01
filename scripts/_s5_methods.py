@@ -1,13 +1,24 @@
 """(A) 完整方法表 0x49b960..0x49bda8：每个函数写的 [ecx+disp] + 钳制常量
 (B) 全镜像扫描：所有 ecx=0x5197b0(S5) 后调用的方法（并含 lea ecx,[0x5197b0+..] 变体）
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import pickle, struct
 from collections import defaultdict, Counter
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 BASE = 0x400000
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
-d, starts = pickle.load(open('scripts/_insn_addrs.pkl', 'rb'))
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
+d, starts = pickle.load(open(_ROOT + '/scripts/_insn_addrs.pkl', 'rb'))
 SIZE = {off: s[0] for off, s in d.items()}
 TEXT = {off: s[1] for off, s in d.items()}
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = False

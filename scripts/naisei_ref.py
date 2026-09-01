@@ -15,6 +15,17 @@
 全部断言均直接读 `scripts/_unpacked_mem.bin`（cwd=工程根）。
 运行：python3.7 scripts/naisei_ref.py
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json
 import os
 import struct
@@ -28,7 +39,7 @@ except ImportError:  # pragma: no cover
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-MEM = open(os.path.join(ROOT, "scripts", "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(ROOT, "scripts", _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 BASE = 0x400000
 
 # ---------------------------------------------------------------- 基址常量

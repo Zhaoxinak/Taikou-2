@@ -50,12 +50,23 @@
    ③ 完整 type→field schema 须追 0x4802e0/0x492800/0x4ec8c0（payload 解析引擎）+
        各 handler 的表写入；master 注册间接分派器无静态 xref，宜用 emu 提取全 833 条映射。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct
 from capstone import CS_ARCH_X86, CS_MODE_32, Cs
 
 BASE = 0x400000
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MEM = open(os.path.join(ROOT, 'scripts', '_unpacked_mem.bin'), 'rb').read()
+MEM = open(os.path.join(ROOT, 'scripts', _ROOT + '/scripts/_unpacked_mem.bin'), 'rb').read()
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = True
 

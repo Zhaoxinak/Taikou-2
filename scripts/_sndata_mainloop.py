@@ -7,11 +7,22 @@
   python _sndata_mainloop.py cmps   <va> [nbytes]   # 只看 cmp/test + 分支
   python _sndata_mainloop.py fanout <va> [nbytes]   # 看 call 0x47fc60 上下文
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import sys, struct
 from capstone import CS_ARCH_X86, CS_MODE_32, Cs, CS_OP_IMM
 
 BASE = 0x400000
-ROOT = r'F:\Games\Taikou 2'
+ROOT = _ROOT
 MEM = open(ROOT + r'\scripts\_unpacked_mem.bin', 'rb').read()
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = True

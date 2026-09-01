@@ -2,11 +2,22 @@
 # -*- coding: utf-8 -*-
 """提取 SNDATA1/2 全部 833 条 49B 记录：类型头 + 43B payload + 分类。
 输出 scripts/sndata_records.json（供复刻增量映射字段）。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, json
 from collections import Counter
 
 DATA = r"F:\Games\Taikou2"
-OUT = r"F:\Games\Taikou 2\scripts\sndata_records.json"
+OUT = _ROOT + '/scripts/sndata_records.json'
 N, SZ = 833, 49
 FILLER = {0x00,0x01,0x0c,0x0d,0x0e,0x0f,0xf3,0xff}
 

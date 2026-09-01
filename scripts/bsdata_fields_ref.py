@@ -30,11 +30,22 @@ BSDATA / 武将实体 —— 技能位域 · 能力名表 · 属性评分表 参
 数据侧铁证：@29 高 nibble **700/700 恒 0**（只用了低 4 位）；
 武田信玄/上杉谦信/毛利元就 兵法=3、服部半藏 忍术=3 且 剑术=3。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 
 import struct
 
-MEM_PATH = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
-BSD_PATH = "F:/Games/Taikou 2/Taikou2 Original/BSDATA1.TR2"
+MEM_PATH = _ROOT + '/scripts/_unpacked_mem.bin'
+BSD_PATH = _ROOT + '/Taikou2 Original/BSDATA1.TR2'
 BASE = 0x400000
 REC = 59
 NREC = 700

@@ -1,10 +1,21 @@
 # -*- coding: utf-8 -*-
 """追关系「变好」写入点: 扫描两个 setter 的全部 e8 调用方,
 分类调用前 eax 的走向 (inc/add=恶化, dec/sub=变好, push imm=固定/初始化)."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct, re
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM_PATH = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+MEM_PATH = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 mem = open(MEM_PATH, "rb").read()
 N = len(mem)

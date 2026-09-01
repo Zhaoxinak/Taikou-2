@@ -3,11 +3,22 @@
 For each, read the table at disp32 and resolve entries as:
   abs(entry), rel-to-table (disp32+signed), rel-to-jmp-instr (jmp_va+6+signed).
 Report any entry resolving to TARGET, and all tables with >8 valid absolute entries."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import io, sys, struct
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 TARGET = int(sys.argv[1], 16) if len(sys.argv) > 1 else 0x4e82c0
 CODE_LO, CODE_HI = 0x400000, 0x600000
 SIBS = [0x85,0x8D,0x95,0x9D,0xA5,0xAD,0xB5,0xBD]

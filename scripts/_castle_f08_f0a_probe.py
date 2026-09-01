@@ -4,10 +4,21 @@
 只取「引用了城表 0x51eb88 区域或 stride 31」的函数，再在其中找 [reg+8] / [reg+0xa] 访问，
 输出 ±6 条上下文，便于人工判语义。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import bisect, pickle, re, sys
 
 BASE = 0x400000
-d = pickle.load(open(r"scripts/_insn_addrs.pkl", "rb"))
+d = pickle.load(open(_ROOT + '/scripts/_insn_addrs.pkl', "rb"))
 IMAP = d[0]
 FSTART = sorted(d[1])
 RVAS = sorted(IMAP)

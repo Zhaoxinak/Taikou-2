@@ -4,12 +4,23 @@
 对每个目标函数，收集「函数本体 + 直接 callee（排除共享 setter 库 0x49a000-0x49cfff）」
 内 push 的 MSGX id；再算每个函数的「独有」消息集（不在另两个函数中出现），给出事件标签。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, json
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-MEM = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 msgx = json.load(open(os.path.join(HERE, "msgx_all_texts.json"), encoding="utf-8"))["texts"]
 hexm = json.load(open(os.path.join(HERE, "hexmes_texts.json"), encoding="utf-8"))["texts"]
 msgx_keys = set(int(k) for k in msgx.keys())

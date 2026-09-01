@@ -26,10 +26,21 @@
        / 0xfde「10支洋枪10贯钱，可以卖到1000枝」(10,100: 100批×10支=1000)
        / 0xfcf 钱不够 / 0xfdf 带不到10贯很难买东西 / 0xfb0 取消
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json, os, struct
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-IMG = open(os.path.join(ROOT, 'scripts/_unpacked_mem.bin'), 'rb').read()
+IMG = open(os.path.join(ROOT, _ROOT + '/scripts/_unpacked_mem.bin'), 'rb').read()
 BASE = 0x400000
 
 # (地址, 期望字节) —— 关键指令锚点，防回归
@@ -103,7 +114,7 @@ def main():
             batches * s['unit'] == s['max'])
 
     # MSGX 文本交叉验证
-    T = json.load(open(os.path.join(ROOT, 'scripts/msgx_all_texts.json'),
+    T = json.load(open(os.path.join(ROOT, _ROOT + '/scripts/msgx_all_texts.json'),
                        encoding='utf-8'))['texts']
     g = lambda i: T.get(str(i), T.get(i))
     for i, kw in ((0xfda, '洋枪'), (0xfdc, '300支'), (0xfde, '1000')):
@@ -117,7 +128,7 @@ def main():
            '前置门槛': 'word[0x51662e]/10 + word[ctx+4] >= 阈值（不足则弹 0xfcf/0xfdf）',
            '取消': '0x461660 返回 0x7fffffff → 弹 0xfb0 后返回 0',
            '玩法': '铁炮（洋枪）购入', 'MSGX': {hex(k): v for k, v in MSGX.items()}}
-    json.dump(out, open(os.path.join(ROOT, 'scripts/evt_id2_teppo.json'), 'w',
+    json.dump(out, open(os.path.join(ROOT, _ROOT + '/scripts/evt_id2_teppo.json'), 'w',
                         encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f'\n==== {ok} PASS / {fail} FAIL ====')
     print('saved scripts/evt_id2_teppo.json')

@@ -2,12 +2,23 @@
 """太阁2 — 在映像中按「4 字节 LE 立即数」扫描对某全局 VA 的引用，并反汇编命中点附近指令。
 用法：python _xref_imm.py 0x521aa8 0x506c54 0x513ff6 0x513ff8
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import sys, os
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-MEM = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 SZ = len(MEM)
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
 

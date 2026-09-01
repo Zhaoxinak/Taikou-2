@@ -9,11 +9,22 @@
   0x49baa0  getter w&3
 溯源：向上 12 条指令找 `mov ecx, imm` / `lea ecx, ...` / `push imm; call helper`。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import bisect, pickle
 from collections import Counter
 
 BASE = 0x400000
-d = pickle.load(open(r"scripts/_insn_addrs.pkl", "rb"))
+d = pickle.load(open(_ROOT + '/scripts/_insn_addrs.pkl', "rb"))
 IMAP = d[0]
 fstarts = sorted(d[1])
 RVAS = sorted(IMAP)

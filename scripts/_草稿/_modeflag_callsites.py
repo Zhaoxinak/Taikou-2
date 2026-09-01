@@ -11,11 +11,22 @@ _modeflag_callsites.py — 探索：7 个模式标志 setter 的全部 call-site
   handle_stat  0x43cb70 -> 0x513534
 方法：E8 rel32 扫描算 target；命中后做「正确边界向后反汇编」抓 push 实参 + 战斗相位上下文。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-MEM = os.path.join(HERE, "_unpacked_mem.bin")
+MEM = os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin')
 BASE = 0x400000
 
 SETTERS = {

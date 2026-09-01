@@ -15,6 +15,17 @@ _ins_index.py — 全镜像可靠指令索引（供字段扫描 / xref 分析复
     idx = build_index()                 # ~几秒，返回 InsIndex
     ins = idx.ins_containing(0x40c41a)  # 按「包含」匹配（立即数落在指令中间）
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 import capstone
 
@@ -51,7 +62,7 @@ def _md():
     return md
 
 
-def build_index(img_path='scripts/_unpacked_mem.bin', verbose=True):
+def build_index(img_path=_ROOT + '/scripts/_unpacked_mem.bin', verbose=True):
     MEM = open(img_path, 'rb').read()
     md = _md()
 

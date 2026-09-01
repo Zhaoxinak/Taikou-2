@@ -1,4 +1,15 @@
 # -*- coding: utf-8 -*-
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 # _status2d_extract.py — 找 +0x2d 高字节 F2B(2-bit) 取值→dispatch 点，以及 F4 写入点(or/and byte[+0x2d])
 import io, sys, struct
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
@@ -6,7 +17,7 @@ from capstone import *
 from capstone.x86 import *
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
 def off(v): return v - BASE
 def dis(va, n): return list(md.disasm(MEM[off(va):off(va)+n], va))

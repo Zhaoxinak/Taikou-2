@@ -41,6 +41,17 @@ L: sub ecx, 0x519548
 
 运行：python scripts/province_name_alias_ref.py
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import bisect, json, os, pickle, sys
 
 BASE = 0x400000
@@ -51,7 +62,7 @@ IMAP = _d[0]
 FSTART = sorted(_d[1])
 RVAS = sorted(IMAP)
 _bl, _br = bisect.bisect_left, bisect.bisect_right
-MEM = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 
 _fail = []
 _n = 0

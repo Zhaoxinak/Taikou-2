@@ -3,6 +3,17 @@
 """P0 攻坚：把 833 条记录按 payload「结构指纹」聚类，识别可解码的字段族（word数组/byte数组/打包）。
 目标：跳过填充类型(0x0c/0xf3)，对真实类型做语义初判。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 from collections import Counter, defaultdict
 
@@ -11,7 +22,7 @@ def read_records(path):
     body = d[16:]
     return [body[i*49:(i+1)*49] for i in range(len(body)//49)]
 
-recs = read_records('Taikou2 Original/SNDATA1.TR2')
+recs = read_records(_ROOT + '/Taikou2 Original/SNDATA1.TR2')
 
 # 每个记录：统计 payload(rec[6:49]) 里各字节出现次数，形成指纹
 # 语义判断：

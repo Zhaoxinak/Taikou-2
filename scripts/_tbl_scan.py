@@ -1,10 +1,21 @@
 # -*- coding: utf-8 -*-
 """Byte-scan the whole image for absolute function pointers to 0x47ff68 / 0x47fc60
 (and a few other decoder candidates) to locate the dispatch table."""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-IMG = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+IMG = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 BASE = 0x400000
 
 targets = {

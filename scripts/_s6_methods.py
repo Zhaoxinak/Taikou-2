@@ -5,13 +5,24 @@
 2. 对每个方法体扫描 [ecx+disp]（disp 0..0x2d）=> 该方法的字段访问；
 3. 汇总为「方法 -> 字段语义」表。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import pickle, struct, sys, collections, json
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-IMG = open('scripts/_unpacked_mem.bin', 'rb').read()
+IMG = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 BASE = 0x400000
 S6, SIZE = 0x516610, 0x2e
-_p = pickle.load(open('scripts/_insn_addrs.pkl', 'rb'))
+_p = pickle.load(open(_ROOT + '/scripts/_insn_addrs.pkl', 'rb'))
 insn, starts = _p[0], sorted(_p[1])
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
 
@@ -102,7 +113,7 @@ for tgt, m in sorted(methods.items(), key=lambda x: -x[1]['calls']):
     print(f"0x{tgt:06x}  calls={m['calls']:3d}  R/W字段={[hex(x) for x in wr]}  | {sig}")
 
 json.dump({hex(k): v for k, v in methods.items()},
-          open('scripts/s6_methods.json', 'w'), ensure_ascii=False, indent=1)
+          open(_ROOT + '/scripts/s6_methods.json', 'w'), ensure_ascii=False, indent=1)
 print('\n-> scripts/s6_methods.json')
 
 # ---- 3. 字段 -> 方法反查 ----

@@ -4,10 +4,21 @@ Decrypt XOR stream (key=header[0x12]^header[0x13]); castle block @ stream 21852,
 stride 26, 200 records. Map disk bytes -> runtime 0x51eb88 offsets via 0x47e130
 (load serializer) + 3-byte tail (+0x09,+0x1a,+0x1e).
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, json
 
-BASE = r"F:\Games\Taikou 2\Taikou2 Original"
-OUT = r"F:\Games\Taikou 2\scripts/castle_values.json"
+BASE = _ROOT + '/Taikou2 Original'
+OUT = _ROOT + '/scripts/castle_values.json'
 
 def decode(path):
     raw = open(os.path.join(BASE, path), "rb").read()
@@ -46,7 +57,7 @@ def parse_castle(d, tail):
         "type": u16(d[19], d[20]) & 7,
     }
 
-names = json.load(open(r"F:\Games\Taikou 2\scripts\castle_names.json", encoding='utf-8'))["castles"]
+names = json.load(open(_ROOT + '/scripts/castle_names.json', encoding='utf-8'))["castles"]
 name_by_id = {c["id"]: c for c in names}
 
 res = {}

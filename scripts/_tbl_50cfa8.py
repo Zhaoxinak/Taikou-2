@@ -7,13 +7,24 @@ Steps:
   3. reverse-lookup every WORD against msgx_all_texts.json (续102 method)
   4. immediate-xref scan for the base (and base±1..±4) -> who reads/writes it
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import io, sys, struct, json, os
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 from capstone import *
 from capstone.x86 import *
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 CODE_LO, CODE_HI = 0x400000, 0x600000
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True
 def off(va): return va - BASE
@@ -43,7 +54,7 @@ for r in range(12):
 
 # ---- reverse lookup against MSGX texts (续102 method) ----
 msgx = {}
-p = 'scripts/msgx_all_texts.json'
+p = _ROOT + '/scripts/msgx_all_texts.json'
 if os.path.exists(p):
     try:
         j = json.load(open(p, encoding='utf-8'))

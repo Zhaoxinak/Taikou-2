@@ -15,9 +15,20 @@ Targets:
 We also attribute each caller to its containing function (nearest direct-call
 TARGET <= caller) to cluster AI vs player/handler/init/灭亡 callers.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 
-IMG = r"F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+IMG = _ROOT + '/scripts/_unpacked_mem.bin'
 BASE = 0x400000
 
 wanted = {
@@ -68,7 +79,7 @@ for t, name in wanted.items():
         out.append(f"  0x{c:x}  (in fn 0x{fn:x})")
 
 txt = "\n".join(out)
-od = r"F:/Games/Taikou 2/scripts/_ai_dip_callers.txt"
+od = _ROOT + '/scripts/_ai_dip_callers.txt'
 with open(od, 'w') as f:
     f.write(txt)
 print(txt)

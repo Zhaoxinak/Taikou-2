@@ -10,6 +10,17 @@
     反查所属国；`rec[1]` = **国主武将号**；`rec[2]` = **有效标志**（0=有效，1=占位/未初始化）。
     49 条按本领国**从北到南单调排序**，一个大国内可有多个势力（故不是 0..48 的排列）。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -63,8 +74,8 @@ def main():
     chk('势力表偏移 = 国情基表后 = 27297', OFF_CLAN == 27297)
 
     out = {}
-    for sc, fn in (('scenario1', 'Taikou2 Original/SNDATA1.TR2'),
-                   ('scenario2', 'Taikou2 Original/SNDATA2.TR2')):
+    for sc, fn in (('scenario1', _ROOT + '/Taikou2 Original/SNDATA1.TR2'),
+                   ('scenario2', _ROOT + '/Taikou2 Original/SNDATA2.TR2')):
         s = decode(fn)
         E = s[OFF_ENTITY:OFF_ENTITY + N_ENTITY * ENTITY_STRIDE]
         CS = s[OFF_CASTLE:OFF_CASTLE + N_CASTLE * CASTLE_STRIDE]
@@ -109,7 +120,7 @@ def main():
                    'clans': [dict(x, lord_name=names[x['lord']] if x['lord'] < 370 else '')
                              for x in rows]}
 
-    json.dump(out, open(os.path.join(ROOT, 'scripts/clan_table.json'), 'w',
+    json.dump(out, open(os.path.join(ROOT, _ROOT + '/scripts/clan_table.json'), 'w',
                         encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f'\n==== {ok} PASS / {fail} FAIL ====')
     print('saved scripts/clan_table.json')

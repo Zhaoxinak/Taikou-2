@@ -1,5 +1,16 @@
+
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
 import os, json
-ROOT="F:/Games/Taikou 2"
+ROOT=_ROOT
 STREAM_BASE=0x598      # decode base (XOR key = data[0x12]^data[0x13])
 CASTLE_OFF=21845       # decoded-stream start of castle records (200 x 26B)  -- validated:
                         #   stream[0:2] (->rec+0x00) is a valid officer idx (<=369 / 0x172) for 199-200/200
@@ -44,7 +55,7 @@ def parse(d):
     }
 
 res={}
-for sc,fn in (("scenario1","Taikou2 Original/SNDATA1.TR2"),("scenario2","Taikou2 Original/SNDATA2.TR2")):
+for sc,fn in (("scenario1",_ROOT + '/Taikou2 Original/SNDATA1.TR2'),("scenario2",_ROOT + '/Taikou2 Original/SNDATA2.TR2')):
     key,s=decode(fn)
     lidx=[parse(s[CASTLE_OFF+STRIDE*i:CASTLE_OFF+STRIDE*i+26])["lord_idx"] for i in range(N)]
     prov=[parse(s[CASTLE_OFF+STRIDE*i:CASTLE_OFF+STRIDE*i+26])["province"] for i in range(N)]
@@ -63,7 +74,7 @@ for sc,fn in (("scenario1","Taikou2 Original/SNDATA1.TR2"),("scenario2","Taikou2
         castles.append(c)
     res[sc]=castles
 
-json.dump(res, open("scripts/castle_values.json","w",encoding='utf-8'), ensure_ascii=False, indent=1)
+json.dump(res, open(_ROOT + '/scripts/castle_values.json',"w",encoding='utf-8'), ensure_ascii=False, indent=1)
 print("\nwrote scripts/castle_values.json :", len(res["scenario1"]), "x2 scenarios")
 
 print("\nscenario1 top-8 by money:")

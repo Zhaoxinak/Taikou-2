@@ -1,10 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """反汇编 SNDATA 记录字段读取函数链，提取每个函数从 49B 记录读取的字节偏移 → 字段语义。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
-MEM="F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+MEM=_ROOT + '/scripts/_unpacked_mem.bin'
 mem=open(MEM,'rb').read()
 base=0x400000
 md=Cs(CS_ARCH_X86, CS_MODE_32)

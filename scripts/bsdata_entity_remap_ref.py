@@ -45,11 +45,22 @@ BSDATA ↔ 武将实体 偏移重映射通则（续135 · 定稿）
 2. **续134 加的「通则仅适用 `@22..@47`」边界过窄，本轮撤销**；
    改为「适用 `@22..@55`；`@56..@58` 为推定」。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 
 import struct
 from collections import Counter
 
-BSD1 = "F:/Games/Taikou 2/Taikou2 Original/BSDATA1.TR2"
+BSD1 = _ROOT + '/Taikou2 Original/BSDATA1.TR2'
 _b = open(BSD1, "rb").read()
 REC, N = 59, 700
 ENT_STRIDE = 47

@@ -4,12 +4,23 @@ S15 未定名 bit（1/3/5/6/7/11）定名探针
 对给定 handler，dump 函数体内全部 call，并对每个 callee 查 MSGX 锚点（一跳）。
 用法: python scripts/_s15_bit_namer.py 0x408c20 0x40f850 ...
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, bisect, pickle, sys, json, collections
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
-MEM = open(os.path.join(HERE, "_unpacked_mem.bin"), "rb").read()
+MEM = open(os.path.join(HERE, _ROOT + '/scripts/_unpacked_mem.bin'), "rb").read()
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 md.detail = False
 

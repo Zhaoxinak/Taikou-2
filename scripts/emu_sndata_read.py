@@ -26,13 +26,24 @@ emu_sndata_read.py -- 用 Unicorn 真实跑通 SNDATA 记录读取 I/O 回调（
   B) 驱动 0x47fc60 扇出（idx 抽样）：*out0/1/2 == rec[0:2]/[2:4]/[4:6]，且
      0x522c88/0x522c60/0x522c70 == rec[6:49]/[19:49]/[32:49]。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import os, struct
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_ESI, UC_X86_REG_ESP, UC_X86_REG_EIP
 
-ROOT = "F:/Games/Taikou 2"
-BIN  = os.path.join(ROOT, "scripts/_unpacked_mem.bin")
-SND_PATH = os.path.join(ROOT, "Taikou2 Original/SNDATA1.TR2")
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BIN  = os.path.join(ROOT, _ROOT + '/scripts/_unpacked_mem.bin')
+SND_PATH = os.path.join(ROOT, _ROOT + '/Taikou2 Original/SNDATA1.TR2')
 BASE = 0x400000
 
 class Emu:

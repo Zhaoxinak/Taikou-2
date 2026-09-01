@@ -7,12 +7,23 @@ Global xref sweep across the whole .text for combat-relevant symbols:
   - unit instance array 0x512b60, param table 0x512e58, terrain 0x512868
 Then group hits by enclosing function to reveal the true combat-resolution cluster.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import sys, io, collections
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 from capstone import *
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 TEXT_START, TEXT_END = 0x401000, 0x4d0000   # code region of the unpacked image
 
 md = Cs(CS_ARCH_X86, CS_MODE_32)

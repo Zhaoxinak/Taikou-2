@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
 """回填陈旧 still_unknown: 已被后续续号破解但仍挂未破的条目。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json
 
 EDITS = [
@@ -36,7 +47,7 @@ EDITS = [
 ]
 
 for fn, old, new in EDITS:
-    p = "F:/Games/Taikou 2/scripts/" + fn
+    p = _ROOT + '/scripts/' + fn
     d = json.load(open(p, encoding="utf-8"))
     key = None
     for k in ("still_unknown", "open_questions"):

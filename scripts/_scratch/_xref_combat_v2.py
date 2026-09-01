@@ -8,12 +8,23 @@ so function starts are derived from the set of all `call rel32` targets.
 Output: per-function tally of combat-relevant symbol usage, so we can pin the
 per-tick combat-resolution function.
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import sys, io, struct, collections, bisect, json
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 from capstone import *
 
 BASE = 0x400000
-MEM = open('scripts/_unpacked_mem.bin', 'rb').read()
+MEM = open(_ROOT + '/scripts/_unpacked_mem.bin', 'rb').read()
 TEXT_START, TEXT_END = 0x401000, 0x4d0000
 md = Cs(CS_ARCH_X86, CS_MODE_32)
 
@@ -115,5 +126,5 @@ for f in TOP:
         print(f'    {va:#08x}  {mn:9s} {op:44s} ; {nm}')
 
 json.dump({f'{f:#x}': collections.Counter(x[1] for x in lst) for f, lst in hits.items() if f},
-          open('scripts/_combat_xref_map.json', 'w'), indent=1)
+          open(_ROOT + '/scripts/_combat_xref_map.json', 'w'), indent=1)
 print('\n[+] wrote scripts/_combat_xref_map.json')

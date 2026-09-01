@@ -6,6 +6,17 @@
 - 右侧 x>770 区域 alpha=0（让 Godot 面板覆盖）
 - 不含任何 UI 文字/面板/图标/日期/顶部条
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 from PIL import Image, ImageDraw, ImageFont
 
 W, H = 1024, 640
@@ -109,5 +120,5 @@ for y in range(H):
     for x in range(PANEL_X, W):
         img.putpixel((x, y), (0, 0, 0, 0))
 
-img.save("F:/Games/Taikou 2/assets/castle_town_iso.png")
+img.save(_ROOT + '/assets/castle_town_iso.png')
 print("castle_town_iso.png ->", W, "x", H)

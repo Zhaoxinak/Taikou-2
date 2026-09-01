@@ -4,11 +4,22 @@ Unicorn 探针：验证买价标记函数 0x445ff0 的 ×1.5 公式。
 脱壳映像 F:/Games/Taikou 2/scripts/_unpacked_mem.bin (2MB, VA 0x400000)
 目标：确认 买价 = base × 1.5（整数），并观察 base>=500 时的 0x4ebc80 钳制行为。
 """
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import struct
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_MEM_FETCH_UNMAPPED
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_ESP, UC_X86_REG_EIP
 
-BIN = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+BIN = _ROOT + '/scripts/_unpacked_mem.bin'
 data = open(BIN, "rb").read()
 assert len(data) == 0x200000, len(data)
 

@@ -1,8 +1,19 @@
 # -*- coding: utf-8 -*-
 """回填 bsdata_spec.json: 生年/年齢编码定案 + 纠偏 @39@40@41 / @58 旧说。"""
+# <auto: portable root (injected by _fix_win_paths.py)>
+import os as _os
+def _find_root(_p):
+    for _ in range(8):
+        if _os.path.isdir(_os.path.join(_p, 'scripts')) and _os.path.isfile(_os.path.join(_p, 'project.godot')):
+            return _p
+        _p = _os.path.dirname(_p)
+    return _p
+_ROOT = _find_root(_os.path.dirname(_os.path.abspath(__file__)))
+# </auto: portable root>
+
 import json
 
-P = "F:/Games/Taikou 2/scripts/bsdata_spec.json"
+P = _ROOT + '/scripts/bsdata_spec.json'
 d = json.load(open(P, encoding="utf-8"))
 
 d["birth_age_encoding"] = {
@@ -35,7 +46,7 @@ d["birth_age_encoding"] = {
     ],
     "🔴_correction": "推翻续43/59「@39=生日月、@40=当前年龄、@41=生日年」。"
                      "@39 是生年；@40/@41 并非年龄/生日年（见下）。",
-    "reference_impl": "scripts/bsdata_lifespan_ref.py (220/220 PASS)",
+    "reference_impl": _ROOT + '/scripts/bsdata_lifespan_ref.py (220/220 PASS)',
 }
 
 d["refuted_hypotheses_131"] = {
