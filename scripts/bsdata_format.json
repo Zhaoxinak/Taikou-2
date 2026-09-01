@@ -1,0 +1,379 @@
+{
+ "container": {
+  "file": [
+   "BSDATA1.TR2",
+   "BSDATA2.TR2"
+  ],
+  "size": 41300,
+  "records": 700,
+  "stride": 59,
+  "encrypted": false,
+  "magic": null
+ },
+ "loader": {
+  "func": "0x47fa90",
+  "name": "LoadBSDATA",
+  "read_size": "0xa154",
+  "dest_obj": "0x524a20",
+  "dest_tag": "BUSHOUbuf",
+  "scenario_switch": "byte[0x520604] test ah,4",
+  "chain": [
+   "0x4802e0",
+   "0x4eb5c0",
+   "0x4eb730"
+  ]
+ },
+ "name_tables": {
+  "surname": "0x521aa8",
+  "given": "0x520660",
+  "stride": 7,
+  "getter_surname": "0x49c2b0",
+  "getter_given": "0x49c310",
+  "id_segments": [
+   "0..999",
+   "1000..1999",
+   "2000..2999",
+   "3000+"
+  ],
+  "callsites": {
+   "surname": 434,
+   "given": 371
+  }
+ },
+ "stream_map": [
+  {
+   "stream_off": "0x0",
+   "size": 1,
+   "target": "sur",
+   "offset": "0x0"
+  },
+  {
+   "stream_off": "0x1",
+   "size": 1,
+   "target": "sur",
+   "offset": "0x1"
+  },
+  {
+   "stream_off": "0x2",
+   "size": 1,
+   "target": "sur",
+   "offset": "0x2"
+  },
+  {
+   "stream_off": "0x3",
+   "size": 1,
+   "target": "sur",
+   "offset": "0x3"
+  },
+  {
+   "stream_off": "0x4",
+   "size": 1,
+   "target": "sur",
+   "offset": "0x4"
+  },
+  {
+   "stream_off": "0x5",
+   "size": 1,
+   "target": "sur",
+   "offset": "0x5"
+  },
+  {
+   "stream_off": "0x6",
+   "size": 1,
+   "target": "sur",
+   "offset": "0x6"
+  },
+  {
+   "stream_off": "0x7",
+   "size": 1,
+   "target": "giv",
+   "offset": "0x0"
+  },
+  {
+   "stream_off": "0x8",
+   "size": 1,
+   "target": "giv",
+   "offset": "0x1"
+  },
+  {
+   "stream_off": "0x9",
+   "size": 1,
+   "target": "giv",
+   "offset": "0x2"
+  },
+  {
+   "stream_off": "0xa",
+   "size": 1,
+   "target": "giv",
+   "offset": "0x3"
+  },
+  {
+   "stream_off": "0xb",
+   "size": 1,
+   "target": "giv",
+   "offset": "0x4"
+  },
+  {
+   "stream_off": "0xc",
+   "size": 1,
+   "target": "giv",
+   "offset": "0x5"
+  },
+  {
+   "stream_off": "0xd",
+   "size": 1,
+   "target": "giv",
+   "offset": "0x6"
+  },
+  {
+   "stream_off": "0xe",
+   "size": 2,
+   "target": "local",
+   "offset": null
+  },
+  {
+   "stream_off": "0x10",
+   "size": 2,
+   "target": "entity",
+   "offset": "0x2"
+  },
+  {
+   "stream_off": "0x12",
+   "size": 2,
+   "target": "local",
+   "offset": null
+  },
+  {
+   "stream_off": "0x14",
+   "size": 2,
+   "target": "entity",
+   "offset": "0x8"
+  },
+  {
+   "stream_off": "0x16",
+   "size": 1,
+   "target": "entity",
+   "offset": "0xa"
+  },
+  {
+   "stream_off": "0x17",
+   "size": 1,
+   "target": "entity",
+   "offset": "0xb"
+  },
+  {
+   "stream_off": "0x18",
+   "size": 1,
+   "target": "entity",
+   "offset": "0xc"
+  },
+  {
+   "stream_off": "0x19",
+   "size": 1,
+   "target": "entity",
+   "offset": "0xd"
+  },
+  {
+   "stream_off": "0x1a",
+   "size": 1,
+   "target": "entity",
+   "offset": "0xe"
+  },
+  {
+   "stream_off": "0x1b",
+   "size": 1,
+   "target": "entity",
+   "offset": "0xf"
+  },
+  {
+   "stream_off": "0x1c",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x10"
+  },
+  {
+   "stream_off": "0x1d",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x11"
+  },
+  {
+   "stream_off": "0x1e",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x12"
+  },
+  {
+   "stream_off": "0x1f",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x13"
+  },
+  {
+   "stream_off": "0x20",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x14"
+  },
+  {
+   "stream_off": "0x21",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x15"
+  },
+  {
+   "stream_off": "0x22",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x16"
+  },
+  {
+   "stream_off": "0x23",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x17"
+  },
+  {
+   "stream_off": "0x24",
+   "size": 2,
+   "target": "entity",
+   "offset": "0x18"
+  },
+  {
+   "stream_off": "0x26",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x1a"
+  },
+  {
+   "stream_off": "0x27",
+   "size": 2,
+   "target": "entity",
+   "offset": "0x1b"
+  },
+  {
+   "stream_off": "0x29",
+   "size": 2,
+   "target": "entity",
+   "offset": "0x1d"
+  },
+  {
+   "stream_off": "0x2b",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x1f"
+  },
+  {
+   "stream_off": "0x2c",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x20"
+  },
+  {
+   "stream_off": "0x2d",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x21"
+  },
+  {
+   "stream_off": "0x2e",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x22"
+  },
+  {
+   "stream_off": "0x2f",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x23"
+  },
+  {
+   "stream_off": "0x30",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x24"
+  },
+  {
+   "stream_off": "0x31",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x25"
+  },
+  {
+   "stream_off": "0x32",
+   "size": 2,
+   "target": "entity",
+   "offset": "0x26"
+  },
+  {
+   "stream_off": "0x34",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x28"
+  },
+  {
+   "stream_off": "0x35",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x29"
+  },
+  {
+   "stream_off": "0x36",
+   "size": 2,
+   "target": "entity",
+   "offset": "0x2a"
+  },
+  {
+   "stream_off": "0x38",
+   "size": 2,
+   "target": "entity",
+   "offset": "0x2c"
+  },
+  {
+   "stream_off": "0x3a",
+   "size": 1,
+   "target": "entity",
+   "offset": "0x2e"
+  }
+ ],
+ "fields": {
+  "0x00-0x06": "姓（GBK，7B 定长槽，NUL 结尾）→ 0x521aa8+id*7",
+  "0x07-0x0d": "名（GBK，7B 定长槽）→ 0x520660+id*7",
+  "0x0e": "2B → 解码器局部（未入实体，语义未定）",
+  "0x10": "2B 名表索引/武将 ID → entity+0x02（BSDATA 恒 == 记录号）",
+  "0x12": "2B → 解码器局部（未入实体，语义未定）",
+  "0x14": "2B 相性字 → entity+0x08（compat_a | compat_b<<8）",
+  "0x16-0x1a": "五维 统率/武力/内政/外交/魅力 → entity+0x0a..0x0e",
+  "0x1b-0x1d": "10 技能 × 2bit → entity+0x0f..0x11",
+  "0x1e-0x21": "→ entity+0x12..0x15（城属性 3 元 + 有效位）",
+  "0x22": "→ entity+0x16（有效标记，init 1）",
+  "0x27": "生年 − 1490 → entity+0x1b 低字节",
+  "0x28": "→ entity+0x1c（语义未定，多为 32 的倍数）",
+  "0x2b": "→ entity+0x1f",
+  "0x2d": "体力上限 → entity+0x21",
+  "0x2e": "体力 → entity+0x22",
+  "0x2f": "野心 → entity+0x23",
+  "0x30": "国 province（0..48 / 255=无）→ entity+0x24",
+  "0x31": "城（0..199 / 255=浪人）→ entity+0x25",
+  "0x32-0x33": "功勲 merit 2B（0xffff=满值哨兵）→ entity+0x26",
+  "0x34": "俸禄/石高 → entity+0x28",
+  "0x35": "忠诚 0..100 → entity+0x29",
+  "0x36-0x37": "主君 2B（0xffff=浪人）→ entity+0x2a",
+  "0x38-0x39": "16-bit 状态字 → entity+0x2c；職位 = byte[0x39] & 7",
+  "0x3a": "高 4 位 = 主角槽(0/1/2/7/8) + 一般武将档(4/5/6)；低 4 位恒 0 → entity+0x2e"
+ },
+ "gaiji_usage": {
+  "0xA141+0xA143+0xA144": "長宗我部（48×16 连排位图切 3 格，每字约 12px）",
+  "0xA142+0xA143+0xA144": "香宗我部",
+  "0xA147": "垪（GBK 缺字；#182 垪和氏続，北条家臣，国=6）",
+  "bit_order": "行主序，2B/行，MSB 先行（本续判定，闭合续197 悬案⑨）"
+ },
+ "refutations": {
+  "old_§1.2@16 face": "实为名表索引/武将 ID（恒 == 记录号）",
+  "old_§1.2@50-51 trust": "实为功勲 merit 2B",
+  "old_§1.2@56 loyalty": "实为 16-bit 状态字低字节；忠诚在 @53(0x35)",
+  "old_§1.2@57 status": "位置对但须 & 7（38/690 条原值 >7）",
+  "old_§1.2@58 lifespan": "实为主角槽/武将档 4-bit 高位枚举",
+  "续181②": "0x49c2b0/0x49c310 是姓名 getter（805 调用点），非关系记录指针"
+ }
+}

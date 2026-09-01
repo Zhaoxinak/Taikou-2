@@ -1,0 +1,1179 @@
+{
+ "meta": {
+  "title": "太阁立志传2 原版资源/素材清单（续195）",
+  "total_resource_names": 90,
+  "groups": 16,
+  "loader_4802e0": "0x4802e0",
+  "selector_4ec8c0": "0x4ec8c0",
+  "fwd_492800": "0x492800",
+  "play_bottom_cdecl3": "0x4015f0",
+  "ext_category": {
+   "LZW": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "GRP": "背景画/标题画（RGB565 裸图）",
+   "PK8": "8bpp 画像（追加颜/外部颜）",
+   "KOS": "效果音（KOS 音频）",
+   "TR2": "剧本/数据档（SNDATA/BSDATA/SAVEDATA）",
+   "DAT": "生数据（地物/坐标/表）",
+   "IDX": "NPK 资源索引",
+   "TMP": "运行时临时档（非发行物）",
+   "SWP": "运行时交换档（非发行物）"
+  }
+ },
+ "resources": [
+  {
+   "name": "C:HBMAP.LZW",
+   "va": "0x5030d8",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x5030d8",
+   "load_sites": [
+    "0x42392f(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x42391f",
+    "0x423939"
+   ]
+  },
+  {
+   "name": "C:HBCHAR.LZW",
+   "va": "0x5030e8",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x5030d8",
+   "load_sites": [
+    "0x42413a(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x42412a",
+    "0x424144"
+   ]
+  },
+  {
+   "name": "C:HBCHAR2.LZW",
+   "va": "0x5030f8",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x5030d8",
+   "load_sites": [
+    "0x424271(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x424269",
+    "0x42427b"
+   ]
+  },
+  {
+   "name": "C:HBOBJ.DAT",
+   "va": "0x503108",
+   "ext": "DAT",
+   "category": "生数据（地物/坐标/表）",
+   "group_base": "0x5030d8",
+   "load_sites": [
+    "0x42403d(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x42402d",
+    "0x424047"
+   ]
+  },
+  {
+   "name": "C:HJMAP.LZW",
+   "va": "0x5034c0",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x5034c0",
+   "load_sites": [],
+   "literal_refs": [
+    "0x4338ec"
+   ]
+  },
+  {
+   "name": "C:HJCHAR.LZW",
+   "va": "0x5034d0",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x5034c0",
+   "load_sites": [],
+   "literal_refs": [
+    "0x4338f1"
+   ]
+  },
+  {
+   "name": "C:HKMAP.LZW",
+   "va": "0x5034e0",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x5034c0",
+   "load_sites": [],
+   "literal_refs": [
+    "0x4338db"
+   ]
+  },
+  {
+   "name": "C:HKCHAR.LZW",
+   "va": "0x5034f0",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x5034c0",
+   "load_sites": [],
+   "literal_refs": [
+    "0x4338e0"
+   ]
+  },
+  {
+   "name": "C:HGRP.LZW",
+   "va": "0x503500",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x5034c0",
+   "load_sites": [],
+   "literal_refs": [
+    "0x43393e"
+   ]
+  },
+  {
+   "name": "C:HJMAPDAT.DAT",
+   "va": "0x5036f0",
+   "ext": "DAT",
+   "category": "生数据（地物/坐标/表）",
+   "group_base": "0x5036f0",
+   "load_sites": [
+    "0x43a4fa(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x43a4e9",
+    "0x43a55e"
+   ]
+  },
+  {
+   "name": "C:HKMAPNEW.LZW",
+   "va": "0x503700",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x5036f0",
+   "load_sites": [
+    "0x43a5b6(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x43a5ae",
+    "0x43a6db"
+   ]
+  },
+  {
+   "name": "B:MMLDATA.LZW",
+   "va": "0x506ac0",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [],
+   "literal_refs": []
+  },
+  {
+   "name": "B:GRPDATA.LZW",
+   "va": "0x506ad0",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x492969(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x492959",
+    "0x4929e6"
+   ]
+  },
+  {
+   "name": "B:MESSAGE1.LZW",
+   "va": "0x506ae0",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x4933b9(call 0x4802e0)",
+    "0x493469(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x4933a9",
+    "0x493436"
+   ]
+  },
+  {
+   "name": "B:MESSAGE2.LZW",
+   "va": "0x506af0",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x48bdb9(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x48bda9",
+    "0x48be36"
+   ]
+  },
+  {
+   "name": "B:MESSAGE3.LZW",
+   "va": "0x506b00",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x48beaf(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x48bea7",
+    "0x48bf79"
+   ]
+  },
+  {
+   "name": "B:MESSAGE4.LZW",
+   "va": "0x506b10",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x48bfd9(call 0x4802e0)",
+    "0x48c089(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x48bfc9",
+    "0x48c056"
+   ]
+  },
+  {
+   "name": "B:MAPCHIP.LZW",
+   "va": "0x506b20",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x492e39(call 0x4802e0)",
+    "0x492ee9(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x492e29",
+    "0x492eb6"
+   ]
+  },
+  {
+   "name": "B:MAPCHAR.LZW",
+   "va": "0x506b30",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x493159(call 0x4802e0)",
+    "0x493209(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x493149",
+    "0x4931d6"
+   ]
+  },
+  {
+   "name": "B:SHOP_BG.LZW",
+   "va": "0x506b40",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x492f9a(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x492f8a",
+    "0x49311e"
+   ]
+  },
+  {
+   "name": "B:SHOP_OBJ.LZW",
+   "va": "0x506b50",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x49301b(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x493013",
+    "0x493117"
+   ]
+  },
+  {
+   "name": "B:SHOP_MSK.LZW",
+   "va": "0x506b60",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x493096(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x49308e",
+    "0x493110"
+   ]
+  },
+  {
+   "name": "B:ANMSEQ.LZW",
+   "va": "0x506b70",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x493309(call 0x4802e0)",
+    "0x4933b9(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x4932f9",
+    "0x493386"
+   ]
+  },
+  {
+   "name": "C:NPKDATA.IDX",
+   "va": "0x506b80",
+   "ext": "IDX",
+   "category": "NPK 资源索引",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x48c1c9(call 0x4802e0)",
+    "0x492b87(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x48c1b9",
+    "0x48c25d",
+    "0x492b7f"
+   ]
+  },
+  {
+   "name": "C:PK8DATA.LZW",
+   "va": "0x506b90",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x492c27(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x492c1f"
+   ]
+  },
+  {
+   "name": "C:TOWNCHIP.LZW",
+   "va": "0x506ba0",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x492ee9(call 0x4802e0)",
+    "0x492f9a(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x492ed9",
+    "0x492f66"
+   ]
+  },
+  {
+   "name": "C:TOWNCHAR.LZW",
+   "va": "0x506bb0",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x493209(call 0x4802e0)",
+    "0x493309(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x4931f9",
+    "0x4932d4"
+   ]
+  },
+  {
+   "name": "C:HEXMES.LZW",
+   "va": "0x506bc0",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x493469(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x493459",
+    "0x4934e6"
+   ]
+  },
+  {
+   "name": "C:KOSENGRP.LZW",
+   "va": "0x506bd0",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x466bb7(call 0x4802e0)",
+    "0x466cfc(call 0x4802e0)",
+    "0x466cfc(call 0x4802e0)",
+    "0x46cb09(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x466baf",
+    "0x466cc7",
+    "0x466cec",
+    "0x466e0d",
+    "0x46caf9",
+    "0x46cb81"
+   ]
+  },
+  {
+   "name": "D:FACE.LZW",
+   "va": "0x506be0",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x492d2a(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x492d22"
+   ]
+  },
+  {
+   "name": "A:EXTFACE.PK8",
+   "va": "0x506bf0",
+   "ext": "PK8",
+   "category": "8bpp 画像（追加颜/外部颜）",
+   "group_base": "0x506ac0",
+   "load_sites": [
+    "0x492cfb(call 0x4802e0)",
+    "0x492d2a(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x492cf3"
+   ]
+  },
+  {
+   "name": "A:SAVEDATA.TR2",
+   "va": "0x509590",
+   "ext": "TR2",
+   "category": "剧本/数据档（SNDATA/BSDATA/SAVEDATA）",
+   "group_base": "0x509590",
+   "load_sites": [],
+   "literal_refs": [
+    "0x47d788"
+   ]
+  },
+  {
+   "name": "F:SNDATA1.TR2",
+   "va": "0x5095a0",
+   "ext": "TR2",
+   "category": "剧本/数据档（SNDATA/BSDATA/SAVEDATA）",
+   "group_base": "0x509590",
+   "load_sites": [],
+   "literal_refs": [
+    "0x47d737"
+   ]
+  },
+  {
+   "name": "F:SNDATA2.TR2",
+   "va": "0x5095b0",
+   "ext": "TR2",
+   "category": "剧本/数据档（SNDATA/BSDATA/SAVEDATA）",
+   "group_base": "0x509590",
+   "load_sites": [],
+   "literal_refs": [
+    "0x47d730"
+   ]
+  },
+  {
+   "name": "F:BSDATA1.TR2",
+   "va": "0x5095c0",
+   "ext": "TR2",
+   "category": "剧本/数据档（SNDATA/BSDATA/SAVEDATA）",
+   "group_base": "0x509590",
+   "load_sites": [],
+   "literal_refs": [
+    "0x47faae"
+   ]
+  },
+  {
+   "name": "F:BSDATA2.TR2",
+   "va": "0x5095d0",
+   "ext": "TR2",
+   "category": "剧本/数据档（SNDATA/BSDATA/SAVEDATA）",
+   "group_base": "0x509590",
+   "load_sites": [],
+   "literal_refs": [
+    "0x47faa7"
+   ]
+  },
+  {
+   "name": "A:ACERTWP.GRP",
+   "va": "0x50a178",
+   "ext": "GRP",
+   "category": "背景画/标题画（RGB565 裸图）",
+   "group_base": "0x50a178",
+   "load_sites": [
+    "0x48ae8d(call 0x4ec8c0)"
+   ],
+   "literal_refs": [
+    "0x48ae89"
+   ]
+  },
+  {
+   "name": "B:GAIJI.TR2",
+   "va": "0x50a1f8",
+   "ext": "TR2",
+   "category": "剧本/数据档（SNDATA/BSDATA/SAVEDATA）",
+   "group_base": "0x50a1f8",
+   "load_sites": [
+    "0x48c089(call 0x4802e0)",
+    "0x48c119(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x48c079",
+    "0x48c0ea"
+   ]
+  },
+  {
+   "name": "B:GRPDATA2.LZW",
+   "va": "0x50a208",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x50a1f8",
+   "load_sites": [
+    "0x48c119(call 0x4802e0)",
+    "0x48c1c9(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x48c109",
+    "0x48c196"
+   ]
+  },
+  {
+   "name": "A:KOEILOGO.GRP",
+   "va": "0x50a2b0",
+   "ext": "GRP",
+   "category": "背景画/标题画（RGB565 裸图）",
+   "group_base": "0x50a2b0",
+   "load_sites": [
+    "0x48c95e(call 0x4ec8c0)"
+   ],
+   "literal_refs": [
+    "0x48c95a"
+   ]
+  },
+  {
+   "name": "B:TERRAIN.LZW",
+   "va": "0x50a3c0",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x50a3c0",
+   "load_sites": [
+    "0x48cc6d(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x48cc69",
+    "0x48ce96"
+   ]
+  },
+  {
+   "name": "B:SHOPMAP.LZW",
+   "va": "0x50b650",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x50b650",
+   "load_sites": [
+    "0x494f20(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x494f13",
+    "0x49500e"
+   ]
+  },
+  {
+   "name": "B:SHOPCHAR.LZW",
+   "va": "0x50b660",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x50b650",
+   "load_sites": [
+    "0x495939(call 0x4802e0)",
+    "0x495c99(call 0x4802e0)",
+    "0x495d9b(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x495929",
+    "0x495943",
+    "0x495c89",
+    "0x495ca3",
+    "0x495d93",
+    "0x495da5"
+   ]
+  },
+  {
+   "name": "A:KAMINARI.KOS",
+   "va": "0x50badc",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50bad8"
+   ]
+  },
+  {
+   "name": "A:SIKAKU.KOS",
+   "va": "0x50baec",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50bad4"
+   ]
+  },
+  {
+   "name": "A:MATISIRO.KOS",
+   "va": "0x50bafc",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50bad0"
+   ]
+  },
+  {
+   "name": "A:MI_AME.KOS",
+   "va": "0x50bb0c",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50bacc"
+   ]
+  },
+  {
+   "name": "A:MI_HARE.KOS",
+   "va": "0x50bb1c",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50bac8"
+   ]
+  },
+  {
+   "name": "A:NINJA.KOS",
+   "va": "0x50bb2c",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50bac4"
+   ]
+  },
+  {
+   "name": "A:MACHIMES.KOS",
+   "va": "0x50bb38",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50bac0"
+   ]
+  },
+  {
+   "name": "A:GINOUUP.KOS",
+   "va": "0x50bb48",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50babc"
+   ]
+  },
+  {
+   "name": "A:IZOUKA.KOS",
+   "va": "0x50bb58",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50bab8"
+   ]
+  },
+  {
+   "name": "A:INOTIGOI.KOS",
+   "va": "0x50bb68",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50bab4"
+   ]
+  },
+  {
+   "name": "A:IGENSYOU.KOS",
+   "va": "0x50bb78",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50bab0"
+   ]
+  },
+  {
+   "name": "A:TGENSYOU.KOS",
+   "va": "0x50bb88",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50baac"
+   ]
+  },
+  {
+   "name": "A:KAISHIN.KOS",
+   "va": "0x50bb98",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50baa8"
+   ]
+  },
+  {
+   "name": "A:IKARI.KOS",
+   "va": "0x50bba8",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50baa4"
+   ]
+  },
+  {
+   "name": "A:NIGERU.KOS",
+   "va": "0x50bbb4",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50baa0"
+   ]
+  },
+  {
+   "name": "A:KEMURI.KOS",
+   "va": "0x50bbc4",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba9c"
+   ]
+  },
+  {
+   "name": "A:IATSU.KOS",
+   "va": "0x50bbd4",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba98"
+   ]
+  },
+  {
+   "name": "A:METUBUSI.KOS",
+   "va": "0x50bbe0",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba94"
+   ]
+  },
+  {
+   "name": "A:YOKETA.KOS",
+   "va": "0x50bbf0",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba90"
+   ]
+  },
+  {
+   "name": "A:UKETA.KOS",
+   "va": "0x50bc00",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba8c"
+   ]
+  },
+  {
+   "name": "A:OOATARI.KOS",
+   "va": "0x50bc0c",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba88"
+   ]
+  },
+  {
+   "name": "A:KOATARI.KOS",
+   "va": "0x50bc1c",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba84"
+   ]
+  },
+  {
+   "name": "A:SHIKI.KOS",
+   "va": "0x50bc2c",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba80"
+   ]
+  },
+  {
+   "name": "A:ZANSYU.KOS",
+   "va": "0x50bc38",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba7c"
+   ]
+  },
+  {
+   "name": "A:UMETATE.KOS",
+   "va": "0x50bc48",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba78"
+   ]
+  },
+  {
+   "name": "A:SYUUZEN.KOS",
+   "va": "0x50bc58",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba74"
+   ]
+  },
+  {
+   "name": "A:RAKUSEKI.KOS",
+   "va": "0x50bc68",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba70"
+   ]
+  },
+  {
+   "name": "A:KAKEI.KOS",
+   "va": "0x50bc78",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba6c"
+   ]
+  },
+  {
+   "name": "A:GIHEI.KOS",
+   "va": "0x50bc84",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba68"
+   ]
+  },
+  {
+   "name": "A:SHIPPAI.KOS",
+   "va": "0x50bc90",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba64"
+   ]
+  },
+  {
+   "name": "A:SEIKOU.KOS",
+   "va": "0x50bca0",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba60"
+   ]
+  },
+  {
+   "name": "A:IDOU.KOS",
+   "va": "0x50bcb0",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba5c"
+   ]
+  },
+  {
+   "name": "A:TEPPOU.KOS",
+   "va": "0x50bcbc",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba58"
+   ]
+  },
+  {
+   "name": "A:TOTUGEKI.KOS",
+   "va": "0x50bccc",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba54"
+   ]
+  },
+  {
+   "name": "A:OPENGATE.KOS",
+   "va": "0x50bcdc",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba50"
+   ]
+  },
+  {
+   "name": "A:KOUGEKI2.KOS",
+   "va": "0x50bcec",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba4c"
+   ]
+  },
+  {
+   "name": "A:KOUGEKI1.KOS",
+   "va": "0x50bcfc",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba48"
+   ]
+  },
+  {
+   "name": "A:CANCEL.KOS",
+   "va": "0x50bd0c",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba44"
+   ]
+  },
+  {
+   "name": "A:CLICK.KOS",
+   "va": "0x50bd1c",
+   "ext": "KOS",
+   "category": "效果音（KOS 音频）",
+   "group_base": "0x50badc",
+   "load_sites": [],
+   "literal_refs": [
+    "0x50ba40"
+   ]
+  },
+  {
+   "name": "A:WAVE.TMP",
+   "va": "0x50bd5c",
+   "ext": "TMP",
+   "category": "运行时临时档（非发行物）",
+   "group_base": "0x50bd5c",
+   "load_sites": [
+    "0x49971f(call 0x4ec8c0)"
+   ],
+   "literal_refs": [
+    "0x499417",
+    "0x499703"
+   ]
+  },
+  {
+   "name": "A:MIDI.TMP",
+   "va": "0x50bd70",
+   "ext": "TMP",
+   "category": "运行时临时档（非发行物）",
+   "group_base": "0x50bd5c",
+   "load_sites": [
+    "0x49971f(call 0x4ec8c0)"
+   ],
+   "literal_refs": [
+    "0x4993f1",
+    "0x4996ea"
+   ]
+  },
+  {
+   "name": "C:TOWNMAP.LZW",
+   "va": "0x50c140",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x50c140",
+   "load_sites": [
+    "0x4aca34(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x4aca1e",
+    "0x4acb8c"
+   ]
+  },
+  {
+   "name": "C:TOWNPOS.DAT",
+   "va": "0x50c150",
+   "ext": "DAT",
+   "category": "生数据（地物/坐标/表）",
+   "group_base": "0x50c140",
+   "load_sites": [
+    "0x4aca8f(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x4aca87",
+    "0x4acb75"
+   ]
+  },
+  {
+   "name": "C:TOWNTBL.DAT",
+   "va": "0x50c160",
+   "ext": "DAT",
+   "category": "生数据（地物/坐标/表）",
+   "group_base": "0x50c140",
+   "load_sites": [
+    "0x4acad8(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x4acad0",
+    "0x4acb13"
+   ]
+  },
+  {
+   "name": "C:KAIKON.LZW",
+   "va": "0x50ca08",
+   "ext": "LZW",
+   "category": "光荣 LS11 压缩资源（图像/数据/文本）",
+   "group_base": "0x50ca08",
+   "load_sites": [
+    "0x4c8f6c(call 0x4802e0)"
+   ],
+   "literal_refs": [
+    "0x4c8f5c",
+    "0x4c8fdf"
+   ]
+  },
+  {
+   "name": "A:SMODE.GRP",
+   "va": "0x50da30",
+   "ext": "GRP",
+   "category": "背景画/标题画（RGB565 裸图）",
+   "group_base": "0x50da30",
+   "load_sites": [
+    "0x4eaecf(call 0x4ec8c0)"
+   ],
+   "literal_refs": [
+    "0x4eaec7"
+   ]
+  },
+  {
+   "name": "A:PVMM.SWP",
+   "va": "0x50dda8",
+   "ext": "SWP",
+   "category": "运行时交换档（非发行物）",
+   "group_base": "0x50dda8",
+   "load_sites": [],
+   "literal_refs": [
+    "0x4eb745"
+   ]
+  }
+ ],
+ "cross_check": {
+  "orig_dir_files": 107,
+  "exe_referenced_but_missing": [
+   "MIDI.TMP",
+   "MMLDATA.LZW",
+   "PVMM.SWP",
+   "WAVE.TMP"
+  ],
+  "in_dir_but_not_referenced": [
+   "END.GRP",
+   "ENDING1.AVI",
+   "ENDING2.AVI",
+   "HKMAPDAT.LZW",
+   "KOEILOGO.AVI",
+   "OPENNING.AVI",
+   "PRESS.GRP",
+   "StartTaikou2.bat",
+   "TAIK2W95.exe",
+   "_ascii_strip.bmp",
+   "_dump_bsdata.py",
+   "_font_ascii.bmp",
+   "_font_ascii.png",
+   "_font_bulk0.bmp",
+   "_font_bulk0.png",
+   "_message_strip.bmp",
+   "mount_cd.ps1",
+   "mp3.dll",
+   "rmKOEI.bin",
+   "taikou2_cd.iso"
+  ]
+ }
+}

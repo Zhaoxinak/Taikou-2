@@ -1,0 +1,616 @@
+{
+ "pipeline": {
+  "0x4802e0": "stdcall2(this=ecx, base, size_class): memmove(0x522ca0, base, 0x20); call 0x4ec8c0(this, 0x522ca0, (int16)size_class)",
+  "0x492800": "cdecl3 memmove(dst, src, n) -> 0x4f40b0",
+  "0x4ec8c0": "stdcall2(this=ecx, name, size_class): strcpy(local, name+2); sz = SWITCH[size_class & 0xfb] (0->0,1->1,2->2,3->0x1000,>3->0x1000); h = [0x4fb07c](local, this+4, sz); this[0]=h; return h==-1?0:1",
+  "0x4ec948": "跳转表 4 项 -> 0x4ec8f3/0x4ec8f7/0x4ec904/0x4ec911",
+  "0x4fb07c": "运行期加载器回调槽（stdcall 3 参，callee 清栈 ret 0xc）"
+ },
+ "master_table": {
+  "base": "0x506ad0",
+  "stride": 16,
+  "count": 19,
+  "entries": [
+   {
+    "idx": 0,
+    "va": "0x506ad0",
+    "name": "B:GRPDATA.LZW"
+   },
+   {
+    "idx": 1,
+    "va": "0x506ae0",
+    "name": "B:MESSAGE1.LZW"
+   },
+   {
+    "idx": 2,
+    "va": "0x506af0",
+    "name": "B:MESSAGE2.LZW"
+   },
+   {
+    "idx": 3,
+    "va": "0x506b00",
+    "name": "B:MESSAGE3.LZW"
+   },
+   {
+    "idx": 4,
+    "va": "0x506b10",
+    "name": "B:MESSAGE4.LZW"
+   },
+   {
+    "idx": 5,
+    "va": "0x506b20",
+    "name": "B:MAPCHIP.LZW"
+   },
+   {
+    "idx": 6,
+    "va": "0x506b30",
+    "name": "B:MAPCHAR.LZW"
+   },
+   {
+    "idx": 7,
+    "va": "0x506b40",
+    "name": "B:SHOP_BG.LZW"
+   },
+   {
+    "idx": 8,
+    "va": "0x506b50",
+    "name": "B:SHOP_OBJ.LZW"
+   },
+   {
+    "idx": 9,
+    "va": "0x506b60",
+    "name": "B:SHOP_MSK.LZW"
+   },
+   {
+    "idx": 10,
+    "va": "0x506b70",
+    "name": "B:ANMSEQ.LZW"
+   },
+   {
+    "idx": 11,
+    "va": "0x506b80",
+    "name": "C:NPKDATA.IDX"
+   },
+   {
+    "idx": 12,
+    "va": "0x506b90",
+    "name": "C:PK8DATA.LZW"
+   },
+   {
+    "idx": 13,
+    "va": "0x506ba0",
+    "name": "C:TOWNCHIP.LZW"
+   },
+   {
+    "idx": 14,
+    "va": "0x506bb0",
+    "name": "C:TOWNCHAR.LZW"
+   },
+   {
+    "idx": 15,
+    "va": "0x506bc0",
+    "name": "C:HEXMES.LZW"
+   },
+   {
+    "idx": 16,
+    "va": "0x506bd0",
+    "name": "C:KOSENGRP.LZW"
+   },
+   {
+    "idx": 17,
+    "va": "0x506be0",
+    "name": "D:FACE.LZW"
+   },
+   {
+    "idx": 18,
+    "va": "0x506bf0",
+    "name": "A:EXTFACE.PK8"
+   }
+  ]
+ },
+ "sub_tables": {
+  "0x506ad0": {
+   "label": "主资源表",
+   "count": 19,
+   "entries": [
+    "B:GRPDATA.LZW",
+    "B:MESSAGE1.LZW",
+    "B:MESSAGE2.LZW",
+    "B:MESSAGE3.LZW",
+    "B:MESSAGE4.LZW",
+    "B:MAPCHIP.LZW",
+    "B:MAPCHAR.LZW",
+    "B:SHOP_BG.LZW",
+    "B:SHOP_OBJ.LZW",
+    "B:SHOP_MSK.LZW",
+    "B:ANMSEQ.LZW",
+    "C:NPKDATA.IDX",
+    "C:PK8DATA.LZW",
+    "C:TOWNCHIP.LZW",
+    "C:TOWNCHAR.LZW",
+    "C:HEXMES.LZW",
+    "C:KOSENGRP.LZW",
+    "D:FACE.LZW",
+    "A:EXTFACE.PK8"
+   ]
+  },
+  "0x5030d8": {
+   "label": "合战地图资源",
+   "count": 4,
+   "entries": [
+    "C:HBMAP.LZW",
+    "C:HBCHAR.LZW",
+    "C:HBCHAR2.LZW",
+    "C:HBOBJ.DAT"
+   ]
+  },
+  "0x5036f0": {
+   "label": "畿内/各国地图",
+   "count": 2,
+   "entries": [
+    "C:HJMAPDAT.DAT",
+    "C:HKMAPNEW.LZW"
+   ]
+  },
+  "0x509590": {
+   "label": "存档·剧本数据",
+   "count": 5,
+   "entries": [
+    "A:SAVEDATA.TR2",
+    "F:SNDATA1.TR2",
+    "F:SNDATA2.TR2",
+    "F:BSDATA1.TR2",
+    "F:BSDATA2.TR2"
+   ]
+  },
+  "0x50a1f8": {
+   "label": "外字·GRP2",
+   "count": 2,
+   "entries": [
+    "B:GAIJI.TR2",
+    "B:GRPDATA2.LZW"
+   ]
+  },
+  "0x50a3c0": {
+   "label": "地形",
+   "count": 1,
+   "entries": [
+    "B:TERRAIN.LZW"
+   ]
+  },
+  "0x50b650": {
+   "label": "商铺地图",
+   "count": 2,
+   "entries": [
+    "B:SHOPMAP.LZW",
+    "B:SHOPCHAR.LZW"
+   ]
+  },
+  "0x50c140": {
+   "label": "城镇地图/坐标/表",
+   "count": 3,
+   "entries": [
+    "C:TOWNMAP.LZW",
+    "C:TOWNPOS.DAT",
+    "C:TOWNTBL.DAT"
+   ]
+  },
+  "0x50ca08": {
+   "label": "开垦计划",
+   "count": 1,
+   "entries": [
+    "C:KAIKON.LZW"
+   ]
+  }
+ },
+ "clusters": {
+  "0x423910": [
+   "C:HBMAP.LZW"
+  ],
+  "0x424020": [
+   "C:HBOBJ.DAT"
+  ],
+  "0x424120": [
+   "C:HBCHAR.LZW",
+   "C:HBCHAR2.LZW"
+  ],
+  "0x43a460": [
+   "C:HJMAPDAT.DAT"
+  ],
+  "0x43a580": [
+   "C:HKMAPNEW.LZW"
+  ],
+  "0x466b40": [
+   "C:KOSENGRP.LZW"
+  ],
+  "0x466ce0": [
+   "C:KOSENGRP.LZW"
+  ],
+  "0x46caf0": [
+   "C:KOSENGRP.LZW"
+  ],
+  "0x47d780": [
+   "A:SAVEDATA.TR2"
+  ],
+  "0x48bd70": [
+   "B:MESSAGE2.LZW",
+   "B:MESSAGE3.LZW"
+  ],
+  "0x48bf82": [
+   "B:GAIJI.TR2",
+   "B:GRPDATA2.LZW",
+   "B:MESSAGE4.LZW",
+   "C:NPKDATA.IDX"
+  ],
+  "0x48cc20": [
+   "B:TERRAIN.LZW"
+  ],
+  "0x492950": [
+   "B:GRPDATA.LZW"
+  ],
+  "0x492b60": [
+   "C:NPKDATA.IDX"
+  ],
+  "0x492c00": [
+   "C:PK8DATA.LZW"
+  ],
+  "0x492ca0": [
+   "A:EXTFACE.PK8",
+   "D:FACE.LZW"
+  ],
+  "0x492e20": [
+   "B:MAPCHIP.LZW"
+  ],
+  "0x492ed0": [
+   "C:TOWNCHIP.LZW"
+  ],
+  "0x492f80": [
+   "B:SHOP_BG.LZW",
+   "B:SHOP_MSK.LZW",
+   "B:SHOP_OBJ.LZW"
+  ],
+  "0x493140": [
+   "B:MAPCHAR.LZW"
+  ],
+  "0x4931f0": [
+   "B:ANMSEQ.LZW",
+   "C:TOWNCHAR.LZW"
+  ],
+  "0x4933a0": [
+   "B:MESSAGE1.LZW"
+  ],
+  "0x493450": [
+   "C:HEXMES.LZW"
+  ],
+  "0x494ed0": [
+   "B:SHOPMAP.LZW"
+  ],
+  "0x495920": [
+   "B:SHOPCHAR.LZW"
+  ],
+  "0x495c80": [
+   "B:SHOPCHAR.LZW"
+  ],
+  "0x495d70": [
+   "B:SHOPCHAR.LZW"
+  ],
+  "0x4ac9c0": [
+   "C:TOWNMAP.LZW",
+   "C:TOWNPOS.DAT",
+   "C:TOWNTBL.DAT"
+  ],
+  "0x4c8f50": [
+   "C:KAIKON.LZW"
+  ]
+ },
+ "call_sites": [
+  {
+   "call": "0x42392f",
+   "fn": "0x423910",
+   "resource_va": "0x5030d8",
+   "resource": "C:HBMAP.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x42403d",
+   "fn": "0x424020",
+   "resource_va": "0x503108",
+   "resource": "C:HBOBJ.DAT",
+   "size_class": 4
+  },
+  {
+   "call": "0x42413a",
+   "fn": "0x424120",
+   "resource_va": "0x5030e8",
+   "resource": "C:HBCHAR.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x424271",
+   "fn": "0x424120",
+   "resource_va": "0x5030f8",
+   "resource": "C:HBCHAR2.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x43379d",
+   "fn": "0x433780",
+   "resource_va": null,
+   "resource": null,
+   "size_class": null
+  },
+  {
+   "call": "0x43a4fa",
+   "fn": "0x43a460",
+   "resource_va": "0x5036f0",
+   "resource": "C:HJMAPDAT.DAT",
+   "size_class": 4
+  },
+  {
+   "call": "0x43a5b6",
+   "fn": "0x43a580",
+   "resource_va": "0x503700",
+   "resource": "C:HKMAPNEW.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x466bb7",
+   "fn": "0x466b40",
+   "resource_va": "0x506bd0",
+   "resource": "C:KOSENGRP.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x466cfc",
+   "fn": "0x466ce0",
+   "resource_va": "0x506bd0",
+   "resource": "C:KOSENGRP.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x46cb09",
+   "fn": "0x46caf0",
+   "resource_va": "0x506bd0",
+   "resource": "C:KOSENGRP.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x47d741",
+   "fn": "0x47d720",
+   "resource_va": null,
+   "resource": null,
+   "size_class": null
+  },
+  {
+   "call": "0x47d7d4",
+   "fn": "0x47d780",
+   "resource_va": "0x509590",
+   "resource": "A:SAVEDATA.TR2",
+   "size_class": null
+  },
+  {
+   "call": "0x47d821",
+   "fn": "0x47d800",
+   "resource_va": null,
+   "resource": null,
+   "size_class": null
+  },
+  {
+   "call": "0x47fab9",
+   "fn": "0x47fa90",
+   "resource_va": null,
+   "resource": null,
+   "size_class": null
+  },
+  {
+   "call": "0x48bdb9",
+   "fn": "0x48bd70",
+   "resource_va": "0x506af0",
+   "resource": "B:MESSAGE2.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x48beaf",
+   "fn": "0x48bd70",
+   "resource_va": "0x506b00",
+   "resource": "B:MESSAGE3.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x48bfd9",
+   "fn": "0x48bf82",
+   "resource_va": "0x506b10",
+   "resource": "B:MESSAGE4.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x48c089",
+   "fn": "0x48bf82",
+   "resource_va": "0x50a1f8",
+   "resource": "B:GAIJI.TR2",
+   "size_class": 4
+  },
+  {
+   "call": "0x48c119",
+   "fn": "0x48bf82",
+   "resource_va": "0x50a208",
+   "resource": "B:GRPDATA2.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x48c1c9",
+   "fn": "0x48bf82",
+   "resource_va": "0x506b80",
+   "resource": "C:NPKDATA.IDX",
+   "size_class": 4
+  },
+  {
+   "call": "0x48cc6d",
+   "fn": "0x48cc20",
+   "resource_va": "0x50a3c0",
+   "resource": "B:TERRAIN.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x492969",
+   "fn": "0x492950",
+   "resource_va": "0x506ad0",
+   "resource": "B:GRPDATA.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x492b87",
+   "fn": "0x492b60",
+   "resource_va": "0x506b80",
+   "resource": "C:NPKDATA.IDX",
+   "size_class": 4
+  },
+  {
+   "call": "0x492c27",
+   "fn": "0x492c00",
+   "resource_va": "0x506b90",
+   "resource": "C:PK8DATA.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x492cfb",
+   "fn": "0x492ca0",
+   "resource_va": "0x506bf0",
+   "resource": "A:EXTFACE.PK8",
+   "size_class": 4
+  },
+  {
+   "call": "0x492d2a",
+   "fn": "0x492ca0",
+   "resource_va": "0x506be0",
+   "resource": "D:FACE.LZW",
+   "size_class": 0
+  },
+  {
+   "call": "0x492e39",
+   "fn": "0x492e20",
+   "resource_va": "0x506b20",
+   "resource": "B:MAPCHIP.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x492ee9",
+   "fn": "0x492ed0",
+   "resource_va": "0x506ba0",
+   "resource": "C:TOWNCHIP.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x492f9a",
+   "fn": "0x492f80",
+   "resource_va": "0x506b40",
+   "resource": "B:SHOP_BG.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x49301b",
+   "fn": "0x492f80",
+   "resource_va": "0x506b50",
+   "resource": "B:SHOP_OBJ.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x493096",
+   "fn": "0x492f80",
+   "resource_va": "0x506b60",
+   "resource": "B:SHOP_MSK.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x493159",
+   "fn": "0x493140",
+   "resource_va": "0x506b30",
+   "resource": "B:MAPCHAR.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x493209",
+   "fn": "0x4931f0",
+   "resource_va": "0x506bb0",
+   "resource": "C:TOWNCHAR.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x493309",
+   "fn": "0x4931f0",
+   "resource_va": "0x506b70",
+   "resource": "B:ANMSEQ.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x4933b9",
+   "fn": "0x4933a0",
+   "resource_va": "0x506ae0",
+   "resource": "B:MESSAGE1.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x493469",
+   "fn": "0x493450",
+   "resource_va": "0x506bc0",
+   "resource": "C:HEXMES.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x494f20",
+   "fn": "0x494ed0",
+   "resource_va": "0x50b650",
+   "resource": "B:SHOPMAP.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x495939",
+   "fn": "0x495920",
+   "resource_va": "0x50b660",
+   "resource": "B:SHOPCHAR.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x495c99",
+   "fn": "0x495c80",
+   "resource_va": "0x50b660",
+   "resource": "B:SHOPCHAR.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x495d9b",
+   "fn": "0x495d70",
+   "resource_va": "0x50b660",
+   "resource": "B:SHOPCHAR.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x4aca34",
+   "fn": "0x4ac9c0",
+   "resource_va": "0x50c140",
+   "resource": "C:TOWNMAP.LZW",
+   "size_class": 4
+  },
+  {
+   "call": "0x4aca8f",
+   "fn": "0x4ac9c0",
+   "resource_va": "0x50c150",
+   "resource": "C:TOWNPOS.DAT",
+   "size_class": 4
+  },
+  {
+   "call": "0x4acad8",
+   "fn": "0x4ac9c0",
+   "resource_va": "0x50c160",
+   "resource": "C:TOWNTBL.DAT",
+   "size_class": 4
+  },
+  {
+   "call": "0x4c8f6c",
+   "fn": "0x4c8f50",
+   "resource_va": "0x50ca08",
+   "resource": "C:KAIKON.LZW",
+   "size_class": 4
+  }
+ ]
+}

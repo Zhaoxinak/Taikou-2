@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """调试：idx=100 调 0x47fc60 后，打印两个候选缓冲基址 + 3 个全局，定位记录真正落点。"""
+import os
 import struct
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_ESP, UC_X86_REG_EIP
 
-ROOT="F:/Games/Taikou 2"; BIN=ROOT+"/scripts/_unpacked_mem.bin"; BASE=0x400000
+ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__))); BIN=ROOT+"/scripts/_unpacked_mem.bin"; BASE=0x400000
 class Emu:
     def __init__(s):
         s.mu=Uc(UC_ARCH_X86,UC_MODE_32); s.code=open(BIN,"rb").read()

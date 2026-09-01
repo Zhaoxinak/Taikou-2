@@ -1,0 +1,473 @@
+{
+ "meta": {
+  "title": "太阁立志传2 音效子系统（续195）",
+  "sfx_table_va": "0x50ba40",
+  "sfx_count": 39,
+  "sfx_name_pool_va": "0x50badc",
+  "play_sfx": "0x4997c0",
+  "play_inner": "0x499740",
+  "play_bottom_cdecl3": "0x4015f0",
+  "sfx_object": "0x5256c8",
+  "ready_flag": "0x50b9b0",
+  "enable_flag": "0x520604",
+  "note": "word[0x5256c8]=运行期已载入数; word[0x50b9b0]==0x10=就绪; byte[0x520604] bit1=全局音效开关"
+ },
+ "sfx": [
+  {
+   "id": 0,
+   "file": "A:CLICK.KOS",
+   "ptr": "0x50bd1c",
+   "zh": "UI 点击/确定",
+   "cat": "UI",
+   "static_calls": 9,
+   "call_sites": [
+    "0x41ff9d",
+    "0x422305",
+    "0x42b1e5",
+    "0x42f620",
+    "0x42fe05",
+    "0x4310a4",
+    "0x46bd3c",
+    "0x46bdc3",
+    "0x46be37"
+   ]
+  },
+  {
+   "id": 1,
+   "file": "A:CANCEL.KOS",
+   "ptr": "0x50bd0c",
+   "zh": "UI 取消",
+   "cat": "UI",
+   "static_calls": 15,
+   "call_sites": [
+    "0x41ffda",
+    "0x4206c3",
+    "0x421fba",
+    "0x42208f",
+    "0x4221b2",
+    "0x422725",
+    "0x422813",
+    "0x42be33",
+    "0x42bf42",
+    "0x42e4a4",
+    "0x42f54a",
+    "0x43036a",
+    "0x4317a1",
+    "0x435207",
+    "0x4378b6"
+   ]
+  },
+  {
+   "id": 2,
+   "file": "A:KOUGEKI1.KOS",
+   "ptr": "0x50bcfc",
+   "zh": "攻击(通常)1",
+   "cat": "战斗",
+   "static_calls": 1,
+   "call_sites": [
+    "0x42e8c1"
+   ]
+  },
+  {
+   "id": 3,
+   "file": "A:KOUGEKI2.KOS",
+   "ptr": "0x50bcec",
+   "zh": "攻击(通常)2",
+   "cat": "战斗",
+   "static_calls": 1,
+   "call_sites": [
+    "0x42eab2"
+   ]
+  },
+  {
+   "id": 4,
+   "file": "A:OPENGATE.KOS",
+   "ptr": "0x50bcdc",
+   "zh": "开城门",
+   "cat": "攻城战",
+   "static_calls": 1,
+   "call_sites": [
+    "0x42df82"
+   ]
+  },
+  {
+   "id": 5,
+   "file": "A:TOTUGEKI.KOS",
+   "ptr": "0x50bccc",
+   "zh": "突击",
+   "cat": "战斗",
+   "static_calls": 1,
+   "call_sites": [
+    "0x42196a"
+   ]
+  },
+  {
+   "id": 6,
+   "file": "A:TEPPOU.KOS",
+   "ptr": "0x50bcbc",
+   "zh": "铁炮射击",
+   "cat": "战斗",
+   "static_calls": 2,
+   "call_sites": [
+    "0x421787",
+    "0x42e1c4"
+   ]
+  },
+  {
+   "id": 7,
+   "file": "A:IDOU.KOS",
+   "ptr": "0x50bcb0",
+   "zh": "部队移动",
+   "cat": "战斗",
+   "static_calls": 1,
+   "call_sites": [
+    "0x4252f5"
+   ]
+  },
+  {
+   "id": 8,
+   "file": "A:SEIKOU.KOS",
+   "ptr": "0x50bca0",
+   "zh": "行动成功",
+   "cat": "内政/通用",
+   "static_calls": 5,
+   "call_sites": [
+    "0x4354be",
+    "0x435ff7",
+    "0x436c48",
+    "0x436cc6",
+    "0x437780"
+   ]
+  },
+  {
+   "id": 9,
+   "file": "A:SHIPPAI.KOS",
+   "ptr": "0x50bc90",
+   "zh": "行动失败",
+   "cat": "内政/通用",
+   "static_calls": 6,
+   "call_sites": [
+    "0x42db20",
+    "0x4354a4",
+    "0x43614c",
+    "0x436c85",
+    "0x437659",
+    "0x43772b"
+   ]
+  },
+  {
+   "id": 10,
+   "file": "A:GIHEI.KOS",
+   "ptr": "0x50bc84",
+   "zh": "伪兵(疑兵)计略",
+   "cat": "计略",
+   "static_calls": 2,
+   "call_sites": [
+    "0x43570f",
+    "0x435c2d"
+   ]
+  },
+  {
+   "id": 11,
+   "file": "A:KAKEI.KOS",
+   "ptr": "0x50bc78",
+   "zh": "火计(火攻)",
+   "cat": "计略",
+   "static_calls": 1,
+   "call_sites": [
+    "0x4364f6"
+   ]
+  },
+  {
+   "id": 12,
+   "file": "A:RAKUSEKI.KOS",
+   "ptr": "0x50bc68",
+   "zh": "落石(攻城防御)",
+   "cat": "攻城战",
+   "static_calls": 1,
+   "call_sites": [
+    "0x436dcf"
+   ]
+  },
+  {
+   "id": 13,
+   "file": "A:SYUUZEN.KOS",
+   "ptr": "0x50bc58",
+   "zh": "修缮(修复)",
+   "cat": "攻城战/内政",
+   "static_calls": 1,
+   "call_sites": [
+    "0x43793d"
+   ]
+  },
+  {
+   "id": 14,
+   "file": "A:UMETATE.KOS",
+   "ptr": "0x50bc48",
+   "zh": "埋立(填埋/普请)",
+   "cat": "攻城战/内政",
+   "static_calls": 1,
+   "call_sites": [
+    "0x437b23"
+   ]
+  },
+  {
+   "id": 15,
+   "file": "A:ZANSYU.KOS",
+   "ptr": "0x50bc38",
+   "zh": "残守/残兵(待考)",
+   "cat": "战斗",
+   "static_calls": 0,
+   "call_sites": []
+  },
+  {
+   "id": 16,
+   "file": "A:SHIKI.KOS",
+   "ptr": "0x50bc2c",
+   "zh": "士气(动摇/鼓舞)",
+   "cat": "战斗",
+   "static_calls": 1,
+   "call_sites": [
+    "0x42cc1c"
+   ]
+  },
+  {
+   "id": 17,
+   "file": "A:KOATARI.KOS",
+   "ptr": "0x50bc1c",
+   "zh": "小命中(轻伤)",
+   "cat": "单挑/战斗",
+   "static_calls": 1,
+   "call_sites": [
+    "0x46be19"
+   ]
+  },
+  {
+   "id": 18,
+   "file": "A:OOATARI.KOS",
+   "ptr": "0x50bc0c",
+   "zh": "大命中(重创)",
+   "cat": "单挑/战斗",
+   "static_calls": 2,
+   "call_sites": [
+    "0x46bd93",
+    "0x46c068"
+   ]
+  },
+  {
+   "id": 19,
+   "file": "A:UKETA.KOS",
+   "ptr": "0x50bc00",
+   "zh": "受击(挨打)",
+   "cat": "单挑/战斗",
+   "static_calls": 0,
+   "call_sites": []
+  },
+  {
+   "id": 20,
+   "file": "A:YOKETA.KOS",
+   "ptr": "0x50bbf0",
+   "zh": "闪避(躲开)",
+   "cat": "单挑/战斗",
+   "static_calls": 0,
+   "call_sites": []
+  },
+  {
+   "id": 21,
+   "file": "A:METUBUSI.KOS",
+   "ptr": "0x50bbe0",
+   "zh": "目溃(致盲)",
+   "cat": "忍术/计略",
+   "static_calls": 1,
+   "call_sites": [
+    "0x46c4e5"
+   ]
+  },
+  {
+   "id": 22,
+   "file": "A:IATSU.KOS",
+   "ptr": "0x50bbd4",
+   "zh": "威压",
+   "cat": "计略",
+   "static_calls": 2,
+   "call_sites": [
+    "0x467142",
+    "0x467297"
+   ]
+  },
+  {
+   "id": 23,
+   "file": "A:KEMURI.KOS",
+   "ptr": "0x50bbc4",
+   "zh": "烟(烟幕)",
+   "cat": "计略",
+   "static_calls": 1,
+   "call_sites": [
+    "0x46c672"
+   ]
+  },
+  {
+   "id": 24,
+   "file": "A:NIGERU.KOS",
+   "ptr": "0x50bbb4",
+   "zh": "败走/逃跑",
+   "cat": "战斗",
+   "static_calls": 1,
+   "call_sites": [
+    "0x468f67"
+   ]
+  },
+  {
+   "id": 25,
+   "file": "A:IKARI.KOS",
+   "ptr": "0x50bba8",
+   "zh": "愤怒",
+   "cat": "战斗",
+   "static_calls": 2,
+   "call_sites": [
+    "0x467826",
+    "0x468e85"
+   ]
+  },
+  {
+   "id": 26,
+   "file": "A:KAISHIN.KOS",
+   "ptr": "0x50bb98",
+   "zh": "会心一击",
+   "cat": "单挑/战斗",
+   "static_calls": 0,
+   "call_sites": []
+  },
+  {
+   "id": 27,
+   "file": "A:TGENSYOU.KOS",
+   "ptr": "0x50bb88",
+   "zh": "敌现象/敌现身",
+   "cat": "战斗",
+   "static_calls": 1,
+   "call_sites": [
+    "0x46634f"
+   ]
+  },
+  {
+   "id": 28,
+   "file": "A:IGENSYOU.KOS",
+   "ptr": "0x50bb78",
+   "zh": "异现象(异变)",
+   "cat": "战斗/事件",
+   "static_calls": 1,
+   "call_sites": [
+    "0x46b181"
+   ]
+  },
+  {
+   "id": 29,
+   "file": "A:INOTIGOI.KOS",
+   "ptr": "0x50bb68",
+   "zh": "命乞(求饶)",
+   "cat": "单挑/战斗",
+   "static_calls": 1,
+   "call_sites": [
+    "0x46a6bf"
+   ]
+  },
+  {
+   "id": 30,
+   "file": "A:IZOUKA.KOS",
+   "ptr": "0x50bb58",
+   "zh": "威吓/伊杂贺(待考)",
+   "cat": "计略",
+   "static_calls": 2,
+   "call_sites": [
+    "0x46777b",
+    "0x46abe5"
+   ]
+  },
+  {
+   "id": 31,
+   "file": "A:GINOUUP.KOS",
+   "ptr": "0x50bb48",
+   "zh": "技能提升",
+   "cat": "养成",
+   "static_calls": 4,
+   "call_sites": [
+    "0x44d10e",
+    "0x45b992",
+    "0x470503",
+    "0x470575"
+   ]
+  },
+  {
+   "id": 32,
+   "file": "A:MACHIMES.KOS",
+   "ptr": "0x50bb38",
+   "zh": "町消息(町内广播)",
+   "cat": "内政",
+   "static_calls": 0,
+   "call_sites": []
+  },
+  {
+   "id": 33,
+   "file": "A:NINJA.KOS",
+   "ptr": "0x50bb2c",
+   "zh": "忍者",
+   "cat": "忍术/计略",
+   "static_calls": 4,
+   "call_sites": [
+    "0x4513e6",
+    "0x451410",
+    "0x496eb8",
+    "0x497025"
+   ]
+  },
+  {
+   "id": 34,
+   "file": "A:MI_HARE.KOS",
+   "ptr": "0x50bb1c",
+   "zh": "天候·晴",
+   "cat": "天候",
+   "static_calls": 0,
+   "call_sites": []
+  },
+  {
+   "id": 35,
+   "file": "A:MI_AME.KOS",
+   "ptr": "0x50bb0c",
+   "zh": "天候·雨",
+   "cat": "天候",
+   "static_calls": 0,
+   "call_sites": []
+  },
+  {
+   "id": 36,
+   "file": "A:MATISIRO.KOS",
+   "ptr": "0x50bafc",
+   "zh": "待机/町城(待考)",
+   "cat": "内政",
+   "static_calls": 0,
+   "call_sites": []
+  },
+  {
+   "id": 37,
+   "file": "A:SIKAKU.KOS",
+   "ptr": "0x50baec",
+   "zh": "死角(背袭)",
+   "cat": "战斗",
+   "static_calls": 0,
+   "call_sites": []
+  },
+  {
+   "id": 38,
+   "file": "A:KAMINARI.KOS",
+   "ptr": "0x50badc",
+   "zh": "雷",
+   "cat": "天候/计略",
+   "static_calls": 1,
+   "call_sites": [
+    "0x46aedb"
+   ]
+  }
+ ],
+ "call_sites_total": 75,
+ "call_sites_id_resolved": 73
+}

@@ -42,7 +42,7 @@ from collections import defaultdict
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_READ
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_ESI, UC_X86_REG_ESP, UC_X86_REG_EIP
 
-ROOT = "F:/Games/Taikou 2"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BIN  = os.path.join(ROOT, "scripts/_unpacked_mem.bin")
 SND_PATH = os.path.join(ROOT, "Taikou2 Original/SNDATA1.TR2")
 BASE = 0x400000

@@ -20,13 +20,14 @@ emu_harness.py  --  可复用 Unicorn 2.1.4 仿真骨架（太阁立志传2 TAIK
   - stdcall 函数 ret N 自行平栈；本骨架用 STOP 页(until=STOP) 终止，不依赖 ret 值
   - 仅适用于叶子/自包含函数；调用 OS/未初始化内存的子函数会 UC_ERR_*
 """
+import os
 import struct
 from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_CODE, UC_HOOK_MEM_READ, UC_HOOK_MEM_WRITE
 from unicorn.x86_const import UC_X86_REG_EAX, UC_X86_REG_ECX, UC_X86_REG_EDX, UC_X86_REG_EBX, UC_X86_REG_ESP, \
     UC_X86_REG_EBP, UC_X86_REG_ESI, UC_X86_REG_EDI, UC_X86_REG_EFLAGS, UC_X86_REG_EIP
 
 BASE = 0x400000
-BIN  = "F:/Games/Taikou 2/scripts/_unpacked_mem.bin"
+BIN  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_unpacked_mem.bin")
 
 REG_NAMES = {
     UC_X86_REG_EAX:"eax", UC_X86_REG_ECX:"ecx", UC_X86_REG_EDX:"edx", UC_X86_REG_EBX:"ebx",

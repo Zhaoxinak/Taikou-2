@@ -1,0 +1,372 @@
+{
+ "format": {
+  "layout": "u8 key @0 (0xAE) ; rest = WAV, every byte XOR key",
+  "decoder_va": "0x499380(xor16) / 0x4993a0(dispatch)",
+  "pcm": {
+   "format": 1,
+   "channels": 1,
+   "rate": 22050,
+   "bits": 8,
+   "note": "byterate 22050, blockalign 1"
+  },
+  "dispatch": {
+   ".KOS": "A:WAVE.TMP",
+   ".KOB": "A:MIDI.TMP",
+   "*": "no decode"
+  },
+  "chunk_bytes": 255
+ },
+ "sfx": [
+  {
+   "id": 0,
+   "kos": "CLICK.KOS",
+   "wav": "CLICK.wav",
+   "key": "0xae",
+   "bytes": 2329,
+   "samples": 2283,
+   "seconds": 0.104
+  },
+  {
+   "id": 1,
+   "kos": "CANCEL.KOS",
+   "wav": "CANCEL.wav",
+   "key": "0xae",
+   "bytes": 3067,
+   "samples": 3022,
+   "seconds": 0.137
+  },
+  {
+   "id": 2,
+   "kos": "KOUGEKI1.KOS",
+   "wav": "KOUGEKI1.wav",
+   "key": "0xae",
+   "bytes": 13891,
+   "samples": 13846,
+   "seconds": 0.628
+  },
+  {
+   "id": 3,
+   "kos": "KOUGEKI2.KOS",
+   "wav": "KOUGEKI2.wav",
+   "key": "0xae",
+   "bytes": 12937,
+   "samples": 12892,
+   "seconds": 0.585
+  },
+  {
+   "id": 4,
+   "kos": "OPENGATE.KOS",
+   "wav": "OPENGATE.wav",
+   "key": "0xae",
+   "bytes": 29161,
+   "samples": 29116,
+   "seconds": 1.32
+  },
+  {
+   "id": 5,
+   "kos": "TOTUGEKI.KOS",
+   "wav": "TOTUGEKI.wav",
+   "key": "0xae",
+   "bytes": 16809,
+   "samples": 16764,
+   "seconds": 0.76
+  },
+  {
+   "id": 6,
+   "kos": "TEPPOU.KOS",
+   "wav": "TEPPOU.wav",
+   "key": "0xae",
+   "bytes": 36393,
+   "samples": 36348,
+   "seconds": 1.648
+  },
+  {
+   "id": 7,
+   "kos": "IDOU.KOS",
+   "wav": "IDOU.wav",
+   "key": "0xae",
+   "bytes": 17321,
+   "samples": 17276,
+   "seconds": 0.783
+  },
+  {
+   "id": 8,
+   "kos": "SEIKOU.KOS",
+   "wav": "SEIKOU.wav",
+   "key": "0xae",
+   "bytes": 16301,
+   "samples": 16256,
+   "seconds": 0.737
+  },
+  {
+   "id": 9,
+   "kos": "SHIPPAI.KOS",
+   "wav": "SHIPPAI.wav",
+   "key": "0xae",
+   "bytes": 9513,
+   "samples": 9468,
+   "seconds": 0.429
+  },
+  {
+   "id": 10,
+   "kos": "GIHEI.KOS",
+   "wav": "GIHEI.wav",
+   "key": "0xae",
+   "bytes": 1031,
+   "samples": 986,
+   "seconds": 0.045
+  },
+  {
+   "id": 11,
+   "kos": "KAKEI.KOS",
+   "wav": "KAKEI.wav",
+   "key": "0xae",
+   "bytes": 85545,
+   "samples": 85500,
+   "seconds": 3.878
+  },
+  {
+   "id": 12,
+   "kos": "RAKUSEKI.KOS",
+   "wav": "RAKUSEKI.wav",
+   "key": "0xae",
+   "bytes": 81961,
+   "samples": 81916,
+   "seconds": 3.715
+  },
+  {
+   "id": 13,
+   "kos": "SYUUZEN.KOS",
+   "wav": "SYUUZEN.wav",
+   "key": "0xae",
+   "bytes": 8801,
+   "samples": 8756,
+   "seconds": 0.397
+  },
+  {
+   "id": 14,
+   "kos": "UMETATE.KOS",
+   "wav": "UMETATE.wav",
+   "key": "0xae",
+   "bytes": 25865,
+   "samples": 25820,
+   "seconds": 1.171
+  },
+  {
+   "id": 15,
+   "kos": "ZANSYU.KOS",
+   "wav": "ZANSYU.wav",
+   "key": "0xae",
+   "bytes": 4905,
+   "samples": 4860,
+   "seconds": 0.22
+  },
+  {
+   "id": 16,
+   "kos": "SHIKI.KOS",
+   "wav": "SHIKI.wav",
+   "key": "0xae",
+   "bytes": 16109,
+   "samples": 16064,
+   "seconds": 0.729
+  },
+  {
+   "id": 17,
+   "kos": "KOATARI.KOS",
+   "wav": "KOATARI.wav",
+   "key": "0xae",
+   "bytes": 20525,
+   "samples": 20480,
+   "seconds": 0.929
+  },
+  {
+   "id": 18,
+   "kos": "OOATARI.KOS",
+   "wav": "OOATARI.wav",
+   "key": "0xae",
+   "bytes": 21487,
+   "samples": 21441,
+   "seconds": 0.972
+  },
+  {
+   "id": 19,
+   "kos": "UKETA.KOS",
+   "wav": "UKETA.wav",
+   "key": "0xae",
+   "bytes": 24237,
+   "samples": 24192,
+   "seconds": 1.097
+  },
+  {
+   "id": 20,
+   "kos": "YOKETA.KOS",
+   "wav": "YOKETA.wav",
+   "key": "0xae",
+   "bytes": 22701,
+   "samples": 22656,
+   "seconds": 1.027
+  },
+  {
+   "id": 21,
+   "kos": "METUBUSI.KOS",
+   "wav": "METUBUSI.wav",
+   "key": "0xae",
+   "bytes": 20521,
+   "samples": 20476,
+   "seconds": 0.929
+  },
+  {
+   "id": 22,
+   "kos": "IATSU.KOS",
+   "wav": "IATSU.wav",
+   "key": "0xae",
+   "bytes": 66089,
+   "samples": 66044,
+   "seconds": 2.995
+  },
+  {
+   "id": 23,
+   "kos": "KEMURI.KOS",
+   "wav": "KEMURI.wav",
+   "key": "0xae",
+   "bytes": 18989,
+   "samples": 18944,
+   "seconds": 0.859
+  },
+  {
+   "id": 24,
+   "kos": "NIGERU.KOS",
+   "wav": "NIGERU.wav",
+   "key": "0xae",
+   "bytes": 24683,
+   "samples": 24637,
+   "seconds": 1.117
+  },
+  {
+   "id": 25,
+   "kos": "IKARI.KOS",
+   "wav": "IKARI.wav",
+   "key": "0xae",
+   "bytes": 28973,
+   "samples": 28928,
+   "seconds": 1.312
+  },
+  {
+   "id": 26,
+   "kos": "KAISHIN.KOS",
+   "wav": "KAISHIN.wav",
+   "key": "0xae",
+   "bytes": 16589,
+   "samples": 16544,
+   "seconds": 0.75
+  },
+  {
+   "id": 27,
+   "kos": "TGENSYOU.KOS",
+   "wav": "TGENSYOU.wav",
+   "key": "0xae",
+   "bytes": 12589,
+   "samples": 12544,
+   "seconds": 0.569
+  },
+  {
+   "id": 28,
+   "kos": "IGENSYOU.KOS",
+   "wav": "IGENSYOU.wav",
+   "key": "0xae",
+   "bytes": 3693,
+   "samples": 3648,
+   "seconds": 0.165
+  },
+  {
+   "id": 29,
+   "kos": "INOTIGOI.KOS",
+   "wav": "INOTIGOI.wav",
+   "key": "0xae",
+   "bytes": 35661,
+   "samples": 35616,
+   "seconds": 1.615
+  },
+  {
+   "id": 30,
+   "kos": "IZOUKA.KOS",
+   "wav": "IZOUKA.wav",
+   "key": "0xae",
+   "bytes": 3789,
+   "samples": 3744,
+   "seconds": 0.17
+  },
+  {
+   "id": 31,
+   "kos": "GINOUUP.KOS",
+   "wav": "GINOUUP.wav",
+   "key": "0xae",
+   "bytes": 32173,
+   "samples": 32128,
+   "seconds": 1.457
+  },
+  {
+   "id": 32,
+   "kos": "MACHIMES.KOS",
+   "wav": "MACHIMES.wav",
+   "key": "0xae",
+   "bytes": 20333,
+   "samples": 20288,
+   "seconds": 0.92
+  },
+  {
+   "id": 33,
+   "kos": "NINJA.KOS",
+   "wav": "NINJA.wav",
+   "key": "0xae",
+   "bytes": 34013,
+   "samples": 33968,
+   "seconds": 1.54
+  },
+  {
+   "id": 34,
+   "kos": "MI_HARE.KOS",
+   "wav": "MI_HARE.wav",
+   "key": "0xae",
+   "bytes": 60461,
+   "samples": 60416,
+   "seconds": 2.74
+  },
+  {
+   "id": 35,
+   "kos": "MI_AME.KOS",
+   "wav": "MI_AME.wav",
+   "key": "0xae",
+   "bytes": 57769,
+   "samples": 57724,
+   "seconds": 2.618
+  },
+  {
+   "id": 36,
+   "kos": "MATISIRO.KOS",
+   "wav": "MATISIRO.wav",
+   "key": "0xae",
+   "bytes": 26925,
+   "samples": 26880,
+   "seconds": 1.219
+  },
+  {
+   "id": 37,
+   "kos": "SIKAKU.KOS",
+   "wav": "SIKAKU.wav",
+   "key": "0xae",
+   "bytes": 12969,
+   "samples": 12924,
+   "seconds": 0.586
+  },
+  {
+   "id": 38,
+   "kos": "KAMINARI.KOS",
+   "wav": "KAMINARI.wav",
+   "key": "0xae",
+   "bytes": 75945,
+   "samples": 75900,
+   "seconds": 3.442
+  }
+ ]
+}
