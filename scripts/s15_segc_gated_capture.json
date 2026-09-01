@@ -1,0 +1,204 @@
+{
+  "_doc": "续220：S15 段C 三站门控收口 + owner 边界修正 + 25B 结构摊平",
+  "owner_fix": {
+    "0x40c4f3": {
+      "old": "0x40c350",
+      "new": "0x40c4d0",
+      "reason": "相位2 仅由 E9 jmp 到达（两相 handler 尾调用）"
+    },
+    "0x40a6ec": {
+      "old": "0x40a4f0",
+      "new": "0x40a620",
+      "reason": "相位2 仅由 E9 jmp 到达（两相 handler 尾调用）"
+    },
+    "0x40ad81": {
+      "old": "0x40ad10",
+      "new": "0x40ad60",
+      "reason": "相位2 仅由 E9 jmp 到达（两相 handler 尾调用）"
+    },
+    "0x40a62b": {
+      "old": "0x40a4f0",
+      "new": "0x40a620",
+      "reason": "相位2 仅由 E9 jmp 到达（两相 handler 尾调用）"
+    },
+    "0x40a79e": {
+      "old": "0x40a4f0",
+      "new": "0x40a620",
+      "reason": "相位2 仅由 E9 jmp 到达（两相 handler 尾调用）"
+    }
+  },
+  "three_sites": {
+    "0x409300": {
+      "owner": "0x409250",
+      "segC_idx": 0,
+      "gate": "segC[0] != 0",
+      "formula": "segC[0] = sat_sub8(segC[0],1) = max(segC[0]-1,0)",
+      "captured_at_gate30": [
+        0,
+        29
+      ],
+      "sweep": "9/9"
+    },
+    "0x40c4f3": {
+      "owner": "0x40c4d0 (修正自 0x40c350)",
+      "segC_idx": 1,
+      "event": "bit2 将軍(足利)暗殺 · 相位2",
+      "formula": "segC[1] = 0x40c520() = 目标城索引(优先25→22→0x40c5d0兜底)",
+      "captured": [
+        1,
+        0
+      ]
+    },
+    "0x40a6ec": {
+      "owner": "0x40a620 (修正自 0x40a4f0)",
+      "segC_idx": 3,
+      "event": "墨俣築城 · 相位2",
+      "slice_entry": "0x40a6c9",
+      "formula": "segC[3] = max(byte[0x513540]>>1, 1)",
+      "captured_zero_state": [
+        3,
+        1
+      ],
+      "sweep": "13/13"
+    }
+  },
+  "primitives": {
+    "0x4ebd10": "sat_sub8(a,b) = (a<=b ? 0 : a-b)  ← 新原语",
+    "0x4bb4e0": "entity 谓词 = (byte[+0x12]==0xff && byte[+0x13]==byte[+0x25])",
+    "0x43ca60": "byte[0x513540] 取值器",
+    "0x40c520": "城索引选择器：0x40c550(25)→25 / 0x40c550(22)→22 / else 0x40c5d0",
+    "0x4a0ef0": "word[ecx + (a*5+b)*2] —— 5 列 word 矩阵取值器（表 0x518588 +0x00）",
+    "0x4a0f10": "word[ecx + (a*5+b)*2 + 0x32] —— 同表第二矩阵（+0x32）"
+  },
+  "table_0x518588": {
+    "stride": 139,
+    "evidence": [
+      "0x409282 lea 系数链 base + v + 138v",
+      "0x4097d9 ÷139 魔数 0x75ded953 + sar 6"
+    ],
+    "matrices": {
+      "+0x00": "5 列 word (0x4a0ef0)",
+      "+0x32": "5 列 word (0x4a0f10)"
+    },
+    "note": "0x409814 写 segC[1] = (ptr-0x518588)/139 记录索引；0x40a4f0 用 0x4a0f30 求 5 word 和"
+  },
+  "mode_selector_0x413d10": {
+    "expr": "si = (word[0x520604] >> 12) & 3",
+    "si=0": "set_c(0, 0x413db0(slot3))  @0x413d80",
+    "si=1": "无写入",
+    "si=2": "set_c(0, 0x413db0(slot0))  @0x413d9c",
+    "si=3": "set_c(0, 0x413db0(slot0)) @0x413d4f + set_c(1, 0x413db0(slot3)) @0x413d65"
+  },
+  "dead_code": {
+    "0x4097d0": "mov edi,0x14 不可达：esi 在 test 前被常量 0x518588 覆盖，jne 恒成立"
+  },
+  "corrections_to_x219": [
+    "续219『首个 set_c 即停』导致同 owner 多站点串味：0x413d10 下 4 站被记成同一 (0,20)，实际仅 0x413d80 在零态执行，另 3 站需 si=3/si=2；0x409814 的 (0,30) 实为前一站 0x4097b7 的立即值。",
+    "本文件改用『栈上返回地址-5 反推 call 站点』做逐站点归属，16/16 全部按站点确证。"
+  ],
+  "struct_0x5203c0_25B": [
+    {
+      "off": "+0x00",
+      "size": 1,
+      "name": "事件类型/模式码",
+      "access": "直写 (mov byte[0x5203c0],imm)"
+    },
+    {
+      "off": "+0x01",
+      "size": 1,
+      "name": "打包位域 低5位+高3位",
+      "access": "set 0x49c420 / 0x49c440"
+    },
+    {
+      "off": "+0x02",
+      "size": 8,
+      "name": "事件旗组A 64bit",
+      "access": "test 0x49c390 / set 0x49c460"
+    },
+    {
+      "off": "+0x0a",
+      "size": 8,
+      "name": "事件旗组B 64bit",
+      "access": "test 0x49c3d0 / set 0x49c4b0"
+    },
+    {
+      "off": "+0x12",
+      "size": 1,
+      "name": "未定名",
+      "access": "(访问器带内无命中)"
+    },
+    {
+      "off": "+0x13",
+      "size": 6,
+      "name": "段C 参数槽 segC[0..5]",
+      "access": "get 0x49c410 / set 0x49c500"
+    }
+  ],
+  "runtime_var_merged": {
+    "0x409300": [
+      0,
+      29
+    ],
+    "0x4094c5": [
+      0,
+      0
+    ],
+    "0x409795": [
+      0,
+      0
+    ],
+    "0x413d4f": [
+      0,
+      20
+    ],
+    "0x413d80": [
+      0,
+      20
+    ],
+    "0x413d9c": [
+      0,
+      20
+    ],
+    "0x409814": [
+      1,
+      0
+    ],
+    "0x40c4f3": [
+      1,
+      0
+    ],
+    "0x412daf": [
+      1,
+      0
+    ],
+    "0x413d65": [
+      1,
+      20
+    ],
+    "0x419f09": [
+      1,
+      0
+    ],
+    "0x409542": [
+      2,
+      0
+    ],
+    "0x419f16": [
+      2,
+      0
+    ],
+    "0x40a6ec": [
+      3,
+      1
+    ],
+    "0x41112f": [
+      3,
+      1
+    ],
+    "0x41144a": [
+      1,
+      1
+    ]
+  },
+  "methodology": "函数起点集合必须同时收 E8 call 与 E9 jmp 目标；判别器用『ret+0x90 填充』边界，『指令边界对齐』检查无鉴别力（25/25 全 True）。全函数 emu 被无关 I/O 阻断时，改用『最小自足切片起点』= val 的 def-use 闭包起点。"
+}

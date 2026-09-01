@@ -68,7 +68,10 @@ for r in refs:
     # 「x/y PASS」「x/y checks」「x/y 通过」形式中 x!=y 才算 fail。
     # 不可用裸 (\d+)/(\d+) 通用正则 —— 会把 '0x1202 / 0xda3' 之类
     # 十六进制地址误解析为 1202/0 而误判失败(实测踩过)。
-    for m in re.finditer(r"(\d+)\s*/\s*(\d+)\s*(?:PASS|checks|通过|ALL)", out):
+    # ⚠️ \s* 会跨行 —— 实测把 "5/20\n  PASS" 误判成 5/20 失败
+    #    （savedata_loadflow_ref.py 34/34 真通过却被误报 FAIL）。
+    #    故分隔符一律用 [ \t]* 限定在同行内。
+    for m in re.finditer(r"(\d+)[ \t]*/[ \t]*(\d+)[ \t]*(?:PASS|checks|通过|ALL)", out):
         if m.group(1) != m.group(2):
             bad = True
             break

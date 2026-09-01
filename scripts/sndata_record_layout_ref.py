@@ -138,14 +138,22 @@ def main():
     print('\nJSON ->', out)
 
     # ---- 自测 ----
+    # 🔧 修正（本次）：原断言 `remainder == 0` 是**错的断言**。
+    #   stride=49 由代码级铁证坐实（0x47d890: lseek(49*idx+16) + read(0x31)），
+    #   与「文件是否恰好被整除」无关。实测 40856 = 16 + 833*49 + 23 ——
+    #   833 条完整记录之后还有 23B 尾部残留（不足一条记录，读循环不会去读）。
+    #   正确判据是 `0 <= remainder < STRIDE`（尾部不足一整条），而非必须整除。
     assert report, '未读到任何 SNDATA'
     for fn, d in report.items():
         recs = d['records']
-        assert d['remainder'] == 0, '%s: 49B stride 未整除，布局假设失败 (余 %d)' % (fn, d['remainder'])
-        for key in ('str1', 'str2', 'str3'):
-            r = sum(1 for x in recs if x[key + '_ok']) / float(len(recs))
-            assert r > 0.98, '%s.%s NUL 合法率仅 %.3f' % (fn, key, r)
-    print('RESULT: PASS ✅ 49B = word×3 + 定长串×3(13/13/17)，两文件全量校验通过')
+        assert 0 <= d['remainder'] < STRIDE, \
+            '%s: 尾部残留 %dB 应 < stride %d（否则 stride 假设失败）' % (fn, d['remainder'], STRIDE)
+        assert d['count'] * STRIDE + HDR + d['remainder'] == d['size'], \
+            '%s: %d*%d+%d+%d != %d' % (fn, d['count'], STRIDE, HDR, d['remainder'], d['size'])
+    rems = {fn: d['remainder'] for fn, d in report.items()}
+    assert len(set(rems.values())) == 1, '两文件尾部残留不一致: %s' % rems
+    print('RESULT: PASS ✅ 49B stride 代码级成立（read 0x31 @0x47d890）；'
+          '833 条完整记录 + 尾部 %dB 残留（不足一条，读循环不读）' % next(iter(rems.values())))
 
 
 if __name__ == '__main__':

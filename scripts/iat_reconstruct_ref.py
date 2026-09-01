@@ -168,18 +168,40 @@ def main():
     md = Cs(CS_ARCH_X86, CS_MODE_32)
     md.detail = True
 
-    def push_count_before(call_va, window=0x30):
-        """数 call 之前连续 push 段的 push 条数（遇非 push/lea/mov/xor 之类停）。"""
+    def push_count_before(call_va, window=0x40):
+        """数 call 之前连续 push 段的 push 条数（遇非 push/lea/mov/xor 之类停）。
+
+        ⚠️ 两重坑，缺一不可（实测 ScreenToClient 因此从 0 → 2）：
+          1) **capstone ≥5 的 `md.skipdata=True` 会静默截断**（续205）：遇非法字节直接
+             停止迭代，既不抛异常也不跳过 —— 旧写法在 0x4f1fc0 起点返回 0 条指令。
+             ⇒ 必须走 `_disasm_all.disasm_all` 的「遇非法字节前进 1 字节重启」循环。
+          2) **x86 变长指令不能从单一固定起点反汇编**（必错位）⇒ 在 disasm_all 产出的
+             指令流里，**反向定位「address + size == call_va」的那一条**作为锚点（边界
+             对齐），再从它往前逐条回溯；并全程校验指令边界连续。
+        """
         lo = call_va - window
-        seq = list(md.disasm(MEM[lo - BASE:call_va - BASE], lo))
+        seq = list(disasm_all(md, MEM[lo - BASE:call_va - BASE], lo))
+        # 锚点：以 call_va 结尾的那条指令
+        k = None
+        for idx, ins in enumerate(seq):
+            if ins.address + ins.size == call_va:
+                k = idx
+        if k is None:
+            return -1
         n = 0
-        for ins in reversed(seq):
+        prev_end = call_va          # 从锚点本身开始数（含 k 那条）
+        for idx in range(k, -1, -1):
+            ins = seq[idx]
+            if ins.address + ins.size != prev_end:   # 指令边界不连续 → 断链
+                break
             if ins.mnemonic == 'push':
                 n += 1
             elif ins.mnemonic in ('lea', 'mov', 'xor', 'movzx', 'movsx'):
+                prev_end = ins.address
                 continue
             else:
                 break
+            prev_end = ins.address
         return n
 
     # (call 指令 VA, IAT 槽 VA, 期望 API, 期望栈参个数)

@@ -1,0 +1,84 @@
+{
+  "idx_containers": {
+    "HGRP.LZW": {
+      "magic": "IDX",
+      "flag": 126,
+      "count": 508,
+      "table_bytes": 2040,
+      "dec_size": 37912,
+      "positive_slots": 337,
+      "zero": 12,
+      "unused_0xffffffff": 7,
+      "negative_sentinels": 159,
+      "note": "slot 值为运行时相对偏移/索引（非绝对文件偏移），像素 blob 图像豁免"
+    },
+    "GRPDATA.LZW": {
+      "magic": "IDX",
+      "flag": 139,
+      "count": 560,
+      "table_bytes": 2248,
+      "dec_size": 40322,
+      "positive_slots": 361,
+      "zero": 27,
+      "unused_0xffffffff": 1,
+      "negative_sentinels": 172,
+      "note": "slot 值为运行时相对偏移/索引（非绝对文件偏移），像素 blob 图像豁免"
+    }
+  },
+  "image_exempt": {
+    "GRPDATA2.LZW": {
+      "raw_size": 4166,
+      "dec_size": 7128,
+      "head": "fffff07fe03fc01f",
+      "role": "image-exempt (pixels)"
+    },
+    "KAIKON.LZW": {
+      "raw_size": 16349,
+      "dec_size": 24576,
+      "head": "ffffff8080aa0000",
+      "role": "image-exempt (pixels)"
+    },
+    "HKMAPDAT.LZW": {
+      "raw_size": 65646,
+      "dec_size": 1765,
+      "head": "1010101010182404",
+      "role": "image-exempt (pixels)"
+    },
+    "HKMAPNEW.LZW": {
+      "raw_size": 65646,
+      "dec_size": 1765,
+      "head": "1010101010182404",
+      "role": "image-exempt (pixels)"
+    },
+    "TERRAIN.LZW": {
+      "raw_size": 164499,
+      "dec_size": 4096,
+      "head": "6b6b6b6b6b6b6b6b",
+      "role": "image-exempt (pixels)"
+    },
+    "SHOP_BG.LZW": {
+      "raw_size": 26465,
+      "dec_size": 65152,
+      "head": "000000aa000000aa",
+      "role": "image-exempt (pixels)"
+    },
+    "SHOP_OBJ.LZW": {
+      "raw_size": 24938,
+      "dec_size": 55552,
+      "head": "0000000000000000",
+      "role": "image-exempt (pixels)"
+    },
+    "SHOP_MSK.LZW": {
+      "raw_size": 4414,
+      "dec_size": 14240,
+      "head": "ffffffffffffffff",
+      "role": "image-exempt (pixels)"
+    },
+    "SHOPMAP.LZW": {
+      "raw_size": 34049,
+      "dec_size": 1024,
+      "head": "a601ffffc101ffff",
+      "role": "image-exempt (pixels)"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "HBOBJ.DAT": {
+    "size": 5120,
+    "stride": 160,
+    "records": 32,
+    "loader": "0x424020",
+    "manifest": "0x5030d8",
+    "record_type_byte": "首字节，clamp 0..7"
+  },
+  "TOWNTBL.DAT": {
+    "size": 2560,
+    "stride": 2,
+    "records": 1280,
+    "loader": "0x4ac9c0",
+    "manifest": "0x50c140",
+    "grid_cols": 48,
+    "grid_rows": 32,
+    "dims_from_bytes": {
+      "0x30": 24,
+      "0x31": 0
+    }
+  },
+  "TOWNPOS.DAT": {
+    "size": 2450,
+    "stride": 2,
+    "entries": 1225,
+    "grid": "35x35",
+    "loader": "0x4ac9c0",
+    "buffer": "0x525af4",
+    "indexed_by": "castle id (u16)",
+    "consumer": "0x4acbb0/0x4acc30",
+    "sentinel": 65535,
+    "coord_decode": "见既有 castle_town 抽取 / towns.json (前序已破)"
+  }
+}

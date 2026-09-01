@@ -1,0 +1,116 @@
+{
+  "reached_zero_state": [
+    {
+      "call_va": "0x4094c5",
+      "owner_fn": "0x409470",
+      "idx": 0,
+      "val": 0,
+      "preload": "zero",
+      "note": "\u96f6\u6001\u4ea7\u7269\u00b7\u975e\u771f\u5b9e\u6e38\u620f\u503c"
+    },
+    {
+      "call_va": "0x409795",
+      "owner_fn": "0x409740",
+      "idx": 0,
+      "val": 0,
+      "preload": "zero",
+      "note": "\u96f6\u6001\u4ea7\u7269\u00b7\u975e\u771f\u5b9e\u6e38\u620f\u503c"
+    },
+    {
+      "call_va": "0x409814",
+      "owner_fn": "0x4097a0",
+      "idx": 0,
+      "val": 30,
+      "preload": "zero",
+      "note": "\u96f6\u6001\u4ea7\u7269\u00b7\u975e\u771f\u5b9e\u6e38\u620f\u503c"
+    },
+    {
+      "call_va": "0x412daf",
+      "owner_fn": "0x412d90",
+      "idx": 1,
+      "val": 0,
+      "preload": "zero",
+      "note": "\u96f6\u6001\u4ea7\u7269\u00b7\u975e\u771f\u5b9e\u6e38\u620f\u503c"
+    },
+    {
+      "call_va": "0x419f09",
+      "owner_fn": "0x419ef0",
+      "idx": 1,
+      "val": 0,
+      "preload": "zero",
+      "note": "\u96f6\u6001\u4ea7\u7269\u00b7\u975e\u771f\u5b9e\u6e38\u620f\u503c"
+    },
+    {
+      "call_va": "0x409542",
+      "owner_fn": "0x4094d0",
+      "idx": 0,
+      "val": 30,
+      "preload": "zero",
+      "note": "\u96f6\u6001\u4ea7\u7269\u00b7\u975e\u771f\u5b9e\u6e38\u620f\u503c"
+    },
+    {
+      "call_va": "0x419f16",
+      "owner_fn": "0x419ef0",
+      "idx": 1,
+      "val": 0,
+      "preload": "zero",
+      "note": "\u96f6\u6001\u4ea7\u7269\u00b7\u975e\u771f\u5b9e\u6e38\u620f\u503c"
+    }
+  ],
+  "crashed": [
+    {
+      "call_va": "0x413d4f",
+      "owner_fn": "0x413d10",
+      "crash_va": 4275639,
+      "preload": "zero"
+    },
+    {
+      "call_va": "0x413d80",
+      "owner_fn": "0x413d10",
+      "crash_va": 4275639,
+      "preload": "zero"
+    },
+    {
+      "call_va": "0x413d9c",
+      "owner_fn": "0x413d10",
+      "crash_va": 4275639,
+      "preload": "zero"
+    },
+    {
+      "call_va": "0x413d65",
+      "owner_fn": "0x413d10",
+      "crash_va": 4275639,
+      "preload": "zero"
+    },
+    {
+      "call_va": "0x41112f",
+      "owner_fn": "0x4110d0",
+      "crash_va": 4264171,
+      "preload": "zero"
+    },
+    {
+      "call_va": "0x41144a",
+      "owner_fn": "0x4113a0",
+      "crash_va": 4264936,
+      "preload": "zero"
+    }
+  ],
+  "timeout": [
+    {
+      "call_va": "0x409300",
+      "owner_fn": "0x409250",
+      "preload": "all"
+    },
+    {
+      "call_va": "0x40c4f3",
+      "owner_fn": "0x40c350",
+      "preload": "all"
+    },
+    {
+      "call_va": "0x40a6ec",
+      "owner_fn": "0x40a4f0",
+      "preload": "all"
+    }
+  ],
+  "note": "\u5b64\u7acb\u8dd1 owner \u65e0\u6cd5\u53d6\u5f97\u53ef\u4fe1\u8fd0\u884c\u671f\u503c\uff1b0/16 \u53ef\u4fe1\u3002\u771f\u5b9e\u503c\u987b boot \u4e8b\u4ef6\u89e3\u91ca\u5668\u6216\u6784\u9020\u4e8b\u4ef6\u4e0a\u4e0b\u6587\u3002"
+}

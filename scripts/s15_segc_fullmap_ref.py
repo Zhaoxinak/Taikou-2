@@ -34,8 +34,10 @@ def _find_root(_p):
 _ROOT = _find_root(os.path.dirname(os.path.abspath(__file__)))
 # </auto: portable root>
 
-import os, struct, bisect, pickle, collections, json
+import os, struct, bisect, pickle, collections, json, sys as _sys
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
+_sys.path.insert(0, os.path.join(_ROOT, 'scripts'))
+from _disasm_all import disasm_all      # capstone ≥5 安全的线性扫描（续205）
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = 0x400000
@@ -75,11 +77,30 @@ def find_calls(target):
 
 
 def back_args(callva, nargs, back=0x80):
+    """回溯 call 的栈参数（stdcall：最后一个 push = 第 1 参数）。
+
+    ⚠️ 两重坑（原实现踩中第二个，实测 25 个调用点里 2 个解析成 None）：
+      1) capstone ≥5 遇非法字节**静默停止迭代**（续205），裸 md.disasm 会提前截断；
+      2) x86 变长指令**不能从单一固定起点反汇编**（必错位）。
+    正解：用 `_disasm_all.disasm_all`（遇非法字节前进 1 字节重启）扫窗口，
+        反向定位「address + size == callva」的锚点，再从锚点往前逐条回溯，
+        全程校验指令边界连续（不连续即断链停）。
+    """
     st = max(BASE + 0x1000, callva - back)
-    ins = list(md.disasm(MEM[st - BASE:callva - BASE], st))
+    seq = list(disasm_all(md, MEM[st - BASE:callva - BASE], st))
+    anchor = None
+    for idx, ins in enumerate(seq):
+        if ins.address + ins.size == callva:
+            anchor = idx
+    if anchor is None:
+        return []
     args = []
-    for k in range(len(ins) - 1, -1, -1):
-        it = ins[k]
+    prev_end = callva
+    for k in range(anchor, -1, -1):
+        it = seq[k]
+        if it.address + it.size != prev_end:   # 指令边界不连续 → 断链
+            break
+        prev_end = it.address
         if it.mnemonic == 'push':
             o = it.op_str
             try:

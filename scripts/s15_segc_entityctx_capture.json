@@ -1,0 +1,477 @@
+{
+  "0x409300": {
+    "owner_fn": "0x409250",
+    "per_entity": {
+      "0": {
+        "captures": [],
+        "crashed": false,
+        "crash_va": 7340032
+      },
+      "100": {
+        "captures": [],
+        "crashed": false,
+        "crash_va": 7340032
+      },
+      "369": {
+        "captures": [],
+        "crashed": false,
+        "crash_va": 7340032
+      }
+    }
+  },
+  "0x4094c5": {
+    "owner_fn": "0x409470",
+    "per_entity": {
+      "0": {
+        "captures": [
+          [
+            0,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "100": {
+        "captures": [
+          [
+            0,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "369": {
+        "captures": [
+          [
+            0,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      }
+    }
+  },
+  "0x409795": {
+    "owner_fn": "0x409740",
+    "per_entity": {
+      "0": {
+        "captures": [
+          [
+            0,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "100": {
+        "captures": [
+          [
+            0,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "369": {
+        "captures": [
+          [
+            0,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      }
+    }
+  },
+  "0x413d4f": {
+    "owner_fn": "0x413d10",
+    "per_entity": {
+      "0": {
+        "captures": [
+          [
+            0,
+            20
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "100": {
+        "captures": [],
+        "crashed": true,
+        "crash_va": 4776759
+      },
+      "369": {
+        "captures": [],
+        "crashed": true,
+        "crash_va": 4776759
+      }
+    }
+  },
+  "0x413d80": {
+    "owner_fn": "0x413d10",
+    "per_entity": {
+      "0": {
+        "captures": [
+          [
+            0,
+            20
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "100": {
+        "captures": [],
+        "crashed": true,
+        "crash_va": 4776759
+      },
+      "369": {
+        "captures": [],
+        "crashed": true,
+        "crash_va": 4776759
+      }
+    }
+  },
+  "0x413d9c": {
+    "owner_fn": "0x413d10",
+    "per_entity": {
+      "0": {
+        "captures": [
+          [
+            0,
+            20
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "100": {
+        "captures": [],
+        "crashed": true,
+        "crash_va": 4776759
+      },
+      "369": {
+        "captures": [],
+        "crashed": true,
+        "crash_va": 4776759
+      }
+    }
+  },
+  "0x409814": {
+    "owner_fn": "0x4097a0",
+    "per_entity": {
+      "0": {
+        "captures": [
+          [
+            0,
+            30
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "100": {
+        "captures": [
+          [
+            0,
+            30
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "369": {
+        "captures": [
+          [
+            0,
+            30
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      }
+    }
+  },
+  "0x40c4f3": {
+    "owner_fn": "0x40c350",
+    "per_entity": {
+      "0": {
+        "captures": [],
+        "crashed": false,
+        "crash_va": 7340032
+      },
+      "100": {
+        "captures": [],
+        "crashed": false,
+        "crash_va": 7340032
+      },
+      "369": {
+        "captures": [],
+        "crashed": false,
+        "crash_va": 7340032
+      }
+    }
+  },
+  "0x412daf": {
+    "owner_fn": "0x412d90",
+    "per_entity": {
+      "0": {
+        "captures": [
+          [
+            1,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "100": {
+        "captures": [
+          [
+            1,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "369": {
+        "captures": [
+          [
+            1,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      }
+    }
+  },
+  "0x413d65": {
+    "owner_fn": "0x413d10",
+    "per_entity": {
+      "0": {
+        "captures": [
+          [
+            0,
+            20
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "100": {
+        "captures": [],
+        "crashed": true,
+        "crash_va": 4776759
+      },
+      "369": {
+        "captures": [],
+        "crashed": true,
+        "crash_va": 4776759
+      }
+    }
+  },
+  "0x419f09": {
+    "owner_fn": "0x419ef0",
+    "per_entity": {
+      "0": {
+        "captures": [
+          [
+            1,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "100": {
+        "captures": [
+          [
+            1,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "369": {
+        "captures": [
+          [
+            1,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      }
+    }
+  },
+  "0x409542": {
+    "owner_fn": "0x4094d0",
+    "per_entity": {
+      "0": {
+        "captures": [
+          [
+            0,
+            30
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "100": {
+        "captures": [
+          [
+            0,
+            30
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "369": {
+        "captures": [
+          [
+            0,
+            30
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      }
+    }
+  },
+  "0x419f16": {
+    "owner_fn": "0x419ef0",
+    "per_entity": {
+      "0": {
+        "captures": [
+          [
+            1,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "100": {
+        "captures": [
+          [
+            1,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "369": {
+        "captures": [
+          [
+            1,
+            0
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      }
+    }
+  },
+  "0x40a6ec": {
+    "owner_fn": "0x40a4f0",
+    "per_entity": {
+      "0": {
+        "captures": [],
+        "crashed": false,
+        "crash_va": 7340032
+      },
+      "100": {
+        "captures": [],
+        "crashed": false,
+        "crash_va": 7340032
+      },
+      "369": {
+        "captures": [],
+        "crashed": false,
+        "crash_va": 7340032
+      }
+    }
+  },
+  "0x41112f": {
+    "owner_fn": "0x4110d0",
+    "per_entity": {
+      "0": {
+        "captures": [
+          [
+            3,
+            1
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "100": {
+        "captures": [
+          [
+            3,
+            1
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "369": {
+        "captures": [
+          [
+            3,
+            1
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      }
+    }
+  },
+  "0x41144a": {
+    "owner_fn": "0x4113a0",
+    "per_entity": {
+      "0": {
+        "captures": [
+          [
+            1,
+            1
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "100": {
+        "captures": [
+          [
+            1,
+            1
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      },
+      "369": {
+        "captures": [
+          [
+            1,
+            1
+          ]
+        ],
+        "crashed": false,
+        "crash_va": 4834560
+      }
+    }
+  }
+}
