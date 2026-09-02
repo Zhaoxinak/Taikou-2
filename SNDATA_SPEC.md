@@ -330,6 +330,35 @@ call dword ptr [0x4fb07c]         ; 登记/分配器（注册该选择器）
 
 → **仍未知 / 下一步（续166 已闭合①②，见下）**：③ 3 视文本列具体玩法（名称/描述/类别？须对照游戏）；④ 真正逐类型 payload schema 仍须走 `0x4e8625`/`0x4e89cd` 主循环（续159 证伪 type→handler 表后，改逐指令追头四字比较链）。① ② 已由 §5.2(续99, emu) 闭合：18 子解码器全部定名(S0..S17)、§5 流字节地图以 §5.2 为权威（§5.1 过时）、0x516610=S6/0x517c70=S17 不再是「待定名」。详见 `BREAKTHROUGHS.md` 续165 / 续166。
 
+### 4.0.12 SNDATA 215 型逐字节「字面字段名」静态最大化闭包（⭐ 续229 · 2026-08-31）
+
+🔑 **承接续221（215 型语义域分类）+ 续228（唯一真·余步=215 型字段枚举）。把 215 型×43B payload 的每个字节，从「domain 分类」推进到「具体名字 + 结构角色」这一静态可达的最大闭包。参考实现 `scripts/sndata_payload_fields_ref.py`（**ALL PASS**）+ 产物 `scripts/sndata_payload_fields.json`（215 型全字段地图）。
+
+**① 字面字段名 = 域 + 解析名 + 结构角色**
+- 每字节已分类为 5 种 domain（续221）：`entity_idx`(4423) / `city_idx`(2905) / `province_idx`(1856) / `zero_const`(38) / `bool`(23)。
+- 用已破解名称表把 index 字节解析为具体名字（index 空间：实体 0..369 / 城 0..199 / 国 0..48，与续200/续221 一致）：
+  - `entity_idx` → `scripts/entity_names_sc1.json`（370 实体槽，sc1）；
+  - `city_idx` → `scripts/castle_names.json`（200 城）；
+  - `province_idx` → `scripts/province_politics.json`（49 国）。
+  - 例：type=0x00 `pos0`(entity_idx)→屋代景赖、`pos4`(city_idx)→黑川；type=0x13 `pos0`(city_idx)→滨松、`pos1`(province_idx)→尾张。
+- 结构角色检测（按 domain 序列）：单域数组 / (entity,city) 配对 / (entity,province) 配对 / (entity,city,province) 三元组 / 布尔旗 / 混合；给每字节位置化标签 `e0/c0/p0…`。
+
+**② 215 型形状分布**
+- `mixed` **208 型**：entity/city/province 索引任意序组合（如 type=0x00 是三类索引混合列表，印证续221「武将-城-国 索引混合」）；
+- `entity_array(43)` **6 型**：43 字节全为实体索引数组（如 type=0x3e）；
+- `flags_only` **1 型**：type=0x4b，纯布尔开关记录（稀有的场景状态枚举，续221）。
+
+**③ 真·字面玩法角色（主将/目标城/所属国…）—— 续230 架构证伪：游戏中本就不存在该 schema**
+- 续163/164 已证类别簇 handler 0/44 不读记录缓冲；续229 实测：修好 IAT `ret N` 桩(续195 崩溃根因) + 4 路文件 I/O 桩(续194 读管线)后，emu boot 主循环 `0x4e8600` 单记录**不崩**但 payload 字节读/表写捕获 = **0**，实证「逐簇 handler 运行期仿真」方法受桩钳制。
+- **续230 决定性结论**：对 `0x47f350` + 全部 18 子解码器(S0..S17) 各 0x600 字节窗口扫描，call `read_record`(0x47d890)=**0**、引用三视缓冲(0x522c..)=**0**、×49 记录 stride 乘法=**0** ⇒ **数据解码路径与「49B 记录 + 三文本视图」显示路径彻底不相交**。游戏对 payload 没有「按 type 的字段结构」——`0x47f350`(thiscall, ecx=scenario obj) 把文件当**扁平流**经 `0x47da10`(读字节)/`0x47da50`(读字) 顺序解出固定 section S0..S17 → 固定游戏表（实体/城/国…，续165 已映射），全程无 type 分派。故「逐 type 的 payload 字节→字段」映射在游戏里**本就不存在**，续229 静态闭包(domain+解析名+结构角色) 已是该 payload 的**静态可达最大理解**。
+
+**④ 双路径模型（续230）**
+- **Path A（显示）**：主循环按 idx 读 49B 记录、把 43B payload 当文本铺进 0x522c.. 三视图（续164/221/229，load 菜单展示），215 型 = 显示/资源类别。
+- **Path B（数据）**：`0x47f350` 扁平流 bulk 解码 S0..S17 → 固定表；流原语 `0x47da10`=`al=byte[[obj+0x9a]]; inc [obj+0x9a]; add [obj+0x92],al`（每 0x2000 字节触发 `0x47d960` XOR 解密块）、`0x47d910`=`cmp [obj+0x8c],0; je 跳过存储`（skip 模式）、`0x4411b0`=`read(handle=[obj],buf,n)`。
+- 流原语探针：`scripts/_probe_f350.py` / `scripts/_probe_stream.py` / `scripts/_probe_decode_path.py`（决定性 0/0/0 不相交校验）。
+
+⇒ **交付物**：`scripts/sndata_payload_fields.json`（215 型全字段地图：domain + 解析名 + 结构角色 + 型形状）+ `scripts/sndata_payload_fields_ref.py`（自测 ALL PASS：域闭环一致 / 9184 索引字节解析零越界 / 结构自检）。`scripts/sndata_payload_capture.py` 作为 emu 脚手架保留（捕获=0，且续230 证明即便跑通也只会复现 S0..S17 固定表映射，不会产出按 type 的字段 schema）。
+
 ### 4.1 「49B 记录不是城池归属直接赋值表」（🚨 已双重确认）
 - 对 43B payload 全偏移 + 全 word 偏移扫描：**无任何偏移值域被收紧到 0–91（城码）或 ≤699（武将id）**，所有字节值域 2–254。
 - 推论：城码/武将id **不以裸小整数**存于 49B 记录；它实为「模板 + 稀疏覆盖」的剧本参数/旗标/事件块。

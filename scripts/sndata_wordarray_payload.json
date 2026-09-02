@@ -1,212 +1,5 @@
 {
  "wordarray_types": {
-  "38": {
-   "count": 1,
-   "idw_set": [
-    2598
-   ],
-   "subw_set": [
-    3076
-   ],
-   "flagrel_set": [
-    9740
-   ],
-   "word_min": 10,
-   "word_max": 19468,
-   "word_distinct": 16,
-   "pos": [
-    {
-     "pos": 0,
-     "min": 2826,
-     "max": 2826,
-     "distinct": 1,
-     "vals": [
-      2826
-     ]
-    },
-    {
-     "pos": 1,
-     "min": 3084,
-     "max": 3084,
-     "distinct": 1,
-     "vals": [
-      3084
-     ]
-    },
-    {
-     "pos": 2,
-     "min": 2580,
-     "max": 2580,
-     "distinct": 1,
-     "vals": [
-      2580
-     ]
-    },
-    {
-     "pos": 3,
-     "min": 3078,
-     "max": 3078,
-     "distinct": 1,
-     "vals": [
-      3078
-     ]
-    },
-    {
-     "pos": 4,
-     "min": 5132,
-     "max": 5132,
-     "distinct": 1,
-     "vals": [
-      5132
-     ]
-    },
-    {
-     "pos": 5,
-     "min": 10,
-     "max": 10,
-     "distinct": 1,
-     "vals": [
-      10
-     ]
-    },
-    {
-     "pos": 6,
-     "min": 19468,
-     "max": 19468,
-     "distinct": 1,
-     "vals": [
-      19468
-     ]
-    },
-    {
-     "pos": 7,
-     "min": 2580,
-     "max": 2580,
-     "distinct": 1,
-     "vals": [
-      2580
-     ]
-    },
-    {
-     "pos": 8,
-     "min": 3072,
-     "max": 3072,
-     "distinct": 1,
-     "vals": [
-      3072
-     ]
-    },
-    {
-     "pos": 9,
-     "min": 5132,
-     "max": 5132,
-     "distinct": 1,
-     "vals": [
-      5132
-     ]
-    },
-    {
-     "pos": 10,
-     "min": 1546,
-     "max": 1546,
-     "distinct": 1,
-     "vals": [
-      1546
-     ]
-    },
-    {
-     "pos": 11,
-     "min": 19468,
-     "max": 19468,
-     "distinct": 1,
-     "vals": [
-      19468
-     ]
-    },
-    {
-     "pos": 12,
-     "min": 2820,
-     "max": 2820,
-     "distinct": 1,
-     "vals": [
-      2820
-     ]
-    },
-    {
-     "pos": 13,
-     "min": 3073,
-     "max": 3073,
-     "distinct": 1,
-     "vals": [
-      3073
-     ]
-    },
-    {
-     "pos": 14,
-     "min": 5708,
-     "max": 5708,
-     "distinct": 1,
-     "vals": [
-      5708
-     ]
-    },
-    {
-     "pos": 15,
-     "min": 11,
-     "max": 11,
-     "distinct": 1,
-     "vals": [
-      11
-     ]
-    },
-    {
-     "pos": 16,
-     "min": 19468,
-     "max": 19468,
-     "distinct": 1,
-     "vals": [
-      19468
-     ]
-    },
-    {
-     "pos": 17,
-     "min": 2838,
-     "max": 2838,
-     "distinct": 1,
-     "vals": [
-      2838
-     ]
-    },
-    {
-     "pos": 18,
-     "min": 3078,
-     "max": 3078,
-     "distinct": 1,
-     "vals": [
-      3078
-     ]
-    },
-    {
-     "pos": 19,
-     "min": 12876,
-     "max": 12876,
-     "distinct": 1,
-     "vals": [
-      12876
-     ]
-    },
-    {
-     "pos": 20,
-     "min": 1547,
-     "max": 1547,
-     "distinct": 1,
-     "vals": [
-      1547
-     ]
-    }
-   ],
-   "payload_hex_sample": "0a0b0c0c140a060c0c140a000c4c140a000c0c140a060c4c040b010c4c160b000c4c160b060c4c320b060c"
-  },
   "166": {
    "count": 1,
    "idw_set": [
@@ -414,212 +207,212 @@
    ],
    "payload_hex_sample": "8f0c1a0d860ca014494c2a113b0c080df33a0c0c0c0c0c0c0c1bacf3f3025858123e073a841f3e5af3f323"
   },
-  "214": {
+  "38": {
    "count": 1,
    "idw_set": [
-    52438
+    2598
    ],
    "subw_set": [
-    3319
+    3076
    ],
    "flagrel_set": [
-    3084
+    9740
    ],
-   "word_min": 2573,
-   "word_max": 62451,
-   "word_distinct": 17,
+   "word_min": 10,
+   "word_max": 19468,
+   "word_distinct": 16,
    "pos": [
     {
      "pos": 0,
-     "min": 3117,
-     "max": 3117,
+     "min": 2826,
+     "max": 2826,
      "distinct": 1,
      "vals": [
-      3117
+      2826
      ]
     },
     {
      "pos": 1,
-     "min": 3156,
-     "max": 3156,
+     "min": 3084,
+     "max": 3084,
      "distinct": 1,
      "vals": [
-      3156
+      3084
      ]
     },
     {
      "pos": 2,
-     "min": 62451,
-     "max": 62451,
+     "min": 2580,
+     "max": 2580,
      "distinct": 1,
      "vals": [
-      62451
+      2580
      ]
     },
     {
      "pos": 3,
-     "min": 3268,
-     "max": 3268,
+     "min": 3078,
+     "max": 3078,
      "distinct": 1,
      "vals": [
-      3268
+      3078
      ]
     },
     {
      "pos": 4,
-     "min": 14388,
-     "max": 14388,
+     "min": 5132,
+     "max": 5132,
      "distinct": 1,
      "vals": [
-      14388
+      5132
      ]
     },
     {
      "pos": 5,
-     "min": 9257,
-     "max": 9257,
+     "min": 10,
+     "max": 10,
      "distinct": 1,
      "vals": [
-      9257
+      10
      ]
     },
     {
      "pos": 6,
-     "min": 3135,
-     "max": 3135,
+     "min": 19468,
+     "max": 19468,
      "distinct": 1,
      "vals": [
-      3135
+      19468
      ]
     },
     {
      "pos": 7,
-     "min": 3084,
-     "max": 3084,
+     "min": 2580,
+     "max": 2580,
      "distinct": 1,
      "vals": [
-      3084
+      2580
      ]
     },
     {
      "pos": 8,
-     "min": 2803,
-     "max": 2803,
+     "min": 3072,
+     "max": 3072,
      "distinct": 1,
      "vals": [
-      2803
+      3072
      ]
     },
     {
      "pos": 9,
-     "min": 3084,
-     "max": 3084,
+     "min": 5132,
+     "max": 5132,
      "distinct": 1,
      "vals": [
-      3084
+      5132
      ]
     },
     {
      "pos": 10,
-     "min": 3084,
-     "max": 3084,
+     "min": 1546,
+     "max": 1546,
      "distinct": 1,
      "vals": [
-      3084
+      1546
      ]
     },
     {
      "pos": 11,
-     "min": 3084,
-     "max": 3084,
+     "min": 19468,
+     "max": 19468,
      "distinct": 1,
      "vals": [
-      3084
+      19468
      ]
     },
     {
      "pos": 12,
-     "min": 9228,
-     "max": 9228,
+     "min": 2820,
+     "max": 2820,
      "distinct": 1,
      "vals": [
-      9228
+      2820
      ]
     },
     {
      "pos": 13,
-     "min": 62348,
-     "max": 62348,
+     "min": 3073,
+     "max": 3073,
      "distinct": 1,
      "vals": [
-      62348
+      3073
      ]
     },
     {
      "pos": 14,
-     "min": 3315,
-     "max": 3315,
+     "min": 5708,
+     "max": 5708,
      "distinct": 1,
      "vals": [
-      3315
+      5708
      ]
     },
     {
      "pos": 15,
-     "min": 16448,
-     "max": 16448,
+     "min": 11,
+     "max": 11,
      "distinct": 1,
      "vals": [
-      16448
+      11
      ]
     },
     {
      "pos": 16,
-     "min": 15890,
-     "max": 15890,
+     "min": 19468,
+     "max": 19468,
      "distinct": 1,
      "vals": [
-      15890
+      19468
      ]
     },
     {
      "pos": 17,
-     "min": 2573,
-     "max": 2573,
+     "min": 2838,
+     "max": 2838,
      "distinct": 1,
      "vals": [
-      2573
+      2838
      ]
     },
     {
      "pos": 18,
-     "min": 11036,
-     "max": 11036,
+     "min": 3078,
+     "max": 3078,
      "distinct": 1,
      "vals": [
-      11036
+      3078
      ]
     },
     {
      "pos": 19,
-     "min": 22632,
-     "max": 22632,
+     "min": 12876,
+     "max": 12876,
      "distinct": 1,
      "vals": [
-      22632
+      12876
      ]
     },
     {
      "pos": 20,
-     "min": 62451,
-     "max": 62451,
+     "min": 1547,
+     "max": 1547,
      "distinct": 1,
      "vals": [
-      62451
+      1547
      ]
     }
    ],
-   "payload_hex_sample": "2d0c540cf3f3c40c343829243f0c0c0cf30a0c0c0c0c0c0c0c248cf3f30c4040123e0d0a1c2b6858f3f323"
+   "payload_hex_sample": "0a0b0c0c140a060c0c140a000c4c140a000c0c140a060c4c040b010c4c160b000c4c160b060c4c320b060c"
   },
   "75": {
    "count": 1,
@@ -1296,6 +1089,213 @@
     }
    ],
    "payload_hex_sample": "fc4a48323a3c4b0c0c05f34e0c0c0c0c0c0c0c2eccf3f31f5e5e123e014ed0091258f3f3230f5ceffdb8a4"
+  },
+  "214": {
+   "count": 1,
+   "idw_set": [
+    52438
+   ],
+   "subw_set": [
+    3319
+   ],
+   "flagrel_set": [
+    3084
+   ],
+   "word_min": 2573,
+   "word_max": 62451,
+   "word_distinct": 17,
+   "pos": [
+    {
+     "pos": 0,
+     "min": 3117,
+     "max": 3117,
+     "distinct": 1,
+     "vals": [
+      3117
+     ]
+    },
+    {
+     "pos": 1,
+     "min": 3156,
+     "max": 3156,
+     "distinct": 1,
+     "vals": [
+      3156
+     ]
+    },
+    {
+     "pos": 2,
+     "min": 62451,
+     "max": 62451,
+     "distinct": 1,
+     "vals": [
+      62451
+     ]
+    },
+    {
+     "pos": 3,
+     "min": 3268,
+     "max": 3268,
+     "distinct": 1,
+     "vals": [
+      3268
+     ]
+    },
+    {
+     "pos": 4,
+     "min": 14388,
+     "max": 14388,
+     "distinct": 1,
+     "vals": [
+      14388
+     ]
+    },
+    {
+     "pos": 5,
+     "min": 9257,
+     "max": 9257,
+     "distinct": 1,
+     "vals": [
+      9257
+     ]
+    },
+    {
+     "pos": 6,
+     "min": 3135,
+     "max": 3135,
+     "distinct": 1,
+     "vals": [
+      3135
+     ]
+    },
+    {
+     "pos": 7,
+     "min": 3084,
+     "max": 3084,
+     "distinct": 1,
+     "vals": [
+      3084
+     ]
+    },
+    {
+     "pos": 8,
+     "min": 2803,
+     "max": 2803,
+     "distinct": 1,
+     "vals": [
+      2803
+     ]
+    },
+    {
+     "pos": 9,
+     "min": 3084,
+     "max": 3084,
+     "distinct": 1,
+     "vals": [
+      3084
+     ]
+    },
+    {
+     "pos": 10,
+     "min": 3084,
+     "max": 3084,
+     "distinct": 1,
+     "vals": [
+      3084
+     ]
+    },
+    {
+     "pos": 11,
+     "min": 3084,
+     "max": 3084,
+     "distinct": 1,
+     "vals": [
+      3084
+     ]
+    },
+    {
+     "pos": 12,
+     "min": 9228,
+     "max": 9228,
+     "distinct": 1,
+     "vals": [
+      9228
+     ]
+    },
+    {
+     "pos": 13,
+     "min": 62348,
+     "max": 62348,
+     "distinct": 1,
+     "vals": [
+      62348
+     ]
+    },
+    {
+     "pos": 14,
+     "min": 3315,
+     "max": 3315,
+     "distinct": 1,
+     "vals": [
+      3315
+     ]
+    },
+    {
+     "pos": 15,
+     "min": 16448,
+     "max": 16448,
+     "distinct": 1,
+     "vals": [
+      16448
+     ]
+    },
+    {
+     "pos": 16,
+     "min": 15890,
+     "max": 15890,
+     "distinct": 1,
+     "vals": [
+      15890
+     ]
+    },
+    {
+     "pos": 17,
+     "min": 2573,
+     "max": 2573,
+     "distinct": 1,
+     "vals": [
+      2573
+     ]
+    },
+    {
+     "pos": 18,
+     "min": 11036,
+     "max": 11036,
+     "distinct": 1,
+     "vals": [
+      11036
+     ]
+    },
+    {
+     "pos": 19,
+     "min": 22632,
+     "max": 22632,
+     "distinct": 1,
+     "vals": [
+      22632
+     ]
+    },
+    {
+     "pos": 20,
+     "min": 62451,
+     "max": 62451,
+     "distinct": 1,
+     "vals": [
+      62451
+     ]
+    }
+   ],
+   "payload_hex_sample": "2d0c540cf3f3c40c343829243f0c0c0cf30a0c0c0c0c0c0c0c248cf3f30c4040123e0d0a1c2b6858f3f323"
   }
  }
 }

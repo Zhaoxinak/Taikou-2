@@ -1,0 +1,1147 @@
+{
+ "summary": {
+  "pass_": 56,
+  "fail": 0,
+  "exempt": 33,
+  "asset": 53,
+  "unknown": 0
+ },
+ "files": [
+  {
+   "file": "ACERTWP.GRP",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "图像格式，按用户 2026-08-25 令豁免（real_assets 已有复刻解码器）"
+  },
+  {
+   "file": "ANMSEQ.LZW",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "动画脚本字节码",
+   "ref": "续213",
+   "note": "magic=True dec=31941"
+  },
+  {
+   "file": "BSDATA1.TR2",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "BSDATA 武将主表(明文)",
+   "ref": "续200",
+   "note": "size=41300/41300 magic=True"
+  },
+  {
+   "file": "BSDATA2.TR2",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "BSDATA 武将主表(明文)",
+   "ref": "续200",
+   "note": "size=41300/41300 magic=True"
+  },
+  {
+   "file": "CANCEL.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "CLICK.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "END.GRP",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "图像格式，按用户 2026-08-25 令豁免（real_assets 已有复刻解码器）"
+  },
+  {
+   "file": "ENDING1.AVI",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "ENDING2.AVI",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "EXTFACE.PK8",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "图像格式，按用户 2026-08-25 令豁免（real_assets 已有复刻解码器）"
+  },
+  {
+   "file": "FACE.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(1621 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "GAIJI.TR2",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "GAIJI 外字表",
+   "ref": "续197",
+   "note": "size=544/544 magic=True"
+  },
+  {
+   "file": "GIHEI.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "GINOUUP.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "GRPDATA.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(40322 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "GRPDATA2.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(7128 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "HBCHAR.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(49152 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "HBCHAR2.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(27584 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "HBMAP.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(17926 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "HBOBJ.DAT",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "城镇物件 HBOBJ",
+   "ref": "续214",
+   "note": "size=5120/5120"
+  },
+  {
+   "file": "HEXMES.LZW",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "事件/战斗文本(HEXMES)",
+   "ref": "续156",
+   "note": "decoded=6881 bytes"
+  },
+  {
+   "file": "HGRP.LZW",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "GRP 索引容器 IDX",
+   "ref": "续215",
+   "note": "magic=True dec=37912"
+  },
+  {
+   "file": "HJCHAR.lZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(38464 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "HJMAP.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(46080 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "HJMAPDAT.DAT",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "图像格式，按用户 2026-08-25 令豁免（real_assets 已有复刻解码器）"
+  },
+  {
+   "file": "HKCHAR.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(42560 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "HKMAP.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(52320 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "HKMAPDAT.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(1765 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "HKMAPNEW.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(1765 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "IATSU.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "IDOU.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "IGENSYOU.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "IKARI.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "INOTIGOI.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "IZOUKA.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "KAIKON.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(24576 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "KAISHIN.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "KAKEI.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "KAMINARI.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "KEMURI.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "KOATARI.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "KOEILOGO.AVI",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "KOEILOGO.GRP",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "图像格式，按用户 2026-08-25 令豁免（real_assets 已有复刻解码器）"
+  },
+  {
+   "file": "KOSENGRP.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(41600 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "KOUGEKI1.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "KOUGEKI2.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "MACHIMES.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "MAPCHAR.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(35840 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "MAPCHIP.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(45056 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "MATISIRO.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "MESSAGE1.LZW",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "消息文本 MESSAGE1",
+   "ref": "续156",
+   "note": "decoded=63286 bytes"
+  },
+  {
+   "file": "MESSAGE2.LZW",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "消息文本 MESSAGE2",
+   "ref": "续156",
+   "note": "decoded=63045 bytes"
+  },
+  {
+   "file": "MESSAGE3.LZW",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "消息文本 MESSAGE3",
+   "ref": "续156",
+   "note": "decoded=70904 bytes"
+  },
+  {
+   "file": "MESSAGE4.LZW",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "消息文本 MESSAGE4",
+   "ref": "续156",
+   "note": "decoded=39383 bytes"
+  },
+  {
+   "file": "METUBUSI.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "MI_AME.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "MI_HARE.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "NIGERU.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "NINJA.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "NPKDATA.IDX",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "NPK 索引容器 IDX",
+   "ref": "续215",
+   "note": "magic=True"
+  },
+  {
+   "file": "OOATARI.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "OPENGATE.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "OPENNING.AVI",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "PK8DATA.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(737 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "PRESS.GRP",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "图像格式，按用户 2026-08-25 令豁免（real_assets 已有复刻解码器）"
+  },
+  {
+   "file": "RAKUSEKI.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "SAVEDATA.TR2",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "SAVEDATA 存档容器",
+   "ref": "续199",
+   "note": "size=328088/328088 magic=True"
+  },
+  {
+   "file": "SEIKOU.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "SHIKI.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "SHIPPAI.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "SHOPCHAR.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(27648 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "SHOPMAP.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(1024 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "SHOP_BG.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(65152 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "SHOP_MSK.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(14240 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "SHOP_OBJ.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(55552 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "SIKAKU.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "SMODE.GRP",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "图像格式，按用户 2026-08-25 令豁免（real_assets 已有复刻解码器）"
+  },
+  {
+   "file": "SNDATA1.TR2",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "SNDATA 剧本容器",
+   "ref": "续199/202",
+   "note": "size=40856/40856 magic=True"
+  },
+  {
+   "file": "SNDATA2.TR2",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "SNDATA 剧本容器",
+   "ref": "续199/202",
+   "note": "size=40856/40856 magic=True"
+  },
+  {
+   "file": "SYUUZEN.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "StartTaikou2.bat",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "TAIK2W95.exe",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "TEPPOU.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "TERRAIN.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(4096 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "TGENSYOU.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "TOTUGEKI.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "TOWNCHAR.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(27136 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "TOWNCHIP.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(43648 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "TOWNMAP.LZW",
+   "category": "IMAGE_EXEMPT",
+   "status": "EXEMPT",
+   "what": "",
+   "ref": "",
+   "note": "LZW 容器可解压(1536 字节)；像素内容按用户令豁免"
+  },
+  {
+   "file": "TOWNPOS.DAT",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "城镇坐标 TOWNPOS",
+   "ref": "续214",
+   "note": "size=2450/2450"
+  },
+  {
+   "file": "TOWNTBL.DAT",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "城镇网格 TOWNTBL",
+   "ref": "续214",
+   "note": "size=2560/2560"
+  },
+  {
+   "file": "UKETA.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "UMETATE.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "YOKETA.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "ZANSYU.KOS",
+   "category": "CRACKED_NONIMAGE",
+   "status": "PASS",
+   "what": "KOS 音效(WAV)",
+   "ref": "续197/195/226",
+   "note": "key=0xae RIFF/WAVE=True"
+  },
+  {
+   "file": "_ascii_strip.bmp",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "_dump_bsdata.py",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "_font_ascii.bmp",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "_font_ascii.png",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "_font_bulk0.bmp",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "_font_bulk0.png",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "_message_strip.bmp",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "mount_cd.ps1",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "mp3.dll",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "rmKOEI.bin",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "taikou2_cd.iso",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "启动游戏.bat",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "01.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "02.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "03.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "04.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "05.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "06.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "07.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "08.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "09.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "10.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "11.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "12.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "13.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "14.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "15.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "16.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "17.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "18.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "19.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "20.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "21.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "22.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "23.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "24.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "25.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "26.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "27.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "28.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "29.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "30.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "31.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "32.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "33.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "34.mp3",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  },
+  {
+   "file": "menu_wallpaper.png",
+   "category": "RUNTIME_ASSET",
+   "status": "ASSET",
+   "what": "",
+   "ref": "",
+   "note": "运行期/资源资产，非逆向目标"
+  }
+ ]
+}
