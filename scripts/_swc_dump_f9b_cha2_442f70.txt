@@ -1,0 +1,357 @@
+# f9b_cha2_442f70  k9c 茶人品茶2  0x442f70..0x443350
+0x442f70  sub     esp, 8
+0x442f73  push    esi
+0x442f74  push    5
+0x442f76  call    0x4a0c20   ;;
+0x442f7b  mov     eax, dword ptr [esp + 0x14]
+0x442f7f  add     esp, 4
+0x442f82  push    eax
+0x442f83  call    0x443090   ;;
+0x442f88  add     esp, 4
+0x442f8b  push    5
+0x442f8d  call    0x4a0c20   ;;
+0x442f92  add     esp, 4
+0x442f95  push    1
+0x442f97  call    0x44e270   ;;
+0x442f9c  mov     ecx, 0x1e
+0x442fa1  sub     ecx, eax
+0x442fa3  push    ecx
+0x442fa4  call    0x4a0d50   ;;
+0x442fa9  add     esp, 8
+0x442fac  call    0x47b5f0   ;;
+0x442fb1  mov     esi, dword ptr [esp + 0x14]
+0x442fb5  test    esi, esi
+0x442fb7  je      0x44306e
+0x442fbd  lea     edx, [esi + 0xa]
+0x442fc0  mov     eax, dword ptr [esi + 0xa]
+0x442fc3  mov     dword ptr [esp + 4], eax
+0x442fc7  mov     cl, byte ptr [edx + 4]
+0x442fca  mov     dl, byte ptr [esi + 0x11]
+0x442fcd  and     dl, 0xc
+0x442fd0  mov     byte ptr [esp + 8], cl
+0x442fd4  cmp     dl, 8
+0x442fd7  ja      0x44306e
+0x442fdd  push    0x258
+0x442fe2  call    0x4ebd60   ;; <== RNG
+0x442fe7  mov     ecx, dword ptr [esp + 0xc]
+0x442feb  mov     edx, dword ptr [esp + 0xa]
+0x442fef  and     ecx, 0xff
+0x442ff5  and     edx, 0xff
+0x442ffb  add     ecx, edx
+0x442ffd  mov     edx, dword ptr [esp + 0xb]
+0x443001  and     edx, 0xff
+0x443007  and     eax, 0xffff
+0x44300c  add     ecx, edx
+0x44300e  add     esp, 4
+0x443011  cmp     ecx, eax
+0x443013  jle     0x44306e
+0x443015  mov     eax, dword ptr [0x52063c]
+0x44301a  push    0x3a6
+0x44301f  push    eax
+0x443020  call    0x47b900   ;;
+0x443025  add     esp, 8
+0x443028  push    0x3a7
+0x44302d  call    0x49f5e0   ;; <== get_player_entity
+0x443032  push    eax
+0x443033  call    0x47b900   ;;
+0x443038  add     esp, 8
+0x44303b  push    0x3a8
+0x443040  push    esi
+0x443041  call    0x47b900   ;;
+0x443046  add     esp, 8
+0x443049  lea     ecx, [esi + 0xf]
+0x44304c  call    0x4a3160   ;; <== K9 skill-writer
+0x443051  mov     cl, byte ptr [esi + 0x11]
+0x443054  xor     dx, dx
+0x443057  shr     cl, 2
+0x44305a  and     cl, 3
+0x44305d  mov     dl, cl
+0x44305f  push    edx
+0x443060  push    0x507b85
+0x443065  push    esi
+0x443066  call    0x4704e0   ;;
+0x44306b  add     esp, 0xc
+0x44306e  push    0x3a3
+0x443073  call    0x49f5e0   ;; <== get_player_entity
+0x443078  push    eax
+0x443079  call    0x47b900   ;;
+0x44307e  add     esp, 8
+0x443081  call    0x47b600   ;;
+0x443086  pop     esi
+0x443087  add     esp, 8
+0x44308a  ret     
+0x44308b  nop     
+0x44308c  nop     
+0x44308d  nop     
+0x44308e  nop     
+0x44308f  nop     
+0x443090  push    esi
+0x443091  mov     esi, dword ptr [esp + 8]
+0x443095  push    esi
+0x443096  call    0x443e10   ;;
+0x44309b  add     esp, 4
+0x44309e  test    eax, eax
+0x4430a0  jne     0x4430f4
+0x4430a2  push    esi
+0x4430a3  call    0x443100   ;;
+0x4430a8  add     esp, 4
+0x4430ab  test    eax, eax
+0x4430ad  jne     0x4430f4
+0x4430af  call    0x49f7a0   ;;
+0x4430b4  neg     eax
+0x4430b6  sbb     eax, eax
+0x4430b8  neg     eax
+0x4430ba  add     eax, 0x80
+0x4430bf  push    eax
+0x4430c0  call    0x496ba0   ;;
+0x4430c5  add     esp, 4
+0x4430c8  push    esi
+0x4430c9  call    0x443ca0   ;;
+0x4430ce  add     esp, 4
+0x4430d1  test    eax, eax
+0x4430d3  jne     0x4430f4
+0x4430d5  call    0x443bd0   ;;
+0x4430da  test    eax, eax
+0x4430dc  jne     0x4430f4
+0x4430de  push    esi
+0x4430df  call    0x4439e0   ;;
+0x4430e4  add     esp, 4
+0x4430e7  test    eax, eax
+0x4430e9  jne     0x4430f4
+0x4430eb  push    esi
+0x4430ec  call    0x443730   ;;
+0x4430f1  add     esp, 4
+0x4430f4  pop     esi
+0x4430f5  ret     
+0x4430f6  nop     
+0x4430f7  nop     
+0x4430f8  nop     
+0x4430f9  nop     
+0x4430fa  nop     
+0x4430fb  nop     
+0x4430fc  nop     
+0x4430fd  nop     
+0x4430fe  nop     
+0x4430ff  nop     
+0x443100  test    byte ptr [0x516638], 0x10
+0x443107  jne     0x44314e
+0x443109  push    0x14
+0x44310b  call    0x4ebe40   ;;
+0x443110  add     esp, 4
+0x443113  test    eax, eax
+0x443115  je      0x44314e
+0x443117  call    0x4431a0   ;;
+0x44311c  test    ax, ax
+0x44311f  je      0x44319b
+0x443121  push    0
+0x443123  push    eax
+0x443124  call    0x4ebd60   ;; <== RNG
+0x443129  mov     ecx, dword ptr [0x51e9c0]
+0x44312f  and     eax, 0xffff
+0x443134  add     esp, 4
+0x443137  mov     edx, dword ptr [ecx + eax*4]
+0x44313a  mov     eax, dword ptr [esp + 8]
+0x44313e  push    edx
+0x44313f  push    eax
+0x443140  call    0x4432e0   ;;
+0x443145  add     esp, 0xc
+0x443148  mov     eax, 1
+0x44314d  ret     
+0x44314e  push    0x14
+0x443150  call    0x4ebe40   ;;
+0x443155  add     esp, 4
+0x443158  test    eax, eax
+0x44315a  je      0x44319b
+0x44315c  push    7
+0x44315e  push    1
+0x443160  call    0x45e3e0   ;;
+0x443165  add     esp, 8
+0x443168  cmp     ax, 2
+0x44316c  jb      0x44319b
+0x44316e  push    1
+0x443170  push    eax
+0x443171  call    0x4ebd60   ;; <== RNG
+0x443176  mov     ecx, dword ptr [0x51e9c0]
+0x44317c  and     eax, 0xffff
+0x443181  add     esp, 4
+0x443184  mov     edx, dword ptr [ecx + eax*4]
+0x443187  mov     eax, dword ptr [esp + 8]
+0x44318b  push    edx
+0x44318c  push    eax
+0x44318d  call    0x4432e0   ;;
+0x443192  add     esp, 0xc
+0x443195  mov     eax, 1
+0x44319a  ret     
+0x44319b  xor     eax, eax
+0x44319d  ret     
+0x44319e  nop     
+0x44319f  nop     
+0x4431a0  sub     esp, 8
+0x4431a3  push    ebx
+0x4431a4  push    ebp
+0x4431a5  push    esi
+0x4431a6  push    edi
+0x4431a7  call    0x49f5e0   ;; <== get_player_entity
+0x4431ac  mov     al, byte ptr [eax + 0x24]
+0x4431af  xor     ebp, ebp
+0x4431b1  mov     byte ptr [esp + 0x13], al
+0x4431b5  mov     edi, 0x519868
+0x4431ba  mov     ebx, 0x172
+0x4431bf  mov     ecx, edi
+0x4431c1  call    0x49a900   ;;
+0x4431c6  test    eax, eax
+0x4431c8  jne     0x443264
+0x4431ce  push    edi
+0x4431cf  call    0x470690   ;;
+0x4431d4  add     esp, 4
+0x4431d7  test    eax, eax
+0x4431d9  je      0x443264
+0x4431df  test    byte ptr [edi + 0x2d], 7
+0x4431e3  je      0x443264
+0x4431e5  mov     cl, byte ptr [esp + 0x13]
+0x4431e9  mov     al, byte ptr [edi + 0x24]
+0x4431ec  cmp     al, cl
+0x4431ee  je      0x443264
+0x4431f0  push    edi
+0x4431f1  call    0x46faf0   ;;
+0x4431f6  add     esp, 4
+0x4431f9  test    eax, eax
+0x4431fb  je      0x443264
+0x4431fd  mov     si, word ptr [edi + 8]
+0x443201  push    edi
+0x443202  shr     esi, 8
+0x443205  and     esi, 3
+0x443208  call    0x443280   ;;
+0x44320d  add     esp, 4
+0x443210  cmp     esi, 1
+0x443213  je      0x44321a
+0x443215  cmp     esi, 2
+0x443218  jne     0x443264
+0x44321a  cmp     eax, 8
+0x44321d  je      0x443264
+0x44321f  cmp     eax, 1
+0x443222  je      0x443264
+0x443224  test    eax, eax
+0x443226  je      0x443264
+0x443228  mov     al, byte ptr [edi + 0x25]
+0x44322b  cmp     al, 0xc8
+0x44322d  mov     byte ptr [esp + 0x14], al
+0x443231  jae     0x44324b
+0x443233  mov     ecx, dword ptr [esp + 0x14]
+0x443237  and     ecx, 0xff
+0x44323d  mov     eax, ecx
+0x44323f  shl     eax, 5
+0x443242  sub     eax, ecx
+0x443244  add     eax, 0x51eb88
+0x443249  jmp     0x44324d
+0x44324b  xor     eax, eax
+0x44324d  test    byte ptr [eax + 0x1b], 0x10
+0x443251  jne     0x443264
+0x443253  mov     eax, dword ptr [0x51e9c0]
+0x443258  mov     edx, ebp
+0x44325a  and     edx, 0xffff
+0x443260  inc     ebp
+0x443261  mov     dword ptr [eax + edx*4], edi
+0x443264  add     edi, 0x2f
+0x443267  dec     ebx
+0x443268  jne     0x4431bf
+0x44326e  pop     edi
+0x44326f  mov     ax, bp
+0x443272  pop     esi
+0x443273  pop     ebp
+0x443274  pop     ebx
+0x443275  add     esp, 8
+0x443278  ret     
+0x443279  nop     
+0x44327a  nop     
+0x44327b  nop     
+0x44327c  nop     
+0x44327d  nop     
+0x44327e  nop     
+0x44327f  nop     
+0x443280  mov     eax, dword ptr [esp + 4]
+0x443284  mov     al, byte ptr [eax + 0x25]
+0x443287  cmp     al, 0xc8
+0x443289  mov     byte ptr [esp + 4], al
+0x44328d  jae     0x4432a7
+0x44328f  mov     ecx, dword ptr [esp + 4]
+0x443293  and     ecx, 0xff
+0x443299  mov     eax, ecx
+0x44329b  shl     eax, 5
+0x44329e  sub     eax, ecx
+0x4432a0  add     eax, 0x51eb88
+0x4432a5  jmp     0x4432a9
+0x4432a7  xor     eax, eax
+0x4432a9  mov     al, byte ptr [eax + 8]
+0x4432ac  cmp     al, 0x31
+0x4432ae  mov     byte ptr [esp + 4], al
+0x4432b2  jae     0x4432d0
+0x4432b4  mov     eax, dword ptr [esp + 4]
+0x4432b8  and     eax, 0xff
+0x4432bd  xor     ecx, ecx
+0x4432bf  mov     cl, byte ptr [eax + eax*4 + 0x519549]
+0x4432c6  lea     eax, [eax + eax*4 + 0x519548]
+0x4432cd  mov     eax, ecx
+0x4432cf  ret     
+0x4432d0  xor     eax, eax
+0x4432d2  xor     ecx, ecx
+0x4432d4  mov     cl, byte ptr [eax + 1]
+0x4432d7  mov     eax, ecx
+0x4432d9  ret     
+0x4432da  nop     
+0x4432db  nop     
+0x4432dc  nop     
+0x4432dd  nop     
+0x4432de  nop     
+0x4432df  nop     
+0x4432e0  push    esi
+0x4432e1  call    0x47adc0   ;;
+0x4432e6  mov     esi, dword ptr [esp + 0xc]
+0x4432ea  push    0x46
+0x4432ec  push    3
+0x4432ee  push    esi
+0x4432ef  call    0x495920   ;;
+0x4432f4  add     esp, 0xc
+0x4432f7  push    0x82
+0x4432fc  call    0x496ba0   ;;
+0x443301  add     esp, 4
+0x443304  test    byte ptr [esi + 0x2d], 0x60
+0x443308  jne     0x443331
+0x44330a  mov     eax, dword ptr [esp + 0x10]
+0x44330e  push    esi
+0x44330f  test    eax, eax
+0x443311  je      0x443322
+0x443313  mov     eax, dword ptr [esp + 0xc]
+0x443317  push    eax
+0x443318  call    0x4435f0   ;;
+0x44331d  add     esp, 8
+0x443320  pop     esi
+0x443321  ret     
+0x443322  mov     ecx, dword ptr [esp + 0xc]
+0x443326  push    ecx
+0x443327  call    0x443350   ;;
+0x44332c  add     esp, 8
+0x44332f  pop     esi
+0x443330  ret     
+0x443331  mov     edx, dword ptr [esp + 8]
+0x443335  push    esi
+0x443336  push    edx
+0x443337  call    0x4436a0   ;;
+0x44333c  add     esp, 8
+0x44333f  pop     esi
+0x443340  ret     
+0x443341  nop     
+0x443342  nop     
+0x443343  nop     
+0x443344  nop     
+0x443345  nop     
+0x443346  nop     
+0x443347  nop     
+0x443348  nop     
+0x443349  nop     
+0x44334a  nop     
+0x44334b  nop     
+0x44334c  nop     
+0x44334d  nop     
+0x44334e  nop     
+0x44334f  nop     

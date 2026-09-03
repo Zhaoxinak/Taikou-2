@@ -1,0 +1,50 @@
+# f4_nin_451f90  k4 忍术 leaf  0x451f90..0x452000
+0x451f90  push    esi
+0x451f91  mov     esi, dword ptr [esp + 8]
+0x451f95  lea     ecx, [esi + 0xf]
+0x451f98  call    0x4a30c0   ;; <== K4
+0x451f9d  mov     al, byte ptr [esi + 0x10]
+0x451fa0  xor     cx, cx
+0x451fa3  and     al, 3
+0x451fa5  mov     cl, al
+0x451fa7  push    ecx
+0x451fa8  push    0x507b6c
+0x451fad  push    esi
+0x451fae  call    0x4704e0   ;;
+0x451fb3  add     esp, 0xc
+0x451fb6  pop     esi
+0x451fb7  ret     
+0x451fb8  nop     
+0x451fb9  nop     
+0x451fba  nop     
+0x451fbb  nop     
+0x451fbc  nop     
+0x451fbd  nop     
+0x451fbe  nop     
+0x451fbf  nop     
+0x451fc0  mov     eax, dword ptr [esp + 4]
+0x451fc4  and     eax, 0xffff
+0x451fc9  sub     eax, 0
+0x451fcc  je      0x451fed
+0x451fce  dec     eax
+0x451fcf  je      0x451fdf
+0x451fd1  push    0xe
+0x451fd3  call    0x4ebd60   ;; <== RNG
+0x451fd8  add     esp, 4
+0x451fdb  add     eax, 0x3c
+0x451fde  ret     
+0x451fdf  push    0xa
+0x451fe1  call    0x4ebd60   ;; <== RNG
+0x451fe6  add     esp, 4
+0x451fe9  add     eax, 0x1e
+0x451fec  ret     
+0x451fed  push    6
+0x451fef  call    0x4ebd60   ;; <== RNG
+0x451ff4  add     esp, 4
+0x451ff7  add     eax, 0xe
+0x451ffa  ret     
+0x451ffb  nop     
+0x451ffc  nop     
+0x451ffd  nop     
+0x451ffe  nop     
+0x451fff  nop     

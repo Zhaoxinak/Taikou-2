@@ -1,0 +1,173 @@
+# f2_shounin_458e20  k2 商家学算术  0x458e20..0x459000
+0x458e20  push    ecx
+0x458e21  push    ebx
+0x458e22  push    ebp
+0x458e23  push    esi
+0x458e24  push    edi
+0x458e25  mov     edi, dword ptr [esp + 0x18]
+0x458e29  mov     eax, dword ptr [0x52063c]
+0x458e2e  mov     cl, byte ptr [edi + 0xf]
+0x458e31  lea     ebx, [edi + 0xf]
+0x458e34  movzx   bp, byte ptr [eax + 7]
+0x458e39  shr     cl, 4
+0x458e3c  and     cl, 3
+0x458e3f  movzx   si, cl
+0x458e43  call    0x49f610   ;; <== get_other_entity
+0x458e48  mov     dword ptr [esp + 0x18], eax
+0x458e4c  mov     dword ptr [esp + 0x10], 0
+0x458e54  call    0x47b5f0   ;;
+0x458e59  mov     ecx, dword ptr [0x52063c]
+0x458e5f  call    0x49c310   ;;
+0x458e64  push    eax
+0x458e65  push    0x237
+0x458e6a  push    edi
+0x458e6b  call    0x47b900   ;;
+0x458e70  add     esp, 0xc
+0x458e73  push    esi
+0x458e74  push    ebp
+0x458e75  call    0x459000   ;;
+0x458e7a  add     esp, 8
+0x458e7d  test    eax, eax
+0x458e7f  jne     0x458e8e
+0x458e81  call    0x47b600   ;;
+0x458e86  xor     eax, eax
+0x458e88  pop     edi
+0x458e89  pop     esi
+0x458e8a  pop     ebp
+0x458e8b  pop     ebx
+0x458e8c  pop     ecx
+0x458e8d  ret     
+0x458e8e  push    ebp
+0x458e8f  push    esi
+0x458e90  call    0x4590d0   ;;
+0x458e95  mov     ebp, eax
+0x458e97  mov     eax, dword ptr [esp + 0x20]
+0x458e9b  add     esp, 8
+0x458e9e  test    eax, eax
+0x458ea0  je      0x458edf
+0x458ea2  mov     dl, byte ptr [eax + 0xf]
+0x458ea5  xor     cx, cx
+0x458ea8  shr     dl, 4
+0x458eab  and     dl, 3
+0x458eae  mov     cl, dl
+0x458eb0  cmp     cx, si
+0x458eb3  jbe     0x458ed7
+0x458eb5  push    0x238
+0x458eba  push    eax
+0x458ebb  call    0x47b900   ;;
+0x458ec0  mov     edx, dword ptr [esp + 0x20]
+0x458ec4  add     esp, 8
+0x458ec7  push    0x239
+0x458ecc  push    edx
+0x458ecd  call    0x47b900   ;;
+0x458ed2  add     esp, 8
+0x458ed5  jmp     0x458edf
+0x458ed7  mov     dword ptr [esp + 0x10], 1
+0x458edf  call    0x47b600   ;;
+0x458ee4  call    0x44e5c0   ;;
+0x458ee9  test    eax, eax
+0x458eeb  jne     0x458f08
+0x458eed  mov     eax, dword ptr [0x52063c]
+0x458ef2  push    0x22c
+0x458ef7  push    eax
+0x458ef8  call    0x47b900   ;;
+0x458efd  add     esp, 8
+0x458f00  xor     eax, eax
+0x458f02  pop     edi
+0x458f03  pop     esi
+0x458f04  pop     ebp
+0x458f05  pop     ebx
+0x458f06  pop     ecx
+0x458f07  ret     
+0x458f08  push    ebp
+0x458f09  call    0x457ea0   ;;
+0x458f0e  add     esp, 4
+0x458f11  test    eax, eax
+0x458f13  jne     0x458f1b
+0x458f15  pop     edi
+0x458f16  pop     esi
+0x458f17  pop     ebp
+0x458f18  pop     ebx
+0x458f19  pop     ecx
+0x458f1a  ret     
+0x458f1b  lea     ecx, [ebp + ebp*4]
+0x458f1f  shl     ecx, 1
+0x458f21  push    ecx
+0x458f22  call    0x44e350   ;;
+0x458f27  add     esp, 4
+0x458f2a  mov     ecx, edi
+0x458f2c  call    0x49c310   ;;
+0x458f31  xor     edx, edx
+0x458f33  cmp     si, 2
+0x458f37  sete    dl
+0x458f3a  push    eax
+0x458f3b  mov     eax, dword ptr [0x52063c]
+0x458f40  add     edx, 0x22a
+0x458f46  push    edx
+0x458f47  push    eax
+0x458f48  call    0x47b900   ;;
+0x458f4d  add     esp, 0xc
+0x458f50  call    0x47adc0   ;;
+0x458f55  push    6
+0x458f57  call    0x4a0c20   ;;
+0x458f5c  add     esp, 4
+0x458f5f  push    1
+0x458f61  call    0x44e270   ;;
+0x458f66  mov     ecx, 0x18
+0x458f6b  sub     ecx, eax
+0x458f6d  push    ecx
+0x458f6e  call    0x4a0d50   ;;
+0x458f73  add     esp, 8
+0x458f76  push    1
+0x458f78  push    0xe
+0x458f7a  call    0x4a0d50   ;;
+0x458f7f  add     esp, 8
+0x458f82  push    1
+0x458f84  call    0x4a0bc0   ;;
+0x458f89  add     esp, 4
+0x458f8c  mov     ecx, ebx
+0x458f8e  call    0x4a3080   ;; <== K2 skill-writer
+0x458f93  mov     dl, byte ptr [ebx]
+0x458f95  xor     ax, ax
+0x458f98  shr     dl, 4
+0x458f9b  and     dl, 3
+0x458f9e  mov     al, dl
+0x458fa0  push    eax
+0x458fa1  push    0x507b62
+0x458fa6  push    edi
+0x458fa7  call    0x4704e0   ;;
+0x458fac  mov     eax, dword ptr [esp + 0x1c]
+0x458fb0  add     esp, 0xc
+0x458fb3  test    eax, eax
+0x458fb5  je      0x458fe1
+0x458fb7  mov     ebx, dword ptr [esp + 0x18]
+0x458fbb  lea     esi, [ebx + 0xf]
+0x458fbe  mov     ecx, esi
+0x458fc0  call    0x4a3080   ;; <== K2 skill-writer
+0x458fc5  mov     cl, byte ptr [esi]
+0x458fc7  xor     dx, dx
+0x458fca  shr     cl, 4
+0x458fcd  and     cl, 3
+0x458fd0  mov     dl, cl
+0x458fd2  push    edx
+0x458fd3  push    0x507b62
+0x458fd8  push    ebx
+0x458fd9  call    0x4704e0   ;;
+0x458fde  add     esp, 0xc
+0x458fe1  push    0x235
+0x458fe6  push    edi
+0x458fe7  call    0x47b900   ;;
+0x458fec  add     esp, 8
+0x458fef  mov     eax, 1
+0x458ff4  pop     edi
+0x458ff5  pop     esi
+0x458ff6  pop     ebp
+0x458ff7  pop     ebx
+0x458ff8  pop     ecx
+0x458ff9  ret     
+0x458ffa  nop     
+0x458ffb  nop     
+0x458ffc  nop     
+0x458ffd  nop     
+0x458ffe  nop     
+0x458fff  nop     
