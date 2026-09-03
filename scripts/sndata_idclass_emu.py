@@ -15,14 +15,14 @@ with open(IMG, "rb") as f:
 
 REC_BUF = 0x600000
 ENT_BUF = 0x600004
-HEAP    = 0x610000
+HEAP    = 0x630000
 STACK   = 0xC00000
 
 mu = Uc(UC_ARCH_X86, UC_MODE_32)
 mu.mem_map(BASE, len(MEM), UC_PROT_ALL)       # code+data
-mu.mem_map(REC_BUF & 0xFFFF0000, 0x20000, UC_PROT_ALL)
-mu.mem_map(HEAP, 0x10000, UC_PROT_ALL)
-mu.mem_map(STACK, 0x10000, UC_PROT_ALL)
+mu.mem_map(REC_BUF & 0xFFFF0000, 0x20000, UC_PROT_ALL)   # 0x600000..0x620000
+mu.mem_map(HEAP, 0x10000, UC_PROT_ALL)                    # 0x630000..0x640000
+mu.mem_map(STACK, 0x10000, UC_PROT_ALL)                  # 0xC00000..
 mu.mem_write(BASE, MEM)
 
 # 桩: 0x49f6b0 -> mov eax,REC_BUF; ret ; 0x49f5e0 -> mov eax,ENT_BUF; ret
@@ -53,8 +53,6 @@ def hook_ret(mu, address, size, data):
     if address == 0x4630b0:
         captured_ret.append(mu.reg_read(UC_X86_REG_EAX) & 0xffff)
 
-mu.hook_add(UC_X86_REG_EDX and 0, hook_be00)  # placeholder; use CODE hook below
-# 用 UC_HOOK_CODE 方式
 from unicorn import UC_HOOK_CODE
 mu.hook_add(UC_HOOK_CODE, hook_be00)
 mu.hook_add(UC_HOOK_CODE, hook_ret)
