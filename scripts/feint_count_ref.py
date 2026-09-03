@@ -11,10 +11,11 @@
 #       所以 0x43a440 本身并不是「伪兵造兵数」字面量来源。
 #       真正的造兵数由 0x43a460（配合 0x503712/0x503740/0x503760 参数簇）算出。
 # ---------------------------------------------------------------------------
-import struct, sys
+import os, struct, sys
 
 BASE = 0x400000
-MEM = open("/Users/ts/Downloads/Taikou 2/scripts/_unpacked_mem.bin", "rb").read()
+_HERE = os.path.dirname(os.path.abspath(__file__))
+MEM = open(os.path.join(_HERE, "_unpacked_mem.bin"), "rb").read()
 
 def read(va, n):
     return MEM[va - BASE: va - BASE + n]
