@@ -63,6 +63,10 @@
   - 续243 闭：**店铺设施流公式**（slot7 画师袄绘/医师就诊·治疗·诊金·穷人流·买药/教会义工·大名情报·介绍信/南蛮陌生人门·洋枪）+ **记录字段语义归位**（`+0x08`=设施状态 word、`+0x0a`=进度计数、`+0x0b`=事件旗位域）。剩余：记录 +0x00..+0x06 名前精确语义、买药 `0x44e350` 内 ÷50 魔数语义、slot3/4/10 内部 msg 值——数值层。
   - 小项：`byte[ent+0x24]`/`0x517aa5` bonus 语义、S6/S7 关系、4 处寄存器派生站点、15 外字中 10 身份未认。
 
+## 本机环境 / git 推送（Windows）
+- 反汇编用系统 Python 3.12（`C:/Users/Administrator/AppData/Local/Programs/Python/Python312/python.exe`，capstone 5.0.7）；managed venv 不存在、无 mac python3.7（旧路径记忆失效）。
+- **git push 卡死**：默认 schannel 后端在 `git-receive-pack` 认证阶段卡「remote party requests renegotiation」无限挂（ls-remote/curl 都正常，唯 push 挂）。正解 `git -c http.sslBackend=openssl -c http.proxy=http://127.0.0.1:7890 push origin main`。代理端口会变（13573→4759→…），`git ls-remote origin HEAD` 探活；env 里的 11122 是 App 内网代理（git 走它报 TLS handshake 失败）。
+
 ## ⚠️ 并行会话冲突
 - 并行会话曾同时改文档致撞号+整份覆盖。**接手先 grep 取 max 续编号用 max+1**；撞号≠错误（两轨独立收敛同结论互为交叉验证）。
 
