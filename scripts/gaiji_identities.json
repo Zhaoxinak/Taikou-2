@@ -1,0 +1,174 @@
+{
+ "slots": {
+  "0xa140": {
+   "char": "堯",
+   "status": "unused",
+   "role": "standalone",
+   "note": "新认；三土+兀，系统宋体 IoU 峰值",
+   "ink": 89,
+   "src_code": "0x7670"
+  },
+  "0xa141": {
+   "char": "長",
+   "status": "used",
+   "role": "compound_slice",
+   "note": "已认；長宗我部 切格0（右4列与 A142 相同=连排伪影）",
+   "ink": 68,
+   "src_code": "0x7671"
+  },
+  "0xa142": {
+   "char": "香",
+   "status": "used",
+   "role": "compound_slice",
+   "note": "已认；香宗我部 切格0",
+   "ink": 77,
+   "src_code": "0x7672"
+  },
+  "0xa143": {
+   "char": "宗我",
+   "status": "used",
+   "role": "compound_slice",
+   "note": "已认；切格1，横跨「宗」「我」约各半",
+   "ink": 73,
+   "src_code": "0x7673"
+  },
+  "0xa144": {
+   "char": "部",
+   "status": "used",
+   "role": "compound_slice",
+   "note": "已认；切格2",
+   "ink": 84,
+   "src_code": "0x7674"
+  },
+  "0xa145": {
+   "char": "籠",
+   "status": "unused",
+   "role": "standalone",
+   "note": "新认；竹冠+龍",
+   "ink": 104,
+   "src_code": "0x7675"
+  },
+  "0xa146": {
+   "char": "頸",
+   "status": "unused",
+   "role": "standalone",
+   "note": "新认；巠+頁",
+   "ink": 91,
+   "src_code": "0x7676"
+  },
+  "0xa147": {
+   "char": "垪",
+   "status": "used",
+   "role": "standalone",
+   "note": "已认；#182 垪和氏续（+GBK『和』）",
+   "ink": 67,
+   "src_code": "0x7677"
+  },
+  "0xa148": {
+   "char": "惣",
+   "status": "unused",
+   "role": "standalone",
+   "note": "新认；上物略形+下心",
+   "ink": 66,
+   "src_code": "0x7678"
+  },
+  "0xa149": {
+   "char": "揆",
+   "status": "unused",
+   "role": "standalone",
+   "note": "新认；扌+癸",
+   "ink": 73,
+   "src_code": "0x7679"
+  },
+  "0xa14a": {
+   "char": "梟",
+   "status": "unused",
+   "role": "standalone",
+   "note": "新认；鳥略形+木",
+   "ink": 93,
+   "src_code": "0x767a"
+  },
+  "0xa14b": {
+   "char": "瓊",
+   "status": "unused",
+   "role": "standalone",
+   "note": "新认；王+夐",
+   "ink": 97,
+   "src_code": "0x767b"
+  },
+  "0xa14c": {
+   "char": "絆",
+   "status": "unused",
+   "role": "standalone",
+   "note": "新认；糸+半",
+   "ink": 68,
+   "src_code": "0x767c"
+  },
+  "0xa14d": {
+   "char": "渚",
+   "status": "unused",
+   "role": "standalone",
+   "note": "新认；氵+者",
+   "ink": 84,
+   "src_code": "0x767d"
+  },
+  "0xa14e": {
+   "char": "戌",
+   "status": "unused",
+   "role": "standalone",
+   "note": "新认；地支戌（中腹封闭，别于成/戍）",
+   "ink": 59,
+   "src_code": "0x767e"
+  },
+  "0xa14f": {
+   "char": null,
+   "status": "terminator",
+   "role": "empty",
+   "note": "终止记录：源码 0x7721、位图全 0",
+   "ink": 0,
+   "src_code": "0x7721"
+  }
+ },
+ "bsdata_refs": {
+  "182": {
+   "surname_codes": [
+    "0xa147",
+    "0xbacd"
+   ],
+   "given": "氏续"
+  },
+  "557": {
+   "surname_codes": [
+    "0xa141",
+    "0xa143",
+    "0xa144"
+   ],
+   "given": "元亲"
+  },
+  "568": {
+   "surname_codes": [
+    "0xa142",
+    "0xa143",
+    "0xa144"
+   ],
+   "given": "亲泰"
+  },
+  "581": {
+   "surname_codes": [
+    "0xa141",
+    "0xa143",
+    "0xa144"
+   ],
+   "given": "信亲"
+  },
+  "583": {
+   "surname_codes": [
+    "0xa141",
+    "0xa143",
+    "0xa144"
+   ],
+   "given": "盛亲"
+  }
+ },
+ "msgx_gaiji_hits": 0
+}

@@ -1,6 +1,15 @@
 # Godot
 .godot/
 *.translation
+# Local editor binaries (too large for GitHub; keep out of repo)
+Godot_v4.7.1/
+
+# Scratch probes / push helper junk (not deliverables)
+scripts/_scratch/
+scripts/_gaiji_ascii.txt
+scripts/_probe_tail*.py
+scripts/_askpass.cmd
+scripts/_git_push_log.txt
 
 # Python
 __pycache__/

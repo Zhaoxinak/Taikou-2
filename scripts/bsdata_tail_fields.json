@@ -1,53 +1,67 @@
 {
- "sentinel_local": {
-  "+0x0e": 65535,
-  "+0x12": 65535,
-  "note": "解码器局部 2B 读，恒 0xffff(-1)，不落实体，无玩法语义"
- },
- "castle_attr_3": {
-  "+0x1e": "e+0x12 占位=0xFF",
-  "+0x1f": "e+0x13 占位(多为0xFF)",
-  "+0x20": "e+0x14 占位=0",
-  "+0x21": "e+0x15 占位=0",
-  "note": "BSDATA 不存城属性；解码器写占位初值，运行时由城属性 getter 0x49af00 系列按城[+0x31] 重写为城属性表[3*城+0/1/2]（entity_fields_ref 已定名 e+0x12..0x15）"
- },
- "archetype_tier": {
-  "4": 441,
-  "5": 212,
-  "6": 36,
-  "semantic": "一般武将强度档（五维和 295/299/314 单调递增）"
- },
- "characterized": {
-  "+0x28": {
-   "e": "+0x1c",
-   "range": "2..239",
-   "mult32_pct": 70.8,
-   "hyp": "部隊/兵規模基数（单位32）",
-   "conf": "🔶 runtime确认待"
+  "sentinel_local": {
+    "+0x0e": 65535,
+    "+0x12": 65535,
+    "note": "解码器局部 2B 读，恒 0xffff(-1)，不落实体"
   },
-  "+0x29": {
-   "e": "+0x1d",
-   "ff_pct": 77.6,
-   "hyp": "可选/保留字段（特技/第二兵种索引？）",
-   "conf": "🔶"
+  "relation_slots_0x5197b0": {
+    "stride": 30,
+    "count": 6,
+    "+0x14": "bushou_index word",
+    "+0x1c": "関係噂档 low3 → MSGX 0x1162+(v&7)",
+    "finder": "0x4a0050(entity*)",
+    "note": "NOT BSDATA @28 / entity+0x1c — 续249"
   },
-  "+0x2a": {
-   "e": "+0x1e",
-   "ff_pct": 77.6,
-   "hyp": "可选字段（0..2）",
-   "conf": "🔶"
+  "castle_1c_flags": {
+    "setters": "0x49ab80/a0/c0/e0 (this=castle, NOT entity)",
+    "bit2": "重视军备 (0=内政/1=军备) via word>>10 → 0x50d628",
+    "bit3": "筑城中 (MSG 完工/开始筑城; gate 0x4b45c3)",
+    "bit4": "开垦中 (gate 0x4c92d3; dispatch idx==4)",
+    "bit5": "築城済",
+    "ref": "续250/251 castle_1c_flags_ref.py + castle_1c_bit34_ref.py"
   },
-  "+0x2b": {
-   "e": "+0x1f",
-   "range": "0..62",
-   "hyp": "小枚举（玩法未定）",
-   "conf": "❓"
-  },
-  "+0x2c": {
-   "e": "+0x20",
-   "range": "57..100",
-   "hyp": "隐藏能力标量(0..100)",
-   "conf": "🔶"
+  "stream_0x28_0x2f": {
+    "0x28": {
+      "e": "+0x1c",
+      "name": "persisted_reserved (no entity play consumer)",
+      "conf": "✅",
+      "ref": "续250"
+    },
+    "0x29_0x2a": {
+      "e": "+0x1d",
+      "name": "father_id u16 (0xFFFF=none)",
+      "conf": "✅",
+      "ref": "续204/249"
+    },
+    "0x2b": {
+      "e": "+0x1f",
+      "name": "home_idx → 0x50bf48 → province",
+      "conf": "✅",
+      "ref": "续249"
+    },
+    "0x2c": {
+      "e": "+0x20",
+      "name": "stamina_max",
+      "conf": "✅",
+      "ref": "续134/248"
+    },
+    "0x2d": {
+      "e": "+0x21",
+      "name": "stamina (init == max)",
+      "conf": "✅",
+      "ref": "续134/248"
+    },
+    "0x2e": {
+      "e": "+0x22",
+      "name": "stamina_drain",
+      "conf": "✅",
+      "ref": "续134/248"
+    },
+    "0x2f": {
+      "e": "+0x23",
+      "name": "ambition (=50)",
+      "conf": "✅",
+      "ref": "续134/204"
+    }
   }
- }
 }
