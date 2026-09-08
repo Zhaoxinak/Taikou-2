@@ -14,6 +14,7 @@ const EventFlagsRef = preload("res://src/core/event_flags.gd")
 const DuelRef = preload("res://src/core/duel.gd")
 const EventTextRef = preload("res://src/core/event_text.gd")
 const ShopRef = preload("res://src/core/shop.gd")
+const DiplomacyRef = preload("res://src/core/diplomacy.gd")
 
 # 游戏起始年（太阁立志传2 经典开局）
 const START_YEAR : int = 1560
@@ -67,6 +68,9 @@ var event_text : RefCounted = EventTextRef.new()
 
 # —— M7 店铺/商业核心（记录模型 + 入店分发 + favor 饱和 + 买药÷50）——
 var shop : RefCounted = ShopRef.new()
+
+# —— M7 外交（国関係マトリクス 1176B + 外交/主从位域 + 使者功勋结算）——
+var diplomacy : RefCounted = DiplomacyRef.new()
 
 
 func _ready() -> void:

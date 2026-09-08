@@ -6,7 +6,7 @@
 
 ## 边界与当前阶段
 - Godot 4.7.1 自写复刻；原版 `<工程>/Taikou2 Original/`（149 文件，不打包）。画面 **HD-2D**（3D+高清像素+后处理；像素破解豁免）。
-- 非图像逆向 100% 收口。Godot **M0–M5 完成**（M5=職位晋升）+ **12 主命精确 delta（续254）**+ **M6/HD-5 自绘 UI 完成**（标题/主角选择/状态画面全改自绘，0 处硬编码字号、0 原生 Button/Label）+ **音效 39 已接入**（`AudioManager.play_sfx(id)` 对齐原版数字 id，`UiButton` 点击联动）+ **M7 事件链(S15) 已收口** + **M7 单挑(duel) 已收口**（`DuelSim`+`GameState.run_duel`+`_test_duel` 全过）+ **M7 事件文本渲染(event_text) 已收口**（`src/core/event_text.gd` 10 bit MSGX 叙事 + `%s`→主角名 + `GameState.render_event_text/render_resolved_events` + `_test_event_text` 全过）+ **M7 店铺/商业核心(shop) 已收口**（`src/core/shop.gd` 30 记录 + 入店分发 + favor 饱和 + 买药÷50；设施内交互流程与闇商人事件流留待后续）。下阶段：M7 余下（外交、HD-6 视觉回归+4K 基准）、BGM、素材规格。git push 走 `127.0.0.1:7890` 代理可用（9120 已死）。
+- 非图像逆向 100% 收口。Godot **M0–M5 完成**（M5=職位晋升）+ **12 主命精确 delta（续254）**+ **M6/HD-5 自绘 UI 完成**（标题/主角选择/状态画面全改自绘，0 处硬编码字号、0 原生 Button/Label）+ **音效 39 已接入**（`AudioManager.play_sfx(id)` 对齐原版数字 id，`UiButton` 点击联动）+ **M7 事件链(S15) 已收口** + **M7 单挑(duel) 已收口**（`DuelSim`+`GameState.run_duel`+`_test_duel` 全过）+ **M7 事件文本渲染(event_text) 已收口**（`src/core/event_text.gd` 10 bit MSGX 叙事 + `%s`→主角名 + `GameState.render_event_text/render_resolved_events` + `_test_event_text` 全过）+ **M7 店铺/商业核心(shop) 已收口**（`src/core/shop.gd` 30 记录 + 入店分发 + favor 饱和 + 买药÷50；设施内交互流程与闇商人事件流留待后续）+ **M7 外交(diplomacy) 已收口**（`src/core/diplomacy.gd` 1176B 国関係マトリクス + 外交/主从位域 + 有向 2↔3 镜像 + 筛选/变更点 + 使者功勋；AI 主动外交与 UI 层留待后续）。下阶段：M7 余下（HD-6 视觉回归+4K 基准）、SHOP 设施内交互流程、AI 主动外交(续104)、MSGX 事件解释器、BGM、素材规格。git push 走 `127.0.0.1:7890` 代理可用（9120 已死）。
 
 ## 🔴 高频纠偏（别再踩）
 | 旧记 | 正确 |
@@ -17,6 +17,9 @@
 | 職位名 足轻组头… | ❌ 续63：正版=浪人/步兵头/队长/侍大将/部将/家老/宿老/大名/城主（`Consts.RANK_NAMES`） |
 | 城主(8)是職位字段 | ❌ 城主=城表派生 `word[城表+0x0a]`（`f0a`）；3-bit職位仅0..7 |
 | 贩卖/购买军粮 handler 直写軍糧/米 | ❌ 续254：只算仕事成果値 `byte[ent+0x17]`，转移走纳结算 `0x4a5fc0` |
+| 外交目标国筛选按「外交関係」 | ❌ 续95：0x4c4270 按**主从関係**过滤 |
+| `mission_level` 除数 10 | ❌ 实为 **20**（magic `0x66666667`+sar3） |
+| 盲信 `diplomacy_spec.json` 的 asm 三角索引 | ❌ 该句有误（max 1222 溢出 1176）；正解 `i*49-i*(i+1)/2+(j-i-1)` |
 
 ## GDScript / 无头坑（每次写 GDScript 前看）
 - `JSON.parse_string` 数字全 float→建 id 索引须 `int(rec["id"])`；改 GameData 缓存 Array/Dict 须 `.duplicate()`；除法 `//`。
