@@ -10,6 +10,7 @@ extends Node
 ## 不回写原表 —— 保证重开局即干净复现初始值。改 GameData 缓存取出的 Dict 必须先 .duplicate()。
 
 const ConstsRef = preload("res://src/core/Consts.gd")
+const EventFlagsRef = preload("res://src/core/event_flags.gd")
 
 # 游戏起始年（太阁立志传2 经典开局）
 const START_YEAR : int = 1560
@@ -55,6 +56,9 @@ var _salary_override  : Dictionary = {}   # pid -> int（俸禄）
 var _city_override    : Dictionary = {}   # pid -> int（居城，用于城主派生态）
 var _castle_lord_override : Dictionary = {}   # castle_id -> int（城主武将编号，派生状态，覆盖 castles.json 的 f0a）
 
+# —— S15 劇本/築城イベント旗幟塊（原版 0x5203c0，25B；M7 事件链）——
+var event_flags : RefCounted = EventFlagsRef.new()
+
 
 func start_new_game(protagonist_id: int) -> bool:
 	var o := GameData.get_officer(protagonist_id)
@@ -80,6 +84,9 @@ func start_new_game(protagonist_id: int) -> bool:
 	_salary_override.clear()
 	_city_override.clear()
 	_castle_lord_override.clear()
+	# S15 事件旗幟塊：复刻原版 0x488030（0x487f9a 开局一次调用）
+	event_flags.reset()
+	event_flags.init_for_protagonist(pid)
 	return true
 
 
