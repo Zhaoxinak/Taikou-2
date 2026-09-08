@@ -12,6 +12,7 @@ extends Node
 const ConstsRef = preload("res://src/core/Consts.gd")
 const EventFlagsRef = preload("res://src/core/event_flags.gd")
 const DuelRef = preload("res://src/core/duel.gd")
+const EventTextRef = preload("res://src/core/event_text.gd")
 
 # 游戏起始年（太阁立志传2 经典开局）
 const START_YEAR : int = 1560
@@ -59,6 +60,15 @@ var _castle_lord_override : Dictionary = {}   # castle_id -> int（城主武将�
 
 # —— S15 劇本/築城イベント旗幟塊（原版 0x5203c0，25B；M7 事件链）——
 var event_flags : RefCounted = EventFlagsRef.new()
+
+# —— M7 事件文本渲染（S15 结构层承接；MSGX %s 模板填充主角名）——
+var event_text : RefCounted = EventTextRef.new()
+
+
+func _ready() -> void:
+	# event_text 非 autoload，编译期无法解析 GameData 全局名；本构建 Engine.get_singleton 也取不到，
+	# 故在此（GameState autoload，GameData 已先注册）注入 GameData 实例供其取 MSGX 文本。
+	event_text._data = GameData
 
 
 func start_new_game(protagonist_id: int) -> bool:
@@ -110,6 +120,25 @@ func run_duel(a_id: int, b_id: int, rng = null) -> Dictionary:
 	var ca : Dictionary = DuelRef.build_char_from_officer(GameData.get_officer(a_id))
 	var cb : Dictionary = DuelRef.build_char_from_officer(GameData.get_officer(b_id))
 	return sim.auto_battle(ca, cb, ra)
+
+
+## M7 事件文本渲染：返回某历史事件 bit 的 MSGX 叙事文本（%s 填当前主角名）。
+## 无 MSGX 锚点的 bit（1/3/4/38）返回空数组。
+func render_event_text(bit: int) -> Array[String]:
+	var o : Dictionary = get_protagonist()
+	if o.is_empty():
+		return []
+	var name : String = str(o.get("surname", "")) + str(o.get("given", ""))
+	return event_text.render_event(bit, name)
+
+
+## 返回本局「已解决」命名历史事件的全部渲染文本（事件回顾面板用）。
+func render_resolved_events() -> Array[String]:
+	var o : Dictionary = get_protagonist()
+	if o.is_empty():
+		return []
+	var name : String = str(o.get("surname", "")) + str(o.get("given", ""))
+	return event_text.render_resolved(event_flags, name)
 
 
 ## 主角当前完整状态（合并运行期覆盖层），供 UI/测试消费
