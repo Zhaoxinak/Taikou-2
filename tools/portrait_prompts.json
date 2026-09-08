@@ -1,0 +1,58 @@
+{
+ "count": 6,
+ "style": "和风写实 HD-2D",
+ "image_size": "1024x1536",
+ "background": "transparent",
+ "negative": "blurry, photorealistic, 3D render, western armor, modern clothing, smooth gradients, anti-aliased pixels, low resolution, jpeg artifacts, watermark, text, multiple characters",
+ "usage": "逐条调用 ImageGen(prompt=item['prompt'], size='1024x1536', background='transparent')；产出另存为 assets/gfx/portrait/full_{id:04d}.png",
+ "items": [
+  {
+   "id": 13,
+   "name": "织田信长",
+   "rank": "大名",
+   "province": "尾张",
+   "out_file": "full_0013.png",
+   "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics,  in his prime, about 26 years old, daimyo warlord, elaborate armor with gold accents, clan of 尾张, ambitious conqueror, commanding aura, seasoned warrior look, hardened gaze, commanding presence, authoritative posture, refined noble features, charismatic smile, scholarly air, court attire accents, composed diplomat, elegant manner, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait"
+  },
+  {
+   "id": 257,
+   "name": "上杉谦信",
+   "rank": "大名",
+   "province": "越后",
+   "out_file": "full_0257.png",
+   "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics,  in his prime, about 30 years old, daimyo warlord, elaborate armor with gold accents, clan of 越后, pious warlord, devout expression, battle-worn armor, fierce expression, scars, commanding presence, authoritative posture, refined noble features, charismatic smile, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait"
+  },
+  {
+   "id": 423,
+   "name": "本愿寺显如",
+   "rank": "大名",
+   "province": "摄津",
+   "out_file": "full_0423.png",
+   "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics,  youthful, about 17 years old, daimyo warlord, elaborate armor with gold accents, clan of 摄津, pious warlord, devout expression, natural leader bearing, refined noble features, charismatic smile, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait"
+  },
+  {
+   "id": 1,
+   "name": "柴田胜家",
+   "rank": "家老",
+   "province": "尾张",
+   "out_file": "full_0001.png",
+   "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics,  middle-aged, about 39 years old, karou elder retainer, formal court armor, clan of 尾张, veteran warrior, blunt honest face, heavy build, battle-worn armor, fierce expression, scars, natural leader bearing, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait"
+  },
+  {
+   "id": 364,
+   "name": "明智光秀",
+   "rank": "足轻工头",
+   "province": "越前若狭",
+   "out_file": "full_0364.png",
+   "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics,  in his prime, about 32 years old, ashigaru engineer, practical work armor, clan of 越前若狭, refined intelligent features, composed, seasoned warrior look, hardened gaze, natural leader bearing, scholarly air, court attire accents, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait"
+  },
+  {
+   "id": 16,
+   "name": "木下藤吉郎",
+   "rank": "足轻组头",
+   "province": "尾张",
+   "out_file": "full_0016.png",
+   "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics,  in his prime, about 24 years old, ashigaru squad leader, light lacquer armor, clan of 尾张, humble origin, clever sharp eyes, thin build, natural leader bearing, refined noble features, charismatic smile, intelligent thoughtful eyes, composed diplomat, elegant manner, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait"
+  }
+ ]
+}

@@ -3,6 +3,9 @@
 *.translation
 # Local editor binaries (too large for GitHub; keep out of repo)
 Godot_v4.7.1/
+# 编辑器 app_userdata 日志 / 驱动运行时垃圾（非工程内容，运行时生成）
+Godot/
+NVIDIA Corporation/
 
 # Scratch probes / push helper junk (not deliverables)
 scripts/_scratch/
@@ -40,10 +43,10 @@ scripts/_d_*.txt
 scripts/_f_*.txt
 
 # Proprietary Windows system fonts (keep open NotoSansSC)
-fonts/msyh.ttc
-fonts/msyh.ttc.import
-fonts/simhei.ttf
-fonts/simhei.ttf.import
+assets/fonts/msyh.ttc
+assets/fonts/msyh.ttc.import
+assets/fonts/simhei.ttf
+assets/fonts/simhei.ttf.import
 
 # OS junk
 Thumbs.db
@@ -51,5 +54,14 @@ Desktop.ini
 .DS_Store
 *~
 
+# Godot 数据导出产物（由 scripts/export_for_godot.py 重新生成；含原版文本/数值，不入库）
+/data/
+
 # 套件以工程根为 cwd 时再生到根目录的产物副本（权威副本在 scripts/ 下）
 /sndata_s15_segc.json
+
+# HD-2D 素材样本（含 AI 生成，体积大；可重新生成）
+assets/samples/
+
+# 解码器探针产物
+scripts/_hd_probe/

@@ -18,8 +18,13 @@ try:
 except ImportError:
     Image = None
 
-DATA_ROOT = "F:/Games/Taikou2"
-PALETTE_PATH = os.path.join(os.path.dirname(__file__), "chip_palettes.json")
+# 原版目录 = <工程根>/Taikou2 Original（工程根 = scripts/ 的父目录）
+# 🔴 旧值 "F:/Games/Taikou2" 是硬编码错误路径（该目录不存在），会导致所有
+#    load_lzw()/decode_*() 抛 FileNotFoundError。改为按 __file__ 推导，跨机可用。
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_PROJECT_ROOT = os.path.dirname(_SCRIPT_DIR)
+DATA_ROOT = os.path.join(_PROJECT_ROOT, "Taikou2 Original")
+PALETTE_PATH = os.path.join(_SCRIPT_DIR, "chip_palettes.json")
 
 # ---------------------------------------------------------------------------
 # LS11 解压（光荣自研 LZ77 变体 + 256 字节频率字典），对应 TaikouLZW.gd

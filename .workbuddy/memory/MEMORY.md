@@ -1,72 +1,36 @@
-# 太阁立志传2 Godot 复刻 - 项目记忆（索引）
+# 太阁立志传2 — 项目记忆（索引）
 
-> 细节在仓库文档；本文件只留跨会话必需的边界/方法论/当前状态。
-> 文档链（2026-09-08 整理）：根 `README.md`(大门) → `docs/INDEX.md`(总索引) → `docs/specs/`(GAME_DATA_SPEC/BATTLE_SPEC/SNDATA_SPEC/NPK_SPEC/破解状态清单，复刻核心契约) + `docs/re/`(BREAKTHROUGHS/HANDOFF/_x92，逆向留档) + `docs/replication/复刻导航.md`(复刻入口)。旧 `docs/archive/` 已于 2026-09-08 `git rm` 删除，死路警告并入 `docs/replication/复刻导航.md` §7。**⚠️ 脚本目录 `scripts/` 刻意不移动**（180 个 `*_ref.py` 自测经非递归 `glob("*_ref.py")` 扫顶层；`emu_harness`/`real_assets` 被大量 ref `import`），物理移动会破坏自测套件 —— 分类用 `scripts/README.md` 地图即可。
+> 只留**跨会话必需**的边界/防重踩坑/当前状态；数值细节查权威文档。
+> 文档链：`README.md`→`docs/INDEX.md`→`docs/specs/GAME_DATA_SPEC.md`(数据权威)+`docs/re/BREAKTHROUGHS.md`+`docs/replication/`(★施工图/进度表)。
+> ⚠️ `scripts/` 不移动（180 个 `*_ref.py` 非递归 glob）。
 
-## 边界
-- Godot 4.7.1 自写；原版在 `<工程>/Taikou2 Original/`（仓库不打包素材）。
-- 2026-08-25 起：停 UI/像素/字体，只做数值+玩法 → 汇总进 GAME_DATA_SPEC.md。
-- **2026-09-08 用户指示：暂停 (B) 复刻** —— 不要开工 Godot 骨架/复刻工程，除非用户明确说开始。当前只做逆向侧维护。
-- **硬性要求**：突破/推翻旧假设即插 BREAKTHROUGHS.md 倒序条目（四段：突破/证据/仍未知/下一步）。**接手先 `grep -o '上一条（续[0-9]*）' BREAKTHROUGHS.md | grep -o '[0-9]*' | sort -n | tail -1` 取 max，新条目 max+1 防撞号**。
+## 边界与当前阶段
+- Godot 4.7.1 自写复刻；原版 `<工程>/Taikou2 Original/`（149 文件，不打包）。画面 **HD-2D**（3D+高清像素+后处理；像素破解豁免）。
+- 非图像逆向 100% 收口。Godot **M0–M5 完成**（M5=職位晋升）+ **12 主命精确 delta（续254）**+ **M6/HD-5 自绘 UI 完成**（标题/主角选择/状态画面全改自绘，0 处硬编码字号、0 原生 Button/Label）+ **音效 39 已接入**（`AudioManager.play_sfx(id)` 对齐原版数字 id，`UiButton` 点击联动）。下阶段：BGM / 素材规格 / HD-6·M7。git push 仍卡凭据。
 
-## 逆向方法论（核心坑，去重 · 可复用）
-- 映像 `scripts/_unpacked_mem.bin`(2MB, base 0x400000, OEP 0x4f44b0)。反汇编 capstone(skipdata=True)；emu Unicorn 2.1.4（`mu.reg_write/read(UC_X86_REG_ESP)` 非 `.reg_esp`；stdcall 钩子须 `esp+=4*nargs`）。**包在系统 python3.7**（`/Library/Frameworks/Python.framework/Versions/3.7/bin/python3`）；managed venv 未装 capstone/unicorn，跑脚本用它。
-- ⚠️ `_insn_addrs.pkl` 有空洞(`0x49b417..0x49b43a`)且 `_d[0/1]` 存文件偏移非 VA(须`+BASE`)。关键处用 `scripts/_lindis.py <va> <nbytes>` 现场反汇编核对。
-- 🔑 定 stride 三证据：lea 系数 / 乘减序列 / 除法魔数（÷10=`0x66666667`+sar2、÷12=`0x2aaaaaab`+sar1、÷14=`0x92492493`+sar3、÷31=`0x84210843`+sar4、÷47=`0xae4c415d`）。
-- 🔑 定 stride 整除性单独不足，须叠加「两样本 diff 位置 mod stride 的列对齐集中度」并查倍数确认基本周期（59 占用率 .559/热点 .341 vs 非整除 stride 全 1.000/<0.05；118 是其倍数须排除）。
-- 🔴 多 struct 陷阱：「位移命中」≠「字段命中」（溯源基址寄存器）；「静态抓不到写入」常因 setter 按 `ecx=base+N` 参数化传入。
-- 🔴 共享方法库陷阱：`0x49b960..0x49bda8` 通用 setter 库；偏移出现该区≠属某 struct，须绝对 xref+确认真实 this+读写方向（E8 + raw 字面双重 0 调用方 = 共享库，续191/续192 应用）。
-- 🔑 抽 `call` 实参不能从单一固定起点反汇编（x86 变长指令必错位，实测 0 命中）。正解 = 枚举回溯 `back=1..span`，只接受「指令流中存在 `address==call_va`」的起点（边界对齐），取 back 最大者。
-- 🔑 函数边界用「最大 call/jmp 目标 ≤ va」，别用 `push ebp;mov ebp,esp` prologue 模式（本 EXE 大量 FPO 函数无标准 prologue）。
-- 🔴 emu 读内存 ≠ 读静态镜像：栈/局部缓冲地址在静态 bin 里是垃圾，校验回调实参里的字符串**必须 `mu.mem_read()`**。Unicorn 有 TB 缓存，`mem_write` 改写桩代码不一定生效 ⇒ 切换桩行为必须新建 `Uc` 实例。
-- 🔑 同调用链可并存三种约定：`play_sfx` 1 栈参、`0x499780/0x499770` thiscall(无栈参+普通 ret，桩 esp+=4)、`0x4015f0` cdecl 3 参、`[0x4fb07c]` 加载回调 stdcall 3 参(callee 清栈 ret 0xc)。桩写错任一即栈崩。
-- ⚠️ 连通块数/孤立像素点对转置与镜像不变 ⇒ 行主序 vs 列主序（转置）无法由数据单方面区分。
+## 🔴 高频纠偏（别再踩）
+| 旧记 | 正确 |
+|---|---|
+| `bsdata.json` 的 `fields` 直接用 | ❌ 续200：用 `export_for_godot.py` |
+| 技能名 算用/军学 | 实为 **算术/兵法** |
+| 城表 92 条 | **200 条** 0..199 |
+| 職位名 足轻组头… | ❌ 续63：正版=浪人/步兵头/队长/侍大将/部将/家老/宿老/大名/城主（`Consts.RANK_NAMES`） |
+| 城主(8)是職位字段 | ❌ 城主=城表派生 `word[城表+0x0a]`（`f0a`）；3-bit職位仅0..7 |
+| 贩卖/购买军粮 handler 直写軍糧/米 | ❌ 续254：只算仕事成果値 `byte[ent+0x17]`，转移走纳结算 `0x4a5fc0` |
 
-## 通用原语与族
-- 饱和算术：`0x4ebca0`=`sat_add(a,b,cap)`；`0x4ebcd0`=`sat_sub(a,b)`。实体字段增量族 18 包装器 `byte[f]=sat_add(byte[f],delta,cap)`。
-- 🔑 **技能写器族（续240）**：`0x4a3040+k*0x20`(k=0..9=技能id) = cap-3 递增器，thiscall `ecx=实体+0x0f`，对 `byte[ecx+k>>2]` 的 `(k&3)*2` 位 +1 封顶 3；全镜像调用点 19 处（k0@0x45fdc8/0x4de171…）；驱动 = `0x45fca0`(唯一调用方 0x45f3eb, mode0-2→k0/k7/k5) 与双胞胎 `0x4de0e0`(玩家对象=0x49f5e0(), mode→k5@0x4de136/k7@0x4de152/k0@0x4de16c)。功勲加算 `0x4a3210`=饱和加 `word[实体+0x26]` 上限 60000(0xea60)。
-- 相性 `0x49ffc0(t,l)`：跳表 `@0x4a0028` T=[4,2,3,1,4,2,0]；setter `0x49a5a0`(ecx=base+8，写实体+0x08 字 bit11-14)。
-- is_alive `0x470690`；候选池 `0x45e3e0`→`0x51e9c0`（÷47 魔数 `0xae4c415d`）。
+## GDScript / 无头坑（每次写 GDScript 前看）
+- `JSON.parse_string` 数字全 float→建 id 索引须 `int(rec["id"])`；改 GameData 缓存 Array/Dict 须 `.duplicate()`；除法 `//`。
+- 无头 `--script`：autoload 未进树→`process_frame.connect(_run, CONNECT_ONE_SHOT)`；末尾 `quit(0)`（否则 rc=1 噪声）。**不建全局类缓存→禁用 `class_name`，跨文件一律 `preload`**（也勿 `class_name GameState`，与 autoload 冲突）。
+- lambda 捕获局部变量**按值**→计数/累加须用 Array/Dict，否则永远读到 0。
+- 载 TTF 用 `FontFile.load_dynamic_font(ProjectSettings.globalize_path(res://...))`；**不可用 `ResourceLoader.load`**（依赖 .import 缓存，会静默回退无 CJK 字体→中文变方框）。
+- UI 布局勿硬编码字号/像素（`canvas_items` 会缩放，设计空间 1920×1080）。
 
-## 关键几何（速查）
-- 实体 370×47B@`0x519868`：五维`+0x0a..+0x0e`、技能`+0x0f..+0x11`、国索引`+0x24`、在城`+0x25`、主君`word+0x2a`(0xffff=浪人)、相性`+0x08`字bit11-14。
-- 城表 `0x51eb88` 31B×200；国情表 `0x519548` stride5×49；国政治表 `0x5179b8` stride14×49(`byte[0xc]`=外交等级=低4位level+高4位quality)；S15 事件旗 `0x5203c0` 25B；名称总表 `0x506ca8` stride9。
-- S7 每城表 `0x516a28` 200×16B：续191 钉 `+0x0f` 位域（低4位=bits0-3 setter `0x49bf50` / 高3位=0x70 bits4-6 setter `0x49bf90`，ecx←`0x516a28+16*idx` 坐实专属）。
+## 约定 / 环境
+- 工程根=`project.godot`；四目录 `src/`·`scenes/`·`assets/`·`scripts/`。autoload=DisplayAdapter+GameData+GameState。覆盖层存 `GameState` 运行期变更，不回写 data/。
+- 无头测试：`Godot_v4.7.1-stable_win64_console.exe --headless --script res://tools/_test_mX.gd`。反汇编用系统 Python3.12（capstone 5.0.7；托管 3.13 无）。
+- **git push 卡凭据**（GCM 无凭据，待 PAT）：`remote=https://github.com/Zhaoxinak/Taikou-2`。
+- 突破插 BREAKTHROUGHS 倒序（四段），续编号取 `grep -o '上一条（续[0-9]*）'` max+1。
 
-## 资源 / 音效 / 格式（续195–197 已闭）
-- **90 资源名串**：正则 `[A-F]:[A-Z0-9_]{1,12}\.[A-Z0-9]{2,3}`+NUL，全镜像 90 distinct/16 组。
-- **音效**：`@0x50ba40`=40 项音效名指针表；`0x4997c0`=`play_sfx(id)`（上限 `cmp si,0x27`=39）；门控四层；emu 39/39；ID 语义 30/39。全局开关 `byte[0x520604]` bit1。
-- **资源加载簇**：`0x4802e0`→`0x4ec8c0`(`add eax,2` 剥 `X:` 盘符 + `and al,0xfb` 清 bit2 + 跳表 `0x4ec948` + `call [0x4fb07c]` stdcall3参 ret 0xc)；主资源表 `@0x506ad0`=19 项 stride16。🔑 盘符是 EXE 内部逻辑代号非真实路径 ⇒ Godot 按去前缀裸名查原版目录；中文版 BGM 走 `MP3/`。
-- **KOS = 1字节XOR密钥+标准WAV**：`raw[0]`=key(39/39 均 `0xAE`)，`raw[1..]` 逐字节 XOR→RIFF/WAVE；解码器 `0x499380`=`xor16(buf,key16,len)`。密钥读自文件第0字节（`0x4993a0`），全镜像无 `xor …,0xae` 立即数。
-- **GAIJI.TR2 = 16×34B=544B**：`u16 LE` 源码 + 32B 16×16 1bpp（行主序 MSB 先行）；`0x48c070` 加载/`0x4f1ae6` 安装(`cmp 0xa140`/`cmp 0xa14f`)/`0x4f1a06` 取字形；GBK 码位 `0xA140..0xA14F` 被劫持作外字区。
-- **TR2 四类**：`SAVEDATA`(magic `TAIKOU2_SAVEFILE`, 8槽×40960B, 续199) / `SCENARIO`(`TAIKOU2_SCENARIO`, 续165 18子解码器) / `BSDATA`(700×59B 明文主表, 续200) / `GAIJI`。**头 +0x10 4B（续202 实锤）**：`file[0x10..0x11]`=16-bit LE 校验和（解密流字节累加和 mod 0x10000，sc1=0xb84b/sc2=0x8013）、`file[0x12..0x13]`=XOR 密钥种子(key=byte[0x12]^byte[0x13]，sc1=0x0c/sc2=0x0a)；emulator 真跑 `0x47f350` 在 `0x47f4da` 捕获累加器匹配。`scripts/sndata_header_ref.py` ALL PASS。
-
-## 存档 / 武将主表（续199·续200·续201 已闭）
-- **SAVEDATA.TR2 = 8 槽 × 40960 B**（续199 纠偏 16×20480）。槽元数据 49B：年/月/日 u16 + 主角名13 + 国13 + 地+身分17 = 49 闭合；slot0 = 1560-05-20/木下藤吉郎/尾张/清洲城步兵头。
-- **BSDATA1/2.TR2 = 700 × 59 B 明文主表**（续200）。加载器 `LoadBSDATA @0x47fa90`(`push 0xa154`=41300)。`+0x27`=生年−1490、`+0x30`国/`+0x31`城(0..199 索引200条城表)/`+0x32`功勲/`+0x35`忠诚/`+0x36`主君w/`+0x38-0x39`状态字(`職位=byte[0x39]&7`)/`+0x3a>>4`主角槽+武将档。
-- **SNDATA S1 = BSDATA 模板的剧本实例**（续201，64/64）：59B 流记录 ↔ 47B 实体双向映射；`entity+0x04`=同城武将单链表 next、城结构`+0x00`=链头、`+0x04`=下一城；相性存实体+0x08 字 bit11-14。
-
-## 当前状态（2026-09-08，BREAKTHROUGHS 顶部 = 续253；非图像已正式结案）
-- **双轨并行合并完成**：origin 轨续224-237 + 本地轨续224-227（六类顾问咨询消费链/0x462fd0 typekey map/leaf schema）**并集共存入库**（撞号不重排）；SNDATA_SPEC B 轨三节顺延 §4.0.13-4.0.15；记忆同步补交 22e5fd5。
-- **静态/结构层 100% 收口**（续230-232 终审）：142 原始文件 = 56 CRACKED_NONIMAGE 全 PASS + 33 IMAGE_EXEMPT + 53 RUNTIME_ASSET + 0 UNKNOWN；自测套件 `_run_all_selfchecks.py` PASS（**2026-09-08 实测 = 180 ref 全 PASS / 0 FAIL**；旧记 166 为续243 快照已过时；套件计数按 ref 文件数，勿按断言数估；**全量约 12 分钟，macOS 无 `timeout` 命令勿加前缀**）。
-- 最近主破（顶部条）：续239/240/241 技能读·写·消费三侧闭合；**续242 店铺主人格记录表闭合**——`0x517850` 30×12B（=S8 台词表/NPC 师父池同表）+ 入店分发器 `0x44e710`（`[0x52063c]`=0x517850+id*12，存储站全集恰 4 处）+ 12 槽设施身份 msg 锚全识别 + **🔴 纠偏：`+0x07`=店主好感（非「商人资本」）** + 闇商人 #29 事件流 + `0x44e110`=通用持有物选择对话框（-1=取消）。**续243 店铺设施流公式闭合**——slot7=画师补识别（袄绘依頼 30 门/80 贯/+0x0a=20+rand(41)/+0x08=1 制作中）+ 医师五流（+0x08=就诊亲密度/免费判定 rand(100)<好感−10/诊金公式 gap×(100−亲密度)×身分/100÷10×10 min10/穷人流 +0x0a cap3/买药药罐 word[S6+0x26]>>12）+ 教会（义工 +0x0b bit1/0 首回标记 + 魅力受益/大名情报费 5−捐/20 捐100免费/介绍信 0x1211）+ 南蛮（陌生人门 +0x07==0/问候 sbb/洋枪 15−好感/30）+ **字段语义归位 +0x08=设施状态 word/+0x0a=进度计数/+0x0b=事件旗位域**。ref `shop_facility_flows_ref.py` 41/41。
-- 仅余 **emu 运行期增强**（数值/数据非逻辑、不阻塞复刻），详见下方残留敞口与 `破解状态清单.md §2`。
-
-## 残留敞口（2026-09-08 快照 · 续253 清零）
-- 用户指令 = 全部**非图像**敞口；图像豁免保持不动。
-- **非图像结构/数据层零敞口**（续252：S13 目標状態机；续253：评价词阈值/绘制器，纠偏旧「须 emu」误指）。
-- 仅余：图像豁免（GRP/PK8/纯像素 LZW）；可选存档局面 S13 快照属局面态。
-- **2026-09-08 已做「残留标记清扫」**：三份 SPEC 现存的 🔶/❓ **全部归类为「emu 运行期语义增强」**（非结构敞口、不阻塞复刻），已在 GAME_DATA_SPEC/BATTLE_SPEC 图例处加统一现状说明；并把 **8 处「已破未回清」改为 ✅ + 注明闭合续篇**（伪兵→续233/234、谣言→续235、模式标志→续186+190、兵种名→续211、section A 9 类/20 列→续190+250、SNDATA 164 类型→续230 证伪、18 子解码器→续165/166、S14 方向→续100、S13→续238/252）。
-- 🔑 **清扫铁律**：**真·emu 项（如 S6 `0x516610` 逐 bit 语义，静态不可得）绝不可伪标为 ✅** —— 只能归类加注「非结构敞口」。判定依据优先级：BREAKTHROUGHS 条目标题 > SPEC 旧标记（后者常滞后 10+ 续篇）。
-
-## 本机环境 / git 推送（Windows）
-- 反汇编用系统 Python 3.12（`C:/Users/Administrator/AppData/Local/Programs/Python/Python312/python.exe`，capstone 5.0.7）；managed venv 不存在、无 mac python3.7（旧路径记忆失效）。
-- **git push 卡死**：默认 schannel 后端在 `git-receive-pack` 认证阶段卡「remote party requests renegotiation」无限挂（ls-remote/curl 都正常，唯 push 挂）。正解 `git -c http.sslBackend=openssl -c http.proxy=http://127.0.0.1:7890 push origin main`。代理端口会变（13573→4759→…），`git ls-remote origin HEAD` 探活；env 里的 11122 是 App 内网代理（git 走它报 TLS handshake 失败）。
-
-## ⚠️ 并行会话冲突
-- 并行会话曾同时改文档致撞号+整份覆盖。**接手先 grep 取 max 续编号用 max+1**；撞号≠错误（两轨独立收敛同结论互为交叉验证）。
-
-## Godot 约定
-- 预渲染画作 LINEAR+MIPMAPS；像素 NEAREST+STRETCH_KEEP；CJK 走系统字体。
-- ⚠️ **Godot 工程本体保留，勿删**：`project.godot`（根目录哨兵 + Godot 4.7 工程标记）、`fonts/`（NotoSansSC 17.7MB + .import）。2026-09-08 用户明确「以后还要用 Godot 复刻」→ 收回早先「删 Godot 相关」指令。脚本根定位哨兵认 `project.godot`，删它会让 ~490 个逆向/自测脚本集体找不到根目录。
-- `project.godot` 已清理两个悬空引用（`scenes/Main.tscn`、`scripts/GameState.gd`，二者文件不存在）作为干净壳，复刻开工再补场景入口即可。
+## 数据细节指针（勿抄进本文件）
+- 武将/城字段 → `GAME_DATA_SPEC.md` §1.2/§3.17（城表 `0x51eb88` 31B×200）。
+- 晋升阈值 / 12 主命公式 → `src/core/game_state.gd`；自绘 UI 度量 → `src/ui/UiTheme.gd`。

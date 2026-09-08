@@ -9,6 +9,11 @@
 > 3. 「当前任务清单」与 WorkBuddy 任务系统（#35–#42）同步；破解一项即打勾。
 > 4. 入口见根目录 `../../README.md`；权威规格 = `../specs/GAME_DATA_SPEC.md`；本文档是 **时间线增量**。旧总览已并入根目录文档（`docs/archive/` 已于 2026-09-08 删除）。
 >
+> 上一条（续254）：🎯 **12 主命 handler 级精逆收口 —— 推翻「贩卖/购买军粮 经 sat_add 包装器直写城资源」旧误述** —— 用户「按建议继续」回精逆 12 主命 delta。★ **① ✅ 开垦/改建/筑城（主命4/5/6）精确公式落 GDScript**：`game_state._command_deltas` 现按 実行者内政力(naisei=forces.domestic) + 城規模(f09)/城種(castle_type&7) 推导，并经 agri_capacity / castle_type_cap / 字段硬上限(农商100/守城250) 钳制；3 项公式与 naisei_ref.work_kaiten/kaizen/chikujo 逐字节对齐，`_test_cmd_delta.gd` **28/28 PASS**。★ **② 🔴 纠偏 §3.21.4 误述**：贩卖军粮(0x4AA100)/购买军粮(0x4AB2A0) handler **不算资源 delta**，而是算 仕事成果値 `byte[ent+0x17]` = `(sat_sub(100, muldiv(((国情[prov+3]>>2)&0x1f)+1, (naisei>>1)+100, 10)) >> 1)`（naisei=`byte[ent+0x0c]` 内政力）；真实 軍糧↔資金 转移在 **纳结算 0x4a5fc0**（§3.21.9 / naisei_resource_ref.py），**不在主命 handler 内**。§3.21.4 表行「经增量包装器 0x4a33a0/0x4a33f0 写 軍糧/米」为错误。★ **③ ✅ 军马/洋枪(0x4AA160/0x4AA1F0)**：确为 資金(sat_sub 0x4ebcd0) 方向支出，精确转移量公式（含 tier=`entity+0x0f>>2` 与 国情[prov+2]）参数布局未完全解析，暂按经济模拟占位。
+> **证据**：`scripts/_explore_cmd_deltas.py`（capstone 反汇编 12 handler）、`scripts/naisei_ref.py`（续153，66/66）、`tools/_test_cmd_delta.gd`（28/28）、`src/core/game_state.gd` `_command_deltas`/`_agri_capacity`/`_castle_type_cap_of`。
+> **仍未知**：贩卖/购买军粮 仕事成果値 → 纳结算 实际 軍糧/資金 转移映射（须 emu 钩 0x4a5fc0）；军马/洋枪 資金扣减精确公式。
+> **下一步**：(A) 复刻层主命 0/1/2/3/7/8/9/10/11 维持「经济模拟占位」（`_command_deltas` 注释已标注非 handler 精确）；(B) 若需 1:1 军粮交易，钩 纳结算 0x4a5fc0 抽 仕事成果値→转移公式；(C) §3.21.4 表行同步订正。
+
 > 上一条（续253）：🎯 **评价词档位阈值 + 真实绘制器静态全闭 —— 推翻「须 emu / 0x47ca70 / 0x4d0e10」旧残留** —— 用户「帮我破解完」。★ **① 🔴 纠偏误指**：`0x4d0e80/f20/fa0` 的 cmp 40/55/60/80/2000/3000 是 **MSG 台词分派**（字表 `0x50ce78..`→`0x4d0f00`→`0x47b900`），**不是**评价词阈值；`0x47ca70` 仅为城池面板**字段名标签**布局（续87），不读 `0x50b6ba`。★ **② ✅ 真实消费者**：入口 `0x497a30` 九段绘制簇，经 `lea reg,[tier+tier*8+disp]`（stride9；disp=组基-2）取词 → `0x4b16d0` 上屏。★ **③ ✅ 档位公式**（全段同一 sbb 形）：`val<lo→0` / `lo≤val<hi→1` / `val≥hi→2`。阈值表：军资金·军粮 **1000/10000**；士兵数 **3000/15000**；军马·洋枪 **2000/10000**；支持率 **50/80**；防御度 **50/150**；训练度·士气 **70/150**。G5 双轴共享词表 `0x50b73f`。★ **④ 顺带勾掉 §3.11.6 陈旧 `[ ]`**：购买档 id4/5/6=步骑枪（续51）、部队列名 A/B（续53）早已闭。
 > **证据**：`scripts/eval_word_thresholds_ref.py` **105/105**（接续 `eval_word_binding_ref.py` 20/20）。
 > **仍未知**：图像豁免档不动。

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d04hrjib3547w"
+path="res://.godot/imported/27.mp3-c4b8844a3eb9ea7ce1c8df2d7e9364c6.mp3str"
+
+[deps]
+
+source_file="res://Taikou2 Original/MP3/27.mp3"
+dest_files=["res://.godot/imported/27.mp3-c4b8844a3eb9ea7ce1c8df2d7e9364c6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

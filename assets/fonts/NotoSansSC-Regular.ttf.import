@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://d2tw8284ilevq"
-path="res://.godot/imported/NotoSansSC-Regular.ttf-db41a8780687c9977c3f5812be0b3493.fontdata"
+path="res://.godot/imported/NotoSansSC-Regular.ttf-4b8abad24b3b7f136d93d4ff5bc17cfc.fontdata"
 
 [deps]
 
-source_file="res://fonts/NotoSansSC-Regular.ttf"
-dest_files=["res://.godot/imported/NotoSansSC-Regular.ttf-db41a8780687c9977c3f5812be0b3493.fontdata"]
+source_file="res://assets/fonts/NotoSansSC-Regular.ttf"
+dest_files=["res://.godot/imported/NotoSansSC-Regular.ttf-4b8abad24b3b7f136d93d4ff5bc17cfc.fontdata"]
 
 [params]
 

@@ -19,6 +19,13 @@
 | `_audit_progress.py` | 扫 `*_spec.json` 的 still_unknown → 未破清单 |
 | `_run_all_selfchecks.py` | 批量跑全部 `*_ref.py` |
 
+## 二之二、Godot 复刻导出器 ★
+| 文件 | 角色 |
+|---|---|
+| `export_for_godot.py` | **原版数据 → `data/*.json`**（按续200 权威 59B 布局重解析 BSDATA，GBK→UTF-8 + 外字，内置自检）。工程根运行：`python scripts/export_for_godot.py [--scene 1\|2] [--out ./data]` |
+
+> 🔴 它存在的理由：`scripts/bsdata.json` 的 `fields` 已被续200 证伪，不能直接当权威数据源。详见 `docs/replication/Godot复刻实施方案.md §3.2`。
+
 ## 三、逆向推导脚本（过程留档，非接口）
 - 顶层其余 `_*.py`（约 460 个，如 `_fdis.py` `_dumpfn.py` `_emu_*`）：一次性探针/推导过程，**勿在新代码里 import**，随时可被 `_scratch/` 化。
 - 顶层独立 `*.py`（非 ref 非框架）：杂项工具。
@@ -29,7 +36,7 @@
 | `_scratch/` | 一次性探针/旧实验脚本（**283** 个，gitignore，非接口） | 勿依赖 |
 | `_草稿/` | 早期草稿脚本（**21** 个） | 勿依赖 |
 | `_decoded_kos/` | **39** 个已解码音效 WAV（**权威**，原 `kos_wav/` 已删） | 产物可用 |
-| `_decoded_grp/` | **31** 个 GRP 解码 PNG（图像豁免，产物可直接用） | 产物可用 |
+| `_decoded_grp/` | **13** 个 GRP 解码 PNG（2026-09-08 实测；图像豁免，产物可直接用） | 产物可用 |
 
 ## 五、根目录其它产物（勿手改）
 - `scripts/*.txt`（**91** 个）：探测输出（可再生，gitignore 部分）。

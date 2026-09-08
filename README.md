@@ -4,7 +4,12 @@
 
 > **🤖 新 AI 接手？先读 [`docs/re/HANDOFF.md`](docs/re/HANDOFF.md)** —— 自包含交接文档（项目定性 / 当前状态 / 方法论 / 残留敞口 / 环境坑 / 接手 SOP），读完即可独立上手。
 >
-> **🔨 要开始写复刻代码？读 [`docs/replication/复刻导航.md`](docs/replication/复刻导航.md)** —— 数据资产地图 / 原版文件格式 / 关键几何 / 字段速查 / 避坑清单，只讲「数据在哪、怎么取」。
+> **🔨 要开始写复刻代码？**
+> 1. [`docs/replication/复刻导航.md`](docs/replication/复刻导航.md) —— 数据资产地图 / 原版格式 / 关键几何 / 字段速查（**数据在哪、怎么取**）
+> 2. [`docs/replication/Godot复刻实施方案.md`](docs/replication/Godot复刻实施方案.md) —— ★ **施工图**：工程结构 / 数据层契约 / 八大玩法系统 / 合战公式移植 / 里程碑 M0–M7 / 避坑清单（**工程怎么搭、按什么顺序做**）
+>
+> 数据导出：`python scripts/export_for_godot.py`（按续200 权威布局重解析，内置自检，产出 `data/*.json`）。
+> 🔴 注意：**`scripts/bsdata.json` 的 `fields` 已被续200 证伪**（忠诚真在 `0x35` 非 56、功勲在 `0x32` 非 50），勿直接当权威。
 
 > **模式**：源码级引擎重实现（Godot 复刻）所需的数据与玩法规格抽取。  
 > **法律边界**：用户自有合法拷贝、仅本地单机；仓库**不打包**原版素材。原版文件在 `Taikou2 Original/`。  
@@ -35,14 +40,64 @@
 | `docs/` | **文档分类根**：`INDEX.md`(总索引) / `specs/`(数据契约) / `re/`(逆向留档) / `replication/`(复刻入口) |
 | `docs/specs/` | ★ 复刻核心：`GAME_DATA_SPEC` `BATTLE_SPEC` `SNDATA_SPEC` `NPK_SPEC` `破解状态清单` |
 | `docs/re/` | 逆向留档：`BREAKTHROUGHS`(突破时间线) `HANDOFF`(交接) `_x92` |
-| `docs/replication/` | `复刻导航.md`：数据资产地图 / 原版格式 / 关键几何 / 字段速查 |
+| `docs/replication/` | `复刻导航.md`（数据在哪/字段速查）+ **`Godot复刻实施方案.md`（★ 施工图：工程结构/系统/里程碑）** |
+| `data/` | Godot 运行时数据（由 `scripts/export_for_godot.py` 生成，**gitignore**） |
 | `Taikou2 Original/` | 原版 149 文件（含 `TAIK2W95.exe`、SNDATA、BSDATA…），**仓库不打包** |
 | `scripts/` | **现行**工具、180 个 `*_ref.py` 自检、JSON 产物、`_unpacked_mem.bin`（分类见 `scripts/README.md`） |
 | `scripts/_scratch/` | 一次性探针/旧实验脚本（283 项，gitignore，非接口） |
 | `scripts/_草稿/` | 早期草稿脚本（21 项） |
 | `scripts/_decoded_kos/` | 39 个已解码音效 WAV（**权威**） |
-| `scripts/_decoded_grp/` | 31 个 GRP 解码 PNG（图像豁免，但产物可直接用） |
-| `project.godot` + `fonts/` | Godot 4.7.1 复刻工程（已暂停，留作下次复刻壳；见 MEMORY 边界节） |
+| `scripts/_decoded_grp/` | **13** 个 GRP 解码 PNG（640×400；作 HD-2D 背景板参考，旧记 31 有误） |
+| `project.godot` | Godot 4.7.1 复刻工程配置（autoload: `DisplayAdapter`/`GameData`；`main_scene=res://scenes/main.tscn`） |
+| `src/` | **Godot 游戏代码（GDScript）**：`core/`(纯逻辑+单例,无 Node) · `data/`(运行时数据层) · `world/`(大地图/城下町) · `battle/`(合战 HD-2D) · `ui/`(HUD/菜单) |
+| `scenes/` | **组合场景**：`main.tscn`(标题启动入口) + `screens/`(world/battle 占位) |
+| `assets/` | **全部导入资源（按类型）**：`fonts/` · `audio/{sfx,bgm}` · `sprites/{portraits,units,chips}` · `environments/` · `samples/`(gitignore) |
+| `scripts/` | ⚠️ **逆向 / 数据导出工具（Python，非游戏代码）**：180 个 `*_ref.py` 自检依赖扁平布局 + 同目录 import，**切勿移动或改名**（详见 `scripts/README.md`） |
+| `tools/` | 离线构建产物（`portrait_prompts.json` 等） |
+
+---
+
+## Godot 工程结构（速览）
+
+> 工程根即 Godot 工程根（`project.godot` 在此）。**游戏代码在 `src/`、组合场景在 `scenes/`、资源在 `assets/`、逆向工具在 `scripts/`** —— 四者职责分离，互不直接 import。
+
+```
+太阁立志传2/                        # 仓库根 = Godot 工程根
+├── project.godot                  # 配置 + autoload(DisplayAdapter, GameData) + main_scene
+├── README.md                      # 本文件（大门 + 目录地图）
+├── src/                           # 游戏代码（GDScript）
+│   ├── core/                      # 纯逻辑 / 全局单例（无 Node，可无头跑）
+│   │   ├── display_adapter.gd      #   autoload：分辨率适配（1080p/2K/4K）
+│   │   ├── consts.gd               #   全局常量（哨兵值/钳制/规模/名称表）
+│   │   ├── officer.gd              #   武将数据模型（47B 语义映射）
+│   │   └── game_data.gd            #   autoload：载入 data/*.json 只读访问
+│   ├── data/                      # 运行时数据层（loader）
+│   ├── world/                     # 大地图 / 城下町 / 修行
+│   ├── battle/                    # 合战 HD-2D：terrain_3d_builder / unit_sprite / hd2d_environment
+│   └── ui/                        # HUD / 菜单 / 对话
+├── scenes/                        # 组合场景
+│   ├── main.tscn                  # 标题启动入口（★ 工程启动点）
+│   └── screens/                   # title_screen / world_screen / battle_screen（占位）
+├── assets/                        # 全部导入资源（按类型）
+│   ├── fonts/                     # 思源黑体(开) + msyh/simhei(gitignore)
+│   ├── audio/{sfx,bgm}/           # 39 解码 wav + BGM
+│   ├── sprites/{portraits,units,chips}/
+│   ├── environments/              # 天空/天气预设
+│   └── samples/                   # AI 样本图 [gitignore]
+├── data/                          # 导出 JSON（gitignore，由 export_for_godot.py 生成）
+├── scripts/                       # ⚠️ 逆向/导出工具(Python) — 勿移（180 自测依赖）
+├── tools/                         # 离线产物（portrait_prompts.json 等）
+├── docs/                          # 文档：specs/ re/ replication/
+└── addons/                        # 未来第三方插件
+```
+
+**运行方式**
+```powershell
+# 启动编辑器 / 运行（需要本地 Godot 4.7.1，二进制在 Godot_v4.7.1/，已 gitignore）
+Godot_v4.7.1\Godot_v4.7.1-stable_win64.exe --editor
+# 仅做 GDScript 语法校验（无 GUI）
+Godot_v4.7.1\Godot_v4.7.1-stable_win64_console.exe --headless --check-only --script <file.gd>
+```
 
 ---
 
@@ -70,7 +125,8 @@
 4. ~~section A 命名；单挑体力初值~~ → section A **结论性负结果**（=空间网格，无日文主名表，续250）；实体 `+0x20/+0x21`=最大/现在体力（续241）
 
 > **非图像已 100% 收口，零真敞口。** SPEC 文档内现存 🔶/❓ **全部**为「emu 运行期语义增强」（某 bit 玩法命名、delta 精确值），
-> **非结构敞口、不阻塞复刻**——复刻按结构取字段、语义按设计自定即可。图像类按用户明令豁免。
+> **非结构敞口、不阻塞复刻**——复刻按结构取字段、语义按设计自定即可。
+> 图像类**不再反向破解**，画面走 **HD-2D 重制**（2026-09-08 定），见 `docs/replication/HD2D高清重制方案.md`。
 
 ---
 
