@@ -11,6 +11,7 @@ extends Node
 
 const ConstsRef = preload("res://src/core/Consts.gd")
 const EventFlagsRef = preload("res://src/core/event_flags.gd")
+const DuelRef = preload("res://src/core/duel.gd")
 
 # 游戏起始年（太阁立志传2 经典开局）
 const START_YEAR : int = 1560
@@ -98,6 +99,17 @@ func get_protagonist() -> Dictionary:
 	if not is_started():
 		return {}
 	return GameData.get_officer(pid)
+
+
+## M7 单挑：用两名武将（id）驱动一场单挑，返回 DuelSim.auto_battle 结果。
+## rng=null 时用确定性 LCG（需复现可传 DuelRef.new_rng() 并 seed）。
+## char 字典由 DuelSim.build_char_from_officer 从 GameData 武将派生（映射近似，公式精确）。
+func run_duel(a_id: int, b_id: int, rng = null) -> Dictionary:
+	var sim : RefCounted = DuelRef.new()
+	var ra : RefCounted = rng if rng != null else DuelRef.new_rng()
+	var ca : Dictionary = DuelRef.build_char_from_officer(GameData.get_officer(a_id))
+	var cb : Dictionary = DuelRef.build_char_from_officer(GameData.get_officer(b_id))
+	return sim.auto_battle(ca, cb, ra)
 
 
 ## 主角当前完整状态（合并运行期覆盖层），供 UI/测试消费
