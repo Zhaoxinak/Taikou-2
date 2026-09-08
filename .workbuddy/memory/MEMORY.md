@@ -1,11 +1,12 @@
 # 太阁立志传2 Godot 复刻 - 项目记忆（索引）
 
 > 细节在仓库文档；本文件只留跨会话必需的边界/方法论/当前状态。
-> 文档链：README.md → BREAKTHROUGHS.md(倒序突破日志) → GAME_DATA_SPEC.md → BATTLE_SPEC.md → SNDATA_SPEC.md。旧文档 → docs/archive/。
+> 文档链（2026-09-08 整理）：根 `README.md`(大门) → `docs/INDEX.md`(总索引) → `docs/specs/`(GAME_DATA_SPEC/BATTLE_SPEC/SNDATA_SPEC/NPK_SPEC/破解状态清单，复刻核心契约) + `docs/re/`(BREAKTHROUGHS/HANDOFF/_x92，逆向留档) + `docs/replication/复刻导航.md`(复刻入口)。旧 `docs/archive/` 已于 2026-09-08 `git rm` 删除，死路警告并入 `docs/replication/复刻导航.md` §7。**⚠️ 脚本目录 `scripts/` 刻意不移动**（180 个 `*_ref.py` 自测经非递归 `glob("*_ref.py")` 扫顶层；`emu_harness`/`real_assets` 被大量 ref `import`），物理移动会破坏自测套件 —— 分类用 `scripts/README.md` 地图即可。
 
 ## 边界
 - Godot 4.7.1 自写；原版在 `<工程>/Taikou2 Original/`（仓库不打包素材）。
 - 2026-08-25 起：停 UI/像素/字体，只做数值+玩法 → 汇总进 GAME_DATA_SPEC.md。
+- **2026-09-08 用户指示：暂停 (B) 复刻** —— 不要开工 Godot 骨架/复刻工程，除非用户明确说开始。当前只做逆向侧维护。
 - **硬性要求**：突破/推翻旧假设即插 BREAKTHROUGHS.md 倒序条目（四段：突破/证据/仍未知/下一步）。**接手先 `grep -o '上一条（续[0-9]*）' BREAKTHROUGHS.md | grep -o '[0-9]*' | sort -n | tail -1` 取 max，新条目 max+1 防撞号**。
 
 ## 逆向方法论（核心坑，去重 · 可复用）
@@ -45,9 +46,9 @@
 - **BSDATA1/2.TR2 = 700 × 59 B 明文主表**（续200）。加载器 `LoadBSDATA @0x47fa90`(`push 0xa154`=41300)。`+0x27`=生年−1490、`+0x30`国/`+0x31`城(0..199 索引200条城表)/`+0x32`功勲/`+0x35`忠诚/`+0x36`主君w/`+0x38-0x39`状态字(`職位=byte[0x39]&7`)/`+0x3a>>4`主角槽+武将档。
 - **SNDATA S1 = BSDATA 模板的剧本实例**（续201，64/64）：59B 流记录 ↔ 47B 实体双向映射；`entity+0x04`=同城武将单链表 next、城结构`+0x00`=链头、`+0x04`=下一城；相性存实体+0x08 字 bit11-14。
 
-## 当前状态（2026-09-03，BREAKTHROUGHS 顶部 = 续243）
+## 当前状态（2026-09-08，BREAKTHROUGHS 顶部 = 续253；非图像已正式结案）
 - **双轨并行合并完成**：origin 轨续224-237 + 本地轨续224-227（六类顾问咨询消费链/0x462fd0 typekey map/leaf schema）**并集共存入库**（撞号不重排）；SNDATA_SPEC B 轨三节顺延 §4.0.13-4.0.15；记忆同步补交 22e5fd5。
-- **静态/结构层 100% 收口**（续230-232 终审）：142 原始文件 = 56 CRACKED_NONIMAGE 全 PASS + 33 IMAGE_EXEMPT + 53 RUNTIME_ASSET + 0 UNKNOWN；自测套件 `_run_all_selfchecks.py` PASS（**续243 后 = 166 ref 全 PASS / 0 FAIL**；套件计数按 ref 文件数，勿按断言数估）。
+- **静态/结构层 100% 收口**（续230-232 终审）：142 原始文件 = 56 CRACKED_NONIMAGE 全 PASS + 33 IMAGE_EXEMPT + 53 RUNTIME_ASSET + 0 UNKNOWN；自测套件 `_run_all_selfchecks.py` PASS（**2026-09-08 实测 = 180 ref 全 PASS / 0 FAIL**；旧记 166 为续243 快照已过时；套件计数按 ref 文件数，勿按断言数估；**全量约 12 分钟，macOS 无 `timeout` 命令勿加前缀**）。
 - 最近主破（顶部条）：续239/240/241 技能读·写·消费三侧闭合；**续242 店铺主人格记录表闭合**——`0x517850` 30×12B（=S8 台词表/NPC 师父池同表）+ 入店分发器 `0x44e710`（`[0x52063c]`=0x517850+id*12，存储站全集恰 4 处）+ 12 槽设施身份 msg 锚全识别 + **🔴 纠偏：`+0x07`=店主好感（非「商人资本」）** + 闇商人 #29 事件流 + `0x44e110`=通用持有物选择对话框（-1=取消）。**续243 店铺设施流公式闭合**——slot7=画师补识别（袄绘依頼 30 门/80 贯/+0x0a=20+rand(41)/+0x08=1 制作中）+ 医师五流（+0x08=就诊亲密度/免费判定 rand(100)<好感−10/诊金公式 gap×(100−亲密度)×身分/100÷10×10 min10/穷人流 +0x0a cap3/买药药罐 word[S6+0x26]>>12）+ 教会（义工 +0x0b bit1/0 首回标记 + 魅力受益/大名情报费 5−捐/20 捐100免费/介绍信 0x1211）+ 南蛮（陌生人门 +0x07==0/问候 sbb/洋枪 15−好感/30）+ **字段语义归位 +0x08=设施状态 word/+0x0a=进度计数/+0x0b=事件旗位域**。ref `shop_facility_flows_ref.py` 41/41。
 - 仅余 **emu 运行期增强**（数值/数据非逻辑、不阻塞复刻），详见下方残留敞口与 `破解状态清单.md §2`。
 
@@ -55,6 +56,8 @@
 - 用户指令 = 全部**非图像**敞口；图像豁免保持不动。
 - **非图像结构/数据层零敞口**（续252：S13 目標状態机；续253：评价词阈值/绘制器，纠偏旧「须 emu」误指）。
 - 仅余：图像豁免（GRP/PK8/纯像素 LZW）；可选存档局面 S13 快照属局面态。
+- **2026-09-08 已做「残留标记清扫」**：三份 SPEC 现存的 🔶/❓ **全部归类为「emu 运行期语义增强」**（非结构敞口、不阻塞复刻），已在 GAME_DATA_SPEC/BATTLE_SPEC 图例处加统一现状说明；并把 **8 处「已破未回清」改为 ✅ + 注明闭合续篇**（伪兵→续233/234、谣言→续235、模式标志→续186+190、兵种名→续211、section A 9 类/20 列→续190+250、SNDATA 164 类型→续230 证伪、18 子解码器→续165/166、S14 方向→续100、S13→续238/252）。
+- 🔑 **清扫铁律**：**真·emu 项（如 S6 `0x516610` 逐 bit 语义，静态不可得）绝不可伪标为 ✅** —— 只能归类加注「非结构敞口」。判定依据优先级：BREAKTHROUGHS 条目标题 > SPEC 旧标记（后者常滞后 10+ 续篇）。
 
 ## 本机环境 / git 推送（Windows）
 - 反汇编用系统 Python 3.12（`C:/Users/Administrator/AppData/Local/Programs/Python/Python312/python.exe`，capstone 5.0.7）；managed venv 不存在、无 mac python3.7（旧路径记忆失效）。
@@ -65,3 +68,5 @@
 
 ## Godot 约定
 - 预渲染画作 LINEAR+MIPMAPS；像素 NEAREST+STRETCH_KEEP；CJK 走系统字体。
+- ⚠️ **Godot 工程本体保留，勿删**：`project.godot`（根目录哨兵 + Godot 4.7 工程标记）、`fonts/`（NotoSansSC 17.7MB + .import）。2026-09-08 用户明确「以后还要用 Godot 复刻」→ 收回早先「删 Godot 相关」指令。脚本根定位哨兵认 `project.godot`，删它会让 ~490 个逆向/自测脚本集体找不到根目录。
+- `project.godot` 已清理两个悬空引用（`scenes/Main.tscn`、`scripts/GameState.gd`，二者文件不存在）作为干净壳，复刻开工再补场景入口即可。

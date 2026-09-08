@@ -1,7 +1,7 @@
 # 太阁立志传2 逆向工程 — AI 交接文档（Handoff）
 
 > 给下一个接手 AI 的完整上下文。读完本文件即可独立上手，无需本会话历史。
-> 最后更新：2026-09-03（BREAKTHROUGHS 顶部 = 续243，套件 166 ref 全 PASS）。
+> 最后更新：2026-09-08（BREAKTHROUGHS 顶部 = **续253**，套件 **180** ref 全 PASS / 0 FAIL；SPEC 残留 🔶/❓ 已清扫归类为非阻塞的 emu 语义增强项）。
 
 ---
 
@@ -16,9 +16,10 @@
 
 ## 1. 当前状态（最重要）
 
-- **静态/结构层已 100% 收口**：全部非图像原始文件均已破解且经运行期验证。自测套件 `scripts/_run_all_selfchecks.py` = **166 个 `*_ref.py` 全 PASS / 0 FAIL**。
-  - ⚠️ 套件计数按 **ref 文件数**（166），不是断言数（断言总数有几千）。别看到「PASS=166」以外的数字就以为有回归。
-- **仅剩「emu 运行期增强」项**（全是数值/数据，**非逻辑缺口**，不阻塞复刻）。见 §6。
+- **静态/结构层已 100% 收口**：全部非图像原始文件均已破解且经运行期验证。自测套件 `scripts/_run_all_selfchecks.py` = **180 个 `*_ref.py` 全 PASS / 0 FAIL**（2026-09-08 实测；旧记 166 为续243 时快照，续248–253 又新增 14 个 ref）。
+  - ⚠️ 套件计数按 **ref 文件数**（180），不是断言数（断言总数有几千）。别看到「PASS=180」以外的数字就以为有回归。
+  - ⚠️ 套件全量约 **12 分钟**，且 macOS **无 `timeout` 命令**（勿加 `timeout` 前缀，会直接空跑）。
+- **无图像敞口已清零；非图像亦无真敞口**（续253）。SPEC 文档内现存的 🔶/❓ **全部**为「emu 运行期语义增强」类（逐 bit 玩法命名、delta 精确值等），**非结构敞口、不阻塞复刻**（2026-09-08 已清扫并加归类说明）。
 - 图像类（GRP 5 文件 RGB565、PK8 颜图、纯像素 LZW）**用户 2026-08-25 明令豁免** → 保持不动，不要碰。
 
 ---
@@ -27,14 +28,13 @@
 
 | 顺序 | 文件 | 用途 |
 |------|------|------|
-| 1 | `README.md` | 入口 / 目录约定 / 常用命令 |
+| 1 | `../../README.md` | 入口 / 目录约定 / 常用命令 |
 | 2 | `BREAKTHROUGHS.md` | **突破时间线（倒序，新在上）**；每个新结论先写这里（四段式） |
-| 3 | `GAME_DATA_SPEC.md` | **数值/玩法权威规格**（复刻照此实现） |
-| 4 | `BATTLE_SPEC.md` | 合战专篇（HJMAPDAT / per-tick 伤害 / 计略） |
-| 5 | `SNDATA_SPEC.md` | SNDATA/SAVEDATA 容器与 XOR 流 / 段地图 |
-| 6 | `NPK_SPEC.md` | NPK 图像格式（格式已闭，UI 暂停） |
+| 3 | `../specs/GAME_DATA_SPEC.md` | **数值/玩法权威规格**（复刻照此实现） |
+| 4 | `../specs/BATTLE_SPEC.md` | 合战专篇（HJMAPDAT / per-tick 伤害 / 计略） |
+| 5 | `../specs/SNDATA_SPEC.md` | SNDATA/SAVEDATA 容器与 XOR 流 / 段地图 |
+| 6 | `../specs/NPK_SPEC.md` | NPK 图像格式（格式已闭，UI 暂停） |
 | — | `.workbuddy/memory/MEMORY.md` | **会话索引 + 方法论硬规则 + 关键几何速查**（本文件摘自此） |
-| — | `docs/archive/` | 历史过时文档，**勿当权威** |
 
 > 每个 `scripts/*_ref.py` 是对应结论的**可复跑参考实现**（自测）。文档声称的结论都有对应的 ref 兜底。
 
@@ -48,8 +48,11 @@ cd "F:\Games\Taikou 2"
 # 1) 取当前最大「续」编号，新条目用 max+1 防撞号（并行会话曾撞号+整份覆盖）
 grep -o '上一条（续[0-9]*）' BREAKTHROUGHS.md | grep -o '[0-9]*' | sort -n | tail -1
 
-# 2) 全量自测回归，确认 166/0 无回归
+# 2) 全量自测回归，确认 180/0 无回归（约 12 分钟；macOS 勿加 timeout，无此命令）
 C:/Users/Administrator/AppData/Local/Programs/Python/Python312/python.exe scripts/_run_all_selfchecks.py
+
+# macOS 本机（/Users/ts/Downloads/Taikou 2）用：
+# /Library/Frameworks/Python.framework/Versions/3.7/bin/python3 scripts/_run_all_selfchecks.py
 ```
 
 再读 `.workbuddy/memory/MEMORY.md` 的「逆向方法论」和「残留敞口」两节。
@@ -123,7 +126,7 @@ C:/Users/Administrator/AppData/Local/Programs/Python/Python312/python.exe script
 
 1. **突破/推翻旧假设 → 立即插 `BREAKTHROUGHS.md` 倒序条目**，四段式：**突破 / 证据 / 仍未知 / 下一步**。新条目编号 = 当前 max 续 + 1（§3 第 1 步先取 max）。
 2. **每个结论配一个 `scripts/*_ref.py` 自测**（capstone 字节/反汇编断言），跑过 ALL PASS 才算数。
-3. **收尾固定流程**：ref PASS → 文档回填（BREAKTHROUGHS + GAME_DATA_SPEC/BATTLE_SPEC/SNDATA_SPEC + 破解状态清单 §9）→ 全量套件回归 166/0 → `git checkout --` 还原被套件再生的文件（`scripts/_gaiji_preview.png`、`scripts/sndata_wordarray_payload.json`）→ commit + push（openssl 后端）。
+3. **收尾固定流程**：ref PASS → 文档回填（BREAKTHROUGHS + GAME_DATA_SPEC/BATTLE_SPEC/SNDATA_SPEC + 破解状态清单 §9）→ 全量套件回归 **180/0**（约 12 分钟）→ `git checkout --` 还原被套件再生的文件（`scripts/_gaiji_preview.png`、`scripts/sndata_wordarray_payload.json`）→ commit + push（openssl 后端）。
 4. **图像豁免档不动**（GRP/PK8/纯像素 LZW）。
 5. **临时探针**命名 `_*.py` / `_swc_*`，**不入库**（gitignore/不 add）。
 6. 并行会话可能同时改文档 → **动手前先 grep 取 max 续编号**；撞号≠错误（两轨独立收敛同结论=交叉验证）。
@@ -141,4 +144,4 @@ C:/Users/Administrator/AppData/Local/Programs/Python/Python312/python.exe script
 
 ## 10. 给接手 AI 的建议开场
 
-接手后先做一件小事验证流程走通（不直接啃大敞口）：挑 §6 里任一小项，用 capstone 反汇编 + 写一个 3~5 断言的 `*_ref.py`，跑套件确认 166→167 全 PASS，再插 BREAKTHROUGHS 续244 条目并 push。流程顺了再上大项。
+接手后先做一件小事验证流程走通（不直接啃大敞口）：挑 §6 里任一小项，用 capstone 反汇编 + 写一个 3~5 断言的 `*_ref.py`，跑套件确认 **180→181 全 PASS**，再插 BREAKTHROUGHS 续254 条目并 push。流程顺了再上大项。

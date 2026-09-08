@@ -66,7 +66,7 @@ check("battle unit +0x0a = commander_stat", "0x0a" in emu and "commander_stat" i
 check("battle unit +0x2c = 状态/门控字节", "0x2c" in emu and ("门控" in emu or "status" in emu.lower()))
 # 实体状态字 setter 族 0x43dc40..0x43dd38 被 47B 实体表 与 48B 子记录 共用 (GAME_DATA_SPEC §实体 +0x2c)；
 # 而 @0x513550 战斗单位表(stride48) 复用同一 +0x2c 状态布局 (见 _emu_tactic.py)
-gspec = open("GAME_DATA_SPEC.md").read()
+gspec = open(os.path.join(_ROOT, "docs/specs/GAME_DATA_SPEC.md")).read()
 check("实体 +0x2c/+0x2d status setter 族 0x43dc40.. 被 48B 记录共用；@0x513550 战斗单位(stride48) 复用同布局",
       ("0x43dc40" in gspec) and ("48" in gspec)
       and ("0x513550" in emu) and ("stride 48" in emu))
