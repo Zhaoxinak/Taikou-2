@@ -13,6 +13,7 @@ const ConstsRef = preload("res://src/core/Consts.gd")
 const EventFlagsRef = preload("res://src/core/event_flags.gd")
 const DuelRef = preload("res://src/core/duel.gd")
 const EventTextRef = preload("res://src/core/event_text.gd")
+const ShopRef = preload("res://src/core/shop.gd")
 
 # 游戏起始年（太阁立志传2 经典开局）
 const START_YEAR : int = 1560
@@ -63,6 +64,9 @@ var event_flags : RefCounted = EventFlagsRef.new()
 
 # —— M7 事件文本渲染（S15 结构层承接；MSGX %s 模板填充主角名）——
 var event_text : RefCounted = EventTextRef.new()
+
+# —— M7 店铺/商业核心（记录模型 + 入店分发 + favor 饱和 + 买药÷50）——
+var shop : RefCounted = ShopRef.new()
 
 
 func _ready() -> void:
@@ -139,6 +143,11 @@ func render_resolved_events() -> Array[String]:
 		return []
 	var name : String = str(o.get("surname", "")) + str(o.get("given", ""))
 	return event_text.render_resolved(event_flags, name)
+
+
+## M7 店铺/商业：入店分发器转发（shop_id ∈ [0,30) → 记录，否则空；几何同 0x44e710/0x44e7d4）
+func enter_shop(shop_id: int) -> Dictionary:
+	return shop.enter_shop(shop_id)
 
 
 ## 主角当前完整状态（合并运行期覆盖层），供 UI/测试消费

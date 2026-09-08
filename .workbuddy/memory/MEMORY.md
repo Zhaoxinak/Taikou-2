@@ -6,7 +6,7 @@
 
 ## 边界与当前阶段
 - Godot 4.7.1 自写复刻；原版 `<工程>/Taikou2 Original/`（149 文件，不打包）。画面 **HD-2D**（3D+高清像素+后处理；像素破解豁免）。
-- 非图像逆向 100% 收口。Godot **M0–M5 完成**（M5=職位晋升）+ **12 主命精确 delta（续254）**+ **M6/HD-5 自绘 UI 完成**（标题/主角选择/状态画面全改自绘，0 处硬编码字号、0 原生 Button/Label）+ **音效 39 已接入**（`AudioManager.play_sfx(id)` 对齐原版数字 id，`UiButton` 点击联动）+ **M7 事件链(S15) 已收口** + **M7 单挑(duel) 已收口**（`DuelSim`+`GameState.run_duel`+`_test_duel` 全过）+ **M7 事件文本渲染(event_text) 已收口**（`src/core/event_text.gd` 10 bit MSGX 叙事 + `%s`→主角名 + `GameState.render_event_text/render_resolved_events` + `_test_event_text` 全过）。下阶段：M7 余下（店铺/商业、外交、HD-6 视觉回归+4K 基准）、BGM、素材规格。git push 走 `127.0.0.1:7890` 代理可用（9120 已死）。
+- 非图像逆向 100% 收口。Godot **M0–M5 完成**（M5=職位晋升）+ **12 主命精确 delta（续254）**+ **M6/HD-5 自绘 UI 完成**（标题/主角选择/状态画面全改自绘，0 处硬编码字号、0 原生 Button/Label）+ **音效 39 已接入**（`AudioManager.play_sfx(id)` 对齐原版数字 id，`UiButton` 点击联动）+ **M7 事件链(S15) 已收口** + **M7 单挑(duel) 已收口**（`DuelSim`+`GameState.run_duel`+`_test_duel` 全过）+ **M7 事件文本渲染(event_text) 已收口**（`src/core/event_text.gd` 10 bit MSGX 叙事 + `%s`→主角名 + `GameState.render_event_text/render_resolved_events` + `_test_event_text` 全过）+ **M7 店铺/商业核心(shop) 已收口**（`src/core/shop.gd` 30 记录 + 入店分发 + favor 饱和 + 买药÷50；设施内交互流程与闇商人事件流留待后续）。下阶段：M7 余下（外交、HD-6 视觉回归+4K 基准）、BGM、素材规格。git push 走 `127.0.0.1:7890` 代理可用（9120 已死）。
 
 ## 🔴 高频纠偏（别再踩）
 | 旧记 | 正确 |
@@ -25,6 +25,8 @@
 - lambda 捕获局部变量**按值**→计数/累加须用 Array/Dict，否则永远读到 0。
 - 载 TTF 用 `FontFile.load_dynamic_font(ProjectSettings.globalize_path(res://...))`；**不可用 `ResourceLoader.load`**（依赖 .import 缓存，会静默回退无 CJK 字体→中文变方框）。
 - UI 布局勿硬编码字号/像素（`canvas_items` 会缩放，设计空间 1920×1080）。
+- ⚠️ `const X : PackedByteArray = PackedByteArray([...])` 无法被外部脚本 `preload` 引用 `.X` 解析（"Could not resolve external class member"）；改用 `const X : Array = [...]` 字面量（Dictionary/Array 字面量 const 可正常外部访问）。
+- ⚠️ **`/data/` 整个目录被 gitignore**（.gitignore:58）：`data/*.json` 都是 `export_for_godot.py` 导出产物。新增数据文件必须配套在 `scripts/` 提交**生成器脚本**，否则新克隆缺文件、Godot 加载失败。
 
 ## 约定 / 环境
 - 工程根=`project.godot`；四目录 `src/`·`scenes/`·`assets/`·`scripts/`。autoload=DisplayAdapter+GameData+GameState。覆盖层存 `GameState` 运行期变更，不回写 data/。
