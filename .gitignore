@@ -50,3 +50,6 @@ Thumbs.db
 Desktop.ini
 .DS_Store
 *~
+
+# 套件以工程根为 cwd 时再生到根目录的产物副本（权威副本在 scripts/ 下）
+/sndata_s15_segc.json
