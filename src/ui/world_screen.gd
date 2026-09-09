@@ -37,6 +37,8 @@ func _ready() -> void:
 	var bg := ColorRect.new()
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	bg.color = Color(0.07, 0.11, 0.09, 1)
+	# 子节点默认绘制在父 _draw() 之上，会盖住城点/主角 marker；置后让父 draw 浮在 bg 上。
+	bg.show_behind_parent = true
 	add_child(bg)
 	_hud_top = _make_label()
 	_hud_top.custom_minimum_size = Vector2(1880, HUD_TOP - 12)
