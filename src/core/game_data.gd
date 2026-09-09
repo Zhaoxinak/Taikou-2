@@ -6,6 +6,14 @@ extends Node
 ## 全局名由 project.godot 的 autoload 注册提供。
 
 const DataLoaderRef = preload("res://src/data/data_loader.gd")
+const ConstsRef     = preload("res://src/core/Consts.gd")
+
+# —— 数据模型类（typed getters 用，镜像 Officer.gd 范式）——
+const CastleRef    = preload("res://src/core/Castle.gd")
+const ProvinceRef  = preload("res://src/core/Province.gd")
+const SkillRef     = preload("res://src/core/Skill.gd")
+const BattleRef    = preload("res://src/core/Battle.gd")
+const ItemRef      = preload("res://src/core/Item.gd")
 
 var _loader = null
 var loaded: bool = false
@@ -15,9 +23,9 @@ func _ready() -> void:
 	_loader.load_all()
 	loaded = _loader.loaded if _loader != null else false
 	if _loader != null:
-		print("[GameData] 载入完成：武将 %d / 城 %d / 国 %d / 合战 %d / 文本 %d" % [
+		print("[GameData] 载入完成：武将 %d / 城 %d / 国 %d / 合战 %d / 物品 %d / 文本 %d" % [
 			_loader.officers.size(), _loader.castles.size(), _loader.provinces.size(),
-			_loader.battles.size(), _loader.texts.size()
+			_loader.battles.size(), _loader.items.size(), _loader.texts.size()
 		])
 
 # —— 转发查询（保持全局 API 稳定）——
@@ -32,6 +40,35 @@ func get_province(id: int) -> Dictionary:
 
 func get_battle(id: int) -> Dictionary:
 	return _loader.get_battle(id) if _loader != null else {}
+
+func get_item(id: int) -> Dictionary:
+	return _loader.get_item(id) if _loader != null else {}
+
+# —— 类型化模型 getter（返回强类型实例，方便玩法/UI 直接调用便捷方法）——
+func get_castle_obj(id: int) -> Castle:
+	var c := CastleRef.new()
+	c.load_from_dict(get_castle(id))
+	return c
+
+func get_province_obj(id: int) -> Province:
+	var p := ProvinceRef.new()
+	p.load_from_dict(get_province(id))
+	return p
+
+func get_battle_obj(id: int) -> Battle:
+	var b := BattleRef.new()
+	b.load_from_dict(get_battle(id))
+	return b
+
+func get_skill_obj(id: int) -> Skill:
+	var s := SkillRef.new()
+	s.load_from(id, get_skill_name(id), ConstsRef.SKILL_CAP)
+	return s
+
+func get_item_obj(id: int) -> Item:
+	var it := ItemRef.new()
+	it.load_from_dict(get_item(id))
+	return it
 
 func get_province_name(id: int) -> String:
 	return _loader.get_province_name(id) if _loader != null else ""

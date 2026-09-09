@@ -13,6 +13,7 @@ extends RefCounted
 ##   consts.json    : Dict（常量 + 名称表）
 ##   gaiji.json     : {single: Dict{code: rec}, ...}
 ##   skills.json    : {names: Array[10], ...}
+##   items.json     : Array[189]                  每条含 "id"（物品表，由 scripts/item_table.json 生成）
 ##   names.json     : {province_names, castle_town_names, role_type_names, extra_place_names}
 
 const DATA_DIR := "res://data/"
@@ -22,6 +23,7 @@ var officers: Dictionary = {}
 var castles: Dictionary = {}
 var provinces: Dictionary = {}
 var battles: Dictionary = {}
+var items: Dictionary = {}
 # —— 名称 / 常量（按位置或键）——
 var skill_names: Array = []
 var rank_names: Array = []
@@ -46,6 +48,8 @@ func load_all() -> void:
 	var b = _load_json("battles.json")
 	if b is Array:
 		battles = _index_by_id(b)
+	var it = _load_json("items.json")
+	items = _index_by_id(it if it is Array else [])
 	texts = _load_json("text.json")
 	consts = _load_json("consts.json")
 	var g = _load_json("gaiji.json")
@@ -95,6 +99,9 @@ func get_province(id: int) -> Dictionary:
 
 func get_battle(id: int) -> Dictionary:
 	return battles.get(id, {})
+
+func get_item(id: int) -> Dictionary:
+	return items.get(id, {})
 
 func get_province_name(id: int) -> String:
 	if id >= 0 and id < province_names.size():
