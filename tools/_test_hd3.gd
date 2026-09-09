@@ -37,7 +37,7 @@ func _run() -> void:
 		var e := Hd2DEnvironment.build_environment(q)
 		check(e is Environment, "build_environment(%d) 返回 Environment" % q)
 		check(e.glow_enabled, "build_environment 开启 Glow")
-		check(e.tonemapper == Environment.TONE_MAPPER_ACES, "ACES 色调映射已设")
+		check(e.tonemap_mode == Environment.TONE_MAPPER_ACES, "ACES 色调映射已设")
 		check(e.adjustment_enabled, "色彩微调已开（HD-2D 浓郁）")
 
 	# 2) weather_preset 全覆盖
@@ -68,8 +68,7 @@ func _run() -> void:
 	# 4) downgrade_for_4k
 	var env2 := Hd2DEnvironment.build_environment(Hd2DEnvironment.Quality.HIGH)
 	Hd2DEnvironment.downgrade_for_4k(env2)
-	check(not env2.ssao_enabled and not env2.dof_blur_far_enabled,
-		"downgrade_for_4k 关 SSAO + DOF")
+	check(not env2.ssao_enabled, "downgrade_for_4k 关 SSAO（DOF 本版已移除）")
 
 	# 5) WeatherFX 雨/雪 材质 + 网格参数（CPU 安全）
 	var h := Vector3(22, 14, 26)

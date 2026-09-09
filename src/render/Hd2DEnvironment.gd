@@ -66,13 +66,9 @@ static func build_environment(quality: int = Quality.HIGH,
 	env.adjustment_brightness = 1.02
 
 	if quality >= Quality.HIGH:
-		# ── 景深（虚化远景，突出前景单位）────────────────
-		env.dof_blur_far_enabled  = true
-		env.dof_blur_far_distance = 18.0
-		env.dof_blur_far_amount   = 0.18
-		env.dof_blur_near_enabled = false
-
 		# ── 环境光遮蔽（接触阴影，增强体积感）─────────────
+		# ⚠️ Godot 4.7.1 的 Environment 已移除 DOF（dof_* 全部不存在），
+		#    故 HD-2D 仅用 Glow + SSAO + ACES + 色彩微调，景深效果暂略。
 		env.ssao_enabled   = true
 		env.ssao_intensity = 0.9
 		env.ssao_radius    = 1.2
@@ -121,8 +117,7 @@ static func apply_weather(env: Environment, sun: DirectionalLight3D, kind: Strin
 		sun.light_color  = p["color"]
 
 
-# 4K 性能降级：关闭最贵的后处理
+# 4K 性能降级：关闭最贵的后处理（DOF 在本版本不存在；降级 SSAO + Glow）
 static func downgrade_for_4k(env: Environment) -> void:
-	env.dof_blur_far_enabled = false
-	env.ssao_enabled         = false
-	env.glow_intensity       = 0.45
+	env.ssao_enabled   = false
+	env.glow_intensity = 0.45

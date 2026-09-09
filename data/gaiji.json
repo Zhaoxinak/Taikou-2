@@ -1,1 +1,202 @@
-{"note":"GBK 0xA140..0xA14F 被劫持为外字区；在用仅 5 槽","single":{"0xA141":"長","0xA142":"香","0xA143":"宗我","0xA144":"部","0xA147":"垪","0xA140":"堯","0xA145":"籠","0xA146":"頸","0xA148":"惣","0xA149":"揆","0xA14A":"梟","0xA14B":"瓊","0xA14C":"絆","0xA14D":"渚","0xA14E":"戌"},"triple":[{"codes":["0xA141","0xA143","0xA144"],"text":"長宗我部"},{"codes":["0xA142","0xA143","0xA144"],"text":"香宗我部"}],"affected_officers":[182,557,568,581,583],"bitmap":"GAIJI.TR2 = 16×34B；u16 LE 源码 + 32B 16×16 1bpp（行主序 MSB 先行）"}
+{
+"note": "GBK 0xA140..0xA14F 被劫持为外字区；single 以 gaiji_identities.json 为准（0xA143=宗我 双字切片）。",
+"single": {
+"0xa140": "堯",
+"0xa141": "長",
+"0xa142": "香",
+"0xa143": "宗我",
+"0xa144": "部",
+"0xa145": "籠",
+"0xa146": "頸",
+"0xa147": "垪",
+"0xa148": "惣",
+"0xa149": "揆",
+"0xa14a": "梟",
+"0xa14b": "瓊",
+"0xa14c": "絆",
+"0xa14d": "渚",
+"0xa14e": "戌"
+},
+"triple": [
+{
+"codes": [
+"0xA141",
+"0xA143",
+"0xA144"
+],
+"text": "長宗我部"
+},
+{
+"codes": [
+"0xA142",
+"0xA143",
+"0xA144"
+],
+"text": "香宗我部"
+}
+],
+"glyphs": [
+{
+"slot": "0xa140",
+"char": "堯",
+"role": "standalone",
+"status": "unused",
+"bitmap": "008000801ffc00807fff08083f3e08080f08707f00007fff022004211821601e"
+},
+{
+"slot": "0xa141",
+"char": "長",
+"role": "compound_slice",
+"status": "used",
+"bitmap": "00001fe010071fc4100410011fc01000100310007ff014201241158218c46030"
+},
+{
+"slot": "0xa142",
+"char": "香",
+"role": "compound_slice",
+"status": "used",
+"bitmap": "01c03e0004070404fff415012480446080133fc020403fc0204120423fc42040"
+},
+{
+"slot": "0xa143",
+"char": "宗我",
+"role": "compound_slice",
+"status": "used",
+"bitmap": "2000200cff3201120012fc7f00120012fe112015203920502410221121126030"
+},
+{
+"slot": "0xa144",
+"char": "部",
+"role": "compound_slice",
+"status": "used",
+"bitmap": "0100408f27e9200a024af24c028c27ea2009400943c982499249524a23c82248"
+},
+{
+"slot": "0xa145",
+"char": "籠",
+"role": "standalone",
+"status": "unused",
+"bitmap": "10201f3f2848448408203f3f12207fbe00023f3e21203f3c21203f3d2121273f"
+},
+{
+"slot": "0xa146",
+"char": "頸",
+"role": "standalone",
+"status": "unused",
+"bitmap": "00007f7f000815102a7e544254422a7e154200427f7e084208420e7e702400c3"
+},
+{
+"slot": "0xa147",
+"char": "垪",
+"role": "standalone",
+"status": "used",
+"bitmap": "11021084104811fe10447c441044104413ff1044148418843084410401040204"
+},
+{
+"slot": "0xa148",
+"char": "惣",
+"role": "standalone",
+"status": "unused",
+"bitmap": "080008001ffe22224f2204c208723082031c00000280124412222209420901f0"
+},
+{
+"slot": "0xa149",
+"char": "揆",
+"role": "standalone",
+"status": "unused",
+"bitmap": "11c81049114a10847c851102120110fc10201c20702013ff1048108411023601"
+},
+{
+"slot": "0xa14a",
+"char": "梟",
+"role": "standalone",
+"status": "unused",
+"bitmap": "02001ff810081ff810081ff810001ffc10001ffe000200847fff02a00c987087"
+},
+{
+"slot": "0xa14b",
+"char": "瓊",
+"role": "standalone",
+"status": "unused",
+"bitmap": "008000fc7d0813ff1129114510fe7c8210fe108210fe1440187e71c4063800c7"
+},
+{
+"slot": "0xa14c",
+"char": "絆",
+"role": "standalone",
+"status": "unused",
+"bitmap": "101010102054445228911111247c42107e100a1008ff2a102a104a1048100810"
+},
+{
+"slot": "0xa14d",
+"char": "渚",
+"role": "standalone",
+"status": "unused",
+"bitmap": "01001fe0010801107ffe0180021c07e01a0161fe00000ff808080ff808080ff8"
+},
+{
+"slot": "0xa14e",
+"char": "戌",
+"role": "standalone",
+"status": "unused",
+"bitmap": "0044004200401fff1040104010421022102417a4101820102029204940850303"
+}
+],
+"substitutes": [
+{
+"text": "宗我",
+"slot": "0xa143"
+},
+{
+"text": "堯",
+"slot": "0xa140"
+},
+{
+"text": "籠",
+"slot": "0xa145"
+},
+{
+"text": "頸",
+"slot": "0xa146"
+},
+{
+"text": "垪",
+"slot": "0xa147"
+},
+{
+"text": "惣",
+"slot": "0xa148"
+},
+{
+"text": "揆",
+"slot": "0xa149"
+},
+{
+"text": "梟",
+"slot": "0xa14a"
+},
+{
+"text": "瓊",
+"slot": "0xa14b"
+},
+{
+"text": "絆",
+"slot": "0xa14c"
+},
+{
+"text": "渚",
+"slot": "0xa14d"
+},
+{
+"text": "戌",
+"slot": "0xa14e"
+}
+],
+"affected_officers": [
+182,
+557,
+568,
+581,
+583
+]
+}
