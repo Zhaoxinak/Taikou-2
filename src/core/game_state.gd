@@ -15,6 +15,7 @@ const DuelRef = preload("res://src/core/duel.gd")
 const EventTextRef = preload("res://src/core/event_text.gd")
 const ShopRef = preload("res://src/core/shop.gd")
 const DiplomacyRef = preload("res://src/core/diplomacy.gd")
+const WeatherRef = preload("res://src/core/weather.gd")
 
 # 游戏起始年（太阁立志传2 经典开局）
 const START_YEAR : int = 1560
@@ -26,6 +27,7 @@ const TRAIN_COST_PER_DAY   : int = 2    # 修行 金/日（§5.4）
 const TRAIN_STAMINA_PER_DAY: int = 5    # 修行 体力/日（文档未逆，取保守值）
 const MONTH_DAYS           : int = 31   # 每月天数（§5.4 上限 min(31-日, 金/2)）
 const START_MONEY          : int = 1000 # 主角私金起始（officers.json 无此字段，M4 占位常量，待补逆）
+const WEATHER_TICKS_PER_MONTH : int = 7 # 每月天气 tick 数（≈31 日中 counter%4==0 的次数）
 
 # —— 12 主命名称（§5.2 A，名表 0x504b28）——
 const COMMAND_NAMES : Array[String] = [
@@ -72,6 +74,10 @@ var shop : RefCounted = ShopRef.new()
 # —— M7 外交（国関係マトリクス 1176B + 外交/主从位域 + 使者功勋结算）——
 var diplomacy : RefCounted = DiplomacyRef.new()
 
+# —— HD-3 天气（0x43cfc0 简版逐月推进；0=晴 1=曇 2=雨 3=雪 + 湿润旗 wet）——
+# 复刻 word[0x513530] / dword[0x51352c]。雪国地域气候（tick_region）待国表气候字节导出后接线。
+var weather = WeatherRef.new()
+
 
 func _ready() -> void:
 	# event_text 非 autoload，编译期无法解析 GameData 全局名；本构建 Engine.get_singleton 也取不到，
@@ -106,6 +112,8 @@ func start_new_game(protagonist_id: int) -> bool:
 	# S15 事件旗幟塊：复刻原版 0x488030（0x487f9a 开局一次调用）
 	event_flags.reset()
 	event_flags.init_for_protagonist(pid)
+	# 天气重置（原版 word[0x513530] 开局为晴）
+	weather = WeatherRef.new()
 	return true
 
 
