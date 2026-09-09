@@ -55,13 +55,13 @@ Desktop.ini
 *~
 
 # Godot 数据导出产物（由 scripts/export_for_godot.py 重新生成；含原版文本/数值，不入库）
-/data/
+# /data/
 
 # 套件以工程根为 cwd 时再生到根目录的产物副本（权威副本在 scripts/ 下）
-/sndata_s15_segc.json
+# /sndata_s15_segc.json
 
 # HD-2D 素材样本（含 AI 生成，体积大；可重新生成）
-assets/samples/
+# assets/samples/
 
 # 解码器探针产物
-scripts/_hd_probe/
+# scripts/_hd_probe/
