@@ -24,6 +24,10 @@ var castles: Dictionary = {}
 var provinces: Dictionary = {}
 var battles: Dictionary = {}
 var items: Dictionary = {}
+# —— 大地图城坐标（scripts/gen_castle_map.py 生成，聚类近似坐标，非原版固定坐标）——
+var castle_map: Dictionary = {}
+var map_w: float = 0.0
+var map_h: float = 0.0
 # —— 名称 / 常量（按位置或键）——
 var skill_names: Array = []
 var rank_names: Array = []
@@ -50,6 +54,7 @@ func load_all() -> void:
 		battles = _index_by_id(b)
 	var it = _load_json("items.json")
 	items = _index_by_id(it if it is Array else [])
+	load_castle_map()
 	texts = _load_json("text.json")
 	consts = _load_json("consts.json")
 	var g = _load_json("gaiji.json")
@@ -141,3 +146,15 @@ func get_gaiji(code: String) -> Dictionary:
 
 func get_const(key: String, default_value: Variant = null):
 	return consts.get(key, default_value)
+
+## 大地图城坐标（data/castle_map.json）：{id: Vector2}，外加 map_w/map_h。
+## 聚类近似坐标（见 scripts/gen_castle_map.py 标注），非原版固定坐标。
+func load_castle_map() -> void:
+	var cm = _load_json("castle_map.json")
+	if cm is Dictionary:
+		map_w = float(cm.get("map_w", 0))
+		map_h = float(cm.get("map_h", 0))
+		castle_map = {}
+		for c in cm.get("castles", []):
+			if c is Dictionary and c.has("id"):
+				castle_map[int(c["id"])] = Vector2(float(c.get("x", 0)), float(c.get("y", 0)))

@@ -136,7 +136,7 @@ func favor_set(v: int) -> int:
 
 # ---------------------------------------------------------------- 买药（0x445679 ÷50 魔数 0x51eb851f）
 ## 最多可买服数 = 有符号 gold ÷ 50（原版 imul 0x51eb851f; sar edx,4 对负数向负无穷取整）
-func medicine_doses(gold: int) -> int:
+static func medicine_doses(gold: int) -> int:
 	var g : int = int(gold)
 	if g >= 0:
 		return g / MEDICINE_PRICE_UNIT
@@ -145,7 +145,7 @@ func medicine_doses(gold: int) -> int:
 
 
 ## 支付金额 = 服数 × 50（0x4456fd 0x44e350(doses×50)）
-func medicine_cost(doses: int) -> int:
+static func medicine_cost(doses: int) -> int:
 	return doses * MEDICINE_PRICE_UNIT
 
 

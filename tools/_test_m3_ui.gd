@@ -99,7 +99,9 @@ func _run() -> void:
 	(t_btn as Control).mouse_entered.emit()
 	var help1 := str(status._help.get("text"))
 	var expect_skill: String = Consts.SKILL_NAMES[t_idx]
-	check(help1.begins_with("【%s】" % expect_skill) and help1.length() > help0.length(),
+	# ⚠️ 不要比长度：默认提示 help0 含 "MSGX …" 操作说明，可能比技能说明还长，
+	#    原断言 `help1.length() > help0.length()` 会因长度而非内容误判。改为「前缀匹配 + 有变化」。
+	check(help1.begins_with("【%s】" % expect_skill) and help1 != help0,
 		"悬停技能显示原版说明 [%s] (got %s)" % [expect_skill, help1.substr(0, 40)])
 	(t_btn as Control).mouse_exited.emit()
 	check(str(status._help.get("text")) == help0, "移出后帮助栏还原")

@@ -16,6 +16,9 @@ const EventTextRef = preload("res://src/core/event_text.gd")
 const ShopRef = preload("res://src/core/shop.gd")
 const DiplomacyRef = preload("res://src/core/diplomacy.gd")
 const WeatherRef = preload("res://src/core/weather.gd")
+const CalendarRef = preload("res://src/core/calendar.gd")
+const WorldMapRef = preload("res://src/core/world_map.gd")
+const EconomyRef = preload("res://src/core/economy.gd")
 
 # 游戏起始年（太阁立志传2 经典开局）
 const START_YEAR : int = 1560
@@ -25,7 +28,7 @@ const TRAIN_STAMINA_COST  : int = 20   # M3 train_skill 一次性耗体力
 const MONTH_RECOVER        : int = 15   # 每月自然回体力
 const TRAIN_COST_PER_DAY   : int = 2    # 修行 金/日（§5.4）
 const TRAIN_STAMINA_PER_DAY: int = 5    # 修行 体力/日（文档未逆，取保守值）
-const MONTH_DAYS           : int = 31   # 每月天数（§5.4 上限 min(31-日, 金/2)）
+const MONTH_DAYS           : int = 30   # 每月天数（原版全月 30 天，time_rollover_ref 实证；§5.4 上限 min(30-日, 金/2)）
 const START_MONEY          : int = 1000 # 主角私金起始（officers.json 无此字段，M4 占位常量，待补逆）
 const WEATHER_TICKS_PER_MONTH : int = 7 # 每月天气 tick 数（≈31 日中 counter%4==0 的次数）
 
@@ -49,6 +52,10 @@ var month   : int = 1                 # 1..12
 var day     : int = 1                 # 1..MONTH_DAYS
 var started : bool = false
 
+# —— 大地图（方案 B 最小可玩空壳）——
+var player_map_pos: Vector2 = Vector2.ZERO   # 主角大地图逻辑坐标
+var current_castle: int = -1                  # 当前所在城 id（-1=野外）
+
 # —— 运行期覆盖层（pid -> 值；不回写 officers.json / castles.json）——
 var _stamina_override : Dictionary = {}   # pid -> int
 var _skill_override   : Dictionary = {}   # pid -> Array[int](10)
@@ -56,6 +63,8 @@ var _force_override   : Dictionary = {}   # pid -> {lead,martial,domestic,diplom
 var _loyalty_override : Dictionary = {}   # pid -> int
 var _merit_override   : Dictionary = {}   # pid -> int
 var _money_override   : Dictionary = {}   # pid -> int（主角私金）
+var _inventory        : Dictionary = {}   # item_id -> qty（城下町购买，运行期覆盖层；不回写 items.json）
+var _medicines        : int = 0           # 薬 持有数
 var _castle_override  : Dictionary = {}   # castle_id -> {field: value}（12 主命资源变更）
 var _rank_override    : Dictionary = {}   # pid -> int（職位 0..7）
 var _salary_override  : Dictionary = {}   # pid -> int（俸禄）
@@ -104,6 +113,8 @@ func start_new_game(protagonist_id: int) -> bool:
 	_loyalty_override.clear()
 	_merit_override.clear()
 	_money_override.clear()
+	_inventory.clear()
+	_medicines = 0
 	_castle_override.clear()
 	_rank_override.clear()
 	_salary_override.clear()
@@ -195,6 +206,40 @@ func get_status() -> Dictionary:
 		"province": int(o.get("province", ConstsRef.NONE_PROVINCE)),
 	}
 
+
+# =====================================================================
+# 大地图（方案 B 最小可玩空壳）
+# =====================================================================
+#
+# 坐标源：data/castle_map.json（聚类近似，非原版固定坐标）。
+# 纯逻辑（投影 / 最近城 / 移动 clamp）在 src/core/world_map.gd。
+
+## 进入大地图（离开城到野外）
+func enter_world() -> void:
+	current_castle = -1
+
+## 进入指定城（更新所在城 + 移动到该城坐标）
+func enter_castle(cid: int) -> void:
+	current_castle = cid
+	var p := GameData.get_castle_pos(cid)
+	if p != Vector2.ZERO:
+		player_map_pos = p
+
+## 从城下町返回野外（保留坐标，便于再次进城）
+func leave_to_world() -> void:
+	current_castle = -1
+
+## 移动主角（dx,dy ∈ {-1,0,1}），clamp 到地图范围；返回新坐标
+func move_player(dx: int, dy: int) -> Vector2:
+	var ms := GameData.get_map_size()
+	player_map_pos = WorldMapRef.step(player_map_pos, float(dx), float(dy), ms.x, ms.y)
+	return player_map_pos
+
+## 当前坐标最近的城 id（-1 = 无地图）
+func nearest_castle() -> int:
+	if not GameData.has_castle_map():
+		return -1
+	return WorldMapRef.nearest(player_map_pos, GameData.get_castle_positions())
 
 # =====================================================================
 # 修行（§5.4）—— 8 动作 + 功勲 += (旧级+1)×500 封顶 60000
@@ -476,27 +521,144 @@ func rest() -> Dictionary:
 
 
 # =====================================================================
+# 经济 / 背包（城下町设施交互，接 economy.gd / shop.gd）
+# =====================================================================
+func get_inventory() -> Dictionary:
+	var out := {}
+	for k in _inventory.keys():
+		var q := int(_inventory[k])
+		if q > 0:
+			out[int(k)] = q
+	return out
+
+
+func count_item(id: int) -> int:
+	return int(_inventory.get(id, 0))
+
+
+func add_item(id: int, qty: int = 1) -> void:
+	if qty <= 0:
+		return
+	_inventory[id] = int(_inventory.get(id, 0)) + qty
+
+
+func spend_item(id: int, qty: int = 1) -> bool:
+	if count_item(id) < qty:
+		return false
+	_inventory[id] = int(_inventory[id]) - qty
+	return true
+
+
+func get_medicines() -> int:
+	return _medicines
+
+
+## 扣钱（成功 true）。负/零成本直接成功；余额不足失败。
+func spend_money(cost: int) -> bool:
+	if cost <= 0:
+		return true
+	if _effective_money() < cost:
+		return false
+	_money_override[pid] = _effective_money() - cost
+	return true
+
+
+## 加钱（钳制 ≥0）
+func gain_money(n: int) -> void:
+	_money_override[pid] = maxi(0, _effective_money() + n)
+
+
+## 商店买物品：价格 = economy.item_buy_price（真实价值 ×1.5）。成功入库 + 扣钱。
+func shop_buy(item_id: int) -> Dictionary:
+	var res := {"ok": false, "reason": "", "cost": 0, "name": ""}
+	if not is_started():
+		res["reason"] = "not_started"; return res
+	var item: Dictionary = GameData.get_item(item_id)
+	if item.is_empty():
+		res["reason"] = "no_item"; return res
+	var price: int = EconomyRef.item_buy_price(item)
+	if _effective_money() < price:
+		res["reason"] = "no_money"; return res
+	spend_money(price)
+	add_item(item_id, 1)
+	res["ok"] = true
+	res["cost"] = price
+	res["name"] = str(item.get("name", ""))
+	return res
+
+
+## 商店卖物品：价格 = economy.item_sell_value（真实价值 /2）。成功出库 + 加钱。
+func shop_sell(item_id: int, qty: int = 1) -> Dictionary:
+	var res := {"ok": false, "reason": "", "gain": 0, "name": ""}
+	if not is_started():
+		res["reason"] = "not_started"; return res
+	if qty <= 0:
+		res["reason"] = "bad_qty"; return res
+	if count_item(item_id) < qty:
+		res["reason"] = "no_item"; return res
+	var item: Dictionary = GameData.get_item(item_id)
+	if item.is_empty():
+		res["reason"] = "no_item"; return res
+	var unit: int = EconomyRef.item_sell_value(item)
+	var gain: int = unit * qty
+	spend_item(item_id, qty)
+	gain_money(gain)
+	res["ok"] = true
+	res["gain"] = gain
+	res["name"] = str(item.get("name", ""))
+	return res
+
+
+## 医館买薬：服数 = shop.medicine_doses(money)，金额 = medicine_cost。成功入库 + 扣钱。
+func buy_medicine(doses: int) -> Dictionary:
+	var res := {"ok": false, "reason": "", "cost": 0, "doses": 0}
+	if not is_started():
+		res["reason"] = "not_started"; return res
+	if doses <= 0:
+		res["reason"] = "bad_doses"; return res
+	var cost: int = ShopRef.medicine_cost(doses)
+	if _effective_money() < cost:
+		res["reason"] = "no_money"; return res
+	spend_money(cost)
+	_medicines += doses
+	res["ok"] = true
+	res["cost"] = cost
+	res["doses"] = doses
+	return res
+
+
+## 用薬：恢复体力（满）并推进 1 月（简化休养）。
+func use_medicine() -> Dictionary:
+	var res := {"ok": false, "reason": ""}
+	if _medicines <= 0:
+		res["reason"] = "no_medicine"; return res
+	_medicines -= 1
+	_stamina_override[pid] = _stamina_max()
+	advance_month()
+	res["ok"] = true
+	return res
+
+
+# =====================================================================
 # 时间推进
 # =====================================================================
-## 推进 n 天（自动跨月/跨年）
+## 推进 n 天（自动跨月/跨年）；复刻 time_rollover 进位链（每月 30 天、12 月/年、无闰年）
 func advance_days(n: int) -> void:
-	day += n
-	while day > MONTH_DAYS:
-		day -= MONTH_DAYS
-		month += 1
-		if month > 12:
-			month = 1
-			year += 1
+	var yoff: int = year - START_YEAR
+	var r: Array = CalendarRef.roll_days(n, day, month, yoff)
+	day = int(r[0])
+	month = int(r[1])
+	year = START_YEAR + int(r[2])
 
 
-## 推进 1 月：自然回体力 + 月份滚动（12 月 → 次年 1 月）
+## 推进 1 月：自然回体力 + 月份滚动（12 月 → 次年 1 月）；复刻 time_rollover 进位链
 func advance_month() -> void:
 	_recover_stamina(MONTH_RECOVER)
-	month += 1
-	day = 1
-	if month > 12:
-		month = 1
-		year += 1
+	var yoff: int = year - START_YEAR
+	var r: Array = CalendarRef.roll_months(1, day, month, yoff)
+	day = 1                  # 主命耗时 1 月 → 日归 1
+	month = int(r[1])
+	year = START_YEAR + int(r[2])
 
 
 # =====================================================================

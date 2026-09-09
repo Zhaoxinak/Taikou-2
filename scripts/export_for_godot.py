@@ -299,11 +299,22 @@ def build_castles():
         return [], []
     castles = src.get("castle", [])
     names = src.get("castle_names", {})
+    # EXE 名表（castle_names_exe.json，name_table[88+id]）只覆盖前 92 座城，
+    # id 92..199 这 108 座在 sndata_sections.castle_names 里是 null —— 但它们有完整
+    # 且各不相同的真实数据（国/農商/兵力/米/金/城主），是真城不是空槽。
+    # 故对缺失项回退社区全量表 scripts/castle_names.json（200 条，来源 jcku / 星虎论坛）。
+    comm = load_json("castle_names.json") or {}
+    comm_names = {}
+    for e in (comm.get("castles") or []):
+        comm_names[str(int(e.get("id", -1)))] = e.get("name", "")
     out = []
     for i, c in enumerate(castles):
         rec = dict(c)
         rec["id"] = i
-        rec["name"] = names.get(str(i), "")
+        nm = names.get(str(i), "")
+        if not nm:
+            nm = comm_names.get(str(i), "")
+        rec["name"] = nm
         out.append(rec)
     return out, src.get("castle_fields", [])
 

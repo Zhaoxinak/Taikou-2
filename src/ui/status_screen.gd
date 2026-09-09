@@ -3,6 +3,9 @@ extends Control
 ## 主命：修行（10 技能各一钮，封顶 3）/ 休养（回满体力）；每次主命推进 1 月。
 ##
 ## 布局全在 UiTheme 设计空间（1920×1080），废除旧实现的硬编码 font_size(30/20) 与像素偏移。
+## 2026-09-09 修正：改为 VBoxContainer 主布局，避免旧版手动 position + Container 混用导致的
+## 技能按钮错位、底部按钮不可见/无法点击问题；同时保留键盘兜底（Esc/Enter/Space）。
+##
 ## ⚠️ 对外契约保持不变：`_info` / `_stat`（均有 `.text`）、`_skill_buttons`（有 `.text`）、
 ##    `_on_train(idx)` / `_on_rest()` / `_on_back()` —— UI 流程测试依赖这些名字。
 
@@ -17,12 +20,13 @@ var _info
 var _stat
 var _skill_buttons: Array = []
 
-const _PANEL := Vector2(1240, 780)
-const _W := 1120.0
+const _PANEL := Vector2(1240, 820)
+const _CONTENT_W := 1120.0
+const _CONTENT_TOP := 64.0   # 标题栏高度 + 留白
 
 # 帮助栏（MSGX 原版说明文接 UI）
 var _help
-const _HELP_HINT := "将鼠标移到技能上，可查看原版说明（MSGX）"
+const _HELP_HINT := "将鼠标移到技能上，可查看原版说明（MSGX）；Enter/Space=休养，Esc=回标题"
 # 技能槽顺序（Consts.SKILL_NAMES）→ MSGX 文本 id（§MESSAGE1 帮助文 7..16）
 #   口才7 马术8 算术9 剑术12 忍术15 兵法13 洋枪14 筑城16 礼法10 茶道11
 const _SKILL_MSGX: Array[int] = [7, 8, 9, 12, 15, 13, 14, 16, 10, 11]
@@ -44,37 +48,42 @@ func _build() -> void:
 	panel.title = "状 态"
 	add_child(panel)
 
+	# —— 主内容区：VBoxContainer，避免旧版手动 position 与 Container 布局冲突 ——
+	var vbox := VBoxContainer.new()
+	vbox.set_anchors_preset(Control.PRESET_CENTER)
+	vbox.size = Vector2(_CONTENT_W, _PANEL.y - _CONTENT_TOP - 20)
+	vbox.position = Vector2(-_CONTENT_W * 0.5, -_PANEL.y * 0.5 + _CONTENT_TOP)
+	vbox.add_theme_constant_override("separation", 14)
+	add_child(vbox)
+
 	# —— 顶行：姓名 / 職位 / 年月 ——
 	_info = UiLabel.new()
-	_info.set_anchors_preset(Control.PRESET_CENTER)
-	_info.size = Vector2(_W, 52)
-	_info.position = Vector2(-_W * 0.5, -_PANEL.y * 0.5 + 70)
+	_info.custom_minimum_size = Vector2(0, 52)
 	_info.font_size = UiTheme.FONT_HEAD
 	_info.h_align = HORIZONTAL_ALIGNMENT_CENTER
-	add_child(_info)
+	vbox.add_child(_info)
 
 	# —— 五维 / 忠诚 / 体力 / 功勲（多行自绘）——
 	_stat = UiLabel.new()
-	_stat.set_anchors_preset(Control.PRESET_CENTER)
-	_stat.size = Vector2(_W, 300)
-	_stat.position = Vector2(-_W * 0.5, -_PANEL.y * 0.5 + 150)
+	_stat.custom_minimum_size = Vector2(0, 260)
+	_stat.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_stat.font_size = UiTheme.FONT_BODY
-	add_child(_stat)
+	vbox.add_child(_stat)
 
 	# —— 10 技能按钮（5×2 网格）——
 	var grid := GridContainer.new()
 	grid.columns = 5
-	grid.set_anchors_preset(Control.PRESET_CENTER)
-	grid.size = Vector2(_W, 150)
-	grid.position = Vector2(-_W * 0.5, -_PANEL.y * 0.5 + 470)
+	grid.custom_minimum_size = Vector2(0, 136)
+	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	grid.add_theme_constant_override("h_separation", 10)
 	grid.add_theme_constant_override("v_separation", 10)
-	add_child(grid)
+	vbox.add_child(grid)
 
 	for k in ConstsRef.SKILL_NAMES.size():
 		var b := UiButton.new()
 		b.font_size = UiTheme.FONT_SMALL
 		b.custom_minimum_size = Vector2(0, 58)
+		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.pressed.connect(_on_train.bind(k))
 		b.mouse_entered.connect(_show_skill_help.bind(k))
 		b.mouse_exited.connect(_reset_help)
@@ -83,16 +92,16 @@ func _build() -> void:
 
 	# —— 休养 / 回标题 ——
 	var row2 := HBoxContainer.new()
-	row2.set_anchors_preset(Control.PRESET_CENTER)
-	row2.size = Vector2(_W, 70)
-	row2.position = Vector2(-_W * 0.5, -_PANEL.y * 0.5 + 645)
+	row2.custom_minimum_size = Vector2(0, 64)
+	row2.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row2.add_theme_constant_override("separation", 16)
-	add_child(row2)
+	vbox.add_child(row2)
 
 	var rest_btn := UiButton.new()
 	rest_btn.text = "休养（体力回满）"
 	rest_btn.font_size = UiTheme.FONT_SMALL
 	rest_btn.custom_minimum_size = Vector2(0, 58)
+	rest_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	rest_btn.pressed.connect(_on_rest)
 	row2.add_child(rest_btn)
 
@@ -100,17 +109,44 @@ func _build() -> void:
 	back_btn.text = "回标题"
 	back_btn.font_size = UiTheme.FONT_SMALL
 	back_btn.custom_minimum_size = Vector2(0, 58)
+	back_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	back_btn.pressed.connect(_on_back)
 	row2.add_child(back_btn)
 
+	var world_btn := UiButton.new()
+	world_btn.text = "外出（大地图）"
+	world_btn.font_size = UiTheme.FONT_SMALL
+	world_btn.custom_minimum_size = Vector2(0, 58)
+	world_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	world_btn.pressed.connect(_on_go_world)
+	row2.add_child(world_btn)
+
 	# —— 底部帮助栏（MSGX 说明文渲染）——
 	_help = UiLabel.new()
-	_help.set_anchors_preset(Control.PRESET_CENTER)
-	_help.size = Vector2(_W, 52)
-	_help.position = Vector2(-_W * 0.5, -_PANEL.y * 0.5 + 712)
+	_help.custom_minimum_size = Vector2(0, 44)
+	_help.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_help.font_size = UiTheme.FONT_SMALL
-	add_child(_help)
+	vbox.add_child(_help)
 	_reset_help()
+
+
+## 键盘兜底：即使鼠标/按钮焦点异常也能操作。
+## 若当前焦点在某按钮上，Enter/Space 留给该按钮（未来 UiButton 接键盘时避免重复触发）。
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		match event.keycode:
+			KEY_ESCAPE:
+				accept_event()
+				_on_back()
+			KEY_ENTER, KEY_KP_ENTER, KEY_SPACE:
+				var focus_owner := get_viewport().gui_get_focus_owner()
+				if focus_owner != null and is_ancestor_of(focus_owner):
+					return
+				accept_event()
+				_on_rest()
+			KEY_G:
+				accept_event()
+				_on_go_world()
 
 
 ## 悬停技能 → 显示该技能的原版 MSGX 说明文
@@ -143,6 +179,12 @@ func _on_rest() -> void:
 
 func _on_back() -> void:
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
+
+
+## 外出 → 大地图（方案 B 主循环打通点）
+func _on_go_world() -> void:
+	GameState.enter_world()
+	get_tree().change_scene_to_file("res://scenes/screens/world_screen.tscn")
 
 
 func _refresh() -> void:

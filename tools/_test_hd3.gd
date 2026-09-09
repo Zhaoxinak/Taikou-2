@@ -113,3 +113,8 @@ func _run() -> void:
 	else:
 		print("FAILURES: %d / %d" % [_fail, _pass])
 		quit(1)
+
+
+func _initialize() -> void:
+	# --script 模式下 autoload 尚未进树，挂首个 process_frame 再跑断言
+	process_frame.connect(_run, CONNECT_ONE_SHOT)

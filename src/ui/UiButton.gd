@@ -3,6 +3,9 @@ extends Control
 ## ⚠️ 不用 class_name（无头模式不建类缓存），引用方 preload 本脚本。
 
 const UiTheme = preload("res://src/ui/UiTheme.gd")
+
+## GAIJI autoload 节点缓存（按树查找，见 _gaiji_node）
+var _gaiji_cache: Node = null
 ## 布局尺寸来自 UiTheme（设计空间 1920×1080），由 canvas_items 自动跨分辨率缩放。
 ##
 ## 视觉状态机抽成 static 纯函数（state_bg / state_edge），便于无头断言。
@@ -118,6 +121,22 @@ func _draw() -> void:
 		return
 	var fs := font_size
 	# 水平居中：以 r.size.x 为宽度 + CENTER 对齐；经 GAIJI 高级渲染层（描边/投影/富文本）
-	Gaiji.draw_string_fx(self, Vector2(0.0, UiTheme.baseline_y(text, size.y, fs)), text,
-		f, fs, state_text(enabled), HORIZONTAL_ALIGNMENT_CENTER, size.x,
-		outline_size, outline_color, shadow_offset, shadow_color, letter_spacing, gaiji_smooth)
+	# ⚠️ 不用 autoload 全局名 `Gaiji`（--script 下无法编译解析），按树查找 + 兜底原生绘制
+	var fx: Node = _gaiji_node()
+	if fx != null:
+		fx.draw_string_fx(self, Vector2(0.0, UiTheme.baseline_y(text, size.y, fs)), text,
+			f, fs, state_text(enabled), HORIZONTAL_ALIGNMENT_CENTER, size.x,
+			outline_size, outline_color, shadow_offset, shadow_color, letter_spacing, gaiji_smooth)
+	else:
+		draw_string(f, Vector2(0.0, UiTheme.baseline_y(text, size.y, fs)), text,
+			HORIZONTAL_ALIGNMENT_CENTER, size.x, fs, state_text(enabled))
+
+
+## 取 GAIJI autoload 节点（按树查找，缓存）；不可用返回 null
+func _gaiji_node() -> Node:
+	if _gaiji_cache != null and is_instance_valid(_gaiji_cache):
+		return _gaiji_cache
+	if not is_inside_tree():
+		return null
+	_gaiji_cache = get_tree().root.get_node_or_null("/root/Gaiji")
+	return _gaiji_cache

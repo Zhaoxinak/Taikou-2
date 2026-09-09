@@ -50,10 +50,12 @@ static func build_environment(quality: int = Quality.HIGH,
 	env.glow_hdr_threshold = 0.85
 	env.glow_hdr_scale     = 1.2
 	env.glow_blend_mode    = Environment.GLOW_BLEND_MODE_SOFTLIGHT
-	env.glow_mipmap_bias   = 0.0
+	# ⚠️ glow_mipmap_bias 在 Godot 4.7 已从 Environment 移除（赋值会抛
+	#    "Invalid assignment ... value of type float"，导致 build_environment 返回 null）。
+	#    默认值本就是 0.0，直接不设即可。
 
 	# ── 色调映射（ACES 电影级）────────────────────────────
-	env.tonemapper       = Environment.TONE_MAPPER_ACES
+	env.tonemap_mode     = Environment.TONE_MAPPER_ACES   # ⚠️ 4.x 属性名为 tonemap_mode（非 tonemapper）
 	env.tonemap_exposure = 1.05
 	env.tonemap_white    = 1.6
 

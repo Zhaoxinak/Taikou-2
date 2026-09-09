@@ -7,9 +7,9 @@ extends RefCounted
 
 var id                : int = 0
 var unit_table        : Array = []   # [side0, side1]，每侧 {raw:[20], nibbles:[40]}
-var unit_nibble_hist  : Array = []
+var unit_nibble_hist  : Dictionary = {}   # 出现次数直方图（JSON 为 dict，非 Array）
 var terrain           : Array = []   # 地形网格（HJMAPDAT 19×40）
-var terrain_type_hist : Array = []
+var terrain_type_hist : Dictionary = {}   # 地形种类直方图（JSON 为 dict，非 Array）
 var deploy            : Array = []   # 部署信息
 
 # 从 JSON Dictionary 填充

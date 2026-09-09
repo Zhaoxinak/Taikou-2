@@ -48,7 +48,12 @@ func is_empty() -> bool:
 # 用法：var c := Castle.new(); c.load_from_dict(dict)
 func load_from_dict(d: Dictionary) -> void:
 	id            = int(d.get("id", 0))
-	name          = d.get("name", "")
+	# ⚠️ data/castles.json 中 id 92..199 共 108 座城 name 为 null（导出器未取到名）；
+	#    直接赋给 String 会报 Nil→String 并中断建模（实测只剩 92 座可用）。
+	#    ⚠️ GDScript 的 or 返回 bool（非 Python 语义）：`"三户" or ""` = true → str 后成 "true"。
+	#    故用显式 Variant 判空；名字已由导出器回退补齐 200/200（见进度表诚实未接更新）。
+	var _nm: Variant = d.get("name")
+	name          = str(_nm) if _nm != null else ""
 	officer_entity = int(d.get("officer_entity", 0))
 	castle_ref    = int(d.get("castle_ref", 0))
 	province_id   = int(d.get("province", ConstsRef.NONE_PROVINCE))

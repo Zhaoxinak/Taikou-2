@@ -6,6 +6,9 @@ extends Control
 
 const UiTheme = preload("res://src/ui/UiTheme.gd")
 
+## GAIJI autoload 节点缓存（按树查找，见 _gaiji_node）
+var _gaiji_cache: Node = null
+
 var text: String = "":
 	set(v):
 		text = v
@@ -58,9 +61,25 @@ func _draw() -> void:
 	var lines := text.split("\n")
 	var lh: float = font_size * line_spacing
 	var y: float = 0.0
+	# ⚠️ 不要直接用 autoload 全局名 `Gaiji`：`--headless --script` 下该标识符无法编译解析
+	#    （但 /root/Gaiji 节点本身存在）。故运行时按树查找，取不到则退回原生绘制。
+	var fx: Node = _gaiji_node()
 	for ln in lines:
 		var base_y := y + UiTheme.baseline_y(ln, lh, font_size)
-		# 经 GAIJI 高级渲染层：无外字/无效果时纯原生绘制（零回归），否则启用描边/投影/富文本
-		Gaiji.draw_string_fx(self, Vector2(0.0, base_y), ln, f, font_size, color, h_align, size.x,
-			outline_size, outline_color, shadow_offset, shadow_color, letter_spacing, gaiji_smooth)
+		if fx != null:
+			# 经 GAIJI 高级渲染层：无外字/无效果时纯原生绘制（零回归），否则启用描边/投影/富文本
+			fx.draw_string_fx(self, Vector2(0.0, base_y), ln, f, font_size, color, h_align, size.x,
+				outline_size, outline_color, shadow_offset, shadow_color, letter_spacing, gaiji_smooth)
+		else:
+			draw_string(f, Vector2(0.0, base_y), ln, h_align, size.x, font_size, color)
 		y += lh
+
+
+## 取 GAIJI autoload 节点（按树查找，缓存）；不可用返回 null
+func _gaiji_node() -> Node:
+	if _gaiji_cache != null and is_instance_valid(_gaiji_cache):
+		return _gaiji_cache
+	if not is_inside_tree():
+		return null
+	_gaiji_cache = get_tree().root.get_node_or_null("/root/Gaiji")
+	return _gaiji_cache

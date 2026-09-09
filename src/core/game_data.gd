@@ -44,6 +44,9 @@ func get_battle(id: int) -> Dictionary:
 func get_item(id: int) -> Dictionary:
 	return _loader.get_item(id) if _loader != null else {}
 
+func get_item_ids() -> Array:
+	return _loader.items.keys() if _loader != null else []
+
 # —— 类型化模型 getter（返回强类型实例，方便玩法/UI 直接调用便捷方法）——
 func get_castle_obj(id: int) -> Castle:
 	var c := CastleRef.new()
@@ -64,6 +67,19 @@ func get_skill_obj(id: int) -> Skill:
 	var s := SkillRef.new()
 	s.load_from(id, get_skill_name(id), ConstsRef.SKILL_CAP)
 	return s
+
+# —— 大地图城坐标查询（data/castle_map.json，聚类近似坐标）——
+func get_castle_pos(id: int) -> Vector2:
+	return _loader.castle_map.get(id, Vector2.ZERO) if _loader != null else Vector2.ZERO
+
+func get_castle_positions() -> Dictionary:
+	return _loader.castle_map if _loader != null else {}
+
+func get_map_size() -> Vector2:
+	return Vector2(_loader.map_w, _loader.map_h) if _loader != null else Vector2.ZERO
+
+func has_castle_map() -> bool:
+	return _loader != null and _loader.castle_map.size() > 0
 
 func get_item_obj(id: int) -> Item:
 	var it := ItemRef.new()

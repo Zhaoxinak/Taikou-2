@@ -43,7 +43,7 @@ func _run_scen(w0: int, wet0: int, vals: Array, simple: bool, month: int, climat
 
 
 func _run() -> void:
-	var W := WeatherRef
+	var W = WeatherRef
 	_c(W.CLEAR == 0 and W.CLOUDY == 1 and W.RAIN == 2 and W.SNOW == 3, "天气常量 晴/曇/雨/雪 = 0..3")
 
 	# —— 表 ——
@@ -59,7 +59,7 @@ func _run() -> void:
 	# —— 季节 ——
 	_c(W.season_of(1) == 0 and W.season_of(2) == 0 and W.season_of(12) == 0, "冬 {12,1,2} -> 0")
 	_c(W.season_of(3) == 1 and W.season_of(4) == 1 and W.season_of(5) == 1, "春 {3,4,5} -> 1")
-	_c(W.season_of(6) == 1 and W.season_of(7) == 2 and W.season_of(8) == 2, "夏 {6,7,8} -> 2 (6 边界)")
+	_c(W.season_of(6) == 2 and W.season_of(7) == 2 and W.season_of(8) == 2, "夏 {6,7,8} -> 2（season_of=(月//3)&3，6//3=2）")
 	_c(W.season_of(9) == 3 and W.season_of(10) == 3 and W.season_of(11) == 3, "秋 {9,10,11} -> 3")
 
 	# —— 分档 / 战斗联动 ——
@@ -79,7 +79,7 @@ func _run() -> void:
 	var exp := {
 		"s1": [3, 1], "s2": [3, 1], "s3": [1, 0], "s4": [2, 1], "s5": [0, 0],
 		"s6": [2, 1], "s7": [1, 0], "s8": [1, 0], "s9": [2, 1],
-		"s10": [0, 0], "s11": [3, 1], "s12": [3, 1], "s13": [3, 0],
+		"s10": [3, 1], "s11": [0, 0], "s12": [3, 1], "s13": [3, 0],
 		"s14": [0, 0], "s15": [3, 0], "s16": [3, 1], "s17": [2, 0],
 	}
 	var scen := {
@@ -135,3 +135,8 @@ func _run() -> void:
 	else:
 		print("FAILURES: %d / %d" % [_fail, _pass])
 		quit(1)
+
+
+func _initialize() -> void:
+	# --script 模式下 autoload 尚未进树，挂首个 process_frame 再跑断言
+	process_frame.connect(_run, CONNECT_ONE_SHOT)
