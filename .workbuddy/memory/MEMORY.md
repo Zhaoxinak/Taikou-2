@@ -41,6 +41,7 @@
 - 🔴 --check-only 有盲区（仅解析被场景/autoload 引用脚本）→ 用 tools/_test_all_compile.gd（递归 preload res://src 全部 .gd）补盲区。
 - GDScript 整数坑：1<<64 移位量按 6 位取模退化；无 for...else；函数内不能嵌套 func；lambda 捕获按值；while true 需补不可达 return；Array 不可 *int；Dictionary.get() 返回 Variant 须 str() 包裹；RefCounted 的 Callable 须缓存实例防释放。
 - 魔数除法：0x51eb851f+sar3=/25；0x66666667+sar3=/20(mission_level)。
+- **子 CanvasItem 默认绘制在父 _draw() 之上**。若父 Control 的 _draw() 是主要可见内容（如 world_screen 画地图点/主角 marker），而 _ready() 里 add_child(全屏 ColorRect) 当背景 → bg 会**盖住**整个 _draw 输出，玩家看到全黑屏。修：bg.show_behind_parent = true（让 bg 绘在父 _draw 之下）。判定：UI 屏的可见内容是 child Controls（panel/label/button）且在 bg 之后 add_child 则天然安全（castle_town/status_screen）；唯一当父 _draw() 是主内容的屏才需注意。证据：world_screen bug d058ec0。
 - 非 autoload 取 GameData：Engine.get_singleton 返回 null→依赖注入(autoload 侧 _ready 注入 或 测试 root.get_node("/root/GameData"))。
 - 载 TTF：FontFile.load_dynamic_font(ProjectSettings.globalize_path(res://...))；不可用 ResourceLoader.load。
 - const X: PackedByteArray=[...] 无法被外部 preload 引用 .X→用 const X: Array=[...]。
