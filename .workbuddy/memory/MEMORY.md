@@ -30,6 +30,9 @@
 - ⚠️ **`TaskStop` 杀不掉 Godot 真进程**→必须 `pkill -f "Godot.app/Contents/MacOS/Godot"` 并用 `pgrep` 复核；残留进程会占锁拖慢/卡死后续运行。
 - ⚠️ **新增带 `class_name` 的文件不会自动进全局类缓存**→其他脚本直接写 `X.Y` 会 Parse Error "Identifier not declared"。**跨文件引用新文件一律 `const X = preload("res://...")`，别依赖 class_name 全局缓存**。
 - ℹ️ **`--script` 卡死前仍会打印 Parse Error** → 即使跑不完 `_run`，也可用它验证「新脚本是否编译通过」（看有无 Parse Error / Compile Error 即可）。
+- 🔧 **反汇编**：本机无 capstone 时装的隔离 venv `/Users/ts/.workbuddy/binaries/python/envs/default/bin/pip install capstone`（5.0.7）。用法 `Cs(CS_ARCH_X86,CS_MODE_32).disasm(data[va-0x400000:], va)`，`_unpacked_mem.bin`（2MB，**gitignored 无生成器**，换机器需手工拷）。
+- ⚠️ **魔数除法别混**：`0x51eb851f`+sar3 = **/25**（sar4 = /50）；`0x66666667`+sar3 = **/20**（mission_level 也用它，除数 20 非 10）。
+- ✅ **`--script` 跑不动时的替代验证链路**：① Godot 跑一遍查 Parse Error（验证编译）；② 用 **Python 等价实现复跑同一套断言**（验证逻辑与预期值）。两者结合可行。
 - ⚠️ **非 autoload 脚本取 GameData**：本构建 `Engine.get_singleton("GameData")` 返回 **null**（autoload 仅挂树 `/root/GameData`，未注册 Engine 单例）；编译期也**无法解析 `GameData` 全局名**（仅 autoload 脚本因编译序可）。正确做法：依赖注入——autoload 侧 `event_text._data = GameData`（在 `_ready` 注入，GameData 注册序在前），或在测试里 `et._data = root.get_node("/root/GameData")`。事件文本 `render_event` 调 `_resolve_text` 走 `_data.get_text(mid)`。
 - lambda 捕获局部变量**按值**→计数/累加须用 Array/Dict，否则永远读到 0。
 - 载 TTF 用 `FontFile.load_dynamic_font(ProjectSettings.globalize_path(res://...))`；**不可用 `ResourceLoader.load`**（依赖 .import 缓存，会静默回退无 CJK 字体→中文变方框）。
