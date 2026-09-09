@@ -26,6 +26,14 @@ var font_size: int = UiTheme.FONT_BODY:
 		font_size = v
 		queue_redraw()
 
+# —— 高级文字效果（按钮默认开启细描边，在和风深底上更清晰）——
+var outline_size: int = 2
+var outline_color: Color = Color(0.0, 0.0, 0.0, 1.0)
+var shadow_offset: Vector2 = Vector2(2, 2)
+var shadow_color: Color = Color(0.0, 0.0, 0.0, 0.35)
+var letter_spacing: float = 0.0
+var gaiji_smooth: bool = false
+
 var _hover: bool = false
 var _down: bool = false
 
@@ -109,6 +117,7 @@ func _draw() -> void:
 	if f == null or text.is_empty():
 		return
 	var fs := font_size
-	# 水平居中：以 r.size.x 为宽度 + CENTER 对齐；无外字单元时纯原生绘制（零回归）
-	Gaiji.draw_string_subst(self, Vector2(0.0, UiTheme.baseline_y(text, size.y, fs)), text,
-		f, fs, state_text(enabled), HORIZONTAL_ALIGNMENT_CENTER, size.x)
+	# 水平居中：以 r.size.x 为宽度 + CENTER 对齐；经 GAIJI 高级渲染层（描边/投影/富文本）
+	Gaiji.draw_string_fx(self, Vector2(0.0, UiTheme.baseline_y(text, size.y, fs)), text,
+		f, fs, state_text(enabled), HORIZONTAL_ALIGNMENT_CENTER, size.x,
+		outline_size, outline_color, shadow_offset, shadow_color, letter_spacing, gaiji_smooth)

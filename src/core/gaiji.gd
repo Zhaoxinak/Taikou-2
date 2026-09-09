@@ -7,10 +7,12 @@ extends Node
 ## 本层职责：
 ##  1. decode_bytes()  —— 把含 GAIJI 转义码的原始字节解码为正确 Unicode（运行期保险；
 ##                         data/*.json 已在导出期解码，此函数用于 MSGX 文本等原始数据）。
-##  2. draw_string_subst() —— UiLabel / UiButton 的集中文本绘制助手：
-##        · 字符串**无**外字单元时，完全走原生 draw_string（行为与改造前 100% 一致 → 零回归）；
-##        · 仅当含「宗我 / 垪」等外字单元时，才把该单元用 GAIJI.TR2 位图绘制，其余交系统字体。
-##  3. glyph_image() / build_atlas() —— 提供 16×16 1bpp 字形资产。
+##  2. draw_string_fx() —— UiLabel / UiButton 的集中文本绘制助手（高级版）：
+##        · 零回归快路径：无外字 / 无富文本标记 / 无 FX / 无字间距时，完全等价原生 draw_string；
+##        · GAIJI 替换单元（宗我/垪…）按位图绘制，其余走系统字体；
+##        · 增强能力：描边(8 向) / 投影 / 字间距 / 外字位图线性插值 / 内联多色标记 [c:#rrggbb]…[/c]。
+##  3. draw_string_subst() —— 基础版（向后兼容），等价于 draw_string_fx 全默认。
+##  4. glyph_image() / build_atlas() —— 提供 16×16 1bpp 字形资产。
 ##
 ## 设计铁律：長/香/部 为标准汉字，系统字体即可渲染，**不入替换集**；仅「宗我」组合切片与
 ## 罕见独立字（垪/堯/籠/頸/惣/揆/梟/瓊/絆/渚/戌）改用位图，保证忠实且不破坏普通文本。
@@ -21,7 +23,7 @@ var _single: Dictionary = {}       # int(code) -> String(char)
 var _glyphs: Dictionary = {}       # int(code) -> String(bitmap hex, 64 chars)
 var _subst: Array = []             # [{text:String, slot:int}]
 var _subst_first: Dictionary = {}  # first char -> Array[{text,slot}] (按长度降序，最长匹配优先)
-var _tex_cache: Dictionary = {}    # int(slot) -> Texture2D（白墨，绘制时 modulate 上色）
+var _tex_cache: Dictionary = {}    # int(slot*2 + smooth) -> Texture2D（白墨，绘制时 modulate 上色）
 var _loaded := false
 
 
@@ -43,13 +45,13 @@ func _ensure_loaded() -> void:
 		push_error("Gaiji: 数据解析失败")
 		return
 	for k in data.get("single", {}):
-		_single[int(k, 16)] = data["single"][k]
+		_single[k.trim_prefix("0x").hex_to_int()] = data["single"][k]
 	for g in data.get("glyphs", []):
-		_glyphs[int(g["slot"], 16)] = g.get("bitmap", "")
+		_glyphs[g["slot"].trim_prefix("0x").hex_to_int()] = g.get("bitmap", "")
 	for s in data.get("substitutes", []):
-		var entry := {"text": s["text"], "slot": int(s["slot"], 16)}
+		var entry := {"text": s["text"], "slot": s["slot"].trim_prefix("0x").hex_to_int()}
 		_subst.append(entry)
-		var fc := s["text"][0]
+		var fc: String = s["text"][0]
 		if not _subst_first.has(fc):
 			_subst_first[fc] = []
 		_subst_first[fc].append(entry)
@@ -69,7 +71,7 @@ func decode_bytes(b: PackedByteArray) -> String:
 		var c := b[i]
 		if c == 0xA1 and i + 1 < b.size() and b[i + 1] >= 0x40 and b[i + 1] <= 0x4F:
 			var code := (c << 8) | b[i + 1]
-			var ch := _single.get(code, "")
+			var ch: String = _single.get(code, "")
 			if ch != "":
 				out += ch
 			else:
@@ -89,7 +91,7 @@ func _gbk_fallback(b: PackedByteArray) -> String:
 	return s
 
 
-# ───────────────────────── 渲染助手 ─────────────────────────
+# ───────────────────────── 渲染助手（基础） ─────────────────────────
 
 ## 字符串是否含任何外字替换单元。
 func has_gaiji(text: String) -> bool:
@@ -123,54 +125,186 @@ func unit_slot(unit: String) -> int:
 	return -1
 
 
-## 集中文本绘制：无外字单元时走原生 draw_string（零回归）；有外字单元时按位图替换。
-## 参数语义对齐 CanvasItem.draw_string：baseline_pos = 基线坐标，width/align 仅用于对齐布局。
+# ───────────────────────── 富文本标记 ─────────────────────────
+
+## 文本是否含富文本颜色标记（[c:...]…[/c]），需要走分段解析路径。
+func has_rich(t: String) -> bool:
+	return t.contains("[/c]") or t.contains("[c:")
+
+
+## 解析富文本标记，返回 [{text:String, color:Color}] 段列表。
+## 支持 [c:#rrggbb] / [c:0xrrggbb] / [c:rrggbb] 开启上色，[/c] 复位到默认色。
+## 普通文本（无标记）返回单段 = 默认色。解析失败/空文本安全降级。
+func _parse_rich(text: String, default_color: Color) -> Array:
+	var out: Array = []
+	var cur_color: Color = default_color
+	var cur := ""
+	var i := 0
+	var n := text.length()
+	while i < n:
+		if text[i] == '[':
+			var end := text.find(']', i)
+			if end != -1:
+				var tag := text.substr(i + 1, end - i - 1)
+				if tag == "/c":
+					if cur != "":
+						out.append({"text": cur, "color": cur_color}); cur = ""
+					cur_color = default_color
+					i = end + 1
+					continue
+				elif tag.begins_with("c:") or tag.begins_with("c="):
+					if cur != "":
+						out.append({"text": cur, "color": cur_color}); cur = ""
+					cur_color = _parse_color(tag.substr(2))
+					i = end + 1
+					continue
+		cur += text[i]
+		i += 1
+	if cur != "":
+		out.append({"text": cur, "color": cur_color})
+	if out.is_empty():
+		out.append({"text": "", "color": default_color})
+	return out
+
+
+## 把 6/8 位十六进制（可选 #/0x 前缀）解析为 Color（8 位含 alpha）。
+func _parse_color(s: String) -> Color:
+	var t := s.strip_edges().to_lower()
+	if t.begins_with("#"):
+		t = t.substr(1)
+	elif t.begins_with("0x"):
+		t = t.substr(2)
+	if t.length() == 8:
+		return Color8(t.substr(0, 2).hex_to_int(), t.substr(2, 2).hex_to_int(),
+			t.substr(4, 2).hex_to_int(), t.substr(6, 2).hex_to_int())
+	if t.length() == 6:
+		return Color8(t.substr(0, 2).hex_to_int(), t.substr(2, 2).hex_to_int(),
+			t.substr(4, 2).hex_to_int(), 255)
+	if t.length() == 3:
+		return Color8(t.substr(0, 1).repeat(2).hex_to_int(), t.substr(1, 1).repeat(2).hex_to_int(),
+			t.substr(2, 1).repeat(2).hex_to_int(), 255)
+	return Color(1, 1, 1, 1)
+
+
+# ───────────────────────── 渲染助手（增强版） ─────────────────────────
+
+## 描边偏移集合：以 outline_size 为半径的 8 向偏移（十字 + 对角）。
+func _outline_offsets(s: int) -> Array:
+	if s <= 0:
+		return []
+	return [
+		Vector2(-s, 0), Vector2(s, 0), Vector2(0, -s), Vector2(0, s),
+		Vector2(-s, -s), Vector2(s, -s), Vector2(-s, s), Vector2(s, s)
+	]
+
+
+## 集中文本绘制（基础版，向后兼容）：等价于 draw_string_fx 全默认（无描边/阴影/富文本）。
 func draw_string_subst(c: CanvasItem, baseline_pos: Vector2, text: String,
 		font: Font, font_size: int, color: Color,
 		align: HorizontalAlignment, width: float) -> void:
+	draw_string_fx(c, baseline_pos, text, font, font_size, color, align, width)
+
+
+## 高级文本绘制：在基础版之上增加
+##   · outline_size / outline_color      描边（8 向偏移副本，提升复杂背景可读性）
+##   · shadow_offset / shadow_color      投影（整体偏移副本）
+##   · letter_spacing                    字间距
+##   · gaiji_smooth                      外字位图线性插值（放大更柔和）
+##   · 内联富文本 [c:#rrggbb]…[/c]       单串内多色（高亮人名/物名/数值）
+## 零开销快路径：无外字、无富文本、无 FX、无字间距时，完全等价于原生 draw_string（零回归）。
+func draw_string_fx(c: CanvasItem, pos: Vector2, text: String,
+		font: Font, font_size: int, color: Color,
+		align: HorizontalAlignment = HORIZONTAL_ALIGNMENT_LEFT, width: float = 0.0,
+		outline_size: int = 0, outline_color: Color = Color(0, 0, 0, 1),
+		shadow_offset: Vector2 = Vector2.ZERO, shadow_color: Color = Color(0, 0, 0, 0),
+		letter_spacing: float = 0.0, gaiji_smooth: bool = false) -> void:
 	if text == "" or font == null:
 		return
-	if not has_gaiji(text):
-		c.draw_string(font, baseline_pos, text, align, width, font_size, color)
+	var fx_on := outline_size > 0 \
+		or (shadow_color.a > 0.0 and shadow_offset != Vector2.ZERO) \
+		or letter_spacing != 0.0 or gaiji_smooth
+	# —— 零回归快路径 ——
+	if not has_gaiji(text) and not has_rich(text) and not fx_on:
+		c.draw_string(font, pos, text, align, width, font_size, color)
 		return
-	var ascent := font.get_ascent(font_size)
-	var total := _advance(text, font, font_size)
-	var start_x := baseline_pos.x
+	# —— 分段解析（富文本）——
+	var segs: Array = _parse_rich(text, color)
+	var total := 0.0
+	for s in segs:
+		total += _advance_segment(s.text, font, font_size, letter_spacing)
+	var start_x := pos.x
 	if align == HORIZONTAL_ALIGNMENT_CENTER:
-		start_x = baseline_pos.x + max(0.0, (width - total) * 0.5)
+		start_x = pos.x + max(0.0, (width - total) * 0.5)
 	elif align == HORIZONTAL_ALIGNMENT_RIGHT:
-		start_x = baseline_pos.x + max(0.0, width - total)
+		start_x = pos.x + max(0.0, width - total)
 	var x := start_x
+	for s in segs:
+		x = _draw_segment_fx(c, x, pos.y, s.text, font, font_size, s.color,
+			outline_size, outline_color, shadow_offset, shadow_color, letter_spacing, gaiji_smooth)
+
+
+## 绘制单个着色分段（含描边/投影层），返回绘制后的 x 光标。
+func _draw_segment_fx(c: CanvasItem, x: float, base_y: float, seg: String,
+		font: Font, font_size: int, col: Color,
+		outline_size: int, outline_color: Color,
+		shadow_offset: Vector2, shadow_color: Color,
+		letter_spacing: float, smooth: bool) -> float:
+	if shadow_color.a > 0.0 and shadow_offset != Vector2.ZERO:
+		_draw_segment_raw(c, x + shadow_offset.x, base_y, seg, font, font_size, shadow_color, letter_spacing, smooth)
+	if outline_size > 0:
+		for d in _outline_offsets(outline_size):
+			_draw_segment_raw(c, x + d.x, base_y, seg, font, font_size, outline_color, letter_spacing, smooth)
+	return _draw_segment_raw(c, x, base_y, seg, font, font_size, col, letter_spacing, smooth)
+
+
+## 单色、含外字替换的单段绘制（GAIJI 感知）。返回结束 x。
+func _draw_segment_raw(c: CanvasItem, x: float, base_y: float, seg: String,
+		font: Font, font_size: int, col: Color, letter_spacing: float, smooth: bool) -> float:
+	# 快路径：本段无外字且无字间距 → 整段单次原生绘制。
+	# 避免逐字符 draw_string（CJK 大字体下每个字符一次调用，开销巨大，实测会「卡死」）。
+	if letter_spacing == 0.0 and not has_gaiji(seg):
+		c.draw_string(font, Vector2(x, base_y), seg, 0, -1, font_size, col)
+		return x + font.get_string_size(seg, 0, -1, font_size).x
+	var ascent := font.get_ascent(font_size)
+	var cx := x
 	var i := 0
-	var n := text.length()
+	var n := seg.length()
 	while i < n:
-		var unit := first_gaiji_unit(text, i)
+		var unit := first_gaiji_unit(seg, i)
 		if unit != "":
 			var slot := unit_slot(unit)
-			var tex := _glyph_texture(slot)
+			var tex := _glyph_texture(slot, smooth)
 			var gh := ascent
 			if tex != null:
-				c.draw_texture_rect(tex, Rect2(x, baseline_pos.y - gh, gh, gh), false, color)
-			x += gh
+				c.draw_texture_rect(tex, Rect2(cx, base_y - gh, gh, gh), false, col)
+			cx += gh + letter_spacing
 			i += unit.length()
 		else:
-			var ch := text[i]
-			c.draw_string(font, Vector2(x, baseline_pos.y), ch, 0, -1, font_size, color)
-			x += font.get_string_size(ch, 0, -1, font_size).x
+			var ch := seg[i]
+			c.draw_string(font, Vector2(cx, base_y), ch, 0, -1, font_size, col)
+			cx += font.get_string_size(ch, 0, -1, font_size).x + letter_spacing
 			i += 1
+	return cx
 
 
-func _advance(text: String, font: Font, font_size: int) -> float:
+## 单段字形总前进宽度（GAIJI 感知 + 字间距）。
+func _advance_segment(seg: String, font: Font, font_size: int, letter_spacing: float) -> float:
+	if font == null:
+		return 0.0
+	# 快路径：无外字且无字间距 → 整段一次量宽
+	if letter_spacing == 0.0 and not has_gaiji(seg):
+		return font.get_string_size(seg, 0, -1, font_size).x
 	var total := 0.0
+	var ascent := font.get_ascent(font_size)
 	var i := 0
-	var n := text.length()
+	var n := seg.length()
 	while i < n:
-		var unit := first_gaiji_unit(text, i)
+		var unit := first_gaiji_unit(seg, i)
 		if unit != "":
-			total += font.get_ascent(font_size)  # 位图按 ascent 方形绘制
+			total += ascent + letter_spacing
 			i += unit.length()
 		else:
-			total += font.get_string_size(text[i], 0, -1, font_size).x
+			total += font.get_string_size(seg[i], 0, -1, font_size).x + letter_spacing
 			i += 1
 	return total
 
@@ -182,7 +316,7 @@ func glyph_image(slot: int) -> Image:
 	_ensure_loaded()
 	var img := Image.create(16, 16, false, Image.FORMAT_RGBA8)
 	img.fill(Color(0, 0, 0, 0))
-	var bm := _glyphs.get(slot, "")
+	var bm: String = _glyphs.get(slot, "")
 	if bm == "" or bm.length() < 64:
 		return img
 	var bytes := _hex_to_bytes(bm)
@@ -197,11 +331,15 @@ func glyph_image(slot: int) -> Image:
 	return img
 
 
-func _glyph_texture(slot: int) -> Texture2D:
-	if _tex_cache.has(slot):
-		return _tex_cache[slot]
+## 取槽位对应的白墨纹理；smooth=true 用线性插值（放大更柔和），否则最近邻（像素锐利）。
+func _glyph_texture(slot: int, smooth: bool = false) -> Texture2D:
+	var key := slot * 2 + (1 if smooth else 0)
+	if _tex_cache.has(key):
+		return _tex_cache[key]
 	var tex := ImageTexture.create_from_image(glyph_image(slot))
-	_tex_cache[slot] = tex
+	# Texture2D.Filter 枚举底层整数：FILTER_NEAREST=0, FILTER_LINEAR=1（跨版本稳定，不依赖枚举名）
+	tex.set_filter(1 if smooth else 0)
+	_tex_cache[key] = tex
 	return tex
 
 

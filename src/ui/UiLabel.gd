@@ -29,6 +29,18 @@ var h_align: HorizontalAlignment = HORIZONTAL_ALIGNMENT_LEFT:
 ## 行距倍率（相对字号）
 var line_spacing: float = 1.35
 
+# —— 高级文字效果（默认关闭；设 >0 / 非零即启用）——
+## 描边：在文字四周描边，提升在复杂背景上的可读性（常见于和风/策略游戏 UI）
+var outline_size: int = 0
+var outline_color: Color = Color(0.0, 0.0, 0.0, 1.0)
+## 投影：整体偏移副本（零向量 = 关闭）
+var shadow_offset: Vector2 = Vector2.ZERO
+var shadow_color: Color = Color(0.0, 0.0, 0.0, 0.0)
+## 字间距
+var letter_spacing: float = 0.0
+## 外字位图线性插值（放大更柔和；默认保持像素锐利）
+var gaiji_smooth: bool = false
+
 
 func _init() -> void:
 	color = UiTheme.C_TEXT
@@ -48,6 +60,7 @@ func _draw() -> void:
 	var y: float = 0.0
 	for ln in lines:
 		var base_y := y + UiTheme.baseline_y(ln, lh, font_size)
-		# 经 GAIJI 渲染层：无外字单元时纯原生绘制（零回归），有「宗我/垪」等才切位图
-		Gaiji.draw_string_subst(self, Vector2(0.0, base_y), ln, f, font_size, color, h_align, size.x)
+		# 经 GAIJI 高级渲染层：无外字/无效果时纯原生绘制（零回归），否则启用描边/投影/富文本
+		Gaiji.draw_string_fx(self, Vector2(0.0, base_y), ln, f, font_size, color, h_align, size.x,
+			outline_size, outline_color, shadow_offset, shadow_color, letter_spacing, gaiji_smooth)
 		y += lh
