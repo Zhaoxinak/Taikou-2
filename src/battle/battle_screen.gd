@@ -13,6 +13,13 @@ const UnitSprite = preload("res://src/render/UnitSprite.gd")
 const AssetLoader = preload("res://src/render/asset_loader.gd")
 const Hd2DEnvironment = preload("res://src/render/Hd2DEnvironment.gd")
 const WeatherFX = preload("res://src/render/WeatherFX.gd")
+const BattleFlow = preload("res://src/battle/battle_flow.gd")
+const UiPanel = preload("res://src/ui/UiPanel.gd")
+const UiLabel = preload("res://src/ui/UiLabel.gd")
+
+# 降水 ⇒ 湿润旗 wet（weather.gd 0x43d223/0x43d233：nw == RAIN or SNOW ⇒ wet=1）
+# wet 进入 ctx.mode_m2 ⇒ cat==2 洋枪战力 ×2/3（0x42d62e）
+const RAINY_KINDS: Array = ["雨", "雪"]
 
 const LEFT_ARMY_CHARS := ["/", "1", "7", "9"]
 const RIGHT_ARMY_CHARS := ["+", "-", "3", "5"]
@@ -22,10 +29,21 @@ const RIGHT_ARMY_CHARS := ["+", "-", "3", "5"]
 # HD-3 天气：晴 / 雨 / 雪 / 雾 / 夜（数据层 §3.9 天气系统；battles.json 暂无字段，先由场景参数驱动）
 @export var weather: String = "晴"
 
+# 合战推演（battle_flow → battle_sim）：_ready 后自动跑完一整场并显示战果
+@export var auto_simulate: bool = true
+@export var battle_seed: int = 1
+@export var max_rounds: int = 2000
+# 运行时切换天气是否重算（天气影响洋枪战力 ⇒ 影响胜负）
+@export var resimulate_on_weather_change: bool = true
+
+signal battle_finished(result: Dictionary)
+
 var _battles: Array = []
 var _env: Environment = null
 var _sun: DirectionalLight3D = null
 var _weather_node: Node = null
+var result: Dictionary = {}
+var _result_layer: CanvasLayer = null
 
 
 func _ready() -> void:
@@ -43,6 +61,88 @@ func _ready() -> void:
 	_build_battle(battle_id)
 	_setup_environment()
 	_apply_weather_now()
+	if auto_simulate:
+		simulate()
+
+
+# ── 合战推演（battle_flow 生产入口接线）────────────────────────
+## 当前天气对应的湿润旗：雨/雪 ⇒ 1（weather.gd 0x43d223/0x43d233）
+func wet_flag() -> int:
+	return 1 if weather in RAINY_KINDS else 0
+
+
+## 跑完一整场并把战果画到屏幕。返回 BattleFlow.run 的结果 Dictionary：
+##   winner / rounds / wet / gun_units / troops_side0 / troops_side1
+func simulate(seed_value: int = -1, wet: int = -1) -> Dictionary:
+	if battle_id < 0 or battle_id >= _battles.size():
+		return {}
+	var sv := battle_seed if seed_value < 0 else seed_value
+	var wv := wet_flag() if wet < 0 else wet
+	result = BattleFlow.run(_battles[battle_id], sv, wv, max_rounds)
+	_show_result()
+	battle_finished.emit(result)
+	print("[BattleScreen] 战图 %d 推演结束：%s" % [battle_id, result_summary()])
+	return result
+
+
+func result_summary() -> String:
+	if result.is_empty():
+		return "（未推演）"
+	var who := "引き分け（双方全灭）" if int(result.get("winner", -1)) < 0 \
+		else ("左軍勝利" if int(result.get("winner", 0)) == 0 else "右軍勝利")
+	return "%s / %d 回合 / 残兵 左%d 右%d / 天気%s(wet=%d) 洋枪%d" % [
+		who, int(result.get("rounds", 0)),
+		int(result.get("troops_side0", 0)), int(result.get("troops_side1", 0)),
+		weather, int(result.get("wet", 0)), int(result.get("gun_units", 0)),
+	]
+
+
+func _show_result() -> void:
+	if _result_layer != null:
+		_result_layer.queue_free()
+		_result_layer = null
+	if result.is_empty():
+		return
+	_result_layer = CanvasLayer.new()
+	_result_layer.name = "BattleResult"
+	add_child(_result_layer)
+
+	var panel := UiPanel.new()
+	panel.title = "合戦結果"
+	panel.title_height = 56
+	panel.set_anchors_preset(Control.PRESET_CENTER)
+	panel.custom_minimum_size = Vector2(760, 300)
+	_result_layer.add_child(panel)
+
+	var margin := MarginContainer.new()
+	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	margin.add_theme_constant_override("margin_left", 36)
+	margin.add_theme_constant_override("margin_top", 56 + 24)
+	margin.add_theme_constant_override("margin_right", 36)
+	margin.add_theme_constant_override("margin_bottom", 24)
+	panel.add_child(margin)
+
+	var lab := UiLabel.new()
+	lab.text = _result_text()
+	lab.h_align = HORIZONTAL_ALIGNMENT_CENTER
+	margin.add_child(lab)
+
+
+func _result_text() -> String:
+	var who := "引き分け（双方全灭）" if int(result.get("winner", -1)) < 0 \
+		else ("左軍の勝利" if int(result.get("winner", 0)) == 0 else "右軍の勝利")
+	var lines := [
+		who,
+		"",
+		"戦闘回合数：%d" % int(result.get("rounds", 0)),
+		"残存兵力　左軍 %d ／ 右軍 %d" % [
+			int(result.get("troops_side0", 0)), int(result.get("troops_side1", 0))],
+		"天気：%s（降水旗 wet=%d）　洋枪隊 %d" % [
+			weather, int(result.get("wet", 0)), int(result.get("gun_units", 0))],
+	]
+	if int(result.get("wet", 0)) != 0 and int(result.get("gun_units", 0)) > 0:
+		lines.append("※ 降水中：洋枪隊戦力 ×2/3（0x42d62e）")
+	return "\n".join(lines)
 
 
 func _build_battle(bid: int) -> void:
@@ -119,3 +219,6 @@ func _spawn_weather_fx() -> void:
 func set_weather(kind: String) -> void:
 	weather = kind
 	_apply_weather_now()
+	# 天气改变降水旗 ⇒ 洋枪战力随之变化，战果需重算
+	if resimulate_on_weather_change and not _battles.is_empty():
+		simulate()
