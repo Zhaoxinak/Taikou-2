@@ -11,14 +11,21 @@ extends Node3D
 const Terrain3DBuilder = preload("res://src/battle/Terrain3DBuilder.gd")
 const UnitSprite = preload("res://src/render/UnitSprite.gd")
 const AssetLoader = preload("res://src/render/asset_loader.gd")
+const Hd2DEnvironment = preload("res://src/render/Hd2DEnvironment.gd")
+const WeatherFX = preload("res://src/render/WeatherFX.gd")
 
 const LEFT_ARMY_CHARS := ["/", "1", "7", "9"]
 const RIGHT_ARMY_CHARS := ["+", "-", "3", "5"]
 
 @export var battle_id: int = 0
 @export var unit_pixel_size: float = 0.02
+# HD-3 天气：晴 / 雨 / 雪 / 雾 / 夜（数据层 §3.9 天气系统；battles.json 暂无字段，先由场景参数驱动）
+@export var weather: String = "晴"
 
 var _battles: Array = []
+var _env: Environment = null
+var _sun: DirectionalLight3D = null
+var _weather_node: Node = null
 
 
 func _ready() -> void:
@@ -34,6 +41,8 @@ func _ready() -> void:
 		push_error("[BattleScreen] battle_id 越界: %d" % battle_id)
 		return
 	_build_battle(battle_id)
+	_setup_environment()
+	_apply_weather_now()
 
 
 func _build_battle(bid: int) -> void:
@@ -71,3 +80,42 @@ func _build_battle(bid: int) -> void:
 		y += 1
 
 	print("[BattleScreen] 战图 %d 已构建：地形网格 + %d 个单位 sprite（占位图，HD-4 就位自动替换）" % [bid, units_root.get_child_count()])
+
+
+# ── HD-3：HD-2D 后处理环境（Bloom / ACES / SSAO / DOF）──────────
+func _setup_environment() -> void:
+	var we := WorldEnvironment.new()
+	we.name = "WorldEnvironment"
+	_env = Hd2DEnvironment.build_environment(Hd2DEnvironment.Quality.HIGH)
+	# 4K 性能降级：关最贵后处理（参照 Hd2DEnvironment.downgrade_for_4k）
+	if DisplayAdapter.is_4k():
+		Hd2DEnvironment.downgrade_for_4k(_env)
+	we.environment = _env
+	add_child(we)
+	_sun = get_node_or_null("DirectionalLight3D") as DirectionalLight3D
+
+
+# ── HD-3：天气联动（晴/雨/雪/雾/夜）─────────────────────────────
+func _apply_weather_now() -> void:
+	if _env == null:
+		return
+	Hd2DEnvironment.apply_weather(_env, _sun, weather)
+	_spawn_weather_fx()
+
+
+func _spawn_weather_fx() -> void:
+	if _weather_node != null:
+		_weather_node.queue_free()
+		_weather_node = null
+	var fx := WeatherFX.make_particles(weather)
+	if fx != null:
+		# 战场中心偏上（地形约 40×19 格，粒子盒覆盖全场）
+		fx.position = Vector3(20.0, 14.0, 13.0)
+		add_child(fx)
+		_weather_node = fx
+
+
+# 运行时切换天气（战役/事件层可调用）
+func set_weather(kind: String) -> void:
+	weather = kind
+	_apply_weather_now()
