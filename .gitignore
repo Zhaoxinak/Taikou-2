@@ -6,3 +6,62 @@ Godot_v4.7.1/
 # 编辑器 app_userdata 日志 / 驱动运行时垃圾（非工程内容，运行时生成）
 Godot/
 NVIDIA Corporation/
+
+# Scratch probes / push helper junk (not deliverables)
+scripts/_scratch/
+scripts/_gaiji_ascii.txt
+scripts/_probe_tail*.py
+scripts/_askpass.cmd
+scripts/_git_push_log.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Huge reverse-engineering dumps / caches (regenerable)
+scripts/_sk_thunk.asm
+scripts/_unpacked_mem.bin
+scripts/_global_xref.cache
+scripts/_string_index.json
+scripts/_sndata_trace.json
+scripts/_all_strings.json
+scripts/_all_strings.txt
+scripts/_dec_*.bin
+
+# Temporary probe / decode outputs under scripts/
+scripts/_probe/
+scripts/_cand/
+scripts/_pal_candidates/
+scripts/_decoded_grp/
+scripts/_dumps/
+scripts/*.log
+scripts/*.out
+scripts/_d_*.txt
+scripts/_f_*.txt
+
+# Proprietary Windows system fonts (keep open NotoSansSC)
+assets/fonts/msyh.ttc
+assets/fonts/msyh.ttc.import
+assets/fonts/simhei.ttf
+assets/fonts/simhei.ttf.import
+
+# OS junk
+Thumbs.db
+Desktop.ini
+.DS_Store
+*~
+
+# Godot 数据导出产物（由 scripts/export_for_godot.py 重新生成；含原版文本/数值，不入库）
+# /data/
+
+# 套件以工程根为 cwd 时再生到根目录的产物副本（权威副本在 scripts/ 下）
+# /sndata_s15_segc.json
+
+# HD-2D 素材样本（含 AI 生成，体积大；可重新生成）
+# assets/samples/
+
+# 解码器探针产物
+# scripts/_hd_probe/
