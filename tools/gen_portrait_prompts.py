@@ -164,16 +164,20 @@ def main():
     items = []
     for o in real:
         oid = int(o["id"])
-        out = f"{oid}.png"
-        exists = os.path.exists(os.path.join(PORTRAIT_DIR, out))
+        name = o.get("surname", "") + o.get("given", "")
+        # 新命名规则：{id}_{姓名}.png（无后缀是默认；多张候选时为 {id}_{姓名}-N.png）
+        # done 检测同时认主名和 -N 后缀（旧式纯 {id}.png 不再视为已生成 → 需走 finalize 重命名）
+        primary = f"{oid}_{name}.png"
+        candidates = [primary] + [f"{oid}_{name}-{i}.png" for i in range(1, 10)]
+        exists = any(os.path.exists(os.path.join(PORTRAIT_DIR, c)) for c in candidates)
         items.append({
             "id": oid,
-            "name": o.get("surname", "") + o.get("given", ""),
+            "name": name,
             "rank": o.get("rank_name") or "",
             "province": province_name(o, castles, provinces),
             "tier": tier_of(o),
             "prompt": build_prompt(o, castles, provinces),
-            "out_file": out,
+            "out_file": primary,
             "status": "done" if exists else "pending",
         })
 

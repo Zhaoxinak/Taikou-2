@@ -28,12 +28,25 @@ static func load_unit_texture(id: int) -> Texture2D:
 	return _load_tex(UNIT_PLACEHOLDER)
 
 
-# 武将立绘：真实 portraits/{id}.png 缺失时回退占位图
-static func load_portrait(id: int) -> Texture2D:
-	var p := "res://assets/sprites/portraits/%d.png" % id
-	var t := _load_tex(p)
-	if t != null:
-		return t
+# 武将立绘：按「带姓名文件名 → 旧式纯 id → 占位图」依次回退
+#
+# 命名规则（与 tools/finalize_portraits.py 对齐）：
+#   单张  {id}_{姓名}.png        例：13_织田信长.png
+#   多张  {id}_{姓名}-1.png …    例：13_织田信长-1.png（默认取 -1）
+#
+# ⚠️ 本类是 static，拿不到 GameData（非 autoload 解析不到全局名），
+#    所以姓名由调用方传入；不传就退回旧式 {id}.png。
+#    三级回退保证任何历史命名都不会突然读不到图。
+static func load_portrait(id: int, name: String = "") -> Texture2D:
+	var dir := "res://assets/sprites/portraits/"
+	if name != "":
+		for p in [dir + "%d_%s.png" % [id, name], dir + "%d_%s-1.png" % [id, name]]:
+			var t := _load_tex(p)
+			if t != null:
+				return t
+	var t2 := _load_tex(dir + "%d.png" % id)
+	if t2 != null:
+		return t2
 	return _load_tex(PORTRAIT_PLACEHOLDER)
 
 
