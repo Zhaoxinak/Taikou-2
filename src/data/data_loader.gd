@@ -15,6 +15,8 @@ extends RefCounted
 ##   skills.json    : {names: Array[10], ...}
 ##   items.json     : Array[189]                  每条含 "id"（物品表，由 scripts/item_table.json 生成）
 ##   names.json     : {province_names, castle_town_names, role_type_names, extra_place_names}
+##   npc_names.json : {meta, special:{id_str:name}, generic:{id_str:name}}  （scripts/export_npc_names.py 产出，
+##                      评定対象名表 id 1000..1999 / 3000+；2000..2999 运行时指针无静态名）
 
 const DATA_DIR := "res://data/"
 
@@ -39,6 +41,9 @@ var extra_place_names: Array = []
 var gaiji_single: Dictionary = {}
 var texts: Dictionary = {}
 var consts: Dictionary = {}
+# —— 评定対象名表（scripts/export_npc_names.py 产出；id 1000..1999 / 3000+）——
+var npc_special: Dictionary = {}   # {int id: String name}  id 1000..1999
+var npc_generic: Dictionary = {}   # {int id: String name}  id 3000+
 var loaded: bool = false
 
 func load_all() -> void:
@@ -68,7 +73,22 @@ func load_all() -> void:
 	extra_place_names = nm.get("extra_place_names", []) if nm is Dictionary else []
 	rank_names = consts.get("RANK_NAMES", []) if consts is Dictionary else []
 	force_names = consts.get("FORCE_NAMES", []) if consts is Dictionary else []
+	load_npc_names()
 	loaded = true
+
+## 评定対象名表：id 1000..1999 → special，id 3000+ → generic。
+## JSON 键为字符串，需归一化为 int 键（JSON.parse_string 数字全 float，但键是字符串故此处 str→int）。
+func load_npc_names() -> void:
+	var nj = _load_json("npc_names.json")
+	if nj is Dictionary:
+		npc_special = _strkey_to_int(nj.get("special", {}))
+		npc_generic = _strkey_to_int(nj.get("generic", {}))
+
+func _strkey_to_int(d: Dictionary) -> Dictionary:
+	var out := {}
+	for k in d.keys():
+		out[int(k)] = d[k]
+	return out
 
 ## 把 [{id:.., ...}] 转成 {id: rec}
 ## ⚠️ Godot 的 JSON.parse_string 把所有数字都解析成 float（13 → 13.0），
@@ -146,6 +166,15 @@ func get_gaiji(code: String) -> Dictionary:
 
 func get_const(key: String, default_value: Variant = null):
 	return consts.get(key, default_value)
+
+## 评定対象名：id 1000..1999 查 special，id 3000+ 查 generic；缺失返回 ""（调用方回退 "NPC{id}"）。
+## id 2000..2999 为运行时指针（dword[0x506c54]），无静态名表 → 永远返回 ""。
+func get_npc_name(id: int) -> String:
+	if id >= 1000 and id < 2000:
+		return npc_special.get(id, "")
+	if id >= 3000:
+		return npc_generic.get(id, "")
+	return ""
 
 ## 大地图城坐标（data/castle_map.json）：{id: Vector2}，外加 map_w/map_h。
 ## 聚类近似坐标（见 scripts/gen_castle_map.py 标注），非原版固定坐标。

@@ -7,11 +7,12 @@ extends RefCounted
 ##   · 対象ID → 名称 四段路由 0x49c2b0（council_ref.py）；菜单构建 0x460320；分发特例 0x460550
 ##
 ## 设计：与 weather.gd / diplomacy.gd 一致，**自含、不依赖 GameData**；
-##   名称解析经 resolver 注入（武将名由 GameData 提供；NPC 名表待导出 → 诚实占位）。
+##   名称解析经 resolver 注入（武将名由 GameData 提供；NPC 名表由 data/npc_names.json 经
+##   GameData.get_npc_name 解析，已由 scripts/export_npc_names.py 从原版导出）。
 ##
-## ⚠️ 诚实未接：対象ID 段 1000..1999（特殊 NPC）/ 3000+（一般 NPC）及 2000..2999（运行时指针）
-##   的真实名表尚未从原版导出（类比雪国气候字节、战斗 gun 惩罚）。target_name 对此类返回
-##   "NPC{id}" 占位，待新增导出脚本补充；路由逻辑本身已 1:1 复刻。
+## 名表诚实状态：対象ID 段 1000..1999（特殊NPC）/ 3000+（一般NPC）已导出真实名
+##   （续148/export_npc_names.py，GBK 解码 + 三层纯净过滤）；2000..2999 为运行时指针
+##   （dword[0x506c54]）无静态名表，resolver 返回 "" → target_name 回退 "NPC{id}"。
 
 # ── 常量 ──────────────────────────────────────────
 const HANDLER_COUNT : int = 13          # 0x504898 表项数
@@ -113,8 +114,9 @@ static func report_index(di: int, count: int, asked: int, flag6: int, flag8: int
 
 
 # ── 対象ID → 名称 四段路由（0x49c2b0）──
-## resolver: Callable(target_id:int)->String（注入；id 0..999 由 GameData 武将名解析）。
-## 返回名称；NPC 段（1000-1999 / 2000-2999 / 3000+）名表未导出 → 返回 "NPC{id}" 占位。
+## resolver: Callable(target_id:int)->String（注入；id 0..999 由 GameData 武将名解析，
+##   id 1000..1999 / 3000+ 由 GameData.get_npc_name 解析已导出名表，id 2000..2999 返回 ""）。
+## resolver 返回 "" 时：NPC 段回退 "NPC{id}"，武将段返回 ""（缺失武将）。
 static func target_name(target_id: int, resolver: Callable = Callable()) -> String:
 	var i: int = int(target_id) & 0xFFFF
 	if i == ID_MERCHANT:

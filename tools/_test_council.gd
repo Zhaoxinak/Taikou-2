@@ -47,6 +47,15 @@ func _new_rng(vals: Array) -> Callable:
 func _run() -> void:
 	var C = CouncilRef
 
+	# 载入真实 NPC 名表（data/npc_names.json，scripts/export_npc_names.py 产出）以驱动 resolver 断言
+	var _npc_special := {}
+	var _npc_generic := {}
+	if FileAccess.file_exists("res://data/npc_names.json"):
+		var _nj: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://data/npc_names.json"))
+		if _nj is Dictionary:
+			_npc_special = _nj.get("special", {})
+			_npc_generic = _nj.get("generic", {})
+
 	# —— 常量 / 表 ——
 	_c(C.HANDLER_COUNT == 13, "HANDLER_COUNT=13")
 	_c(C.ID_MERCHANT == 17 and C.ID_CASTLE == 22, "ID 特例 17/22")
@@ -91,15 +100,28 @@ func _run() -> void:
 
 	# —— target_name 四段路由（0x49c2b0）——
 	var off_resolver := func(v: int) -> String:
-		return ("武将%d" % v) if v < 1000 else ""
+		if v < 1000:
+			return "武将%d" % v
+		if v >= 1000 and v < 2000:
+			return _npc_special.get(str(v), "")
+		if v >= 3000:
+			return _npc_generic.get(str(v), "")
+		return ""
 	_c(C.target_name(17) == "商　人", "target_name(17) -> 「商　人」特例")
 	_c(C.target_name(0, off_resolver) == "武将0", "target_name(0) -> 武将名（resolver）")
-	_c(C.target_name(1000, off_resolver) == "NPC1000", "target_name(1000) -> 名表未导出占位 NPC1000")
-	_c(C.target_name(3000, off_resolver) == "NPC3000", "target_name(3000) -> 占位 NPC3000")
+	# 真实名表解析（data/npc_names.json）
+	_c(C.target_name(1000, off_resolver) == "今井", "target_name(1000) -> 特殊NPC 名表 今井")
+	_c(C.target_name(1339, off_resolver) == "战", "target_name(1339) -> 特殊NPC 名表末项 战")
+	_c(C.target_name(3000, off_resolver) == "旅店主", "target_name(3000) -> 一般NPC 名表 旅店主")
+	_c(C.target_name(3278, off_resolver) == "坏", "target_name(3278) -> 一般NPC 名表末项 坏")
+	# 未导出段 / 缺失 id 回退
+	_c(C.target_name(2000, off_resolver) == "NPC2000", "target_name(2000) -> 运行时指针无静态名，回退 NPC2000")
+	_c(C.target_name(1756, off_resolver) == "NPC1756", "target_name(1756) -> 名表外 id 回退 NPC1756")
+	_c(C.target_name(3400, off_resolver) == "NPC3400", "target_name(3400) -> 名表外 id 回退 NPC3400")
 
 	# —— menu_items（0x460320）——
 	var items: Array[String] = C.menu_items([0, 1, 17], [0, 1000], off_resolver)
-	_c(items == ["武将0", "NPC1000", "商　人", "停　止"], "menu_items: 3 条目 + 「停　止」(got %s)" % str(items))
+	_c(items == ["武将0", "今井", "商　人", "停　止"], "menu_items: 3 条目 + 「停　止」(got %s)" % str(items))
 
 	# —— dispatch（0x4603f0）——
 	_c(C.dispatch(22)["kind"] == "special_22", "dispatch(22) -> 築城業者特例")

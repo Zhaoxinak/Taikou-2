@@ -5,8 +5,8 @@
 
 ## 边界与阶段
 - Godot 4.7.1 自写复刻；原版 Taikou2 Original/ 已入版本库（data/ 唯一来源）。HD-2D 画面。
-- 已完成（Godot）：M0–M5(職位晋升) + 12 主命精确 delta + M6/HD-5 自绘 UI(0 硬编码字号) + 音效39 + M7事件链S15 + M7单挑duel + M7事件文本event_text + M7店铺shop + M7外交diplomacy + HD-3光照天气 + 天气/季节判定(weather 51项) + 经济economy(49/49) + 大地图world_map空壳 + AI主动外交 + 全量GDScript测试实跑29/29。
-- 事件解释器：纯逻辑核心(派发/条件求值/每tick状态机) + **效果执行层 event_effects.gd**（7 真实事件 id=0,1,9,10,13,14,15 的 MSGX 叙事发射 + 月度 poll_events 接线 advance_month）已实跑通过(_test_event_effects 23 项)。**诚实未接**：id0/1 概率分支+RNG、id13/14 触发后叙事文本、id9 条件全局 0x49f430、0x4d0ca0 月度 applier 自动触发(仅 force_event 显式驱动)、完整 C++ vtable 仅 18 id 静态自断言、NPC 名表(1000..1999/3000+)未导出→显示名占位。
+- 已完成（Godot）：M0–M5(職位晋升) + 12 主命精确 delta + M6/HD-5 自绘 UI(0 硬编码字号) + 音效39 + M7事件链S15 + M7单挑duel + M7事件文本event_text + M7店铺shop + M7外交diplomacy + HD-3光照天气 + 天气/季节判定(weather 51项) + 经济economy(49/49) + 大地图world_map空壳 + AI主动外交 + **NPC名表导出(data/npc_names.json → GameData.get_npc_name，special 1000..1339 / generic 3000..3278)** + 全量GDScript测试实跑**30/30 套件 0 失败**(_test_all_compile 45/0)。
+- 事件解释器：纯逻辑核心(派发/条件求值/每tick状态机) + **效果执行层 event_effects.gd**（7 真实事件 id=0,1,9,10,13,14,15 的 MSGX 叙事发射 + 月度 poll_events 接线 advance_month + 状态画面事件流弹窗）已实跑通过(_test_event_effects 23/23；_test_m3_ui 23/23)。**诚实未接**：id0/1 概率分支+RNG、id13/14 触发后叙事文本、id9 条件全局 0x49f430、0x4d0ca0 月度 applier 自动触发(仅 force_event 显式驱动)、完整 C++ vtable 仅 18 id 静态自断言（~~NPC 名表未导出~~ ✅已闭合）。
 - 遗留(卡外因)：HD-6 视觉回归+4K基准(卡真实美术)；BGM(卡MIDI/CD)；SHOP剩余设施(闇商人/品茶/铁炮打工/试合/忍里修业/30日修行/学做生意,无逆向证据)。
 
 ## 高频纠偏（别再踩）
@@ -26,6 +26,13 @@
 | Python 式 d.get(x) or 默认 | GDScript or 返回 bool；显式判 null |
 | JSON 直方图字段当 Array | battles.json 的 unit_nibble_hist/terrain_type_hist 是 dict |
 | env.tonemapper | Godot 4.x = tonemap_mode；dof_* 全部不存在（4.7.1 移除）|
+| 二进制名表只查「长度+无\ufffd」 | ❌ 名表后紧接**其它数据结构**（调色板/查找表/指针区），其字节在 gb18030 下**恰好解码成伪名**（踗/挢/䎬/吏/E/>H/浇B）。必须三层过滤见下 |
+
+## 二进制名表导出三层过滤（stride-N 内联 C 串，必用）
+1. **记录内须含 `0x00`**（N 字节单元至少 1 个 0 才是真 C 串；全非零=溢出串/打包数据）。
+2. **`is_name`**：1..N-1 字；禁控制符/**PUA(U+E000~U+F8FF)**/`\ufffd`；**禁 Latin 字母**（原版纯 CJK/假名/全角 → 杀 `浇B`/`>H`/`R`）；**须含 ≥1** CJK统一表意/扩展A/假名/全角（杀纯数字符号 `0014`/`2`）。
+3. **孤立滤除**：`[id-5,id+5]` 窗口**≥3 有效邻居**（真名块密集，数据区仅零星伪名 → 孤立者丢）。⚠️ 窗口别太严：±2/阈值3 会误杀稀疏真名（如 `介绍信`±2 仅 2 个有效），±5/≥3 才保留。
+宁可缺名（`NPC{id}` 回退）也不导入伪名。
 
 ## GDScript/无头坑
 - JSON.parse_string 数字全 float→建 id 索引须 int(rec["id"])；改 GameData 缓存须 .duplicate()；除法 //。

@@ -104,6 +104,11 @@ func get_rank_name(idx: int) -> String:
 func get_force_name(idx: int) -> String:
 	return _loader.get_force_name(idx) if _loader != null else ""
 
+## 评定対象名（id 1000..1999 特殊NPC / 3000+ 一般NPC；2000..2999 运行时指针无静态名）。
+## 缺失返回 ""，调用方（council.gd）对 NPC 段回退 "NPC{id}"。
+func get_npc_name(id: int) -> String:
+	return _loader.get_npc_name(id) if _loader != null else ""
+
 func get_text(id: Variant) -> String:
 	return _loader.get_text(id) if _loader != null else ""
 

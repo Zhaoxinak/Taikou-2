@@ -58,6 +58,11 @@ var started : bool = false
 var player_map_pos: Vector2 = Vector2.ZERO   # 主角大地图逻辑坐标
 var current_castle: int = -1                  # 当前所在城 id（-1=野外）
 
+# —— 评定対象名解析器（注入 council.gd.target_name）——
+#   id<1000 → 武将名(surname+given)；1000..1999 → special NPC 名；2000..2999 → ""(运行时指针,无静态名)；
+#   3000+ → generic NPC 名。council.gd 对 NPC 段 resolver 返回 "" 时回退 "NPC{id}"。
+var council_name_resolver: Callable = Callable()
+
 # —— 运行期覆盖层（pid -> 值；不回写 officers.json / castles.json）——
 var _stamina_override : Dictionary = {}   # pid -> int
 var _skill_override   : Dictionary = {}   # pid -> Array[int](10)
@@ -107,6 +112,22 @@ func _ready() -> void:
 	# 故在此（GameState autoload，GameData 已先注册）注入 GameData 实例供其取 MSGX 文本。
 	event_text._data = GameData
 	event_effects.data = GameData
+	# council.gd 非 autoload，无法解析 GameData 全局名；注入评定対象名解析器
+	council_name_resolver = Callable(self, "_council_resolve")
+
+## 评定対象名解析（供 council.gd.target_name 经 council_name_resolver 调用）
+func _council_resolve(target_id: int) -> String:
+	var i: int = int(target_id) & 0xFFFF
+	if i < 1000:
+		var o: Dictionary = GameData.get_officer(i)
+		if not o.is_empty():
+			return str(o.get("surname", "")) + str(o.get("given", ""))
+		return ""
+	if i < 2000:
+		return GameData.get_npc_name(i)        # special NPC（1000..1999）
+	if i < 3000:
+		return ""                               # 运行时指针（dword[0x506c54]），无静态名
+	return GameData.get_npc_name(i)             # generic NPC（3000+）
 
 
 func start_new_game(protagonist_id: int) -> bool:

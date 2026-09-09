@@ -12,10 +12,11 @@ extends RefCounted
 ## 复刻边界（诚实标注）：
 ##   ✅ 已 1:1 复刻：EventCtx 结构、taxonomy(27)、EventListConfig(27)、派发注册表(HANDLERS+PREDICATES)、
 ##      两个可测条件求值(0x4e82c0/0x4e7e10)、每 tick 状态机(0x44d950)。
-##   🔴 未接项（非图像逆向缺口，与雪国气候字节/战斗 gun 惩罚/council NPC 名表同类）：
+##   🔴 未接项（非图像逆向缺口，与雪国气候字节/战斗 gun 惩罚同类）：
 ##      A. 效果 handler 主体（显示 MSG / 构造菜单 / 改游戏状态）需运行时对象 + UI 接线 → 仅结构事实入库，未执行。
 ##      B. 完整 C++ vtable 仅 18 id 经静态自断言反推（0..0x3f 其余槽位需 Unicorn 运行时 dump，ref 已证无静态表）。
-##      C. NPC 名表(id 1000..1999/3000+) 同 council，待导出 → 显示名走占位。
+##      C. NPC 名表(id 1000..1999/3000+) 已导出（data/npc_names.json，脚本 export_npc_names.py），
+##         经 GameData.get_npc_name 解析；事件叙事显示名不再走占位。
 
 ## ============================================================ EventCtx（派发上下文）
 ## 运行时 handler 上下文（getCtx=0x49f6b0 → 0x516610；续81+ 契约）：
