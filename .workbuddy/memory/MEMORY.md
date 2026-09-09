@@ -6,7 +6,7 @@
 
 ## 边界与当前阶段
 - Godot 4.7.1 自写复刻；原版 `<工程>/Taikou2 Original/`（149 文件，不打包）。画面 **HD-2D**（3D+高清像素+后处理；像素破解豁免）。
-- 非图像逆向 100% 收口。Godot **M0–M5 完成**（M5=職位晋升）+ **12 主命精确 delta（续254）**+ **M6/HD-5 自绘 UI 完成**（标题/主角选择/状态画面全改自绘，0 处硬编码字号、0 原生 Button/Label）+ **音效 39 已接入**（`AudioManager.play_sfx(id)` 对齐原版数字 id，`UiButton` 点击联动）+ **M7 事件链(S15) 已收口** + **M7 单挑(duel) 已收口**（`DuelSim`+`GameState.run_duel`+`_test_duel` 全过）+ **M7 事件文本渲染(event_text) 已收口**（`src/core/event_text.gd` 10 bit MSGX 叙事 + `%s`→主角名 + `GameState.render_event_text/render_resolved_events` + `_test_event_text` 全过）+ **M7 店铺/商业核心(shop) 已收口**（`src/core/shop.gd` 30 记录 + 入店分发 + favor 饱和 + 买药÷50；设施内交互流程与闇商人事件流留待后续）+ **M7 外交(diplomacy) 已收口**（`src/core/diplomacy.gd` 1176B 国関係マトリクス + 外交/主从位域 + 有向 2↔3 镜像 + 筛选/变更点 + 使者功勋；AI 主动外交与 UI 层留待后续）。下阶段：M7 余下（HD-6 视觉回归+4K 基准）、SHOP 设施内交互流程、AI 主动外交(续104)、MSGX 事件解释器、BGM、素材规格。git push 走 `127.0.0.1:7890` 代理可用（9120 已死）。
+- 非图像逆向 100% 收口。Godot **M0–M5 完成**（M5=職位晋升）+ **12 主命精确 delta（续254）**+ **M6/HD-5 自绘 UI 完成**（标题/主角选择/状态画面全改自绘，0 处硬编码字号、0 原生 Button/Label）+ **音效 39 已接入**（`AudioManager.play_sfx(id)` 对齐原版数字 id，`UiButton` 点击联动）+ **M7 事件链(S15) 已收口** + **M7 单挑(duel) 已收口**（`DuelSim`+`GameState.run_duel`+`_test_duel` 全过）+ **M7 事件文本渲染(event_text) 已收口**（`src/core/event_text.gd` 10 bit MSGX 叙事 + `%s`→主角名 + `GameState.render_event_text/render_resolved_events` + `_test_event_text` 全过）+ **M7 店铺/商业核心(shop) 已收口**（`src/core/shop.gd` 30 记录 + 入店分发 + favor 饱和 + 买药÷50；设施内交互流程与闇商人事件流留待后续）+ **M7 外交(diplomacy) 已收口**（`src/core/diplomacy.gd` 1176B 国関係マトリクス + 外交/主从位域 + 有向 2↔3 镜像 + 筛选/变更点 + 使者功勋；AI 主动外交与 UI 层留待后续）。+ **HD-3 光照+天气联动已接线完成**（新增 `src/render/WeatherFX.gd` 雨/雪 `GPUParticles3D`，分 CPU 安全层 `needs_particles/build_material/build_draw_mesh` 与运行时 `make_particles`；`battle_screen.gd` 加 `@export weather` + `_setup_environment`/`_apply_weather_now`/`set_weather`，4K 自动 `downgrade_for_4k`；`tools/_test_hd3.gd` 43 项**待实跑**）。下阶段：M7 余下（HD-6 视觉回归+4K 基准）、SHOP 设施内交互流程、AI 主动外交(续104)、MSGX 事件解释器、BGM、素材规格。git push 走 `127.0.0.1:7890` 代理可用（9120 已死）。
 
 ## 🔴 高频纠偏（别再踩）
 | 旧记 | 正确 |
@@ -20,10 +20,16 @@
 | 外交目标国筛选按「外交関係」 | ❌ 续95：0x4c4270 按**主从関係**过滤 |
 | `mission_level` 除数 10 | ❌ 实为 **20**（magic `0x66666667`+sar3） |
 | 盲信 `diplomacy_spec.json` 的 asm 三角索引 | ❌ 该句有误（max 1222 溢出 1176）；正解 `i*49-i*(i+1)/2+(j-i-1)` |
+| 地形材质 11 种（Terrain3DBuilder 旧表） | ❌ 全 38 战实测 **16 种**；漏 `?8/?9/?A/?B/?C` 会让 4234 格变默认灰。?8~?C 名称 EXE 内搜不到（`sectA2_spec.json` 证据：地形中文名是 JSON 侧硬编码），现按邻接统计**推定**为河原/砂州/湿地/葦原/城濠 |
 
 ## GDScript / 无头坑（每次写 GDScript 前看）
 - `JSON.parse_string` 数字全 float→建 id 索引须 `int(rec["id"])`；改 GameData 缓存 Array/Dict 须 `.duplicate()`；除法 `//`。
 - 无头 `--script`：autoload 未进树→`process_frame.connect(_run, CONNECT_ONE_SHOT)`；末尾 `quit(0)`（否则 rc=1 噪声）。**不建全局类缓存→禁用 `class_name`，跨文件一律 `preload`**（也勿 `class_name GameState`，与 autoload 冲突）。
+- 🔴 **本机 Godot 二进制**：`/Users/ts/Downloads/Taikou 2/Godot/Godot.app/Contents/MacOS/Godot`（4.7.1.stable，与项目同版；另有 `Godot_mono.app`）。macOS **无 `timeout` 命令**→用 Bash 工具 timeout 参数。
+- 🔴 **2026-09-09 起 `--script` 主循环失效**：`--headless --script` 恒卡死、`_run()` 从不执行（**裸工程同样卡死→环境问题非代码问题**）；已排除 .godot 缓存/残留进程/渲染驱动(dummy·vulkan·metal·opengl3)/音频/沙箱/文件 NUL。⇒ 暂**勿依赖跑 `_test_*.gd` 验证**，改 `--check-only`（不同代码路径）或人工走查。启动期 13 条 `Unexpected NUL character` 为干扰项（实测文件 0 NUL；zsh 下 `grep $'\x00'` 是**假阳性**，须用 Python 数 `b"\x00"` 复核）。
+- ⚠️ **`TaskStop` 杀不掉 Godot 真进程**→必须 `pkill -f "Godot.app/Contents/MacOS/Godot"` 并用 `pgrep` 复核；残留进程会占锁拖慢/卡死后续运行。
+- ⚠️ **新增带 `class_name` 的文件不会自动进全局类缓存**→其他脚本直接写 `X.Y` 会 Parse Error "Identifier not declared"。**跨文件引用新文件一律 `const X = preload("res://...")`，别依赖 class_name 全局缓存**。
+- ℹ️ **`--script` 卡死前仍会打印 Parse Error** → 即使跑不完 `_run`，也可用它验证「新脚本是否编译通过」（看有无 Parse Error / Compile Error 即可）。
 - ⚠️ **非 autoload 脚本取 GameData**：本构建 `Engine.get_singleton("GameData")` 返回 **null**（autoload 仅挂树 `/root/GameData`，未注册 Engine 单例）；编译期也**无法解析 `GameData` 全局名**（仅 autoload 脚本因编译序可）。正确做法：依赖注入——autoload 侧 `event_text._data = GameData`（在 `_ready` 注入，GameData 注册序在前），或在测试里 `et._data = root.get_node("/root/GameData")`。事件文本 `render_event` 调 `_resolve_text` 走 `_data.get_text(mid)`。
 - lambda 捕获局部变量**按值**→计数/累加须用 Array/Dict，否则永远读到 0。
 - 载 TTF 用 `FontFile.load_dynamic_font(ProjectSettings.globalize_path(res://...))`；**不可用 `ResourceLoader.load`**（依赖 .import 缓存，会静默回退无 CJK 字体→中文变方框）。

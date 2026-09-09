@@ -21,6 +21,12 @@ const GRID_H := 19          # 行数
 const TILE_SIZE := 1.0      # 每格世界单位
 
 # 地形 → 高度（HD-2D 的体积感来源）
+#
+# ★ 全 38 战实测恰好 16 种地形（与 AssetSpec.TERRAIN_MATERIAL_COUNT 一致）。
+#   旧版只覆盖 11 种，?8/?9/?A/?B/?C 五种（共 4234 格）会落回 DEFAULT 灰+高度0，是显示 bug。
+#   ?8~?C 的中文名 EXE 内搜不到（sectA2_spec 证据：地形名为 JSON 侧硬编码，非 EXE），
+#   其取值为**依邻接统计推定**：?8 邻接河流 53%、?9 23%、?A 18%、?B 19%、?C 29%，
+#   且 ?C 另有 11% 邻接城、11% 邻接森林 → 判为临河湿地族 + 城濠，待逆向确认。
 const HEIGHT_BY_TYPE := {
 	"平地": 0.00,
 	"荒地": 0.06,
@@ -33,6 +39,11 @@ const HEIGHT_BY_TYPE := {
 	"阵":   0.12,
 	"山地": 1.30,
 	"桥":   0.02,
+	"?8":  -0.10,   # 推定：河原（砾石河床）— 邻接河流 53%
+	"?9":  -0.05,   # 推定：砂州/中州     — 邻接 ?8 35% / 河流 23%
+	"?A":  -0.12,   # 推定：湿地/沼       — 邻接 ?B 20% / ?9 19% / 河流 18%
+	"?B":  -0.06,   # 推定：葦原          — 邻接 ?A 33% / 河流 19% / 草地 10%
+	"?C":  -0.22,   # 推定：堀/水濠       — 邻接 河流 29% / 城 11% / 森林 11%
 }
 
 # 地形 → 顶点色（HD-2D 浓郁色调）
@@ -48,7 +59,18 @@ const COLOR_BY_TYPE := {
 	"阵":   Color(0.62, 0.28, 0.22),
 	"山地": Color(0.44, 0.40, 0.34),
 	"桥":   Color(0.50, 0.38, 0.24),
+	"?8":   Color(0.62, 0.56, 0.42),   # 河原：砂砾黄褐
+	"?9":   Color(0.68, 0.62, 0.46),   # 砂州：浅沙色
+	"?A":   Color(0.34, 0.42, 0.30),   # 湿地：暗浊绿
+	"?B":   Color(0.40, 0.48, 0.28),   # 葦原：芦苇橄榄绿
+	"?C":   Color(0.16, 0.30, 0.40),   # 堀/水濠：深水蓝
 }
+
+# 16 种地形的权威顺序（与 data/battles.json 实测一致）
+const TERRAIN_ORDER: Array[String] = [
+	"空", "平地", "荒地", "草地", "森林", "河流", "山地", "桥",
+	"?8", "?9", "?A", "?B", "?C", "城", "阵", "?F",
+]
 
 const DEFAULT_HEIGHT := 0.0
 const DEFAULT_COLOR  := Color(0.45, 0.45, 0.45)
@@ -206,6 +228,29 @@ static func _terrain_material() -> StandardMaterial3D:
 	m.metallic  = 0.0
 	m.cull_mode = BaseMaterial3D.CULL_DISABLED   # 双面：防止侧壁在低角度消失
 	return m
+
+
+# ── 地形材质规格（16 种，各一）──────────────────────────────
+# 真图接入后可在返回的材质上挂 albedo_texture，无需改调用方。
+
+## 单种地形的独立材质
+static func terrain_material(type_name: String) -> StandardMaterial3D:
+	var m := _terrain_material()
+	m.albedo_color = COLOR_BY_TYPE.get(type_name, DEFAULT_COLOR)
+	return m
+
+
+## 全部 16 种地形材质：{type_name: StandardMaterial3D}
+static func build_all_materials() -> Dictionary:
+	var out: Dictionary = {}
+	for t in TERRAIN_ORDER:
+		out[t] = terrain_material(t)
+	return out
+
+
+## 该地形名是否已有明确定义（不走 DEFAULT 兜底）——自检/测试用
+static func covers(type_name: String) -> bool:
+	return HEIGHT_BY_TYPE.has(type_name) and COLOR_BY_TYPE.has(type_name)
 
 
 # 便捷：从 battles.json 的第 n 战构建

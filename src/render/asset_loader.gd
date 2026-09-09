@@ -11,6 +11,9 @@
 class_name AssetLoader
 extends RefCounted
 
+# 素材规格（preload 而非依赖 class_name 全局缓存：新增文件在未重扫前不进缓存）
+const AssetSpec = preload("res://src/render/AssetSpec.gd")
+
 const UNIT_PLACEHOLDER := "res://assets/sprites/units/placeholder_unit.png"
 const PORTRAIT_PLACEHOLDER := "res://assets/sprites/portraits/placeholder_portrait.png"
 const CHIP_PLACEHOLDER := "res://assets/sprites/chips/placeholder_chip.png"
@@ -38,6 +41,17 @@ static func load_portrait(id: int) -> Texture2D:
 static func load_chip(name: String) -> Texture2D:
 	var p := "res://assets/sprites/chips/%s.png" % name
 	var t := _load_tex(p)
+	if t != null:
+		return t
+	return _load_tex(CHIP_PLACEHOLDER)
+
+
+# 地形材质 chip（16 种，terrain_00..15.png；索引→名见 chips/terrain_index.json）
+# 序号对应 Terrain3DBuilder.TERRAIN_ORDER
+static func load_terrain_chip(index: int) -> Texture2D:
+	if index < 0 or index >= AssetSpec.TERRAIN_MATERIAL_COUNT:
+		return _load_tex(CHIP_PLACEHOLDER)
+	var t := _load_tex("res://assets/sprites/chips/terrain_%02d.png" % index)
 	if t != null:
 		return t
 	return _load_tex(CHIP_PLACEHOLDER)
