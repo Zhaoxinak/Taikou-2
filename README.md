@@ -11,21 +11,23 @@
 > 数据导出：`python scripts/export_for_godot.py`（按续200 权威布局重解析，内置自检，产出 `data/*.json`）。
 > 🔴 注意：**`scripts/bsdata.json` 的 `fields` 已被续200 证伪**（忠诚真在 `0x35` 非 56、功勲在 `0x32` 非 50），勿直接当权威。
 
-> ### ⚡ 换机器 / 换 AI：clone 后**必做一步**
+> ### ⚡ 换机器 / 换 AI：clone 后即可直接打开工程
 >
-> `data/*.json`（约 2MB，Godot 运行时数据）**不在版本库里** —— `.gitignore` 第 58 行忽略了整个 `/data/`。
-> 它们是**导出产物**，由原版二进制离线重建；原版目录 `Taikou2 Original/` **已入版本库**（245 个条目），是唯一生成来源。
+> `data/*.json`（约 2MB，Godot 运行时数据）**已在版本库里**，clone 完直接可用。
+> ⚠️ 但它们仍是**导出产物**（由 `Taikou2 Original/` 原版二进制离线解析而来）：
+> **改了生成器或原版解析逻辑后，必须重跑导出并一起提交**，否则仓库里的数据会与生成器输出漂移。
 >
 > ```bash
-> python scripts/bootstrap.py        # ★ 一键重建 data/ 并自检（推荐）
+> python scripts/bootstrap.py        # ★ 一键重建 data/ 并自检条数（推荐）
 >
 > # 或手工两步：
 > python scripts/export_for_godot.py   # officers/castles/provinces/names/skills/text/battles/gaiji/consts
 > python scripts/export_shops_json.py  # shops.json
 > ```
 >
-> 已验证：重建结果与本机**逐字节一致**（officers 700 / castles 200 / provinces 49 / text 6211 / battles 38 / shops 30）。
-> **不跑这步，Godot 会因缺 `data/*.json` 直接加载失败。**
+> 已验证：重建结果与提交版本**逐字节一致**（officers 700 / castles 200 / provinces 49 /
+> text 6211 / battles 38 / shops 30）。
+> 原版目录 `Taikou2 Original/` **已入版本库**（245 条目），是 `data/` 的唯一生成来源。
 >
 > **另有两样不在仓库，需自行准备：**
 >
@@ -64,7 +66,7 @@
 | `docs/specs/` | ★ 复刻核心：`GAME_DATA_SPEC` `BATTLE_SPEC` `SNDATA_SPEC` `NPK_SPEC` `破解状态清单` |
 | `docs/re/` | 逆向留档：`BREAKTHROUGHS`(突破时间线) `HANDOFF`(交接) `_x92` |
 | `docs/replication/` | `复刻导航.md`（数据在哪/字段速查）+ **`Godot复刻实施方案.md`（★ 施工图：工程结构/系统/里程碑）** |
-| `data/` | Godot 运行时数据（由 `scripts/export_for_godot.py` 生成，**gitignore**） |
+| `data/` | Godot 运行时数据（**已入库**；由 `scripts/export_for_godot.py` 生成的导出产物，改生成器后须重跑并提交） |
 | `Taikou2 Original/` | 原版文件（含 `TAIK2W95.exe`、SNDATA、BSDATA…），**已入版本库**（245 条目）→ `data/` 的生成来源 |
 | `scripts/` | **现行**工具、180 个 `*_ref.py` 自检、JSON 产物、`_unpacked_mem.bin`（分类见 `scripts/README.md`） |
 | `scripts/_scratch/` | 一次性探针/旧实验脚本（283 项，gitignore，非接口） |
@@ -107,7 +109,7 @@
 │   ├── sprites/{portraits,units,chips}/
 │   ├── environments/              # 天空/天气预设
 │   └── samples/                   # AI 样本图 [gitignore]
-├── data/                          # 导出 JSON（gitignore，由 export_for_godot.py 生成）
+├── data/                          # 导出 JSON（已入库；由 export_for_godot.py 生成，见 bootstrap.py）
 ├── scripts/                       # ⚠️ 逆向/导出工具(Python) — 勿移（180 自测依赖）
 ├── tools/                         # 离线产物（portrait_prompts.json 等）
 ├── docs/                          # 文档：specs/ re/ replication/

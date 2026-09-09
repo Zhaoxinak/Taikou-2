@@ -29,7 +29,7 @@
 - 载 TTF 用 `FontFile.load_dynamic_font(ProjectSettings.globalize_path(res://...))`；**不可用 `ResourceLoader.load`**（依赖 .import 缓存，会静默回退无 CJK 字体→中文变方框）。
 - UI 布局勿硬编码字号/像素（`canvas_items` 会缩放，设计空间 1920×1080）。
 - ⚠️ `const X : PackedByteArray = PackedByteArray([...])` 无法被外部脚本 `preload` 引用 `.X` 解析（"Could not resolve external class member"）；改用 `const X : Array = [...]` 字面量（Dictionary/Array 字面量 const 可正常外部访问）。
-- ⚠️ **`/data/` 整个目录被 gitignore**（.gitignore:58）：`data/*.json` 都是导出产物。**换机器 clone 后必须先跑 `python scripts/bootstrap.py`** 重建 data/（已验证逐字节一致），否则 Godot 加载失败。新增数据文件必须配套在 `scripts/` 提交**生成器脚本**（如 `export_shops_json.py`）。
+- ℹ️ **`/data/` 已于 2026-09-09 取消忽略、随仓库提交**（旧记「被 gitignore 需先 bootstrap」已过时，clone 即可跑）：但仍是 `export_for_godot.py` 导出产物 —— **改生成器或原版解析后须重跑 `python scripts/bootstrap.py` 并把 data/ 一起提交**，否则数据漂移。新增数据文件仍须配套生成器脚本（`export_shops_json.py`）。
 - ⚠️ **`scripts/_unpacked_mem.bin`（2MB 脱壳映像）也被 gitignore（:26）且没有生成器**：180 个 `*_ref.py` 全依赖它，换机器需手工拷贝，否则反向脚本全跑不了。另 `Godot_v4.7.1/`（:5）需自行下载。
 - ℹ️ `Taikou2 Original/`（原版 245 条目）**已入版本库**，是 `data/` 唯一生成来源（README 旧记「仓库不打包」已过时）。
 
