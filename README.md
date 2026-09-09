@@ -11,8 +11,31 @@
 > 数据导出：`python scripts/export_for_godot.py`（按续200 权威布局重解析，内置自检，产出 `data/*.json`）。
 > 🔴 注意：**`scripts/bsdata.json` 的 `fields` 已被续200 证伪**（忠诚真在 `0x35` 非 56、功勲在 `0x32` 非 50），勿直接当权威。
 
+> ### ⚡ 换机器 / 换 AI：clone 后**必做一步**
+>
+> `data/*.json`（约 2MB，Godot 运行时数据）**不在版本库里** —— `.gitignore` 第 58 行忽略了整个 `/data/`。
+> 它们是**导出产物**，由原版二进制离线重建；原版目录 `Taikou2 Original/` **已入版本库**（245 个条目），是唯一生成来源。
+>
+> ```bash
+> python scripts/bootstrap.py        # ★ 一键重建 data/ 并自检（推荐）
+>
+> # 或手工两步：
+> python scripts/export_for_godot.py   # officers/castles/provinces/names/skills/text/battles/gaiji/consts
+> python scripts/export_shops_json.py  # shops.json
+> ```
+>
+> 已验证：重建结果与本机**逐字节一致**（officers 700 / castles 200 / provinces 49 / text 6211 / battles 38 / shops 30）。
+> **不跑这步，Godot 会因缺 `data/*.json` 直接加载失败。**
+>
+> **另有两样不在仓库，需自行准备：**
+>
+> | 项 | 大小 | 说明 |
+> |---|---|---|
+> | `Godot_v4.7.1/` | ~100MB | Godot 可执行程序，官网下载即可（`.gitignore:5`） |
+> | `scripts/_unpacked_mem.bin` | 2MB | 脱壳映像，**没有生成器**（`.gitignore:26`）。180 个 `*_ref.py` 全依赖它；换机器需从旧机器拷贝，否则反向脚本无法运行 |
+>
 > **模式**：源码级引擎重实现（Godot 复刻）所需的数据与玩法规格抽取。  
-> **法律边界**：用户自有合法拷贝、仅本地单机；仓库**不打包**原版素材。原版文件在 `Taikou2 Original/`。  
+> **法律边界**：用户自有合法拷贝、仅本地单机。原版文件在 `Taikou2 Original/`，**已入版本库**（245 条目），是 `data/` 的唯一生成来源 —— 请勿外传该目录。  
 > **当前策略（2026-08-25 起）**：停 UI / 像素 / 字体；只做 **数值 + 玩法** → 写入规格文档。
 
 ---
@@ -42,7 +65,7 @@
 | `docs/re/` | 逆向留档：`BREAKTHROUGHS`(突破时间线) `HANDOFF`(交接) `_x92` |
 | `docs/replication/` | `复刻导航.md`（数据在哪/字段速查）+ **`Godot复刻实施方案.md`（★ 施工图：工程结构/系统/里程碑）** |
 | `data/` | Godot 运行时数据（由 `scripts/export_for_godot.py` 生成，**gitignore**） |
-| `Taikou2 Original/` | 原版 149 文件（含 `TAIK2W95.exe`、SNDATA、BSDATA…），**仓库不打包** |
+| `Taikou2 Original/` | 原版文件（含 `TAIK2W95.exe`、SNDATA、BSDATA…），**已入版本库**（245 条目）→ `data/` 的生成来源 |
 | `scripts/` | **现行**工具、180 个 `*_ref.py` 自检、JSON 产物、`_unpacked_mem.bin`（分类见 `scripts/README.md`） |
 | `scripts/_scratch/` | 一次性探针/旧实验脚本（283 项，gitignore，非接口） |
 | `scripts/_草稿/` | 早期草稿脚本（21 项） |
