@@ -40,6 +40,10 @@ const COMMAND_NAMES : Array[String] = [
 	"筑城", "进贡", "威吓", "朝廷工作", "收集情报", "谋略"
 ]
 
+# 主命 id(0..11) → diplomacy.gd 工作指令码（0x4c5699 写 ent+0x16 bit0-5；diplomacy2_ref §4）
+#   7进贡→9友好 / 8威吓→10高压 / 9朝廷工作→11 / 10收集情报→12 / 11谋略→13（offset +2）
+const CMD_TO_WORK := {7: 9, 8: 10, 9: 11, 10: 12, 11: 13}
+
 # —— 城种派生上限（§3.21.5，二进制跳表 0x49f9xx 已破，naisei_ref 66/66 自校验）——
 #   城種 = int(castle["castle_type"]) & 7（castle_type 为 word@+0x1b，低字节=城種）
 const CASTLE_TYPE_BASE : Dictionary = {0:0, 1:1, 2:2, 3:2, 4:2, 5:3, 6:3, 7:3}  # 農商基档
@@ -439,8 +443,8 @@ func _force_up(key: String) -> Variant:
 #     forces.domestic)"与"城規模(f09)/城種(castle_type&7)"精确推导，并经字段硬上限钳制。
 #   · 贩卖/购买军粮（0/1）handler 只算"仕事成果値"(byte[ent+0x17])，真实 軍糧↔資金 转移走
 #     纳结算路径（§3.21.9 / naisei_resource_ref.py，已破但不在主命层）；军马/洋枪(2/3) 的
-#     物品池是全局表(0x51e1f6)非城字段；进贡/威吓/朝廷/谋略/收集情报(7-11) 影响关系/忠诚。
-#     → 这些命令在主命层仅给"经济模拟占位量"，非 handler 级精确值（已在 SPEC §3.21.4 标注）。
+#     物品池是全局表(0x51e1f6)非城字段；进贡/威吓/朝廷/收集情报/谋略(7-11) 已接线真实
+#     diplomacy.gd（关系写入 + can_dispatch 筛选 + 0x4b9250 功勋），资金 delta 仍为占位。
 #   主命统一耗时 1 月（M3 约定：执行 1 条主命 → 推进 1 月）。
 
 ## 返回 {ok, reason, cmd, name, deltas, month_advanced}
@@ -455,6 +459,15 @@ func issue_command(cmd_id: int, _opts: Dictionary = {}) -> Dictionary:
 		res["reason"] = "no_castle"; return res
 
 	res["name"] = COMMAND_NAMES[cmd_id]
+	# 外交类主命（7..11）先过 can_dispatch 目标国筛选（0x4c4270，按主从関係）；
+	# 被拒不耗时（不推进月份、不扣钱）
+	var dip := {}
+	if CMD_TO_WORK.has(cmd_id):
+		dip = _apply_diplomacy_command(cmd_id, _opts)
+		res["diplomacy"] = dip
+		if not bool(dip.get("ok", false)):
+			res["reason"] = str(dip.get("reason", ""))
+			return res
 	# 精确 delta 需要：当前有效城状态 + 実行者内政力(naisei) + 改建 tier2（ent+0x10>>6，缺省 0）
 	var eff_castle: Dictionary = _effective_castle(castle_id)
 	var naisei: int = int(_effective_forces().get("domestic", 0))
@@ -463,8 +476,108 @@ func issue_command(cmd_id: int, _opts: Dictionary = {}) -> Dictionary:
 	for field in deltas.keys():
 		_mutate_castle(castle_id, field, int(deltas[field]))
 	res["deltas"] = deltas
+	# 外交功勋（使者归还结算 0x4b9250 → 0x4b9890 功勋加算）
+	var m := int(dip.get("merit", 0))
+	if m > 0:
+		_add_merit(m)
+		res["merit_gain"] = m
 	advance_month()   # 主命耗时 1 月
 	res["month_advanced"] = true
+	res["ok"] = true
+	return res
+
+
+## 主角所在省（自国省 id；无城 → -1）
+func protagonist_province() -> int:
+	var cid := int(get_protagonist().get("city", ConstsRef.NONE_CITY))
+	if cid == ConstsRef.NONE_CITY:
+		return -1
+	return int(GameData.get_castle(cid).get("province", -1))
+
+
+## 目标省城数（0x4d9e50 prov 链表计数；复刻层按连续 id 扫 castles.json 等价实现）
+func province_city_count(prov: int) -> int:
+	var n := 0
+	var id := 0
+	while true:
+		var c: Dictionary = GameData.get_castle(id)
+		if c.is_empty():
+			break
+		if int(c.get("province", -1)) == prov:
+			n += 1
+		id += 1
+	return n
+
+
+## 功勋加算（0x4b9890；封顶 MERIT_CAP 60000，沿用 _effective_merit 哨兵约定）
+func _add_merit(n: int) -> void:
+	if n <= 0:
+		return
+	_merit_override[pid] = mini(_effective_merit() + n, ConstsRef.MERIT_CAP)
+
+
+## 外交类主命真实接线 diplomacy.gd。
+##   cmd_id 7进贡/8威吓/9朝廷工作/10收集情报/11谋略
+##   opts: target_province 必填（目标国）；work_type / got_rank / g10 / g0d 可选覆写
+## RE 依据：diplomacy2_ref §2/§4 ——
+##   · can_dispatch(0x4c4270)：目标国筛选按【主从関係】（高压拒{2,3} / 友好仅空白 / 情报无条件）
+##   · friendly_success(0x4b5bcb) / pressure_success(0x4b6095)：关系写入（外交 bit0-2 + 主从 bit3-4）
+##   · 使者归还结算 0x4b9250 功勋：友好 600 / 高压 1000 / 朝廷 800·1000(得官位) /
+##     情报 = 城数*(mission_level+5)+100
+## ⚠️ 诚实建模边界（不发明 RE 之外的东西）：
+##   · 成败：结算层无随机失败分支（0x47b5f0 高压恒成；0x4b94ac/0x4b94f4 直接出
+##     「进贡使者完成 / 使屈服成功」消息）→ 进贡/威吓按必定完成建模
+##   · work_type 语义未逆 → 默认 0（friendly: lv=diff(1,0)=1 亲密；pressure 同），opts 覆写
+##   · g[0x10]/g[0x0d] 字段语义未逆（BREAKTHROUGHS 续1105/1235 挂账）→ 情报功勋默认 0/0
+##     （lv=1 → merit=城数*6+100），opts["g10"]/["g0d"] 覆写
+##   · 朝廷工作不改关系矩阵（RE 无关系写入点）；谋略（拉拢武将）无关系/功勋模型 → 仅占位
+func _apply_diplomacy_command(cmd_id: int, opts: Dictionary) -> Dictionary:
+	var res := {"ok": false, "reason": "", "work": int(CMD_TO_WORK.get(cmd_id, 0)),
+		"target": -1, "lv": -1, "dipl_before": -1, "dipl_after": -1,
+		"mv_before": -1, "mv_after": -1, "merit": 0}
+	var work: int = int(CMD_TO_WORK.get(cmd_id, 0))
+	# 谋略（拉拢武将 0x4b960e）：无关系/功勋静态模型 → 诚实占位（不耗时）
+	if work == 13:
+		res["reason"] = "work_not_modeled"; return res
+	var my := protagonist_province()
+	if my < 0:
+		res["reason"] = "no_province"; return res
+	var target := int(opts.get("target_province", -1))
+	res["target"] = target
+	if target < 0 or target > 48 or target == my:
+		res["reason"] = "bad_target"; return res
+	# can_dispatch 的 mode：0=高压 1=友好 2=情报；朝廷/谋略无此筛选（-1 = 跳过）
+	var mode := -1
+	if work == 9:
+		mode = 1
+	elif work == 10:
+		mode = 0
+	elif work == 12:
+		mode = 2
+	var mv_before := int(diplomacy.get_master_vassal(my, target))
+	res["mv_before"] = mv_before
+	res["dipl_before"] = int(diplomacy.get_diplomacy(my, target))
+	if mode >= 0 and not diplomacy.can_dispatch(mode, mv_before):
+		res["reason"] = "dispatch_blocked"; return res
+	var merit := 0
+	var lv := -1
+	match work:
+		9:   # 进贡 = 友好外交（0x4b5bcb）→ 同盟 + 外交=lv
+			lv = diplomacy.friendly_success(int(opts.get("work_type", 0)), target, my)
+			merit = DiplomacyRef.MERIT_FRIENDLY
+		10:  # 威吓 = 高压外交（0x4b6095）→ 支配 + 外交=lv（0x47b5f0 恒成）
+			lv = diplomacy.pressure_success(int(opts.get("work_type", 0)), target, my)
+			merit = DiplomacyRef.MERIT_PRESSURE
+		11:  # 朝廷工作（0x4b953c）：无关系写入点；得官位与否由 opts 声明
+			merit = DiplomacyRef.MERIT_COURT_RANK if bool(opts.get("got_rank", false)) \
+				else DiplomacyRef.MERIT_COURT_NO_RANK
+		12:  # 收集情报（0x4b956e）：功勋 = 城数*(lv+5)+100；关系矩阵不变
+			merit = DiplomacyRef.intel_merit(int(opts.get("g10", 0)),
+				int(opts.get("g0d", 0)), province_city_count(target))
+	res["lv"] = lv
+	res["merit"] = merit
+	res["dipl_after"] = int(diplomacy.get_diplomacy(my, target))
+	res["mv_after"] = int(diplomacy.get_master_vassal(my, target))
 	res["ok"] = true
 	return res
 

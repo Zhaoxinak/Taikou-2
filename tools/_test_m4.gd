@@ -166,7 +166,14 @@ func _run() -> void:
 	var prev_month: int = int(gs.get_status().get("month", 1))
 	for cmd in range(12):
 		var before: Dictionary = gs.get_effective_castle(cid)
-		var rc: Dictionary = gs.issue_command(cmd)
+		# 外交类主命（7进贡/8威吓/9朝廷/10情报/11谋略）必须带目标国（0x4c4270 筛选）；
+		# 11 谋略为 work_not_modeled 占位（不耗时）→ 仅 7..10 参与成功/月推进断言
+		var opts: Dictionary = {"target_province": 0} if cmd >= 7 and cmd <= 10 else {}
+		var rc: Dictionary = gs.issue_command(cmd, opts)
+		if cmd == 11:
+			check(not rc.get("ok", false) and rc.get("reason", "") == "work_not_modeled",
+				"主命 #11 谋略 = work_not_modeled 占位（RE 未逆）")
+			continue
 		check(rc.get("ok", false), "主命 #%d %s 执行成功 (reason=%s)" % [cmd, gs.COMMAND_NAMES[cmd], rc.get("reason","")])
 		var deltas: Dictionary = rc.get("deltas", {})
 		var after: Dictionary = gs.get_effective_castle(cid)

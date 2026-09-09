@@ -10,27 +10,28 @@ _test_castle_town :: [0 失败迹象] 18 PASS / 0 FAIL
 _test_cmd_delta :: [0 失败迹象] (无汇总行) 末行: [CMD-DELTA PASS] 全部断言通过 ✅
 _test_council :: [0 失败迹象] RESULT: 41/41 checks passed 
 _test_diplomacy :: [0 失败迹象] (无汇总行) 末行: [DIPLOMACY PASS] 全部断言通过 ✅
+_test_diplomacy_command :: [0 失败迹象] RESULT: 31/31 checks passed 
 _test_duel :: [0 失败迹象] (无汇总行) 末行: [DUEL PASS] 全部断言通过 ✅
 _test_economy :: [0 失败迹象] 49 PASS / 0 FAIL 
 _test_event_effects :: [0 失败迹象] (无汇总行) 末行: [EVENT-EFFECTS PASS] 全部断言通过 ✅
 _test_event_sys :: [0 失败迹象] RESULT: ALL PASS (47/47) 
 _test_event_text :: [0 失败迹象] (无汇总行) 末行: [EVENT-TEXT PASS] 全部断言通过 ✅
-_test_gaiji :: [0 失败迹象] [ALL PASS] GAIJI 渲染层校验通过（26 ms） 
+_test_gaiji :: [0 失败迹象] [ALL PASS] GAIJI 渲染层校验通过（22 ms） 
 _test_gun_penalty :: [0 失败迹象] RESULT: 11/11 checks passed 
 _test_hd3 :: [0 失败迹象] ALL PASS (42 checks) 
-_test_m3 :: [0 失败迹象] [ok] M3 GameState 全部通过（用时 31 ms） 
-_test_m3_ui :: [0 失败迹象] [ok] M3 UI 全链路通过（用时 174 ms） 
+_test_m3 :: [0 失败迹象] [ok] M3 GameState 全部通过（用时 32 ms） 
+_test_m3_ui :: [0 失败迹象] [ok] M3 UI 全链路通过（用时 173 ms） 
 _test_m4 :: [0 失败迹象] (无汇总行) 末行: [M4 PASS] 全部断言通过 ✅
 _test_m5 :: [0 失败迹象] (无汇总行) 末行: [M5 PASS] 全部断言通过 ✅
-_test_models :: [0 失败迹象] [ALL PASS] 数据模型补全校验通过（39 ms） 
+_test_models :: [0 失败迹象] [ALL PASS] 数据模型补全校验通过（38 ms） 
 _test_npc_names :: [0 失败迹象] RESULT: 16/16 checks passed 
 _test_portrait_loader :: [0 失败迹象] (无汇总行) 末行: 总计：通过 12 / 失败 0
 _test_s15 :: [0 失败迹象] (无汇总行) 末行: [S15 PASS] 全部断言通过 ✅
 _test_shop :: [0 失败迹象] (无汇总行) 末行: [SHOP PASS] 全部断言通过 ✅
 _test_shop_flows :: [0 失败迹象] ALL PASS (45 checks) 
 _test_terrain16 :: [0 失败迹象] ALL PASS (18 checks) 
-_test_textfx :: [0 失败迹象] [ALL PASS] 高级文本渲染层校验通过（63 ms） 
-_test_ui_hd5 :: [0 失败迹象] (无汇总行) 末行: [HD-5 PASS] 全部断言通过 ✅
+_test_textfx :: [0 失败迹象] [ALL PASS] 高级文本渲染层校验通过（59 ms） 
+_test_ui_hd5 :: [0 失败迹象] (无汇总行) 末行:    at: cleanup (core/object/object.cpp:2536)
 _test_weather :: [0 失败迹象] ALL PASS (63 checks) 
 _test_world :: [0 失败迹象] WORLD TEST: pass=15 fail=0 
 === BATCH DONE ===
