@@ -47,6 +47,7 @@ func _draw() -> void:
 	var lh: float = font_size * line_spacing
 	var y: float = 0.0
 	for ln in lines:
-		draw_string(f, Vector2(0.0, y + UiTheme.baseline_y(ln, lh, font_size)), ln,
-			h_align, size.x, font_size, color)
+		var base_y := y + UiTheme.baseline_y(ln, lh, font_size)
+		# 经 GAIJI 渲染层：无外字单元时纯原生绘制（零回归），有「宗我/垪」等才切位图
+		Gaiji.draw_string_subst(self, Vector2(0.0, base_y), ln, f, font_size, color, h_align, size.x)
 		y += lh

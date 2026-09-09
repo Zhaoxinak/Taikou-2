@@ -36,7 +36,7 @@
 ## 约定 / 环境
 - 工程根=`project.godot`；四目录 `src/`·`scenes/`·`assets/`·`scripts/`。autoload=DisplayAdapter+GameData+GameState。覆盖层存 `GameState` 运行期变更，不回写 data/。
 - 无头测试：`Godot_v4.7.1-stable_win64_console.exe --headless --script res://tools/_test_mX.gd`。反汇编用系统 Python3.12（capstone 5.0.7；托管 3.13 无）。
-- **git push 走 `127.0.0.1:7890` 代理可用**（实测 github.com=200；`127.0.0.1:9120` 已死）：`remote=https://github.com/Zhaoxinak/Taikou-2`，命令加 `-c http.proxy=127.0.0.1:7890`，首推偶发 stall 用 `timeout 300`。
+- ⚠️ **git 联网必须显式走代理**：本机（macOS）`git fetch/pull/push origin` 若不加代理会被透明拦截代理 `198.19.2.122:443` 掐断（"Connection closed"），即使 `HTTP_PROXY` 环境变量已设也读不到。可靠姿势：`git -c http.proxy=http://127.0.0.1:56509 <fetch|pull|push> origin`（端口随会话变，当前 56509；旧 Windows 环境曾用 7890/9120）。remote=`https://github.com/Zhaoxinak/Taikou-2`。
 - 突破插 BREAKTHROUGHS 倒序（四段），续编号取 `grep -o '上一条（续[0-9]*）'` max+1。
 
 ## 数据细节指针（勿抄进本文件）

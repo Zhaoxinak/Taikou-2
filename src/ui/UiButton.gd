@@ -104,11 +104,11 @@ func _draw() -> void:
 	draw_rect(r, state_bg(enabled, _hover or has_focus(), _down))
 	draw_rect(r, state_edge(enabled), false, UiTheme.BORDER)
 
-	# 居中文本（自绘）
+	# 居中文本（自绘，经 GAIJI 渲染层）
 	var f := UiTheme.font()
 	if f == null or text.is_empty():
 		return
 	var fs := font_size
-	# 水平居中：以 r.size.x 为宽度 + CENTER 对齐
-	draw_string(f, Vector2(0.0, UiTheme.baseline_y(text, size.y, fs)), text,
-		HORIZONTAL_ALIGNMENT_CENTER, size.x, fs, state_text(enabled))
+	# 水平居中：以 r.size.x 为宽度 + CENTER 对齐；无外字单元时纯原生绘制（零回归）
+	Gaiji.draw_string_subst(self, Vector2(0.0, UiTheme.baseline_y(text, size.y, fs)), text,
+		f, fs, state_text(enabled), HORIZONTAL_ALIGNMENT_CENTER, size.x)
