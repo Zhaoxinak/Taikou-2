@@ -65,3 +65,6 @@ Desktop.ini
 
 # 解码器探针产物
 # scripts/_hd_probe/
+
+# 立绘生成暂存（ImageGen 原始 2x 图，缩放后落 assets/sprites/portraits/）
+_portrait_raw/
