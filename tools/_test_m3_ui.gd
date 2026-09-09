@@ -19,6 +19,28 @@ func check(cond: bool, msg: String) -> void:
 		push_error("[FAIL] " + msg)
 		_fails += 1
 
+
+## 递归查找子树内文本含 label 的自绘/原生按钮（弹窗的「知道了」关闭钮）
+func _find_button(node: Node, label: String) -> Node:
+	if node == null:
+		return null
+	if (node is UiButton or node is Button) and str(node.get("text")).contains(label):
+		return node
+	for c in node.get_children():
+		var r := _find_button(c, label)
+		if r != null:
+			return r
+	return null
+
+
+## 判断叙事行数组是否含指定事件 id 的「叙事待补」诚实占位行
+func _has_pending_placeholder(arr: Array, eid: int) -> bool:
+	var expect := "[事件 %d 触发] 叙事待补（逆向缺口）" % eid
+	for s in arr:
+		if str(s) == expect:
+			return true
+	return false
+
 func _initialize() -> void:
 	process_frame.connect(_run, CONNECT_ONE_SHOT)
 
@@ -113,6 +135,43 @@ func _run() -> void:
 	check(int(st2["stamina"]) == int(st2["stamina_max"]), "休养后体力回满 (%d/%d)"
 		% [int(st2["stamina"]), int(st2["stamina_max"])])
 	check(int(st2["month"]) == int(st_before["month"]) + 1, "休养推进 1 月")
+
+	# —— 6) 事件流弹窗（event_log 的 UI 渲染出口；闭环效果执行层）——
+	var ev_before: int = gs.get_event_log().size()
+	# 6.1 叙事事件 id15：force → _refresh 弹出，含 MSGX 叙事行
+	gs.force_event(15)
+	status._refresh()
+	await process_frame
+	await process_frame
+	check(status._event_overlay != null, "事件日志非空 → 状态画面弹出事件层")
+	var lines15: Array = gs.pending_event_lines(ev_before)
+	check(lines15.size() >= 1, "id15 叙事事件产出 ≥1 行 MSGX 文本 (got %d)" % lines15.size())
+	var close_btn = _find_button(status._event_overlay, "知道了")
+	check(close_btn != null, "事件弹窗含关闭钮「知道了」")
+	# 关闭
+	if close_btn != null:
+		close_btn.pressed.emit()
+	await process_frame
+	await process_frame
+	check(status._event_overlay == null, "关闭 → _event_overlay 复位")
+	# 6.2 narrative_pending 占位：id13 触发后叙事未逆 → 诚实占位行（不伪造）
+	gs.force_event(13)
+	status._refresh()
+	await process_frame
+	await process_frame
+	check(status._event_overlay != null, "id13 事件也弹出事件层")
+	var lines13: Array = gs.pending_event_lines(ev_before + 1)
+	check(_has_pending_placeholder(lines13, 13), "id13 触发后显示叙事待补占位行（逆向缺口诚实标注）")
+	var close_btn2 = _find_button(status._event_overlay, "知道了")
+	if close_btn2 != null:
+		close_btn2.pressed.emit()
+	await process_frame
+	await process_frame
+	# 6.3 关闭后不重复弹（_event_read_idx 已推进到队尾）
+	status._refresh()
+	await process_frame
+	await process_frame
+	check(status._event_overlay == null, "已读事件不再重复弹（_event_read_idx 推进）")
 
 	print("")
 	if _fails > 0:

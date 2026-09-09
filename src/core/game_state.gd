@@ -19,6 +19,8 @@ const WeatherRef = preload("res://src/core/weather.gd")
 const CalendarRef = preload("res://src/core/calendar.gd")
 const WorldMapRef = preload("res://src/core/world_map.gd")
 const EconomyRef = preload("res://src/core/economy.gd")
+const EventEffectsRef = preload("res://src/core/event_effects.gd")
+const EventSysRef = preload("res://src/core/event_sys.gd")
 
 # 游戏起始年（太阁立志传2 经典开局）
 const START_YEAR : int = 1560
@@ -87,11 +89,24 @@ var diplomacy : RefCounted = DiplomacyRef.new()
 # 复刻 word[0x513530] / dword[0x51352c]。雪国地域气候（tick_region）待国表气候字节导出后接线。
 var weather = WeatherRef.new()
 
+# —— M7 事件解释器「效果执行层」（7 真实事件 id 的 MSGX 叙事发射 + outcome 记录）——
+var event_effects : RefCounted = EventEffectsRef.new()
+
+# —— 事件解释器运行期条件注入（复刻 [ctx+8]/province/climate/assoc 全局：原版读 0x519548/0x5179b8/0x516638）——
+#   -1 表示「未定位/未注入」，条件门控事件默认不触发。进入城/国时由 set_event_location 更新。
+var evt_province : int = -1   # 玩家当前所在国 idx（id13 条件 opcode 13）
+var evt_climate  : int = -1   # 当前气候组（id14 条件 opcode 14）
+var evt_assoc    : int = -1   # 事件关联国 idx（id10 条件 opcode 10）
+
+# —— 本局事件叙事流（UI 渲染源；advance_month 驱动 poll_events 追加）——
+var event_log : Array = []
+
 
 func _ready() -> void:
 	# event_text 非 autoload，编译期无法解析 GameData 全局名；本构建 Engine.get_singleton 也取不到，
 	# 故在此（GameState autoload，GameData 已先注册）注入 GameData 实例供其取 MSGX 文本。
 	event_text._data = GameData
+	event_effects.data = GameData
 
 
 func start_new_game(protagonist_id: int) -> bool:
@@ -120,6 +135,11 @@ func start_new_game(protagonist_id: int) -> bool:
 	_salary_override.clear()
 	_city_override.clear()
 	_castle_lord_override.clear()
+	# 事件解释器运行期状态重置
+	evt_province = -1
+	evt_climate = -1
+	evt_assoc = -1
+	event_log.clear()
 	# S15 事件旗幟塊：复刻原版 0x488030（0x487f9a 开局一次调用）
 	event_flags.reset()
 	event_flags.init_for_protagonist(pid)
@@ -640,6 +660,97 @@ func use_medicine() -> Dictionary:
 
 
 # =====================================================================
+# M7 事件解释器（效果执行层接线）—— 7 真实事件 id：0,1,9,10,13,14,15
+# =====================================================================
+#
+# 真实运行期 vtable（event_id_dispatch_ref）：仅这 7 个 id 自断言 [ctx+0] 且经 FIRE 派发；
+# 其余 id(2/3/4/5/6/7/8/11/16/17/29) 是菜单/UI/对话 applier，永不测 [ctx+0]，非事件调度成员。
+#
+# 触发模型（诚实）：
+#   · 条件门控事件 10/13/14：按注入的运行期状态（evt_*/assoc）用 EventSys 已解码 opcode 评估，
+#     匹配即 fire（poll_events 自动跑，由 advance_month 每月驱动）。
+#   · effect 驱动事件 0/1/9/15：其「月度调度谓词」(0x4d0ca0 applier) 已证伪为 vtable 成员，
+#     本复刻未建模其自动触发 → 仅暴露 force_event 供游戏月度调度器 / 测试显式驱动。
+#   · 触发后叙事经 EventEffects.dispatch_event 发射 MSGX 文本并写入 event_log（UI 渲染源）。
+
+## 更新玩家当前所在国 / 气候 / 事件关联国（进入城、移动大地图时调用）。
+## province/climate 取国表；assoc 缺省跟随 province。
+func set_event_location(province: int, climate: int, assoc: int = -1) -> void:
+	evt_province = province
+	evt_climate = climate
+	evt_assoc = assoc if assoc >= 0 else province
+
+
+## 运行期条件状态读取（供 EventSys.would_fire 注入 rt 对象）。
+func current_province() -> int: return evt_province
+func current_climate() -> int:  return evt_climate
+func assoc_province() -> int:   return evt_assoc
+
+
+## 返回本局事件叙事流（UI 事件面板）。
+func get_event_log() -> Array:
+	return event_log
+
+
+## 收集 event_log[from_idx..] 的叙事文本行（供 UI 事件弹窗 / 回顾面板）。
+## 有 MSG 的事件取其文本；narrative_pending 的事件（id13/14 等触发后叙事未逆）给诚实占位行。
+func pending_event_lines(from_idx: int = 0) -> Array[String]:
+	var log := get_event_log()
+	var out: Array[String] = []
+	for i in range(maxi(0, from_idx), log.size()):
+		var e: Dictionary = log[i]
+		for m in e.get("msgs", []):
+			if str(m).length() > 0:
+				out.append(str(m))
+		if bool(e.get("narrative_pending", false)):
+			out.append("[事件 %d 触发] 叙事待补（逆向缺口）" % int(e.get("id", 0)))
+	return out
+
+
+## 月度事件轮询：评估条件门控事件(10/13/14)并自动触发，写 event_log。
+## 返回本次触发的结果数组（供 UI 即时弹窗）。
+func poll_events() -> Array:
+	if not is_started():
+		return []
+	var fired : Array = []
+	for eid in [10, 13, 14]:
+		var ctx : EventSysRef.EventCtx = EventSysRef.EventCtx.new()
+		ctx.event_id = eid
+		if _event_should_fire(eid, ctx):
+			var res : Dictionary = event_effects.dispatch_event(eid, ctx, self)
+			event_log.append(res)
+			fired.append(res)
+	return fired
+
+
+## 条件门控事件的触发判定（仅覆盖已解码 opcode 10/13/14；其余返回 false）。
+func _event_should_fire(eid: int, ctx: EventSysRef.EventCtx) -> bool:
+	match eid:
+		13:  # opcode 13：当前所在国 == arg（arg 缺省=当前国，作为 scaffold）
+			return evt_province >= 0 and EventSysRef.eval_4e82c0(13, evt_province, evt_province, evt_climate)
+		14:  # opcode 14：当前气候组 == arg
+			return evt_climate >= 0 and EventSysRef.eval_4e82c0(14, evt_climate, evt_province, evt_climate)
+		10:  # opcode 10：事件关联国 == arg（门控 [ctx+0xc]&2==0）
+			return evt_assoc >= 0 and EventSysRef.eval_4e7e10(10, evt_assoc, evt_assoc, 0)
+	return false
+
+
+## 显式触发某事件（force 绕过条件门控）：effect 驱动事件 0/1/9/15 的月度调度入口，亦供测试。
+## 返回 dispatch_event 结果并追加 event_log；未开局返回空。
+func force_event(eid: int, arg: int = 0) -> Dictionary:
+	if not is_started():
+		return {}
+	if not EventEffectsRef.REAL_EVENT_IDS.has(eid):
+		return {}
+	var ctx : EventSysRef.EventCtx = EventSysRef.EventCtx.new()
+	ctx.event_id = eid
+	ctx.arg = arg
+	var res : Dictionary = event_effects.dispatch_event(eid, ctx, self)
+	event_log.append(res)
+	return res
+
+
+# =====================================================================
 # 时间推进
 # =====================================================================
 ## 推进 n 天（自动跨月/跨年）；复刻 time_rollover 进位链（每月 30 天、12 月/年、无闰年）
@@ -659,6 +770,8 @@ func advance_month() -> void:
 	day = 1                  # 主命耗时 1 月 → 日归 1
 	month = int(r[1])
 	year = START_YEAR + int(r[2])
+	# 月度事件轮询：条件门控事件(10/13/14)按运行期状态自动触发，叙事写入 event_log
+	poll_events()
 
 
 # =====================================================================

@@ -20,6 +20,10 @@ var _info
 var _stat
 var _skill_buttons: Array = []
 
+# 事件流弹窗（event_log 渲染层；事件解释器效果执行层的 UI 出口）
+var _event_overlay = null          # 当前弹出的事件层（Control），非 null 即模态中
+var _event_read_idx: int = 0       # 已读到的 event_log 下标（避免重复弹旧事件）
+
 const _PANEL := Vector2(1240, 820)
 const _CONTENT_W := 1120.0
 const _CONTENT_TOP := 64.0   # 标题栏高度 + 留白
@@ -136,6 +140,11 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		match event.keycode:
 			KEY_ESCAPE:
+				# 事件弹窗模态中：Esc 先关弹窗，不回标题
+				if _event_overlay != null:
+					accept_event()
+					_close_events_popup()
+					return
 				accept_event()
 				_on_back()
 			KEY_ENTER, KEY_KP_ENTER, KEY_SPACE:
@@ -187,6 +196,87 @@ func _on_go_world() -> void:
 	get_tree().change_scene_to_file("res://scenes/screens/world_screen.tscn")
 
 
+## 事件流弹窗：把 event_log[_event_read_idx..] 的叙事行渲染为模态面板。
+## 无新事件 / 未开局 / 已弹窗中 → 直接返回（幂等，可安全从 _refresh 反复调用）。
+func _show_events_popup() -> void:
+	if _event_overlay != null:
+		return
+	if not GameState.is_started():
+		return
+	var lines := GameState.pending_event_lines(_event_read_idx)
+	if lines.is_empty():
+		return
+
+	# —— 模态遮罩：拦截点击，半透明压暗底层 ——
+	var backdrop := Control.new()
+	backdrop.name = "EventOverlay"
+	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	backdrop.mouse_filter = Control.MOUSE_FILTER_STOP
+	var dim := ColorRect.new()
+	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	dim.color = Color(0.0, 0.0, 0.0, 0.55)
+	dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	backdrop.add_child(dim)
+
+	# —— 和风面板（复用 UiPanel 自绘）——
+	var panel := UiPanel.new()
+	panel.set_anchors_preset(Control.PRESET_CENTER)
+	panel.title = "事 件"
+	var psize := Vector2(960, 600)
+	panel.size = psize
+	panel.position = -psize * 0.5
+	backdrop.add_child(panel)
+
+	# —— 内容 VBox（文本可滚动 + 关闭钮）——
+	# 默认锚点 (0,0,0,0) 即面板左上角；用 size/position 直接定位，无锚点冲突警告。
+	var vbox := VBoxContainer.new()
+	vbox.size = Vector2(psize.x - 80, psize.y - 140)
+	vbox.position = Vector2(40, 90)   # 水平居中留白 + 标题栏下方
+	vbox.add_theme_constant_override("separation", 14)
+	panel.add_child(vbox)
+
+	# 文本（单 UiLabel 多行；长文本放 ScrollContainer 内可滚动）
+	var sc := ScrollContainer.new()
+	sc.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	vbox.add_child(sc)
+	var lbl := UiLabel.new()
+	lbl.text = "\n".join(PackedStringArray(lines))
+	lbl.font_size = UiTheme.FONT_BODY
+	lbl.h_align = HORIZONTAL_ALIGNMENT_LEFT
+	lbl.custom_minimum_size = Vector2(vbox.size.x - 24, 0)
+	sc.add_child(lbl)
+
+	var close := UiButton.new()
+	close.text = "知道了"
+	close.font_size = UiTheme.FONT_SMALL
+	close.custom_minimum_size = Vector2(280, UiTheme.BTN_H)
+	close.pressed.connect(_close_events_popup)
+	vbox.add_child(close)
+
+	add_child(backdrop)
+	_event_overlay = backdrop
+	# 把已读下标推到队尾，避免下次 _refresh 重复弹同批事件
+	_event_read_idx = GameState.get_event_log().size()
+	# 有弹窗时主内容按钮不应抢焦点（仅模态允许关闭钮交互）
+	_release_skill_focus()
+
+
+## 关闭事件弹窗：释放遮罩、复位状态；idempotent。
+func _close_events_popup() -> void:
+	if _event_overlay != null and is_instance_valid(_event_overlay):
+		_event_overlay.queue_free()
+	_event_overlay = null
+	_event_read_idx = GameState.get_event_log().size()
+
+
+## 弹窗模态期间，把技能钮的焦点清掉（避免 Enter/Space 误操作底层主命）。
+func _release_skill_focus() -> void:
+	for b in _skill_buttons:
+		if b is Control and (b as Control).has_focus():
+			(b as Control).release_focus()
+
+
 func _refresh() -> void:
 	var st: Dictionary = GameState.get_status()
 	if st.is_empty():
@@ -208,3 +298,5 @@ func _refresh() -> void:
 		b.text = "%s %d/3" % [ConstsRef.SKILL_NAMES[k], lv]
 		# UiButton 用 enabled（而非 Godot Button 的 disabled）
 		b.enabled = lv < ConstsRef.SKILL_CAP
+	# 事件流弹窗：每次刷新检查是否有新事件，有则模态展示（幂等）
+	_show_events_popup()
