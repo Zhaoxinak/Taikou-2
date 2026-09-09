@@ -6,9 +6,7 @@
 #   3) 占位图路径：未知 id → 直接走占位图
 #   4) 占位图尺寸符合 AssetSpec.PORTRAIT_SIZE
 #   5) 多张候选 -1 副本可被命中
-#
-# ⚠️ headless 模式下 PowerShell/Bash 可能截断 stdout；测试结果同步落盘到
-#    user://portrait_loader_test.log 以便事后查看（项目根的 user_data 目录）。
+#   6) 新生成的 tier3 大名（毛利元就/朝仓义景/岛津贵久等）也按新命名加载
 
 extends SceneTree
 
@@ -17,7 +15,6 @@ const AssetLoader = preload("res://src/render/asset_loader.gd")
 
 var _pass: int = 0
 var _fail: int = 0
-var _log: Array = []
 
 
 func _initialize() -> void:
@@ -25,30 +22,13 @@ func _initialize() -> void:
 	process_frame.connect(_run, CONNECT_ONE_SHOT)
 
 
-func _logln(s: String) -> void:
-	_log.append(s)
-	print(s)
-
-
 func check(cond: bool, msg: String) -> void:
 	if cond:
 		_pass += 1
-		_logln("[ok] " + msg)
+		print("[ok] " + msg)
 	else:
 		_fail += 1
-		_logln("[FAIL] " + msg)
-
-
-func _dump_log() -> void:
-	# 落到 res:// (项目目录) 比 user:// 更便于事后查看
-	var f := FileAccess.open("res://tools/.portrait_loader_test.log", FileAccess.WRITE)
-	if f == null:
-		return
-	for ln in _log:
-		f.store_line(ln)
-	f.store_line("")
-	f.store_line("总计：通过 %d / 失败 %d" % [_pass, _fail])
-	f.close()
+		print("[FAIL] " + msg)
 
 
 func _run() -> void:
@@ -101,20 +81,27 @@ func _run() -> void:
 			copied = true
 
 	if not copied:
-		_logln("[跳过] -1 副本测试（无 13_织田信长.png 可复制）")
+		print("[跳过] -1 副本测试（无 13_织田信长.png 可复制）")
 	else:
 		var t5 = AssetLoader.load_portrait(13, "织田信长")
 		check(t5 != null, "-1 副本路径可加载")
 		dir_access.remove("13_织田信长-1.png")
-		_logln("[清理] 删除临时 -1 副本")
+		print("[清理] 删除临时 -1 副本")
 
 	# 6) 其他新命名样例
 	var t6 = AssetLoader.load_portrait(1, "柴田胜家")
 	check(t6 != null, "新命名 1_柴田胜家.png 可加载")
 
-	_logln("")
-	_logln("总计：通过 %d / 失败 %d" % [_pass, _fail])
-	_dump_log()
+	# 7) 新生成的 tier3 大名（毛利元就/朝仓义景/岛津贵久等）
+	var t7 = AssetLoader.load_portrait(500, "毛利元就")
+	check(t7 != null, "新命名 500_毛利元就.png 可加载")
+	var t8 = AssetLoader.load_portrait(368, "朝仓义景")
+	check(t8 != null, "新命名 368_朝仓义景.png 可加载")
+	var t9 = AssetLoader.load_portrait(651, "岛津贵久")
+	check(t9 != null, "新命名 651_岛津贵久.png 可加载")
+
+	print("")
+	print("总计：通过 %d / 失败 %d" % [_pass, _fail])
 	if _fail > 0:
 		quit(1)
 	else:

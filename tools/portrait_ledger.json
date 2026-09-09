@@ -11,8 +11,8 @@
   "out_dir": "assets/sprites/portraits/",
   "loader": "res://assets/sprites/portraits/{id}.png (src/render/asset_loader.gd)",
   "total": 695,
-  "done": 20,
-  "pending": 675,
+  "done": 48,
+  "pending": 647,
   "note": "文件名是 {id}.png 不是 full_XXXX.png；国名走 city→castle.province，勿用 officer.province"
  },
  "items": [
@@ -224,7 +224,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, in his prime, about 35 years old, daimyo warlord, elaborate armor with gold accents, clan of 越中, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "351_神保长职.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 357,
@@ -234,7 +234,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, middle-aged, about 40 years old, daimyo warlord, elaborate armor with gold accents, clan of 能登, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "357_田山义续.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 368,
@@ -244,7 +244,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, in his prime, about 27 years old, daimyo warlord, elaborate armor with gold accents, clan of 越前若狭, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "368_朝仓义景.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 384,
@@ -254,7 +254,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, youthful, about 15 years old, daimyo warlord, elaborate armor with gold accents, clan of 北近江, seasoned warrior look, hardened gaze, natural leader bearing, commanding presence, authoritative posture, refined noble features, charismatic smile, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "384_浅井长政.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 389,
@@ -264,7 +264,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, middle-aged, about 39 years old, daimyo warlord, elaborate armor with gold accents, clan of 南近江, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "389_六角承侦.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 397,
@@ -274,7 +274,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, middle-aged, about 50 years old, daimyo warlord, elaborate armor with gold accents, clan of 大和伊贺, seasoned warrior look, hardened gaze, natural leader bearing, commanding presence, authoritative posture, composed diplomat, elegant manner, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "397_松永久秀.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 401,
@@ -284,7 +284,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, in his prime, about 30 years old, daimyo warlord, elaborate armor with gold accents, clan of 大和伊贺, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "401_筒井顺庆.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 406,
@@ -294,7 +294,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, in his prime, about 24 years old, daimyo warlord, elaborate armor with gold accents, clan of 山城, seasoned warrior look, hardened gaze, refined noble features, charismatic smile, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "406_足利义辉.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 410,
@@ -304,7 +304,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, in his prime, about 33 years old, daimyo warlord, elaborate armor with gold accents, clan of 丹波丹后, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "410_波多野宗长.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 429,
@@ -314,7 +314,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, middle-aged, about 37 years old, daimyo warlord, elaborate armor with gold accents, clan of 摄津, seasoned warrior look, hardened gaze, composed diplomat, elegant manner, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "429_三好长庆.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 453,
@@ -324,7 +324,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, middle-aged, about 38 years old, daimyo warlord, elaborate armor with gold accents, clan of 纪伊, natural leader bearing, commanding presence, authoritative posture, refined noble features, charismatic smile, composed diplomat, elegant manner, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "453_杂贺佐太夫.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 460,
@@ -334,7 +334,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, in his prime, about 28 years old, daimyo warlord, elaborate armor with gold accents, clan of 播磨但马, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "460_别所长胜.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 465,
@@ -344,7 +344,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, middle-aged, about 44 years old, daimyo warlord, elaborate armor with gold accents, clan of 播磨但马, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "465_小寺政职.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 470,
@@ -354,7 +354,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, middle-aged, about 49 years old, daimyo warlord, elaborate armor with gold accents, clan of 因幡伯耆, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "470_山名佑丰.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 481,
@@ -364,7 +364,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, in his prime, about 24 years old, daimyo warlord, elaborate armor with gold accents, clan of 出云石见, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "481_尼子义久.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 489,
@@ -374,7 +374,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, in his prime, about 31 years old, daimyo warlord, elaborate armor with gold accents, clan of 备前美作, seasoned warrior look, hardened gaze, natural leader bearing, commanding presence, authoritative posture, composed diplomat, elegant manner, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "489_宇喜多直家.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 500,
@@ -384,7 +384,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, elderly, about 63 years old, daimyo warlord, elaborate armor with gold accents, clan of 安艺, seasoned warrior look, hardened gaze, natural leader bearing, commanding presence, authoritative posture, refined noble features, charismatic smile, scholarly air, court attire accents, composed diplomat, elegant manner, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "500_毛利元就.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 541,
@@ -394,7 +394,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, in his prime, about 32 years old, daimyo warlord, elaborate armor with gold accents, clan of 伊予, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "541_河野通宣.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 557,
@@ -404,7 +404,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, in his prime, about 21 years old, daimyo warlord, elaborate armor with gold accents, clan of 土佐, seasoned warrior look, hardened gaze, natural leader bearing, commanding presence, authoritative posture, refined noble features, charismatic smile, composed diplomat, elegant manner, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "557_長宗我部元亲.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 585,
@@ -414,7 +414,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, youthful, about 17 years old, daimyo warlord, elaborate armor with gold accents, clan of 土佐, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "585_一条兼定.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 588,
@@ -424,7 +424,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, youthful, about 15 years old, daimyo warlord, elaborate armor with gold accents, clan of 筑前筑后, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "588_秋月种实.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 592,
@@ -434,7 +434,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, in his prime, about 31 years old, daimyo warlord, elaborate armor with gold accents, clan of 肥前, battle-worn armor, fierce expression, scars, natural leader bearing, commanding presence, authoritative posture, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "592_龙造寺隆信.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 618,
@@ -444,7 +444,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, in his prime, about 30 years old, daimyo warlord, elaborate armor with gold accents, clan of 丰后, seasoned warrior look, hardened gaze, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "618_大友宗麟.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 640,
@@ -454,7 +454,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, youthful, about 16 years old, daimyo warlord, elaborate armor with gold accents, clan of 肥后, seasoned warrior look, hardened gaze, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "640_相良义阳.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 642,
@@ -464,7 +464,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, in his prime, about 29 years old, daimyo warlord, elaborate armor with gold accents, clan of 日向, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "642_土持亲成.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 644,
@@ -474,7 +474,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, middle-aged, about 48 years old, daimyo warlord, elaborate armor with gold accents, clan of 日向, steadfast retainer, calm demeanor, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "644_伊东义佑.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 647,
@@ -484,7 +484,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, middle-aged, about 49 years old, daimyo warlord, elaborate armor with gold accents, clan of 萨摩大隅, seasoned warrior look, hardened gaze, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "647_肝付兼续.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 651,
@@ -494,7 +494,7 @@
    "tier": 3,
    "prompt": "HD-2D style portrait, Japanese Sengoku warlord, half-body, 4:5 vertical composition, high-resolution pixel art with realistic Japanese aesthetics, middle-aged, about 46 years old, daimyo warlord, elaborate armor with gold accents, clan of 萨摩大隅, seasoned warrior look, hardened gaze, natural leader bearing, commanding presence, authoritative posture, refined noble features, charismatic smile, scholarly air, court attire accents, Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, detailed armor texture and fabric folds, sharp clean pixel edges, dramatic cinematic lighting, game character portrait",
    "out_file": "651_岛津贵久.png",
-   "status": "pending"
+   "status": "done"
   },
   {
    "id": 0,
