@@ -52,5 +52,5 @@
 ## 约定/环境
 - 工程根=project.godot；四目录 src/·scenes/·assets/·scripts/。autoload=DisplayAdapter+GameData+GameState。
 - 无头测试：Godot_v4.7.1-stable_win64_console.exe --headless --script res://tools/_test_mX.gd（Windows；macOS 用 Godot.app）。反汇编用系统 Python3.12(capstone 5.0.7)。
-- git 联网走代理：git -c http.proxy=http://127.0.0.1:<port> <fetch|pull|push> origin（port 随会话变）。remote=github.com/Zhaoxinak/Taikou-2。push 前须用户确认。
+- git 联网：remote = `git@github.com:Zhaoxinak/Taikou-2.git`（**SSH**，非 HTTPS）。认证走 `~/.ssh/id_ed25519_taikou` + `~/.ssh/config` 的 `ProxyCommand "connect.exe" -H 127.0.0.1:7890`，**push 已实测成功（2026-09-10，e57333e → origin/main）**。无需 GCM/HTTPS 凭据（旧记「GCM 无凭据」仅适用于 HTTPS remote，本工程 remote 是 SSH，不适用）。git config 另有 `http.proxy=https.proxy=http://127.0.0.1:7890`（仅影响 https 操作，SSH 走 ssh config 的 ProxyCommand）。
 - 突破插 BREAKTHROUGHS 倒序；续编号取 grep '上一条（续[0-9]*）' max+1。
