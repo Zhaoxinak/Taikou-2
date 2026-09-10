@@ -71,6 +71,13 @@ TAIL = ("Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color 
         "detailed armor texture and fabric folds, sharp clean pixel edges, "
         "dramatic cinematic lighting, game character portrait")
 
+# v2 统一风格段（2026-09-10 风格审查后固化）：
+#   - 禁止铠甲/背景文字（此前 "clan of X" 被模型画成画面文字）
+#   - 统一暖黄虚化渐变背景，避免偏冷/暗部具象化背景
+#   - 刻意不加 bright well-lit / vivid saturated（实测会导致画面过亮过艳、与主流脱节）
+STYLE_FIX = (" and warm amber gradient background, soft out-of-focus bokeh glow, "
+             "no text, no kanji, no letters on armor or background")
+
 
 def load():
     officers = json.load(open(os.path.join(ROOT, "data", "officers.json"), encoding="utf-8"))
@@ -133,12 +140,11 @@ def trait_desc(o):
 
 
 def build_prompt(o, castles, provinces):
-    pv = province_name(o, castles, provinces)
     rank = RANK_DESC.get(o.get("rank_name") or "", "samurai retainer, serviceable armor")
     return (f"HD-2D style portrait, Japanese Sengoku warlord, half-body, "
             f"4:5 vertical composition, high-resolution pixel art with realistic "
-            f"Japanese aesthetics, {age_desc(o)}, {rank}, clan of {pv}, "
-            f"{trait_desc(o)}, {TAIL}")
+            f"Japanese aesthetics, {age_desc(o)}, {rank}, "
+            f"{trait_desc(o)}, {TAIL}{STYLE_FIX}")
 
 
 def tier_of(o):
