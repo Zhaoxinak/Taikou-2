@@ -125,6 +125,14 @@ func _build() -> void:
 	world_btn.pressed.connect(_on_go_world)
 	row2.add_child(world_btn)
 
+	var cmd_btn := UiButton.new()
+	cmd_btn.text = "执行主命"
+	cmd_btn.font_size = UiTheme.FONT_SMALL
+	cmd_btn.custom_minimum_size = Vector2(0, 58)
+	cmd_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	cmd_btn.pressed.connect(_on_go_command)
+	row2.add_child(cmd_btn)
+
 	# —— 底部帮助栏（MSGX 说明文渲染）——
 	_help = UiLabel.new()
 	_help.custom_minimum_size = Vector2(0, 44)
@@ -194,6 +202,11 @@ func _on_back() -> void:
 func _on_go_world() -> void:
 	GameState.enter_world()
 	get_tree().change_scene_to_file("res://scenes/screens/world_screen.tscn")
+
+
+## 执行主命 → 主命画面（12 主命真正对玩家开放）
+func _on_go_command() -> void:
+	get_tree().change_scene_to_file("res://scenes/screens/command_screen.tscn")
 
 
 ## 事件流弹窗：把 event_log[_event_read_idx..] 的叙事行渲染为模态面板。

@@ -16,6 +16,19 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	_build()
+	_start_bgm()
+
+
+## 标题 BGM：CD 轨 1。
+## 依据：原版「BGM 槽位 → 轨号 = 槽位 + 2」（0x498eb8），故槽位 0 起于轨 2 ——
+##   **轨 1 不在常规 BGM 槽位体系内**，推定为 OP / 标题曲（时长 76.7s，与 BGM 同量级）。
+## ⚠️ 原版「场景 → 槽位」调度表走虚表间接派发（播放函数 0 直接调用者），需 emu 钩
+##   CdPlay 的 caller 才能闭合；此处只接标题曲，进游戏后沿用（CD-DA 本就跨场景连续播放）。
+func _start_bgm() -> void:
+	var audio := get_node_or_null("/root/AudioManager")
+	if audio == null:
+		return
+	audio.play_bgm_track(1)
 
 
 func _build() -> void:

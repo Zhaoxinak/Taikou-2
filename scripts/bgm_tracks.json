@@ -1,0 +1,243 @@
+{
+  "count": 34,
+  "tracks": [
+    {
+      "track": 1,
+      "file": "01.mp3",
+      "path": "res://Taikou2 Original/MP3/01.mp3",
+      "duration": 76.7,
+      "size": 1736409
+    },
+    {
+      "track": 2,
+      "file": "02.mp3",
+      "path": "res://Taikou2 Original/MP3/02.mp3",
+      "duration": 67.06,
+      "size": 1619508
+    },
+    {
+      "track": 3,
+      "file": "03.mp3",
+      "path": "res://Taikou2 Original/MP3/03.mp3",
+      "duration": 62.59,
+      "size": 1489740
+    },
+    {
+      "track": 4,
+      "file": "04.mp3",
+      "path": "res://Taikou2 Original/MP3/04.mp3",
+      "duration": 58.33,
+      "size": 1447056
+    },
+    {
+      "track": 5,
+      "file": "05.mp3",
+      "path": "res://Taikou2 Original/MP3/05.mp3",
+      "duration": 64.0,
+      "size": 1540168
+    },
+    {
+      "track": 6,
+      "file": "06.mp3",
+      "path": "res://Taikou2 Original/MP3/06.mp3",
+      "duration": 62.12,
+      "size": 1483745
+    },
+    {
+      "track": 7,
+      "file": "07.mp3",
+      "path": "res://Taikou2 Original/MP3/07.mp3",
+      "duration": 81.37,
+      "size": 1795690
+    },
+    {
+      "track": 8,
+      "file": "08.mp3",
+      "path": "res://Taikou2 Original/MP3/08.mp3",
+      "duration": 81.14,
+      "size": 2012827
+    },
+    {
+      "track": 9,
+      "file": "09.mp3",
+      "path": "res://Taikou2 Original/MP3/09.mp3",
+      "duration": 93.34,
+      "size": 2518453
+    },
+    {
+      "track": 10,
+      "file": "10.mp3",
+      "path": "res://Taikou2 Original/MP3/10.mp3",
+      "duration": 59.14,
+      "size": 1650526
+    },
+    {
+      "track": 11,
+      "file": "11.mp3",
+      "path": "res://Taikou2 Original/MP3/11.mp3",
+      "duration": 61.28,
+      "size": 1451097
+    },
+    {
+      "track": 12,
+      "file": "12.mp3",
+      "path": "res://Taikou2 Original/MP3/12.mp3",
+      "duration": 97.18,
+      "size": 2152099
+    },
+    {
+      "track": 13,
+      "file": "13.mp3",
+      "path": "res://Taikou2 Original/MP3/13.mp3",
+      "duration": 70.03,
+      "size": 1603083
+    },
+    {
+      "track": 14,
+      "file": "14.mp3",
+      "path": "res://Taikou2 Original/MP3/14.mp3",
+      "duration": 85.19,
+      "size": 1939002
+    },
+    {
+      "track": 15,
+      "file": "15.mp3",
+      "path": "res://Taikou2 Original/MP3/15.mp3",
+      "duration": 60.21,
+      "size": 1539359
+    },
+    {
+      "track": 16,
+      "file": "16.mp3",
+      "path": "res://Taikou2 Original/MP3/16.mp3",
+      "duration": 71.81,
+      "size": 1642498
+    },
+    {
+      "track": 17,
+      "file": "17.mp3",
+      "path": "res://Taikou2 Original/MP3/17.mp3",
+      "duration": 61.13,
+      "size": 1248241
+    },
+    {
+      "track": 18,
+      "file": "18.mp3",
+      "path": "res://Taikou2 Original/MP3/18.mp3",
+      "duration": 77.51,
+      "size": 1819816
+    },
+    {
+      "track": 19,
+      "file": "19.mp3",
+      "path": "res://Taikou2 Original/MP3/19.mp3",
+      "duration": 82.29,
+      "size": 2199518
+    },
+    {
+      "track": 20,
+      "file": "20.mp3",
+      "path": "res://Taikou2 Original/MP3/20.mp3",
+      "duration": 57.03,
+      "size": 1284586
+    },
+    {
+      "track": 21,
+      "file": "21.mp3",
+      "path": "res://Taikou2 Original/MP3/21.mp3",
+      "duration": 146.73,
+      "size": 3420405
+    },
+    {
+      "track": 22,
+      "file": "22.mp3",
+      "path": "res://Taikou2 Original/MP3/22.mp3",
+      "duration": 140.07,
+      "size": 3284465
+    },
+    {
+      "track": 23,
+      "file": "23.mp3",
+      "path": "res://Taikou2 Original/MP3/23.mp3",
+      "duration": 129.12,
+      "size": 3615682
+    },
+    {
+      "track": 24,
+      "file": "24.mp3",
+      "path": "res://Taikou2 Original/MP3/24.mp3",
+      "duration": 115.2,
+      "size": 2691880
+    },
+    {
+      "track": 25,
+      "file": "25.mp3",
+      "path": "res://Taikou2 Original/MP3/25.mp3",
+      "duration": 36.99,
+      "size": 863069
+    },
+    {
+      "track": 26,
+      "file": "26.mp3",
+      "path": "res://Taikou2 Original/MP3/26.mp3",
+      "duration": 160.16,
+      "size": 3890629
+    },
+    {
+      "track": 27,
+      "file": "27.mp3",
+      "path": "res://Taikou2 Original/MP3/27.mp3",
+      "duration": 112.17,
+      "size": 2559910
+    },
+    {
+      "track": 28,
+      "file": "28.mp3",
+      "path": "res://Taikou2 Original/MP3/28.mp3",
+      "duration": 9.98,
+      "size": 206697
+    },
+    {
+      "track": 29,
+      "file": "29.mp3",
+      "path": "res://Taikou2 Original/MP3/29.mp3",
+      "duration": 9.98,
+      "size": 186111
+    },
+    {
+      "track": 30,
+      "file": "30.mp3",
+      "path": "res://Taikou2 Original/MP3/30.mp3",
+      "duration": 9.98,
+      "size": 178911
+    },
+    {
+      "track": 31,
+      "file": "31.mp3",
+      "path": "res://Taikou2 Original/MP3/31.mp3",
+      "duration": 9.98,
+      "size": 221811
+    },
+    {
+      "track": 32,
+      "file": "32.mp3",
+      "path": "res://Taikou2 Original/MP3/32.mp3",
+      "duration": 10.29,
+      "size": 241096
+    },
+    {
+      "track": 33,
+      "file": "33.mp3",
+      "path": "res://Taikou2 Original/MP3/33.mp3",
+      "duration": 9.98,
+      "size": 128681
+    },
+    {
+      "track": 34,
+      "file": "34.mp3",
+      "path": "res://Taikou2 Original/MP3/34.mp3",
+      "duration": 9.98,
+      "size": 187052
+    }
+  ]
+}

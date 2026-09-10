@@ -10,7 +10,8 @@ extends Control
 ## ⚠️ 诚实未接：
 ##   1. 城坐标为聚类近似（data/castle_map.json，非原版固定坐标，见 gen_castle_map.py）
 ##   2. 美术为极简几何占位，HD-2D 升级待 HD-6
-##   3. 城下町设施 / 主命执行 / 剧情推进 待实现（本期只做占位 overlay）
+##   3. 城下町设施（商店/宿屋/道場/医館）与主命执行已由 castle_town.gd / command_screen.gd 实现；
+##      待实现：30 店铺人格专属交互（画师/医师/教会/南蛮商馆）、剧情推进
 ##
 ## 布局在设计空间 1920×1080；地图可视区为去掉顶部/底部 HUD 的矩形。
 
@@ -183,7 +184,7 @@ func _draw_castle_overlay(c: Dictionary) -> void:
 		"兵力 %d　米 %d　金 %d" % [int(c.get("gunryo", 0)), int(c.get("kome", 0)), int(c.get("shikin", 0))],
 		"農 %d　商 %d　石高 %d" % [int(c.get("nousang", 0)), int(c.get("minkok", 0)), int(c.get("seisan", 0))],
 		"",
-		"（城下町设施 / 主命执行 / 剧情 待实现）",
+		"（城下町设施已接入 castle_town.gd；剧情推进待实现）",
 	])
 	var y: float = panel.position.y + 44
 	for ln in lines:

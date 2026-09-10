@@ -7,7 +7,8 @@
 - Godot 4.7.1 自写复刻；原版 Taikou2 Original/ 已入版本库（data/ 唯一来源）。HD-2D 画面。
 - 已完成（Godot）：M0–M5(職位晋升) + 12 主命精确 delta + M6/HD-5 自绘 UI(0 硬编码字号) + 音效39 + M7事件链S15 + M7单挑duel + M7事件文本event_text + M7店铺shop + M7外交diplomacy + HD-3光照天气 + 天气/季节判定(weather 51项) + 经济economy(49/49) + 大地图world_map空壳 + AI主动外交 + **NPC名表导出(data/npc_names.json → GameData.get_npc_name，special 1000..1339 / generic 3000..3278)** + 全量GDScript测试实跑**30/30 套件 0 失败**(_test_all_compile 45/0)。
 - 事件解释器：纯逻辑核心(派发/条件求值/每tick状态机) + **效果执行层 event_effects.gd**（7 真实事件 id=0,1,9,10,13,14,15 的 MSGX 叙事发射 + 月度 poll_events 接线 advance_month + 状态画面事件流弹窗）已实跑通过(_test_event_effects 23/23；_test_m3_ui 23/23)。**诚实未接**：id0/1 概率分支+RNG、id13/14 触发后叙事文本、id9 条件全局 0x49f430、0x4d0ca0 月度 applier 自动触发(仅 force_event 显式驱动)、完整 C++ vtable 仅 18 id 静态自断言（~~NPC 名表未导出~~ ✅已闭合）。
-- 遗留(卡外因)：HD-6 视觉回归+4K基准(卡真实美术)；BGM(卡MIDI/CD)；SHOP剩余设施(闇商人/品茶/铁炮打工/试合/忍里修业/30日修行/学做生意,无逆向证据)。
+- 遗留(卡外因)：HD-6 仅剩像素级截图比对+GPU FPS 基准(须 GUI 实跑；无头可测部分已 21/21)；BGM 已接入 34 首 MP3（**未逆**：场景→BGM 槽位调度表走虚表，需 emu 钩 CdPlay@0x401310 的 caller）；SHOP剩余设施(闇商人/品茶/铁炮打工/试合/忍里修业/30日修行/学做生意,无逆向证据)。
+- **BGM 权威（续255）**：入口 = `CdPlay` **@0x401310**（4 参 track/flag/from/to，`add esp,0x10`）；旧记「CdPlayTrack 0x4013b0」是其**内部 MCI 指令块**（全镜像 0 调用点）。轨 0/越界⇒停止；同轨重播跳过；当前轨 = `byte[0x501294]`；槽位→轨号 **+2**(0x498eb8)；门控 `word[0x50b8f0]==4`。**轨数 34 权威证据** = `0x498f45 push 0x22` + `ecx=0x5256c4`(BGM 对象)（紧邻 `push 0x27`+`ecx=0x5256c8`=音效）。MP3 无 ID3，走 `FileAccess`→`AudioStreamMP3.data`（绕 .import）。
 
 ## 高频纠偏（别再踩）
 | 旧记 | 正确 |

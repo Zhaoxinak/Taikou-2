@@ -1,5 +1,5 @@
 extends Node
-## AudioManager — 音效管理（阶段 6：39 个原版音效接入 + BGM 占位）
+## AudioManager — 音效 + BGM（阶段 6：39 个原版音效 + 34 首原版 BGM 全部接入）
 ##
 ## 对齐原版 `play_sfx(id)`（0x4997c0）的数字 id 语义：
 ##   AudioManager.play_sfx(0)   # UI 点击（CLICK）
@@ -13,6 +13,7 @@ extends Node
 ## ⚠️ 不声明 class_name（与 autoload 注册名冲突的风险 + 无头模式不建类缓存）。
 
 const Sfx = preload("res://src/audio/Sfx.gd")
+const Bgm = preload("res://src/audio/Bgm.gd")
 
 ## SFX 并发池大小（重叠音效如连续攻击音）
 const POOL_SIZE := 8
@@ -20,7 +21,9 @@ const POOL_SIZE := 8
 var _streams: Dictionary = {}        # id -> AudioStreamWAV（失败缓存 null，避免反复重试 IO）
 var _pool: Array = []                # AudioStreamPlayer 池
 var _bgm_player: AudioStreamPlayer   # BGM 独占一轨（循环）
+var _cur_bgm: int = 0                # 当前 BGM 轨号（对齐原版 byte[0x501294]）
 var _sfx_volume_db: float = 0.0
+var _bgm_volume_db: float = 0.0
 var _muted: bool = false
 
 
@@ -101,22 +104,85 @@ func set_muted(v: bool) -> void:
 	_muted = v
 	if v:
 		stop_all_sfx()
+		_bgm_player.stream_paused = true
+	else:
+		_bgm_player.stream_paused = false
+		if _cur_bgm > 0 and not _bgm_player.playing:
+			_bgm_player.play()
 
 
 func is_muted() -> bool:
 	return _muted
 
 
-## —— BGM（assets/audio/bgm/ 目录已就绪，素材待接入；原版为 MIDI/CD 音轨，方案未定）——
+## —— BGM（原版 = CD 数字音频；中文版改走 MP3/ 34 首，轨号 1..34）——
+##
+## 复刻 `CdPlay(track, flag, from, to)` @0x401310（`add esp,0x10` 实证 4 参）：
+##   * track <= 0            ⇒ 停止（原版 bl==0 跳 0x401441 → CdStopClose 0x4012c0）
+##   * track > 轨数(34)      ⇒ 停止（原版 `cmp al,bl; jb` 越界分支）
+##   * 正在播且当前轨 == track ⇒ 直接返回，不重播（原版 0x401322 比对 byte[0x501294]）
+##   * 成功 ⇒ 记录当前轨（原版 `mov byte[0x501294], bl` @0x401430）
+## 载入同音效：FileAccess 读字节 → AudioStreamMP3.data，绕开 .import 导入缓存。
 
-func play_bgm(name: String) -> void:
-	var fp := ProjectSettings.globalize_path("res://assets/audio/bgm/%s" % name)
-	if not FileAccess.file_exists(fp):
-		push_warning("[Audio] BGM 不存在（目录已就绪，素材待接入）: %s" % fp)
-		return
-	# 素材接入后按实际格式实现（AudioStreamOggVorbis.load_from_file 等）
-	push_warning("[Audio] BGM 播放尚未实现: %s" % fp)
+## 按 CD 轨号播放（1..34）；返回是否真的起播
+func play_bgm_track(track: int) -> bool:
+	if track < Bgm.TRACK_MIN or track > Bgm.TRACK_MAX:
+		stop_bgm()                       # 0 / 越界 ⇒ 停止（原版语义）
+		return false
+	if _bgm_player.playing and _cur_bgm == track:
+		return false                     # 防重播（0x401322）
+	var s := _bgm_stream_of(track)
+	if s == null:
+		return false
+	_bgm_player.stream = s
+	_bgm_player.volume_db = _bgm_volume_db
+	_bgm_player.play()
+	_cur_bgm = track                     # 0x401430
+	return true
+
+
+## 按原版「BGM 槽位」播放（轨号 = 槽位 + 2，0x498eb8 `add al,2`）
+func play_bgm_slot(slot: int) -> bool:
+	return play_bgm_track(Bgm.track_for_slot(slot))
 
 
 func stop_bgm() -> void:
 	_bgm_player.stop()
+	_bgm_player.stream = null
+	_cur_bgm = 0
+
+
+## 当前 BGM 轨号（0 = 未播放），对齐原版 byte[0x501294]
+func get_bgm_track() -> int:
+	return _cur_bgm
+
+
+func is_bgm_playing() -> bool:
+	return _bgm_player.playing
+
+
+func set_bgm_volume_db(db: float) -> void:
+	_bgm_volume_db = db
+	_bgm_player.volume_db = db
+
+
+func get_bgm_volume_db() -> float:
+	return _bgm_volume_db
+
+
+## 载入 BGM 流（不缓存全部 34 首：单曲 1~5MB，全缓存约 54MB）
+func _bgm_stream_of(track: int) -> AudioStreamMP3:
+	var fp := ProjectSettings.globalize_path(Bgm.PATHS[track - 1])
+	if not FileAccess.file_exists(fp):
+		push_warning("[Audio] BGM 缺失 轨 %d: %s" % [track, fp])
+		return null
+	var f := FileAccess.open(fp, FileAccess.READ)
+	if f == null:
+		push_warning("[Audio] BGM 打开失败 轨 %d: %s" % [track, fp])
+		return null
+	var bytes := f.get_buffer(f.get_length())
+	f.close()
+	var s := AudioStreamMP3.new()
+	s.data = bytes
+	s.loop = true   # 原版 CD-DA 单遍 + MCI_NOTIFY 回调续播（回调未逆）；复刻层直接循环
+	return s

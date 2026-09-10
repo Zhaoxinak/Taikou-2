@@ -90,10 +90,13 @@ func _run() -> void:
 	am.set_sfx_volume_db(-6.0)
 	check(true, "set_sfx_volume_db(-6) 无异常")
 
-	# —— 5) BGM 占位：目录为空 → 优雅降级（只警告不崩溃）——
-	am.play_bgm("main.ogg")
+	# —— 5) BGM 接口与音效互不干扰（BGM 细节见 _test_bgm.gd）——
+	am.play_bgm_track(2)
+	check(am.get_bgm_track() == 2, "BGM 轨 2 起播，当前轨 = 2 (got %d)" % am.get_bgm_track())
+	am.play_sfx(0)
+	check(am.get_bgm_track() == 2, "播音效后 BGM 当前轨不变（独立通道）")
 	am.stop_bgm()
-	check(true, "BGM 占位接口（未接素材）优雅降级")
+	check(am.get_bgm_track() == 0, "stop_bgm 后当前轨归 0")
 
 	# —— 6) UiButton 点击联动音效（CLICK id=0）——
 	var btn = UiButton.new()

@@ -68,3 +68,5 @@ Desktop.ini
 
 # 立绘生成暂存（ImageGen 原始 2x 图，缩放后落 assets/sprites/portraits/）
 _portrait_raw/
+_hd6_out/
+_hd6_run.log

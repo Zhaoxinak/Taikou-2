@@ -1,0 +1,140 @@
+{
+  "cd_funcs": {
+    "0x401000": "CdClose",
+    "0x401040": "CdOpen",
+    "0x4010a0": "CdMediaPresent",
+    "0x4010f0": "CdNumTracks",
+    "0x401140": "CdTrackLenMSF",
+    "0x401210": "CdTrackLenSec",
+    "0x401270": "CdGetMode",
+    "0x4012c0": "CdStopClose",
+    "0x4013b0": "CdPlayTrack"
+  },
+  "call_sites": [
+    {
+      "call_at": "0x401178",
+      "fn": "CdNumTracks",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x401227",
+      "fn": "CdTrackLenMSF",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x401250",
+      "fn": "CdGetMode",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x4012e3",
+      "fn": "CdClose",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x40133d",
+      "fn": "CdOpen",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x40134a",
+      "fn": "CdMediaPresent",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x401353",
+      "fn": "CdClose",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x401368",
+      "fn": "CdNumTracks",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x40139d",
+      "fn": "CdTrackLenMSF",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x401441",
+      "fn": "CdStopClose",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x401713",
+      "fn": "CdStopClose",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x48c8af",
+      "fn": "CdStopClose",
+      "func": "0x48acc0",
+      "scene": null
+    },
+    {
+      "call_at": "0x48c8b4",
+      "fn": "CdClose",
+      "func": "0x48acc0",
+      "scene": null
+    },
+    {
+      "call_at": "0x498e6c",
+      "fn": "CdOpen",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x498eda",
+      "fn": "CdStopClose",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x499233",
+      "fn": "CdOpen",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x49927a",
+      "fn": "CdClose",
+      "func": null,
+      "scene": null
+    },
+    {
+      "call_at": "0x4992ed",
+      "fn": "CdTrackLenSec",
+      "func": null,
+      "scene": null
+    }
+  ],
+  "summary": {
+    "total_call_sites": 18,
+    "by_fn": {
+      "CdClose": 4,
+      "CdGetMode": 1,
+      "CdMediaPresent": 1,
+      "CdNumTracks": 2,
+      "CdOpen": 3,
+      "CdStopClose": 4,
+      "CdTrackLenMSF": 2,
+      "CdTrackLenSec": 1
+    },
+    "play_sites": 0,
+    "tracks": {},
+    "track_set": [],
+    "unresolved": []
+  }
+}
