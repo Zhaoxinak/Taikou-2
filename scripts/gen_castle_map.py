@@ -10,9 +10,9 @@ gen_castle_map.py — 生成大地图城坐标 data/castle_map.json（史实经�
     x = (lon - LON0) / (LON1 - LON0) * (MAP_W-1)
     y = (LAT1 - lat) / (LAT1 - LAT0) * (MAP_H-1)
 
-投影范围覆盖日本列岛（不含北海道）：
-    LON0=128.6（对马/五岛以西）  LON1=142.2（八户/三陆以东）
-    LAT1=41.7（下北半岛）        LAT0=30.8（种子岛/屋久岛）
+投影范围覆盖整个日本列岛（含北海道）：
+    LON0=128.5  LON1=146.0（根室以东）
+    LAT1=45.8（礼文/利尻）      LAT0=30.0（种子岛/屋久岛以南）
 
 同格冲突 → 确定性亚格微偏移（同 id 每次重跑一致），偏移量 ≤0.45 cell，
 不破坏城之间的相对位置感知。所有城保留浮点坐标（绘制时投影缩放）。
@@ -35,8 +35,8 @@ import os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAP_W = 48
 MAP_H = 36
-LON0, LON1 = 128.6, 142.2
-LAT1, LAT0 = 41.7, 30.8
+LON0, LON1 = 128.5, 146.0
+LAT1, LAT0 = 45.8, 30.0
 
 
 def project(lat: float, lon: float) -> tuple[float, float]:
@@ -52,6 +52,42 @@ def _nudge(seed: int) -> tuple[float, float]:
     return ((a % 91) / 100.0 - 0.45, (b % 91) / 100.0 - 0.45)
 
 
+def _land_mask() -> list[list[bool]]:
+    """按新投影在 4096×3072 精度栅格化海岸线 → 陆地布尔掩码（用于入海城吸附）。"""
+    import sys
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import japan_geo_data as G
+    from PIL import Image, ImageDraw
+    gw, gh = 4096, 3072
+    img = Image.new('L', (gw, gh), 0)
+    dr = ImageDraw.Draw(img)
+    for _name, r in G.COASTLINES_LATLON:
+        pts = [(G.proj(lat, lon)[0] / (MAP_W - 1) * (gw - 1),
+                G.proj(lat, lon)[1] / (MAP_H - 1) * (gh - 1)) for lat, lon in r]
+        dr.polygon(pts, fill=255)
+    import numpy as np
+    return np.asarray(img) > 127
+
+
+def _snap_to_land(x: float, y: float, land) -> tuple[float, float]:
+    """若城点落在海里（全精度掩码判定），沿环带向外找最近陆地像素吸附。"""
+    gw, gh = land.shape[1], land.shape[0]
+    px = int(round(x / (MAP_W - 1) * (gw - 1)))
+    py = int(round(y / (MAP_H - 1) * (gh - 1)))
+    if land[py, px]:
+        return x, y
+    for r in range(1, 48):
+        for dy in range(-r, r + 1):
+            for dx in range(-r, r + 1):
+                if max(abs(dx), abs(dy)) != r:
+                    continue
+                ny, nx = py + dy, px + dx
+                if 0 <= ny < gh and 0 <= nx < gw and land[ny, nx]:
+                    return (nx / (gw - 1) * (MAP_W - 1),
+                            ny / (gh - 1) * (MAP_H - 1))
+    return x, y
+
+
 def main() -> None:
     with open(os.path.join(ROOT, "data", "castles.json"), encoding="utf-8") as f:
         castles = json.load(f)["castles"]
@@ -59,6 +95,8 @@ def main() -> None:
         geo = {int(k): v for k, v in json.load(f)["geo"].items()}
     towns = json.load(open(os.path.join(ROOT, "scripts", "towns.json"), encoding="utf-8"))["towns"]
     town_ids = {t["id"] for t in towns}
+
+    land = _land_mask()
 
     missing = [c["id"] for c in castles if c["id"] not in geo]
     if missing:
@@ -79,6 +117,8 @@ def main() -> None:
             used[key] = 1
         x = max(0.0, min(MAP_W - 1.0, x))
         y = max(0.0, min(MAP_H - 1.0, y))
+        # 入海城吸附到最近陆地（史实临海城址如八户/平户/鸟羽/浦户）
+        x, y = _snap_to_land(x, y, land)
         out.append({
             "id": cid,
             "x": round(x, 2),

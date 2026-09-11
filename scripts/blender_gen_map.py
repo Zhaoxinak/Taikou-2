@@ -354,5 +354,9 @@ def main():
     setup_world_sea()
     setup_camera()
     render(season, os.path.abspath(out))
+    # 同时保存 .blend 工程（供用户在 Blender GUI 中打开查看/编辑 3D 地形）
+    blend_path = os.path.join(os.path.dirname(__file__), '..', 'assets', 'map_scene.blend')
+    bpy.ops.wm.save_as_mainfile(filepath=os.path.abspath(blend_path))
+    print("BLEND SAVED:", blend_path)
 
 main()
