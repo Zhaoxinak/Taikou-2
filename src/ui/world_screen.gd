@@ -23,6 +23,7 @@ const CastleTown = preload("res://src/ui/castle_town.gd")
 const JapanMap = preload("res://src/ui/japan_map.gd")
 const WeatherRef = preload("res://src/core/weather.gd")
 const WorldTerrain = preload("res://src/core/world_terrain.gd")
+const World3DMap = preload("res://src/ui/world3d_map.gd")
 
 const HUD_TOP := 64.0
 const HUD_BOTTOM := 56.0
@@ -131,6 +132,9 @@ var _tl_sel := 0
 var _tl_items: Array = []                # 城町一览表 [{id, name, prov}]
 var _tl_provs: Array = []                # 一览表国分组标题
 var _roads: Array = []                   # 道路网 [[Vector2, Vector2], ...] 逻辑坐标
+var _view3d: SubViewport = null        # HD-2D 3D 地形层视口
+var _world3d = null                    # world3d_map.gd 实例
+var _click_cam := false                # 3D 视角点击（映射目标）
 
 
 func _ready() -> void:
@@ -157,6 +161,7 @@ func _ready() -> void:
 	_hud_bottom.position = Vector2(20, 1080 - HUD_BOTTOM + 4)
 	_hud_bottom.font_size = UiTheme.FONT_SMALL
 	add_child(_hud_bottom)
+	_build_3d_layer()
 	_set_initial_pos()
 	_build_roads()
 	_build_town_list()
@@ -166,11 +171,34 @@ func _ready() -> void:
 	queue_redraw()
 
 
+func _build_3d_layer() -> void:
+	## HD-2D 3D 地形层：SubViewport 内渲染 world3d_map（3D 地形 + 城标 + 像素武士 + 跟随相机）
+	_view3d = SubViewport.new()
+	_view3d.size = Vector2i(int(MAP_VIEW.size.x), int(MAP_VIEW.size.y))
+	_view3d.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	_view3d.own_world_3d = true
+	_view3d.msaa_3d = Viewport.MSAA_4X
+	add_child(_view3d)
+	_world3d = World3DMap.new()
+	_world3d.viewport = _view3d
+	_view3d.add_child(_world3d)
+	_world3d.setup()
+
+
 func _set_initial_pos() -> void:
 	# 若主角尚未落点（开局），放到其所在/默认城坐标
-	if GameState.player_map_pos == Vector2.ZERO and GameData.has_castle_map():
-		var home := 0 if GameState.current_castle < 0 else GameState.current_castle
-		GameState.player_map_pos = GameData.get_castle_pos(home)
+	if _gs().player_map_pos == Vector2.ZERO and _gd().has_castle_map():
+		var home: int = 0 if _gs().current_castle < 0 else _gs().current_castle
+		_gs().player_map_pos = _gd().get_castle_pos(home)
+
+
+func _gs() -> Node:
+	## autoload 兼容访问（--script 无头模式不注册全局标识符）
+	return get_node("/root/GameState")
+
+
+func _gd() -> Node:
+	return get_node("/root/GameData")
 
 
 func _make_label() -> CanvasItem:
@@ -182,18 +210,18 @@ func _make_label() -> CanvasItem:
 
 func _build_roads() -> void:
 	## 道路网：同国最近 2 城连线（无向边，跨海自动断开——四国/九州不走陆路）
-	if not GameData.has_castle_map():
+	if not _gd().has_castle_map():
 		return
-	var positions: Dictionary = GameData.get_castle_positions()
+	var positions: Dictionary = _gd().get_castle_positions()
 	var edges := {}
 	for id in positions.keys():
-		var prov: int = int(GameData.get_castle(int(id)).get("province", 255))
+		var prov: int = int(_gd().get_castle(int(id)).get("province", 255))
 		var mine: Vector2 = positions[id]
 		var cands := []
 		for j in positions.keys():
 			if j == id:
 				continue
-			if int(GameData.get_castle(int(j)).get("province", 255)) != prov:
+			if int(_gd().get_castle(int(j)).get("province", 255)) != prov:
 				continue
 			var d: float = mine.distance_to(positions[j])
 			if d < 4.0:
@@ -215,10 +243,10 @@ func _build_town_list() -> void:
 	## 城町一览表：92 町城 + 港町，按国分组
 	_tl_items = []
 	var rows := []
-	for id in GameData.get_castle_positions().keys():
+	for id in _gd().get_castle_positions().keys():
 		var cid := int(id)
-		if GameData.get_castle_has_town(cid) or GameData.is_port_city(cid):
-			var c: Dictionary = GameData.get_castle(cid)
+		if _gd().get_castle_has_town(cid) or _gd().is_port_city(cid):
+			var c: Dictionary = _gd().get_castle(cid)
 			rows.append({"id": cid, "name": str(c.get("name", "")), "prov": int(c.get("province", 255))})
 	rows.sort_custom(func(a, b):
 		var pa: int = int(a["prov"])
@@ -230,23 +258,23 @@ func _build_town_list() -> void:
 
 
 func _refresh_hud() -> void:
-	var st: Dictionary = GameState.get_status()
+	var st: Dictionary = _gs().get_status()
 	var name_s: String = str(st.get("name", "")) if not st.is_empty() else ""
 	var loc := "野外"
 	if _entered_castle >= 0:
-		loc = "【城下】" + str(GameData.get_castle(_entered_castle).get("name", ""))
-	elif GameState.current_castle >= 0:
-		loc = str(GameData.get_castle(GameState.current_castle).get("name", ""))
+		loc = "【城下】" + str(_gd().get_castle(_entered_castle).get("name", ""))
+	elif _gs().current_castle >= 0:
+		loc = str(_gd().get_castle(_gs().current_castle).get("name", ""))
 	var sp := ""
-	var port_id := GameState.nearest_port()
+	var port_id: int = _gs().nearest_port()
 	if port_id >= 0:
-		sp = "（港町 %s）" % GameData.get_castle(port_id).get("name", "")
-	var wname: String = GameState.weather.weather_name()
+		sp = "（港町 %s）" % _gd().get_castle(port_id).get("name", "")
+	var wname: String = _gs().weather.weather_name()
 	var wmark := "☀" if wname == "晴" else ("◐" if wname == "曇" else ("☂" if wname == "雨" else "❄"))
-	var seas := WeatherRef.season_of(GameState.month)
+	var seas: int = WeatherRef.season_of(_gs().month)
 	var sname: String = WeatherRef.SEASON_NAMES[seas]
 	_hud_top.text = "%s　%d 年 %d 月 %d 日（%s）　所在：%s%s　体力 %d/%d　天气 %s%s" % [
-		name_s, GameState.year, GameState.month, GameState.day, sname, loc, sp,
+		name_s, _gs().year, _gs().month, _gs().day, sname, loc, sp,
 		int(st.get("stamina", 0)), int(st.get("stamina_max", 100)), wmark, wname,
 	]
 	if _entered_castle >= 0:
@@ -258,9 +286,9 @@ func _refresh_hud() -> void:
 	elif _move_target != Vector2.INF:
 		_hud_bottom.text = "正在移动…（Esc 停止）"
 	elif _nearest_id >= 0:
-		var near_name: String = GameData.get_castle(_nearest_id).get("name", "")
+		var near_name: String = _gd().get_castle(_nearest_id).get("name", "")
 		var extra := ""
-		if GameState.nearest_port() >= 0:
+		if _gs().nearest_port() >= 0:
 			extra = "　·　B 坐船"
 		_hud_bottom.text = "点击/T 城町一览移动　·　Enter 进入 %s%s　·　Esc 回状态画面" % [near_name, extra]
 	else:
@@ -272,7 +300,7 @@ func _sea_hint() -> String:
 	for i in range(_sea_menu.size()):
 		var r: Dictionary = _sea_menu[i]
 		var mark := "▶" if i == _sea_sel else " "
-		items.append("%s%d.%s（%d日）" % [mark, i + 1, GameData.get_castle(int(r["to"])).get("name", ""), int(r["days"])])
+		items.append("%s%d.%s（%d日）" % [mark, i + 1, _gd().get_castle(int(r["to"])).get("name", ""), int(r["days"])])
 	return "坐船：%s　（↑↓ 选择，Enter 乘船，B/Esc 关闭）" % "　".join(items)
 
 
@@ -281,20 +309,20 @@ func _stop_move() -> void:
 	_move_target = Vector2.INF
 	_path = PackedVector2Array()
 	_path_idx = 0
-	_move_from = GameState.player_map_pos
-	_move_to = GameState.player_map_pos
+	_move_from = _gs().player_map_pos
+	_move_to = _gs().player_map_pos
 	_move_prog = 1.0
 
 
 ## 开始自动移动：BFS 陆地寻路 → 路径逐格行走
 func _begin_move(target: Vector2) -> void:
-	var ms := GameData.get_map_size()
-	_path = WorldMapRef.find_path(GameState.player_map_pos, target, ms.x, ms.y, WorldTerrain.type_at)
+	var ms: Vector2 = _gd().get_map_size()
+	_path = WorldMapRef.find_path(_gs().player_map_pos, target, ms.x, ms.y, WorldTerrain.type_at)
 	_path_idx = 0
 	_move_target = target
 	_move_timer = 0.0
-	_move_from = GameState.player_map_pos
-	_move_to = GameState.player_map_pos
+	_move_from = _gs().player_map_pos
+	_move_to = _gs().player_map_pos
 	_move_prog = 0.0
 	_msg = ""
 	_refresh_hud()
@@ -303,14 +331,15 @@ func _begin_move(target: Vector2) -> void:
 
 func _move_speed() -> float:
 	## 天气影响行走节奏（雨雪变慢，豪雨機動力が鈍る）
-	return 1.6 if GameState.weather.get_weather() >= WeatherRef.RAIN else 1.0
+	return 1.6 if _gs().weather.get_weather() >= WeatherRef.RAIN else 1.0
 
 
 func _process(delta: float) -> void:
 	_update_cam(delta)
 	if _move_target == Vector2.INF or _entered_castle >= 0:
-		_draw_pos = GameState.player_map_pos   # 静止/城内时同步
+		_draw_pos = _gs().player_map_pos   # 静止/城内时同步
 		_walk_frame = 0
+		_sync_3d()
 		return
 	# 走路动画
 	_walk_timer += delta
@@ -329,9 +358,9 @@ func _process(delta: float) -> void:
 		else:
 			_path_idx += 1
 			var np: Vector2 = _path[_path_idx]
-			var before: Vector2 = GameState.player_map_pos
-			GameState.player_map_pos = np
-			GameState.advance_days(GameState.move_days_per_cell())
+			var before: Vector2 = _gs().player_map_pos
+			_gs().player_map_pos = np
+			_gs().advance_days(_gs().move_days_per_cell())
 			var diff := np - before
 			if diff.length() > 0.01:
 				_face = diff.normalized()
@@ -343,6 +372,13 @@ func _process(delta: float) -> void:
 			queue_redraw()
 	_draw_pos = _move_from.lerp(_move_to, _move_step(_move_prog))
 	queue_redraw()
+	_sync_3d()
+
+
+func _sync_3d() -> void:
+	## 每帧把玩家/朝向/季节同步到 3D 层
+	if _world3d != null:
+		_world3d.sync(_draw_pos, _face, _walk_frame, _season())
 
 
 ## 缓动步进（smoothstep：起步慢-中段快-收步缓，行走感）
@@ -357,7 +393,7 @@ func _scr(ms: Vector2, lp: Vector2) -> Vector2:
 
 ## 镜头平滑跟随玩家（原版相机逐格平移质感）
 func _update_cam(delta: float) -> void:
-	var ms := GameData.get_map_size()
+	var ms: Vector2 = _gd().get_map_size()
 	var p: Vector2 = WorldMapRef.project(_draw_pos, ms.x, ms.y, MAP_VIEW) * CAM_ZOOM
 	var full_w: float = MAP_VIEW.size.x * CAM_ZOOM
 	var full_h: float = MAP_VIEW.size.y * CAM_ZOOM
@@ -369,8 +405,8 @@ func _update_cam(delta: float) -> void:
 
 ## 镜头瞬移到玩家（开局 / 乘船跨海后）
 func _snap_cam() -> void:
-	var ms := GameData.get_map_size()
-	_draw_pos = GameState.player_map_pos
+	var ms: Vector2 = _gd().get_map_size()
+	_draw_pos = _gs().player_map_pos
 	_move_from = _draw_pos
 	_move_to = _draw_pos
 	_move_prog = 1.0
@@ -384,7 +420,7 @@ func _snap_cam() -> void:
 
 
 func _update_nearest() -> void:
-	_nearest_id = WorldMapRef.nearest(GameState.player_map_pos, GameData.get_castle_positions()) if GameData.has_castle_map() else -1
+	_nearest_id = WorldMapRef.nearest(_gs().player_map_pos, _gd().get_castle_positions()) if _gd().has_castle_map() else -1
 
 
 func _input(event: InputEvent) -> void:
@@ -392,8 +428,8 @@ func _input(event: InputEvent) -> void:
 		accept_event()
 		if _entered_castle >= 0 or not _sea_menu.is_empty() or _town_list:
 			return
-		var target := WorldMapRef.unproject((event.position + _cam) / CAM_ZOOM, GameData.get_map_size().x, GameData.get_map_size().y, MAP_VIEW)
-		target = WorldMapRef.clamp_pos(target, GameData.get_map_size().x, GameData.get_map_size().y)
+		var target := WorldMapRef.unproject((event.position + _cam) / CAM_ZOOM, _gd().get_map_size().x, _gd().get_map_size().y, MAP_VIEW)
+		target = WorldMapRef.clamp_pos(target, _gd().get_map_size().x, _gd().get_map_size().y)
 		_begin_move(target)
 		return
 	if event is InputEventKey:
@@ -476,7 +512,7 @@ func _travel_to_selected_town() -> void:
 	if _tl_items.is_empty():
 		return
 	var row: Dictionary = _tl_items[_tl_sel]
-	var pos: Vector2 = GameData.get_castle_pos(int(row["id"]))
+	var pos: Vector2 = _gd().get_castle_pos(int(row["id"]))
 	_town_list = false
 	_begin_move(pos)
 	_refresh_hud()
@@ -486,9 +522,9 @@ func _move(dx: int, dy: int) -> void:
 	if _entered_castle >= 0:
 		return
 	_stop_move()
-	var before: Vector2 = GameState.player_map_pos
-	GameState.move_player(dx, dy)
-	var diff := GameState.player_map_pos - before
+	var before: Vector2 = _gs().player_map_pos
+	_gs().move_player(dx, dy)
+	var diff: Vector2 = _gs().player_map_pos - before
 	if diff.length() > 0.01:
 		_face = diff.normalized()
 	_walk_frame = 1
@@ -498,10 +534,10 @@ func _move(dx: int, dy: int) -> void:
 
 
 func _toggle_sea_menu() -> void:
-	var port_id := GameState.nearest_port()
+	var port_id: int = _gs().nearest_port()
 	if port_id < 0:
 		return
-	var routes: Array = GameData.get_sea_routes_from(port_id)
+	var routes: Array = _gd().get_sea_routes_from(port_id)
 	if routes.is_empty():
 		return
 	_sea_menu = []
@@ -513,9 +549,9 @@ func _toggle_sea_menu() -> void:
 
 func _travel_selected() -> void:
 	var r: Dictionary = _sea_menu[_sea_sel]
-	var res: Dictionary = GameState.travel_by_sea(int(r["to"]))
+	var res: Dictionary = _gs().travel_by_sea(int(r["to"]))
 	if res.get("ok", false):
-		_msg = "乘船 %d 日到达 %s（体力降至 20）" % [int(res["days"]), GameData.get_castle(int(r["to"])).get("name", "")]
+		_msg = "乘船 %d 日到达 %s（体力降至 20）" % [int(res["days"]), _gd().get_castle(int(r["to"])).get("name", "")]
 		_sea_menu = []
 		_stop_move()
 		_update_nearest()
@@ -527,7 +563,7 @@ func _travel_selected() -> void:
 
 
 func _enter_castle(cid: int) -> void:
-	GameState.enter_castle(cid)
+	_gs().enter_castle(cid)
 	_entered_castle = cid
 	_stop_move()
 	if _castle_town == null:
@@ -544,7 +580,7 @@ func _exit_castle() -> void:
 		_castle_town.queue_free()
 		_castle_town = null
 	_entered_castle = -1
-	GameState.leave_to_world()
+	_gs().leave_to_world()
 	_update_nearest()
 	_refresh_hud()
 	queue_redraw()
@@ -553,7 +589,7 @@ func _exit_castle() -> void:
 func _lord_name(lord_id: int) -> String:
 	if lord_id >= 65535 or lord_id < 0:
 		return "无"
-	var o: Dictionary = GameData.get_officer(lord_id)
+	var o: Dictionary = _gd().get_officer(lord_id)
 	if o.is_empty():
 		return "无(%d)" % lord_id
 	return str(o.get("surname", "")) + str(o.get("given", ""))
@@ -564,16 +600,33 @@ func _lord_name(lord_id: int) -> String:
 # =====================================================================
 
 func _draw() -> void:
-	if not GameData.has_castle_map():
+	if not _gd().has_castle_map():
 		return
-	var ms := GameData.get_map_size()
-	var positions: Dictionary = GameData.get_castle_positions()
-	_draw_sea(ms)
-	_draw_bg(ms)
-	_draw_terrain_detail(ms)
-	_draw_roads(ms)
-	_draw_castles(ms, positions)
-	_draw_player(ms)
+	var ms: Vector2 = _gd().get_map_size()
+	# HD-2D 3D 地形层（八方旅人风格：3D 地形 + 城标 + 跟随相机）
+	if _view3d != null:
+		draw_texture_rect(_view3d.get_texture(), MAP_VIEW, false)
+	# 玩家：3D 相机投影到屏幕，2D 叠加绘制（光圈+像素武士+头顶箭头，保证醒目）
+	if _world3d != null:
+		var psp: Vector2 = _world3d.player_screen_pos()
+		if psp.x > -9000:
+			var px := psp.x + MAP_VIEW.position.x
+			var py := psp.y + MAP_VIEW.position.y
+			var pw := 100.0
+			var ph := pw * 20.0 / 16.0
+			# 脚下光圈
+			draw_circle(Vector2(px, py + 4), 36.0, Color(1.0, 0.95, 0.72, 0.32))
+			# 像素武士（投影点为脚底基准）
+			var ptex: Texture2D = _world3d.player_tex()
+			if ptex != null:
+				draw_texture_rect(ptex, Rect2(px - pw / 2.0, py - ph + 6.0, pw, ph), false)
+			# 头顶黄色箭头（太阁5 式指示）
+			draw_colored_polygon(PackedVector2Array([
+				Vector2(px, py - ph - 16),
+				Vector2(px - 9, py - ph - 3),
+				Vector2(px + 9, py - ph - 3),
+			]), Color(1.0, 0.85, 0.25, 0.95))
+	# 2D 覆盖层（小地图/菜单/天气/消息，城标城名由 3D 层绘制）
 	_draw_minimap(ms)
 	if not _sea_menu.is_empty():
 		_draw_sea_menu(ms)
@@ -583,11 +636,11 @@ func _draw() -> void:
 		draw_string(UiTheme.font(), Vector2(60, HUD_TOP + 48), _msg, HORIZONTAL_ALIGNMENT_LEFT, -1, UiTheme.FONT_BODY, Color(1.0, 0.9, 0.6, 1))
 	_draw_weather_fx(ms)
 	if _entered_castle >= 0 and _castle_town == null:
-		_draw_castle_overlay(GameData.get_castle(_entered_castle))
+		_draw_castle_overlay(_gd().get_castle(_entered_castle))
 
 
 func _season() -> int:
-	return WeatherRef.season_of(GameState.month)
+	return WeatherRef.season_of(_gs().month)
 
 
 func _draw_sea(ms: Vector2) -> void:
@@ -728,14 +781,14 @@ func _draw_minimap(ms: Vector2) -> void:
 	draw_texture_rect(_minimap_tex, Rect2(mpos, msize), false)
 	draw_rect(Rect2(mpos, msize), Color(0.90, 0.84, 0.60, 0.85), false, 2)
 	# 城点
-	var positions: Dictionary = GameData.get_castle_positions()
+	var positions: Dictionary = _gd().get_castle_positions()
 	for id in positions.keys():
 		var lp: Vector2 = positions[id]
 		var cid := int(id)
 		var col: Color
-		if GameData.is_port_city(cid):
+		if _gd().is_port_city(cid):
 			col = Color(0.55, 0.85, 1.0, 1)
-		elif GameData.get_castle_has_town(cid):
+		elif _gd().get_castle_has_town(cid):
 			col = Color(0.90, 0.40, 0.30, 1)
 		else:
 			col = Color(0.85, 0.88, 0.90, 0.8)
@@ -757,7 +810,7 @@ func _draw_minimap(ms: Vector2) -> void:
 		lh / WorldTerrain.MAP_H * msize.y)
 	draw_rect(fr, Color(1.0, 0.95, 0.45, 0.95), false, 2)
 	# 玩家
-	var p: Vector2 = GameState.player_map_pos
+	var p: Vector2 = _gs().player_map_pos
 	draw_circle(mpos + Vector2(p.x / WorldTerrain.MAP_W, p.y / WorldTerrain.MAP_H) * msize, 3.0, Color(0.95, 0.25, 0.15, 1))
 
 
@@ -794,16 +847,16 @@ func _draw_castles(ms: Vector2, positions: Dictionary) -> void:
 		var sp: Vector2 = _scr(ms, lp)
 		var near: bool = (id == _nearest_id)
 		var cid := int(id)
-		var has_town: bool = GameData.get_castle_has_town(cid)
-		var is_port: bool = GameData.is_port_city(cid)
+		var has_town: bool = _gd().get_castle_has_town(cid)
+		var is_port: bool = _gd().is_port_city(cid)
 		if not view.has_point(sp):
 			continue
 		var name_col: Color = NEAR_COLOR if near else (PORT_COLOR if is_port else TOWN_COLOR)
-		var minkok: int = int(GameData.get_castle(cid).get("minkok", 0))
+		var minkok: int = int(_gd().get_castle(cid).get("minkok", 0))
 		# 城郭分级图标（按史实石高/类型：大天守/天守/港口/城寨/村落）
 		_draw_castle_keep(sp, is_port, near, minkok, has_town)
 		# 城名（简单避让：右侧 → 上方 → 下方 → 跳过）
-		var cname: String = str(GameData.get_castle(cid).get("name", ""))
+		var cname: String = str(_gd().get_castle(cid).get("name", ""))
 		var name_w: float = float(cname.length()) * font_sz * 0.62
 		var cand := [
 			Rect2(sp + Vector2(26, -14), Vector2(name_w, 40)),
@@ -886,7 +939,7 @@ func _draw_sail(c: Vector2) -> void:
 
 
 func _draw_player(ms: Vector2) -> void:
-	var psp: Vector2 = _scr(ms, GameState.player_map_pos)
+	var psp: Vector2 = _scr(ms, _gs().player_map_pos)
 	_draw_pixel_samurai(psp, _face, _walk_frame)
 
 
@@ -937,7 +990,7 @@ func _draw_pixel_samurai(center: Vector2, face: Vector2, frame: int) -> void:
 
 
 func _draw_weather_fx(ms: Vector2) -> void:
-	var w: int = GameState.weather.get_weather()
+	var w: int = _gs().weather.get_weather()
 	if w == WeatherRef.RAIN:
 		# 雨：细斜线帘幕（随时间流动，原版雨丝感）
 		var t: float = fmod(Time.get_ticks_msec() / 60.0, 48.0)
@@ -964,11 +1017,11 @@ func _draw_sea_menu(ms: Vector2) -> void:
 	draw_rect(panel, Color(0.08, 0.10, 0.12, 0.96))
 	draw_rect(panel, Color(0.42, 0.80, 0.95, 0.9), false, 2)
 	var y: float = panel.position.y + 40
-	draw_string(UiTheme.font(), Vector2(panel.position.x + 30, y - 12), "【%s · 坐船】" % GameData.get_castle(GameState.nearest_port()).get("name", ""),
+	draw_string(UiTheme.font(), Vector2(panel.position.x + 30, y - 12), "【%s · 坐船】" % _gd().get_castle(_gs().nearest_port()).get("name", ""),
 		HORIZONTAL_ALIGNMENT_LEFT, -1, UiTheme.FONT_BODY, Color(0.42, 0.80, 0.95, 1))
 	for i in range(_sea_menu.size()):
 		var r: Dictionary = _sea_menu[i]
-		var line := "%d. %s（%d 日）" % [i + 1, GameData.get_castle(int(r["to"])).get("name", ""), int(r["days"])]
+		var line: String = "%d. %s（%d 日）" % [i + 1, _gd().get_castle(int(r["to"])).get("name", ""), int(r["days"])]
 		if i == _sea_sel:
 			line = "▶ " + line
 			draw_string(UiTheme.font(), Vector2(panel.position.x + 30, y), line, HORIZONTAL_ALIGNMENT_LEFT, -1, UiTheme.FONT_BODY, Color(1.0, 0.9, 0.5, 1))
@@ -989,7 +1042,7 @@ func _draw_town_list(ms: Vector2) -> void:
 	for i in range(_tl_scroll, mini(_tl_items.size(), _tl_scroll + page)):
 		var row: Dictionary = _tl_items[i]
 		var prov: int = int(row["prov"])
-		var prov_name: String = str(GameData.get_province(prov).get("name", "")) if GameData.get_province(prov).size() > 0 else "—"
+		var prov_name: String = str(_gd().get_province(prov).get("name", "")) if _gd().get_province(prov).size() > 0 else "—"
 		if prov != cur_prov:
 			cur_prov = prov
 			draw_string(UiTheme.font(), Vector2(panel.position.x + 30, y), "◆ %s" % prov_name,
@@ -1010,7 +1063,7 @@ func _draw_town_list(ms: Vector2) -> void:
 
 func _draw_castle_overlay(c: Dictionary) -> void:
 	var pid: int = int(c.get("province", 255))
-	var p: Dictionary = GameData.get_province(pid)
+	var p: Dictionary = _gd().get_province(pid)
 	var panel := Rect2(430, 280, 1060, 460)
 	draw_rect(panel, Color(0.10, 0.07, 0.05, 0.96))
 	draw_rect(panel, Color(0.78, 0.63, 0.35, 1), false, 3)

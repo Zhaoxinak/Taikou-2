@@ -1,8 +1,8 @@
 extends Control
 ## 城下町交互 UI（方案 B 延伸：把占位 overlay 换成可点击设施菜单）
 ##
-## 设施：商店（买/卖物品，接 economy.item_buy/sell_price）/ 宿屋（休養，接 GameState.rest）/
-##       道場（修行 10 技能，接 GameState.train_skill）/ 医館（买薬，接 shop.medicine_*）/
+## 设施：商店（买/卖物品，接 economy.item_buy/sell_price）/ 宿屋（休養，接 _gs().rest）/
+##       道場（修行 10 技能，接 _gs().train_skill）/ 医館（买薬，接 shop.medicine_*）/
 ##       出る（返回大地图，由 world_screen 注入 callback_exit）。
 ## 全部走 GameState 已验证的纯逻辑（shop_buy/shop_sell/rest/train_skill/buy_medicine/use_medicine），
 ## 本脚本只做布局与事件转发，不持有玩法状态。
@@ -26,6 +26,16 @@ var _panel: Control
 var _body: VBoxContainer
 var _status_label: CanvasItem
 var _msg_label: CanvasItem
+
+
+
+func _gs() -> Node:
+	## autoload 兼容访问（--script 无头模式不注册全局标识符）
+	return get_node("/root/GameState")
+
+
+func _gd() -> Node:
+	return get_node("/root/GameData")
 
 
 func _ready() -> void:
@@ -73,10 +83,10 @@ func _ready() -> void:
 func _refresh_status() -> void:
 	if not is_instance_valid(_status_label):
 		return
-	var st: Dictionary = GameState.get_status()
+	var st: Dictionary = _gs().get_status()
 	_status_label.text = "金 %d　体力 %d/%d　%d年%d月　薬 %d服" % [
 		int(st.get("money", 0)), int(st.get("stamina", 0)), int(st.get("stamina_max", 0)),
-		GameState.year, GameState.month, GameState.get_medicines()
+		_gs().year, _gs().month, _gs().get_medicines()
 	]
 
 
@@ -146,9 +156,9 @@ func _show_shop(mode: String = "buy") -> void:
 
 
 func _fill_buy_list(list: Control) -> void:
-	var ids: Array = GameData.get_item_ids()
+	var ids: Array = _gd().get_item_ids()
 	for id in ids:
-		var item: Dictionary = GameData.get_item(int(id))
+		var item: Dictionary = _gd().get_item(int(id))
 		if item.is_empty():
 			continue
 		var price: int = EconomyRef.item_buy_price(item)
@@ -169,7 +179,7 @@ func _fill_buy_list(list: Control) -> void:
 
 
 func _fill_sell_list(list: Control) -> void:
-	var inv: Dictionary = GameState.get_inventory()
+	var inv: Dictionary = _gs().get_inventory()
 	if inv.is_empty():
 		var empty := UiLabel.new()
 		empty.font_size = UiTheme.FONT_SMALL
@@ -180,7 +190,7 @@ func _fill_sell_list(list: Control) -> void:
 		var qty: int = int(inv[id])
 		if qty <= 0:
 			continue
-		var item: Dictionary = GameData.get_item(int(id))
+		var item: Dictionary = _gd().get_item(int(id))
 		if item.is_empty():
 			continue
 		var price: int = EconomyRef.item_sell_value(item)
@@ -201,7 +211,7 @@ func _fill_sell_list(list: Control) -> void:
 
 
 func _on_buy(item_id: int) -> void:
-	var r: Dictionary = GameState.shop_buy(item_id)
+	var r: Dictionary = _gs().shop_buy(item_id)
 	if r["ok"]:
 		_msg("購入：%s（-%d 金）" % [r["name"], r["cost"]])
 	else:
@@ -210,7 +220,7 @@ func _on_buy(item_id: int) -> void:
 
 
 func _on_sell(item_id: int) -> void:
-	var r: Dictionary = GameState.shop_sell(item_id, 1)
+	var r: Dictionary = _gs().shop_sell(item_id, 1)
 	if r["ok"]:
 		_msg("売却：%s（+%d 金）" % [r["name"], r["gain"]])
 	else:
@@ -228,7 +238,7 @@ func _show_inn() -> void:
 
 
 func _on_inn_rest() -> void:
-	var r: Dictionary = GameState.rest()
+	var r: Dictionary = _gs().rest()
 	if r["ok"]:
 		_msg("休養しました。体力が回復しました。")
 	else:
@@ -246,7 +256,7 @@ func _show_dojo() -> void:
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 12)
 	_body.add_child(grid)
-	var st: Dictionary = GameState.get_status()
+	var st: Dictionary = _gs().get_status()
 	var skills: Array = st.get("skill_levels", [])
 	var names: Array = ConstsRef.SKILL_NAMES
 	for i in range(names.size()):
@@ -261,7 +271,7 @@ func _show_dojo() -> void:
 
 
 func _on_train(idx: int) -> void:
-	var r: Dictionary = GameState.train_skill(idx)
+	var r: Dictionary = _gs().train_skill(idx)
 	if r["ok"]:
 		_msg("%s を修行しました。" % ConstsRef.SKILL_NAMES[idx])
 	else:
@@ -273,16 +283,16 @@ func _on_train(idx: int) -> void:
 # ============================================================ 医館
 func _show_medicine() -> void:
 	_clear_body()
-	var money: int = int(GameState.get_status().get("money", 0))
+	var money: int = int(_gs().get_status().get("money", 0))
 	var max_d: int = ShopRef.medicine_doses(money)
-	_msg("医館：薬を買えます（所持 %d 服）。1服 = 50 金相当。" % GameState.get_medicines())
+	_msg("医館：薬を買えます（所持 %d 服）。1服 = 50 金相当。" % _gs().get_medicines())
 	_add_btn(_body, "薬を最大で買う（%d 服）" % max_d, _on_buy_med.bind(max_d))
 	_add_btn(_body, "薬を1服使う（体力回復）", _on_use_med)
 	_add_btn(_body, "戻る", _show_facilities)
 
 
 func _on_buy_med(doses: int) -> void:
-	var r: Dictionary = GameState.buy_medicine(doses)
+	var r: Dictionary = _gs().buy_medicine(doses)
 	if r["ok"]:
 		_msg("薬 %d 服を購入しました（-%d 金）" % [r["doses"], r["cost"]])
 	else:
@@ -292,7 +302,7 @@ func _on_buy_med(doses: int) -> void:
 
 
 func _on_use_med() -> void:
-	var r: Dictionary = GameState.use_medicine()
+	var r: Dictionary = _gs().use_medicine()
 	if r["ok"]:
 		_msg("薬を使いました。体力が回復しました。")
 	else:

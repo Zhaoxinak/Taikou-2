@@ -28,6 +28,11 @@ static var _height := PackedFloat32Array()
 static var _done := false
 
 
+static func _gd() -> Node:
+	## autoload 兼容访问（--script 无头模式不注册全局标识符）
+	return Engine.get_main_loop().root.get_node("/root/GameData")
+
+
 static func _hash01(ix: int, iy: int, seedv: int) -> float:
 	var h := ix * 374761393 + iy * 668265263 + seedv * 69069
 	h = (h ^ (h >> 13)) * 1274126177
@@ -105,10 +110,10 @@ static func ensure() -> void:
 	for m in JapanMap.mountains():
 		mpts.append(JapanMap.mountain_pos(m))
 	var towns := PackedVector2Array()
-	var pos: Dictionary = GameData.get_castle_positions()
+	var pos: Dictionary = _gd().get_castle_positions()
 	for id in pos.keys():
 		var cid := int(id)
-		if GameData.get_castle_has_town(cid) or GameData.is_port_city(cid):
+		if _gd().get_castle_has_town(cid) or _gd().is_port_city(cid):
 			towns.append(pos[id])
 	# 3. 高度 + 类型
 	for y in range(RES_H):
