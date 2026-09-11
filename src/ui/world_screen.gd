@@ -22,13 +22,14 @@ const WorldMapRef = preload("res://src/core/world_map.gd")
 const CastleTown = preload("res://src/ui/castle_town.gd")
 const JapanMap = preload("res://src/ui/japan_map.gd")
 const WeatherRef = preload("res://src/core/weather.gd")
+const WorldTerrain = preload("res://src/core/world_terrain.gd")
 
 const HUD_TOP := 64.0
 const HUD_BOTTOM := 56.0
 const MAP_VIEW := Rect2(0, HUD_TOP, 1920, 1080 - HUD_TOP - HUD_BOTTOM)
 const MOVE_TICK := 0.25            # 自动移动每格间隔（秒；雨雪天 ×1.6 变慢）
 const WALK_FRAME_TICK := 0.12      # 走路动画帧切换
-const CAM_ZOOM := 2.4              # 镜头聚焦倍率（全图 1280×960 → 3072×2304，视口看 20×15 格）
+const CAM_ZOOM := 7.0              # 镜头聚焦倍率（非常近：1 逻辑格=187px，视野约 10×5 格，原版行走感）
 
 # —— 季节陆地 / 海洋色调（原版大地图：绿陆蓝海，随季节微调）——
 const LAND_COLORS := [
@@ -45,7 +46,21 @@ const SEA_COLORS := [
 	Color(0.44, 0.58, 0.66, 1),   # 秋
 ]
 const SEA_RIPPLE := Color(1, 1, 1, 0.10)
-const ROAD_COLOR := Color(0.93, 0.90, 0.82, 0.55)
+const ROAD_COLOR := Color(0.93, 0.90, 0.82, 0.6)
+
+# 格子地形色
+const SEA_GRASS := Color(0.62, 0.72, 0.44, 1)     # 草地基色（春季，随季节调）
+const BEACH_COLOR := Color(0.84, 0.78, 0.60, 1)
+const MOUNT_BASE := Color(0.50, 0.46, 0.40, 1)
+const MOUNT_DARK := Color(0.35, 0.31, 0.26, 1)
+const SNOW_COLOR := Color(0.94, 0.95, 0.93, 1)
+const TOWN_STONE := Color(0.55, 0.52, 0.48, 1)
+const ROOF_RED := Color(0.62, 0.22, 0.16, 1)
+const ROOF_BLUE := Color(0.24, 0.34, 0.52, 1)
+const ROOF_BROWN := Color(0.46, 0.34, 0.20, 1)
+const WALL_COLOR := Color(0.86, 0.80, 0.66, 1)
+const KEEP_WHITE := Color(0.92, 0.90, 0.86, 1)
+const FORT_WOOD := Color(0.48, 0.36, 0.22, 1)
 
 # 城点样式（原版：町城红块 / 军事城白点 / 港町白块+锚）
 const TOWN_COLOR := Color(0.78, 0.24, 0.18, 1)
@@ -464,7 +479,7 @@ func _draw() -> void:
 	var ms := GameData.get_map_size()
 	var positions: Dictionary = GameData.get_castle_positions()
 	_draw_sea(ms)
-	_draw_japan_bg(ms)
+	_draw_terrain(ms)
 	_draw_roads(ms)
 	_draw_mountains(ms)
 	_draw_castles(ms, positions)
@@ -489,26 +504,134 @@ func _draw_sea(ms: Vector2) -> void:
 	var sea: Color = SEA_COLORS[_season()]
 	draw_rect(MAP_VIEW, sea)
 	# 波纹：几条水平淡线
-	var off: float = fmod(Time.get_ticks_msec() / 900.0, 40.0)
-	for i in range(14):
-		var y: float = MAP_VIEW.position.y + 40 + i * 72 + off
+	var off: float = fmod(Time.get_ticks_msec() / 900.0, 36.0)
+	for i in range(22):
+		var y: float = MAP_VIEW.position.y + 40 + i * 44 + off
 		if y > MAP_VIEW.end.y - 20:
-			y = MAP_VIEW.position.y + 20 + i * 72 + off
-		draw_line(Vector2(MAP_VIEW.position.x, y), Vector2(MAP_VIEW.end.x, y), SEA_RIPPLE, 2.0)
+			y = MAP_VIEW.position.y + 20 + i * 44 + off
+		draw_line(Vector2(MAP_VIEW.position.x, y), Vector2(MAP_VIEW.end.x, y), SEA_RIPPLE, 3.0)
 
 
-func _draw_japan_bg(ms: Vector2) -> void:
-	# 注：不做顶点裁剪（会破坏环完整性导致 triangulation failed），
-	# 整环绘制，视口外部分由 canvas 自动裁剪
-	var polys: Array = JapanMap.polygons()
-	var land: Color = LAND_COLORS[_season()]
-	for i in range(polys.size()):
-		var pts := polys[i] as PackedVector2Array
-		var scr := PackedVector2Array()
-		for p in pts:
-			scr.append(_scr(ms, p))
-		draw_colored_polygon(scr, land)
-		draw_polyline(scr + PackedVector2Array([scr[0]]), LAND_EDGE, 3.0)
+func _draw_terrain(ms: Vector2) -> void:
+	## 逐格绘制可见区域（原版格子地形），细节随格子坐标确定性生成
+	var s: float = minf(MAP_VIEW.size.x / ms.x, MAP_VIEW.size.y / ms.y)
+	var off := Vector2(
+		MAP_VIEW.position.x + (MAP_VIEW.size.x - ms.x * s) * 0.5,
+		MAP_VIEW.position.y + (MAP_VIEW.size.y - ms.y * s) * 0.5)
+	var cell_px: float = WorldTerrain.CELL * s * CAM_ZOOM
+	# 可见逻辑范围（扣除投影居中偏移 off）
+	var lx0 := (_cam.x - off.x * CAM_ZOOM) / (s * CAM_ZOOM)
+	var lx1 := (_cam.x + MAP_VIEW.size.x - off.x * CAM_ZOOM) / (s * CAM_ZOOM)
+	var ly0 := (_cam.y - off.y * CAM_ZOOM) / (s * CAM_ZOOM)
+	var ly1 := (_cam.y + MAP_VIEW.size.y - off.y * CAM_ZOOM) / (s * CAM_ZOOM)
+	var gx0 := maxi(0, int(floor(lx0 / WorldTerrain.CELL)) - 1)
+	var gy0 := maxi(0, int(floor(ly0 / WorldTerrain.CELL)) - 1)
+	var gx1 := mini(WorldTerrain.GRID_W - 1, int(ceil(lx1 / WorldTerrain.CELL)) + 1)
+	var gy1 := mini(WorldTerrain.GRID_H - 1, int(ceil(ly1 / WorldTerrain.CELL)) + 1)
+	for gy in range(gy0, gy1 + 1):
+		for gx in range(gx0, gx1 + 1):
+			var t: int = WorldTerrain.at(gx, gy)
+			var sp: Vector2 = _scr(ms, Vector2(gx * WorldTerrain.CELL, gy * WorldTerrain.CELL))
+			var r := Rect2(sp, Vector2(cell_px, cell_px))
+			match t:
+				WorldTerrain.SEA:
+					pass   # 海底色与波纹已由 _draw_sea 全视口绘制
+				WorldTerrain.BEACH:
+					_draw_beach_cell(r, gx, gy)
+				WorldTerrain.GRASS:
+					_draw_grass_cell(r, gx, gy)
+				WorldTerrain.FOREST:
+					_draw_forest_cell(r, gx, gy)
+				WorldTerrain.MOUNT:
+					_draw_mount_cell(r, gx, gy)
+				WorldTerrain.TOWN:
+					_draw_town_cell(r, gx, gy)
+
+
+func _season_grass() -> Color:
+	var base: Color = LAND_COLORS[_season()]
+	return Color(base.r * 0.92, base.g * 0.96, base.b * 0.88, 1)
+
+
+func _season_forest() -> Color:
+	var base: Color = _season_grass()
+	return Color(base.r * 0.72, base.g * 0.80, base.b * 0.62, 1)
+
+
+func _draw_beach_cell(r: Rect2, gx: int, gy: int) -> void:
+	draw_rect(r, BEACH_COLOR)
+	var h := WorldTerrain._hash2(gx, gy, 3)
+	draw_line(r.position + Vector2(6, r.size.y * 0.62), r.position + Vector2(r.size.x - 6, r.size.y * 0.62), Color(1, 1, 1, 0.35), 2.0)
+	if h % 2 == 0:
+		draw_line(r.position + Vector2(6, r.size.y * 0.78), r.position + Vector2(r.size.x - 6, r.size.y * 0.78), Color(1, 1, 1, 0.25), 2.0)
+
+
+func _draw_grass_cell(r: Rect2, gx: int, gy: int) -> void:
+	draw_rect(r, _season_grass())
+	var h := WorldTerrain._hash2(gx, gy, 5)
+	# 草簇（2 组短草）
+	for k in range(2):
+		var bx: float = r.position.x + 14 + ((h >> (k * 3)) % 60)
+		var by: float = r.position.y + 16 + ((h >> (k * 3 + 1)) % 50)
+		draw_line(Vector2(bx, by), Vector2(bx + 3, by - 8), Color(0.28, 0.40, 0.20, 0.9), 2.5)
+		draw_line(Vector2(bx + 6, by), Vector2(bx + 5, by - 7), Color(0.28, 0.40, 0.20, 0.9), 2.5)
+	# 偶尔小花
+	if h % 4 == 0:
+		var fx := r.position.x + 30 + (h % 40)
+		var fy := r.position.y + 36 + ((h >> 4) % 36)
+		draw_rect(Rect2(fx, fy, 4, 4), Color(0.9, 0.78, 0.5, 0.8))
+
+
+func _draw_forest_cell(r: Rect2, gx: int, gy: int) -> void:
+	draw_rect(r, _season_forest())
+	var h := WorldTerrain._hash2(gx, gy, 9)
+	# 3 棵树
+	for k in range(3):
+		var tx: float = r.position.x + 14 + ((h >> (k * 4)) % (int(r.size.x) - 28))
+		var ty: float = r.position.y + 18 + ((h >> (k * 4 + 2)) % (int(r.size.y) - 30))
+		draw_rect(Rect2(tx - 1, ty, 3, 10), Color(0.36, 0.26, 0.16, 1))
+		draw_circle(Vector2(tx + 0.5, ty - 2), 7.0, Color(0.20, 0.32, 0.15, 1))
+		draw_circle(Vector2(tx - 3, ty - 5), 5.0, Color(0.24, 0.38, 0.18, 1))
+
+
+func _draw_mount_cell(r: Rect2, gx: int, gy: int) -> void:
+	draw_rect(r, MOUNT_BASE)
+	var h := WorldTerrain._hash2(gx, gy, 13)
+	var cx: float = r.position.x + r.size.x * 0.5
+	var base_y: float = r.position.y + r.size.y
+	var w: float = r.size.x * 0.52
+	var peak_h: float = r.size.y * 0.62 + (h % 5)
+	draw_colored_polygon(PackedVector2Array([
+		Vector2(cx - w, base_y - 4), Vector2(cx, base_y - peak_h), Vector2(cx + w, base_y - 4),
+	]), MOUNT_DARK)
+	# 雪顶
+	draw_colored_polygon(PackedVector2Array([
+		Vector2(cx - w * 0.30, base_y - peak_h * 0.55),
+		Vector2(cx, base_y - peak_h),
+		Vector2(cx + w * 0.30, base_y - peak_h * 0.55),
+		Vector2(cx, base_y - peak_h * 0.72),
+	]), SNOW_COLOR)
+	# 侧影
+	draw_colored_polygon(PackedVector2Array([
+		Vector2(cx + w * 0.3, base_y - 4), Vector2(cx + w, base_y - peak_h * 0.42), Vector2(cx + w, base_y - 4),
+	]), Color(0.28, 0.24, 0.20, 1))
+
+
+func _draw_town_cell(r: Rect2, gx: int, gy: int) -> void:
+	draw_rect(r, TOWN_STONE)
+	var h := WorldTerrain._hash2(gx, gy, 17)
+	# 町屋（3 栋：屋顶 + 墙）
+	for k in range(3):
+		var hx: float = r.position.x + 10 + ((h >> (k * 3)) % (int(r.size.x) - 40))
+		var hy: float = r.position.y + 18 + ((h >> (k * 3 + 1)) % (int(r.size.y) - 40))
+		var roof: Color = ROOF_RED if k == 0 else (ROOF_BLUE if k == 1 else ROOF_BROWN)
+		draw_colored_polygon(PackedVector2Array([
+			Vector2(hx - 11, hy + 10), Vector2(hx, hy - 2), Vector2(hx + 11, hy + 10),
+		]), roof)
+		draw_rect(Rect2(hx - 9, hy + 10, 18, 12), WALL_COLOR)
+	# 石板路十字
+	draw_line(r.position + Vector2(r.size.x * 0.5, 0), r.position + Vector2(r.size.x * 0.5, r.size.y), Color(0.42, 0.40, 0.36, 0.5), 3.0)
+	draw_line(r.position + Vector2(0, r.size.y * 0.5), r.position + Vector2(r.size.x, r.size.y * 0.5), Color(0.42, 0.40, 0.36, 0.5), 3.0)
 
 
 func _draw_roads(ms: Vector2) -> void:
@@ -518,7 +641,7 @@ func _draw_roads(ms: Vector2) -> void:
 		var b: Vector2 = _scr(ms, e[1])
 		if not (view.has_point(a) or view.has_point(b)):
 			continue
-		draw_line(a, b, ROAD_COLOR, 3.0)
+		draw_line(a, b, ROAD_COLOR, 3.5)
 
 
 func _draw_mountains(ms: Vector2) -> void:
@@ -529,16 +652,16 @@ func _draw_mountains(ms: Vector2) -> void:
 		var sp: Vector2 = _scr(ms, lp)
 		if not view.has_point(sp):
 			continue
-		var w: float = 19.0
-		var h: float = 22.0
+		var w: float = 34.0
+		var h: float = 40.0
 		draw_colored_polygon(PackedVector2Array([sp + Vector2(-w, h * 0.4), sp + Vector2(0, -h), sp + Vector2(w, h * 0.4)]), land_dark)
-		draw_colored_polygon(PackedVector2Array([sp + Vector2(-w, h * 0.4), sp + Vector2(0, -h), sp + Vector2(w, h * 0.4)]), Color(1, 1, 1, 0.22))
+		draw_colored_polygon(PackedVector2Array([sp + Vector2(-w * 0.3, -h * 0.1), sp + Vector2(0, -h), sp + Vector2(w * 0.3, -h * 0.1), sp + Vector2(0, -h * 0.55)]), SNOW_COLOR)
 
 
 func _draw_castles(ms: Vector2, positions: Dictionary) -> void:
 	var drawn_names: Array = []   # [Rect2] 已绘城名包围盒（避让用）
 	var view := MAP_VIEW.grow(60)
-	var font_sz: float = UiTheme.FONT_SMALL * 1.65
+	var font_sz: float = UiTheme.FONT_SMALL * 1.9
 	for id in positions.keys():
 		var lp: Vector2 = positions[id]
 		var sp: Vector2 = _scr(ms, lp)
@@ -548,56 +671,83 @@ func _draw_castles(ms: Vector2, positions: Dictionary) -> void:
 		var is_port: bool = GameData.is_port_city(cid)
 		if not view.has_point(sp):
 			continue
-		var col: Color
-		var size: float
-		if near:
-			col = NEAR_COLOR
-			size = 10.0
-		elif is_port:
-			col = PORT_COLOR
-			size = 8.0
-		elif has_town:
-			col = TOWN_COLOR
-			size = 8.0
+		var name_col: Color = NEAR_COLOR if near else (PORT_COLOR if is_port else TOWN_COLOR)
+		# 城郭 / 城寨图标（城镇格已铺町屋，此处画中心城）
+		if has_town or is_port:
+			_draw_castle_keep(sp, is_port, near)
 		else:
-			col = MIL_COLOR
-			size = 4.5
-		# 城点：町城/港町方块，军事城小点
-		if has_town or is_port or near:
-			draw_rect(Rect2(sp - Vector2(size, size), Vector2(size * 2, size * 2)), col)
-		else:
-			draw_circle(sp, size, col)
-		# 城名：町城 / 港町 / 最近城（简单避让：右侧 → 上方 → 下方 → 跳过）
-		if near or has_town or is_port:
-			var cname: String = str(GameData.get_castle(cid).get("name", ""))
-			var name_w: float = float(cname.length()) * font_sz * 0.62
-			var cand := [
-				Rect2(sp + Vector2(size + 3, 8), Vector2(name_w, 34)),
-				Rect2(sp + Vector2(-name_w * 0.4, -size - 28), Vector2(name_w, 34)),
-				Rect2(sp + Vector2(-name_w * 0.4, size + 26), Vector2(name_w, 34)),
-			]
-			var placed := false
-			for cand_rect in cand:
-				var clash := false
-				for r in drawn_names:
-					if r.intersects(cand_rect):
-						clash = true
-						break
-				if not clash:
-					draw_string(UiTheme.font(), cand_rect.position + Vector2(0, 27), cname, HORIZONTAL_ALIGNMENT_LEFT, -1, font_sz, col)
-					drawn_names.append(cand_rect)
-					placed = true
+			_draw_fort(sp, near)
+		# 城名（简单避让：右侧 → 上方 → 下方 → 跳过）
+		var cname: String = str(GameData.get_castle(cid).get("name", ""))
+		var name_w: float = float(cname.length()) * font_sz * 0.62
+		var cand := [
+			Rect2(sp + Vector2(26, -14), Vector2(name_w, 40)),
+			Rect2(sp + Vector2(-name_w * 0.4, -46), Vector2(name_w, 40)),
+			Rect2(sp + Vector2(-name_w * 0.4, 34), Vector2(name_w, 40)),
+		]
+		var placed := false
+		for cand_rect in cand:
+			var clash := false
+			for r in drawn_names:
+				if r.intersects(cand_rect):
+					clash = true
 					break
-			if not placed and near:
-				# 最近城必须显示：强制画在点上方并登记
-				var forced := Rect2(sp + Vector2(-name_w * 0.4, -size - 28), Vector2(name_w, 34))
-				draw_string(UiTheme.font(), forced.position + Vector2(0, 27), cname, HORIZONTAL_ALIGNMENT_LEFT, -1, font_sz, col)
-				drawn_names.append(forced)
-		# 港町锚标（小三角）
+			if not clash:
+				draw_string(UiTheme.font(), cand_rect.position + Vector2(0, 32), cname, HORIZONTAL_ALIGNMENT_LEFT, -1, font_sz, name_col)
+				drawn_names.append(cand_rect)
+				placed = true
+				break
+		if not placed and near:
+			var forced := Rect2(sp + Vector2(-name_w * 0.4, -46), Vector2(name_w, 40))
+			draw_string(UiTheme.font(), forced.position + Vector2(0, 32), cname, HORIZONTAL_ALIGNMENT_LEFT, -1, font_sz, name_col)
+			drawn_names.append(forced)
+		# 港町帆船标
 		if is_port and not near:
-			draw_colored_polygon(PackedVector2Array([
-				sp + Vector2(0, 12), sp + Vector2(5, 21), sp + Vector2(-5, 21),
-			]), PORT_COLOR)
+			_draw_sail(sp)
+
+
+## 町城/港町城郭：石垣 + 白墙天守 + 瓦顶
+func _draw_castle_keep(c: Vector2, is_port: bool, near: bool) -> void:
+	# 石垣
+	draw_rect(Rect2(c + Vector2(-22, -2), Vector2(44, 14)), Color(0.42, 0.40, 0.36, 1))
+	draw_rect(Rect2(c + Vector2(-22, -2), Vector2(44, 14)), Color(0.55, 0.52, 0.46, 1), false, 2)
+	# 天守白墙
+	draw_rect(Rect2(c + Vector2(-13, -24), Vector2(26, 24)), KEEP_WHITE)
+	draw_rect(Rect2(c + Vector2(-13, -24), Vector2(26, 24)), Color(0.5, 0.46, 0.40, 1), false, 2)
+	# 腰壁线
+	draw_line(c + Vector2(-13, -8), c + Vector2(13, -8), Color(0.55, 0.40, 0.28, 0.9), 2)
+	# 瓦顶（双层）
+	var roof_dark := Color(0.22, 0.20, 0.24, 1)
+	draw_colored_polygon(PackedVector2Array([
+		c + Vector2(-16, -24), c + Vector2(16, -24), c + Vector2(10, -34), c + Vector2(-10, -34),
+	]), ROOF_BLUE if is_port else roof_dark)
+	draw_colored_polygon(PackedVector2Array([
+		c + Vector2(-10, -34), c + Vector2(10, -34), c + Vector2(0, -42),
+	]), ROOF_BLUE if is_port else Color(0.22, 0.20, 0.24, 1))
+	# 最近城黄色光圈
+	if near:
+		draw_arc(c, 30, 0, TAU, 28, NEAR_COLOR, 3)
+
+
+## 军事城小寨：木栅 + 望楼
+func _draw_fort(c: Vector2, near: bool) -> void:
+	draw_rect(Rect2(c + Vector2(-14, -6), Vector2(28, 18)), FORT_WOOD)
+	draw_rect(Rect2(c + Vector2(-14, -6), Vector2(28, 18)), Color(0.3, 0.22, 0.14, 1), false, 2)
+	draw_colored_polygon(PackedVector2Array([
+		c + Vector2(-8, -6), c + Vector2(8, -6), c + Vector2(0, -18),
+	]), Color(0.32, 0.26, 0.22, 1))
+	if near:
+		draw_arc(c, 26, 0, TAU, 24, NEAR_COLOR, 3)
+
+
+## 港町帆船标（小帆船）
+func _draw_sail(c: Vector2) -> void:
+	var b := c + Vector2(0, 16)
+	draw_rect(Rect2(b + Vector2(-7, 0), Vector2(14, 4)), Color(0.36, 0.28, 0.18, 1))
+	draw_colored_polygon(PackedVector2Array([
+		b + Vector2(4, 0), b + Vector2(10, -10), b + Vector2(4, -8),
+	]), Color(0.92, 0.90, 0.86, 1))
+	draw_line(b + Vector2(4, 0), b + Vector2(4, -10), Color(0.5, 0.42, 0.30, 1), 1.5)
 
 
 func _draw_player(ms: Vector2) -> void:
