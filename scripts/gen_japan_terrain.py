@@ -244,6 +244,10 @@ def build(season):
     noise = rng.normal(0, 6, (GY, GX, 1))
     land_col = np.clip(land_col.astype(np.int16) + noise.astype(np.int16), 0, 255).astype(np.uint8)
 
+    # ---- 专业拆分：分层导出所需的中间副本 ----
+    # land_col_clean：不含森林/卡通山（含纬度色差、高度着色、沙滩、噪声）
+    land_col_clean = land_col.copy()
+
     # 森林斑块（深绿散布，手绘感）
     forest = np.zeros((GY, GX), dtype=bool)
     n_seed = 0
@@ -265,9 +269,16 @@ def build(season):
     # 森林色：草绿加深偏蓝绿
     fc = (86, 132, 62)
     land_col[forest] = ((land_col[forest].astype(np.float64) * 0.35) + np.array(fc) * 0.65).astype(np.uint8)
+    # 含森林、不含卡通山的底色（供 mountains 层重放混合）
+    land_col_with_forest = land_col.copy()
 
     # 卡通山体：径向渐变圆叠加（亮部偏左上，太阁5 手绘感）
-    def draw_cartoon_mountain(lat, lon, w):
+    def draw_cartoon_mountain(lat, lon, w, base_arr=None, target=None):
+        """base_arr: 混合底色（None=land_col）；target: 输出数组（None=land_col）"""
+        if base_arr is None:
+            base_arr = land_col
+        if target is None:
+            target = land_col
         px, py = ll_to_px(lat, lon)
         sigma = (0.55 + 0.42 * w) * PPG * 0.62
         r = int(sigma * 1.25) + 2
@@ -288,7 +299,7 @@ def build(season):
         d_light = np.sqrt(((sub_xx - (px - r * 0.22)) / (r * 0.92)) ** 2 +
                           ((sub_yy - (py - r * 0.22)) / (r * 0.92)) ** 2)
         light = d_light < d
-        cm = land_col[y0:y1, x0:x1].astype(np.float64)
+        cm = base_arr[y0:y1, x0:x1].astype(np.float64)
         # 雪顶（大权重山有雪）
         if w >= 2.0 and season != 'summer':
             cm[core & m] = (np.array(P['snow']) * 0.75 + cm[core & m] * 0.25)
@@ -301,7 +312,9 @@ def build(season):
         # 亮部提亮
         lit = m & light
         cm[lit] = np.minimum(cm[lit] * 1.14 + 10, 255)
-        land_col[y0:y1, x0:x1] = np.clip(cm, 0, 255).astype(np.uint8)
+        out_cm = np.clip(cm, 0, 255).astype(np.uint8)
+        # 只写山体区域（m），层外保持透明
+        target[y0:y1, x0:x1][m] = out_cm[m]
 
     for name, lat, lon, w in G.MOUNTAINS:
         draw_cartoon_mountain(lat, lon, w)
@@ -367,7 +380,131 @@ def build(season):
             col[gy, gx] = hull
 
     # --------------------------------------------------------
-    # 5. 保存
+    # 5. 专业拆分：导出要素独立图层（RGBA，同一投影/尺寸）
+    #    叠加顺序 = 绘制顺序，任意一层可单独修改后重合成
+    # --------------------------------------------------------
+    layer_dir = f'/tmp/japan_terrain/layers_{season}'
+    os.makedirs(layer_dir, exist_ok=True)
+    rgb0 = np.zeros((GY, GX, 3), dtype=np.uint8)
+
+    def to_rgba(rgb, mask):
+        arr = np.zeros((GY, GX, 4), dtype=np.uint8)
+        arr[mask] = np.concatenate([rgb[mask], np.full((mask.sum(), 1), 255, np.uint8)], axis=1)
+        return arr
+
+    def to_rgba_flat(rgb, mask):
+        arr = np.zeros((GY, GX, 4), dtype=np.uint8)
+        arr[mask] = (*rgb, 255)
+        return arr
+
+    # 01 海（含浅海/近岸带渐变）
+    sea_rgb = np.zeros((GY, GX, 3), dtype=np.uint8)
+    sea_rgb[~land] = col[~land]
+    lay_sea = to_rgba(sea_rgb, ~land)
+
+    # 02 陆地基础（grass+纬度色差+高度着色+噪声；不含森林/卡通山/沙滩）
+    land_base_rgb = np.zeros((GY, GX, 3), dtype=np.uint8)
+    m_base = land & ~beach_land
+    land_base_rgb[m_base] = land_col_clean[m_base]
+    lay_land = to_rgba(land_base_rgb, m_base)
+
+    # 03 沙滩（含噪声微差，与原合成图一致）
+    lay_beach = to_rgba(land_col_clean, beach_land)
+
+    # 04 森林
+    forest_rgb = np.zeros((GY, GX, 3), dtype=np.uint8)
+    forest_rgb[forest] = (land_col_clean[forest].astype(np.float64) * 0.35 + np.array(fc) * 0.65).astype(np.uint8)
+    lay_forest = to_rgba(forest_rgb, forest)
+
+    # 05 卡通山（复刻原“山叠山”混合：后画的山混合已画的山；像素与原合成图一致）
+    mtn_rgb = np.zeros((GY, GX, 3), dtype=np.uint8)
+    mtn_base = land_col_with_forest.copy()
+    for name, lat, lon, w in G.MOUNTAINS:
+        draw_cartoon_mountain(lat, lon, w, base_arr=mtn_base, target=mtn_rgb)
+        mtn_base = np.where(mtn_rgb > 0, mtn_rgb, mtn_base)  # 只合入已画的山，保留底色
+    mtn_mask = mtn_rgb.any(axis=2)
+    lay_mountains = to_rgba(mtn_rgb, mtn_mask)
+
+    # 06 河流（河道本体；河岸带单独成层 08，置于湖泊之后）
+    riv_rgb = np.zeros((GY, GX, 3), dtype=np.uint8)
+    if P['river_ice']:
+        riv_rgb[river_mask > 0] = (150, 168, 182)
+    else:
+        riv_rgb[river_mask > 0] = P['river']
+    lay_rivers = to_rgba(riv_rgb, river_mask > 0)
+
+    # 07 湖泊
+    lak_rgb = np.zeros((GY, GX, 3), dtype=np.uint8)
+    if P['river_ice']:
+        lak_rgb[lake_mask > 0] = (140, 160, 178)
+    else:
+        lak_rgb[lake_mask > 0] = P['lake']
+    lay_lakes = to_rgba(lak_rgb, lake_mask > 0)
+
+    # 08 河岸浅色带（在原合成图中画在湖泊之后，故独立成层）
+    river_edge = dilate(river_mask > 0, 1) & land & ~(river_mask > 0)
+    # 与合成图一致：河岸混合的底色 = 陆地色之上先被湖泊色覆盖后的状态
+    edge_base = land_col.copy()
+    if P['river_ice']:
+        edge_base[lake_mask > 0] = (140, 160, 178)
+    else:
+        edge_base[lake_mask > 0] = P['lake']
+    edge_rgb = np.zeros((GY, GX, 3), dtype=np.uint8)
+    edge_rgb[river_edge] = ((edge_base[river_edge].astype(np.float64) * 0.7) + np.array(P['beach']) * 0.3).astype(np.uint8)
+    lay_edges = to_rgba(edge_rgb, river_edge)
+
+    # 08 港口（栈桥+小屋，重放绘制）
+    port_rgb = np.zeros((GY, GX, 3), dtype=np.uint8)
+    port_col = (222, 214, 190)
+    roof = (168, 92, 68)
+    for name, lat, lon, typ in G.PORTS:
+        px, py = ll_to_px(lat, lon)
+        gx, gy = int(round(px)), int(round(py))
+        best_dir = None
+        for dy in (-1, 0, 1):
+            for dx in (-1, 0, 1):
+                if dx == 0 and dy == 0:
+                    continue
+                if 0 <= gy+dy*3 < GY and 0 <= gx+dx*3 < GX and not land[gy+dy*3, gx+dx*3]:
+                    best_dir = (dx, dy)
+                    break
+            if best_dir:
+                break
+        if best_dir:
+            dx, dy = best_dir
+            for k in range(1, 4):
+                if 0 <= gy+dy*k < GY and 0 <= gx+dx*k < GX:
+                    port_rgb[gy+dy*k, gx+dx*k] = port_col
+        for dy in (0, 1):
+            for dx in (0, 1):
+                if 0 <= gy+dy < GY and 0 <= gx+dx < GX:
+                    port_rgb[gy+dy, gx+dx] = port_col
+        port_rgb[gy, gx] = roof
+    lay_ports = to_rgba(port_rgb, port_rgb.any(axis=2))
+
+    # 09 船只（近岸海中装饰，重放绘制）
+    ship_rgb = np.zeros((GY, GX, 3), dtype=np.uint8)
+    for lat, lon in ship_pts:
+        px, py = ll_to_px(lat, lon)
+        gx, gy = int(round(px)), int(round(py))
+        if not land[gy, gx]:
+            hull = (120, 92, 74)
+            sail = (238, 238, 232)
+            ship_rgb[gy, gx] = hull
+            ship_rgb[gy, gx+1] = hull
+            if gx+2 < GX:
+                ship_rgb[gy-1, gx+1] = sail
+                ship_rgb[gy-1, gx+2] = sail
+            ship_rgb[gy, gx] = hull
+    lay_ships = to_rgba(ship_rgb, ship_rgb.any(axis=2))
+
+    layer_names = ['sea', 'land', 'beach', 'forest', 'mountains', 'rivers', 'lakes', 'river_edges', 'ports', 'ships']
+    for nm, arr in zip(layer_names, [lay_sea, lay_land, lay_beach, lay_forest, lay_mountains, lay_rivers, lay_lakes, lay_edges, lay_ports, lay_ships]):
+        Image.fromarray(arr).save(f'{layer_dir}/{nm}.png')
+    print(f'[{season}] layers -> {layer_dir} ({len(layer_names)} 张)')
+
+    # --------------------------------------------------------
+    # 6. 保存
     # --------------------------------------------------------
     os.makedirs('/tmp/japan_terrain', exist_ok=True)
     h8 = ((height - hmin) / (hmax - hmin) * 255).astype(np.uint8)
