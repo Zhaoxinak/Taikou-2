@@ -94,10 +94,21 @@ var _hud_top: CanvasItem
 var _hud_bottom: CanvasItem
 var _entered_castle: int = -1      # 进城 overlay 中显示的城 id（-1=未进城）
 var _nearest_id: int = -1
+# AI 生成素材图标（assets/icons/，白底 floodfill 抠图）
+var _icon_castle: ImageTexture = null
+var _icon_fort: ImageTexture = null
+var _icon_village: ImageTexture = null
+var _icon_peak: ImageTexture = null
+var _icon_hill: ImageTexture = null
 var _castle_town: Control = null   # 城下町交互 UI（进城时挂载，离城时置 null）
 
 var _move_target: Vector2 = Vector2.INF   # 点击自动移动目标（INF=未在移动）
 var _move_timer: float = 0.0
+# 平滑行走插值（消除跳格感）
+var _draw_pos: Vector2 = Vector2.ZERO   # 画面显示位置（平滑）
+var _move_from: Vector2 = Vector2.ZERO  # 本格起点
+var _move_to: Vector2 = Vector2.ZERO    # 本格终点
+var _move_prog := 1.0                   # 0..1 格内进度（1=静止）
 var _cam := Vector2.ZERO            # 镜头左上角（全图屏幕像素坐标）
 var _cam_target := Vector2.ZERO
 var _bg_tex: ImageTexture = null   # 手绘风底图（季节缓存）
@@ -118,6 +129,11 @@ var _roads: Array = []                   # 道路网 [[Vector2, Vector2], ...] �
 
 
 func _ready() -> void:
+	_icon_castle = _load_icon("castle")
+	_icon_fort = _load_icon("fort")
+	_icon_village = _load_icon("village")
+	_icon_peak = _load_icon("peak")
+	_icon_hill = _load_icon("hill")
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	var bg := ColorRect.new()
@@ -260,30 +276,40 @@ func _move_speed() -> float:
 
 func _process(delta: float) -> void:
 	_update_cam(delta)
-	# 走路动画
-	if _move_target != Vector2.INF and _entered_castle < 0:
-		_walk_timer += delta
-		if _walk_timer >= WALK_FRAME_TICK:
-			_walk_timer = 0.0
-			_walk_frame ^= 1
-	else:
-		_walk_frame = 0
 	if _move_target == Vector2.INF or _entered_castle >= 0:
+		_draw_pos = GameState.player_map_pos   # 静止/城内时同步
+		_walk_frame = 0
 		return
-	_move_timer -= delta
-	if _move_timer > 0.0:
-		return
-	_move_timer = MOVE_TICK * _move_speed()
-	var before: Vector2 = GameState.player_map_pos
-	var arrived: bool = GameState.move_player_towards(_move_target)
-	var diff := GameState.player_map_pos - before
-	if diff.length() > 0.01:
-		_face = diff.normalized()
-	_update_nearest()
-	_refresh_hud()
+	# 走路动画
+	_walk_timer += delta
+	if _walk_timer >= WALK_FRAME_TICK:
+		_walk_timer = 0.0
+		_walk_frame ^= 1
+	# 平滑推进本格
+	_move_prog += delta / (MOVE_TICK * _move_speed())
+	if _move_prog >= 1.0:
+		_move_prog = 1.0
+		var before: Vector2 = GameState.player_map_pos
+		var arrived: bool = GameState.move_player_towards(_move_target)
+		var diff := GameState.player_map_pos - before
+		if diff.length() > 0.01:
+			_face = diff.normalized()
+			_move_from = _move_to
+			_move_to = GameState.player_map_pos
+			_move_prog = 0.0
+		_update_nearest()
+		_refresh_hud()
+		queue_redraw()
+		if arrived:
+			_move_target = Vector2.INF
+			_move_prog = 1.0
+	_draw_pos = _move_from.lerp(_move_to, _move_step(_move_prog))
 	queue_redraw()
-	if arrived:
-		_move_target = Vector2.INF
+
+
+## 缓动步进（smoothstep：起步慢-中段快-收步缓，行走感）
+func _move_step(p: float) -> float:
+	return p * p * (3.0 - 2.0 * p)
 
 
 ## 逻辑坐标 → 屏幕坐标（含镜头偏移与聚焦倍率）
@@ -294,7 +320,7 @@ func _scr(ms: Vector2, lp: Vector2) -> Vector2:
 ## 镜头平滑跟随玩家（原版相机逐格平移质感）
 func _update_cam(delta: float) -> void:
 	var ms := GameData.get_map_size()
-	var p: Vector2 = WorldMapRef.project(GameState.player_map_pos, ms.x, ms.y, MAP_VIEW) * CAM_ZOOM
+	var p: Vector2 = WorldMapRef.project(_draw_pos, ms.x, ms.y, MAP_VIEW) * CAM_ZOOM
 	var full_w: float = MAP_VIEW.size.x * CAM_ZOOM
 	var full_h: float = MAP_VIEW.size.y * CAM_ZOOM
 	_cam_target = Vector2(
@@ -306,7 +332,11 @@ func _update_cam(delta: float) -> void:
 ## 镜头瞬移到玩家（开局 / 乘船跨海后）
 func _snap_cam() -> void:
 	var ms := GameData.get_map_size()
-	var p: Vector2 = WorldMapRef.project(GameState.player_map_pos, ms.x, ms.y, MAP_VIEW) * CAM_ZOOM
+	_draw_pos = GameState.player_map_pos
+	_move_from = _draw_pos
+	_move_to = _draw_pos
+	_move_prog = 1.0
+	var p: Vector2 = WorldMapRef.project(_draw_pos, ms.x, ms.y, MAP_VIEW) * CAM_ZOOM
 	var full_w: float = MAP_VIEW.size.x * CAM_ZOOM
 	var full_h: float = MAP_VIEW.size.y * CAM_ZOOM
 	_cam_target = Vector2(
@@ -656,39 +686,12 @@ func _draw_town_cell(rx: int, ry: int, ms: Vector2) -> void:
 
 
 func _draw_peak(sp: Vector2) -> void:
-	## 名山：圆润卡通雪山（宽基座融入草地 + 明暗岩坡 + 大圆雪顶）
-	var W := 108.0
-	var H := 96.0
-	# 基座渐隐（宽）
-	draw_colored_polygon(PackedVector2Array([
-		sp + Vector2(-W * 1.45, H * 0.62), sp + Vector2(W * 1.45, H * 0.62), sp + Vector2(0, H * 0.02),
-	]), Color(0.60, 0.55, 0.48, 0.25))
-	# 岩坡主体（圆润侧翼）
-	draw_colored_polygon(PackedVector2Array([
-		sp + Vector2(-W, H * 0.58), sp + Vector2(-W * 0.62, -H * 0.42), sp + Vector2(0, -H),
-		sp + Vector2(W * 0.62, -H * 0.42), sp + Vector2(W, H * 0.58),
-	]), Color(0.62, 0.58, 0.52, 1))
-	# 左侧受光面
-	draw_colored_polygon(PackedVector2Array([
-		sp + Vector2(-W, H * 0.58), sp + Vector2(-W * 0.62, -H * 0.42), sp + Vector2(0, -H),
-		sp + Vector2(0, H * 0.58),
-	]), Color(0.74, 0.70, 0.64, 0.9))
-	# 右侧阴影
-	draw_colored_polygon(PackedVector2Array([
-		sp + Vector2(0, -H), sp + Vector2(W * 0.62, -H * 0.42), sp + Vector2(W, H * 0.58), sp + Vector2(0, H * 0.58),
-	]), Color(0.42, 0.38, 0.34, 0.55))
-	# 大圆雪顶（带弧度）
-	var sh := H * 0.46
-	var sw := W * 0.40
-	draw_colored_polygon(PackedVector2Array([
-		sp + Vector2(-sw, -H + sh), sp + Vector2(-sw * 0.45, -H + sh * 0.55),
-		sp + Vector2(0, -H), sp + Vector2(sw * 0.45, -H + sh * 0.55), sp + Vector2(sw, -H + sh),
-	]), Color(0.96, 0.97, 0.98, 1))
-	# 雪顶左侧高光
-	draw_colored_polygon(PackedVector2Array([
-		sp + Vector2(-sw, -H + sh), sp + Vector2(0, -H), sp + Vector2(0, -H + sh),
-	]), Color(1, 1, 1, 0.8))
-
+	## 名山：AI 雪山图标（山脚贴地）
+	_draw_icon(_icon_peak, sp + Vector2(0, 30), 150.0)
+	# 山脚融入草地的柔和阴影
+	draw_set_transform(sp + Vector2(0, 30), 0.0, Vector2(1.0, 0.42))
+	draw_circle(Vector2.ZERO, 78.0, Color(0.30, 0.34, 0.22, 0.22))
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 func _draw_minimap(ms: Vector2) -> void:
 	## 右上角日本全域缩略图（太阁5：城点 + 视野框 + 玩家）
 	if _minimap_tex == null:
@@ -798,43 +801,51 @@ func _draw_castles(ms: Vector2, positions: Dictionary) -> void:
 			var forced := Rect2(sp + Vector2(-name_w * 0.4, -46), Vector2(name_w, 40))
 			draw_string(UiTheme.font(), forced.position + Vector2(0, 32), cname, HORIZONTAL_ALIGNMENT_LEFT, -1, font_sz, name_col)
 			drawn_names.append(forced)
-		# 港町帆船标
-		if is_port and not near:
-			_draw_sail(sp)
+
 
 
 ## 町城/港町城郭：石垣 + 白墙天守 + 瓦顶
+func _load_icon(n: String) -> ImageTexture:
+	var f := FileAccess.open("res://assets/icons/%s.png" % n, FileAccess.READ)
+	if f == null:
+		return null
+	var img := Image.new()
+	img.load_png_from_buffer(f.get_buffer(f.get_length()))
+	return ImageTexture.create_from_image(img)
+
+
+## 绘制图标（中心锚点，等比缩放）
+func _draw_icon(tex: ImageTexture, c: Vector2, w: float) -> void:
+	if tex == null:
+		return
+	var h: float = w * float(tex.get_height()) / float(tex.get_width())
+	draw_texture_rect(tex, Rect2(c - Vector2(w, h) * 0.5, Vector2(w, h)), false)
+
+
+## 最近城黄色光圈（压扁椭圆，贴地）
+func _draw_near_ring(c: Vector2) -> void:
+	draw_set_transform(c, 0.0, Vector2(1.0, 0.5))
+	draw_arc(Vector2.ZERO, 54.0, 0, TAU, 36, Color(1, 0.85, 0.30, 0.9), 4.0)
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+	draw_circle(c + Vector2(0, 10), 40, Color(1, 0.9, 0.3, 0.10))
+
+
 func _draw_castle_keep(c: Vector2, is_port: bool, near: bool) -> void:
-	# 石垣
-	draw_rect(Rect2(c + Vector2(-22, -2), Vector2(44, 14)), Color(0.42, 0.40, 0.36, 1))
-	draw_rect(Rect2(c + Vector2(-22, -2), Vector2(44, 14)), Color(0.55, 0.52, 0.46, 1), false, 2)
-	# 天守白墙
-	draw_rect(Rect2(c + Vector2(-13, -24), Vector2(26, 24)), KEEP_WHITE)
-	draw_rect(Rect2(c + Vector2(-13, -24), Vector2(26, 24)), Color(0.5, 0.46, 0.40, 1), false, 2)
-	# 腰壁线
-	draw_line(c + Vector2(-13, -8), c + Vector2(13, -8), Color(0.55, 0.40, 0.28, 0.9), 2)
-	# 瓦顶（双层）
-	var roof_dark := Color(0.22, 0.20, 0.24, 1)
-	draw_colored_polygon(PackedVector2Array([
-		c + Vector2(-16, -24), c + Vector2(16, -24), c + Vector2(10, -34), c + Vector2(-10, -34),
-	]), ROOF_BLUE if is_port else roof_dark)
-	draw_colored_polygon(PackedVector2Array([
-		c + Vector2(-10, -34), c + Vector2(10, -34), c + Vector2(0, -42),
-	]), ROOF_BLUE if is_port else Color(0.22, 0.20, 0.24, 1))
-	# 最近城黄色光圈
+	## 町城→天守图标；港町→村落图标
+	if is_port:
+		_draw_icon(_icon_village, c + Vector2(0, 12), 64.0)
+	else:
+		_draw_icon(_icon_castle, c + Vector2(0, 14), 96.0)
 	if near:
-		draw_arc(c, 30, 0, TAU, 28, NEAR_COLOR, 3)
+		_draw_near_ring(c)
 
 
 ## 军事城小寨：木栅 + 望楼
 func _draw_fort(c: Vector2, near: bool) -> void:
-	draw_rect(Rect2(c + Vector2(-14, -6), Vector2(28, 18)), FORT_WOOD)
-	draw_rect(Rect2(c + Vector2(-14, -6), Vector2(28, 18)), Color(0.3, 0.22, 0.14, 1), false, 2)
-	draw_colored_polygon(PackedVector2Array([
-		c + Vector2(-8, -6), c + Vector2(8, -6), c + Vector2(0, -18),
-	]), Color(0.32, 0.26, 0.22, 1))
+	## 军事城→城寨图标
+	_draw_icon(_icon_fort, c + Vector2(0, 8), 66.0)
 	if near:
-		draw_arc(c, 26, 0, TAU, 24, NEAR_COLOR, 3)
+		_draw_near_ring(c)
 
 
 ## 港町帆船标（小帆船）
