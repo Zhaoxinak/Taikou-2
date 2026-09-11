@@ -10,6 +10,7 @@ func _init() -> void:
 func _tick() -> void:
 	_frame += 1
 	if _frame == 1:
+		root.get_node("/root/GameState").month = 4  # 春季截图
 		var scene: PackedScene = load("res://scenes/screens/world_screen.tscn")
 		root.add_child(scene.instantiate())
 		return

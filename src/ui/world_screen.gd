@@ -669,17 +669,9 @@ func _draw_terrain_detail(ms: Vector2) -> void:
 	for ry in range(ry0, ry1 + 1):
 		for rx in range(rx0, rx1 + 1):
 			var t: int = WorldTerrain.type_at(rx, ry)
-			if t == WorldTerrain.FOREST:
-				_draw_forest_cell(rx, ry, ms)
-			elif t == WorldTerrain.TOWN:
+			if t == WorldTerrain.TOWN:
 				_draw_town_cell(rx, ry, ms)
-	# 名山雪山
-	for m in JapanMap.mountains():
-		var mp: Vector2 = JapanMap.mountain_pos(m)
-		var sp: Vector2 = _scr(ms, mp)
-		if sp.x < -240 or sp.x > MAP_VIEW.size.x + 200 or sp.y < HUD_TOP - 20 or sp.y > MAP_VIEW.end.y + 60:
-			continue
-		_draw_peak(sp)
+	# 名山：底图已含 3D 雪顶山体，不再叠加 AI 图标
 
 
 func _draw_forest_cell(rx: int, ry: int, ms: Vector2) -> void:
