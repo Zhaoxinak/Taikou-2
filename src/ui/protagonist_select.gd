@@ -1,5 +1,5 @@
 extends Control
-## 主角选择（HD-5 自绘）：列出 6 名可选主角（is_selectable），点选即开局进入状态画面
+## 主角选择（自绘）：列出 6 名可选主角（is_selectable），点选即开局进入状态画面
 ##
 ## 布局全在 UiTheme 设计空间；废除旧实现的硬编码 font_size(32/22) 与像素偏移。
 ## ⚠️ VBoxContainer 保持为**根的直接子节点**（UI 流程测试按此结构遍历按钮）。

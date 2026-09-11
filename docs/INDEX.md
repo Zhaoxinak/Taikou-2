@@ -21,8 +21,7 @@ docs/
   replication/        怎么把规格变成 Godot
     复刻导航.md         数据资产地图 / 原版文件格式 / 关键几何 / 字段速查 / 避坑
     Godot复刻实施方案.md ★ 施工图：工程结构 / 数据层契约 / 玩法系统 / 里程碑 / 避坑
-    HD2D高清重制方案.md  ★ 画面：HD-2D 风格（3D 场景 + 像素 sprite + 后处理）/ 1080p·2K·4K 适配
-    进度表.md            ✅ 勾选式进度（阶段 0–7，对齐 M0–M7 / HD-0–HD-6；做完一件打勾）
+    进度表.md            ✅ 勾选式进度（阶段 0–7，对齐 M0–M7；做完一件打勾）
 ```
 
 ## 🧭 按目标选读
@@ -38,7 +37,6 @@ docs/
 | 看突破历史/时间线 | [`re/BREAKTHROUGHS.md`](re/BREAKTHROUGHS.md) |
 | 数据在哪 / 字段速查 | [`replication/复刻导航.md`](replication/复刻导航.md) |
 | **工程怎么搭 / 代码怎么写** | [`replication/Godot复刻实施方案.md`](replication/Godot复刻实施方案.md) |
-| **画面 HD-2D 重制 / 多分辨率** | [`replication/HD2D高清重制方案.md`](replication/HD2D高清重制方案.md) |
 | 找某个逆向脚本/自测 | [`scripts/README.md`](../scripts/README.md) |
 
 > 🔨 **复刻开工顺序**：`复刻导航.md`（数据在哪）→ **`Godot复刻实施方案.md` §7 里程碑 M0→M7**（怎么搭、按什么顺序做）。
@@ -49,14 +47,12 @@ docs/
 - 新结论 → 先插 `re/BREAKTHROUGHS.md` 倒序条目（四段），再同步 `specs/GAME_DATA_SPEC.md`。
 - 数据取值以 `specs/` 为准；仍在 `❓/🔶` 者均为 emu 运行期语义增强，**非结构敞口、不阻塞复刻**。
 - 非图像已 100% 收口（2026-09-08 续253 结案）。
-- **图像不再反向破解** —— 画面走 **HD-2D 重制**（3D 场景 + 高清像素 art + 后处理），见 `replication/HD2D高清重制方案.md`。
 
 ## 📂 工程根其余关键项
 - `scripts/`：现行工具 + 180 个 `*_ref.py` 自测 + 解码产物（详见 `scripts/README.md`）。
   - `scripts/export_for_godot.py`：**Godot 数据导出器**（按续200 权威布局重解析 BSDATA → `data/*.json`，内置自检）。
 - `data/`：**导出产物**（可重新生成，已 gitignore）—— Godot 运行时只读这里。
-- `src/`：**Godot 源码** —— `core/`(数据模型+分辨率适配) · `render/`(HD-2D 渲染) · `battle/`(合战+3D 地形) · `systems/`(玩法)。
+- `src/`：**Godot 源码** —— `core/`(数据模型+分辨率适配) · `render/`(素材加载/规格) · `battle/`(合战+3D 地形) · `systems/`(玩法)。
 - `project.godot` + `fonts/`：Godot 4.7 复刻工程（**2026-09-08 起恢复**；已配 1080p/2K/4K 自适应 + `DisplayAdapter` autoload）。
-- **画面风格 = HD-2D**（用户 2026-09-08 定）：3D 场景 + 高清像素 sprite + 现代后处理。见 `replication/HD2D高清重制方案.md`。
 - `Taikou2 Original/`：原版 149 文件，**仓库不打包**。
 - `.workbuddy/memory/`：会话索引与每日日志（方法论硬规则在 `MEMORY.md`）。

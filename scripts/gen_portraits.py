@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-gen_portraits.py — HD-2D 武将立绘提示词生成器（HD-4 执行器）
+gen_portraits.py — 武将立绘提示词生成器
 
 从 `data/officers.json` 读取 695 名武将，按角色属性（五维/職位/主角槽/生年）
 生成 ImageGen 提示词，输出 JSON 供逐批生成 512×640 立绘。
 
-风格基线（2026-09-08 用户确认）：**和风写实 HD-2D**
-  = 高清像素 art + 真实日式甲胄质感 + Octopath Traveler 式光影
+风格基线：**和风写实**
+  = 高清像素 art + 真实日式甲胄质感 + 柔和影视光影
 
 用法
 ----
@@ -41,13 +41,13 @@ BASE_YEAR = 1560
 # 风格基线（★ 已用 sample_01_nobunaga_portrait.png 验证有效）
 # ---------------------------------------------------------------------------
 STYLE_PREFIX = (
-    "HD-2D style portrait, Japanese Sengoku warlord, "
+    "Traditional Japanese painting style portrait, Japanese Sengoku warlord, "
     "half-body, 4:5 vertical composition, "
     "high-resolution pixel art with realistic Japanese aesthetics, "
 )
 
 STYLE_SUFFIX = (
-    "Octopath Traveler HD-2D aesthetic, "
+    "soft cinematic lighting, "
     "soft rim lighting, warm amber color palette, "
     "detailed armor texture and fabric folds, "
     "sharp clean pixel edges, dramatic cinematic lighting, "
@@ -162,7 +162,7 @@ def priority_key(o: dict) -> tuple:
 
 
 def main():
-    ap = argparse.ArgumentParser(description="HD-2D 武将立绘提示词生成器")
+    ap = argparse.ArgumentParser(description="武将立绘提示词生成器")
     ap.add_argument("--start", type=int, default=0, help="起始索引")
     ap.add_argument("--limit", type=int, default=0, help="条数（0=全部）")
     ap.add_argument("--priority", action="store_true", help="按优先级排序")
@@ -231,7 +231,7 @@ def main():
 
     result = {
         "count": len(items),
-        "style": "和风写实 HD-2D",
+        "style": "和风写实",
         "image_size": "1024x1536",
         "background": "transparent",
         "negative": NEGATIVE,
@@ -245,7 +245,7 @@ def main():
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=1)
 
-    print("=== HD-2D 立绘提示词生成 ===")
+    print("=== 立绘提示词生成 ===")
     print("  武将数  : %d" % len(items))
     print("  输出    : %s" % out_path)
     print("  图片规格: 1024x1536，透明背景")

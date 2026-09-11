@@ -1,0 +1,37 @@
+  0x4ef690: sub esp, 0x100
+  0x4ef696: lea eax, [esp]
+  0x4ef69a: push eax
+  0x4ef69b: push 0x100
+  0x4ef6a0: call dword ptr [0x4fb080]
+  0x4ef6a6: mov eax, dword ptr [esp]
+  0x4ef6aa: and eax, 0xff
+  0x4ef6af: or al, 0x20
+  0x4ef6b1: sub eax, 0x60
+  0x4ef6b4: add esp, 0x100
+  0x4ef6ba: ret 
+  0x4ef6bb: nop 
+  0x4ef6bc: nop 
+  0x4ef6bd: nop 
+  0x4ef6be: nop 
+  0x4ef6bf: nop 
+  0x4ef6c0: push ecx
+  0x4ef6c1: mov eax, dword ptr [0x50de70]
+  0x4ef6c6: lea edx, [esp]
+  0x4ef6ca: mov dword ptr [esp], eax
+  0x4ef6ce: mov eax, dword ptr [esp + 8]
+  0x4ef6d2: mov cl, al
+  0x4ef6d4: add cl, 0x2d
+  0x4ef6d7: neg eax
+  0x4ef6d9: sbb eax, eax
+  0x4ef6db: mov byte ptr [esp], cl
+  0x4ef6df: and eax, edx
+  0x4ef6e1: push eax
+  0x4ef6e2: call dword ptr [0x4fb08c]
+  0x4ef6e8: add eax, -2
+  0x4ef6eb: cmp eax, 4
+  0x4ef6ee: ja 0x4ef702
+  0x4ef6f0: jmp dword ptr [eax*4 + 0x4ef708]
+  0x4ef6f7: xor eax, eax
+  0x4ef6f9: pop ecx
+  0x4ef6fa: ret 
+  0x4ef6fb: mov eax, 1

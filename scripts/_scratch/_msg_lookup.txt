@@ -1,0 +1,74 @@
+==== scripts/msgx_all_texts.json dict
+keys=['slot_size', 'files', 'total', 'texts']
+  slot_size: int 2000
+  files: dict {'MESSAGE1.LZW': {'base': 0, 'count': 1735}, 'MESSAGE2.LZW': {'base': 2000, 'count': 1559}, 'MESSAGE
+  total: int 6211
+  texts: dict {'0': '武将的军饷。每月从城池的收入中，按俸禄支付给武将。', '1': '武将的体力。左边为现在值，右边为最大值。负伤或疲劳状况下，其值会下降，但每日会逐步回升。', '2': '统御属下的能
+==== scripts/msgx_id_map.json dict
+keys=['counts', 'total', 'sites']
+  counts: dict {'MESSAGE1.LZW': 1735, 'MESSAGE2.LZW': 1559, 'MESSAGE3.LZW': 1876, 'MESSAGE4.LZW': 1041}
+  total: int 6211
+  sites: list [{'at': '0x403ef0', 'callee': '0x493500', 'func': '0x403e40', 'ids': [5643], 'texts': ['%u年%u月%u日\u3
+==== scripts/msgx_text_tables.json dict
+keys=['S8_dialogue_30x12B', 'S9_dialogue_20x4B', 'S10_dialogue_30x4B', 'S16_textids_20', 'S16_scenario2']
+  S8_dialogue_30x12B: list [{'idx': 0, 'talk_id': 1000, 'talk': '您哪位？', 'shop_id': 700, 'shop': '嗯，带的钱不太够。', 'b4': 0, 'b5': 29,
+  S9_dialogue_20x4B: list [{'idx': 0, 'talk_id': 2000, 'talk': '那么要对谁使用谋略呢┅┅', 'shop_id': 696, 'shop': '都是珍奇的东西。'}, {'idx': 1,
+  S10_dialogue_30x4B: list [{'idx': 0, 'talk_id': 3000, 'talk': '不，不是蠢话。我一向崇拜出类拔萃的将领。我的性格是如果听到那里有这样的人才，不管是敌是友，都会前去拜访。'}, {'idx'
+  S16_textids_20: list [{'idx': 0, 'msgx': 13, 'text': '作战的技能。关系到在战斗中所采用的战略及其成功率，也关系到情报收集的成功率。', 'ability': '体力'}, {'idx': 
+  S16_scenario2: list [{'idx': 0, 'msgx': 13, 'text': '作战的技能。关系到在战斗中所采用的战略及其成功率，也关系到情报收集的成功率。'}, {'idx': 1, 'msgx': 18, 't
+
+-- lookups in scripts/msgx_id_map.json --
+  0xdb2=3506: None
+  0xdb3=3507: None
+  0xdb4=3508: None
+  0xdb5=3509: None
+  0xdbe=3518: None
+  0xdbf=3519: None
+  0xdc0=3520: None
+  0xdc2=3522: None
+  0xdc3=3523: None
+  0x16e8=5864: None
+  0x16df=5855: None
+  0x1b76=7030: None
+
+-- lookups in scripts/msgx_all_texts.json --
+  0xdb2=3506: 好消息！如果顺利的话，%u日后就可完工了。
+  0xdb3=3507: 是吗。那么就照这样好好干吧。
+  0xdb4=3508: 工程的进展并不像我想像的那样顺利。如此大规模修筑城池，看来一般的工匠，是应付不了的。
+  0xdb5=3509: 这如何是好。到底该怎么办呢？
+  0xdbe=3518: 主公，袄绘怎么样了？
+  0xdbf=3519: 不好，我完全忘记了袄绘这件事！必须要请一位绘画大师。
+  0xdc0=3520: 那么立即开始筑城。
+  0xdc2=3522: 修筑这座城池需要花费%s万贯，可以吗？
+  0xdc3=3523: 实在抱歉，以%s大人的能力还不能修筑城池┅┅
+  0x16e8=5864: 今天的作业已经结束了。
+  0x16df=5855: 什么，你说我不行吗！
+  0x1b76=7030: 四面有海川之险，四通八达又是交通要道，而且是经济的中心┅┅，相中这里，主公真有眼光。
+
+-- lookups in scripts/msgx_text_tables.json --
+  0xdb2=3506: None
+  0xdb3=3507: None
+  0xdb4=3508: None
+  0xdb5=3509: None
+  0xdbe=3518: None
+  0xdbf=3519: None
+  0xdc0=3520: None
+  0xdc2=3522: None
+  0xdc3=3523: None
+  0x16e8=5864: None
+  0x16df=5855: None
+  0x1b76=7030: None
+
+-- lookups in scripts/hexmes_msgs.json --
+  0xdb2=3506: None
+  0xdb3=3507: None
+  0xdb4=3508: None
+  0xdb5=3509: None
+  0xdbe=3518: None
+  0xdbf=3519: None
+  0xdc0=3520: None
+  0xdc2=3522: None
+  0xdc3=3523: None
+  0x16e8=5864: None
+  0x16df=5855: None
+  0x1b76=7030: None

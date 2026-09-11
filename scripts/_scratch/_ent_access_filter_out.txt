@@ -1,0 +1,104 @@
+﻿
+===== entity+0x1c after ×47 (6) =====
+  0x447992: mov      bl, byte ptr [ebx + 0x1c]   (via 0x447940)
+  0x449656: mov      al, byte ptr [edi + 0x1c]   (via 0x4495d9)
+  0x4ce2c3: mov      al, byte ptr [esi + 0x1c]   (via 0x4ce2a2)
+  0x4d3b76: mov      bl, byte ptr [edi + 0x1c]   (via 0x4d3b3f)
+  0x4d3ba1: mov      al, byte ptr [edi + 0x1c]   (via 0x4d3b3f)
+  0x4db6a2: mov      al, byte ptr [edi + 0x1c]   (via 0x4db65e)
+
+===== entity+0x1d after ×47 (0) =====
+
+===== entity+0x1e after ×47 (2) =====
+  0x4c6f2a: lea      eax, [edx + 0x1e]   (via 0x4c6f22)
+  0x4c6ffc: lea      eax, [edx + 0x1e]   (via 0x4c6ff4)
+
+===== entity+0x1f after ×47 (1) =====
+  0x4a52ef: movzx    ax, byte ptr [esi + 0x1f]   (via 0x4a52dd)
+
+===== entity+0x20 after ×47 (1) =====
+  0x447965: movzx    ax, byte ptr [esi + 0x20]   (via 0x447940)
+
+===== +0x1c bit tests (ecx/esi/edi/ebx) =====
+  0x40d990: or       byte ptr [edx + 0x1c], ch
+  0x410ddc: mov      al, byte ptr [eax + 0x1c]
+  0x42eb2d: or       byte ptr [esi + 0x1c], bh
+  0x447992: mov      bl, byte ptr [ebx + 0x1c]
+  0x4492c5: mov      al, byte ptr [edi + 0x1c]
+  0x449656: mov      al, byte ptr [edi + 0x1c]
+  0x44ba92: or       byte ptr [eax + 0x1c], ch
+  0x44ebbb: or       byte ptr [eax + 0x1c], ch
+  0x454e05: mov      esi, dword ptr [esi + 0x1c]
+  0x4634f9: mov      al, byte ptr [eax + 0x1c]
+  0x46a532: and      byte ptr [ebx + 0x1c], dh
+  0x46fc54: mov      al, byte ptr [eax + 0x1c]
+  0x4939ed: mov      edx, dword ptr [eax + 0x1c]
+  0x49ab88: or       byte ptr [ecx + 0x1c], 4
+  0x49aba8: or       byte ptr [ecx + 0x1c], 8
+  0x49abc8: or       byte ptr [ecx + 0x1c], 0x10
+  0x49abe8: or       byte ptr [ecx + 0x1c], 0x20
+  0x49b9d4: mov      dl, byte ptr [ecx + 0x1c]
+  0x4b45c3: test     byte ptr [esi + 0x1c], 8
+  0x4bc180: mov      al, byte ptr [eax + 0x1c]
+  0x4bc296: mov      al, byte ptr [esi + 0x1c]
+  0x4bd325: mov      al, byte ptr [eax + 0x1c]
+  0x4bd357: test     byte ptr [eax + 0x1c], bl
+  0x4bdf3f: mov      al, byte ptr [eax + 0x1c]
+  0x4bdfd1: mov      al, byte ptr [eax + 0x1c]
+  0x4be3e2: test     byte ptr [eax + 0x1c], 7
+  0x4c133c: mov      eax, dword ptr [eax + 0x1c]
+  0x4cb69b: test     byte ptr [esi + 0x1c], 8
+  0x4ce0bf: mov      dl, byte ptr [eax + 0x1c]
+  0x4ce2c3: mov      al, byte ptr [esi + 0x1c]
+  0x4d0576: mov      cl, byte ptr [edx + 0x1c]
+  0x4d0d4d: mov      cl, byte ptr [esi + 0x1c]
+  0x4d326e: or       byte ptr [eax + 0x1c], ch
+  0x4d3b76: mov      bl, byte ptr [edi + 0x1c]
+  0x4d3ba1: mov      al, byte ptr [edi + 0x1c]
+  0x4d3cbf: mov      dl, byte ptr [eax + 0x1c]
+  0x4d3d3a: mov      al, byte ptr [esi + 0x1c]
+  0x4d3d5d: mov      cl, byte ptr [esi + 0x1c]
+  0x4d3e05: mov      al, byte ptr [eax + 0x1c]
+  0x4d416c: mov      al, byte ptr [ebx + 0x1c]
+  0x4d49a2: mov      al, byte ptr [eax + 0x1c]
+  0x4d5823: mov      bl, byte ptr [eax + 0x1c]
+  0x4d5d5c: mov      eax, dword ptr [eax + 0x1c]
+  0x4d5e15: mov      cl, byte ptr [eax + 0x1c]
+  0x4d602c: mov      bl, byte ptr [eax + 0x1c]
+  0x4d6204: test     byte ptr [eax + 0x1c], 7
+  0x4d637e: mov      cl, byte ptr [esi + 0x1c]
+  0x4d64a6: mov      al, byte ptr [esi + 0x1c]
+  0x4d67e7: mov      bl, byte ptr [esi + 0x1c]
+  0x4d936b: mov      al, byte ptr [ebx + 0x1c]
+  0x4da362: mov      al, byte ptr [ebx + 0x1c]
+  0x4da41f: mov      al, byte ptr [ebx + 0x1c]
+  0x4db1ab: mov      cl, byte ptr [eax + 0x1c]
+  0x4db6a2: mov      al, byte ptr [edi + 0x1c]
+  0x4ddf32: test     byte ptr [eax + 0x1c], 7
+  0x4e556c: test     byte ptr [ebx + 0x1c], 4
+  0x4ee3d7: mov      dword ptr [esi + 0x1c], edx
+  0x4ee407: mov      ecx, dword ptr [edx + 0x1c]
+  0x4ee41e: mov      dword ptr [ecx + 0x1c], esi
+  0x4ee424: mov      dword ptr [edx + 0x1c], esi
+  0x4ee445: mov      dword ptr [edx + 0x1c], esi
+  0x4ee45c: mov      dword ptr [eax + 0x1c], ecx
+  0x4ee462: mov      dword ptr [edx + 0x1c], esi
+  0x4ee60b: mov      esi, dword ptr [esi + 0x1c]
+  0x4ee669: mov      esi, dword ptr [esi + 0x1c]
+  0x4ee6b9: mov      esi, dword ptr [esi + 0x1c]
+  0x4ee825: mov      dword ptr [esi + 0x1c], ecx
+  0x4ee85c: mov      edx, dword ptr [esi + 0x1c]
+  0x4ee889: mov      dword ptr [esi + 0x1c], 0
+  0x4ee8c4: mov      dword ptr [eax + 0x1c], esi
+  0x4ee8ca: mov      dword ptr [esi + 0x1c], ecx
+  0x4ee904: mov      dword ptr [ecx + 0x1c], esi
+  0x4ee9c3: mov      dword ptr [eax + 0x1c], 0
+  0x4eea42: mov      ecx, dword ptr [eax + 0x1c]
+  0x4eea4f: mov      dword ptr [eax + 0x1c], ecx
+  0x4eecf0: mov      esi, dword ptr [esi + 0x1c]
+  0x4eedff: mov      dword ptr [eax + 0x1c], esi
+  0x4eee08: mov      dword ptr [esi + 0x1c], ecx
+  0x4eee81: mov      dword ptr [esi + 0x1c], 0
+  0x4eee8f: mov      dword ptr [edx + 0x1c], esi
+  0x4ef457: mov      dword ptr [esi + 0x1c], ebx
+  0x4efddc: mov      byte ptr [eax + 0x1c], cl

@@ -1,6 +1,6 @@
 # asset_loader.gd — 美术资源加载（含「真实图缺失→回退占位图」）
 #
-# HD-4（695 张武将立绘 / 16 张单位 sprite 等）尚未批量生成（需 ImageGen 积分）。
+# 武将立绘 / 单位 sprite 以占位图兜底（真实美术按同名文件替换即可）。
 # 本加载器让所有引用美术的位置都能先渲染占位图，等真实美术就位后按同名文件直接替换即可，
 # 复刻进度不被美术阻塞。
 #
@@ -54,17 +54,6 @@ static func load_portrait(id: int, name: String = "") -> Texture2D:
 static func load_chip(name: String) -> Texture2D:
 	var p := "res://assets/sprites/chips/%s.png" % name
 	var t := _load_tex(p)
-	if t != null:
-		return t
-	return _load_tex(CHIP_PLACEHOLDER)
-
-
-# 地形材质 chip（16 种，terrain_00..15.png；索引→名见 chips/terrain_index.json）
-# 序号对应 Terrain3DBuilder.TERRAIN_ORDER
-static func load_terrain_chip(index: int) -> Texture2D:
-	if index < 0 or index >= AssetSpec.TERRAIN_MATERIAL_COUNT:
-		return _load_tex(CHIP_PLACEHOLDER)
-	var t := _load_tex("res://assets/sprites/chips/terrain_%02d.png" % index)
 	if t != null:
 		return t
 	return _load_tex(CHIP_PLACEHOLDER)

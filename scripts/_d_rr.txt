@@ -1,0 +1,70 @@
+  0x47d890: mov eax, dword ptr [esp + 4]
+  0x47d894: push esi
+  0x47d895: and eax, 0xffff
+  0x47d89a: mov esi, ecx
+  0x47d89c: push 0
+  0x47d89e: lea ecx, [eax + eax*2]
+  0x47d8a1: shl ecx, 4
+  0x47d8a4: lea edx, [ecx + eax + 0x10]
+  0x47d8a8: mov eax, dword ptr [esi]
+  0x47d8aa: push edx
+  0x47d8ab: push eax
+  0x47d8ac: call dword ptr [0x4fb0a8]
+  0x47d8b2: mov ecx, dword ptr [esp + 0xc]
+  0x47d8b6: push 0x31
+  0x47d8b8: push ecx
+  0x47d8b9: mov ecx, esi
+  0x47d8bb: call 0x4411b0
+  0x47d8c0: pop esi
+  0x47d8c1: ret 8
+  0x47d8c4: nop 
+  0x47d8c5: nop 
+  0x47d8c6: nop 
+  0x47d8c7: nop 
+  0x47d8c8: nop 
+  0x47d8c9: nop 
+  0x47d8ca: nop 
+  0x47d8cb: nop 
+  0x47d8cc: nop 
+  0x47d8cd: nop 
+  0x47d8ce: nop 
+  0x47d8cf: nop 
+  0x47d8d0: mov eax, dword ptr [esp + 4]
+  0x47d8d4: push esi
+  0x47d8d5: and eax, 0xffff
+  0x47d8da: mov esi, ecx
+  0x47d8dc: push 0
+  0x47d8de: lea ecx, [eax + eax*2]
+  0x47d8e1: shl ecx, 4
+  0x47d8e4: lea edx, [ecx + eax + 0x10]
+  0x47d8e8: mov eax, dword ptr [esi]
+  0x47d8ea: push edx
+  0x47d8eb: push eax
+  0x47d8ec: call dword ptr [0x4fb0a8]
+  0x47d8f2: mov ecx, dword ptr [esp + 0xc]
+  0x47d8f6: push 0x31
+  0x47d8f8: push ecx
+  0x47d8f9: mov ecx, esi
+  0x47d8fb: call 0x4411d0
+  0x47d900: pop esi
+  0x47d901: ret 8
+  0x47d904: nop 
+  0x47d905: nop 
+  0x47d906: nop 
+  0x47d907: nop 
+  0x47d908: nop 
+  0x47d909: nop 
+  0x47d90a: nop 
+  0x47d90b: nop 
+  0x47d90c: nop 
+  0x47d90d: nop 
+  0x47d90e: nop 
+  0x47d90f: nop 
+  0x47d910: cmp word ptr [ecx + 0x8c], 0
+  0x47d918: je 0x47d922
+  0x47d91a: call 0x47da10
+  0x47d91f: ret 4
+  0x47d922: call 0x47da10
+  0x47d927: mov ecx, dword ptr [esp + 4]
+  0x47d92b: mov byte ptr [ecx], al
+  0x47d92d: ret 4

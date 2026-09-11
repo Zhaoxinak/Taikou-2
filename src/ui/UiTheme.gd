@@ -1,5 +1,5 @@
 extends RefCounted
-## HD-5 自绘 UI 基座：分辨率无关度量 + 和风调色板 + 字体加载
+## 自绘 UI 基座：分辨率无关度量 + 和风调色板 + 字体加载
 ##
 ## ⚠️ 不用 class_name（--script 无头模式不建全局类缓存），跨文件一律 preload：
 ##    const UiTheme = preload("res://src/ui/UiTheme.gd")

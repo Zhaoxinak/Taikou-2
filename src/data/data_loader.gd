@@ -26,12 +26,6 @@ var castles: Dictionary = {}
 var provinces: Dictionary = {}
 var battles: Dictionary = {}
 var items: Dictionary = {}
-# —— 大地图城坐标（scripts/gen_castle_map.py 生成：200 城史实经纬度投影）——
-var castle_map: Dictionary = {}
-var castle_towns: Dictionary = {}     # {id: bool} 是否有城下町（92 町城，原版 TOWNPOS）
-var sea_routes: Dictionary = {}       # {from_id: [{to, days}, ...]} 港町航线（双向）
-var map_w: float = 0.0
-var map_h: float = 0.0
 # —— 名称 / 常量（按位置或键）——
 var skill_names: Array = []
 var rank_names: Array = []
@@ -61,8 +55,6 @@ func load_all() -> void:
 		battles = _index_by_id(b)
 	var it = _load_json("items.json")
 	items = _index_by_id(it if it is Array else [])
-	load_castle_map()
-	load_sea_routes()
 	texts = _load_json("text.json")
 	consts = _load_json("consts.json")
 	var g = _load_json("gaiji.json")
@@ -178,36 +170,3 @@ func get_npc_name(id: int) -> String:
 	if id >= 3000:
 		return npc_generic.get(id, "")
 	return ""
-
-## 大地图城坐标（data/castle_map.json）：{id: Vector2}，外加 map_w/map_h。
-## 200 城史实经纬度投影（见 scripts/gen_castle_map.py）。
-func load_castle_map() -> void:
-	var cm = _load_json("castle_map.json")
-	if cm is Dictionary:
-		map_w = float(cm.get("map_w", 0))
-		map_h = float(cm.get("map_h", 0))
-		castle_map = {}
-		castle_towns = {}
-		for c in cm.get("castles", []):
-			if c is Dictionary and c.has("id"):
-				castle_map[int(c["id"])] = Vector2(float(c.get("x", 0)), float(c.get("y", 0)))
-				castle_towns[int(c["id"])] = bool(c.get("has_town", false))
-
-
-## 坐船航线（data/sea_routes.json）：双向展开为 {from_id: [{to, days}]}。
-func load_sea_routes() -> void:
-	sea_routes = {}
-	var sr = _load_json("sea_routes.json")
-	if sr is Dictionary:
-		for r in sr.get("routes", []):
-			if not (r is Dictionary and r.has("from") and r.has("to")):
-				continue
-			var f: int = int(r["from"])
-			var t: int = int(r["to"])
-			var d: int = int(r.get("days", 1))
-			for ab in [[f, t], [t, f]]:
-				var a: int = ab[0]
-				var b: int = ab[1]
-				if not sea_routes.has(a):
-					sea_routes[a] = []
-				sea_routes[a].append({"to": b, "days": d})

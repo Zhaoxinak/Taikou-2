@@ -8,7 +8,7 @@ extends Control
 ##
 ## ⚠️ 诚实未接：① 主从过滤提示 can_dispatch（0x4c4270）不在此屏展示——属可交互校验层，
 ##   由主命执行时（command_screen 目标国选择器）按主从过滤；② 关系为静态矩阵快照，
-##   不随月自动演变（原版月结链未在复刻层建模）；③ 美术为极简 UI 控件，HD-2D 升级待 HD-6。
+##   不随月自动演变（原版月结链未在复刻层建模）；③ 美术为极简 UI 控件。
 
 const UiTheme = preload("res://src/ui/UiTheme.gd")
 const UiPanel = preload("res://src/ui/UiPanel.gd")

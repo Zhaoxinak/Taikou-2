@@ -53,7 +53,7 @@ func _run() -> void:
 	current_scene = title
 	await process_frame
 	await process_frame
-	# HD-5：按钮改为自绘 UiButton（extends Control），故同时接受 UiButton / Button
+	# 自绘：按钮改为自绘 UiButton（extends Control），故同时接受 UiButton / Button
 	var start_btn = null
 	for c in title.get_children():
 		if c is UiButton or c is Button:
@@ -92,7 +92,7 @@ func _run() -> void:
 	var status: Control = current_scene
 	check(status != null and status.name == "StatusScreen",
 		"跳转到状态画面 (got %s)" % (status.name if status != null else "null"))
-	# HD-5：_info / _stat 已改为自绘 UiLabel（非 Godot Label），按 .text 契约断言
+	# 自绘：_info / _stat 已改为自绘 UiLabel（非 Godot Label），按 .text 契约断言
 	var info_text := str(status._info.get("text"))
 	check(info_text.contains("织田信长") and info_text.contains("大名") and info_text.contains("1560 年 1 月"),
 		"状态栏 = 织田信长/大名/1560年1月 (got %s)" % info_text)

@@ -1,0 +1,35 @@
+  0x4ebca0: mov eax, dword ptr [esp + 8]
+  0x4ebca4: mov ecx, dword ptr [esp + 4]
+  0x4ebca8: and eax, 0xffff
+  0x4ebcad: and ecx, 0xffff
+  0x4ebcb3: add eax, ecx
+  0x4ebcb5: mov ecx, dword ptr [esp + 0xc]
+  0x4ebcb9: mov edx, ecx
+  0x4ebcbb: and edx, 0xffff
+  0x4ebcc1: cmp eax, edx
+  0x4ebcc3: jle 0x4ebcc7
+  0x4ebcc5: mov eax, ecx
+  0x4ebcc7: ret 
+  0x4ebcc8: nop 
+  0x4ebcc9: nop 
+  0x4ebcca: nop 
+  0x4ebccb: nop 
+  0x4ebccc: nop 
+  0x4ebccd: nop 
+  0x4ebcce: nop 
+  0x4ebccf: nop 
+  0x4ebcd0: mov eax, dword ptr [esp + 4]
+  0x4ebcd4: mov ecx, dword ptr [esp + 8]
+  0x4ebcd8: cmp ax, cx
+  0x4ebcdb: jbe 0x4ebceb
+  0x4ebcdd: and eax, 0xffff
+  0x4ebce2: and ecx, 0xffff
+  0x4ebce8: sub eax, ecx
+  0x4ebcea: ret 
+  0x4ebceb: xor eax, eax
+  0x4ebced: ret 
+  0x4ebcee: nop 
+  0x4ebcef: nop 
+  0x4ebcf0: movzx ax, byte ptr [esp + 8]
+  0x4ebcf6: movzx dx, byte ptr [esp + 4]
+  0x4ebcfc: movzx cx, byte ptr [esp + 0xc]

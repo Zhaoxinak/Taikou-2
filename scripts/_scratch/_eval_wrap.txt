@@ -1,0 +1,264 @@
+lea*9 hits: 8 ['0x497b27', '0x497c40', '0x497d70', '0x497ea0', '0x4980b2', '0x4981ec', '0x4982eb', '0x4983ef']
+
+=== wrapper lea@0x497b27 start@0x497af9 ===
+00497af9  cmp      bx, 4
+00497afd  jb       0x497b39
+00497aff  mov      ax, word ptr [ebp + 8]
+00497b03  cmp      ax, 0x3e8
+00497b07  jae      0x497b0d
+00497b09  xor      esi, esi
+00497b0b  jmp      0x497b16
+00497b0d  cmp      ax, 0x2710
+00497b11  sbb      esi, esi
+00497b13  add      esi, 2
+00497b16  push     5
+00497b18  mov      ecx, edi
+00497b1a  call     0x4b1270
+00497b1f  and      esi, 0xffff
+00497b25  mov      ecx, edi
+00497b27  lea      eax, [esi + esi*8 + 0x50b6ee]
+00497b2e  push     eax
+00497b2f  call     0x4b16d0
+00497b34  pop      edi
+00497b35  pop      esi
+00497b36  pop      ebp
+00497b37  pop      ebx
+00497b38  ret      
+
+=== wrapper lea@0x497c40 start@0x497c12 ===
+00497c12  cmp      bx, 4
+00497c16  jb       0x497c52
+00497c18  mov      ax, word ptr [ebp + 0xa]
+00497c1c  cmp      ax, 0xbb8
+00497c20  jae      0x497c26
+00497c22  xor      esi, esi
+00497c24  jmp      0x497c2f
+00497c26  cmp      ax, 0x3a98
+00497c2a  sbb      esi, esi
+00497c2c  add      esi, 2
+00497c2f  push     5
+00497c31  mov      ecx, edi
+00497c33  call     0x4b1270
+00497c38  and      esi, 0xffff
+00497c3e  mov      ecx, edi
+00497c40  lea      edx, [esi + esi*8 + 0x50b724]
+00497c47  push     edx
+00497c48  call     0x4b16d0
+00497c4d  pop      edi
+00497c4e  pop      esi
+00497c4f  pop      ebp
+00497c50  pop      ebx
+00497c51  ret      
+
+=== wrapper lea@0x497d70 start@0x497d3f ===
+00497d3f  cmp      bx, 6
+00497d43  jne      0x497d82
+00497d45  mov      ecx, ebp
+00497d47  call     0x49bdf0
+00497d4c  cmp      ax, 0x7d0
+00497d50  jae      0x497d56
+00497d52  xor      esi, esi
+00497d54  jmp      0x497d5f
+00497d56  cmp      ax, 0x2710
+00497d5a  sbb      esi, esi
+00497d5c  add      esi, 2
+00497d5f  push     5
+00497d61  mov      ecx, edi
+00497d63  call     0x4b1270
+00497d68  and      esi, 0xffff
+00497d6e  mov      ecx, edi
+00497d70  lea      edx, [esi + esi*8 + 0x50b73f]
+00497d77  push     edx
+00497d78  call     0x4b16d0
+00497d7d  pop      edi
+00497d7e  pop      esi
+00497d7f  pop      ebp
+00497d80  pop      ebx
+00497d81  ret      
+
+=== wrapper lea@0x497ea0 start@0x497e6f ===
+00497e6f  cmp      bx, 6
+00497e73  jne      0x497eb2
+00497e75  mov      ecx, ebp
+00497e77  call     0x49be00
+00497e7c  cmp      ax, 0x7d0
+00497e80  jae      0x497e86
+00497e82  xor      esi, esi
+00497e84  jmp      0x497e8f
+00497e86  cmp      ax, 0x2710
+00497e8a  sbb      esi, esi
+00497e8c  add      esi, 2
+00497e8f  push     5
+00497e91  mov      ecx, edi
+00497e93  call     0x4b1270
+00497e98  and      esi, 0xffff
+00497e9e  mov      ecx, edi
+00497ea0  lea      edx, [esi + esi*8 + 0x50b73f]
+00497ea7  push     edx
+00497ea8  call     0x4b16d0
+00497ead  pop      edi
+00497eae  pop      esi
+00497eaf  pop      ebp
+00497eb0  pop      ebx
+00497eb1  ret      
+
+=== wrapper lea@0x4980b2 start@0x498081 ===
+00498081  cmp      bx, 2
+00498085  jne      0x4980c4
+00498087  mov      ecx, ebp
+00498089  call     0x49bde0
+0049808e  cmp      ax, 0x32
+00498092  jae      0x498098
+00498094  xor      esi, esi
+00498096  jmp      0x4980a1
+00498098  cmp      ax, 0x50
+0049809c  sbb      esi, esi
+0049809e  add      esi, 2
+004980a1  push     5
+004980a3  mov      ecx, edi
+004980a5  call     0x4b1270
+004980aa  and      esi, 0xffff
+004980b0  mov      ecx, edi
+004980b2  lea      eax, [esi + esi*8 + 0x50b6d3]
+004980b9  push     eax
+004980ba  call     0x4b16d0
+004980bf  pop      edi
+004980c0  pop      esi
+004980c1  pop      ebp
+004980c2  pop      ebx
+004980c3  ret      
+
+=== wrapper lea@0x4981ec start@0x4981bd ===
+004981bd  cmp      bx, 2
+004981c1  jne      0x4981fe
+004981c3  movzx    ax, byte ptr [ebp + 0xc]
+004981c8  cmp      ax, 0x32
+004981cc  jae      0x4981d2
+004981ce  xor      esi, esi
+004981d0  jmp      0x4981db
+004981d2  cmp      ax, 0x96
+004981d6  sbb      esi, esi
+004981d8  add      esi, 2
+004981db  push     5
+004981dd  mov      ecx, edi
+004981df  call     0x4b1270
+004981e4  and      esi, 0xffff
+004981ea  mov      ecx, edi
+004981ec  lea      edx, [esi + esi*8 + 0x50b709]
+004981f3  push     edx
+004981f4  call     0x4b16d0
+004981f9  pop      edi
+004981fa  pop      esi
+004981fb  pop      ebp
+004981fc  pop      ebx
+004981fd  ret      
+
+=== wrapper lea@0x4982eb start@0x4982bc ===
+004982bc  cmp      bx, 5
+004982c0  jb       0x4982fd
+004982c2  movzx    ax, byte ptr [ebp + 0xd]
+004982c7  cmp      ax, 0x46
+004982cb  jae      0x4982d1
+004982cd  xor      esi, esi
+004982cf  jmp      0x4982da
+004982d1  cmp      ax, 0x96
+004982d5  sbb      esi, esi
+004982d7  add      esi, 2
+004982da  push     5
+004982dc  mov      ecx, edi
+004982de  call     0x4b1270
+004982e3  and      esi, 0xffff
+004982e9  mov      ecx, edi
+004982eb  lea      eax, [esi + esi*8 + 0x50b75a]
+004982f2  push     eax
+004982f3  call     0x4b16d0
+004982f8  pop      edi
+004982f9  pop      esi
+004982fa  pop      ebp
+004982fb  pop      ebx
+004982fc  ret      
+
+=== wrapper lea@0x4983ef start@0x4983c2 ===
+004983c2  cmp      bx, 5
+004983c6  jb       0x498403
+004983c8  movzx    ax, byte ptr [ebp + 0xe]
+004983cd  cmp      ax, 0x46
+004983d1  jae      0x4983d7
+004983d3  xor      esi, esi
+004983d5  jmp      0x4983e0
+004983d7  cmp      ax, 0x96
+004983db  sbb      esi, esi
+004983dd  add      esi, 2
+004983e0  push     5
+004983e2  mov      ecx, edi
+004983e4  call     0x4b1270
+004983e9  and      esi, 0xffff
+004983ef  lea      ecx, [esi + esi*8 + 0x50b775]
+004983f6  push     ecx
+004983f7  mov      ecx, edi
+004983f9  call     0x4b16d0
+004983fe  pop      edi
+004983ff  pop      esi
+00498400  pop      ebp
+00498401  pop      ebx
+00498402  ret      
+
+=== 4b1270 tier? ===
+004b1270  mov      ax, word ptr [esp + 4]
+004b1275  test     ax, ax
+004b1278  jl       0x4b1284
+004b127a  cmp      ax, 0x10
+004b127e  jge      0x4b1284
+004b1280  mov      word ptr [ecx + 0x60], ax
+004b1284  ret      4
+
+=== caller scan for wrapper funcs ===
+
+=== displacement → string ===
+  lea@0x497b27 disp=0x50b6ee tier0 @0x50b6ee: '缺乏' raw=2020c8b1b7a6202000
+  lea@0x497b27 disp=0x50b6ee tier1 @0x50b6f7: '足够' raw=2020d7e3b9bb202000
+  lea@0x497b27 disp=0x50b6ee tier2 @0x50b700: '充裕' raw=2020b3e4d4a3202000
+  lea@0x497c40 disp=0x50b724 tier0 @0x50b724: '缺乏' raw=2020c8b1b7a6202000
+  lea@0x497c40 disp=0x50b724 tier1 @0x50b72d: '充实' raw=2020b3e4cab5202000
+  lea@0x497c40 disp=0x50b724 tier2 @0x50b736: '强大' raw=2020c7bfb4f3202000
+  lea@0x497d70 disp=0x50b73f tier0 @0x50b73f: '缺少' raw=2020c8b1c9d9202000
+  lea@0x497d70 disp=0x50b73f tier1 @0x50b748: '丰富' raw=2020b7e1b8bb202000
+  lea@0x497d70 disp=0x50b73f tier2 @0x50b751: '无数' raw=2020cedecafd202000
+  lea@0x497ea0 disp=0x50b73f tier0 @0x50b73f: '缺少' raw=2020c8b1c9d9202000
+  lea@0x497ea0 disp=0x50b73f tier1 @0x50b748: '丰富' raw=2020b7e1b8bb202000
+  lea@0x497ea0 disp=0x50b73f tier2 @0x50b751: '无数' raw=2020cedecafd202000
+  lea@0x4980b2 disp=0x50b6d3 tier0 @0x50b6d3: '低' raw=202020b5cd20202000
+  lea@0x4980b2 disp=0x50b6d3 tier1 @0x50b6dc: '普通' raw=2020c6d5cda8202000
+  lea@0x4980b2 disp=0x50b6d3 tier2 @0x50b6e5: '高' raw=202020b8df20202000
+  lea@0x4981ec disp=0x50b709 tier0 @0x50b709: '薄弱' raw=2020b1a1c8f5202000
+  lea@0x4981ec disp=0x50b709 tier1 @0x50b712: '普通' raw=2020c6d5cda8202000
+  lea@0x4981ec disp=0x50b709 tier2 @0x50b71b: '坚固' raw=2020bce1b9cc202000
+  lea@0x4982eb disp=0x50b75a tier0 @0x50b75a: '稚嫩' raw=2020d6c9c4db202000
+  lea@0x4982eb disp=0x50b75a tier1 @0x50b763: '普通' raw=2020c6d5cda8202000
+  lea@0x4982eb disp=0x50b75a tier2 @0x50b76c: '精干' raw=2020beabb8c9202000
+  lea@0x4983ef disp=0x50b775 tier0 @0x50b775: '低' raw=202020b5cd20202000
+  lea@0x4983ef disp=0x50b775 tier1 @0x50b77e: '精神' raw=2020beabc9f1202000
+  lea@0x4983ef disp=0x50b775 tier2 @0x50b787: '勇敢' raw=2020d3c2b8d2202000
+
+=== 4b16d0 set text ===
+004b16d0  push     esi
+004b16d1  mov      esi, dword ptr [esp + 8]
+004b16d5  push     edi
+004b16d6  mov      edi, ecx
+004b16d8  mov      al, byte ptr [esi]
+004b16da  inc      esi
+004b16db  test     al, al
+004b16dd  mov      byte ptr [esp + 0xc], al
+004b16e1  je       0x4b16fa
+004b16e3  mov      eax, dword ptr [esp + 0xc]
+004b16e7  mov      ecx, edi
+004b16e9  push     eax
+004b16ea  call     0x4b1640
+004b16ef  mov      al, byte ptr [esi]
+004b16f1  inc      esi
+004b16f2  test     al, al
+004b16f4  mov      byte ptr [esp + 0xc], al
+004b16f8  jne      0x4b16e3
+004b16fa  pop      edi
+004b16fb  pop      esi
+004b16fc  ret      4

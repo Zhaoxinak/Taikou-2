@@ -2,10 +2,9 @@
 #
 # 太阁2 复刻的美术规格。所有生成/加载/校验都以此为准，避免各处硬编码尺寸漂移。
 #
-#  立绘 portrait  512×640  （原版 64×80 的 8x；4K 下 2.0x 缩放仍锐利）
-#  单位 sprite    256×256  （原版 32×32 的 8x；billboard + NEAREST 保像素硬边）
+#  立绘 portrait  512×640
+#  单位 sprite    256×256
 #  地形/UI chip    32×32   （原版尺寸）
-#  地形材质        16 种   （data/battles.json 全 38 战实测恰好 16 种地形）
 #
 # 真实美术就位前，占位图按本规格生成（scripts/gen_placeholders.py），
 # 真图按同名替换即可，无需改代码。
@@ -17,15 +16,6 @@ extends RefCounted
 const PORTRAIT_SIZE := Vector2i(512, 640)
 const UNIT_SIZE     := Vector2i(256, 256)
 const CHIP_SIZE     := Vector2i(32, 32)
-
-# ── 地形材质种类 ──────────────────────────────────────────
-# 权威依据：data/battles.json 全 38 战 terrain 去重统计 = 16 种
-const TERRAIN_MATERIAL_COUNT := 16
-
-# 像素保真：HD-2D 的灵魂，sprite 必须 NEAREST，禁止线性插值糊边
-const SPRITE_FILTER_NEAREST := 0   # BaseMaterial3D.TEXTURE_FILTER_NEAREST 底层整数
-const SPRITE_FILTER_LINEAR  := 1   # BaseMaterial3D.TEXTURE_FILTER_LINEAR  底层整数
-
 
 # 按用途返回规格尺寸
 static func size_for(kind: String) -> Vector2i:
@@ -52,9 +42,8 @@ static func validate(tex: Texture2D, kind: String) -> bool:
 
 # 规格描述（调试/日志用）
 static func describe() -> String:
-	return "素材规格：立绘 %dx%d / 单位 %dx%d / chip %dx%d / 地形材质 %d 种" % [
+	return "素材规格：立绘 %dx%d / 单位 %dx%d / chip %dx%d" % [
 		PORTRAIT_SIZE.x, PORTRAIT_SIZE.y,
 		UNIT_SIZE.x, UNIT_SIZE.y,
 		CHIP_SIZE.x, CHIP_SIZE.y,
-		TERRAIN_MATERIAL_COUNT,
 	]

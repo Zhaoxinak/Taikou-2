@@ -1,5 +1,5 @@
 extends Control
-## HD-5 自绘面板：和风深褐底 + 金边；可选标题栏（左侧金竖条 + 标题文字）。
+## 自绘面板：和风深褐底 + 金边；可选标题栏（左侧金竖条 + 标题文字）。
 ## ⚠️ 不用 class_name（无头模式不建类缓存），引用方 preload 本脚本。
 
 const UiTheme = preload("res://src/ui/UiTheme.gd")

@@ -1,0 +1,239 @@
+0x0047d890  mov eax, dword ptr [esp + 4]
+0x0047d894  push esi
+0x0047d895  and eax, 0xffff
+0x0047d89a  mov esi, ecx
+0x0047d89c  push 0
+0x0047d89e  lea ecx, [eax + eax*2]
+0x0047d8a1  shl ecx, 4
+0x0047d8a4  lea edx, [ecx + eax + 0x10]
+0x0047d8a8  mov eax, dword ptr [esi]
+0x0047d8aa  push edx
+0x0047d8ab  push eax
+0x0047d8ac  call dword ptr [0x4fb0a8]
+0x0047d8b2  mov ecx, dword ptr [esp + 0xc]
+0x0047d8b6  push 0x31
+0x0047d8b8  push ecx
+0x0047d8b9  mov ecx, esi
+0x0047d8bb  call 0x4411b0
+0x0047d8c0  pop esi
+0x0047d8c1  ret 8
+0x0047d8c4  nop 
+0x0047d8c5  nop 
+0x0047d8c6  nop 
+0x0047d8c7  nop 
+0x0047d8c8  nop 
+0x0047d8c9  nop 
+0x0047d8ca  nop 
+0x0047d8cb  nop 
+0x0047d8cc  nop 
+0x0047d8cd  nop 
+0x0047d8ce  nop 
+0x0047d8cf  nop 
+0x0047d8d0  mov eax, dword ptr [esp + 4]
+0x0047d8d4  push esi
+0x0047d8d5  and eax, 0xffff
+0x0047d8da  mov esi, ecx
+0x0047d8dc  push 0
+0x0047d8de  lea ecx, [eax + eax*2]
+0x0047d8e1  shl ecx, 4
+0x0047d8e4  lea edx, [ecx + eax + 0x10]
+0x0047d8e8  mov eax, dword ptr [esi]
+0x0047d8ea  push edx
+0x0047d8eb  push eax
+0x0047d8ec  call dword ptr [0x4fb0a8]
+0x0047d8f2  mov ecx, dword ptr [esp + 0xc]
+0x0047d8f6  push 0x31
+0x0047d8f8  push ecx
+0x0047d8f9  mov ecx, esi
+0x0047d8fb  call 0x4411d0
+0x0047d900  pop esi
+0x0047d901  ret 8
+0x0047d904  nop 
+0x0047d905  nop 
+0x0047d906  nop 
+0x0047d907  nop 
+0x0047d908  nop 
+0x0047d909  nop 
+0x0047d90a  nop 
+0x0047d90b  nop 
+0x0047d90c  nop 
+0x0047d90d  nop 
+0x0047d90e  nop 
+0x0047d90f  nop 
+0x0047d910  cmp word ptr [ecx + 0x8c], 0
+0x0047d918  je 0x47d922
+0x0047d91a  call 0x47da10   ;; READ1B
+0x0047d91f  ret 4
+0x0047d922  call 0x47da10   ;; READ1B
+0x0047d927  mov ecx, dword ptr [esp + 4]
+0x0047d92b  mov byte ptr [ecx], al
+0x0047d92d  ret 4
+0x0047d930  cmp word ptr [ecx + 0x8c], 0
+0x0047d938  je 0x47d942
+0x0047d93a  call 0x47da50   ;; READ2B
+0x0047d93f  ret 4
+0x0047d942  call 0x47da50   ;; READ2B
+0x0047d947  mov ecx, dword ptr [esp + 4]
+0x0047d94b  mov word ptr [ecx], ax
+0x0047d94e  ret 4
+0x0047d951  nop 
+0x0047d952  nop 
+0x0047d953  nop 
+0x0047d954  nop 
+0x0047d955  nop 
+0x0047d956  nop 
+0x0047d957  nop 
+0x0047d958  nop 
+0x0047d959  nop 
+0x0047d95a  nop 
+0x0047d95b  nop 
+0x0047d95c  nop 
+0x0047d95d  nop 
+0x0047d95e  nop 
+0x0047d95f  nop 
+0x0047d960  push ebx
+0x0047d961  push esi
+0x0047d962  mov esi, ecx
+0x0047d964  push 0
+0x0047d966  mov ecx, 0x524978
+0x0047d96b  call 0x4eb5c0
+0x0047d970  push 0x2000
+0x0047d975  push eax
+0x0047d976  mov ecx, esi
+0x0047d978  mov dword ptr [esi + 0x9a], eax
+0x0047d97e  call 0x4411b0
+0x0047d983  mov eax, dword ptr [esi + 0x9a]
+0x0047d989  mov ecx, 0x2000
+0x0047d98e  mov dl, byte ptr [esi + 0x94]
+0x0047d994  mov bl, byte ptr [eax]
+0x0047d996  xor bl, dl
+0x0047d998  mov byte ptr [eax], bl
+0x0047d99a  inc eax
+0x0047d99b  dec ecx
+0x0047d99c  jne 0x47d98e
+0x0047d99e  mov word ptr [esi + 0x8e], 0
+0x0047d9a7  pop esi
+0x0047d9a8  pop ebx
+0x0047d9a9  ret 
+0x0047d9aa  nop 
+0x0047d9ab  nop 
+0x0047d9ac  nop 
+0x0047d9ad  nop 
+0x0047d9ae  nop 
+0x0047d9af  nop 
+0x0047d9b0  push esi
+0x0047d9b1  mov esi, ecx
+0x0047d9b3  push edi
+0x0047d9b4  push 0
+0x0047d9b6  mov di, word ptr [esi + 0x8e]
+0x0047d9bd  mov ecx, 0x524978
+0x0047d9c2  call 0x4eb5c0
+0x0047d9c7  test di, di
+0x0047d9ca  mov dword ptr [esi + 0x9a], eax
+0x0047d9d0  je 0x47d9e8
+0x0047d9d2  and edi, 0xffff
+0x0047d9d8  mov cl, byte ptr [esi + 0x94]
+0x0047d9de  mov dl, byte ptr [eax]
+0x0047d9e0  xor dl, cl
+0x0047d9e2  mov byte ptr [eax], dl
+0x0047d9e4  inc eax
+0x0047d9e5  dec edi
+0x0047d9e6  jne 0x47d9d8
+0x0047d9e8  mov dx, word ptr [esi + 0x8e]
+0x0047d9ef  mov eax, dword ptr [esi + 0x9a]
+0x0047d9f5  push edx
+0x0047d9f6  push eax
+0x0047d9f7  mov ecx, esi
+0x0047d9f9  call 0x4411d0
+0x0047d9fe  mov word ptr [esi + 0x8e], 0
+0x0047da07  pop edi
+0x0047da08  pop esi
+0x0047da09  ret 
+0x0047da0a  nop 
+0x0047da0b  nop 
+0x0047da0c  nop 
+0x0047da0d  nop 
+0x0047da0e  nop 
+0x0047da0f  nop 
+0x0047da10  push esi
+0x0047da11  mov esi, ecx
+0x0047da13  cmp word ptr [esi + 0x8e], 0x2000
+0x0047da1c  jne 0x47da23
+0x0047da1e  call 0x47d960
+0x0047da23  mov ecx, dword ptr [esi + 0x9a]
+0x0047da29  inc word ptr [esi + 0x8e]
+0x0047da30  mov al, byte ptr [ecx]
+0x0047da32  inc ecx
+0x0047da33  mov dword ptr [esi + 0x9a], ecx
+0x0047da39  xor cx, cx
+0x0047da3c  mov cl, al
+0x0047da3e  add word ptr [esi + 0x92], cx
+0x0047da45  pop esi
+0x0047da46  ret 
+0x0047da47  nop 
+0x0047da48  nop 
+0x0047da49  nop 
+0x0047da4a  nop 
+0x0047da4b  nop 
+0x0047da4c  nop 
+0x0047da4d  nop 
+0x0047da4e  nop 
+0x0047da4f  nop 
+0x0047da50  push esi
+0x0047da51  push edi
+0x0047da52  mov esi, ecx
+0x0047da54  call 0x47da10   ;; READ1B
+0x0047da59  mov ecx, esi
+0x0047da5b  movzx di, al
+0x0047da5f  call 0x47da10   ;; READ1B
+0x0047da64  and eax, 0xff
+0x0047da69  shl eax, 8
+0x0047da6c  add eax, edi
+0x0047da6e  pop edi
+0x0047da6f  pop esi
+0x0047da70  ret 
+0x0047da71  nop 
+0x0047da72  nop 
+0x0047da73  nop 
+0x0047da74  nop 
+0x0047da75  nop 
+0x0047da76  nop 
+0x0047da77  nop 
+0x0047da78  nop 
+0x0047da79  nop 
+0x0047da7a  nop 
+0x0047da7b  nop 
+0x0047da7c  nop 
+0x0047da7d  nop 
+0x0047da7e  nop 
+0x0047da7f  nop 
+0x0047da80  mov edx, dword ptr [ecx + 0x9a]
+0x0047da86  mov al, byte ptr [esp + 4]
+0x0047da8a  inc word ptr [ecx + 0x8e]
+0x0047da91  mov byte ptr [edx], al
+0x0047da93  mov edx, dword ptr [ecx + 0x9a]
+0x0047da99  movzx ax, al
+0x0047da9d  add word ptr [ecx + 0x92], ax
+0x0047daa4  inc edx
+0x0047daa5  cmp word ptr [ecx + 0x8e], 0x2000
+0x0047daae  mov dword ptr [ecx + 0x9a], edx
+0x0047dab4  jne 0x47dabb
+0x0047dab6  call 0x47d9b0
+0x0047dabb  ret 4
+0x0047dabe  nop 
+0x0047dabf  nop 
+0x0047dac0  push ebx
+0x0047dac1  mov ebx, dword ptr [esp + 8]
+0x0047dac5  push esi
+0x0047dac6  mov esi, ecx
+0x0047dac8  push ebx
+0x0047dac9  call 0x47da80   ;; WRITE1B
+0x0047dace  xor eax, eax
+0x0047dad0  mov ecx, esi
+0x0047dad2  mov al, bh
+0x0047dad4  push eax
+0x0047dad5  call 0x47da80   ;; WRITE1B
+0x0047dada  pop esi
+0x0047dadb  pop ebx
+0x0047dadc  ret 4
+0x0047dadf  nop 

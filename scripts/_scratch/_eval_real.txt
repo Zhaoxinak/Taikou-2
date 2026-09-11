@@ -1,0 +1,224 @@
+abs refs into table: 10
+  code@0x4980b5 -> 0x50b6d3 (off 25)
+    004980a5  call     0x4b1270
+    004980aa  and      esi, 0xffff
+    004980b0  mov      ecx, edi
+    004980b2  lea      eax, [esi + esi*8 + 0x50b6d3]
+    004980b9  push     eax
+    004980ba  call     0x4b16d0
+    004980bf  pop      edi
+    004980c0  pop      esi
+    004980c1  pop      ebp
+    004980c2  pop      ebx
+    004980c3  ret      
+    004980c4  test     esi, esi
+    004980c6  jne      0x4980d4
+    004980c8  push     0x5038d0
+    004980cd  mov      ecx, edi
+    004980cf  call     0x4b16d0
+  code@0x497b2a -> 0x50b6ee (off 52)
+    00497b1a  call     0x4b1270
+    00497b1f  and      esi, 0xffff
+    00497b25  mov      ecx, edi
+    00497b27  lea      eax, [esi + esi*8 + 0x50b6ee]
+    00497b2e  push     eax
+    00497b2f  call     0x4b16d0
+    00497b34  pop      edi
+    00497b35  pop      esi
+    00497b36  pop      ebp
+    00497b37  pop      ebx
+    00497b38  ret      
+    00497b39  neg      esi
+    00497b3b  sbb      esi, esi
+    00497b3d  push     2
+    00497b3f  and      esi, 0x7ffc
+    00497b45  add      esi, 4
+    00497b48  push     esi
+    00497b49  push     edi
+  code@0x4981ef -> 0x50b709 (off 79)
+    004981df  call     0x4b1270
+    004981e4  and      esi, 0xffff
+    004981ea  mov      ecx, edi
+    004981ec  lea      edx, [esi + esi*8 + 0x50b709]
+    004981f3  push     edx
+    004981f4  call     0x4b16d0
+    004981f9  pop      edi
+    004981fa  pop      esi
+    004981fb  pop      ebp
+    004981fc  pop      ebx
+    004981fd  ret      
+    004981fe  neg      esi
+    00498200  sbb      esi, esi
+    00498202  push     1
+    00498204  and      esi, 0x7ffd
+    0049820a  add      esi, 3
+    0049820d  push     esi
+    0049820e  push     edi
+  code@0x497c43 -> 0x50b724 (off 106)
+    00497c33  call     0x4b1270
+    00497c38  and      esi, 0xffff
+    00497c3e  mov      ecx, edi
+    00497c40  lea      edx, [esi + esi*8 + 0x50b724]
+    00497c47  push     edx
+    00497c48  call     0x4b16d0
+    00497c4d  pop      edi
+    00497c4e  pop      esi
+    00497c4f  pop      ebp
+    00497c50  pop      ebx
+    00497c51  ret      
+    00497c52  neg      esi
+    00497c54  sbb      esi, esi
+    00497c56  push     2
+    00497c58  and      esi, 0x7ffc
+    00497c5e  add      esi, 4
+    00497c61  push     esi
+    00497c62  push     edi
+  code@0x497d73 -> 0x50b73f (off 133)
+    00497d63  call     0x4b1270
+    00497d68  and      esi, 0xffff
+    00497d6e  mov      ecx, edi
+    00497d70  lea      edx, [esi + esi*8 + 0x50b73f]
+    00497d77  push     edx
+    00497d78  call     0x4b16d0
+    00497d7d  pop      edi
+    00497d7e  pop      esi
+    00497d7f  pop      ebp
+    00497d80  pop      ebx
+    00497d81  ret      
+    00497d82  neg      esi
+    00497d84  sbb      esi, esi
+    00497d86  push     2
+    00497d88  and      esi, 0x7ffc
+    00497d8e  add      esi, 4
+    00497d91  push     esi
+    00497d92  push     edi
+  code@0x497ea3 -> 0x50b73f (off 133)
+    00497e93  call     0x4b1270
+    00497e98  and      esi, 0xffff
+    00497e9e  mov      ecx, edi
+    00497ea0  lea      edx, [esi + esi*8 + 0x50b73f]
+    00497ea7  push     edx
+    00497ea8  call     0x4b16d0
+    00497ead  pop      edi
+    00497eae  pop      esi
+    00497eaf  pop      ebp
+    00497eb0  pop      ebx
+    00497eb1  ret      
+    00497eb2  neg      esi
+    00497eb4  sbb      esi, esi
+    00497eb6  push     2
+    00497eb8  and      esi, 0x7ffc
+    00497ebe  add      esi, 4
+    00497ec1  push     esi
+    00497ec2  push     edi
+  code@0x4982ee -> 0x50b75a (off 160)
+    004982de  call     0x4b1270
+    004982e3  and      esi, 0xffff
+    004982e9  mov      ecx, edi
+    004982eb  lea      eax, [esi + esi*8 + 0x50b75a]
+    004982f2  push     eax
+    004982f3  call     0x4b16d0
+    004982f8  pop      edi
+    004982f9  pop      esi
+    004982fa  pop      ebp
+    004982fb  pop      ebx
+    004982fc  ret      
+    004982fd  neg      esi
+    004982ff  sbb      esi, esi
+    00498301  push     2
+    00498303  and      esi, 0x7ffc
+    00498309  add      esi, 4
+    0049830c  push     esi
+    0049830d  push     edi
+  code@0x4983f2 -> 0x50b775 (off 187)
+    004983e2  mov      ecx, edi
+    004983e4  call     0x4b1270
+    004983e9  and      esi, 0xffff
+    004983ef  lea      ecx, [esi + esi*8 + 0x50b775]
+    004983f6  push     ecx
+    004983f7  mov      ecx, edi
+    004983f9  call     0x4b16d0
+    004983fe  pop      edi
+    004983ff  pop      esi
+    00498400  pop      ebp
+    00498401  pop      ebx
+    00498402  ret      
+    00498403  neg      esi
+    00498405  sbb      esi, esi
+    00498407  push     2
+    00498409  and      esi, 0x7ffc
+    0049840f  add      esi, 4
+  code@0x49879c -> 0x50b790 (off 214)
+    0049878c  mov      ecx, eax
+    0049878e  and      ecx, 0xffff
+    00498794  lea      ecx, [ecx + ecx*2]
+    00498797  shl      ecx, 1
+    00498799  mov      dx, word ptr [ecx + 0x50b790]
+    004987a0  mov      cx, word ptr [ecx + 0x50b792]
+    004987a7  and      edx, 0xffff
+    004987ad  cmp      esi, edx
+    004987af  jl       0x4987c9
+    004987b1  add      edx, 0x7f
+    004987b4  cmp      esi, edx
+    004987b6  jge      0x4987c9
+  code@0x498801 -> 0x50b790 (off 214)
+    004987f1  or       byte ptr [ebp - 0x1f2ebffc], cl
+    004987f7  mov      cx, word ptr [eax + 0x50b792]
+    004987fe  mov      dx, word ptr [eax + 0x50b790]
+    00498805  push     ecx
+    00498806  push     edx
+    00498807  mov      ecx, esi
+    00498809  call     0x4ecf10
+    0049880e  mov      eax, esi
+    00498810  pop      esi
+    00498811  ret      8
+    00498814  nop      
+    00498815  nop      
+    00498816  nop      
+    00498817  nop      
+    00498818  nop      
+    00498819  nop      
+    0049881a  nop      
+    0049881b  nop      
+    0049881c  nop      
+    0049881d  nop      
+    0049881e  nop      
+    0049881f  nop      
+
+=== 0x50ce78 word table dump ===
+  [0x0] = 380 (0x17c)
+  [0x2] = 381 (0x17d)
+  [0x4] = 382 (0x17e)
+  [0x6] = 383 (0x17f)
+  [0x8] = 384 (0x180)
+  [0xa] = 385 (0x181)
+  [0xc] = 386 (0x182)
+  [0xe] = 387 (0x183)
+  [0x10] = 388 (0x184)
+  [0x12] = 389 (0x185)
+  [0x14] = 390 (0x186)
+  [0x16] = 391 (0x187)
+  [0x18] = 392 (0x188)
+  [0x1a] = 393 (0x189)
+  [0x1c] = 394 (0x18a)
+  [0x1e] = 395 (0x18b)
+  [0x20] = 396 (0x18c)
+  [0x22] = 397 (0x18d)
+  [0x24] = 398 (0x18e)
+  [0x26] = 399 (0x18f)
+  [0x28] = 400 (0x190)
+  [0x2a] = 401 (0x191)
+  [0x2c] = 402 (0x192)
+  [0x2e] = 403 (0x193)
+  [0x30] = 404 (0x194)
+  [0x32] = 405 (0x195)
+  [0x34] = 0 (0x0)
+  [0x36] = 0 (0x0)
+  [0x38] = 29477 (0x7325)
+  [0x3a] = 51647 (0xc9bf)
+  [0x3c] = 54482 (0xd4d2)
+  [0x3e] = 61634 (0xf0c2)
+
+imul *9 sites: 0
+
+=== search scripts mentions ===

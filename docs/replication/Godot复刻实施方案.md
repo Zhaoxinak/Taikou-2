@@ -15,8 +15,8 @@
 
 1. **数据全部可从原版文件离线提取**，不需要模拟器、不需要跑原版游戏、不需要再逆向。
 2. **玩法公式最完整的是合战**（`BATTLE_SPEC.md §9`，反汇编 + Unicorn 实跑二进制双验证），应作为第一个可玩里程碑。
-3. **画面 = HD-2D 重制**——3D 场景 + 高清像素 sprite + 现代后处理；原版 16×16 仅作造型参考。
-   完整方案见 **[`HD2D高清重制方案.md`](HD2D高清重制方案.md)**。
+3. **画面 = 原版素材直用 + 占位图兜底**（高清重建立绘路线已放弃，2026-09-12）。
+   
 
 ---
 
@@ -32,7 +32,7 @@
 
 ### 1.2 不做什么（明确边界）
 
-- ❌ **不写像素/图像格式解码器**（GRP / PK8 / LZW 像素类）——HD-2D 路线下**不需要**：
+- ❌ **不写像素/图像格式解码器**（GRP / PK8 / LZW 像素类）——**不需要**：
   世界是 3D 重建的，角色是重画的高清像素 art。原版图块仅作造型参考
   （需要查看时用 `scripts/real_assets.py` 的 `decode_mapchip()` / `decode_hbchar()` 等）。
 - ❌ **不追求逐帧还原原版 UI**。先做「可玩」，再做「像」。
@@ -61,7 +61,7 @@
 
 ### 2.2 分辨率方案 ✅（2026-09-08 已实施）
 
-> 原 `1024×640` 是 1.6× 非整数缩放会拉伸；现在画面定为 **HD-2D（3D 场景）**，
+> 原 `1024×640` 是 1.6× 非整数缩放会拉伸；现在画面直用原版素材，
 > 缩放模型也随之改变：**逻辑坐标固定，渲染分辨率随屏幕**。
 
 **现行配置**（已写入 `project.godot`）：
@@ -88,10 +88,9 @@ DisplayAdapter="*res://src/core/DisplayAdapter.gd"
 | **逻辑坐标**（写 UI/摆精灵用）| 固定 **640×400** | 开发者按此写代码 |
 | **渲染分辨率** | 屏幕原生：1080p / 2K / 4K | `DisplayAdapter` 自动检测 |
 
-> 因为 HD-2D 的 3D 部分是**分辨率无关**的，不再需要"整数倍放大"的约束——
-> 这正是选 HD-2D 的额外好处（详见 [`HD2D高清重制方案.md` §4](HD2D高清重制方案.md)）。
+> 不再需要"整数倍放大"的约束——
 
-> 纹理过滤：HD-2D sprite → `NEAREST`（保像素硬边）；3D 地形/背景 → `LINEAR + MIPMAPS`。
+> 纹理过滤：像素类素材 → `NEAREST`（保硬边）；大图/背景 → `LINEAR`。
 
 ### 2.3 目录结构（建议）
 
@@ -120,13 +119,11 @@ DisplayAdapter="*res://src/core/DisplayAdapter.gd"
       Item.gd
       Consts.gd                ★ 全局常量（哨兵值/钳制/规模/攻击除数表）
       DisplayAdapter.gd        ★ autoload：1080p / 2K / 4K 自适应
-    render/                    ★ HD-2D 渲染层（2026-09-08 已落地）
-      Hd2DEnvironment.gd       后处理：Glow + DOF + SSAO + ACES + 天气预设
-      UnitSprite.gd            Billboard 像素 sprite（NEAREST 过滤）
+    render/                    素材加载 / 规格（AssetLoader / AssetSpec）
+      asset_loader.gd          素材加载（占位回退）
     battle/                    ★ 合战（纯逻辑 + 3D 表现）
       BattleSim.gd             ★ 结算（移植 battle_formula_ref.py）
       BattleMap.gd             战图/地形/部署
-      Terrain3DBuilder.gd      ★ HJMAPDAT 19×40 → 3D Mesh
       Tactics.gd               11 计略
     data/
       DataLoader.gd            启动时加载 data/*.json → 内存索引
@@ -153,7 +150,7 @@ DisplayAdapter="*res://src/core/DisplayAdapter.gd"
       ...
   assets/
     sfx/                       39 个 WAV（从 scripts/_decoded_kos/ 复制）
-    gfx/                       HD-2D 素材（立绘/sprite/地形材质），不入库
+    gfx/                       AI 素材样本（不入库）
   tools/
     export_for_godot.py        ★ 离线导出器（见 §3.1）
 ```
@@ -792,46 +789,8 @@ section A **高 4 位** = 双方除数 ±1 对冲（38 战静态恒 0，中性�
 
 ---
 
-## 6. 表现层（★ 风格 = HD-2D）
+## 6. 表现层
 
-> 🔴 **2026-09-08 用户定：画面风格 = HD-2D**（3D 场景 + 高清像素 sprite + 现代后处理，
-> 参考 `OCTOPATH TRAVELER` / `TRIANGLE STRATEGY`）。
-> **完整方案见 [`HD2D高清重制方案.md`](HD2D高清重制方案.md)**；本节只做摘要与接入指引。
->
-> ⚠️ **本节早期写的「图像豁免 / 直接用原版裸图」已作废** —— HD-2D 的世界是 3D 重建的，
-> 角色是重画的高清像素 art，原版 16×16 仅作造型参考。
-
-### 6.1 画面（HD-2D 三件套）
-
-| 组成 | 实现 | 代码 |
-|---|---|---|
-| **3D 场景** | HJMAPDAT 19×40 网格 → 3D Mesh（顶面 + 侧壁 + 顶点色）| `src/battle/Terrain3DBuilder.gd` |
-| **2D 像素 sprite** | Billboard 面片 + **`TEXTURE_FILTER_NEAREST`** | `src/render/UnitSprite.gd` |
-| **后处理** | Glow + DOF + SSAO + ACES + 天气预设 | `src/render/Hd2DEnvironment.gd` |
-
-**相机**：
-- 合战 → `PROJECTION_ORTHOGONAL`（原版是俯视网格，正交最还原）
-- 城下町 / 大地图 → `PROJECTION_PERSPECTIVE` + 低 FOV(20~30°)
-
-**素材规格**（🔑 **不直接超分原版 16×16** —— HD-2D 要"高清像素 art"，不是"放大的模糊像素"）：
-
-| 素材 | 规格 | 数量 | 来源 |
-|---|---|---|---|
-| 武将立绘 | **512×640**（透明背景）| 695 | ImageGen AI 重绘 |
-| 武将头像 | 128×160（从立绘裁）| 695 | 裁剪 |
-| 单位 sprite | **256×256** × 4 方向 | 16 | ImageGen |
-| 地形材质 | PBR / 高清贴图 | 16 种 | 程序化 + ImageGen |
-| UI | Godot 自绘 `StyleBoxFlat` | — | 代码 |
-
-原版 16×16 tile（1050 张，可用 `scripts/real_assets.py` 的 `decode_mapchip()` 等解码）
-**仅作造型参考**。
-
-**资源名规则** 🔑（仍适用）：EXE 里的盘符（`A:`/`B:`/`C:`）是**内部逻辑代号，不是真实路径**
-→ 按**去前缀的裸名**在原版目录查文件。（加载器 `0x4ec8c0` 会 `add eax,2` 剥盘符 + `and al,0xfb` 清 bit2）
-
-**纹理设置**：
-- HD-2D sprite → **`NEAREST`**（★ 保住像素硬边，HD-2D 灵魂）
-- 3D 地形 / 背景 → `LINEAR + MIPMAPS`
 
 ### 6.2 音效（39 个，已完成）
 
@@ -862,8 +821,7 @@ section A **高 4 位** = 双方除数 ±1 对冲（38 战静态恒 0，中性�
 
 - 内部**逻辑坐标系 640×400 不变**（保留原版构图与 UI 锚点，UI 按此写）
 - 运行时由 **`src/core/DisplayAdapter.gd`**（autoload）自动检测屏幕 → 选 viewport
-- 4K 掉帧时调 `Hd2DEnvironment.downgrade_for_4k()` 关 DOF/SSAO 保帧率
-- 详见 [`HD2D高清重制方案.md` §4](HD2D高清重制方案.md)
+- 4K 掉帧时由 `DisplayAdapter` 降档保帧率
 
 ---
 
@@ -877,36 +835,10 @@ section A **高 4 位** = 双方除数 ±1 对冲（38 战静态恒 0，中性�
 | **M3 最小可玩** | 选主角 → 看状态 → 执行 1 条主命 → 推进 1 月 | 能看到五维/技能/職位/忠诚；月推进后体力回升 | M1 + §5.1/5.2 |
 | **M4 内政与修行** | 12 主命 + 修行 8 动作 + 技能增长 | 技能 cap 3 生效；功勲 += (旧级+1)×500 封顶 60000 | M3 + §5.3/5.4 |
 | **M5 職位晋升** | 勲功达阈值可晋升，大名/城主任命 | `promote2_ref.py` 18/18 对应逻辑一致 | M4 + §5.5 |
-| **M6 表现层（HD-2D）** | 接 3D 场景 + sprite + 音效 + 文本渲染 | 立绘 695 张；音效 39；外字 3 姓正确 | 全部 + HD-4 |
+| **M6 表现层** | 音效 + 文本渲染 + 自绘 UI | 音效 39；外字 3 姓正确；UI 全自绘 | 全部 |
 | **M7 打磨** | 单挑、店铺、外交、事件链 | 各自 SPEC 章节 | M6 |
 
 **建议顺序理由**：**合战（M2）提前**——它是唯一「反汇编 + 二进制仿真双验证」的闭环系统，做出来就是**原版手感**，能最早验证整条数据链是否正确。
-
-### 7.1 画面里程碑（HD-0 … HD-6，与 M 线并行）
-
-> 画面风格 2026-09-08 定为 **HD-2D**，完整方案见 [`HD2D高清重制方案.md`](HD2D高清重制方案.md)。
-> 下表与上面的 M 线**并行推进**：M 线管逻辑，HD 线管画面。
-
-| 里程碑 | 内容 | 对应 M 线 | 状态 |
-|---|---|---|---|
-| **HD-0** | 渲染骨架：Environment + 相机 + Sprite3D + DisplayAdapter | — | ✅ **已完成**（6 个 .gd，语法校验全通过）|
-| **HD-1** | 3D 地形生成（HJMAPDAT 19×40 → Mesh）| 配合 M2 | 代码已就绪，待接入场景 |
-| **HD-2** | 单位 sprite 系统（billboard + NEAREST）| 配合 M2 | 代码已就绪 |
-| **HD-3** | 光照 + 天气联动（晴/雨/雪/雾/夜）| 配合 M3 | 代码已就绪 |
-| **HD-4** | 武将立绘 695 张（ImageGen 批量）| 配合 M6 | 样本已确认，待批量 |
-| **HD-5** | UI 自绘 + 多分辨率适配 | 配合 M6 | 进行中 |
-| **HD-6** | 视觉回归 + 4K 性能基准 | M7 | 待做 |
-
-**已落地的 6 个文件**（全部通过 `godot --headless --check-only`）：
-
-| 文件 | 作用 |
-|---|---|
-| `src/core/DisplayAdapter.gd` | autoload：自动选 1080p/2K/4K viewport |
-| `src/core/Consts.gd` | 全局常量（哨兵值/钳制/规模/攻击除数表）|
-| `src/core/Officer.gd` | 武将实体（语义映射 47B）|
-| `src/render/Hd2DEnvironment.gd` | HD-2D 后处理 + 天气预设 + 4K 降级 |
-| `src/render/UnitSprite.gd` | Billboard 像素 sprite（NEAREST）|
-| `src/battle/Terrain3DBuilder.gd` | HJMAPDAT → 3D Mesh |
 
 ---
 

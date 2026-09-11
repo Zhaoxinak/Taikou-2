@@ -1,0 +1,109 @@
+===== MESSAGE1.LZW raw=45553 dec=63286 =====
+  MESSAGE1.LZW @1222 code=A145 ctx=||%D||JD||aD||奃||罝||菵||虳||釪||<13>E||BE||eE||楨||[A145]||菶||鉋||鬍||<09>F||HF||岶||﨔||5G||tG||臛||蹽||镚||
+===== MESSAGE2.LZW raw=45421 dec=63045 =====
+  MESSAGE2.LZW @1218 code=A140 ctx=||U?||j?||o?||<84>?||<9B>?||<B0>?||<EF>?||<06>@||%@||F@||m@||嶡||[A140]||窣||螥||轅||鞞||<0C>A||<1B>A||(A||-A||>A||CA||bA||mA||
+===== MESSAGE3.LZW raw=52304 dec=70904 =====
+===== MESSAGE4.LZW raw=28831 dec=39383 =====
+  MESSAGE4.LZW @1994 code=A143 ctx=||葾||<0C>B||#B||6B||;B||@B||婤||糂||馚||BC||QC||`C||[A143]||訡||驝||<0A>D||-D||RD||嘍||瓺||譊|||E||<0F>E||*E||ME||
+===== HEXMES.LZW raw=5375 dec=6881 =====
+===== MEM surname @521AA8 =====
+===== MEM given @520660 =====
+===== MEM string scan (null-terminated with gaiji) =====
+  VA=00403681 span=|兡<08>孁[A14C]<03>Q
+  VA=004036B8 span=<86><0E>|孁f[A14E]<03>Q
+  VA=00408B59 span=<06>|_^]Y胒[A14A]鬛|f
+  VA=00408D39 span=^[Y谩@鬛|<85>
+  VA=00408E7B span=<E5><1C><09>|[A140]鬛|<85>
+  VA=00409962 span=悙Qf[A14A]鬛|V
+  VA=00409AE9 span=Z<09>|嬸3纅[A14C]lP|<05>
+  VA=00409B58 span=<09>|Pf[A14C]lP|P
+  VA=00409BF8 span=<09>|Pf[A14C]lP|P
+  VA=0040C39D span=<08>|Pf[A14C]lP|P
+  VA=0040D743 span=<08>|Pf[A14C]lP|P
+  VA=0040D7EE span=<08>|Pf[A14C]lP|P
+  VA=0040ED21 span=<08>|Pf[A14C]lP|P
+  VA=0040EDB9 span=<08>|Pf[A14C]lP|P
+  VA=0040FB19 span=<FA><08>|嬸3纅[A14C]lP|-
+  VA=0040FB3E span=<08>|Pf[A14C]lP|P
+  VA=004122F2 span=<08>|Pf[A14C]lP|P
+  VA=00412AA6 span=<08>|Pf[A14C]lP|P
+  VA=00414478 span=鐸Z||3纅[A14C]lP|<05>
+  VA=004144E5 span=<08>|Pf[A14C]lP|P
+  VA=00414541 span=<08>|Pf[A14C]lP|P
+  VA=0041500A span=<08>|Pf[A14C]lP|P
+  VA=004169D2 span=塋$<10>[A148]xQ|j
+  VA=00416A43 span=<FF><FF>||[A148]xQ|<8B>
+  VA=00416CDB span=蒝t<0C>[A148]xQ|<89>
+  VA=004174F8 span=杩<FC><FF><FF>兡<0C>_^][脨悙悙悙[A148]xQ|W
+  VA=00417AB4 span=甜<FF><FF>[A148]xQ|<83>
+  VA=00417B83 span=<FD><EF><FF><FF>[A148]xQ|<8B>
+  VA=0043CAA8 span=萻<09>娏<FE>愧@5Q|脨悙悙悙[A140]5Q|%
+  VA=0043CB7A span=婦$<04><A3>45Q|脨悙悙悺D5Q|<C3>
+  VA=0044420F span=yQ|谩HyQ|$
+  VA=0044CBA3 span=桀|||<0F>啃[A148]xQ|<83>
+  VA=0044CE6C span=塂$<14>[A148]xQ|<8B>
+  VA=0044DE4C span=<85><FF>t<11>[A148]xQ|<8B>
+  VA=0045A207 span=_^][肹[A145]|b
+  VA=0045A20D span=|b[A145]|u
+  VA=0045A211 span=|u[A145]|<89>
+  VA=0045A215 span=|墶E|<90>
+  VA=0045B5C0 span=|||f[A14C]TR|f
+  VA=004623A3 span=悆<EC><0C>[A148]xQ|S
+  VA=00463414 span=<01>|[A148]<06>R
+  VA=0046E403 span=|FFF[A144]-R|<B9>
+  VA=0046EC70 span=塂$,[A14C]WP|<89>
+  VA=0047316F span=a<C4><02>|[A140]KQ|<8A>
+  VA=0047363B span=曉<03>|[A144]KQ|P
+  VA=004780E8 span=||||[A148]xQ|<8B>
+  VA=00478120 span=<D0><01>||[A148]xQ|<BE>
+  VA=00487A41 span=?<01>|f[A140]濸|<B9>
+  VA=00487A95 span=?<01>|f[A146]濸|<B9>
+  VA=00487AFC span=><01>|f[A14C]濸|<B9>
+  VA=0048FC1D span=||[A140]<06>R
+  VA=00490C4F span=||[A140]<06>R
+  VA=00491496 span=<0C>胈^]3繹兡<0C>脨悙悙悙悙悺@<06>R
+  VA=004923D8 span=R|ⅰIR|<C3>
+  VA=004935CA span=<A3>F<C6><06>[A146]胙<80><FB>
+  VA=004950EA span=婀<01>|[A148]SR|<85>
+  VA=00495109 span=W<19><FF><FF>[A14C]SR|<85>
+  VA=00495F66 span=(<01>||[A144]TR|<85>
+  VA=00496956 span=<0A><B5><01>|[A140]SR|<85>
+  VA=00496C21 span=|锜I<05>|嬸[A140]TR|3
+  VA=00496FE1 span=餁<01>|[A144]SR|<85>
+  VA=00498AD3 span=|FFF[A144]-R|<B9>
+  VA=00498F6D span=W<02>||兡<04>3烂恌[A148]lP|<C3>
+  VA=0049A0A6 span=h|[A149]|j
+  VA=0049F868 span=P|<EB><1A>[A144]縋|<89>
+  VA=004A0805 span=1|||[A148]xQ|<83>
+  VA=004A4C0D span=|<EB><02>3<F6>3纅[A14C]lP|=
+  VA=004A4C34 span=<FF><FF>Pf[A14C]lP|W
+  VA=004A7199 span=<0E>j<01>嬋琛F<FF><FF>
+  VA=004A86FD span=5<01>||[A148]xQ|f
+  VA=004A89B9 span=婰$<10>[A148]xQ|3
+  VA=004A8AD1 span=逮<FF><FF>[A148]xQ|<8B>
+  VA=004AF339 span=||[A140]<06>R
+  VA=004B307A span=&;<FE><FF>[A148]\R|<83>
+  VA=004B30BB span=<FF>兡<08>[A140]\R|<85>
+  VA=004B3108 span=兡<04>P[A144]\R|<8D>
+  VA=004B3156 span=<0A><01><FF><FF>[A14C]\R|f
+  VA=004B31E5 span=K<04><FF><FF>[A140]\R|<85>
+  VA=004B31F3 span=R鑮宁<FF>孁[A140]\R|<8A>
+  VA=004B3594 span=|<8B><04>俖^][胈^]3繹脨悙悙悙悙悙悺D\R|V
+  VA=004B35BC span=<C4>&<FE><FF>[A140]\R|<83>
+  VA=004B3642 span=奡R|[A14C]\R|<85>
+  VA=004B625E span=<DB>%<FF><FF>||嬭[A148]xQ|<8B>
+  VA=004BA6EE span=吚t<11>[A148]xQ|<8B>
+  VA=004C9DBA span=梓X<FD><FF>嬝f[A14C]TR|3
+  VA=004D4938 span=岻|[A148]M|<A8>
+  VA=004E5415 span=feR|[A142]eR|<FF>
+  VA=004EBD2C span=|||+撩3烂悙悺H轕|i
+  VA=004EDC12 span=WPQ嬑钖<FE><FF><FF>_^兡 <C2><0C>|悙悙悙悙悙悙悙[A144]lR|V
+  VA=004EDFEA span=<C4><10><89><07>[A14C]lR|<8B>
+  VA=004EE294 span=h<1B>[A14F]|d
+  VA=004EE817 span=<0C>塚<14>[A148]lR|<89>
+  VA=004F24D7 span=<FC><01>||[A148]稲|<85>
+  VA=004F2577 span=?<01>||[A14C]稲|<85>
+  VA=004F659A span=纔<01>酶<01>|||脨悙悙悺L肦|S
+  VA=004F694D span=<F8>黸<0F>[A140]肦|<C7>
+  VA=004FC081 span=|唷G|P
+  VA=004FF91D span=<FF><10>[A14F]||

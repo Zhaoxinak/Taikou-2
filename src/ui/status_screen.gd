@@ -1,5 +1,5 @@
 extends Control
-## 状态画面（HD-5 自绘）：五维 / 技能 / 職位 / 忠诚 / 体力 / 年月
+## 状态画面（自绘）：五维 / 技能 / 職位 / 忠诚 / 体力 / 年月
 ## 主命：修行（10 技能各一钮，封顶 3）/ 休养（回满体力）；每次主命推进 1 月。
 ##
 ## 布局全在 UiTheme 设计空间（1920×1080），废除旧实现的硬编码 font_size(30/20) 与像素偏移。
@@ -117,13 +117,6 @@ func _build() -> void:
 	back_btn.pressed.connect(_on_back)
 	row2.add_child(back_btn)
 
-	var world_btn := UiButton.new()
-	world_btn.text = "外出（大地图）"
-	world_btn.font_size = UiTheme.FONT_SMALL
-	world_btn.custom_minimum_size = Vector2(0, 58)
-	world_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	world_btn.pressed.connect(_on_go_world)
-	row2.add_child(world_btn)
 
 	var cmd_btn := UiButton.new()
 	cmd_btn.text = "执行主命"
@@ -161,9 +154,6 @@ func _input(event: InputEvent) -> void:
 					return
 				accept_event()
 				_on_rest()
-			KEY_G:
-				accept_event()
-				_on_go_world()
 
 
 ## 悬停技能 → 显示该技能的原版 MSGX 说明文
@@ -198,13 +188,6 @@ func _on_back() -> void:
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 
-## 外出 → 大地图（方案 B 主循环打通点）
-func _on_go_world() -> void:
-	GameState.enter_world()
-	get_tree().change_scene_to_file("res://scenes/screens/world_screen.tscn")
-
-
-## 执行主命 → 主命画面（12 主命真正对玩家开放）
 func _on_go_command() -> void:
 	get_tree().change_scene_to_file("res://scenes/screens/command_screen.tscn")
 

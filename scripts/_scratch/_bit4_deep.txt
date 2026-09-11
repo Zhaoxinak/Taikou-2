@@ -1,0 +1,474 @@
+=== 0x4ca0a0 (bit3/bit4 wrapper) ===
+004ca090  or       dword ptr [ebp + 0x53], edx
+004ca093  push     esi
+004ca094  push     edi
+004ca095  call     0x4ca0f0
+004ca09a  add      esp, 0x10
+004ca09d  cmp      word ptr [esp + 0x2c], 2
+004ca0a3  je       0x4ca01c
+004ca0a9  pop      edi
+004ca0aa  pop      esi
+004ca0ab  pop      ebp
+004ca0ac  pop      ebx
+004ca0ad  add      esp, 0x10
+004ca0b0  ret      
+004ca0b1  nop      
+004ca0b2  nop      
+004ca0b3  nop      
+004ca0b4  nop      
+004ca0b5  nop      
+004ca0b6  nop      
+004ca0b7  nop      
+004ca0b8  nop      
+004ca0b9  nop      
+004ca0ba  nop      
+004ca0bb  nop      
+004ca0bc  nop      
+004ca0bd  nop      
+004ca0be  nop      
+004ca0bf  nop      
+004ca0c0  call     0x4c9f10
+004ca0c5  test     eax, eax
+004ca0c7  je       0x4ca0d8
+004ca0c9  mov      eax, dword ptr [esp + 8]
+004ca0cd  mov      ecx, dword ptr [esp + 4]
+004ca0d1  push     eax
+004ca0d2  call     0x49aba0
+004ca0d7  ret      
+004ca0d8  mov      ecx, dword ptr [esp + 8]
+004ca0dc  push     ecx
+004ca0dd  mov      ecx, dword ptr [esp + 8]
+004ca0e1  call     0x49abc0
+004ca0e6  ret      
+004ca0e7  nop      
+004ca0e8  nop      
+004ca0e9  nop      
+004ca0ea  nop      
+004ca0eb  nop      
+004ca0ec  nop      
+004ca0ed  nop      
+004ca0ee  nop      
+004ca0ef  nop      
+004ca0f0  push     ebx
+004ca0f1  push     ebp
+004ca0f2  push     esi
+004ca0f3  push     edi
+004ca0f4  mov      edi, dword ptr [esp + 0x14]
+004ca0f8  push     0x16bf
+004ca0fd  push     edi
+004ca0fe  call     0x47b900
+004ca103  mov      esi, dword ptr [esp + 0x28]
+004ca107  add      esp, 8
+004ca10a  cmp      si, 0xa
+004ca10e  jae      0x4ca124
+
+=== 0x4c9200 bit4 test context ===
+004c9180  mov      al, byte ptr [esi + 0x1e]
+004c9183  mov      edi, eax
+004c9185  mov      ecx, edi
+004c9187  and      ecx, 0xffff
+004c918d  push     ecx
+004c918e  push     0xd98
+    MSG 0xd98 啊，还要花上%d天。
+004c9193  push     ebx
+004c9194  call     0x47b900
+004c9199  add      esp, 0xc
+004c919c  push     edi
+004c919d  push     esi
+004c919e  push     ebx
+004c919f  call     0x4c9f30
+004c91a4  add      esp, 0xc
+004c91a7  pop      edi
+004c91a8  pop      esi
+004c91a9  pop      ebx
+004c91aa  ret      
+004c91ab  nop      
+004c91ac  nop      
+004c91ad  nop      
+004c91ae  nop      
+004c91af  nop      
+004c91b0  push     esi
+004c91b1  mov      esi, dword ptr [esp + 0xc]
+004c91b5  push     esi
+004c91b6  call     0x49f9b0
+004c91bb  movzx    cx, byte ptr [esi + 0xc]
+004c91c0  add      esp, 4
+004c91c3  cmp      cx, ax
+004c91c6  jb       0x4c91da
+004c91c8  mov      edx, dword ptr [esp + 8]
+004c91cc  push     0xd97
+    MSG 0xd97 这城的收获量已经达到最大限度。
+004c91d1  push     edx
+004c91d2  call     0x47b900
+004c91d7  add      esp, 8
+004c91da  pop      esi
+004c91db  ret      
+004c91dc  nop      
+004c91dd  nop      
+004c91de  nop      
+004c91df  nop      
+004c91e0  push     ebx
+004c91e1  push     ebp
+004c91e2  push     esi
+004c91e3  push     edi
+004c91e4  call     0x44e280
+004c91e9  mov      esi, eax
+004c91eb  call     0x49f6b0
+004c91f0  movzx    bp, byte ptr [esi + 0xc]
+004c91f5  mov      ebx, eax
+004c91f7  push     esi
+004c91f8  mov      di, word ptr [ebx + 6]
+004c91fc  call     0x49f9b0
+004c9201  sub      eax, ebp
+004c9203  add      esp, 4
+004c9206  cmp      di, ax
+004c9209  jb       0x4c920d
+004c920b  mov      edi, eax
+004c920d  push     edi
+004c920e  mov      ecx, esi
+004c9210  call     0x4a32a0
+004c9215  push     0xff
+    MSG 0xff 完成了%s城的农田开垦。
+004c921a  mov      ecx, esi
+004c921c  call     0x49ac30
+004c9221  push     1
+004c9223  mov      ecx, ebx
+004c9225  mov      word ptr [ebx + 4], di
+004c9229  call     0x49b860
+004c922e  mov      eax, dword ptr [esp + 0x14]
+004c9232  test     eax, eax
+004c9234  jne      0x4c9271
+004c9236  mov      eax, edi
+004c9238  and      eax, 0xffff
+004c923d  push     eax
+004c923e  push     0xd96
+    MSG 0xd96 让您久等了。成功地开垦农田了。收获量增加了%d万石！
+004c9243  push     0x5176e0
+004c9248  call     0x47b900
+004c924d  add      esp, 0xc
+004c9250  push     esi
+004c9251  push     0x5176e0
+004c9256  call     0x4c91b0
+004c925b  add      esp, 8
+004c925e  push     0x16b1
+    MSG 0x16b1 唔，辛苦了。
+004c9263  call     0x49f5e0
+004c9268  push     eax
+004c9269  call     0x47b900
+004c926e  add      esp, 8
+004c9271  mov      ax, di
+004c9274  pop      edi
+004c9275  pop      esi
+004c9276  pop      ebp
+004c9277  pop      ebx
+004c9278  ret      
+004c9279  nop      
+004c927a  nop      
+004c927b  nop      
+004c927c  nop      
+004c927d  nop      
+004c927e  nop      
+004c927f  nop      
+004c9280  push     ecx
+004c9281  push     ebx
+004c9282  push     ebp
+004c9283  push     esi
+004c9284  push     edi
+004c9285  call     0x49f6b0
+004c928a  mov      esi, eax
+004c928c  call     0x44e280
+004c9291  mov      ebp, eax
+004c9293  call     0x49f5e0
+004c9298  mov      ebx, eax
+004c929a  mov      dword ptr [esp + 0x10], 0
+004c92a2  call     0x495390
+004c92a7  test     eax, eax
+004c92a9  je       0x4c92d3
+004c92ab  push     0xd85
+    MSG 0xd85 晚上不能进行开发。
+004c92b0  call     0x493500
+004c92b5  add      esp, 4
+004c92b8  push     eax
+004c92b9  call     0x47b160
+004c92be  add      esp, 4
+004c92c1  push     1
+004c92c3  call     0x4705b0
+004c92c8  add      esp, 4
+004c92cb  test     eax, eax
+004c92cd  je       0x4c93df
+004c92d3  test     byte ptr [ebp + 0x1c], 0x10
+004c92d7  je       0x4c92f5
+004c92d9  push     0x16e8
+    MSG 0x16e8 今天的作业已经结束了。
+004c92de  call     0x493500
+004c92e3  add      esp, 4
+004c92e6  push     eax
+004c92e7  call     0x47b160
+004c92ec  add      esp, 4
+004c92ef  pop      edi
+004c92f0  pop      esi
+004c92f1  pop      ebp
+004c92f2  pop      ebx
+004c92f3  pop      ecx
+004c92f4  ret      
+004c92f5  xor      eax, eax
+004c92f7  mov      al, byte ptr [ebp + 0x1e]
+004c92fa  mov      edi, eax
+004c92fc  push     edi
+004c92fd  call     0x4c93f0
+004c9302  add      esp, 4
+004c9305  cmp      word ptr [esi + 6], 0
+004c930a  je       0x4c933a
+004c930c  push     0xd9d
+    MSG 0xd9d 作业进展如何？
+004c9311  push     ebx
+004c9312  call     0x47b900
+004c9317  add      esp, 8
+004c931a  test     di, di
+004c931d  je       0x4c932e
+004c931f  push     0x5176e0
+004c9324  call     0x4c9170
+004c9329  add      esp, 4
+004c932c  jmp      0x4c9385
+004c932e  push     0
+004c9330  call     0x4c91e0
+004c9335  add      esp, 4
+004c9338  jmp      0x4c9385
+004c933a  test     byte ptr [esi + 0xc], 1
+004c933e  je       0x4c936e
+004c9340  mov      ecx, ebx
+004c9342  call     0x49c2b0
+004c9347  push     eax
+004c9348  push     esi
+004c9349  call     0x49f370
+004c934e  add      esp, 4
+004c9351  mov      ecx, ebx
+004c9353  push     eax
+004c9354  call     0x49c2b0
+004c9359  push     eax
+004c935a  push     0xd86
+    MSG 0xd86 %s大人，%s的期限过了。主公指示%s大人，立即前往参见。
+004c935f  push     0x5176e0
+004c9364  call     0x47b900
+004c9369  add      esp, 0x14
+004c936c  jmp      0x4c9385
+004c936e  push     0x5176e0
+004c9373  mov      ecx, 0x5260b8
+004c9378  call     0x4c9050
+
+=== or [reg+0x1c],0x10 ===
+  0049abc8 80491c10
+
+=== or [reg+0x1c],8 ===
+  0049aba8
+
+=== 0x4b4500 bit3 gate ===
+004b4500  mov      ecx, ebx
+004b4502  call     0x49ac00
+004b4507  push     1
+004b4509  push     6
+004b450b  call     0x4a0d50
+004b4510  add      esp, 8
+004b4513  cmp      word ptr [0x520650], 0
+004b451b  je       0x4b456d
+004b451d  mov      dword ptr [0x5261c8], 1
+004b4527  pop      edi
+004b4528  pop      esi
+004b4529  pop      ebp
+004b452a  pop      ebx
+004b452b  add      esp, 8
+004b452e  ret      
+004b452f  mov      eax, dword ptr [esp + 0x20]
+004b4533  push     0x16dc
+    MSG 0x16dc 经费不足，无法开工。
+004b4538  push     eax
+004b4539  call     0x47b900
+004b453e  mov      ecx, dword ptr [esp + 0x24]
+004b4542  add      esp, 8
+004b4545  push     0x16dd
+    MSG 0x16dd 什么！？没办法，改日再来吧。
+004b454a  push     ecx
+004b454b  call     0x47b900
+004b4550  add      esp, 8
+004b4553  pop      edi
+004b4554  pop      esi
+004b4555  pop      ebp
+004b4556  pop      ebx
+004b4557  add      esp, 8
+004b455a  ret      
+004b455b  mov      edx, dword ptr [esp + 0x1c]
+004b455f  push     0x16db
+    MSG 0x16db 不，我改变主意了。下次再说吧。
+004b4564  push     edx
+004b4565  call     0x47b900
+004b456a  add      esp, 8
+004b456d  pop      edi
+004b456e  pop      esi
+004b456f  pop      ebp
+004b4570  pop      ebx
+004b4571  add      esp, 8
+004b4574  ret      
+004b4575  nop      
+004b4576  nop      
+004b4577  nop      
+004b4578  nop      
+004b4579  nop      
+004b457a  nop      
+004b457b  nop      
+004b457c  nop      
+004b457d  nop      
+004b457e  nop      
+004b457f  nop      
+004b4580  push     esi
+004b4581  mov      esi, dword ptr [esp + 8]
+004b4585  push     esi
+004b4586  call     0x4b45f0
+004b458b  add      esp, 4
+004b458e  test     eax, eax
+004b4590  jne      0x4b4594
+004b4592  pop      esi
+004b4593  ret      
+004b4594  call     0x495390
+004b4599  test     eax, eax
+004b459b  je       0x4b45c3
+004b459d  push     0xdc5
+    MSG 0xdc5 夜间无法修筑城池。
+004b45a2  call     0x493500
+004b45a7  add      esp, 4
+004b45aa  push     eax
+004b45ab  call     0x47b160
+004b45b0  add      esp, 4
+004b45b3  push     1
+004b45b5  call     0x4705b0
+004b45ba  add      esp, 4
+004b45bd  test     eax, eax
+004b45bf  jne      0x4b45c3
+004b45c1  pop      esi
+004b45c2  ret      
+004b45c3  test     byte ptr [esi + 0x1c], 8
+004b45c7  je       0x4b45e3
+004b45c9  push     0x16e8
+    MSG 0x16e8 今天的作业已经结束了。
+004b45ce  call     0x493500
+004b45d3  add      esp, 4
+004b45d6  push     eax
+004b45d7  call     0x47b160
+004b45dc  add      esp, 4
+004b45df  xor      eax, eax
+004b45e1  pop      esi
+004b45e2  ret      
+004b45e3  mov      eax, 1
+004b45e8  pop      esi
+004b45e9  ret      
+004b45ea  nop      
+004b45eb  nop      
+004b45ec  nop      
+004b45ed  nop      
+004b45ee  nop      
+004b45ef  nop      
+004b45f0  push     esi
+004b45f1  mov      esi, dword ptr [esp + 8]
+004b45f5  push     edi
+004b45f6  mov      al, byte ptr [esi + 0x1b]
+004b45f9  and      eax, 7
+004b45fc  mov      edi, eax
+
+=== 0x4ca0e1 detail ===
+004ca0b0  ret      
+004ca0b1  nop      
+004ca0b2  nop      
+004ca0b3  nop      
+004ca0b4  nop      
+004ca0b5  nop      
+004ca0b6  nop      
+004ca0b7  nop      
+004ca0b8  nop      
+004ca0b9  nop      
+004ca0ba  nop      
+004ca0bb  nop      
+004ca0bc  nop      
+004ca0bd  nop      
+004ca0be  nop      
+004ca0bf  nop      
+004ca0c0  call     0x4c9f10
+004ca0c5  test     eax, eax
+004ca0c7  je       0x4ca0d8
+004ca0c9  mov      eax, dword ptr [esp + 8]
+004ca0cd  mov      ecx, dword ptr [esp + 4]
+004ca0d1  push     eax
+004ca0d2  call     0x49aba0
+004ca0d7  ret      
+004ca0d8  mov      ecx, dword ptr [esp + 8]
+004ca0dc  push     ecx
+004ca0dd  mov      ecx, dword ptr [esp + 8]
+004ca0e1  call     0x49abc0
+004ca0e6  ret      
+004ca0e7  nop      
+004ca0e8  nop      
+004ca0e9  nop      
+004ca0ea  nop      
+004ca0eb  nop      
+004ca0ec  nop      
+004ca0ed  nop      
+004ca0ee  nop      
+004ca0ef  nop      
+004ca0f0  push     ebx
+004ca0f1  push     ebp
+004ca0f2  push     esi
+004ca0f3  push     edi
+004ca0f4  mov      edi, dword ptr [esp + 0x14]
+004ca0f8  push     0x16bf
+004ca0fd  push     edi
+
+=== 0x4d8680 ===
+004d8680  add      byte ptr [eax], al
+004d8682  xor      ecx, ecx
+004d8684  push     0xff
+004d8689  call     0x49ac30
+004d868e  jmp      0x4d8731
+004d8693  push     0x64
+004d8695  mov      ecx, esi
+004d8697  call     0x4a33f0
+004d869c  mov      ax, word ptr [edi + 8]
+004d86a0  cmp      al, 0xc8
+004d86a2  jae      0x4d86c2
+004d86a4  and      eax, 0xff
+004d86a9  push     0xff
+004d86ae  mov      ecx, eax
+004d86b0  shl      ecx, 5
+004d86b3  sub      ecx, eax
+004d86b5  add      ecx, 0x51eb88
+004d86bb  call     0x49ac00
+004d86c0  jmp      0x4d8731
+004d86c2  xor      ecx, ecx
+004d86c4  push     0xff
+004d86c9  call     0x49ac00
+004d86ce  jmp      0x4d8731
+004d86d0  call     0x4d87f0
+004d86d5  call     0x4d87b0
+004d86da  call     0x4d8830
+004d86df  jmp      0x4d8731
+004d86e1  push     0x12c
+004d86e6  mov      ecx, esi
+004d86e8  call     0x4a33f0
+004d86ed  call     0x45a6d0
+004d86f2  jmp      0x4d8731
+004d86f4  push     0x1f4
+004d86f9  mov      ecx, esi
+004d86fb  call     0x4a33f0
+004d8700  push     ebx
+004d8701  mov      ecx, esi
+004d8703  call     0x49aba0
+004d8708  push     0xff
+004d870d  mov      ecx, esi
+004d870f  call     0x49ac00
+004d8714  call     0x4d87b0
+004d8719  call     0x4d8830
+004d871e  jmp      0x4d8731
+004d8720  push     0x1f4
+004d8725  mov      ecx, esi
+004d8727  call     0x4a33f0
+004d872c  call     0x4d8860
+004d8731  push     0xff
+004d8736  mov      ecx, 0x516610
+004d873b  mov      word ptr [edi], 0xffff

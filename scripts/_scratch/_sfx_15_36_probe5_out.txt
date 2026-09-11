@@ -1,0 +1,392 @@
+﻿=== 0x466290 ===
+0x466290: mov eax, dword ptr [0x514808]
+0x466295: push esi
+0x466296: test eax, eax
+0x466298: je 0x4662e6
+0x46629a: mov ecx, 0x514760
+0x46629f: call 0x4ee470
+0x4662a4: mov si, word ptr [esp + 8]
+0x4662a9: mov ax, word ptr [0x514835]
+0x4662af: movsx ecx, si
+0x4662b2: movsx edx, ax
+0x4662b5: sub edx, ecx
+0x4662b7: test edx, edx
+0x4662b9: jg 0x4662be
+0x4662bb: mov si, ax
+0x4662be: mov cx, word ptr [0x514804]
+0x4662c5: test cx, cx
+0x4662c8: je 0x4662d0
+0x4662ca: cmp cx, 5
+0x4662ce: jne 0x466339
+0x4662d0: mov ecx, dword ptr [0x514829]
+0x4662d6: sub ax, si
+0x4662d9: push eax
+0x4662da: call 0x49a630
+0x4662df: mov ax, si
+0x4662e2: pop esi
+0x4662e3: ret 4
+0x4662e6: mov ecx, 0x5148e0
+0x4662eb: call 0x4ee470
+0x4662f0: mov si, word ptr [esp + 8]
+0x4662f5: mov ax, word ptr [0x514995]
+0x4662fb: movsx ecx, si
+0x4662fe: movsx edx, ax
+0x466301: sub edx, ecx
+0x466303: test edx, edx
+0x466305: jg 0x46630a
+0x466307: mov si, ax
+0x46630a: mov ecx, dword ptr [0x514810]
+0x466310: test ecx, ecx
+0x466312: je 0x46632a
+0x466314: mov ecx, dword ptr [0x5147fc]
+0x46631a: sub ax, si
+0x46631d: push eax
+0x46631e: call 0x49a630
+0x466323: mov ax, si
+0x466326: pop esi
+0x466327: ret 4
+
+=== 0x466340 ===
+0x466340: push ebx
+0x466341: push esi
+0x466342: push edi
+0x466343: mov ecx, 0x526c50
+0x466348: call 0x4edfa0
+0x46634d: push 0x1b
+0x46634f: call 0x4997c0
+0x466354: mov ebx, dword ptr [esp + 0x14]
+0x466358: add esp, 4
+0x46635b: movsx edi, bx
+0x46635e: xor esi, esi
+0x466360: test edi, edi
+0x466362: jle 0x4663a2
+0x466364: mov eax, dword ptr [0x514808]
+0x466369: test eax, eax
+0x46636b: je 0x46637b
+0x46636d: dec word ptr [0x514835]
+0x466374: mov ecx, 0x5147d2
+0x466379: jmp 0x466387
+0x46637b: dec word ptr [0x514995]
+0x466382: mov ecx, 0x514952
+0x466387: call 0x46d0c0
+0x46638c: push 1
+0x46638e: call 0x4a0c20
+0x466393: add esp, 4
+0x466396: inc esi
+0x466397: mov eax, esi
+0x466399: and eax, 0xffff
+0x46639e: cmp eax, edi
+0x4663a0: jl 0x466364
+0x4663a2: call 0x499800
+0x4663a7: push 2
+0x4663a9: call 0x4a0c20
+0x4663ae: add esp, 4
+0x4663b1: mov ecx, 0x526c50
+0x4663b6: call 0x4edf70
+
+=== wider context 0x46af00..0x46b160 ===
+0x46af00: add al, 0x81
+0x46af02: rcr eax, 0x50
+0x46af05: push eax
+0x46af06: add byte ptr [ecx - 0x18], dl
+0x46af09: adc edi, esi
+0x46af0b: add byte ptr [eax], al
+0x46af0d: add esp, 0xc
+0x46af10: dec esi
+0x46af11: jne 0x46aec8
+0x46af13: push 0x505380
+0x46af18: push 0
+0x46af1a: push 0x1e
+0x46af1c: call 0x47b2b0
+0x46af21: add esp, 0xc
+0x46af24: call 0x499800
+0x46af29: mov dx, di
+0x46af2c: shr dx, 3
+0x46af30: push edx
+0x46af31: call 0x4ebd60
+0x46af36: shr di, 2
+0x46af3a: add eax, edi
+0x46af3c: add esp, 4
+0x46af3f: movsx eax, ax
+0x46af42: movsx ecx, bp
+0x46af45: sub eax, ecx
+0x46af47: mov cx, word ptr [0x5149a4]
+0x46af4e: xor edx, edx
+0x46af50: test eax, eax
+0x46af52: setle dl
+0x46af55: dec edx
+0x46af56: shl cx, 1
+0x46af59: and eax, edx
+0x46af5b: add ecx, 3
+0x46af5e: jmp 0x46afe5
+0x46af63: add esi, 0xc
+0x46af66: push esi
+0x46af67: call 0x4ebd60
+0x46af6c: add esp, 4
+0x46af6f: test ax, ax
+0x46af72: jne 0x46af95
+0x46af74: push 0
+0x46af76: push 0
+0x46af78: push 2
+0x46af7a: mov ecx, 0x5143e0
+0x46af7f: call 0x46bc00 <<<
+0x46af84: push 1
+0x46af86: mov ecx, ebx
+0x46af88: call 0x469e90
+0x46af8d: pop edi
+0x46af8e: pop esi
+0x46af8f: pop ebp
+0x46af90: pop ebx
+0x46af91: pop ecx
+0x46af92: ret 4
+0x46af95: and edi, 0xffff
+0x46af9b: mov eax, 0x66666667
+0x46afa0: imul edi
+0x46afa2: sar edx, 2
+0x46afa5: mov eax, edx
+0x46afa7: shr eax, 0x1f
+0x46afaa: add edx, eax
+0x46afac: push edx
+0x46afad: call 0x4ebd60
+0x46afb2: mov cx, ax
+0x46afb5: mov eax, 0x66666667
+0x46afba: imul edi
+0x46afbc: sar edx, 1
+0x46afbe: mov eax, edx
+0x46afc0: add esp, 4
+0x46afc3: shr eax, 0x1f
+0x46afc6: add edx, eax
+0x46afc8: add ecx, edx
+0x46afca: xor edx, edx
+0x46afcc: movsx eax, cx
+0x46afcf: movsx ecx, bp
+0x46afd2: sub eax, ecx
+0x46afd4: mov cx, word ptr [0x5149a4]
+0x46afdb: test eax, eax
+0x46afdd: setle dl
+0x46afe0: dec edx
+0x46afe1: and eax, edx
+0x46afe3: inc cx
+0x46afe5: imul ecx, eax
+0x46afe8: push ecx
+0x46afe9: mov ecx, 0x5147f8
+0x46afee: call 0x466290 <<<
+0x46aff3: mov esi, eax
+0x46aff5: push 1
+0x46aff7: push esi
+0x46aff8: push 2
+0x46affa: jmp 0x46b096
+0x46afff: add esi, 8
+0x46b002: push esi
+0x46b003: call 0x4ebd60
+0x46b008: add esp, 4
+0x46b00b: test ax, ax
+0x46b00e: jne 0x46b031
+0x46b010: push 0
+0x46b012: push 0
+0x46b014: push 1
+0x46b016: mov ecx, 0x5143e0
+0x46b01b: call 0x46bc00 <<<
+0x46b020: push 1
+0x46b022: mov ecx, ebx
+0x46b024: call 0x469e90
+0x46b029: pop edi
+0x46b02a: pop esi
+0x46b02b: pop ebp
+0x46b02c: pop ebx
+0x46b02d: pop ecx
+0x46b02e: ret 4
+0x46b031: and edi, 0xffff
+0x46b037: mov eax, 0x66666667
+0x46b03c: imul edi
+0x46b03e: sar edx, 3
+0x46b041: mov eax, edx
+0x46b043: shr eax, 0x1f
+0x46b046: add edx, eax
+0x46b048: push edx
+0x46b049: call 0x4ebd60
+0x46b04e: mov cx, ax
+0x46b051: mov eax, 0x66666667
+0x46b056: imul edi
+0x46b058: mov ebp, dword ptr [esp + 0x14]
+0x46b05c: add esp, 4
+0x46b05f: sar edx, 2
+0x46b062: mov eax, edx
+0x46b064: shr eax, 0x1f
+0x46b067: add edx, eax
+0x46b069: xor eax, eax
+0x46b06b: sub edx, ebp
+0x46b06d: add ecx, edx
+0x46b06f: test cx, cx
+0x46b072: setle al
+0x46b075: dec eax
+0x46b076: and eax, ecx
+0x46b078: mov cx, word ptr [0x5149a4]
+0x46b07f: inc cx
+0x46b081: imul ecx, eax
+0x46b084: push ecx
+0x46b085: mov ecx, 0x5147f8
+0x46b08a: call 0x466290 <<<
+0x46b08f: mov esi, eax
+0x46b091: push 1
+0x46b093: push esi
+0x46b094: push 1
+0x46b096: mov ecx, 0x5143e0
+0x46b09b: call 0x46bc00 <<<
+0x46b0a0: push esi
+0x46b0a1: mov ecx, 0x5147f8
+0x46b0a6: call 0x466340
+0x46b0ab: pop edi
+0x46b0ac: pop esi
+0x46b0ad: pop ebp
+0x46b0ae: pop ebx
+0x46b0af: pop ecx
+0x46b0b0: ret 4
+0x46b0b3: and edi, 0xffff
+0x46b0b9: mov eax, 0x66666667
+0x46b0be: imul edi
+0x46b0c0: sar edx, 2
+0x46b0c3: mov eax, edx
+0x46b0c5: shr eax, 0x1f
+0x46b0c8: add edx, eax
+0x46b0ca: push edx
+0x46b0cb: call 0x4ebd60
+0x46b0d0: mov ecx, dword ptr [esp + 0x14]
+0x46b0d4: mov dx, word ptr [0x5149a4]
+0x46b0db: sub eax, ecx
+0x46b0dd: add esp, 4
+0x46b0e0: xor ecx, ecx
+0x46b0e2: test ax, ax
+0x46b0e5: setle cl
+0x46b0e8: dec ecx
+0x46b0e9: and eax, ecx
+0x46b0eb: inc dx
+0x46b0ed: imul edx, eax
+0x46b0f0: push edx
+0x46b0f1: mov ecx, 0x5147f8
+0x46b0f6: call 0x466290 <<<
+0x46b0fb: mov edi, eax
+0x46b0fd: lea eax, [esi + esi]
+0x46b100: mov ecx, 0xe
+0x46b105: sub ecx, eax
+0x46b107: push ecx
+0x46b108: call 0x4ebd60
+0x46b10d: add esp, 4
+0x46b110: test ax, ax
+0x46b113: jne 0x46b13c
+0x46b115: test di, di
+0x46b118: je 0x46b13c
+0x46b11a: push 1
+0x46b11c: push edi
+0x46b11d: push 0
+0x46b11f: mov ecx, 0x5143e0
+0x46b124: call 0x46bc00 <<<
+0x46b129: push edi
+0x46b12a: mov ecx, 0x5147f8
+0x46b12f: call 0x466340
+0x46b134: pop edi
+0x46b135: pop esi
+0x46b136: pop ebp
+0x46b137: pop ebx
+0x46b138: pop ecx
+0x46b139: ret 4
+0x46b13c: push 0
+0x46b13e: push 0
+0x46b140: push 0
+0x46b142: mov ecx, 0x5143e0
+0x46b147: call 0x46bc00 <<<
+0x46b14c: push 0
+0x46b14e: mov ecx, ebx
+0x46b150: call 0x469e90
+0x46b155: pop edi
+0x46b156: pop esi
+0x46b157: pop ebp
+0x46b158: pop ebx
+0x46b159: pop ecx
+0x46b15a: ret 4
+0x46b15d: lea ecx, [ecx]
+
+=== byte-table heuristic (runs of SFX-range bytes incl 15 or 36) ===
+candidate runs: 980
+  0x400075 len=11 data=[13, 13, 10, 36, 0, 0, 0, 0, 0, 0, 0]
+  0x4000c5 len=8 data=[0, 15, 1, 11, 1, 5, 10, 0]
+  0x40105a len=6 data=[36, 8, 4, 2, 0, 0]
+  0x4010cb len=6 data=[36, 24, 5, 0, 0, 0]
+  0x40111b len=6 data=[36, 24, 3, 0, 0, 0]
+  0x4011a5 len=6 data=[36, 36, 2, 0, 0, 0]
+  0x401258 len=5 data=[14, 2, 0, 0, 15]
+  0x40129b len=6 data=[36, 24, 4, 0, 0, 0]
+  0x4014dc len=6 data=[36, 12, 10, 2, 0, 0]
+  0x40156b len=6 data=[36, 24, 4, 0, 0, 0]
+  0x401589 len=5 data=[14, 2, 0, 0, 15]
+  0x4016ae len=6 data=[36, 24, 0, 0, 0, 0]
+  0x402893 len=6 data=[36, 28, 0, 0, 0, 0]
+  0x4031e3 len=4 data=[36, 20, 32, 3]
+  0x403242 len=6 data=[36, 24, 1, 0, 0, 0]
+  0x40412e len=4 data=[15, 22, 0, 0]
+  0x404e01 len=6 data=[36, 16, 6, 0, 0, 0]
+  0x405291 len=4 data=[27, 36, 0, 0]
+  0x405c68 len=4 data=[36, 3, 0, 0]
+  0x405e70 len=4 data=[12, 36, 0, 0]
+  0x4077b4 len=6 data=[36, 16, 0, 0, 0, 0]
+  0x4077c5 len=6 data=[36, 28, 16, 0, 0, 0]
+  0x4077ed len=6 data=[36, 16, 1, 0, 0, 0]
+  0x408408 len=6 data=[36, 16, 0, 0, 0, 0]
+  0x409089 len=4 data=[36, 8, 10, 15]
+  0x409f5f len=4 data=[15, 25, 0, 0]
+  0x40a6ed len=4 data=[15, 30, 9, 0]
+  0x40b0ed len=4 data=[15, 1, 0, 0]
+  0x40bee2 len=4 data=[36, 25, 0, 0]
+  0x40c784 len=6 data=[36, 32, 0, 0, 0, 0]
+  0x40c7cc len=6 data=[36, 16, 0, 0, 0, 0]
+  0x40caaa len=4 data=[36, 28, 24, 15]
+  0x40d414 len=4 data=[24, 36, 9, 0]
+  0x40e800 len=4 data=[28, 36, 9, 0]
+  0x40fa19 len=4 data=[36, 8, 10, 15]
+  0x40fa27 len=4 data=[36, 12, 13, 15]
+  0x4108f3 len=4 data=[36, 26, 0, 0]
+  0x41258b len=4 data=[1, 15, 9, 0]
+  0x41286d len=4 data=[36, 8, 10, 15]
+  0x41287b len=4 data=[36, 12, 13, 15]
+
+=== word-table heuristic ===
+candidate word runs: 99
+  0x502810 n=30 data=[0, 0, 0, 0, 6, 7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16]
+  0x502812 n=29 data=[0, 0, 0, 6, 7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17]
+  0x502814 n=28 data=[0, 0, 6, 7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17, 19]
+  0x502816 n=27 data=[0, 6, 7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17, 19, 21]
+  0x502818 n=26 data=[6, 7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30]
+  0x50281a n=25 data=[7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30, 35]
+  0x50281c n=24 data=[8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30, 35, 37]
+  0x50281e n=23 data=[14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30, 35, 37]
+  0x502820 n=22 data=[15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30, 35, 37]
+  0x5028e2 n=33 data=[0, 0, 0, 1, 1, 0, 0, 6, 7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23]
+  0x5028e4 n=32 data=[0, 0, 1, 1, 0, 0, 6, 7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23]
+  0x5028e6 n=31 data=[0, 1, 1, 0, 0, 6, 7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13]
+  0x5028e8 n=30 data=[1, 1, 0, 0, 6, 7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16]
+  0x5028ea n=29 data=[1, 0, 0, 6, 7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17]
+  0x5028ec n=28 data=[0, 0, 6, 7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17, 19]
+  0x5028ee n=27 data=[0, 6, 7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17, 19, 21]
+  0x5028f0 n=26 data=[6, 7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30]
+  0x5028f2 n=25 data=[7, 8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30, 35]
+  0x5028f4 n=24 data=[8, 14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30, 35, 37]
+  0x5028f6 n=23 data=[14, 15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30, 35, 37]
+  0x5028f8 n=22 data=[15, 22, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30, 35, 37]
+  0x5029ba n=26 data=[0, 0, 0, 6, 7, 8, 14, 15, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 13, 16, 17, 19, 21]
+  0x5029bc n=25 data=[0, 0, 6, 7, 8, 14, 15, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30]
+  0x5029be n=24 data=[0, 6, 7, 8, 14, 15, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30, 37]
+  0x5029c0 n=23 data=[6, 7, 8, 14, 15, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30, 37]
+  0x5029c2 n=22 data=[7, 8, 14, 15, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30, 37]
+  0x5029c4 n=21 data=[8, 14, 15, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30, 37]
+  0x5029c6 n=20 data=[14, 15, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30, 37]
+  0x5029c8 n=19 data=[15, 22, 22, 22, 9, 10, 12, 20, 23, 23, 23, 23, 13, 16, 17, 19, 21, 30, 37]
+  0x502bcc n=14 data=[0, 0, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 0, 0]
+
+=== mov [mem], 15 or 36 (C6/C7 patterns via disasm of code denser regions) ===
+mov byte [abs], 15: [] n=0
+mov dword [abs], 15: [] n=0
+mov byte [abs], 36: [] n=0
+mov dword [abs], 36: [(4566362, '0x5152fc')] n=1
+
+=== direct calls to play_inner 0x499740 ===
+count 1 ['0x4997f2']

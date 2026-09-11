@@ -6,3 +6,9 @@ Godot_v4.7.1/
 # 编辑器 app_userdata 日志 / 驱动运行时垃圾（非工程内容，运行时生成）
 Godot/
 NVIDIA Corporation/
+
+# Python 缓存与日志
+__pycache__/
+*.pyc
+*.log
+_hd6_run.log

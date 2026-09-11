@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-生成 HD-2D 占位图（不调 ImageGen，零积分）。
+生成占位图（不调 ImageGen，零积分）。
 
 太阁2 复刻的美术（695 张武将立绘 / 16 张单位 sprite / 地形材质等）尚未批量生成，
 本项目用程序生成的「中性占位图」顶上，使所有引用美术的位置都能渲染，不阻塞复刻。
 真实美术就位后，直接按同名文件替换 assets/sprites/{portraits,units,chips}/ 下对应图即可。
 
-输出（均为 RGBA PNG，透明背景便于 HD-2D billboard）：
+输出（均为 RGBA PNG，透明背景）：
   assets/sprites/portraits/placeholder_portrait.png  512x640  武将立绘占位
   assets/sprites/units/placeholder_unit.png          256x256  单位 sprite 占位
   assets/sprites/chips/placeholder_chip.png           32x32   地形/UI 小图占位
@@ -149,35 +149,6 @@ def make_chip():
     return im
 
 
-# 16 种地形材质调色板 —— 与 src/battle/Terrain3DBuilder.gd 的 COLOR_BY_TYPE 保持一致
-# （顺序 = Terrain3DBuilder.TERRAIN_ORDER；?8~?C 为依邻接统计推定的临河地物，待逆向确认）
-TERRAIN_ORDER = [
-    "空", "平地", "荒地", "草地", "森林", "河流", "山地", "桥",
-    "?8", "?9", "?A", "?B", "?C", "城", "阵", "?F",
-]
-TERRAIN_PALETTE = {
-    "空":   (26, 31, 46),     "平地": (107, 133, 71),
-    "荒地": (143, 122, 77),   "草地": (82, 148, 66),
-    "森林": (41, 97, 41),     "河流": (46, 97, 158),
-    "山地": (112, 102, 87),   "桥":   (128, 97, 61),
-    "?8":   (158, 143, 107),  "?9":   (173, 158, 117),
-    "?A":   (87, 107, 77),    "?B":   (102, 122, 71),
-    "?C":   (41, 77, 102),    "城":   (148, 133, 112),
-    "阵":   (158, 71, 56),    "?F":   (115, 115, 115),
-}
-
-
-def make_terrain_chip(rgb):
-    """32x32 地形材质占位：纯色块 + 内暗边，便于肉眼区分 16 种。"""
-    w = h = 32
-    im = Img(w, h, rgb + (255,))
-    r, g, b = rgb
-    dark = (int(r * 0.62), int(g * 0.62), int(b * 0.62), 255)
-    im.fill_rect(0, 0, w, 2, dark)
-    im.fill_rect(0, h - 2, w, h, dark)
-    im.fill_rect(0, 0, 2, h, dark)
-    im.fill_rect(w - 2, 0, w, h, dark)
-    return im
 
 
 def main():
@@ -187,16 +158,7 @@ def main():
     make_unit().write(os.path.join(OUT_DIRS["units"], "placeholder_unit.png"))
     make_chip().write(os.path.join(OUT_DIRS["chips"], "placeholder_chip.png"))
 
-    # 16 种地形材质占位 chip（terrain_00..15）+ 索引映射
-    assert len(TERRAIN_ORDER) == 16, "地形材质须为 16 种"
-    for i, name in enumerate(TERRAIN_ORDER):
-        make_terrain_chip(TERRAIN_PALETTE[name]).write(
-            os.path.join(OUT_DIRS["chips"], "terrain_%02d.png" % i))
-    with open(os.path.join(OUT_DIRS["chips"], "terrain_index.json"), "w", encoding="utf-8") as f:
-        json.dump({str(i): n for i, n in enumerate(TERRAIN_ORDER)}, f,
-                  ensure_ascii=False, indent=2)
-
-    print("[ok] 占位图已生成（立绘 512x640 / 单位 256x256 / chip 32x32 / 地形材质 16 种）:")
+    print("[ok] 占位图已生成（立绘 512x640 / 单位 256x256 / chip 32x32）:")
     for name, d in OUT_DIRS.items():
         print("     %s -> %s" % (name, d))
 

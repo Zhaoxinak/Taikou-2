@@ -3,13 +3,13 @@ extends Control
 ##
 ## 设施：商店（买/卖物品，接 economy.item_buy/sell_price）/ 宿屋（休養，接 _gs().rest）/
 ##       道場（修行 10 技能，接 _gs().train_skill）/ 医館（买薬，接 shop.medicine_*）/
-##       出る（返回大地图，由 world_screen 注入 callback_exit）。
+##       出る（关闭城下町，由调用方注入 callback_exit）。
 ## 全部走 GameState 已验证的纯逻辑（shop_buy/shop_sell/rest/train_skill/buy_medicine/use_medicine），
 ## 本脚本只做布局与事件转发，不持有玩法状态。
 ##
 ## ⚠️ 诚实未接：① 卖价用 item_value/2 简化（原版 treasure_sell_quote 含 progress，本期未接）；
 ##   ② 各设施内对话/事件流（品茶/鉴定/铁炮打工/试合/忍里修业/30日修行/学做生意 + 闇商人 0x460890）
-##      属 UI/对话驱动层，留待后续；③ 美术为极简 UI 控件，HD-2D 升级待 HD-6。
+##      属 UI/对话驱动层，留待后续；③ 美术为极简 UI 控件。
 
 const UiTheme = preload("res://src/ui/UiTheme.gd")
 const UiPanel = preload("res://src/ui/UiPanel.gd")
@@ -20,7 +20,7 @@ const EconomyRef = preload("res://src/core/economy.gd")
 const ShopRef = preload("res://src/core/shop.gd")
 
 var castle_id: int = -1
-var callback_exit: Callable = Callable()   # world_screen 注入：关闭本 UI 回到大地图
+var callback_exit: Callable = Callable()   # 调用方注入：关闭本 UI 时回调
 
 var _panel: Control
 var _body: VBoxContainer

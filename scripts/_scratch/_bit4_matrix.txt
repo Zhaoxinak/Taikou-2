@@ -1,0 +1,144 @@
+=== bit4 setter call args ===
+  00409a90 arg=0
+  0040a5ef arg=0
+  0040c8ff arg=0
+  0041015c arg=0
+  00412609 arg=0
+  004a7092 arg=0
+  004ca0e1 arg=?
+
+=== bit3 setter call args ===
+  00409a84 arg=0
+  0040a5e3 arg=0
+  0040c908 arg=0
+  00410150 arg=0
+  004125fd arg=0
+  004a7089 arg=0
+  004b4136 arg=1
+  004b42f0 arg=?
+  004b44e2 arg=1
+  004ca0d2 arg=eax
+  004d8703 arg=?
+
+=== test [reg+0x1c],0x10 sites ===
+
+-- 004c92d3 --
+  004c92b7  add      al, 0x50
+  004c92b9  call     0x47b160
+  004c92be  add      esp, 4
+  004c92c1  push     1
+  004c92c3  call     0x4705b0
+  004c92c8  add      esp, 4
+  004c92cb  test     eax, eax
+  004c92cd  je       0x4c93df
+>>004c92d3  test     byte ptr [ebp + 0x1c], 0x10
+  004c92d7  je       0x4c92f5
+  004c92d9  push     0x16e8
+    MSG 0x16e8=今天的作业已经结束了。
+  004c92de  call     0x493500
+  004c92e3  add      esp, 4
+  004c92e6  push     eax
+  004c92e7  call     0x47b160
+  004c92ec  add      esp, 4
+  004c92ef  pop      edi
+  004c92f0  pop      esi
+  004c92f1  pop      ebp
+  004c92f2  pop      ebx
+  004c92f3  pop      ecx
+  004c92f4  ret      
+  004c92f5  xor      eax, eax
+  004c92f7  mov      al, byte ptr [ebp + 0x1e]
+  004c92fa  mov      edi, eax
+  004c92fc  push     edi
+  004c92fd  call     0x4c93f0
+  004c9302  add      esp, 4
+  004c9305  cmp      word ptr [esi + 6], 0
+  004c930a  je       0x4c933a
+  004c930c  push     0xd9d
+    MSG 0xd9d=作业进展如何？
+  004c9311  push     ebx
+
+=== nearby MSG for bit4 clear wrapper 0x4ca0e1 ===
+
+=== matrix imm write catalog ===
+
+## A
+  00401800 [('reg', 'edx'), ('reg', 'edi'), ('reg', 'esi')]
+  004030c3 [('reg', 'edx'), ('reg', 'edi'), ('reg', 'esi')]
+  004095a1 [('reg', 'edx'), ('imm', 0), ('imm', 0)]
+  00409664 [('imm', 65535), ('reg', 'esi'), ('reg', 'edi')]
+  0040a31c [('reg', 'eax'), ('imm', 0), ('imm', 0)]
+  0040a3e1 [('reg', 'ebp'), ('imm', 0), ('imm', 1)]
+  0040a48b [('reg', 'edx'), ('imm', 0), ('imm', 0)]
+  00410aa9 [('reg', 'eax'), ('reg', 'esi'), ('imm', 0)]
+  00410afe [('imm', 65535), ('reg', 'esi'), ('reg', 'edi')]
+  004193f3 [('imm', 17), ('imm', 0), ('imm', 0)]
+  004194a2 [('reg', 'edx'), ('imm', 0), ('reg', 'edi')]
+  0041d3cf [('imm', 65535), ('reg', 'ebp'), ('reg', 'ebx')]
+  0041e9da [('imm', 65535), ('reg', 'edi'), ('reg', 'ebp')]
+  0043422d [('imm', 65535), ('reg', 'edi'), ('reg', 'esi')]
+  00434252 [('reg', 'edx'), ('imm', 0), ('imm', 0)]
+  00482f2f []
+  00482f9a [('reg', 'edx'), ('reg', 'edx'), ('reg', 'eax')]
+  004a119b [('imm', 65535), ('reg', 'esi'), ('reg', 'edi')]
+  004b75eb [('reg', 'edx'), ('reg', 'esi'), ('reg', 'esi')]
+  004b7617 [('reg', 'edx'), ('imm', 0), ('imm', 0)]
+  004b7827 [('reg', 'edx'), ('imm', 0), ('reg', 'edx')]
+  004b78b4 [('reg', 'edx'), ('imm', 0), ('reg', 'edi')]
+  004b793f [('reg', 'esi'), ('imm', 0), ('reg', 'edi')]
+  004b79f8 [('reg', 'edx'), ('imm', 0), ('reg', 'edi')]
+  004b7b6f [('reg', 'edx'), ('reg', 'ecx'), ('reg', 'edx')]
+  004b7d7b [('reg', 'edx'), ('reg', 'ecx'), ('reg', 'edi')]
+  004b7e60 [('reg', 'eax'), ('imm', 0), ('reg', 'edi')]
+  004b7e70 [('reg', 'ebx'), ('imm', 0), ('imm', 4)]
+  004b885a [('imm', 65535), ('reg', 'esi'), ('reg', 'edi')]
+  004b88cb [('reg', 'edx'), ('reg', 'ebx'), ('reg', 'ebx')]
+  004ea690 [('imm', 65535), ('reg', 'edi'), ('reg', 'ebp')]
+
+## B
+  0040180b [('imm', 1), ('reg', 'edi'), ('reg', 'esi')]
+  0040232a [('reg', 'eax'), ('reg', 'esi'), ('reg', 'ebp')]
+  004030d2 [('imm', 1), ('reg', 'edi'), ('reg', 'esi')]
+  00403357 [('reg', 'esi'), ('reg', 'ebp'), ('reg', 'eax')]
+  004033ae [('reg', 'eax'), ('reg', 'esi'), ('reg', 'edi')]
+  0040934c [('imm', 0), ('imm', 0), ('imm', 0)]
+  004095b1 [('imm', 2000), ('imm', 0), ('imm', 0)]
+  0040966f [('imm', 0), ('reg', 'esi'), ('reg', 'edi')]
+  0040a347 [('reg', 'esi'), ('imm', 0), ('imm', 0)]
+  0040a3f4 [('imm', 2000), ('imm', 0), ('imm', 1)]
+  0040a49e [('imm', 2000), ('imm', 0), ('imm', 0)]
+  00410ac4 [('reg', 'eax'), ('reg', 'esi'), ('imm', 0)]
+  00410b0c [('imm', 0), ('reg', 'esi'), ('reg', 'edi')]
+  00433154 [('reg', 'eax'), ('reg', 'ebp'), ('reg', 'esi')]
+  00434238 [('imm', 0), ('reg', 'edi'), ('reg', 'esi')]
+  00434292 [('reg', 'esi'), ('reg', 'edi'), ('imm', 0)]
+  004a11a6 []
+  004b8868 [('reg', 'ebx'), ('reg', 'esi'), ('reg', 'edi')]
+  004b8a0f [('reg', 'esi'), ('reg', 'edi'), ('reg', 'ebx')]
+
+## C
+  00401816 [('imm', 0), ('reg', 'edi'), ('reg', 'esi')]
+  004030e1 [('imm', 0), ('reg', 'edi'), ('reg', 'esi')]
+  004095be [('imm', 0), ('imm', 0), ('imm', 0)]
+  0040967a [('imm', 0), ('reg', 'esi'), ('reg', 'edi')]
+  0040a357 []
+  0040a404 [('imm', 0), ('imm', 0), ('imm', 1)]
+  0040a4ae [('imm', 2), ('imm', 0), ('imm', 0)]
+  00410adf [('reg', 'eax'), ('reg', 'esi'), ('imm', 0)]
+  00410b1a [('imm', 0), ('reg', 'esi'), ('reg', 'edi')]
+  004342a3 [('imm', 0), ('reg', 'edi'), ('reg', 'esi')]
+  004b8876 [('reg', 'ebx'), ('reg', 'esi'), ('reg', 'edi')]
+  004b8a23 [('imm', 0), ('reg', 'edi'), ('reg', 'ebx')]
+  004b8a77 [('reg', 'eax'), ('reg', 'edi'), ('reg', 'ebx')]
+
+=== bit3 SET site MSG confirm ===
+  0xdb2: 好消息！如果顺利的话，%u日后就可完工了。
+  0xdb3: 是吗。那么就照这样好好干吧。
+  0xdc0: 那么立即开始筑城。
+  0x16e8: 今天的作业已经结束了。
+
+=== bit2 UI strings ===
+  0x504778: '内政' hex=c4dad5fe000000000a000900
+  0x50d764: '军备' hex=befcb1b800000000a3ada3ad
+  0x50d6a0: '○' hex=a1f00000a1a10000befccaa6
+  0x50d6a4: '\u3000' hex=a1a10000befccaa6000000b2

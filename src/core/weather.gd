@@ -126,7 +126,7 @@ func weather_name() -> String:
 	return "?"
 
 
-## HD-3 表现层预设映射：Hd2DEnvironment 支持「晴/雨/雪/雾/夜」，无「曇」档 → 回落「晴」
+## 表现层预设映射：晴/曇→晴、雨、雪（供战斗场景天气表现使用）
 const PRESENTATION_KIND : Array[String] = ["晴", "晴", "雨", "雪"]
 
 func presentation_kind() -> String:

@@ -1,0 +1,127 @@
+﻿total 75
+imm covered (0..38): [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 33, 38]
+imm site count: 70
+indirect: 5
+fail: 0
+
+======================================================================
+IND call@0x422a17  push@0x422a12  arg=ebx
+    0x4229e5: push eax
+    0x4229e6: call 0x41ef50
+    0x4229eb: add esp, 4
+    0x4229ee: mov edi, esi
+    0x4229f0: mov ecx, 0x526c50
+    0x4229f5: call 0x4ee0a0
+    0x4229fa: test eax, eax
+    0x4229fc: jne 0x422a12
+    0x4229fe: mov ecx, 0x526c50
+    0x422a03: call 0x4ee0d0
+    0x422a08: test eax, eax
+    0x422a0a: jne 0x422a12
+    0x422a0c: cmp dword ptr [esp + 0x10], ebx
+    0x422a10: je 0x422a8e
+ * 0x422a12: push ebx
+    0x422a13: mov dword ptr [esp + 0x14], ebx
+>>> 0x422a17: call 0x4997c0
+    0x422a1c: add esp, 4
+    0x422a1f: call 0x499810
+======================================================================
+IND call@0x44edd4  push@0x44edd3  arg=ecx
+    0x44eda0: mov ecx, 0x524d50
+    0x44eda5: call 0x4b0ad0
+    0x44edaa: mov word ptr [0x5205fe], di
+    0x44edb1: xor ebp, ebp
+    0x44edb3: xor edi, edi
+    0x44edb5: call 0x4f2061
+    0x44edba: mov ebx, eax
+    0x44edbc: call 0x499810
+    0x44edc1: test eax, eax
+    0x44edc3: jne 0x44eddc
+    0x44edc5: mov edx, dword ptr [esp + 0x2c]
+    0x44edc9: xor ecx, ecx
+    0x44edcb: test edx, edx
+    0x44edcd: setne cl
+    0x44edd0: add ecx, 0x22
+ * 0x44edd3: push ecx
+>>> 0x44edd4: call 0x4997c0
+    0x44edd9: add esp, 4
+    0x44eddc: mov ecx, 0x526c50
+======================================================================
+IND call@0x46bd3c  push@0x46bd3b  arg=ebp
+    0x46bd11: call 0x4663f0
+    0x46bd16: add esp, 0x10
+    0x46bd19: cmp word ptr [esp + 0x18], 0
+    0x46bd1f: je 0x46bd2c
+    0x46bd21: push 0
+    0x46bd23: push 0
+    0x46bd25: push 1
+    0x46bd27: jmp 0x46be0c
+    0x46bd2c: push edi
+    0x46bd2d: push ebx
+    0x46bd2e: push 1
+    0x46bd30: push 0
+    0x46bd32: push 0
+    0x46bd34: mov ecx, esi
+    0x46bd36: call 0x46baa0
+ * 0x46bd3b: push ebp
+>>> 0x46bd3c: call 0x4997c0
+    0x46bd41: mov eax, dword ptr [esp + 0x20]
+    0x46bd45: add esp, 4
+======================================================================
+IND call@0x46bdc3  push@0x46bdc2  arg=ebp
+    0x46bd9d: push 0x14
+    0x46bd9f: push 7
+    0x46bda1: push 6
+    0x46bda3: push 0
+    0x46bda5: call 0x46ba20
+    0x46bdaa: push 0x14
+    0x46bdac: push 8
+    0x46bdae: jmp 0x46be46
+    0x46bdb3: push edi
+    0x46bdb4: push ebx
+    0x46bdb5: push 1
+    0x46bdb7: push 0
+    0x46bdb9: push 0
+    0x46bdbb: mov ecx, esi
+    0x46bdbd: call 0x46baa0
+ * 0x46bdc2: push ebp
+>>> 0x46bdc3: call 0x4997c0
+    0x46bdc8: mov ecx, dword ptr [esp + 0x20]
+    0x46bdcc: add esp, 4
+======================================================================
+IND call@0x46be37  push@0x46be36  arg=ebp
+    0x46be10: mov ecx, esi
+    0x46be12: call 0x46baa0
+    0x46be17: push 0x11
+    0x46be19: call 0x4997c0
+    0x46be1e: add esp, 4
+    0x46be21: push 0x14
+    0x46be23: push 7
+    0x46be25: jmp 0x46be46
+    0x46be27: push edi
+    0x46be28: push ebx
+    0x46be29: push 1
+    0x46be2b: push 0
+    0x46be2d: push 0
+    0x46be2f: mov ecx, esi
+    0x46be31: call 0x46baa0
+ * 0x46be36: push ebp
+>>> 0x46be37: call 0x4997c0
+    0x46be3c: mov edx, dword ptr [esp + 0x20]
+    0x46be40: add esp, 4
+
+
+FAILS:
+
+15 sites: []
+36 sites: []
+
+=== global imm byte scan ===
+push 15 (6A 0F) count=105
+  within 0x30 before play_sfx: [('0x421f8e', '0x421fba')]
+push 36 (6A 24) count=21
+  within 0x30 before play_sfx: []
+
+=== mov-imm 15/36 in 0x80 window before each call ===
+mov *, 15: []
+mov *, 36: []

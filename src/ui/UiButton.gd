@@ -1,5 +1,5 @@
 extends Control
-## HD-5 自绘按钮：不依赖 Godot 默认 Theme，外观由 _draw() 全权绘制。
+## 自绘按钮：不依赖 Godot 默认 Theme，外观由 _draw() 全权绘制。
 ## ⚠️ 不用 class_name（无头模式不建类缓存），引用方 preload 本脚本。
 
 const UiTheme = preload("res://src/ui/UiTheme.gd")

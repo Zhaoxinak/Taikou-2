@@ -1,5 +1,5 @@
 extends Control
-## HD-5 自绘文本：多行（\n）文本由 _draw() 自行排版，不依赖 Godot 默认 Label/Theme。
+## 自绘文本：多行（\n）文本由 _draw() 自行排版，不依赖 Godot 默认 Label/Theme。
 ## ⚠️ 不用 class_name（无头模式不建类缓存），引用方 preload 本脚本。
 ##
 ## 保留 `text` 属性名，便于平替原 Godot `Label`（状态画面的 _info / _stat 即如此替换）。

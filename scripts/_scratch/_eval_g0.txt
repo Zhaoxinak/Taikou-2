@@ -1,0 +1,448 @@
+lea? @0x49798d disp=0x50b6b8
+
+=== near 0x50b6b8 ===
+00497950  push     ecx
+00497951  push     edi
+00497952  call     0x43ef20
+00497957  add      esp, 0xc
+0049795a  pop      edi
+0049795b  pop      esi
+0049795c  pop      ebp
+0049795d  pop      ebx
+0049795e  ret      
+0049795f  cmp      bx, 4
+00497963  jb       0x49799f
+00497965  mov      ax, word ptr [ebp + 6]
+00497969  cmp      ax, 0x3e8
+0049796d  jae      0x497973
+0049796f  xor      esi, esi
+00497971  jmp      0x49797c
+00497973  cmp      ax, 0x2710
+00497977  sbb      esi, esi
+00497979  add      esi, 2
+0049797c  push     5
+0049797e  mov      ecx, edi
+00497980  call     0x4b1270
+00497985  and      esi, 0xffff
+0049798b  mov      ecx, edi
+0049798d  lea      eax, [esi + esi*8 + 0x50b6b8]
+00497994  push     eax
+00497995  call     0x4b16d0
+0049799a  pop      edi
+0049799b  pop      esi
+0049799c  pop      ebp
+0049799d  pop      ebx
+0049799e  ret      
+0049799f  neg      esi
+004979a1  sbb      esi, esi
+004979a3  push     2
+004979a5  and      esi, 0x7ffc
+004979ab  add      esi, 4
+004979ae  push     esi
+004979af  push     edi
+
+=== parent head 497a00 ===
+00497a00  push     eax
+00497a01  add      byte ptr [ebx - 0x63381731], cl
+00497a07  add      dword ptr [eax], eax
+00497a09  pop      edi
+00497a0a  pop      esi
+00497a0b  pop      ebx
+00497a0c  ret      
+00497a0d  xor      esi, esi
+00497a0f  and      ebx, 0xffff
+00497a15  jle      0x497a2b
+00497a17  push     0x50405c
+00497a1c  mov      ecx, edi
+00497a1e  call     0x4b16d0
+00497a23  inc      esi
+00497a24  movsx    ecx, si
+00497a27  cmp      ecx, ebx
+00497a29  jl       0x497a17
+00497a2b  pop      edi
+00497a2c  pop      esi
+00497a2d  pop      ebx
+00497a2e  ret      
+00497a2f  nop      
+00497a30  push     ebx
+00497a31  push     ebp
+00497a32  mov      ebp, dword ptr [esp + 0x14]
+00497a36  push     esi
+00497a37  push     edi
+00497a38  mov      edi, dword ptr [esp + 0x14]
+00497a3c  mov      al, byte ptr [ebp + 0xf]
+00497a3f  xor      bx, bx
+00497a42  shr      al, 4
+00497a45  and      al, 7
+00497a47  push     0
+00497a49  mov      ecx, edi
+00497a4b  mov      bl, al
+00497a4d  call     0x4b1270
+00497a52  mov      esi, dword ptr [esp + 0x28]
+00497a56  test     esi, esi
+00497a58  je       0x497a72
+00497a5a  mov      ecx, dword ptr [esp + 0x24]
+00497a5e  mov      edx, 0x128
+00497a63  shl      ecx, 6
+00497a66  sub      edx, ecx
+00497a68  mov      ecx, edi
+00497a6a  push     edx
+00497a6b  call     0x4b11e0
+00497a70  jmp      0x497a95
+00497a72  test     byte ptr [esp + 0x24], 4
+00497a77  je       0x497a82
+00497a79  push     2
+00497a7b  mov      ecx, edi
+00497a7d  call     0x4b1270
+00497a82  push     0x50b860
+00497a87  push     0x70
+00497a89  push     0x80
+00497a8e  mov      ecx, edi
+00497a90  call     0x4b1700
+00497a95  mov      eax, dword ptr [esp + 0x20]
+00497a99  test     eax, eax
+00497a9b  je       0x497aca
+00497a9d  test     esi, esi
+00497a9f  mov      ecx, 0x50b844
+00497aa4  jne      0x497aab
+00497aa6  mov      ecx, 0x50b858
+00497aab  mov      edx, dword ptr [esp + 0x18]
+00497aaf  xor      eax, eax
+00497ab1  mov      ax, word ptr [edx + 0x14]
+00497ab5  lea      eax, [eax + eax*4]
+00497ab8  shl      eax, 1
+00497aba  push     eax
+00497abb  push     ecx
+00497abc  push     edi
+00497abd  call     0x43ef20
+00497ac2  add      esp, 0xc
+00497ac5  pop      edi
+00497ac6  pop      esi
+00497ac7  pop      ebp
+00497ac8  pop      ebx
+00497ac9  ret      
+00497aca  cmp      bx, 6
+00497ace  jb       0x497af9
+00497ad0  test     esi, esi
+00497ad2  mov      ecx, 0x50b844
+00497ad7  jne      0x497ade
+00497ad9  mov      ecx, 0x50b858
+00497ade  xor      eax, eax
+00497ae0  mov      ax, word ptr [ebp + 8]
+00497ae4  lea      edx, [eax + eax*4]
+00497ae7  shl      edx, 1
+00497ae9  push     edx
+00497aea  push     ecx
+00497aeb  push     edi
+00497aec  call     0x43ef20
+00497af1  add      esp, 0xc
+00497af4  pop      edi
+00497af5  pop      esi
+00497af6  pop      ebp
+00497af7  pop      ebx
+00497af8  ret      
+00497af9  cmp      bx, 4
+00497afd  jb       0x497b39
+
+=== 497a80 ===
+00497a80  add      dword ptr [eax], eax
+00497a82  push     0x50b860
+00497a87  push     0x70
+00497a89  push     0x80
+00497a8e  mov      ecx, edi
+00497a90  call     0x4b1700
+00497a95  mov      eax, dword ptr [esp + 0x20]
+00497a99  test     eax, eax
+00497a9b  je       0x497aca
+00497a9d  test     esi, esi
+00497a9f  mov      ecx, 0x50b844
+00497aa4  jne      0x497aab
+00497aa6  mov      ecx, 0x50b858
+00497aab  mov      edx, dword ptr [esp + 0x18]
+00497aaf  xor      eax, eax
+00497ab1  mov      ax, word ptr [edx + 0x14]
+00497ab5  lea      eax, [eax + eax*4]
+00497ab8  shl      eax, 1
+00497aba  push     eax
+00497abb  push     ecx
+00497abc  push     edi
+00497abd  call     0x43ef20
+00497ac2  add      esp, 0xc
+00497ac5  pop      edi
+00497ac6  pop      esi
+00497ac7  pop      ebp
+00497ac8  pop      ebx
+00497ac9  ret      
+00497aca  cmp      bx, 6
+00497ace  jb       0x497af9
+00497ad0  test     esi, esi
+00497ad2  mov      ecx, 0x50b844
+00497ad7  jne      0x497ade
+00497ad9  mov      ecx, 0x50b858
+00497ade  xor      eax, eax
+00497ae0  mov      ax, word ptr [ebp + 8]
+00497ae4  lea      edx, [eax + eax*4]
+00497ae7  shl      edx, 1
+00497ae9  push     edx
+00497aea  push     ecx
+00497aeb  push     edi
+00497aec  call     0x43ef20
+00497af1  add      esp, 0xc
+00497af4  pop      edi
+00497af5  pop      esi
+00497af6  pop      ebp
+00497af7  pop      ebx
+00497af8  ret      
+00497af9  cmp      bx, 4
+00497afd  jb       0x497b39
+
+=== 497900 ===
+00497900  sal      byte ptr [ebp + ebp - 0x7b], 0xf6
+00497905  mov      ecx, 0x50b844
+0049790a  jne      0x497911
+0049790c  mov      ecx, 0x50b83c
+00497911  mov      edx, dword ptr [esp + 0x18]
+00497915  xor      eax, eax
+00497917  mov      ax, word ptr [edx + 0x12]
+0049791b  lea      eax, [eax + eax*4]
+0049791e  shl      eax, 1
+00497920  push     eax
+00497921  push     ecx
+00497922  push     edi
+00497923  call     0x43ef20
+00497928  add      esp, 0xc
+0049792b  pop      edi
+0049792c  pop      esi
+0049792d  pop      ebp
+0049792e  pop      ebx
+0049792f  ret      
+00497930  cmp      bx, 6
+00497934  jb       0x49795f
+00497936  test     esi, esi
+00497938  mov      ecx, 0x50b844
+0049793d  jne      0x497944
+0049793f  mov      ecx, 0x50b83c
+00497944  xor      eax, eax
+00497946  mov      ax, word ptr [ebp + 6]
+0049794a  lea      edx, [eax + eax*4]
+0049794d  shl      edx, 1
+0049794f  push     edx
+00497950  push     ecx
+00497951  push     edi
+00497952  call     0x43ef20
+00497957  add      esp, 0xc
+0049795a  pop      edi
+0049795b  pop      esi
+0049795c  pop      ebp
+0049795d  pop      ebx
+0049795e  ret      
+0049795f  cmp      bx, 4
+00497963  jb       0x49799f
+00497965  mov      ax, word ptr [ebp + 6]
+00497969  cmp      ax, 0x3e8
+0049796d  jae      0x497973
+0049796f  xor      esi, esi
+00497971  jmp      0x49797c
+00497973  cmp      ax, 0x2710
+00497977  sbb      esi, esi
+00497979  add      esi, 2
+0049797c  push     5
+0049797e  mov      ecx, edi
+00497980  call     0x4b1270
+00497985  and      esi, 0xffff
+0049798b  mov      ecx, edi
+0049798d  lea      eax, [esi + esi*8 + 0x50b6b8]
+00497994  push     eax
+00497995  call     0x4b16d0
+0049799a  pop      edi
+0049799b  pop      esi
+0049799c  pop      ebp
+0049799d  pop      ebx
+0049799e  ret      
+0049799f  neg      esi
+004979a1  sbb      esi, esi
+004979a3  push     2
+004979a5  and      esi, 0x7ffc
+004979ab  add      esi, 4
+004979ae  push     esi
+004979af  push     edi
+004979b0  call     0x4979c0
+004979b5  add      esp, 0xc
+004979b8  pop      edi
+004979b9  pop      esi
+004979ba  pop      ebp
+004979bb  pop      ebx
+004979bc  ret      
+004979bd  nop      
+004979be  nop      
+004979bf  nop      
+004979c0  push     ebx
+004979c1  push     esi
+004979c2  push     edi
+004979c3  mov      edi, dword ptr [esp + 0x10]
+004979c7  push     5
+004979c9  mov      ecx, edi
+004979cb  call     0x4b1270
+004979d0  mov      ebx, dword ptr [esp + 0x14]
+004979d4  cmp      bx, 0x8000
+004979d9  jne      0x497a0d
+004979db  mov      ebx, dword ptr [esp + 0x18]
+004979df  xor      esi, esi
+004979e1  and      ebx, 0xffff
+004979e7  jle      0x4979fd
+004979e9  push     0x5038d0
+004979ee  mov      ecx, edi
+004979f0  call     0x4b16d0
+004979f5  inc      esi
+004979f6  movsx    eax, si
+004979f9  cmp      eax, ebx
+004979fb  jl       0x4979e9
+
+=== 49bde0 support? ===
+0049bde0  movzx    ax, byte ptr [ecx + 1]
+0049bde5  ret      
+0049bde6  nop      
+0049bde7  nop      
+0049bde8  nop      
+0049bde9  nop      
+0049bdea  nop      
+0049bdeb  nop      
+0049bdec  nop      
+0049bded  nop      
+0049bdee  nop      
+0049bdef  nop      
+0049bdf0  mov      ax, word ptr [ecx + 2]
+0049bdf4  ret      
+0049bdf5  nop      
+0049bdf6  nop      
+0049bdf7  nop      
+0049bdf8  nop      
+0049bdf9  nop      
+0049bdfa  nop      
+0049bdfb  nop      
+0049bdfc  nop      
+0049bdfd  nop      
+0049bdfe  nop      
+0049bdff  nop      
+0049be00  mov      ax, word ptr [ecx + 4]
+0049be04  ret      
+0049be05  nop      
+0049be06  nop      
+0049be07  nop      
+0049be08  nop      
+0049be09  nop      
+0049be0a  nop      
+0049be0b  nop      
+0049be0c  nop      
+0049be0d  nop      
+0049be0e  nop      
+0049be0f  nop      
+0049be10  mov      eax, dword ptr [esp + 4]
+0049be14  cmp      ax, 0x64
+0049be18  jb       0x49be1f
+0049be1a  mov      eax, 0x64
+
+=== 49bdf0 horse? ===
+0049bdf0  mov      ax, word ptr [ecx + 2]
+0049bdf4  ret      
+0049bdf5  nop      
+0049bdf6  nop      
+0049bdf7  nop      
+0049bdf8  nop      
+0049bdf9  nop      
+0049bdfa  nop      
+0049bdfb  nop      
+0049bdfc  nop      
+0049bdfd  nop      
+0049bdfe  nop      
+0049bdff  nop      
+0049be00  mov      ax, word ptr [ecx + 4]
+0049be04  ret      
+0049be05  nop      
+0049be06  nop      
+0049be07  nop      
+0049be08  nop      
+0049be09  nop      
+0049be0a  nop      
+0049be0b  nop      
+0049be0c  nop      
+0049be0d  nop      
+0049be0e  nop      
+0049be0f  nop      
+0049be10  mov      eax, dword ptr [esp + 4]
+0049be14  cmp      ax, 0x64
+0049be18  jb       0x49be1f
+0049be1a  mov      eax, 0x64
+0049be1f  mov      byte ptr [ecx], al
+0049be21  ret      4
+0049be24  nop      
+0049be25  nop      
+0049be26  nop      
+0049be27  nop      
+0049be28  nop      
+0049be29  nop      
+0049be2a  nop      
+0049be2b  nop      
+0049be2c  nop      
+0049be2d  nop      
+0049be2e  nop      
+0049be2f  nop      
+
+=== 49be00 gun? ===
+0049be00  mov      ax, word ptr [ecx + 4]
+0049be04  ret      
+0049be05  nop      
+0049be06  nop      
+0049be07  nop      
+0049be08  nop      
+0049be09  nop      
+0049be0a  nop      
+0049be0b  nop      
+0049be0c  nop      
+0049be0d  nop      
+0049be0e  nop      
+0049be0f  nop      
+0049be10  mov      eax, dword ptr [esp + 4]
+0049be14  cmp      ax, 0x64
+0049be18  jb       0x49be1f
+0049be1a  mov      eax, 0x64
+0049be1f  mov      byte ptr [ecx], al
+0049be21  ret      4
+0049be24  nop      
+0049be25  nop      
+0049be26  nop      
+0049be27  nop      
+0049be28  nop      
+0049be29  nop      
+0049be2a  nop      
+0049be2b  nop      
+0049be2c  nop      
+0049be2d  nop      
+0049be2e  nop      
+0049be2f  nop      
+0049be30  mov      eax, dword ptr [esp + 4]
+0049be34  cmp      ax, 0x64
+0049be38  jb       0x49be3f
+0049be3a  mov      eax, 0x64
+
+calls into wrapper region:
+  0x497a30: 1 ['0x497785']
+  0x497b60: 1 ['0x4977a5']
+  0x497c70: 1 ['0x4977c5']
+  0x497da0: 1 ['0x4977e5']
+  0x497ed0: 1 ['0x497805']
+  0x497fc0: 1 ['0x497825']
+  0x498100: 1 ['0x497845']
+  0x498220: 1 ['0x497865']
+  0x498320: 1 ['0x497885']
+
+=== raw G0 slots ===
+  0x50b6ba: '缺乏  ' c8b1b7a62020002020
+  0x50b6c3: '丰富  ' b7e1b8bb2020002020
+  0x50b6cc: '富强  ' b8bbc7bf2020002020
+  alt 0x50b6b8: '  缺乏  ' 2020c8b1b7a6202000
+  alt 0x50b6c1: '  丰富  ' 2020b7e1b8bb202000
+  alt 0x50b6ca: '  富强  ' 2020b8bbc7bf202000
+pat b8b65000: ['0x497990']
+pat bab65000: []
+pat bcb65000: []

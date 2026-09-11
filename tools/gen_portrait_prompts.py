@@ -881,7 +881,7 @@ BUILD_POOL = [
     "average athletic build",
 ]
 
-TAIL = ("Octopath Traveler HD-2D aesthetic, soft rim lighting, warm amber color palette, "
+TAIL = ("soft cinematic lighting, warm amber color palette, "
         "detailed armor texture and fabric folds, sharp clean pixel edges, "
         "dramatic cinematic lighting, game character portrait")
 

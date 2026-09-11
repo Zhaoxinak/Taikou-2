@@ -72,10 +72,10 @@
 | `scripts/_scratch/` | 一次性探针/旧实验脚本（283 项，gitignore，非接口） |
 | `scripts/_草稿/` | 早期草稿脚本（21 项） |
 | `scripts/_decoded_kos/` | 39 个已解码音效 WAV（**权威**） |
-| `scripts/_decoded_grp/` | **13** 个 GRP 解码 PNG（640×400；作 HD-2D 背景板参考，旧记 31 有误） |
+| `scripts/_decoded_grp/` | **13** 个 GRP 解码 PNG（640×400；作背景板参考，旧记 31 有误） |
 | `project.godot` | Godot 4.7.1 复刻工程配置（autoload: `DisplayAdapter`/`GameData`；`main_scene=res://scenes/main.tscn`） |
-| `src/` | **Godot 游戏代码（GDScript）**：`core/`(纯逻辑+单例,无 Node) · `data/`(运行时数据层) · `world/`(大地图/城下町) · `battle/`(合战 HD-2D) · `ui/`(HUD/菜单) |
-| `scenes/` | **组合场景**：`main.tscn`(标题启动入口) + `screens/`(world/battle 占位) |
+| `src/` | **Godot 游戏代码（GDScript）**：`core/`(纯逻辑+单例,无 Node) · `data/`(运行时数据层) · `battle/`(合战) · `ui/`(画面/城下町) · `render/`(渲染) |
+| `scenes/` | **组合场景**：`main.tscn`(标题启动入口) + `screens/`(battle 占位) |
 | `assets/` | **全部导入资源（按类型）**：`fonts/` · `audio/{sfx,bgm}` · `sprites/{portraits,units,chips}` · `environments/` · `samples/`(gitignore) |
 | `scripts/` | ⚠️ **逆向 / 数据导出工具（Python，非游戏代码）**：180 个 `*_ref.py` 自检依赖扁平布局 + 同目录 import，**切勿移动或改名**（详见 `scripts/README.md`） |
 | `tools/` | 离线构建产物（`portrait_prompts.json` 等） |
@@ -97,12 +97,11 @@
 │   │   ├── officer.gd              #   武将数据模型（47B 语义映射）
 │   │   └── game_data.gd            #   autoload：载入 data/*.json 只读访问
 │   ├── data/                      # 运行时数据层（loader）
-│   ├── world/                     # 大地图 / 城下町 / 修行
-│   ├── battle/                    # 合战 HD-2D：terrain_3d_builder / unit_sprite / hd2d_environment
+│   ├── battle/                    # 合战：battle_sim / battle_flow / battle_screen
 │   └── ui/                        # HUD / 菜单 / 对话
 ├── scenes/                        # 组合场景
 │   ├── main.tscn                  # 标题启动入口（★ 工程启动点）
-│   └── screens/                   # title_screen / world_screen / battle_screen（占位）
+│   └── screens/                   # title_screen / battle_screen
 ├── assets/                        # 全部导入资源（按类型）
 │   ├── fonts/                     # 思源黑体(开) + msyh/simhei(gitignore)
 │   ├── audio/{sfx,bgm}/           # 39 解码 wav + BGM
@@ -151,7 +150,7 @@ Godot_v4.7.1\Godot_v4.7.1-stable_win64_console.exe --headless --check-only --scr
 
 > **非图像已 100% 收口，零真敞口。** SPEC 文档内现存 🔶/❓ **全部**为「emu 运行期语义增强」（某 bit 玩法命名、delta 精确值），
 > **非结构敞口、不阻塞复刻**——复刻按结构取字段、语义按设计自定即可。
-> 图像类**不再反向破解**，画面走 **HD-2D 重制**（2026-09-08 定），见 `docs/replication/HD2D高清重制方案.md`。
+> 图像类**不再反向破解**，直接使用原版素材与占位图；高清重建立绘路线已放弃（2026-09-12）。
 
 ---
 
