@@ -97,6 +97,7 @@ var diplomacy : RefCounted = DiplomacyRef.new()
 # —— HD-3 天气（0x43cfc0 简版逐月推进；0=晴 1=曇 2=雨 3=雪 + 湿润旗 wet）——
 # 复刻 word[0x513530] / dword[0x51352c]。雪国地域气候（tick_region）待国表气候字节导出后接线。
 var weather = WeatherRef.new()
+var _weather_tick_counter := 0      # 原版全局时钟 counter（每 4 点 tick 一次天气）
 
 # —— M7 事件解释器「效果执行层」（7 真实事件 id 的 MSGX 叙事发射 + outcome 记录）——
 var event_effects : RefCounted = EventEffectsRef.new()
@@ -170,6 +171,7 @@ func start_new_game(protagonist_id: int) -> bool:
 	event_flags.init_for_protagonist(pid)
 	# 天气重置（原版 word[0x513530] 开局为晴）
 	weather = WeatherRef.new()
+	_weather_tick_counter = 0
 	return true
 
 
@@ -266,6 +268,8 @@ func get_status() -> Dictionary:
 const MOVE_DAYS_PER_CELL := 1.0    # 每格移动天数（复刻原版）
 const SEA_STAMINA_FLOOR := 20      # 坐船体力下限（原版手册：降至 20 不再降）
 const PORT_DIST := 1.5             # 判定"在港町"的距离阈值（京畿城密，按距离找港而非最近城）
+const WEATHER_TICK_EVERY := 4      # 原版 counter%4==0 时天气 tick 一次（每月约 7 次）
+const MOVE_DAYS_BAD_WEATHER := 2   # 雨/雪天每格移动天数（原版「豪雨時機動力が鈍る」）
 
 ## 进入大地图（离开城到野外）
 func enter_world() -> void:
@@ -282,23 +286,30 @@ func enter_castle(cid: int) -> void:
 func leave_to_world() -> void:
 	current_castle = -1
 
-## 逐格移动主角（dx,dy ∈ {-1,0,1}），每格推进 1 天；返回新坐标
+## 当前天气下的每格移动天数：晴/阴 1 天；雨/雪 2 天（复刻「豪雨時機動力が鈍る」）
+func move_days_per_cell() -> int:
+	var w: int = weather.get_weather()
+	if w == WeatherRef.RAIN or w == WeatherRef.SNOW:
+		return MOVE_DAYS_BAD_WEATHER
+	return 1
+
+## 逐格移动主角（dx,dy ∈ {-1,0,1}），每格推进 move_days_per_cell() 天；返回新坐标
 func move_player(dx: int, dy: int) -> Vector2:
 	var ms := GameData.get_map_size()
 	var before := player_map_pos
 	player_map_pos = WorldMapRef.step(player_map_pos, float(dx), float(dy), ms.x, ms.y)
 	if player_map_pos != before:
-		advance_days(1)
+		advance_days(move_days_per_cell())
 	return player_map_pos
 
-## 朝目标位置走一步（点击自动移动，每步 1 格），推进 1 天；
+## 朝目标位置走一步（点击自动移动，每步 1 格），推进 move_days_per_cell() 天；
 ## 返回 true 表示已到达目标
 func move_player_towards(target: Vector2) -> bool:
 	var ms := GameData.get_map_size()
 	var before := player_map_pos
 	player_map_pos = WorldMapRef.move_towards(player_map_pos, target, ms.x, ms.y)
 	if player_map_pos != before:
-		advance_days(1)
+		advance_days(move_days_per_cell())
 	return player_map_pos.distance_to(target) <= 0.01
 
 ## 坐船：从当前最近港町前往 to_id 港町。
@@ -943,13 +954,20 @@ func force_event(eid: int, arg: int = 0) -> Dictionary:
 # =====================================================================
 # 时间推进
 # =====================================================================
-## 推进 n 天（自动跨月/跨年）；复刻 time_rollover 进位链（每月 30 天、12 月/年、无闰年）
+## 推进 n 天（自动跨月/跨年）；复刻 time_rollover 进位链（每月 30 天、12 月/年、无闰年）。
+## 天气：原版全局时钟 counter 每 +4 即 tick 一次天气（简版，随当前月份季节变化）。
 func advance_days(n: int) -> void:
 	var yoff: int = year - START_YEAR
 	var r: Array = CalendarRef.roll_days(n, day, month, yoff)
 	day = int(r[0])
 	month = int(r[1])
 	year = START_YEAR + int(r[2])
+	_weather_tick_counter += n
+	var ticks: int = _weather_tick_counter / WEATHER_TICK_EVERY
+	if ticks > 0:
+		_weather_tick_counter %= WEATHER_TICK_EVERY
+		for i in range(ticks):
+			weather.tick_simple(month)
 
 
 ## 推进 1 月：自然回体力 + 月份滚动（12 月 → 次年 1 月）；复刻 time_rollover 进位链

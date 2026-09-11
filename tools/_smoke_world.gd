@@ -50,5 +50,22 @@ func _tick() -> void:
 				print("  到达=", _gs.player_map_pos, " 最近城=", _gs.nearest_castle(), " (期望160)")
 			_phase = 3
 		3:
+			# 城町一览表：打开 → 选一条 → 自动前往
+			_ws._town_list = true
+			_ws._build_town_list()
+			var n: int = _ws._tl_items.size()
+			print("PHASE3 城町一览表条目数=", n, " (期望 ≥92)")
+			if n > 0:
+				var row: Dictionary = _ws._tl_items[0]
+				print("  第1条=", row["name"], " id=", row["id"], " prov=", row["prov"])
+				_ws._tl_sel = 0
+				_ws._travel_to_selected_town()
+				print("  目标=", _ws._move_target, " 一览表已关=", not _ws._town_list)
+			_phase = 4
+		4:
+			if _ws._move_target == Vector2.INF:
+				print("PHASE4 一览表自动移动到达！位置=", _gs.player_map_pos, " 日期=", _gs.year, "/", _gs.month, "/", _gs.day)
+				_phase = 5
+		5:
 			print("SMOKE DONE")
 			quit(0)

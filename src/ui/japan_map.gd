@@ -73,3 +73,22 @@ static func polygons() -> Array:
 			pts.append(_proj(float(pt[0]), float(pt[1])))
 		out.append(pts)
 	return out
+
+
+## 知名山系（lat, lon, 名称）—— 大地图山形符号
+static func mountains() -> Array:
+	return [
+		[41.34, 141.06, "恐山"],
+		[39.09, 140.05, "鳥海"],
+		[37.75, 140.07, "磐梯"],
+		[36.62, 137.60, "立山"],
+		[36.16, 136.77, "白山"],
+		[35.36, 138.73, "富士"],
+		[33.28, 133.11, "石鎚"],
+		[32.88, 131.08, "阿蘇"],
+	]
+
+
+## 山 → 逻辑坐标
+static func mountain_pos(m: Array) -> Vector2:
+	return _proj(float(m[0]), float(m[1]))
