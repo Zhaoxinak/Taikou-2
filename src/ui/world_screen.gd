@@ -28,6 +28,7 @@ const HUD_BOTTOM := 56.0
 const MAP_VIEW := Rect2(0, HUD_TOP, 1920, 1080 - HUD_TOP - HUD_BOTTOM)
 const MOVE_TICK := 0.25            # 自动移动每格间隔（秒；雨雪天 ×1.6 变慢）
 const WALK_FRAME_TICK := 0.12      # 走路动画帧切换
+const CAM_ZOOM := 2.4              # 镜头聚焦倍率（全图 1280×960 → 3072×2304，视口看 20×15 格）
 
 # —— 季节陆地 / 海洋色调（原版大地图：绿陆蓝海，随季节微调）——
 const LAND_COLORS := [
@@ -60,6 +61,8 @@ var _castle_town: Control = null   # 城下町交互 UI（进城时挂载，离�
 
 var _move_target: Vector2 = Vector2.INF   # 点击自动移动目标（INF=未在移动）
 var _move_timer: float = 0.0
+var _cam := Vector2.ZERO            # 镜头左上角（全图屏幕像素坐标）
+var _cam_target := Vector2.ZERO
 var _walk_frame := 0
 var _walk_timer := 0.0
 var _face := Vector2(0, 1)               # 主角朝向（下=默认）
@@ -96,6 +99,7 @@ func _ready() -> void:
 	_build_town_list()
 	_update_nearest()
 	_refresh_hud()
+	_snap_cam()
 	queue_redraw()
 
 
@@ -215,6 +219,7 @@ func _move_speed() -> float:
 
 
 func _process(delta: float) -> void:
+	_update_cam(delta)
 	# 走路动画
 	if _move_target != Vector2.INF and _entered_castle < 0:
 		_walk_timer += delta
@@ -241,6 +246,35 @@ func _process(delta: float) -> void:
 		_move_target = Vector2.INF
 
 
+## 逻辑坐标 → 屏幕坐标（含镜头偏移与聚焦倍率）
+func _scr(ms: Vector2, lp: Vector2) -> Vector2:
+	return WorldMapRef.project(lp, ms.x, ms.y, MAP_VIEW) * CAM_ZOOM - _cam
+
+
+## 镜头平滑跟随玩家（原版相机逐格平移质感）
+func _update_cam(delta: float) -> void:
+	var ms := GameData.get_map_size()
+	var p: Vector2 = WorldMapRef.project(GameState.player_map_pos, ms.x, ms.y, MAP_VIEW) * CAM_ZOOM
+	var full_w: float = MAP_VIEW.size.x * CAM_ZOOM
+	var full_h: float = MAP_VIEW.size.y * CAM_ZOOM
+	_cam_target = Vector2(
+		clampf(p.x - MAP_VIEW.size.x / 2.0, 0, full_w - MAP_VIEW.size.x),
+		clampf(p.y - MAP_VIEW.size.y / 2.0, 0, full_h - MAP_VIEW.size.y))
+	_cam = _cam.lerp(_cam_target, minf(1.0, delta * 8.0))
+
+
+## 镜头瞬移到玩家（开局 / 乘船跨海后）
+func _snap_cam() -> void:
+	var ms := GameData.get_map_size()
+	var p: Vector2 = WorldMapRef.project(GameState.player_map_pos, ms.x, ms.y, MAP_VIEW) * CAM_ZOOM
+	var full_w: float = MAP_VIEW.size.x * CAM_ZOOM
+	var full_h: float = MAP_VIEW.size.y * CAM_ZOOM
+	_cam_target = Vector2(
+		clampf(p.x - MAP_VIEW.size.x / 2.0, 0, full_w - MAP_VIEW.size.x),
+		clampf(p.y - MAP_VIEW.size.y / 2.0, 0, full_h - MAP_VIEW.size.y))
+	_cam = _cam_target
+
+
 func _update_nearest() -> void:
 	_nearest_id = WorldMapRef.nearest(GameState.player_map_pos, GameData.get_castle_positions()) if GameData.has_castle_map() else -1
 
@@ -250,7 +284,7 @@ func _input(event: InputEvent) -> void:
 		accept_event()
 		if _entered_castle >= 0 or not _sea_menu.is_empty() or _town_list:
 			return
-		var target := WorldMapRef.unproject(event.position, GameData.get_map_size().x, GameData.get_map_size().y, MAP_VIEW)
+		var target := WorldMapRef.unproject((event.position + _cam) / CAM_ZOOM, GameData.get_map_size().x, GameData.get_map_size().y, MAP_VIEW)
 		target = WorldMapRef.clamp_pos(target, GameData.get_map_size().x, GameData.get_map_size().y)
 		_move_target = target
 		_move_timer = 0.0
@@ -380,6 +414,7 @@ func _travel_selected() -> void:
 		_sea_menu = []
 		_move_target = Vector2.INF
 		_update_nearest()
+		_snap_cam()
 	else:
 		_msg = "无法乘船：%s" % str(res.get("reason", ""))
 	_refresh_hud()
@@ -463,59 +498,70 @@ func _draw_sea(ms: Vector2) -> void:
 
 
 func _draw_japan_bg(ms: Vector2) -> void:
+	# 注：不做顶点裁剪（会破坏环完整性导致 triangulation failed），
+	# 整环绘制，视口外部分由 canvas 自动裁剪
 	var polys: Array = JapanMap.polygons()
 	var land: Color = LAND_COLORS[_season()]
 	for i in range(polys.size()):
 		var pts := polys[i] as PackedVector2Array
 		var scr := PackedVector2Array()
 		for p in pts:
-			scr.append(WorldMapRef.project(p, ms.x, ms.y, MAP_VIEW))
+			scr.append(_scr(ms, p))
 		draw_colored_polygon(scr, land)
-		draw_polyline(scr + PackedVector2Array([scr[0]]), LAND_EDGE, 1.5)
+		draw_polyline(scr + PackedVector2Array([scr[0]]), LAND_EDGE, 3.0)
 
 
 func _draw_roads(ms: Vector2) -> void:
+	var view := MAP_VIEW.grow(30)
 	for e in _roads:
-		var a: Vector2 = WorldMapRef.project(e[0], ms.x, ms.y, MAP_VIEW)
-		var b: Vector2 = WorldMapRef.project(e[1], ms.x, ms.y, MAP_VIEW)
-		draw_line(a, b, ROAD_COLOR, 1.5)
+		var a: Vector2 = _scr(ms, e[0])
+		var b: Vector2 = _scr(ms, e[1])
+		if not (view.has_point(a) or view.has_point(b)):
+			continue
+		draw_line(a, b, ROAD_COLOR, 3.0)
 
 
 func _draw_mountains(ms: Vector2) -> void:
 	var land_dark := Color(0.30, 0.24, 0.18, 1)
-	var land_light := Color(0.42, 0.33, 0.24, 1)
+	var view := MAP_VIEW.grow(40)
 	for m in JapanMap.mountains():
 		var lp: Vector2 = JapanMap.mountain_pos(m)
-		var sp: Vector2 = WorldMapRef.project(lp, ms.x, ms.y, MAP_VIEW)
-		var w: float = 11.0
-		var h: float = 13.0
+		var sp: Vector2 = _scr(ms, lp)
+		if not view.has_point(sp):
+			continue
+		var w: float = 19.0
+		var h: float = 22.0
 		draw_colored_polygon(PackedVector2Array([sp + Vector2(-w, h * 0.4), sp + Vector2(0, -h), sp + Vector2(w, h * 0.4)]), land_dark)
 		draw_colored_polygon(PackedVector2Array([sp + Vector2(-w, h * 0.4), sp + Vector2(0, -h), sp + Vector2(w, h * 0.4)]), Color(1, 1, 1, 0.22))
 
 
 func _draw_castles(ms: Vector2, positions: Dictionary) -> void:
 	var drawn_names: Array = []   # [Rect2] 已绘城名包围盒（避让用）
+	var view := MAP_VIEW.grow(60)
+	var font_sz: float = UiTheme.FONT_SMALL * 1.65
 	for id in positions.keys():
 		var lp: Vector2 = positions[id]
-		var sp: Vector2 = WorldMapRef.project(lp, ms.x, ms.y, MAP_VIEW)
+		var sp: Vector2 = _scr(ms, lp)
 		var near: bool = (id == _nearest_id)
 		var cid := int(id)
 		var has_town: bool = GameData.get_castle_has_town(cid)
 		var is_port: bool = GameData.is_port_city(cid)
+		if not view.has_point(sp):
+			continue
 		var col: Color
 		var size: float
 		if near:
 			col = NEAR_COLOR
-			size = 6.0
+			size = 10.0
 		elif is_port:
 			col = PORT_COLOR
-			size = 4.5
+			size = 8.0
 		elif has_town:
 			col = TOWN_COLOR
-			size = 4.5
+			size = 8.0
 		else:
 			col = MIL_COLOR
-			size = 2.5
+			size = 4.5
 		# 城点：町城/港町方块，军事城小点
 		if has_town or is_port or near:
 			draw_rect(Rect2(sp - Vector2(size, size), Vector2(size * 2, size * 2)), col)
@@ -524,11 +570,11 @@ func _draw_castles(ms: Vector2, positions: Dictionary) -> void:
 		# 城名：町城 / 港町 / 最近城（简单避让：右侧 → 上方 → 下方 → 跳过）
 		if near or has_town or is_port:
 			var cname: String = str(GameData.get_castle(cid).get("name", ""))
-			var name_w: float = float(cname.length()) * UiTheme.FONT_SMALL * 0.62
+			var name_w: float = float(cname.length()) * font_sz * 0.62
 			var cand := [
-				Rect2(sp + Vector2(size + 2, 4), Vector2(name_w, 20)),
-				Rect2(sp + Vector2(-name_w * 0.4, -size - 16), Vector2(name_w, 20)),
-				Rect2(sp + Vector2(-name_w * 0.4, size + 16), Vector2(name_w, 20)),
+				Rect2(sp + Vector2(size + 3, 8), Vector2(name_w, 34)),
+				Rect2(sp + Vector2(-name_w * 0.4, -size - 28), Vector2(name_w, 34)),
+				Rect2(sp + Vector2(-name_w * 0.4, size + 26), Vector2(name_w, 34)),
 			]
 			var placed := false
 			for cand_rect in cand:
@@ -538,29 +584,30 @@ func _draw_castles(ms: Vector2, positions: Dictionary) -> void:
 						clash = true
 						break
 				if not clash:
-					draw_string(UiTheme.font(), cand_rect.position + Vector2(0, 15), cname, HORIZONTAL_ALIGNMENT_LEFT, -1, UiTheme.FONT_SMALL, col)
+					draw_string(UiTheme.font(), cand_rect.position + Vector2(0, 27), cname, HORIZONTAL_ALIGNMENT_LEFT, -1, font_sz, col)
 					drawn_names.append(cand_rect)
 					placed = true
 					break
 			if not placed and near:
 				# 最近城必须显示：强制画在点上方并登记
-				var forced := Rect2(sp + Vector2(-name_w * 0.4, -size - 16), Vector2(name_w, 20))
-				draw_string(UiTheme.font(), forced.position + Vector2(0, 15), cname, HORIZONTAL_ALIGNMENT_LEFT, -1, UiTheme.FONT_SMALL, col)
+				var forced := Rect2(sp + Vector2(-name_w * 0.4, -size - 28), Vector2(name_w, 34))
+				draw_string(UiTheme.font(), forced.position + Vector2(0, 27), cname, HORIZONTAL_ALIGNMENT_LEFT, -1, font_sz, col)
 				drawn_names.append(forced)
 		# 港町锚标（小三角）
 		if is_port and not near:
 			draw_colored_polygon(PackedVector2Array([
-				sp + Vector2(0, 7), sp + Vector2(3, 12), sp + Vector2(-3, 12),
+				sp + Vector2(0, 12), sp + Vector2(5, 21), sp + Vector2(-5, 21),
 			]), PORT_COLOR)
 
 
 func _draw_player(ms: Vector2) -> void:
-	var psp: Vector2 = WorldMapRef.project(GameState.player_map_pos, ms.x, ms.y, MAP_VIEW)
+	var psp: Vector2 = _scr(ms, GameState.player_map_pos)
 	_draw_pixel_samurai(psp, _face, _walk_frame)
 
 
-## 像素武士小人（16×20 逻辑像素，4 朝向 + 2 走路帧）
+## 像素武士小人（16×20 逻辑像素，4 朝向 + 2 走路帧；随镜头放大）
 func _draw_pixel_samurai(center: Vector2, face: Vector2, frame: int) -> void:
+	draw_set_transform(center, 0.0, Vector2(CAM_ZOOM, CAM_ZOOM))
 	var skin := Color(0.92, 0.78, 0.62, 1)
 	var hair := Color(0.16, 0.13, 0.11, 1)
 	var robe := Color(0.20, 0.26, 0.36, 1)      # 藏青和服
@@ -584,6 +631,7 @@ func _draw_pixel_samurai(center: Vector2, face: Vector2, frame: int) -> void:
 		else:
 			draw_rect(Rect2(x + (1 if flip else 3), y + 14, 3, 5), pant)
 			draw_rect(Rect2(x + (9 if flip else 11), y + 14, 3, 5), pant)
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 		return
 	# 正面（下）/背面（上）
 	var back: bool = face.y < -0.1
@@ -600,6 +648,7 @@ func _draw_pixel_samurai(center: Vector2, face: Vector2, frame: int) -> void:
 	else:
 		draw_rect(Rect2(x + 1, y + 16, 4, 5), pant)
 		draw_rect(Rect2(x + 11, y + 16, 4, 5), pant)
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 
 
 func _draw_weather_fx(ms: Vector2) -> void:
