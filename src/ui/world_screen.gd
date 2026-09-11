@@ -29,7 +29,7 @@ const HUD_BOTTOM := 56.0
 const MAP_VIEW := Rect2(0, HUD_TOP, 1920, 1080 - HUD_TOP - HUD_BOTTOM)
 const MOVE_TICK := 0.25            # 自动移动每格间隔（秒；雨雪天 ×1.6 变慢）
 const WALK_FRAME_TICK := 0.12      # 走路动画帧切换
-const CAM_ZOOM := 7.0              # 镜头聚焦倍率（非常近：1 逻辑格=187px，视野约 10×5 格，原版行走感）
+const CAM_ZOOM := 3.0              # 区域视野（太阁5：约 16×9 格，可看 3–6 城，缩略图导航）
 
 # —— 季节陆地 / 海洋色调（原版大地图：绿陆蓝海，随季节微调）——
 const LAND_COLORS := [
@@ -46,15 +46,34 @@ const SEA_COLORS := [
 	Color(0.44, 0.58, 0.66, 1),   # 秋
 ]
 const SEA_RIPPLE := Color(1, 1, 1, 0.10)
-const ROAD_COLOR := Color(0.93, 0.90, 0.82, 0.6)
+const ROAD_COLOR := Color(0.78, 0.68, 0.50, 0.8)   # 太阁5 土路色
+# 动态细节（太阁5 手绘元素：树丛 / 建筑群 / 名山雪山）
+const FOREST_TREE_COL := [
+	Color(0.30, 0.38, 0.32), Color(0.28, 0.40, 0.22), Color(0.22, 0.32, 0.16), Color(0.34, 0.30, 0.18),
+]
+const FOREST_HL := Color(0.55, 0.68, 0.40, 0.7)
+const ROOF_COLS := [
+	Color(0.59, 0.31, 0.24), Color(0.43, 0.47, 0.59), Color(0.35, 0.37, 0.39), Color(0.55, 0.47, 0.31),
+]
 
-# 格子地形色
-const SEA_GRASS := Color(0.62, 0.72, 0.44, 1)     # 草地基色（春季，随季节调）
-const BEACH_COLOR := Color(0.84, 0.78, 0.60, 1)
-const MOUNT_BASE := Color(0.50, 0.46, 0.40, 1)
-const MOUNT_DARK := Color(0.35, 0.31, 0.26, 1)
+# 太阁5 手绘风底图色（季节）
+const LAND_GRASS := [
+	Color(0.58, 0.66, 0.58, 1),   # 冬 枯灰绿
+	Color(0.66, 0.74, 0.46, 1),   # 春 新绿
+	Color(0.52, 0.64, 0.36, 1),   # 夏 深绿
+	Color(0.66, 0.56, 0.34, 1),   # 秋 枯黄
+]
+const LAND_FOREST := [
+	Color(0.40, 0.48, 0.42, 1),
+	Color(0.40, 0.50, 0.30, 1),
+	Color(0.32, 0.42, 0.24, 1),
+	Color(0.46, 0.40, 0.26, 1),
+]
+const BEACH_COLOR := Color(0.87, 0.80, 0.62, 1)
 const SNOW_COLOR := Color(0.94, 0.95, 0.93, 1)
 const TOWN_STONE := Color(0.55, 0.52, 0.48, 1)
+const BG_SCALE := 10.0             # 底图放大倍率（256→2560 像素）
+const BG_FILES := ["winter", "spring", "summer", "autumn"]
 const ROOF_RED := Color(0.62, 0.22, 0.16, 1)
 const ROOF_BLUE := Color(0.24, 0.34, 0.52, 1)
 const ROOF_BROWN := Color(0.46, 0.34, 0.20, 1)
@@ -78,6 +97,9 @@ var _move_target: Vector2 = Vector2.INF   # 点击自动移动目标（INF=未�
 var _move_timer: float = 0.0
 var _cam := Vector2.ZERO            # 镜头左上角（全图屏幕像素坐标）
 var _cam_target := Vector2.ZERO
+var _bg_tex: ImageTexture = null   # 手绘风底图（季节缓存）
+var _bg_season := -1
+var _minimap_tex: ImageTexture = null
 var _walk_frame := 0
 var _walk_timer := 0.0
 var _face := Vector2(0, 1)               # 主角朝向（下=默认）
@@ -479,11 +501,12 @@ func _draw() -> void:
 	var ms := GameData.get_map_size()
 	var positions: Dictionary = GameData.get_castle_positions()
 	_draw_sea(ms)
-	_draw_terrain(ms)
+	_draw_bg(ms)
+	_draw_terrain_detail(ms)
 	_draw_roads(ms)
-	_draw_mountains(ms)
 	_draw_castles(ms, positions)
 	_draw_player(ms)
+	_draw_minimap(ms)
 	if not _sea_menu.is_empty():
 		_draw_sea_menu(ms)
 	if _town_list:
@@ -500,138 +523,196 @@ func _season() -> int:
 
 
 func _draw_sea(ms: Vector2) -> void:
-	# 海洋底色（原版蓝海）
-	var sea: Color = SEA_COLORS[_season()]
-	draw_rect(MAP_VIEW, sea)
-	# 波纹：几条水平淡线
-	var off: float = fmod(Time.get_ticks_msec() / 900.0, 36.0)
-	for i in range(22):
-		var y: float = MAP_VIEW.position.y + 40 + i * 44 + off
-		if y > MAP_VIEW.end.y - 20:
-			y = MAP_VIEW.position.y + 20 + i * 44 + off
-		draw_line(Vector2(MAP_VIEW.position.x, y), Vector2(MAP_VIEW.end.x, y), SEA_RIPPLE, 3.0)
+	## 断续波纹线（只画在海面，太阁5 波浪感）
+	var t: float = fmod(Time.get_ticks_msec() / 1400.0, 44.0)
+	for i in range(24):
+		var wy: float = MAP_VIEW.position.y + 26 + i * 40 + t
+		if wy > MAP_VIEW.end.y - 14:
+			continue
+		var xoff: float = fmod(float(i * 71), 110.0)
+		var x0 := -40.0 - xoff
+		while x0 < MAP_VIEW.size.x:
+			var x1 := x0 + 120.0 + fmod(float(i * 37), 60.0)
+			var a: bool = _px_is_sea(ms, Vector2(x0, wy))
+			var b: bool = _px_is_sea(ms, Vector2(x1, wy))
+			if a and b:
+				draw_line(Vector2(x0, wy), Vector2(x1, wy), Color(1, 1, 1, 0.13), 2.0)
+			x0 = x1 + 26.0 + fmod(float(i * 13), 34.0)
 
 
-func _draw_terrain(ms: Vector2) -> void:
-	## 逐格绘制可见区域（原版格子地形），细节随格子坐标确定性生成
+func _draw_bg(ms: Vector2) -> void:
+	## 贴图底图（太阁5 手绘风：平滑渐变陆地/山/森林/沙滩/城下町）
+	if _bg_tex == null or _bg_season != _season():
+		_build_bg_tex()
 	var s: float = minf(MAP_VIEW.size.x / ms.x, MAP_VIEW.size.y / ms.y)
 	var off := Vector2(
 		MAP_VIEW.position.x + (MAP_VIEW.size.x - ms.x * s) * 0.5,
 		MAP_VIEW.position.y + (MAP_VIEW.size.y - ms.y * s) * 0.5)
-	var cell_px: float = WorldTerrain.CELL * s * CAM_ZOOM
-	# 可见逻辑范围（扣除投影居中偏移 off）
+	var scale: float = float(_bg_tex.get_width()) / WorldTerrain.MAP_W
 	var lx0 := (_cam.x - off.x * CAM_ZOOM) / (s * CAM_ZOOM)
-	var lx1 := (_cam.x + MAP_VIEW.size.x - off.x * CAM_ZOOM) / (s * CAM_ZOOM)
 	var ly0 := (_cam.y - off.y * CAM_ZOOM) / (s * CAM_ZOOM)
-	var ly1 := (_cam.y + MAP_VIEW.size.y - off.y * CAM_ZOOM) / (s * CAM_ZOOM)
-	var gx0 := maxi(0, int(floor(lx0 / WorldTerrain.CELL)) - 1)
-	var gy0 := maxi(0, int(floor(ly0 / WorldTerrain.CELL)) - 1)
-	var gx1 := mini(WorldTerrain.GRID_W - 1, int(ceil(lx1 / WorldTerrain.CELL)) + 1)
-	var gy1 := mini(WorldTerrain.GRID_H - 1, int(ceil(ly1 / WorldTerrain.CELL)) + 1)
-	for gy in range(gy0, gy1 + 1):
-		for gx in range(gx0, gx1 + 1):
-			var t: int = WorldTerrain.at(gx, gy)
-			var sp: Vector2 = _scr(ms, Vector2(gx * WorldTerrain.CELL, gy * WorldTerrain.CELL))
-			var r := Rect2(sp, Vector2(cell_px, cell_px))
-			match t:
-				WorldTerrain.SEA:
-					pass   # 海底色与波纹已由 _draw_sea 全视口绘制
-				WorldTerrain.BEACH:
-					_draw_beach_cell(r, gx, gy)
-				WorldTerrain.GRASS:
-					_draw_grass_cell(r, gx, gy)
-				WorldTerrain.FOREST:
-					_draw_forest_cell(r, gx, gy)
-				WorldTerrain.MOUNT:
-					_draw_mount_cell(r, gx, gy)
-				WorldTerrain.TOWN:
-					_draw_town_cell(r, gx, gy)
+	var lw := MAP_VIEW.size.x / (s * CAM_ZOOM)
+	var lh := MAP_VIEW.size.y / (s * CAM_ZOOM)
+	var src := Rect2(lx0 * scale, ly0 * scale, lw * scale, lh * scale)
+	draw_texture_rect_region(_bg_tex, MAP_VIEW, src)
 
 
-func _season_grass() -> Color:
-	var base: Color = LAND_COLORS[_season()]
-	return Color(base.r * 0.92, base.g * 0.96, base.b * 0.88, 1)
+## 屏幕点（MAP_VIEW 内）是否为海（掩码采样）
+func _px_is_sea(ms: Vector2, sp: Vector2) -> bool:
+	var s: float = minf(MAP_VIEW.size.x / ms.x, MAP_VIEW.size.y / ms.y)
+	var off := Vector2(
+		MAP_VIEW.position.x + (MAP_VIEW.size.x - ms.x * s) * 0.5,
+		MAP_VIEW.position.y + (MAP_VIEW.size.y - ms.y * s) * 0.5)
+	var lx := ((sp.x + _cam.x) / CAM_ZOOM - off.x) / s
+	var ly := ((sp.y + _cam.y) / CAM_ZOOM - off.y) / s
+	return WorldTerrain.type_at(int(lx / WorldTerrain.CELL), int(ly / WorldTerrain.CELL)) == WorldTerrain.SEA
 
 
-func _season_forest() -> Color:
-	var base: Color = _season_grass()
-	return Color(base.r * 0.72, base.g * 0.80, base.b * 0.62, 1)
+func _build_bg_tex() -> void:
+	## 加载预生成太阁5 手绘风底图（scripts/gen_map_bg.py 产出 4 季 1280×960）
+	var seas := _season()
+	var f := FileAccess.open("res://assets/map_bg_%s.png" % BG_FILES[seas], FileAccess.READ)
+	if f == null:
+		return
+	var img := Image.new()
+	img.load_png_from_buffer(f.get_buffer(f.get_length()))
+	var small := img.duplicate()
+	small.resize(int(WorldTerrain.MAP_W * 2.75), int(WorldTerrain.MAP_H * 2.75), Image.INTERPOLATE_BILINEAR)  # 132×99
+	_minimap_tex = ImageTexture.create_from_image(small)
+	_bg_tex = ImageTexture.create_from_image(img)
+	_bg_season = seas
 
 
-func _draw_beach_cell(r: Rect2, gx: int, gy: int) -> void:
-	draw_rect(r, BEACH_COLOR)
-	var h := WorldTerrain._hash2(gx, gy, 3)
-	draw_line(r.position + Vector2(6, r.size.y * 0.62), r.position + Vector2(r.size.x - 6, r.size.y * 0.62), Color(1, 1, 1, 0.35), 2.0)
-	if h % 2 == 0:
-		draw_line(r.position + Vector2(6, r.size.y * 0.78), r.position + Vector2(r.size.x - 6, r.size.y * 0.78), Color(1, 1, 1, 0.25), 2.0)
+## 底图像素颜色（手绘风：海渐变 / 山体明暗 / 草地起伏 / 森林斑块 / 沙滩 / 城下町）
+func _draw_terrain_detail(ms: Vector2) -> void:
+	## 太阁5 手绘细节：森林树丛 / 城下町建筑群 / 名山雪山（屏幕分辨率绘制，清晰）
+	var s: float = minf(MAP_VIEW.size.x / ms.x, MAP_VIEW.size.y / ms.y)
+	var off := Vector2(
+		MAP_VIEW.position.x + (MAP_VIEW.size.x - ms.x * s) * 0.5,
+		MAP_VIEW.position.y + (MAP_VIEW.size.y - ms.y * s) * 0.5)
+	var lx0 := (_cam.x - off.x * CAM_ZOOM) / (s * CAM_ZOOM)
+	var ly0 := (_cam.y - off.y * CAM_ZOOM) / (s * CAM_ZOOM)
+	var lw := MAP_VIEW.size.x / (s * CAM_ZOOM)
+	var lh := MAP_VIEW.size.y / (s * CAM_ZOOM)
+	var rx0 := int(lx0 / WorldTerrain.CELL) - 1
+	var ry0 := int(ly0 / WorldTerrain.CELL) - 1
+	var rx1 := int((lx0 + lw) / WorldTerrain.CELL) + 1
+	var ry1 := int((ly0 + lh) / WorldTerrain.CELL) + 1
+	for ry in range(ry0, ry1 + 1):
+		for rx in range(rx0, rx1 + 1):
+			var t: int = WorldTerrain.type_at(rx, ry)
+			if t == WorldTerrain.FOREST:
+				_draw_forest_cell(rx, ry, ms)
+			elif t == WorldTerrain.TOWN:
+				_draw_town_cell(rx, ry, ms)
+	# 名山雪山
+	for m in JapanMap.mountains():
+		var mp: Vector2 = JapanMap.mountain_pos(m)
+		var sp: Vector2 = _scr(ms, mp)
+		if sp.x < -240 or sp.x > MAP_VIEW.size.x + 200 or sp.y < HUD_TOP - 20 or sp.y > MAP_VIEW.end.y + 60:
+			continue
+		_draw_peak(sp)
 
 
-func _draw_grass_cell(r: Rect2, gx: int, gy: int) -> void:
-	draw_rect(r, _season_grass())
-	var h := WorldTerrain._hash2(gx, gy, 5)
-	# 草簇（2 组短草）
-	for k in range(2):
-		var bx: float = r.position.x + 14 + ((h >> (k * 3)) % 60)
-		var by: float = r.position.y + 16 + ((h >> (k * 3 + 1)) % 50)
-		draw_line(Vector2(bx, by), Vector2(bx + 3, by - 8), Color(0.28, 0.40, 0.20, 0.9), 2.5)
-		draw_line(Vector2(bx + 6, by), Vector2(bx + 5, by - 7), Color(0.28, 0.40, 0.20, 0.9), 2.5)
-	# 偶尔小花
-	if h % 4 == 0:
-		var fx := r.position.x + 30 + (h % 40)
-		var fy := r.position.y + 36 + ((h >> 4) % 36)
-		draw_rect(Rect2(fx, fy, 4, 4), Color(0.9, 0.78, 0.5, 0.8))
+func _draw_forest_cell(rx: int, ry: int, ms: Vector2) -> void:
+	## 每森林格 4 棵小树冠（密集树丛感，太阁5 手绘）
+	var tcol: Color = FOREST_TREE_COL[_season()]
+	var gx := float(rx) + 0.5
+	var gy := float(ry) + 0.5
+	for k in range(4):
+		var hx: float = WorldTerrain._hash01(rx * 3 + k, ry * 5 + k, 7)
+		var hy: float = WorldTerrain._hash01(rx * 7 + k, ry * 3 + k, 13)
+		var p := Vector2((gx + (hx - 0.5) * 0.9) * WorldTerrain.CELL, (gy + (hy - 0.5) * 0.9) * WorldTerrain.CELL)
+		var sp: Vector2 = _scr(ms, p)
+		if sp.x < -20 or sp.x > MAP_VIEW.size.x + 20 or sp.y < HUD_TOP - 20 or sp.y > MAP_VIEW.end.y + 20:
+			continue
+		var r := 3.5 + 1.8 * WorldTerrain._hash01(rx, ry, k)
+		draw_circle(sp, r, tcol)
+		draw_circle(sp + Vector2(-r * 0.3, -r * 0.3), r * 0.38, FOREST_HL)
 
 
-func _draw_forest_cell(r: Rect2, gx: int, gy: int) -> void:
-	draw_rect(r, _season_forest())
-	var h := WorldTerrain._hash2(gx, gy, 9)
-	# 3 棵树
-	for k in range(3):
-		var tx: float = r.position.x + 14 + ((h >> (k * 4)) % (int(r.size.x) - 28))
-		var ty: float = r.position.y + 18 + ((h >> (k * 4 + 2)) % (int(r.size.y) - 30))
-		draw_rect(Rect2(tx - 1, ty, 3, 10), Color(0.36, 0.26, 0.16, 1))
-		draw_circle(Vector2(tx + 0.5, ty - 2), 7.0, Color(0.20, 0.32, 0.15, 1))
-		draw_circle(Vector2(tx - 3, ty - 5), 5.0, Color(0.24, 0.38, 0.18, 1))
+func _draw_town_cell(rx: int, ry: int, ms: Vector2) -> void:
+	## 城下町建筑群：屋顶小方块 + 街道
+	var gx := float(rx) + 0.5
+	var gy := float(ry) + 0.5
+	for k in range(7):
+		var hx: float = WorldTerrain._hash01(rx * 11 + k, ry * 13 + k, 29)
+		var hy: float = WorldTerrain._hash01(rx * 5 + k, ry * 17 + k, 37)
+		var p := Vector2((gx + (hx - 0.5) * 0.9) * WorldTerrain.CELL, (gy + (hy - 0.5) * 0.9) * WorldTerrain.CELL)
+		var sp: Vector2 = _scr(ms, p)
+		if sp.x < -20 or sp.x > MAP_VIEW.size.x + 20 or sp.y < HUD_TOP - 20 or sp.y > MAP_VIEW.end.y + 20:
+			continue
+		var sz := 3.0 + WorldTerrain._hash01(rx, ry, k) * 2.0
+		var rc: Color = ROOF_COLS[int(WorldTerrain._hash01(rx * 3, ry * 3, k) * 4) % 4]
+		draw_rect(Rect2(sp - Vector2(sz, sz) * 0.5, Vector2(sz, sz)), rc)
+	# 街道
+	var c: Vector2 = _scr(ms, Vector2(gx * WorldTerrain.CELL, gy * WorldTerrain.CELL))
+	draw_line(c - Vector2(14, 0), c + Vector2(14, 0), Color(0.85, 0.80, 0.70, 0.5), 2.0)
 
 
-func _draw_mount_cell(r: Rect2, gx: int, gy: int) -> void:
-	draw_rect(r, MOUNT_BASE)
-	var h := WorldTerrain._hash2(gx, gy, 13)
-	var cx: float = r.position.x + r.size.x * 0.5
-	var base_y: float = r.position.y + r.size.y
-	var w: float = r.size.x * 0.52
-	var peak_h: float = r.size.y * 0.62 + (h % 5)
+func _draw_peak(sp: Vector2) -> void:
+	## 名山：锥形雪山（太阁5 富士式：雪顶 + 岩坡 + 基座融入草地）
+	var W := 96.0
+	var H := 92.0
+	# 基座渐隐
 	draw_colored_polygon(PackedVector2Array([
-		Vector2(cx - w, base_y - 4), Vector2(cx, base_y - peak_h), Vector2(cx + w, base_y - 4),
-	]), MOUNT_DARK)
+		sp + Vector2(-W * 1.2, H * 0.6), sp + Vector2(W * 1.2, H * 0.6), sp + Vector2(0, H * 0.05),
+	]), Color(0.55, 0.50, 0.44, 0.22))
+	# 岩坡主体
+	draw_colored_polygon(PackedVector2Array([
+		sp + Vector2(-W, H * 0.55), sp + Vector2(W, H * 0.55), sp + Vector2(0, -H),
+	]), Color(0.58, 0.54, 0.48, 1))
+	# 右侧阴影（光照左上）
+	draw_colored_polygon(PackedVector2Array([
+		sp + Vector2(0, -H), sp + Vector2(W, H * 0.55), sp + Vector2(0, H * 0.55),
+	]), Color(0.40, 0.36, 0.32, 0.55))
 	# 雪顶
+	var sh := H * 0.40
+	var sw := W * 0.36
 	draw_colored_polygon(PackedVector2Array([
-		Vector2(cx - w * 0.30, base_y - peak_h * 0.55),
-		Vector2(cx, base_y - peak_h),
-		Vector2(cx + w * 0.30, base_y - peak_h * 0.55),
-		Vector2(cx, base_y - peak_h * 0.72),
-	]), SNOW_COLOR)
-	# 侧影
-	draw_colored_polygon(PackedVector2Array([
-		Vector2(cx + w * 0.3, base_y - 4), Vector2(cx + w, base_y - peak_h * 0.42), Vector2(cx + w, base_y - 4),
-	]), Color(0.28, 0.24, 0.20, 1))
+		sp + Vector2(-sw, -H + sh), sp + Vector2(sw, -H + sh), sp + Vector2(0, -H),
+	]), Color(0.93, 0.95, 0.96, 1))
 
-
-func _draw_town_cell(r: Rect2, gx: int, gy: int) -> void:
-	draw_rect(r, TOWN_STONE)
-	var h := WorldTerrain._hash2(gx, gy, 17)
-	# 町屋（3 栋：屋顶 + 墙）
-	for k in range(3):
-		var hx: float = r.position.x + 10 + ((h >> (k * 3)) % (int(r.size.x) - 40))
-		var hy: float = r.position.y + 18 + ((h >> (k * 3 + 1)) % (int(r.size.y) - 40))
-		var roof: Color = ROOF_RED if k == 0 else (ROOF_BLUE if k == 1 else ROOF_BROWN)
-		draw_colored_polygon(PackedVector2Array([
-			Vector2(hx - 11, hy + 10), Vector2(hx, hy - 2), Vector2(hx + 11, hy + 10),
-		]), roof)
-		draw_rect(Rect2(hx - 9, hy + 10, 18, 12), WALL_COLOR)
-	# 石板路十字
-	draw_line(r.position + Vector2(r.size.x * 0.5, 0), r.position + Vector2(r.size.x * 0.5, r.size.y), Color(0.42, 0.40, 0.36, 0.5), 3.0)
-	draw_line(r.position + Vector2(0, r.size.y * 0.5), r.position + Vector2(r.size.x, r.size.y * 0.5), Color(0.42, 0.40, 0.36, 0.5), 3.0)
+func _draw_minimap(ms: Vector2) -> void:
+	## 右上角日本全域缩略图（太阁5：城点 + 视野框 + 玩家）
+	if _minimap_tex == null:
+		return
+	var msize := Vector2(132, 99)
+	var mpos := Vector2(1920 - msize.x - 18, 76)
+	draw_texture_rect(_minimap_tex, Rect2(mpos, msize), false)
+	draw_rect(Rect2(mpos, msize), Color(0.90, 0.84, 0.60, 0.85), false, 2)
+	# 城点
+	var positions: Dictionary = GameData.get_castle_positions()
+	for id in positions.keys():
+		var lp: Vector2 = positions[id]
+		var cid := int(id)
+		var col: Color
+		if GameData.is_port_city(cid):
+			col = Color(0.55, 0.85, 1.0, 1)
+		elif GameData.get_castle_has_town(cid):
+			col = Color(0.90, 0.40, 0.30, 1)
+		else:
+			col = Color(0.85, 0.88, 0.90, 0.8)
+		var mp := mpos + Vector2(lp.x / WorldTerrain.MAP_W, lp.y / WorldTerrain.MAP_H) * msize
+		draw_rect(Rect2(mp - Vector2(1, 1), Vector2(2.5, 2.5)), col)
+	# 视野框
+	var s: float = minf(MAP_VIEW.size.x / ms.x, MAP_VIEW.size.y / ms.y)
+	var off := Vector2(
+		MAP_VIEW.position.x + (MAP_VIEW.size.x - ms.x * s) * 0.5,
+		MAP_VIEW.position.y + (MAP_VIEW.size.y - ms.y * s) * 0.5)
+	var lx0 := (_cam.x - off.x * CAM_ZOOM) / (s * CAM_ZOOM)
+	var ly0 := (_cam.y - off.y * CAM_ZOOM) / (s * CAM_ZOOM)
+	var lw := MAP_VIEW.size.x / (s * CAM_ZOOM)
+	var lh := MAP_VIEW.size.y / (s * CAM_ZOOM)
+	var fr := Rect2(
+		mpos.x + lx0 / WorldTerrain.MAP_W * msize.x,
+		mpos.y + ly0 / WorldTerrain.MAP_H * msize.y,
+		lw / WorldTerrain.MAP_W * msize.x,
+		lh / WorldTerrain.MAP_H * msize.y)
+	draw_rect(fr, Color(1.0, 0.95, 0.45, 0.95), false, 2)
+	# 玩家
+	var p: Vector2 = GameState.player_map_pos
+	draw_circle(mpos + Vector2(p.x / WorldTerrain.MAP_W, p.y / WorldTerrain.MAP_H) * msize, 3.0, Color(0.95, 0.25, 0.15, 1))
 
 
 func _draw_roads(ms: Vector2) -> void:
