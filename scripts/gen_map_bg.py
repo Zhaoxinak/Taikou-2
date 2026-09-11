@@ -176,9 +176,9 @@ def compute():
 
 
 # 季节陆地色（与 world_screen.gd LAND_GRASS/LAND_FOREST 同）
-GRASS_COL = [(0.58,0.66,0.58),(0.66,0.74,0.46),(0.52,0.64,0.36),(0.66,0.56,0.34)]
-FOREST_COL = [(0.40,0.48,0.42),(0.40,0.50,0.30),(0.32,0.42,0.24),(0.46,0.40,0.26)]
-FOREST_TREE = [(0.30,0.38,0.32),(0.28,0.40,0.22),(0.22,0.32,0.16),(0.34,0.30,0.18)]
+GRASS_COL = [(0.62,0.70,0.58),(0.72,0.80,0.50),(0.58,0.70,0.40),(0.72,0.62,0.38)]
+FOREST_COL = [(0.36,0.46,0.38),(0.34,0.48,0.26),(0.26,0.38,0.20),(0.42,0.36,0.22)]
+FOREST_TREE = [(0.28,0.40,0.30),(0.24,0.42,0.18),(0.18,0.32,0.14),(0.36,0.30,0.16)]
 
 BIG_W, BIG_H = RES_W*2, RES_H*2  # 640x480 绘制分辨率
 
@@ -207,7 +207,7 @@ def render(season, land, hgt, f2, typ):
         for x in range(BIG_W):
             sx = x // 2; sy = y // 2
             h = hgt[sy*RES_W+sx]
-            shade = 0.78 + h*0.62
+            shade = 0.88 + h*0.55
             px[x, y] = (int(255*min(1.0,gcol[0]*shade)),
                         int(255*min(1.0,gcol[1]*shade)),
                         int(255*min(1.0,gcol[2]*shade)))
@@ -215,11 +215,11 @@ def render(season, land, hgt, f2, typ):
     sea = Image.new("RGB", (BIG_W, BIG_H))
     spx = sea.load()
     for y in range(BIG_H):
-        deep = 0.72 + 0.34 * y / BIG_H
+        deep = 0.85 + 0.25 * y / BIG_H
         for x in range(BIG_W):
-            nn = (hash01(x*3, y*3, 91) - 0.5) * 0.10
-            spx[x, y] = (int(255*max(0.0,min(1.0,0.22+nn))),
-                         int(255*0.40*deep), int(255*0.56*deep))
+            nn = (hash01(x*3, y*3, 91) - 0.5) * 0.08
+            spx[x, y] = (int(255*max(0.0,min(1.0,0.30+nn))),
+                         int(255*0.55*deep), int(255*0.74*deep))
     # 海陆 mask（双线性 + 高斯 1.4px → 海岸水彩柔边）
     m0 = Image.new("L", (RES_W, RES_H), 0)
     mpx = m0.load()
@@ -243,11 +243,11 @@ def render(season, land, hgt, f2, typ):
             t = (h-0.60)/0.40
             if t < 0: t = 0.0
             if t > 1: t = 1.0
-            r = 0.52 + (0.80-0.52)*t
-            g = 0.47 + (0.78-0.47)*t
-            b = 0.40 + (0.74-0.40)*t
+            r = 0.56 + (0.82-0.56)*t
+            g = 0.51 + (0.80-0.51)*t
+            b = 0.44 + (0.76-0.44)*t
             if hash01(x, y, 41) > 0.62:
-                r = min(1.0, r*1.15); g = min(1.0, g*1.15); b = min(1.0, b*1.15)
+                r = min(1.0, r*1.10); g = min(1.0, g*1.10); b = min(1.0, b*1.10)
             mpx[x, y] = (int(255*r), int(255*g), int(255*b))
     img = Image.composite(mimg, img, Image.eval(mm, lambda v: int(v*255)))
     return img_like.resize((BIG_W, BIG_H), Image.BILINEAR)
@@ -274,7 +274,7 @@ def render(season, land, hgt, f2, typ):
         for x in range(BIG_W):
             sx = x // 2; sy = y // 2
             h = hgt[sy*RES_W+sx]
-            shade = 0.78 + h*0.62
+            shade = 0.88 + h*0.55
             px[x, y] = (int(255*min(1.0,gcol[0]*shade)),
                         int(255*min(1.0,gcol[1]*shade)),
                         int(255*min(1.0,gcol[2]*shade)))
@@ -282,11 +282,11 @@ def render(season, land, hgt, f2, typ):
     sea = Image.new("RGB", (BIG_W, BIG_H))
     spx = sea.load()
     for y in range(BIG_H):
-        deep = 0.72 + 0.34 * y / BIG_H
+        deep = 0.85 + 0.25 * y / BIG_H
         for x in range(BIG_W):
-            nn = (hash01(x*3, y*3, 91) - 0.5) * 0.10
-            spx[x, y] = (int(255*max(0.0,min(1.0,0.22+nn))),
-                         int(255*0.40*deep), int(255*0.56*deep))
+            nn = (hash01(x*3, y*3, 91) - 0.5) * 0.08
+            spx[x, y] = (int(255*max(0.0,min(1.0,0.30+nn))),
+                         int(255*0.55*deep), int(255*0.74*deep))
     # 海陆 mask（双线性 + 高斯 1.4px → 海岸水彩柔边）
     m0 = Image.new("L", (RES_W, RES_H), 0)
     mpx = m0.load()
@@ -310,11 +310,11 @@ def render(season, land, hgt, f2, typ):
             t = (h-0.60)/0.40
             if t < 0: t = 0.0
             if t > 1: t = 1.0
-            r = 0.52 + (0.80-0.52)*t
-            g = 0.47 + (0.78-0.47)*t
-            b = 0.40 + (0.74-0.40)*t
+            r = 0.56 + (0.82-0.56)*t
+            g = 0.51 + (0.80-0.51)*t
+            b = 0.44 + (0.76-0.44)*t
             if hash01(x, y, 41) > 0.62:
-                r = min(1.0, r*1.15); g = min(1.0, g*1.15); b = min(1.0, b*1.15)
+                r = min(1.0, r*1.10); g = min(1.0, g*1.10); b = min(1.0, b*1.10)
             mpx[x, y] = (int(255*r), int(255*g), int(255*b))
     img = Image.composite(mimg, img, Image.eval(mm, lambda v: int(v*255)))
     # 城镇：淡灰底 + 建筑小点（屋顶色）

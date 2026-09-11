@@ -51,7 +51,10 @@ const ROAD_COLOR := Color(0.78, 0.68, 0.50, 0.8)   # 太阁5 土路色
 const FOREST_TREE_COL := [
 	Color(0.30, 0.38, 0.32), Color(0.28, 0.40, 0.22), Color(0.22, 0.32, 0.16), Color(0.34, 0.30, 0.18),
 ]
-const FOREST_HL := Color(0.55, 0.68, 0.40, 0.7)
+const FOREST_HL := Color(0.62, 0.78, 0.46, 0.85)
+const FOREST_LIGHT := [
+	Color(0.42, 0.52, 0.42), Color(0.38, 0.54, 0.30), Color(0.30, 0.44, 0.24), Color(0.48, 0.42, 0.26),
+]
 const ROOF_COLS := [
 	Color(0.59, 0.31, 0.24), Color(0.43, 0.47, 0.59), Color(0.35, 0.37, 0.39), Color(0.55, 0.47, 0.31),
 ]
@@ -626,9 +629,11 @@ func _draw_forest_cell(rx: int, ry: int, ms: Vector2) -> void:
 		var sp: Vector2 = _scr(ms, p)
 		if sp.x < -20 or sp.x > MAP_VIEW.size.x + 20 or sp.y < HUD_TOP - 20 or sp.y > MAP_VIEW.end.y + 20:
 			continue
-		var r := 3.5 + 1.8 * WorldTerrain._hash01(rx, ry, k)
-		draw_circle(sp, r, tcol)
-		draw_circle(sp + Vector2(-r * 0.3, -r * 0.3), r * 0.38, FOREST_HL)
+		var r := 3.8 + 1.9 * WorldTerrain._hash01(rx, ry, k)
+		var tlight: Color = FOREST_LIGHT[_season()]
+		draw_circle(sp, r * 1.25, tlight)                      # 外围浅绿
+		draw_circle(sp + Vector2(r * 0.15, r * 0.20), r * 0.78, tcol)  # 深绿偏心树冠
+		draw_circle(sp + Vector2(-r * 0.4, -r * 0.45), r * 0.32, FOREST_HL)  # 高光
 
 
 func _draw_town_cell(rx: int, ry: int, ms: Vector2) -> void:
@@ -651,27 +656,38 @@ func _draw_town_cell(rx: int, ry: int, ms: Vector2) -> void:
 
 
 func _draw_peak(sp: Vector2) -> void:
-	## 名山：锥形雪山（太阁5 富士式：雪顶 + 岩坡 + 基座融入草地）
-	var W := 96.0
-	var H := 92.0
-	# 基座渐隐
+	## 名山：圆润卡通雪山（宽基座融入草地 + 明暗岩坡 + 大圆雪顶）
+	var W := 108.0
+	var H := 96.0
+	# 基座渐隐（宽）
 	draw_colored_polygon(PackedVector2Array([
-		sp + Vector2(-W * 1.2, H * 0.6), sp + Vector2(W * 1.2, H * 0.6), sp + Vector2(0, H * 0.05),
-	]), Color(0.55, 0.50, 0.44, 0.22))
-	# 岩坡主体
+		sp + Vector2(-W * 1.45, H * 0.62), sp + Vector2(W * 1.45, H * 0.62), sp + Vector2(0, H * 0.02),
+	]), Color(0.60, 0.55, 0.48, 0.25))
+	# 岩坡主体（圆润侧翼）
 	draw_colored_polygon(PackedVector2Array([
-		sp + Vector2(-W, H * 0.55), sp + Vector2(W, H * 0.55), sp + Vector2(0, -H),
-	]), Color(0.58, 0.54, 0.48, 1))
-	# 右侧阴影（光照左上）
+		sp + Vector2(-W, H * 0.58), sp + Vector2(-W * 0.62, -H * 0.42), sp + Vector2(0, -H),
+		sp + Vector2(W * 0.62, -H * 0.42), sp + Vector2(W, H * 0.58),
+	]), Color(0.62, 0.58, 0.52, 1))
+	# 左侧受光面
 	draw_colored_polygon(PackedVector2Array([
-		sp + Vector2(0, -H), sp + Vector2(W, H * 0.55), sp + Vector2(0, H * 0.55),
-	]), Color(0.40, 0.36, 0.32, 0.55))
-	# 雪顶
-	var sh := H * 0.40
-	var sw := W * 0.36
+		sp + Vector2(-W, H * 0.58), sp + Vector2(-W * 0.62, -H * 0.42), sp + Vector2(0, -H),
+		sp + Vector2(0, H * 0.58),
+	]), Color(0.74, 0.70, 0.64, 0.9))
+	# 右侧阴影
 	draw_colored_polygon(PackedVector2Array([
-		sp + Vector2(-sw, -H + sh), sp + Vector2(sw, -H + sh), sp + Vector2(0, -H),
-	]), Color(0.93, 0.95, 0.96, 1))
+		sp + Vector2(0, -H), sp + Vector2(W * 0.62, -H * 0.42), sp + Vector2(W, H * 0.58), sp + Vector2(0, H * 0.58),
+	]), Color(0.42, 0.38, 0.34, 0.55))
+	# 大圆雪顶（带弧度）
+	var sh := H * 0.46
+	var sw := W * 0.40
+	draw_colored_polygon(PackedVector2Array([
+		sp + Vector2(-sw, -H + sh), sp + Vector2(-sw * 0.45, -H + sh * 0.55),
+		sp + Vector2(0, -H), sp + Vector2(sw * 0.45, -H + sh * 0.55), sp + Vector2(sw, -H + sh),
+	]), Color(0.96, 0.97, 0.98, 1))
+	# 雪顶左侧高光
+	draw_colored_polygon(PackedVector2Array([
+		sp + Vector2(-sw, -H + sh), sp + Vector2(0, -H), sp + Vector2(0, -H + sh),
+	]), Color(1, 1, 1, 0.8))
 
 func _draw_minimap(ms: Vector2) -> void:
 	## 右上角日本全域缩略图（太阁5：城点 + 视野框 + 玩家）
