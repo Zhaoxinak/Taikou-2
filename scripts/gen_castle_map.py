@@ -1,118 +1,110 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-gen_castle_map.py — 生成大地图城坐标 data/castle_map.json（真实日本地图版）
+gen_castle_map.py — 生成大地图城坐标 data/castle_map.json（史实经纬度投影版）
 
-原版太阁立志传2 大地图城坐标源 = TOWNPOS.DAT（35×35 网格，按 castle id 索引；
-buffer @0x525af4，loader 0x4ac9c0；城坐标 (map_x,map_y) ∈ 0..47×0..36 ——
-见 scripts/town_obj_format_ref.py / scripts/towns.json，前序已破，2026-08-28 EXE 权威名）。
+2026-09-11 v3：废弃旧版的「国中心+哈希抖动」摆法（那些坐标不代表真实地理）。
+现在 200 城全部按**史实城址经纬度**（scripts/castle_geo.json）线性投影到
+原版大地图 48×36 网格：
 
-本脚本：
-  1) 读 scripts/towns.json（92 城带真实 map_x/map_y），直接用；
-  2) 同国若有已知城 → 用国中心 + 确定性小抖动（id 哈希，±2 cell，钳 0..47/0..35）；
-  3) 同国若无已知城（35/49 = 14 国）→ 用全图中心 + 较大确定性抖动
-     并诚实标注：此为「无原版坐标数据」派生，非真实地理位置（待 Unicorn 跑 TOWNPOS
-     消费者 0x4acbb0/0x4acc30 完整 dump 剩余 108 城可闭合）。
+    x = (lon - LON0) / (LON1 - LON0) * (MAP_W-1)
+    y = (LAT1 - lat) / (LAT1 - LAT0) * (MAP_H-1)
+
+投影范围覆盖日本列岛（不含北海道）：
+    LON0=128.6（对马/五岛以西）  LON1=142.2（八户/三陆以东）
+    LAT1=41.7（下北半岛）        LAT0=30.8（种子岛/屋久岛）
+
+同格冲突 → 确定性亚格微偏移（同 id 每次重跑一致），偏移量 ≤0.45 cell，
+不破坏城之间的相对位置感知。所有城保留浮点坐标（绘制时投影缩放）。
+
+数据源：
+  · data/castles.json         —— 200 城权威名单（id/name/province）
+  · scripts/castle_geo.json   —— 200 城史实城址经纬度（主城跡位置）
+  · scripts/towns.json        —— 92 町城（原版有町的城，标记 has_town=true；
+       注意：TOWNPOS.DAT 坐标含大量哨兵值且与经纬度无线性关系，
+       本版不再使用 TOWNPOS 坐标，仅用其「哪些城有町」的信息）
 
 诚实标注：
-  · map_w=48, map_h=36 直接取原版网格尺寸（project() 自动等比 fit 到屏幕）；
-  · 派生位置用确定性哈希（同一 id 每次重跑结果完全一致），不会"乱跳"；
-  · 无原版坐标的派生城位置**不代表真实地理**，仅保证：不与已知城重叠、
-    同国聚集、重跑稳定。
-
-输出形状（与旧版兼容）：
-  {"map_w": 48, "map_h": 36, "castles": [{"id": int, "x": float, "y": float}, ...]}
+  · 坐标为史实城址的等距投影近似（日本列岛 48×36 网格分辨率有限，
+    近畿/濑户内等密集区存在重叠，已做确定性微偏移）
+  · 非原版 TOWNPOS 坐标（原版坐标经核实不可靠：哨兵值混入 + 与地理无线性关系）
 """
 import json
 import os
-from collections import defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAP_W = 48
 MAP_H = 36
-JITTER_SMALL = 2
-JITTER_LARGE = 6
+LON0, LON1 = 128.6, 142.2
+LAT1, LAT0 = 41.7, 30.8
 
 
-def _jitter(seed: int, mag: int) -> tuple[int, int]:
-    """确定性小抖动：同一 seed → 同一偏移（不依赖 random）。"""
-    dx = ((seed * 2654435761) % (2 * mag + 1)) - mag
-    dy = ((seed * 40503 + 17) % (2 * mag + 1)) - mag
-    return dx, dy
+def project(lat: float, lon: float) -> tuple[float, float]:
+    x = (lon - LON0) / (LON1 - LON0) * (MAP_W - 1)
+    y = (LAT1 - lat) / (LAT1 - LAT0) * (MAP_H - 1)
+    return x, y
+
+
+def _nudge(seed: int) -> tuple[float, float]:
+    """确定性亚格微偏移（±0.45 cell），用于同格冲突。"""
+    a = (seed * 2654435761) & 0xFFFFFFFF
+    b = (seed * 40503 + 17) & 0xFFFFFFFF
+    return ((a % 91) / 100.0 - 0.45, (b % 91) / 100.0 - 0.45)
 
 
 def main() -> None:
     with open(os.path.join(ROOT, "data", "castles.json"), encoding="utf-8") as f:
         castles = json.load(f)["castles"]
-    with open(os.path.join(ROOT, "data", "provinces.json"), encoding="utf-8") as f:
-        provinces = json.load(f)["provinces"]
-    with open(os.path.join(ROOT, "scripts", "towns.json"), encoding="utf-8") as f:
-        towns = json.load(f)["towns"]
+    with open(os.path.join(ROOT, "scripts", "castle_geo.json"), encoding="utf-8") as f:
+        geo = {int(k): v for k, v in json.load(f)["geo"].items()}
+    towns = json.load(open(os.path.join(ROOT, "scripts", "towns.json"), encoding="utf-8"))["towns"]
+    town_ids = {t["id"] for t in towns}
 
-    known: dict[int, tuple[int, int]] = {t["id"]: (t["map_x"], t["map_y"]) for t in towns}
-    cid2prov: dict[int, int] = {c["id"]: int(c["province"]) for c in castles}
-
-    prov_xy: dict[int, list[tuple[int, int]]] = defaultdict(list)
-    for t in towns:
-        p = cid2prov.get(t["id"], -1)
-        if p >= 0:
-            prov_xy[p].append((t["map_x"], t["map_y"]))
-    prov_center: dict[int, tuple[int, int]] = {}
-    for p, xys in prov_xy.items():
-        xs = [x for x, _ in xys]
-        ys = [y for _, y in xys]
-        prov_center[p] = (sum(xs) // len(xs), sum(ys) // len(ys))
-    all_xs = [x for x, _ in known.values()]
-    all_ys = [y for _, y in known.values()]
-    global_cx = sum(all_xs) // len(all_xs)
-    global_cy = sum(all_ys) // len(all_ys)
+    missing = [c["id"] for c in castles if c["id"] not in geo]
+    if missing:
+        raise SystemExit(f"缺少经纬度: {missing}")
 
     out: list[dict] = []
-    used: set[tuple[int, int]] = set()
-    n_real = n_prov = n_fb = 0
+    used: dict[tuple[int, int], int] = {}
     for c in castles:
         cid = int(c["id"])
-        if cid in known:
-            mx, my = known[cid]
-            n_real += 1
+        lat, lon = geo[cid]
+        x, y = project(lat, lon)
+        key = (round(x), round(y))
+        if key in used:
+            dx, dy = _nudge(cid + used[key])
+            x, y = x + dx, y + dy
+            used[key] += 1
         else:
-            p = cid2prov[cid]
-            if p in prov_center:
-                cx, cy = prov_center[p]
-                jx, jy = _jitter(cid, JITTER_SMALL)
-                mx, my = cx + jx, cy + jy
-                n_prov += 1
-            else:
-                jx, jy = _jitter(cid, JITTER_LARGE)
-                mx, my = global_cx + jx, global_cy + jy
-                n_fb += 1
-        mx = max(0, min(MAP_W - 1, mx))
-        my = max(0, min(MAP_H - 1, my))
-        if (mx, my) in used:
-            for k in range(1, 5):
-                kk = ((mx + k) % MAP_W, my)
-                if kk not in used:
-                    mx, my = kk
-                    break
-        used.add((mx, my))
-        out.append({"id": cid, "x": float(mx), "y": float(my)})
+            used[key] = 1
+        x = max(0.0, min(MAP_W - 1.0, x))
+        y = max(0.0, min(MAP_H - 1.0, y))
+        out.append({
+            "id": cid,
+            "x": round(x, 2),
+            "y": round(y, 2),
+            "has_town": cid in town_ids,
+        })
 
     payload = {
         "map_w": MAP_W,
         "map_h": MAP_H,
         "castles": out,
         "_meta": {
-            "real": n_real,
-            "prov_derived": n_prov,
-            "fallback": n_fb,
             "total": len(out),
-            "note": "real=towns.json 92 原版坐标; prov_derived=同国中心±2哈希; fallback=全图中心±6哈希(无原版坐标)",
+            "mode": "史实经纬度投影（castle_geo.json → 48×36 等距近似）",
+            "projection": {"lon": [LON0, LON1], "lat": [LAT0, LAT1]},
+            "note": "200 城全部按史实城址经纬度投影；原版 TOWNPOS 坐标经核实含哨兵值且与地理无线性关系，不再使用；has_town 标记来自 towns.json（92 町城）",
         },
     }
     with open(os.path.join(ROOT, "data", "castle_map.json"), "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, separators=(",", ":"))
-    print("wrote data/castle_map.json: %d 城 (real=%d / prov=%d / fallback=%d) map=%dx%d"
-          % (len(out), n_real, n_prov, n_fb, MAP_W, MAP_H))
+    print("wrote data/castle_map.json: %d 城, map=%dx%d" % (len(out), MAP_W, MAP_H))
+    for cid, nm in [(0, "三户"), (33, "江户"), (50, "春日山"), (66, "清洲"), (111, "二条"),
+                    (136, "姬路"), (145, "冈山"), (157, "山口"), (171, "小仓"), (195, "鹿儿岛")]:
+        lat, lon = geo[cid]
+        x, y = project(lat, lon)
+        print(f"  {nm}: ({x:.1f},{y:.1f})")
 
 
 if __name__ == "__main__":

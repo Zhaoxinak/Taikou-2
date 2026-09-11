@@ -253,11 +253,19 @@ func get_status() -> Dictionary:
 
 
 # =====================================================================
-# 大地图（方案 B 最小可玩空壳）
+# 大地图（复刻原版：逐格移动 / 点击自动移动 / 坐船跨海 / 移动推进时间）
 # =====================================================================
 #
-# 坐标源：data/castle_map.json（聚类近似，非原版固定坐标）。
-# 纯逻辑（投影 / 最近城 / 移动 clamp）在 src/core/world_map.gd。
+# 坐标源：data/castle_map.json（200 城史实经纬度投影，见 gen_castle_map.py）。
+# 移动机制（原版，见 docs/replication/worldmap_notes.md）：
+#   · 移动方式：点击地图位置 / 指定城町自动移动 / 方向键逐格
+#   · 野外移动推进时间：每格 1 天（原版「移動だけでも時間が進む」）
+#   · 四国・九州须经港町坐船；坐船消耗航路天数 + 体力压至 20（原版手册）
+# 纯逻辑（投影 / 最近城 / 寻路）在 src/core/world_map.gd。
+
+const MOVE_DAYS_PER_CELL := 1.0    # 每格移动天数（复刻原版）
+const SEA_STAMINA_FLOOR := 20      # 坐船体力下限（原版手册：降至 20 不再降）
+const PORT_DIST := 1.5             # 判定"在港町"的距离阈值（京畿城密，按距离找港而非最近城）
 
 ## 进入大地图（离开城到野外）
 func enter_world() -> void:
@@ -274,17 +282,65 @@ func enter_castle(cid: int) -> void:
 func leave_to_world() -> void:
 	current_castle = -1
 
-## 移动主角（dx,dy ∈ {-1,0,1}），clamp 到地图范围；返回新坐标
+## 逐格移动主角（dx,dy ∈ {-1,0,1}），每格推进 1 天；返回新坐标
 func move_player(dx: int, dy: int) -> Vector2:
 	var ms := GameData.get_map_size()
+	var before := player_map_pos
 	player_map_pos = WorldMapRef.step(player_map_pos, float(dx), float(dy), ms.x, ms.y)
+	if player_map_pos != before:
+		advance_days(1)
 	return player_map_pos
+
+## 朝目标位置走一步（点击自动移动，每步 1 格），推进 1 天；
+## 返回 true 表示已到达目标
+func move_player_towards(target: Vector2) -> bool:
+	var ms := GameData.get_map_size()
+	var before := player_map_pos
+	player_map_pos = WorldMapRef.move_towards(player_map_pos, target, ms.x, ms.y)
+	if player_map_pos != before:
+		advance_days(1)
+	return player_map_pos.distance_to(target) <= 0.01
+
+## 坐船：从当前最近港町前往 to_id 港町。
+## 复刻原版：消耗航路天数；连续坐船体力压至 20（不再降）。
+## 返回 {ok, reason?, days?, to?}
+func travel_by_sea(to_id: int) -> Dictionary:
+	var from_id := nearest_port()
+	if from_id < 0:
+		return {"ok": false, "reason": "not_near_port"}
+	var route := GameData.get_sea_route(from_id, to_id)
+	if route.is_empty():
+		return {"ok": false, "reason": "no_route"}
+	var days := int(route["days"])
+	advance_days(days)
+	if _effective_stamina() > SEA_STAMINA_FLOOR:
+		_stamina_override[pid] = SEA_STAMINA_FLOOR
+	var p := GameData.get_castle_pos(to_id)
+	if p != Vector2.ZERO:
+		player_map_pos = p
+	current_castle = -1
+	return {"ok": true, "days": days, "to": to_id}
 
 ## 当前坐标最近的城 id（-1 = 无地图）
 func nearest_castle() -> int:
 	if not GameData.has_castle_map():
 		return -1
 	return WorldMapRef.nearest(player_map_pos, GameData.get_castle_positions())
+
+## 距离 ≤ PORT_DIST 的最近港町 id（-1 = 不在港町）。
+## 复刻原版：港町是大地图独立点，走到港町（或城下）附近即可搭船；
+## 用距离判定避免京畿密城区 nearest_castle 误判。
+func nearest_port() -> int:
+	if not GameData.has_castle_map():
+		return -1
+	var best := -1
+	var best_d := PORT_DIST
+	for pid in GameData.get_port_ids():
+		var d: float = player_map_pos.distance_to(GameData.get_castle_pos(int(pid)))
+		if d <= best_d:
+			best_d = d
+			best = int(pid)
+	return best
 
 # =====================================================================
 # 修行（§5.4）—— 8 动作 + 功勲 += (旧级+1)×500 封顶 60000

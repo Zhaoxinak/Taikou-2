@@ -68,7 +68,7 @@ func get_skill_obj(id: int) -> Skill:
 	s.load_from(id, get_skill_name(id), ConstsRef.SKILL_CAP)
 	return s
 
-# —— 大地图城坐标查询（data/castle_map.json，聚类近似坐标）——
+# —— 大地图城坐标查询（data/castle_map.json，200 城史实经纬度投影）——
 func get_castle_pos(id: int) -> Vector2:
 	return _loader.castle_map.get(id, Vector2.ZERO) if _loader != null else Vector2.ZERO
 
@@ -80,6 +80,31 @@ func get_map_size() -> Vector2:
 
 func has_castle_map() -> bool:
 	return _loader != null and _loader.castle_map.size() > 0
+
+## 该城是否有城下町（92 町城；原版 TOWNPOS 为町位置表）
+func get_castle_has_town(id: int) -> bool:
+	return bool(_loader.castle_towns.get(id, false)) if _loader != null else false
+
+## 该城是否是港町（出现在任意航线上；判定用 GameState.nearest_port 按距离）
+func is_port_city(id: int) -> bool:
+	return _loader != null and _loader.sea_routes.has(id)
+
+## 港町可达航线列表：[{to, days}, ...]（双向）
+func get_sea_route(from_id: int, to_id: int) -> Dictionary:
+	if _loader == null:
+		return {}
+	for r in _loader.sea_routes.get(from_id, []):
+		if int(r["to"]) == to_id:
+			return r
+	return {}
+
+## 某港町的全部可达港（[{to, days}]）
+func get_sea_routes_from(from_id: int) -> Array:
+	return (_loader.sea_routes.get(from_id, []) as Array).duplicate() if _loader != null else []
+
+## 全部港町 id（sea_routes 键）
+func get_port_ids() -> Array:
+	return _loader.sea_routes.keys() if _loader != null else []
 
 func get_item_obj(id: int) -> Item:
 	var it := ItemRef.new()
