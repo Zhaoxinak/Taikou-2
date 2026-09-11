@@ -29,7 +29,7 @@ const HUD_BOTTOM := 56.0
 const MAP_VIEW := Rect2(0, HUD_TOP, 1920, 1080 - HUD_TOP - HUD_BOTTOM)
 const MOVE_TICK := 0.25            # 自动移动每格间隔（秒；雨雪天 ×1.6 变慢）
 const WALK_FRAME_TICK := 0.12      # 走路动画帧切换
-const CAM_ZOOM := 3.0              # 区域视野（太阁5：约 16×9 格，可看 3–6 城，缩略图导航）
+const CAM_ZOOM := 4.5              # 区域视野（拉近：约 10.7×5.3 格，聚焦玩家附近 2–4 城）
 
 # —— 季节陆地 / 海洋色调（原版大地图：绿陆蓝海，随季节微调）——
 const LAND_COLORS := [
@@ -100,6 +100,11 @@ var _icon_fort: ImageTexture = null
 var _icon_village: ImageTexture = null
 var _icon_peak: ImageTexture = null
 var _icon_hill: ImageTexture = null
+var _icon_great: ImageTexture = null
+var _icon_port: ImageTexture = null
+# BFS 陆地路径（点击目标后生成，沿路径逐格走，不穿海）
+var _path := PackedVector2Array()
+var _path_idx := 0
 var _castle_town: Control = null   # 城下町交互 UI（进城时挂载，离城时置 null）
 
 var _move_target: Vector2 = Vector2.INF   # 点击自动移动目标（INF=未在移动）
@@ -134,6 +139,8 @@ func _ready() -> void:
 	_icon_village = _load_icon("village")
 	_icon_peak = _load_icon("peak")
 	_icon_hill = _load_icon("hill")
+	_icon_great = _load_icon("great")
+	_icon_port = _load_icon("port")
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	var bg := ColorRect.new()
@@ -269,6 +276,31 @@ func _sea_hint() -> String:
 	return "坐船：%s　（↑↓ 选择，Enter 乘船，B/Esc 关闭）" % "　".join(items)
 
 
+## 停止自动移动（清路径）
+func _stop_move() -> void:
+	_move_target = Vector2.INF
+	_path = PackedVector2Array()
+	_path_idx = 0
+	_move_from = GameState.player_map_pos
+	_move_to = GameState.player_map_pos
+	_move_prog = 1.0
+
+
+## 开始自动移动：BFS 陆地寻路 → 路径逐格行走
+func _begin_move(target: Vector2) -> void:
+	var ms := GameData.get_map_size()
+	_path = WorldMapRef.find_path(GameState.player_map_pos, target, ms.x, ms.y, WorldTerrain.type_at)
+	_path_idx = 0
+	_move_target = target
+	_move_timer = 0.0
+	_move_from = GameState.player_map_pos
+	_move_to = GameState.player_map_pos
+	_move_prog = 0.0
+	_msg = ""
+	_refresh_hud()
+	queue_redraw()
+
+
 func _move_speed() -> float:
 	## 天气影响行走节奏（雨雪变慢，豪雨機動力が鈍る）
 	return 1.6 if GameState.weather.get_weather() >= WeatherRef.RAIN else 1.0
@@ -289,20 +321,26 @@ func _process(delta: float) -> void:
 	_move_prog += delta / (MOVE_TICK * _move_speed())
 	if _move_prog >= 1.0:
 		_move_prog = 1.0
-		var before: Vector2 = GameState.player_map_pos
-		var arrived: bool = GameState.move_player_towards(_move_target)
-		var diff := GameState.player_map_pos - before
-		if diff.length() > 0.01:
-			_face = diff.normalized()
-			_move_from = _move_to
-			_move_to = GameState.player_map_pos
-			_move_prog = 0.0
-		_update_nearest()
-		_refresh_hud()
-		queue_redraw()
-		if arrived:
-			_move_target = Vector2.INF
+		# 沿 BFS 陆地路径走一步（不穿海，贴地形绕行）
+		if _path_idx >= _path.size() - 1:
+			_stop_move()
+			_path = PackedVector2Array()
 			_move_prog = 1.0
+		else:
+			_path_idx += 1
+			var np: Vector2 = _path[_path_idx]
+			var before: Vector2 = GameState.player_map_pos
+			GameState.player_map_pos = np
+			GameState.advance_days(GameState.move_days_per_cell())
+			var diff := np - before
+			if diff.length() > 0.01:
+				_face = diff.normalized()
+			_move_from = _move_to
+			_move_to = np
+			_move_prog = 0.0
+			_update_nearest()
+			_refresh_hud()
+			queue_redraw()
 	_draw_pos = _move_from.lerp(_move_to, _move_step(_move_prog))
 	queue_redraw()
 
@@ -356,10 +394,7 @@ func _input(event: InputEvent) -> void:
 			return
 		var target := WorldMapRef.unproject((event.position + _cam) / CAM_ZOOM, GameData.get_map_size().x, GameData.get_map_size().y, MAP_VIEW)
 		target = WorldMapRef.clamp_pos(target, GameData.get_map_size().x, GameData.get_map_size().y)
-		_move_target = target
-		_move_timer = 0.0
-		_msg = ""
-		_refresh_hud()
+		_begin_move(target)
 		return
 	if event is InputEventKey:
 		var ek := event as InputEventKey
@@ -376,7 +411,7 @@ func _input(event: InputEvent) -> void:
 						_sea_menu = []
 						_refresh_hud()
 					elif _move_target != Vector2.INF:
-						_move_target = Vector2.INF
+						_stop_move()
 						_refresh_hud()
 					else:
 						get_tree().change_scene_to_file("res://scenes/screens/status_screen.tscn")
@@ -395,7 +430,7 @@ func _input(event: InputEvent) -> void:
 					if _entered_castle < 0 and _sea_menu.is_empty():
 						_town_list = not _town_list
 						if _town_list:
-							_move_target = Vector2.INF
+							_stop_move()
 						_refresh_hud()
 					return
 				KEY_B:
@@ -409,7 +444,7 @@ func _input(event: InputEvent) -> void:
 					elif not _sea_menu.is_empty():
 						accept_event(); _sea_sel = (_sea_sel - 1 + _sea_menu.size()) % _sea_menu.size(); _refresh_hud()
 					else:
-						_move_target = Vector2.INF
+						_stop_move()
 						_move(0, -1)
 				KEY_DOWN, KEY_S:
 					if _town_list:
@@ -417,13 +452,13 @@ func _input(event: InputEvent) -> void:
 					elif not _sea_menu.is_empty():
 						accept_event(); _sea_sel = (_sea_sel + 1) % _sea_menu.size(); _refresh_hud()
 					else:
-						_move_target = Vector2.INF
+						_stop_move()
 						_move(0, 1)
 				KEY_LEFT, KEY_A:
-					_move_target = Vector2.INF
+					_stop_move()
 					_move(-1, 0)
 				KEY_RIGHT, KEY_D:
-					_move_target = Vector2.INF
+					_stop_move()
 					_move(1, 0)
 
 
@@ -442,15 +477,15 @@ func _travel_to_selected_town() -> void:
 		return
 	var row: Dictionary = _tl_items[_tl_sel]
 	var pos: Vector2 = GameData.get_castle_pos(int(row["id"]))
-	_move_target = pos
 	_town_list = false
-	_move_timer = 0.0
+	_begin_move(pos)
 	_refresh_hud()
 
 
 func _move(dx: int, dy: int) -> void:
 	if _entered_castle >= 0:
 		return
+	_stop_move()
 	var before: Vector2 = GameState.player_map_pos
 	GameState.move_player(dx, dy)
 	var diff := GameState.player_map_pos - before
@@ -482,7 +517,7 @@ func _travel_selected() -> void:
 	if res.get("ok", false):
 		_msg = "乘船 %d 日到达 %s（体力降至 20）" % [int(res["days"]), GameData.get_castle(int(r["to"])).get("name", "")]
 		_sea_menu = []
-		_move_target = Vector2.INF
+		_stop_move()
 		_update_nearest()
 		_snap_cam()
 	else:
@@ -494,7 +529,7 @@ func _travel_selected() -> void:
 func _enter_castle(cid: int) -> void:
 	GameState.enter_castle(cid)
 	_entered_castle = cid
-	_move_target = Vector2.INF
+	_stop_move()
 	if _castle_town == null:
 		_castle_town = CastleTown.new()
 		_castle_town.castle_id = cid
@@ -772,11 +807,9 @@ func _draw_castles(ms: Vector2, positions: Dictionary) -> void:
 		if not view.has_point(sp):
 			continue
 		var name_col: Color = NEAR_COLOR if near else (PORT_COLOR if is_port else TOWN_COLOR)
-		# 城郭 / 城寨图标（城镇格已铺町屋，此处画中心城）
-		if has_town or is_port:
-			_draw_castle_keep(sp, is_port, near)
-		else:
-			_draw_fort(sp, near)
+		var minkok: int = int(GameData.get_castle(cid).get("minkok", 0))
+		# 城郭分级图标（按史实石高/类型：大天守/天守/港口/城寨/村落）
+		_draw_castle_keep(sp, is_port, near, minkok, has_town)
 		# 城名（简单避让：右侧 → 上方 → 下方 → 跳过）
 		var cname: String = str(GameData.get_castle(cid).get("name", ""))
 		var name_w: float = float(cname.length()) * font_sz * 0.62
@@ -830,22 +863,24 @@ func _draw_near_ring(c: Vector2) -> void:
 	draw_circle(c + Vector2(0, 10), 40, Color(1, 0.9, 0.3, 0.10))
 
 
-func _draw_castle_keep(c: Vector2, is_port: bool, near: bool) -> void:
-	## 町城→天守图标；港町→村落图标
+func _draw_castle_keep(c: Vector2, is_port: bool, near: bool, minkok: int, has_town: bool) -> void:
+	## 史实分级：港町→港口；石高≥150 町城→大天守；町城→天守；石高≥100 据点→城寨；小据点→村落
 	if is_port:
-		_draw_icon(_icon_village, c + Vector2(0, 12), 64.0)
+		_draw_icon(_icon_port, c + Vector2(0, 12), 68.0)
+	elif has_town and minkok >= 150:
+		_draw_icon(_icon_great, c + Vector2(0, 16), 112.0)
+	elif has_town:
+		_draw_icon(_icon_castle, c + Vector2(0, 14), 92.0)
+	elif minkok >= 100:
+		_draw_icon(_icon_fort, c + Vector2(0, 8), 66.0)
 	else:
-		_draw_icon(_icon_castle, c + Vector2(0, 14), 96.0)
+		_draw_icon(_icon_village, c + Vector2(0, 10), 58.0)
 	if near:
 		_draw_near_ring(c)
 
 
 ## 军事城小寨：木栅 + 望楼
-func _draw_fort(c: Vector2, near: bool) -> void:
-	## 军事城→城寨图标
-	_draw_icon(_icon_fort, c + Vector2(0, 8), 66.0)
-	if near:
-		_draw_near_ring(c)
+## (军事城图标已并入 _draw_castle_keep 分级)
 
 
 ## 港町帆船标（小帆船）

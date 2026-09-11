@@ -82,6 +82,84 @@ static func path_cells(from: Vector2, to: Vector2, map_w: float, map_h: float) -
 	return out
 
 
+## 陆地 BFS 寻路（8 向，避开海；山/林照走只作绕行）。
+## terrain: Callable (x: int, y: int) -> int，0=海。返回格点路径（首=起点，末=目标或最近陆地）。
+static func find_path(from: Vector2, to: Vector2, map_w: float, map_h: float, terrain: Callable, terr_w: int = 256, terr_h: int = 192) -> PackedVector2Array:
+	var w := int(map_w)
+	var h := int(map_h)
+	var gx := clampi(int(floor(from.x)), 0, w - 1)
+	var gy := clampi(int(floor(from.y)), 0, h - 1)
+	var tx := clampi(int(floor(to.x)), 0, w - 1)
+	var ty := clampi(int(floor(to.y)), 0, h - 1)
+	# 目标在海 → 吸附最近陆地格
+	if _is_sea(tx, ty, terrain, terr_w, terr_h):
+		var best := Vector2i(tx, ty)
+		var bd := 2147483647
+		for y in range(h):
+			for x in range(w):
+				if _is_sea(x, y, terrain, terr_w, terr_h):
+					continue
+				var d2 := (x - tx) * (x - tx) + (y - ty) * (y - ty)
+				if d2 < bd:
+					bd = d2
+					best = Vector2i(x, y)
+		tx = best.x
+		ty = best.y
+	var goal := Vector2i(tx, ty)
+	var start := Vector2i(gx, gy)
+	if start == goal:
+		return PackedVector2Array([clamp_pos(from, map_w, map_h), clamp_pos(to, map_w, map_h)])
+	# BFS（8 向）
+	var prev := {}
+	prev[start] = Vector2i(-1, -1)
+	var q: Array = [start]
+	var dirs := [
+		Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1),
+		Vector2i(1, 1), Vector2i(1, -1), Vector2i(-1, 1), Vector2i(-1, -1),
+	]
+	var found := false
+	while not q.is_empty():
+		var cur: Vector2i = q.pop_front()
+		if cur == goal:
+			found = true
+			break
+		for d in dirs:
+			var nxt: Vector2i = cur + d
+			if nxt.x < 0 or nxt.y < 0 or nxt.x >= w or nxt.y >= h:
+				continue
+			if prev.has(nxt):
+				continue
+			if _is_sea(nxt.x, nxt.y, terrain, terr_w, terr_h):
+				continue
+			prev[nxt] = cur
+			q.append(nxt)
+	if not found:
+		return PackedVector2Array([clamp_pos(from, map_w, map_h), clamp_pos(to, map_w, map_h)])
+	# 回溯
+	var cells: Array = []
+	var c: Vector2i = goal
+	while c != Vector2i(-1, -1):
+		cells.append(Vector2i(c.x, c.y))
+		c = prev[c]
+	cells.reverse()
+	# 输出：首=起点（非格心），中=格中心，末=精确目标
+	var out := PackedVector2Array([clamp_pos(from, map_w, map_h)])
+	for i in range(1, cells.size()):
+		var cell: Vector2i = cells[i]
+		if i == cells.size() - 1:
+			out.append(clamp_pos(to, map_w, map_h))
+		else:
+			out.append(Vector2(cell.x + 0.5, cell.y + 0.5))
+	return out
+
+
+static func _is_sea(x: int, y: int, terrain: Callable, terr_w: int, terr_h: int) -> bool:
+	## 地图格 (0..map_w) → 地形网格 (0..terr_w) 坐标换算
+	var tx := int(float(x) * float(terr_w) / 48.0)
+	var ty := int(float(y) * float(terr_h) / 36.0)
+	return int(terrain.call(tx, ty)) == 0
+
+
 ## 两点间的移动天数（复刻原版：野外移动按格计日，向上取整）
 static func travel_days(from: Vector2, to: Vector2) -> int:
 	return maxi(1, int(ceil(from.distance_to(to) / STEP * MOVE_DAYS_PER_CELL)))

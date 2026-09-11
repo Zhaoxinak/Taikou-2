@@ -24,7 +24,7 @@ func _tick() -> void:
 	# 触发一次向最近城移动（自动寻路开始行走）
 	if not _moved:
 		_moved = true
-		_ws.set("_move_target", Vector2(_gs.player_map_pos.x - 3.0, _gs.player_map_pos.y + 2.0))
+		_ws.call("_begin_move", Vector2(30.0, 12.0))  # 目标内陆（二条方向），验证 BFS 绕行+平滑
 	# 移动中段截图（约 0.4s 后，应处于第一格→第二格之间）
 	for f in [38, 42, 46, 50, 54, 60]:
 		if _frame == f:

@@ -332,7 +332,7 @@ def render(season, land, hgt, f2, typ):
                     tpx[x, y] = (min(255,int(255*0.62)), min(255,int(255*0.60)), min(255,int(255*0.55)))
     return img
 
-FINAL_W, FINAL_H = 2048, 1536  # 每逻辑格 42.7px（2x 屏幕放大 ~3.7 倍，清晰）
+FINAL_W, FINAL_H = 4096, 3072  # 每逻辑格 85.3px（CAM_ZOOM=4.5 近镜头下仍清晰）
 
 def draw_peaks(img):
     """名山：锥形立体雪山（左上光照 + 雪顶 + 基座融入草地）"""
