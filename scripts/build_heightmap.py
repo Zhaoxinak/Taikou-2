@@ -15,10 +15,12 @@ W, H = 4336 + PAD * 2, 4056 + PAD * 2   # 4976 x 4696
 GW, GH = 384, 384                        # 网格分辨率（约 13px/格）
 CELL = W / GW
 
-RIDGE_W = 75.0    # 山系隆起宽度（px）
-RIDGE_H = 26.0    # 山系隆起强度（高度单位）
+RIDGE_W = 85.0    # 山系隆起宽度（px）
+RIDGE_H = 32.0    # 山系隆起强度（高度单位）
 PEAK_K = 150.0    # 山峰最大高度（富士，3D ÷4 后约 37 单位）
 SNOW = 95.0       # 雪线高度（Godot 端着色用）
+PLAIN_H = 10.0    # 平原基础高度（2D 单位 → 3D 约 2.5，落在低地绿）
+COAST_W = 18.0    # 海岸过渡带宽度（px）
 
 
 def point_seg_dist(px, py, ax, ay, bx, by):
@@ -110,9 +112,9 @@ def main():
                             best_d = dd
             h = -10.0
             if on_land:
-                h = 4.0 + noise(i, j) * 1.8          # 平原微起伏
-                if best_d < 28.0:                     # 海岸过渡
-                    h *= best_d / 28.0
+                h = PLAIN_H + noise(i, j) * 2.5    # 平原基础高度（绿）
+                if best_d < COAST_W:               # 海岸过渡
+                    h *= best_d / COAST_W
                 # 山系隆起
                 for pts, k in ridges:
                     md = 1e18

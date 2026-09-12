@@ -88,28 +88,28 @@ sub('env', '\n'.join([
     'ambient_light_source = 2',
     'ambient_light_color = Color(0.55, 0.62, 0.74, 1)',
     'ambient_light_energy = 0.3',
-    'tonemap_mode = 2',
+    'tonemap_mode = 0',
     'glow_enabled = false']))
 
-# 网格资源（按 rank 模板复用）
-box("box_stone0", 9.0, 2.4, 9.0, "mat_stone")
-box("box_stone1", 6.8, 2.0, 6.8, "mat_stone")
-box("box_stone2", 4.6, 1.6, 4.6, "mat_stone")
-for i, sz in enumerate([6.2, 4.8, 3.6, 2.6]):
-    box("box_w%d" % (i + 1), sz, 2.5, sz, "mat_wall" if i % 2 == 0 else "mat_wall_d")
-for i, sz in enumerate([6.8, 5.4, 4.2, 3.2]):
-    box("box_e%d" % (i + 1), sz, 0.5, sz, "mat_roof")
-box("box_gold", 0.7, 0.6, 0.7, "mat_gold")
-box("box_flag", 0.24, 2.0, 1.5, "mat_flag")
-box("box_flagp", 0.18, 2.6, 0.18, "mat_door")
-box("box_door", 1.6, 1.6, 0.35, "mat_door")
-box("box_house", 2.8, 2.0, 2.8, "mat_wood")
-box("box_bighouse", 5.0, 3.2, 5.0, "mat_wall")
-box("box_house_d", 2.0, 1.6, 2.0, "mat_wall_d")
-cyl("cyl_thatch", 1.9, 1.9, 1.5, "mat_thatch")
-cyl("cyl_thatch_s", 1.4, 1.4, 1.2, "mat_thatch")
-cyl("cyl_cone", 0.05, 1.9, 1.7, "mat_roof")
-cyl("cyl_cone_s", 0.05, 1.5, 1.3, "mat_roof")
+# 网格资源（按 rank 模板复用，尺寸 ×1.4 便于全景可见）
+box("box_stone0", 12.6, 3.4, 12.6, "mat_stone")
+box("box_stone1", 9.5, 2.8, 9.5, "mat_stone")
+box("box_stone2", 6.4, 2.2, 6.4, "mat_stone")
+for i, sz in enumerate([8.7, 6.7, 5.0, 3.6]):
+    box("box_w%d" % (i + 1), sz, 3.4, sz, "mat_wall" if i % 2 == 0 else "mat_wall_d")
+for i, sz in enumerate([9.5, 7.6, 5.9, 4.5]):
+    box("box_e%d" % (i + 1), sz, 0.7, sz, "mat_roof")
+box("box_gold", 1.0, 0.85, 1.0, "mat_gold")
+box("box_flag", 0.34, 2.8, 2.1, "mat_flag")
+box("box_flagp", 0.25, 3.6, 0.25, "mat_door")
+box("box_door", 2.2, 2.2, 0.5, "mat_door")
+box("box_house", 3.9, 2.8, 3.9, "mat_wood")
+box("box_bighouse", 7.0, 4.5, 7.0, "mat_wall")
+box("box_house_d", 2.8, 2.2, 2.8, "mat_wall_d")
+cyl("cyl_thatch", 2.7, 2.7, 2.1, "mat_thatch")
+cyl("cyl_thatch_s", 2.0, 2.0, 1.7, "mat_thatch")
+cyl("cyl_cone", 0.05, 2.7, 2.4, "mat_roof")
+cyl("cyl_cone_s", 0.05, 2.1, 1.8, "mat_roof")
 
 # ---------- 节点输出 ----------
 L = []
@@ -143,63 +143,63 @@ def label3d(name, parent, text, px, py, pz, fs=28, col="0.95, 0.93, 0.88"):
 def house(parent, dx, dy, dz, big=False, thatch=True):
     base = "box_house" if not big else "box_bighouse"
     if thatch:
-        MI(parent, "h", base, dx, dy + 1.0, dz)
-        MI(parent, "ht", "cyl_thatch" if not big else "cyl_thatch_s", dx, dy + 2.35, dz)
+        MI(parent, "h", base, dx, dy + 1.4, dz)
+        MI(parent, "ht", "cyl_thatch" if not big else "cyl_thatch_s", dx, dy + 3.3, dz)
     else:
-        MI(parent, "h", base, dx, dy + 1.6, dz)
-        MI(parent, "ht", "cyl_cone_s", dx, dy + 3.4, dz)
+        MI(parent, "h", base, dx, dy + 2.2, dz)
+        MI(parent, "ht", "cyl_cone_s", dx, dy + 4.8, dz)
 
 def castle(parent, rank):
     if rank == 0:
-        # 石垣 + 四层 + 挑檐 + 攒尖 + 金 + 双旗 + 城下町8屋
-        MI(parent, "stone", "box_stone0", 0, 1.2, 0)
-        for i, h0 in enumerate([2.4, 4.9, 7.3, 9.6]):
-            MI(parent, "w%d" % i, "box_w%d" % (i + 1), 0, h0 + 1.25, 0)
-            MI(parent, "e%d" % i, "box_e%d" % (i + 1), 0, h0 + 2.5, 0)
-        MI(parent, "cone", "cyl_cone", 0, 12.1, 0)
-        MI(parent, "gold", "box_gold", 0, 13.3, 0)
-        MI(parent, "fpl", "box_flagp", -1.6, 14.6, 0)
-        MI(parent, "fpr", "box_flagp", 1.6, 14.6, 0)
-        MI(parent, "fl", "box_flag", -1.6, 15.4, 0)
-        MI(parent, "fr", "box_flag", 1.6, 15.4, 0)
-        for i in range(8):
-            a = math.tau * i / 8.0 + 0.35
-            house(parent, math.cos(a) * 10.5, 0, math.sin(a) * 7.0 - 2.0)
+        # 石垣 + 四层 + 挑檐 + 攒尖 + 金 + 双旗 + 城下町10屋
+        MI(parent, "stone", "box_stone0", 0, 1.7, 0)
+        for i, h0 in enumerate([3.4, 6.9, 10.2, 13.4]):
+            MI(parent, "w%d" % i, "box_w%d" % (i + 1), 0, h0 + 1.7, 0)
+            MI(parent, "e%d" % i, "box_e%d" % (i + 1), 0, h0 + 3.5, 0)
+        MI(parent, "cone", "cyl_cone", 0, 17.0, 0)
+        MI(parent, "gold", "box_gold", 0, 18.6, 0)
+        MI(parent, "fpl", "box_flagp", -2.2, 20.4, 0)
+        MI(parent, "fpr", "box_flagp", 2.2, 20.4, 0)
+        MI(parent, "fl", "box_flag", -2.2, 21.6, 0)
+        MI(parent, "fr", "box_flag", 2.2, 21.6, 0)
+        for i in range(10):
+            a = math.tau * i / 10.0 + 0.3
+            house(parent, math.cos(a) * 14.0, 0, math.sin(a) * 9.8 - 2.5)
     elif rank == 1:
-        MI(parent, "stone", "box_stone1", 0, 1.0, 0)
-        for i, h0 in enumerate([2.2, 4.6, 6.9]):
-            MI(parent, "w%d" % i, "box_w%d" % (i + 1), 0, h0 + 1.25, 0)
-            MI(parent, "e%d" % i, "box_e%d" % (i + 1), 0, h0 + 2.5, 0)
-        MI(parent, "cone", "cyl_cone_s", 0, 9.3, 0)
-        MI(parent, "gold", "box_gold", 0, 10.3, 0)
-        MI(parent, "fp", "box_flagp", 0, 11.4, 0)
-        MI(parent, "f", "box_flag", 0, 12.2, 0)
-        for i in range(4):
-            a = math.tau * i / 4.0 + 0.6
-            house(parent, math.cos(a) * 7.5, 0, math.sin(a) * 5.0 - 1.5)
+        MI(parent, "stone", "box_stone1", 0, 1.4, 0)
+        for i, h0 in enumerate([3.1, 6.4, 9.6]):
+            MI(parent, "w%d" % i, "box_w%d" % (i + 1), 0, h0 + 1.4, 0)
+            MI(parent, "e%d" % i, "box_e%d" % (i + 1), 0, h0 + 3.5, 0)
+        MI(parent, "cone", "cyl_cone_s", 0, 13.0, 0)
+        MI(parent, "gold", "box_gold", 0, 14.4, 0)
+        MI(parent, "fp", "box_flagp", 0, 16.0, 0)
+        MI(parent, "f", "box_flag", 0, 17.0, 0)
+        for i in range(6):
+            a = math.tau * i / 6.0 + 0.5
+            house(parent, math.cos(a) * 10.5, 0, math.sin(a) * 7.0 - 2.0)
     else:
-        MI(parent, "stone", "box_stone2", 0, 0.8, 0)
-        for i, h0 in enumerate([1.8, 3.8]):
-            MI(parent, "w%d" % i, "box_w%d" % (i + 2), 0, h0 + 1.0, 0)
-            MI(parent, "e%d" % i, "box_e%d" % (i + 2), 0, h0 + 2.2, 0)
-        MI(parent, "cone", "cyl_cone_s", 0, 6.0, 0)
-        MI(parent, "fp", "box_flagp", 0, 7.0, 0)
-        MI(parent, "f", "box_flag", 0, 7.7, 0)
+        MI(parent, "stone", "box_stone2", 0, 1.1, 0)
+        for i, h0 in enumerate([2.5, 5.3]):
+            MI(parent, "w%d" % i, "box_w%d" % (i + 2), 0, h0 + 1.4, 0)
+            MI(parent, "e%d" % i, "box_e%d" % (i + 2), 0, h0 + 3.1, 0)
+        MI(parent, "cone", "cyl_cone_s", 0, 8.4, 0)
+        MI(parent, "fp", "box_flagp", 0, 9.8, 0)
+        MI(parent, "f", "box_flag", 0, 10.8, 0)
 
 def town(parent, rank):
-    if rank == 3:      # 大町：豪商大屋 + 6 町屋
-        MI(parent, "bg", "box_bighouse", 0, 1.6, 0)
-        MI(parent, "be", "box_e2", 0, 3.4, 0)
-        MI(parent, "bd", "box_door", 0, 1.2, 3.3)
-        for i in range(6):
-            a = math.tau * i / 6.0 + 0.4
-            house(parent, math.cos(a) * 7.0, 0, math.sin(a) * 5.0 - 1.0)
+    if rank == 3:      # 大町：豪商大屋 + 8 町屋
+        MI(parent, "bg", "box_bighouse", 0, 2.2, 0)
+        MI(parent, "be", "box_e2", 0, 4.8, 0)
+        MI(parent, "bd", "box_door", 0, 1.7, 4.6)
+        for i in range(8):
+            a = math.tau * i / 8.0 + 0.35
+            house(parent, math.cos(a) * 9.8, 0, math.sin(a) * 7.0 - 1.5)
     elif rank == 4:    # 小镇：4 町屋
-        for i, (dx, dz) in enumerate([(-2.6, 2.2), (2.8, 2.4), (-1.6, -1.6), (2.6, -1.2)]):
+        for i, (dx, dz) in enumerate([(-3.6, 3.1), (3.9, 3.4), (-2.2, -2.2), (3.6, -1.7)]):
             house(parent, dx, 0, dz, big=(i == 0))
     else:              # 村庄：2 茅屋
-        house(parent, -1.8, 0, 1.2, big=False)
-        house(parent, 2.2, 0, 0.8, big=False)
+        house(parent, -2.5, 0, 1.7, big=False)
+        house(parent, 3.1, 0, 1.1, big=False)
 
 # ---------- 主流程 ----------
 out = []
@@ -283,11 +283,11 @@ for c in d["cities"]:
     out.append('transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, %.1f, %.1f, %.1f)' % (x, y, z))
     if c["type"] == "castle":
         castle("Cities/C%d_%s" % (c["id"], c["name"]), 0 if rank == 0 else (1 if rank == 1 else 2))
-        ly = 17.0 if rank == 0 else (13.5 if rank == 1 else 9.5)
+        ly = 24.0 if rank == 0 else (19.0 if rank == 1 else 13.0)
     else:
         town("Cities/C%d_%s" % (c["id"], c["name"]), rank)
-        ly = 6.5 if rank == 3 else (5.5 if rank == 4 else 4.5)
-    label3d("CityLabel", "Cities/C%d_%s" % (c["id"], c["name"]), c["name"], 0, y + ly, 0, fs=22)
+        ly = 9.5 if rank == 3 else (8.0 if rank == 4 else 6.5)
+    label3d("CityLabel", "Cities/C%d_%s" % (c["id"], c["name"]), c["name"], 0, y + ly, 0, fs=26)
 
 # 山峰雪顶
 out.append('')
@@ -316,7 +316,7 @@ out.append('')
 out.append('[node name="Provinces" type="Node3D" parent="."]')
 for p in d["provinces"]:
     x, y, z = p3(p["cx"], p["cy"])
-    label3d("P_%s" % p["name"], "Provinces", p["name"], x, y + 6.0, z, fs=30)
+    label3d("P_%s" % p["name"], "Provinces", p["name"], x, y + 8.0, z, fs=34)
 
 # 玩家
 out.append('')
@@ -363,8 +363,8 @@ out.append('text = "返回状态画面"')
 out.append('script = ExtResource("3_ub")')
 
 with open(DST, "w", encoding="utf-8") as f:
-    txt = "\n".join(out)
+    txt = "\n".join(out + L)
     # Godot 4 的 .tscn 中 Color 必须 4 参数（补 alpha）
     txt = re.sub(r"Color\(([\d.]+), ([\d.]+), ([\d.]+)\)", r"Color(\1, \2, \3, 1)", txt)
     f.write(txt)
-print("written", DST, len(out), "lines")
+print("written", DST, len(out) + len(L), "lines")

@@ -5,6 +5,7 @@ extends Node3D
 const MAP_JSON := "res://data/world_map.json"
 const HM_PATH := "res://data/heightmap.json"
 const WorldItem3D := preload("res://src/world/WorldItem3D.gd")
+const UiTheme := preload("res://src/ui/UiTheme.gd")
 const S := 0.25
 const _SPEED := 130.0        # 3D 行走速度（单位/秒）
 const _CLICK_R := 14.0       # 点击半径（3D 单位）
@@ -21,9 +22,9 @@ var _city_name: Dictionary = {}
 # 相机
 var _cam: Camera3D = null
 var _target := Vector3(542, 0, 507)
-var _dist := 700.0
+var _dist := 750.0
 var _yaw := 0.0
-var _pitch := 55.0 * PI / 180.0
+var _pitch := 48.0 * PI / 180.0
 var _drag_btn := -1
 var _drag_last := Vector2.ZERO
 
@@ -38,6 +39,7 @@ func _ready() -> void:
 	_load_data()
 	_build_terrain()
 	_setup_cities()
+	_apply_label_font()
 	_cam = $Camera3D
 	_player = $Player
 	_set_player_pos(0)
@@ -147,7 +149,39 @@ func _setup_cities() -> void:
 		body.set_meta("city_id", cid)
 
 
+## 运行时给所有 Label3D 补中文字体（编辑器未导入字体时的保险）
+func _apply_label_font() -> void:
+	var f: Font = UiTheme.font()
+	var stack: Array[Node] = [self]
+	while not stack.is_empty():
+		var n: Node = stack.pop_back()
+		if n is Label3D:
+			(n as Label3D).font = f
+		for c in n.get_children():
+			stack.append(c)
+
+
 ## 城名标签 LOD：按相机距离显示
+const _TARGET_CITY_PX := 20.0     # 城名目标屏幕像素（2K 物理）
+const _TARGET_PROV_PX := 26.0     # 国名目标屏幕像素
+const _LABEL_PIXEL_W := 0.005     # Label3D 默认 pixel_size
+const _FS_MIN := 40
+const _FS_MAX := 12000
+
+
+func _fs_for(dist: float, target_px: float) -> int:
+	var vh := 1440.0
+	if get_node_or_null("/root/DisplayAdapter") != null:
+		var da: Node = get_node("/root/DisplayAdapter")
+		vh = float(da.viewport_size.y)
+	var fov := 75.0
+	if _cam != null:
+		fov = _cam.fov
+	var k: float = 2.0 * tan(deg_to_rad(fov) / 2.0)
+	var fs: float = target_px * k * dist / (_LABEL_PIXEL_W * vh)
+	return clampi(int(fs), _FS_MIN, _FS_MAX)
+
+
 func _process_city_labels() -> void:
 	var cam_pos: Vector3 = _cam.global_position
 	for cid in _city_node:
@@ -158,14 +192,27 @@ func _process_city_labels() -> void:
 		var d := node.global_position.distance_to(cam_pos)
 		var rank: int = int(_city_rank(cid))
 		var show := false
-		if rank <= 1 and d < 500.0:
+		if rank <= 1 and d < 700.0:
 			show = true
-		elif rank <= 3 and d < 300.0:
+		elif rank <= 3 and d < 380.0:
 			show = true
-		elif d < 160.0:
+		elif d < 200.0:
 			show = true
 		if lb.visible != show:
 			lb.visible = show
+		if show:
+			lb.font_size = _fs_for(d, _TARGET_CITY_PX)
+
+
+func _process_province_labels() -> void:
+	var cam_pos: Vector3 = _cam.global_position
+	var provs := get_node_or_null("Provinces")
+	if provs == null:
+		return
+	for lb in provs.get_children():
+		if lb is Label3D:
+			var d: float = (lb as Node3D).global_position.distance_to(cam_pos)
+			(lb as Label3D).font_size = _fs_for(d, _TARGET_PROV_PX)
 
 
 func _city_rank(cid: int) -> int:
@@ -241,7 +288,10 @@ func _pick_city(sp: Vector2) -> void:
 	var best_id := -1
 	var best_d := 1e9
 	for cid in _city_pos2:
-		var p3v: Vector3 = (_city_node[cid] as Node3D).global_position
+		var node: Node3D = _city_node.get(cid)
+		if node == null:
+			continue
+		var p3v: Vector3 = node.global_position
 		var d := Vector2(p3v.x - hit.x, p3v.z - hit.z).length()
 		if d < _CLICK_R and d < best_d:
 			best_d = d
@@ -326,6 +376,7 @@ func _process(delta: float) -> void:
 			var dirv := (target_p - cur).normalized()
 			_player.global_position = cur + dirv * step
 	_process_city_labels()
+	_process_province_labels()
 
 
 func _set_player_pos(cid: int) -> void:

@@ -41,22 +41,22 @@ static func to3(pos2: Vector2) -> Vector3:
 ## 高度→顶点色（海/滩/低地/高地/山/雪）
 static func hm_color(h: float) -> Color:
 	if h <= -1.5:
-		return Color(0.16, 0.34, 0.60, 1.0)   # 深海
+		return Color(0.13, 0.28, 0.52, 1.0)   # 深海
 	if h <= 0.0:
-		return Color(0.24, 0.46, 0.72, 1.0)   # 浅海
-	if h <= 0.8:
-		return Color(0.80, 0.74, 0.52, 1.0)   # 滩
-	if h <= 4.5:
-		return Color(0.44, 0.60, 0.36, 1.0)   # 低地
-	if h <= 10.0:
-		return Color(0.52, 0.66, 0.40, 1.0)   # 中地
-	if h <= 17.0:
-		return Color(0.58, 0.62, 0.38, 1.0)   # 丘陵
-	if h <= 26.0:
-		return Color(0.62, 0.52, 0.34, 1.0)   # 山地
-	if h <= 36.0:
-		return Color(0.55, 0.44, 0.30, 1.0)   # 高山
-	return Color(0.92, 0.94, 0.93, 1.0)        # 雪
+		return Color(0.20, 0.40, 0.66, 1.0)   # 浅海
+	if h <= 0.7:
+		return Color(0.82, 0.76, 0.55, 1.0)   # 滩
+	if h <= 5.0:
+		return Color(0.34, 0.55, 0.26, 1.0)   # 低地绿
+	if h <= 11.0:
+		return Color(0.42, 0.60, 0.28, 1.0)   # 中地绿
+	if h <= 18.0:
+		return Color(0.56, 0.58, 0.30, 1.0)   # 丘陵
+	if h <= 28.0:
+		return Color(0.60, 0.48, 0.30, 1.0)   # 山地
+	if h <= 38.0:
+		return Color(0.52, 0.42, 0.28, 1.0)   # 高山
+	return Color(0.93, 0.95, 0.94, 1.0)        # 雪
 
 
 ## 节点类型：river / road_trunk / road_branch / peak / sight
