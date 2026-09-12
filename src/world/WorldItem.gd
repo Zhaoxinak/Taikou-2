@@ -43,6 +43,15 @@ const C_BRANCH    := Color(0.72, 0.68, 0.58, 0.75)
 const C_CASTLE_STONE := Color(0.62, 0.58, 0.52, 1.0)
 const C_CASTLE_DARK  := Color(0.42, 0.38, 0.34, 1.0)
 const C_ROOF      := Color(0.30, 0.28, 0.40, 1.0)   # 深蓝灰瓦
+const C_ROOF_DK   := Color(0.24, 0.26, 0.36, 1.0)   # 更深青灰瓦（姬路/松本城）
+const C_WALL_W    := Color(0.94, 0.92, 0.85, 1.0)   # 天守白墙
+const C_WALL_WD   := Color(0.80, 0.78, 0.71, 1.0)   # 白墙暗面
+const C_WINDOW    := Color(0.22, 0.18, 0.15, 1.0)   # 窗
+const C_GOLD      := Color(0.83, 0.66, 0.30, 1.0)   # 金饰
+const C_STONE_LT  := Color(0.80, 0.76, 0.70, 1.0)   # 石垣亮灰
+const C_STONE_LN  := Color(0.50, 0.46, 0.42, 1.0)   # 石缝
+const C_WOOD      := Color(0.66, 0.52, 0.36, 1.0)   # 木墙
+const C_THATCH    := Color(0.52, 0.38, 0.22, 1.0)   # 茅草顶
 const C_HOUSE_WALL:= Color(0.80, 0.74, 0.60, 1.0)
 const C_HOUSE_ROOF:= Color(0.55, 0.38, 0.22, 1.0)
 const C_SIGHT     := Color(0.90, 0.45, 0.32, 1.0)
@@ -92,6 +101,7 @@ func _draw() -> void:
 		"peak": _draw_peak()
 		"road_trunk": _draw_road(9.0, 5.0, C_ROAD_BED, C_ROAD_FACE, 0)
 		"road_branch": _draw_road(4.5, 2.2, C_BRANCH_BED, C_BRANCH, 0)
+		"castle": _draw_city()
 		"city": _draw_city()
 		"town": _draw_town()
 		"sight": _draw_sight()
@@ -335,50 +345,43 @@ func _draw_city() -> void:
 		1: _draw_castle_rank1(p)
 		_: _draw_castle_rank2(p)
 	if not label.is_empty() and show_label:
-		_draw_label(p + Vector2(0, 18), label, 21, C_TEXT, true)
+		# 城标签放天守上方（城下町在下方环绕，会遮挡）
+		var ly := [-52.0, -42.0, -30.0]
+		_draw_label(p + Vector2(0, ly[clampi(rank, 0, 2)]), label, 21, C_TEXT, true)
 
 
-## rank0 大城：巨天守（四层）+ 城下町 8 屋 + 大门/双旗
+## rank0 大城：巨天守（四层白墙青瓦飞檐）+ 石垣 + 城下町 8 茅葺屋 + 大门/双旗
 func _draw_castle_rank0(p: Vector2) -> void:
 	draw_ellipse_shadow(p + Vector2(5, 7), 30.0)
 	# 城下町（大范围环绕）
 	for i in range(8):
 		var a := TAU * float(i) / 8.0 + 0.35
-		var hp := p + Vector2(cos(a) * 40.0, sin(a) * 26.0 + 12.0)
+		var hp := p + Vector2(cos(a) * 42.0, sin(a) * 27.0 + 12.0)
 		_draw_house(hp, float(i * 17 + 5), 5.0)
-	# 石垣（高台）
+	# 石垣（高台，带石缝纹理）
+	_stone_base(p, 24.0, 10.0, 0.0)
+	# 四层天守：白墙 + 青灰飞檐瓦
+	var lv := [[14.0, 0, -9], [11.0, -9, -18], [8.0, -18, -26], [6.0, -26, -33]]
+	for i in range(4):
+		var l0: Array = lv[i]
+		var wall_col := C_WALL_W if i % 2 == 0 else C_WALL_WD
+		_tenshu_level(p, l0[0], l0[0] * 0.72, l0[1], l0[2], wall_col, C_ROOF_DK)
+	# 最上金饰（千鸟破风·金飾り）
 	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-26, 10), p + Vector2(26, 10), p + Vector2(23, 0), p + Vector2(-23, 0)]), C_CASTLE_STONE)
-	draw_line(p + Vector2(-23, 0), p + Vector2(23, 0), C_CASTLE_DARK.darkened(0.3), 1.6)
-	# 四层天守（每层收窄）
-	var layers := [
-		[16.0, 0, -9, C_CASTLE_DARK], [12.0, -9, -18, C_CASTLE_STONE],
-		[9.0, -18, -27, C_CASTLE_DARK], [6.5, -27, -36, C_CASTLE_STONE],
-	]
-	for l in layers:
-		draw_colored_polygon(PackedVector2Array([
-			p + Vector2(-l[0], l[1]), p + Vector2(l[0], l[1]),
-			p + Vector2(l[0] * 0.76, l[2]), p + Vector2(-l[0] * 0.76, l[2])]), l[3])
-	# 四层瓦顶
-	var roofs := [[14.0, -9], [10.5, -18], [8.0, -27], [5.8, -36]]
-	for r0 in roofs:
-		var w0: float = r0[0]
-		var y0: float = r0[1]
-		draw_colored_polygon(PackedVector2Array([
-			p + Vector2(-w0, y0), p + Vector2(w0, y0), p + Vector2(0, y0 - 5.5)]), C_ROOF)
+		p + Vector2(-2.2, -33), p + Vector2(2.2, -33), p + Vector2(0, -36.5)]), C_GOLD)
 	# 大门 + 围墙
 	draw_rect(Rect2(p + Vector2(-4.5, 2), Vector2(9, 7)), Color(0.35, 0.25, 0.18, 1))
-	draw_line(p + Vector2(-23, 0), p + Vector2(-23, 7), C_CASTLE_DARK, 1.8)
-	draw_line(p + Vector2(23, 0), p + Vector2(23, 7), C_CASTLE_DARK, 1.8)
+	draw_line(p + Vector2(-23, 0), p + Vector2(-23, 7), C_STONE_LN, 1.8)
+	draw_line(p + Vector2(23, 0), p + Vector2(23, 7), C_STONE_LN, 1.8)
 	# 双旗
 	for dx in [-5.0, 5.0]:
-		draw_line(p + Vector2(dx, -36), p + Vector2(dx, -45), Color(0.2, 0.16, 0.12, 1), 1.3)
+		draw_line(p + Vector2(dx, -36.5), p + Vector2(dx, -45), Color(0.2, 0.16, 0.12, 1), 1.3)
 		draw_colored_polygon(PackedVector2Array([
 			p + Vector2(dx, -45), p + Vector2(dx + 9, -42), p + Vector2(dx, -39.5)]),
 			Color(0.85, 0.3, 0.25, 1))
 
 
-## rank1 中城：三层天守 + 城下 4 屋 + 单旗
+## rank1 中城：三层天守（白墙青瓦）+ 石垣 + 城下 4 茅葺屋 + 单旗
 func _draw_castle_rank1(p: Vector2) -> void:
 	draw_ellipse_shadow(p + Vector2(4, 6), 22.0)
 	for i in range(4):
@@ -386,51 +389,38 @@ func _draw_castle_rank1(p: Vector2) -> void:
 		var hp := p + Vector2(cos(a) * 28.0, sin(a) * 20.0 + 9.0)
 		_draw_house(hp, float(i * 13 + 7), 4.0)
 	# 石垣
-	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-19, 8), p + Vector2(19, 8), p + Vector2(17, 0), p + Vector2(-17, 0)]), C_CASTLE_STONE)
-	draw_line(p + Vector2(-17, 0), p + Vector2(17, 0), C_CASTLE_DARK.darkened(0.3), 1.4)
+	_stone_base(p, 19.0, 8.0, 0.0)
 	# 三层天守
+	var lv := [[12.0, 0, -9], [9.0, -9, -17], [6.5, -17, -24]]
+	for i in range(3):
+		var l0: Array = lv[i]
+		var wall_col := C_WALL_W if i % 2 == 0 else C_WALL_WD
+		_tenshu_level(p, l0[0], l0[0] * 0.72, l0[1], l0[2], wall_col, C_ROOF_DK)
+	# 金饰 + 大门 + 旗
 	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-13, 0), p + Vector2(13, 0), p + Vector2(10, -9), p + Vector2(-10, -9)]), C_CASTLE_DARK)
-	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-10, -9), p + Vector2(10, -9), p + Vector2(7.5, -18), p + Vector2(-7.5, -18)]), C_CASTLE_STONE)
-	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-6.8, -18), p + Vector2(6.8, -18), p + Vector2(5, -26), p + Vector2(-5, -26)]), C_CASTLE_DARK)
-	# 三层瓦顶
-	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-11, -9), p + Vector2(11, -9), p + Vector2(0, -14)]), C_ROOF)
-	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-8.5, -18), p + Vector2(8.5, -18), p + Vector2(0, -23)]), C_ROOF)
-	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-5.8, -26), p + Vector2(5.8, -26), p + Vector2(0, -31)]), C_ROOF)
-	# 大门 + 旗
+		p + Vector2(-1.8, -24), p + Vector2(1.8, -24), p + Vector2(0, -27)]), C_GOLD)
 	draw_rect(Rect2(p + Vector2(-3, 1), Vector2(6, 6)), Color(0.35, 0.25, 0.18, 1))
-	draw_line(p + Vector2(0, -31), p + Vector2(0, -38), Color(0.2, 0.16, 0.12, 1), 1.2)
+	draw_line(p + Vector2(0, -27), p + Vector2(0, -34), Color(0.2, 0.16, 0.12, 1), 1.2)
 	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(0, -38), p + Vector2(8, -35), p + Vector2(0, -32.5)]), Color(0.85, 0.3, 0.25, 1))
+		p + Vector2(0, -34), p + Vector2(8, -31), p + Vector2(0, -28.5)]), Color(0.85, 0.3, 0.25, 1))
 
 
-## rank2 小城：二层小天守（支城）
+## rank2 小城：二层小天守（木墙灰瓦）+ 石垣（支城）
 func _draw_castle_rank2(p: Vector2) -> void:
 	draw_ellipse_shadow(p + Vector2(3, 4), 13.0)
+	_stone_base(p, 12.0, 6.0, 0.0)
+	var lv := [[7.5, 0, -8], [5.5, -8, -15]]
+	for i in range(2):
+		var l0: Array = lv[i]
+		_tenshu_level(p, l0[0], l0[0] * 0.72, l0[1], l0[2], C_WOOD, C_ROOF)
+	draw_line(p + Vector2(0, -15), p + Vector2(0, -20), Color(0.2, 0.16, 0.12, 1), 1.0)
 	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-12, 6), p + Vector2(12, 6), p + Vector2(10.5, 0), p + Vector2(-10.5, 0)]), C_CASTLE_STONE)
-	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-8.5, 0), p + Vector2(8.5, 0), p + Vector2(6.5, -8), p + Vector2(-6.5, -8)]), C_CASTLE_DARK)
-	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-5.5, -8), p + Vector2(5.5, -8), p + Vector2(4, -15), p + Vector2(-4, -15)]), C_CASTLE_STONE)
-	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-7, -8), p + Vector2(7, -8), p + Vector2(0, -12.5)]), C_ROOF)
-	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-4.8, -15), p + Vector2(4.8, -15), p + Vector2(0, -19.5)]), C_ROOF)
-	draw_line(p + Vector2(0, -19.5), p + Vector2(0, -24), Color(0.2, 0.16, 0.12, 1), 1.0)
-	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(0, -24), p + Vector2(5.5, -22), p + Vector2(0, -20.5)]), Color(0.85, 0.3, 0.25, 1))
+		p + Vector2(0, -20), p + Vector2(5.5, -18), p + Vector2(0, -16.5)]), Color(0.85, 0.3, 0.25, 1))
 
 
 # ── 町（town）：按史实规模三档市镇造型 ──
-#   rank3 大町（兵粮≥3000：大坂/小田原/骏府/冈山…）：豪商大屋 + 町屋群
-#   rank4 小镇（1000~2999：二条/清洲/大垣…）：町屋 4 栋
+#   rank3 大町（兵粮≥3000：大坂/小田原/骏府/冈山…）：豪商大屋（白墙翘檐）+ 茅葺町屋群
+#   rank4 小镇（1000~2999：二条/清洲/大垣…）：茅葺町屋 4 栋
 #   rank5 村庄（<1000：江户/白石…）：村屋 1~2 栋
 func _draw_town() -> void:
 	if points.is_empty():
@@ -445,25 +435,28 @@ func _draw_town() -> void:
 		_draw_label(p + Vector2(0, 13), label, 16, C_TEXT_DIM, true)
 
 
-## rank3 大町/城下町：豪商大屋（白墙大屋敷）+ 6 栋町屋 + 市街
+## rank3 大町/城下町：豪商大屋敷（白墙 + 青瓦飞檐 + 格子窗）+ 6 栋茅葺町屋
 func _draw_town_rank3(p: Vector2) -> void:
 	draw_ellipse_shadow(p + Vector2(3, 4), 16.0)
 	# 环绕町屋
 	for i in range(6):
 		var a := TAU * float(i) / 6.0 + 0.4
-		var hp := p + Vector2(cos(a) * 26.0, sin(a) * 18.0 + 7.0)
+		var hp := p + Vector2(cos(a) * 27.0, sin(a) * 19.0 + 7.0)
 		_draw_house(hp, float(i * 9 + 3), 4.0)
-	# 豪商大屋敷（白墙 + 大瓦顶 + 门）
+	# 豪商大屋（白墙 + 翘檐瓦顶 + 格子窗 + 大门）
 	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-11, 6), p + Vector2(11, 6), p + Vector2(11, -6), p + Vector2(-11, -6)]), Color(0.88, 0.85, 0.78, 1))
-	draw_line(p + Vector2(-11, -6), p + Vector2(11, -6), C_HOUSE_ROOF, 2.0)
+		p + Vector2(-11, 6), p + Vector2(11, 6), p + Vector2(11, -6), p + Vector2(-11, -6)]), C_WALL_W)
+	draw_line(p + Vector2(-9, 0), p + Vector2(9, 0), C_WALL_WD, 1.2)
+	draw_line(p + Vector2(-6, 3), p + Vector2(-6, -4), C_WINDOW, 1.0)
+	draw_line(p + Vector2(6, 3), p + Vector2(6, -4), C_WINDOW, 1.0)
+	_roof_jp(p, 13.0, -6, 7.0, C_ROOF_DK)
+	draw_rect(Rect2(p + Vector2(-2.5, 0), Vector2(5, 6)), Color(0.3, 0.22, 0.16, 1))
+	draw_line(p + Vector2(0, -13), p + Vector2(0, -17), Color(0.2, 0.16, 0.12, 1), 1.0)
 	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-13, -6), p + Vector2(13, -6), p + Vector2(0, -15)]), Color(0.42, 0.32, 0.24, 1))
-	draw_rect(Rect2(p + Vector2(-2.5, -1), Vector2(5, 6)), Color(0.3, 0.22, 0.16, 1))
-	draw_line(p + Vector2(0, -15), p + Vector2(0, -19), Color(0.2, 0.16, 0.12, 1), 1.0)
+		p + Vector2(0, -17), p + Vector2(5.5, -15), p + Vector2(0, -13.5)]), Color(0.85, 0.3, 0.25, 1))
 
 
-## rank4 小镇：町屋 4 栋错落
+## rank4 小镇：茅葺町屋 4 栋错落
 func _draw_town_rank4(p: Vector2) -> void:
 	draw_ellipse_shadow(p + Vector2(2, 3), 11.0)
 	var offs := [Vector2(-11, 6), Vector2(9, 7), Vector2(-6, -5), Vector2(10, -4)]
@@ -471,31 +464,81 @@ func _draw_town_rank4(p: Vector2) -> void:
 		_draw_house(p + offs[i], float(i * 7 + 2), 4.0)
 
 
-## rank5 村庄：村屋 2 栋（简朴小村）
+## rank5 村庄：茅葺村屋 2 栋（简朴小村）
 func _draw_town_rank5(p: Vector2) -> void:
 	draw_ellipse_shadow(p + Vector2(2, 2), 7.0)
 	_draw_house(p + Vector2(-6, 3), 3.0, 4.0)
 	_draw_house(p + Vector2(7, 4), 11.0, 3.0)
 
 
-## 小屋：墙 + 三角顶（屋顶色 4 选 1）+ 小院
+## 茅葺屋：厚茅草圆顶（占 1/2 高）+ 木墙 + 门
 func _draw_house(p: Vector2, seed: float, base: float) -> void:
 	draw_ellipse_shadow(p + Vector2(2, 3), base + 2.0)
-	var roof_col := C_HOUSE_ROOF
+	var roof_col := C_THATCH
 	var r := int(seed) % 4
 	match r:
-		0: roof_col = Color(0.55, 0.38, 0.22, 1)   # 茅草棕
-		1: roof_col = Color(0.42, 0.30, 0.30, 1)   # 深赤
-		2: roof_col = Color(0.36, 0.42, 0.52, 1)   # 蓝灰瓦
-		3: roof_col = Color(0.52, 0.56, 0.38, 1)   # 灰绿
-	# 院墙
-	draw_rect(Rect2(p + Vector2(-base - 4, -2), Vector2((base + 4) * 2, 7)), Color(0.72, 0.66, 0.52, 0.55))
-	# 屋身
+		0: roof_col = Color(0.52, 0.38, 0.22, 1)   # 茅草
+		1: roof_col = Color(0.46, 0.34, 0.26, 1)   # 深茅草
+		2: roof_col = Color(0.42, 0.30, 0.30, 1)   # 赤土
+		3: roof_col = Color(0.40, 0.44, 0.34, 1)   # 灰绿苔
+	# 厚茅草顶（圆润鼓起）
+	var w := base + 2.5
+	var pts := PackedVector2Array()
+	pts.append(p + Vector2(-w, -3))
+	pts.append(p + Vector2(-w * 0.82, -7))
+	pts.append(p + Vector2(-w * 0.5, -9))
+	pts.append(p + Vector2(0, -10))
+	pts.append(p + Vector2(w * 0.5, -9))
+	pts.append(p + Vector2(w * 0.82, -7))
+	pts.append(p + Vector2(w, -3))
+	draw_colored_polygon(pts, roof_col)
+	# 草纹（横向弧线）
+	draw_arc(p + Vector2(0, -1.5), base * 1.05, PI, 0, 8, roof_col.darkened(0.2), 1.0)
+	# 木墙
 	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-base, 4), p + Vector2(base, 4), p + Vector2(base, -3), p + Vector2(-base, -3)]), C_HOUSE_WALL)
-	# 屋顶
+		p + Vector2(-base * 0.82, -3), p + Vector2(base * 0.82, -3),
+		p + Vector2(base * 0.72, 4), p + Vector2(-base * 0.72, 4)]), C_WOOD)
+	# 门
+	draw_rect(Rect2(p + Vector2(-base * 0.22, 0), Vector2(base * 0.44, 4)), Color(0.30, 0.22, 0.15, 1))
+
+
+## 日式石垣：浅灰底座 + 横竖石缝
+func _stone_base(p: Vector2, w: float, h_bot: float, h_top: float) -> void:
 	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-base - 2.5, -3), p + Vector2(base + 2.5, -3), p + Vector2(0, -base - 6)]), roof_col)
+		p + Vector2(-w, h_bot), p + Vector2(w, h_bot),
+		p + Vector2(w - 3, h_top), p + Vector2(-(w - 3), h_top)]), C_STONE_LT)
+	for i in range(2):
+		var yy := h_bot - (h_bot - h_top) * (float(i) + 0.5) / 2.0
+		draw_line(p + Vector2(-w + 2, yy), p + Vector2(w - 2, yy), C_STONE_LN, 1.0)
+	draw_line(p + Vector2(-w * 0.35, h_bot - 1), p + Vector2(-w * 0.35, h_top + 1), C_STONE_LN, 0.8)
+	draw_line(p + Vector2(w * 0.4, h_bot - 1), p + Vector2(w * 0.4, h_top + 1), C_STONE_LN, 0.8)
+	draw_line(p + Vector2(-(w - 3), h_top), p + Vector2(w - 3, h_top), C_STONE_LN, 1.2)
+
+
+## 天守一层：墙身（白/木）+ 黑色窗带 + 飞檐瓦顶
+func _tenshu_level(p: Vector2, w_bot: float, w_top: float, y_bot: float, y_top: float,
+		wall_col: Color, roof_col: Color) -> void:
+	draw_colored_polygon(PackedVector2Array([
+		p + Vector2(-w_bot, y_bot), p + Vector2(w_bot, y_bot),
+		p + Vector2(w_top, y_top), p + Vector2(-w_top, y_top)]), wall_col)
+	draw_rect(Rect2(p + Vector2(-w_top * 0.38, y_top + (y_bot - y_top) * 0.3),
+		Vector2(w_top * 0.76, (y_bot - y_top) * 0.45)), C_WINDOW)
+	_roof_jp(p, w_top + 1.8, y_top, (y_bot - y_top) * 0.75, roof_col)
+
+
+## 日式飞檐翘角屋顶（姬路/松本城特征：两端上翘）
+func _roof_jp(p: Vector2, w: float, y: float, rise: float, col: Color) -> void:
+	var pts := PackedVector2Array()
+	pts.append(p + Vector2(-w, y))
+	pts.append(p + Vector2(-w, y - 1.6))
+	pts.append(p + Vector2(-w * 0.6, y - 0.4))
+	pts.append(p + Vector2(0, y - rise))
+	pts.append(p + Vector2(w * 0.6, y - 0.4))
+	pts.append(p + Vector2(w, y - 1.6))
+	pts.append(p + Vector2(w, y))
+	draw_colored_polygon(pts, col)
+	draw_line(p + Vector2(-w, y - 1.2), p + Vector2(w, y - 1.2), col.lightened(0.22), 1.2)
+	draw_line(p + Vector2(-w * 0.62, y - 1.8), p + Vector2(w * 0.62, y - 1.8), col.darkened(0.25), 1.0)
 
 
 # ── 景点：按类型小图标 ────────────────────────────────────
@@ -581,9 +624,10 @@ func _draw_selection() -> void:
 
 # ── 工具 ─────────────────────────────────────────────────
 ## 带深色描边的文字（4 向偏移，印在地图上的干净感）
-func _draw_outline_text(f: Font, pos: Vector2, txt: String, fs: int, col: Color, w: float = 1.0) -> void:
-	var outline := Color(0.12, 0.10, 0.06, 0.92)
-	for off in [Vector2(-w, 0), Vector2(w, 0), Vector2(0, -w), Vector2(0, w)]:
+func _draw_outline_text(f: Font, pos: Vector2, txt: String, fs: int, col: Color, w: float = 1.4) -> void:
+	var outline := Color(0.12, 0.10, 0.06, 0.95)
+	for off in [Vector2(-w, 0), Vector2(w, 0), Vector2(0, -w), Vector2(0, w),
+			Vector2(-w, -w), Vector2(w, -w), Vector2(-w, w), Vector2(w, w)]:
 		draw_string(f, pos + off, txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, outline)
 	draw_string(f, pos, txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, col)
 

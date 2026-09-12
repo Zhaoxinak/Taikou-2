@@ -15,10 +15,10 @@ func _init() -> void:
 	root.size = Vector2(1600, 1500)
 	await process_frame
 	var cam = w.get_node("Camera2D")
-	cam.zoom = Vector2(3.0, 3.0)
-	cam.position = Vector2(2616, 2334)  # 稻叶山（rank0 巨城）
-	await process_frame
-	await process_frame
+	cam.zoom = Vector2(2.0, 2.0)
+	cam.position = Vector2(2624, 2326)  # 稻叶山（rank0 巨城）+ 周围城下町
+	for i in range(10):
+		await process_frame
 	var img = root.get_viewport().get_texture().get_image()
 	var ok = img.save_png("F:/Games/Taikou 2/tmp_world_preview.png")
 	print("saved=", ok)
