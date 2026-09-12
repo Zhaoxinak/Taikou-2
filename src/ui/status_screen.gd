@@ -107,7 +107,7 @@ func _on_go_command() -> void:
 
 ## 外出：进入日本大地图（真实地理还原，全元素场景化 item）
 func _on_go_world() -> void:
-	get_tree().change_scene_to_file("res://scenes/screens/world_screen.tscn")
+	get_tree().change_scene_to_file("res://scenes/screens/world_screen_3d.tscn")
 
 
 ## 事件流弹窗：把 event_log[_event_read_idx..] 的叙事行渲染为模态面板（预置节点显隐）。

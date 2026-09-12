@@ -21,7 +21,8 @@ func _init() -> void:
 		"res://scenes/screens/castle_town.tscn": "城下町",
 		"res://scenes/screens/diplomacy_screen.tscn": "外交一览",
 		"res://scenes/screens/battle_screen.tscn": "合战",
-		"res://scenes/screens/world_screen.tscn": "大地图",
+		"res://scenes/screens/world_screen.tscn": "大地图(2D)",
+		"res://scenes/screens/world_screen_3d.tscn": "大地图(3D)",
 	}
 	for path in scenes:
 		var ps: PackedScene = load(path)
