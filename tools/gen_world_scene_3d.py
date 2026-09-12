@@ -304,12 +304,15 @@ for c in d["cities"]:
     sn = safe(c["name"])
     out.append('[node name="C%d_%s" type="Node3D" parent="Cities"]' % (c["id"], sn))
     out.append('transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, %.1f, %.1f, %.1f)' % (x, y, z))
+    # 建筑模型统一缩放（标签不缩放，保持可读）
+    out.append('[node name="Bld" type="Node3D" parent="Cities/C%d_%s"]' % (c["id"], sn))
+    out.append('scale = Vector3(0.78, 0.78, 0.78)')
     if c["type"] == "castle":
-        castle("Cities/C%d_%s" % (c["id"], sn), 0 if rank == 0 else (1 if rank == 1 else 2))
-        ly = 20.0 if rank == 0 else (14.5 if rank == 1 else 9.0)
+        castle("Cities/C%d_%s/Bld" % (c["id"], sn), 0 if rank == 0 else (1 if rank == 1 else 2))
+        ly = 16.0 if rank == 0 else (12.0 if rank == 1 else 7.8)
     else:
-        town("Cities/C%d_%s" % (c["id"], sn), rank)
-        ly = 5.8 if rank == 3 else (5.0 if rank == 4 else 4.2)
+        town("Cities/C%d_%s/Bld" % (c["id"], sn), rank)
+        ly = 5.0 if rank == 3 else (4.4 if rank == 4 else 3.6)
     label3d("CityLabel", "Cities/C%d_%s" % (c["id"], sn), c["name"], 0, y + ly, 0, fs=26)
 
 # 山峰雪顶
