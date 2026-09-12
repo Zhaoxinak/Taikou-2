@@ -22,9 +22,9 @@ var _city_name: Dictionary = {}
 # 相机
 var _cam: Camera3D = null
 var _target := Vector3(515, 0, 527)
-var _dist := 1600.0
+var _dist := 900.0
 var _yaw := 0.0
-var _pitch := 62.0 * PI / 180.0
+var _pitch := 70.0 * PI / 180.0
 var _drag_btn := -1
 var _drag_last := Vector2.ZERO
 
@@ -50,6 +50,9 @@ func _ready() -> void:
 	_cam = $Camera3D
 	_player = $Player
 	_set_player_pos(0)
+	# 初始聚焦玩家：相机中心对准主角（东北三户）
+	var p0 := _player.global_position
+	_target = Vector3(p0.x, 0.0, p0.z)
 	_update_cam()
 	var t6 := Time.get_ticks_msec()
 	print("PERF load=", t1 - t0, " terrain=", t2 - t1, " batch=", t3 - t2, " cities=", t4 - t3, " fonts=", t5 - t4, " cam=", t6 - t5)
@@ -473,6 +476,11 @@ func _process(delta: float) -> void:
 		else:
 			var dirv := (target_p - cur).normalized()
 			_player.global_position = cur + dirv * step
+	# 相机跟随玩家：行走时平滑跟随（静止后保持当前视野，用户可自由查看/缩放）
+	if _moving:
+		var p := _player.global_position
+		_target = _target.lerp(Vector3(p.x, 0.0, p.z), minf(1.0, delta * 3.0))
+		_update_cam()
 	_process_city_labels()
 	_process_province_labels()
 

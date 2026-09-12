@@ -66,6 +66,18 @@ mat("mat_thatch", "0.68, 0.54, 0.32")
 mat("mat_gold", "0.83, 0.66, 0.30")
 mat("mat_flag", "0.85, 0.30, 0.25")
 mat("mat_door", "0.30, 0.22, 0.16")
+mat("mat_player", "0.99, 0.83, 0.28")   # 主角金色标记（unshaded 恒亮）
+sub('sph_player', '\n'.join([
+    '[sub_resource type="SphereMesh" id="sph_player"]',
+    'radius = 7.0',
+    'height = 14.0',
+    'material = SubResource("mat_player")']))
+sub('cyl_player', '\n'.join([
+    '[sub_resource type="CylinderMesh" id="cyl_player"]',
+    'top_radius = 1.6',
+    'bottom_radius = 1.6',
+    'height = 8.0',
+    'material = SubResource("mat_player")']))
 sub('mat_sea', '\n'.join([
     '[sub_resource type="StandardMaterial3D" id="mat_sea"]',
     'albedo_color = Color(0.13, 0.27, 0.48, 1)',
@@ -323,11 +335,21 @@ for p in d["provinces"]:
     x, y, z = p3(p["cx"], p["cy"])
     label3d("P_%s" % p["name"], "Provinces", p["name"], x, y + 8.0, z, fs=34)
 
-# 玩家
+# 玩家（金色标记：立柱 + 顶球，编辑器可见、运行时随脚本移动）
 out.append('')
 out.append('[node name="Player" type="Node3D" parent="."]')
 x, y, z = p3(d["cities"][0]["x"], d["cities"][0]["y"])
 out.append('transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, %.1f, %.1f, %.1f)' % (x, y + 1.6, z))
+out.append('')
+out.append('[node name="Marker" type="MeshInstance3D" parent="Player"]')
+out.append('transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.0, 0)')
+out.append('mesh = SubResource("cyl_player")')
+out.append('material_override = SubResource("mat_player")')
+out.append('')
+out.append('[node name="MarkerTop" type="MeshInstance3D" parent="Player"]')
+out.append('transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0, 0)')
+out.append('mesh = SubResource("sph_player")')
+out.append('material_override = SubResource("mat_player")')
 
 # 相机
 out.append('')
