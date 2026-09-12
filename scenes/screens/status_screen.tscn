@@ -1,11 +1,11 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene format=3 uid="uid://rgsvdiedbmve"]
 
-[ext_resource type="Script" path="res://src/ui/status_screen.gd" id="1_stat"]
-[ext_resource type="Script" path="res://src/ui/UiPanel.gd" id="2_panel"]
-[ext_resource type="Script" path="res://src/ui/UiLabel.gd" id="3_label"]
-[ext_resource type="Script" path="res://src/ui/UiButton.gd" id="4_btn"]
+[ext_resource type="Script" uid="uid://d0axexmdl3xk4" path="res://src/ui/status_screen.gd" id="1_stat"]
+[ext_resource type="Script" uid="uid://5fdiln4q1b3g" path="res://src/ui/UiPanel.gd" id="2_panel"]
+[ext_resource type="Script" uid="uid://ddfcp14u3ps3d" path="res://src/ui/UiLabel.gd" id="3_label"]
+[ext_resource type="Script" uid="uid://coldjaupds4f0" path="res://src/ui/UiButton.gd" id="4_btn"]
 
-[node name="StatusScreen" type="Control"]
+[node name="StatusScreen" type="Control" unique_id=647461482]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,7 +15,7 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_stat")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=275806319]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +24,8 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.09, 0.08, 0.06, 1)
 
-[node name="Panel" type="Control" parent="."]
+[node name="Panel" type="Control" parent="." unique_id=1012508119]
+custom_minimum_size = Vector2(480, 120)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -37,10 +38,11 @@ offset_right = 620.0
 offset_bottom = 410.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("2_panel")
 title = "状 态"
 
-[node name="VBox" type="VBoxContainer" parent="Panel"]
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=147812721]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -55,21 +57,20 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 14
 
-[node name="Info" type="Control" parent="Panel/VBox"]
+[node name="Info" type="Control" parent="Panel/VBox" unique_id=1744750459]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
+mouse_filter = 2
 script = ExtResource("3_label")
-font_size = 44
-h_align = 1
 
-[node name="Stat" type="Control" parent="Panel/VBox"]
+[node name="Stat" type="Control" parent="Panel/VBox" unique_id=1324940680]
 custom_minimum_size = Vector2(0, 260)
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 script = ExtResource("3_label")
-font_size = 30
 
-[node name="SkillGrid" type="GridContainer" parent="Panel/VBox"]
+[node name="SkillGrid" type="GridContainer" parent="Panel/VBox" unique_id=1258196334]
 custom_minimum_size = Vector2(0, 136)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -77,122 +78,122 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 5
 
-[node name="Skill0" type="Control" parent="Panel/VBox/SkillGrid"]
-custom_minimum_size = Vector2(0, 58)
+[node name="Skill0" type="Control" parent="Panel/VBox/SkillGrid" unique_id=1089571815]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 script = ExtResource("4_btn")
-font_size = 24
 
-[node name="Skill1" type="Control" parent="Panel/VBox/SkillGrid"]
-custom_minimum_size = Vector2(0, 58)
+[node name="Skill1" type="Control" parent="Panel/VBox/SkillGrid" unique_id=1638248103]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 script = ExtResource("4_btn")
-font_size = 24
 
-[node name="Skill2" type="Control" parent="Panel/VBox/SkillGrid"]
-custom_minimum_size = Vector2(0, 58)
+[node name="Skill2" type="Control" parent="Panel/VBox/SkillGrid" unique_id=2147412703]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 script = ExtResource("4_btn")
-font_size = 24
 
-[node name="Skill3" type="Control" parent="Panel/VBox/SkillGrid"]
-custom_minimum_size = Vector2(0, 58)
+[node name="Skill3" type="Control" parent="Panel/VBox/SkillGrid" unique_id=578822527]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 script = ExtResource("4_btn")
-font_size = 24
 
-[node name="Skill4" type="Control" parent="Panel/VBox/SkillGrid"]
-custom_minimum_size = Vector2(0, 58)
+[node name="Skill4" type="Control" parent="Panel/VBox/SkillGrid" unique_id=1801301524]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 script = ExtResource("4_btn")
-font_size = 24
 
-[node name="Skill5" type="Control" parent="Panel/VBox/SkillGrid"]
-custom_minimum_size = Vector2(0, 58)
+[node name="Skill5" type="Control" parent="Panel/VBox/SkillGrid" unique_id=126529177]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 script = ExtResource("4_btn")
-font_size = 24
 
-[node name="Skill6" type="Control" parent="Panel/VBox/SkillGrid"]
-custom_minimum_size = Vector2(0, 58)
+[node name="Skill6" type="Control" parent="Panel/VBox/SkillGrid" unique_id=1433422187]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 script = ExtResource("4_btn")
-font_size = 24
 
-[node name="Skill7" type="Control" parent="Panel/VBox/SkillGrid"]
-custom_minimum_size = Vector2(0, 58)
+[node name="Skill7" type="Control" parent="Panel/VBox/SkillGrid" unique_id=1736287784]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 script = ExtResource("4_btn")
-font_size = 24
 
-[node name="Skill8" type="Control" parent="Panel/VBox/SkillGrid"]
-custom_minimum_size = Vector2(0, 58)
+[node name="Skill8" type="Control" parent="Panel/VBox/SkillGrid" unique_id=1432620998]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 script = ExtResource("4_btn")
-font_size = 24
 
-[node name="Skill9" type="Control" parent="Panel/VBox/SkillGrid"]
-custom_minimum_size = Vector2(0, 58)
+[node name="Skill9" type="Control" parent="Panel/VBox/SkillGrid" unique_id=992525309]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 script = ExtResource("4_btn")
-font_size = 24
 
-[node name="Row2" type="HBoxContainer" parent="Panel/VBox"]
+[node name="Row2" type="HBoxContainer" parent="Panel/VBox" unique_id=1102846768]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 16
 
-[node name="RestBtn" type="Control" parent="Panel/VBox/Row2"]
-custom_minimum_size = Vector2(0, 58)
+[node name="RestBtn" type="Control" parent="Panel/VBox/Row2" unique_id=2124072394]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 script = ExtResource("4_btn")
 text = "休养（体力回满）"
-font_size = 24
 
-[node name="CmdBtn" type="Control" parent="Panel/VBox/Row2"]
-custom_minimum_size = Vector2(0, 58)
+[node name="CmdBtn" type="Control" parent="Panel/VBox/Row2" unique_id=1457091257]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 script = ExtResource("4_btn")
 text = "执行主命"
-font_size = 24
 
-[node name="BackBtn" type="Control" parent="Panel/VBox/Row2"]
-custom_minimum_size = Vector2(0, 58)
+[node name="BackBtn" type="Control" parent="Panel/VBox/Row2" unique_id=1514721072]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 script = ExtResource("4_btn")
 text = "回标题"
-font_size = 24
 
-[node name="GoWorldBtn" type="Control" parent="Panel/VBox/Row2"]
-custom_minimum_size = Vector2(0, 58)
+[node name="GoWorldBtn" type="Control" parent="Panel/VBox/Row2" unique_id=100202235]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 2
 script = ExtResource("4_btn")
 text = "外 出（大地图）"
-font_size = 24
 
-[node name="Help" type="Control" parent="Panel/VBox"]
+[node name="Help" type="Control" parent="Panel/VBox" unique_id=988437901]
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 script = ExtResource("3_label")
-font_size = 24
 
-[node name="EventOverlay" type="Control" parent="."]
+[node name="EventOverlay" type="Control" parent="." unique_id=902279277]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -200,9 +201,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
 
-[node name="Dim" type="ColorRect" parent="EventOverlay"]
+[node name="Dim" type="ColorRect" parent="EventOverlay" unique_id=71159888]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -212,7 +212,8 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.55)
 
-[node name="PopupPanel" type="Control" parent="EventOverlay"]
+[node name="PopupPanel" type="Control" parent="EventOverlay" unique_id=537070345]
+custom_minimum_size = Vector2(480, 120)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -225,10 +226,11 @@ offset_right = 480.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("2_panel")
 title = "事 件"
 
-[node name="PopupVBox" type="VBoxContainer" parent="EventOverlay/PopupPanel"]
+[node name="PopupVBox" type="VBoxContainer" parent="EventOverlay/PopupPanel" unique_id=1098544802]
 layout_mode = 1
 offset_left = 40.0
 offset_top = 90.0
@@ -236,25 +238,24 @@ offset_right = 920.0
 offset_bottom = 560.0
 theme_override_constants/separation = 14
 
-[node name="Scroll" type="ScrollContainer" parent="EventOverlay/PopupPanel/PopupVBox"]
+[node name="Scroll" type="ScrollContainer" parent="EventOverlay/PopupPanel/PopupVBox" unique_id=640079046]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Text" type="Control" parent="EventOverlay/PopupPanel/PopupVBox/Scroll"]
+[node name="Text" type="Control" parent="EventOverlay/PopupPanel/PopupVBox/Scroll" unique_id=1833471230]
 custom_minimum_size = Vector2(856, 0)
 layout_mode = 2
+mouse_filter = 2
 script = ExtResource("3_label")
-font_size = 30
-h_align = 0
 
-[node name="CloseBtn" type="Control" parent="EventOverlay/PopupPanel/PopupVBox"]
-custom_minimum_size = Vector2(280, 72)
+[node name="CloseBtn" type="Control" parent="EventOverlay/PopupPanel/PopupVBox" unique_id=51946483]
+custom_minimum_size = Vector2(360, 72)
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 2
 script = ExtResource("4_btn")
 text = "知道了"
-font_size = 24
 
 [connection signal="pressed" from="Panel/VBox/Row2/RestBtn" to="." method="_on_rest"]
 [connection signal="pressed" from="Panel/VBox/Row2/CmdBtn" to="." method="_on_go_command"]

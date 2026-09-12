@@ -28,6 +28,7 @@ var _seg_progress := 0.0
 var _moving := false
 var _drag_pos := Vector2.ZERO
 var _dragging := false
+var _lod := -1                  # 缩放分级（0 全景 / 1 中 / 2 近）
 
 
 func _ready() -> void:
@@ -208,28 +209,65 @@ func _city_name(cid: int) -> String:
 # ── 移动：沿路径段平滑移动（真实感：速度 + 朝向）──
 func _process(delta: float) -> void:
 	if not _moving or _path.size() < 2:
-		return
-	_seg_progress += _SPEED * delta / maxf(_seg_from.distance_to(_seg_to), 1.0)
-	if _seg_progress >= 1.0:
-		_seg_progress = 1.0
-		var arrived := int(_path[1])
-		_player.points = PackedVector2Array([_city_pos(arrived)])
+		pass
+	else:
+		_seg_progress += _SPEED * delta / maxf(_seg_from.distance_to(_seg_to), 1.0)
+		if _seg_progress >= 1.0:
+			_seg_progress = 1.0
+			var arrived := int(_path[1])
+			_player.points = PackedVector2Array([_city_pos(arrived)])
+			_player.queue_redraw()
+			_path.pop_front()
+			if _path.size() >= 2:
+				_seg_from = _city_pos(int(_path[0]))
+				_seg_to = _city_pos(int(_path[1]))
+				_seg_progress = 0.0
+				_update_info(_city_name(arrived), arrived)
+			else:
+				_moving = false
+				_update_info(_city_name(arrived), arrived)
+			return
+		var p: Vector2 = _seg_from.lerp(_seg_to, _seg_progress)
+		_player.points = PackedVector2Array([p])
+		# 朝向 = 移动方向
+		_player.extra["facing"] = (_seg_to - _seg_from).angle()
 		_player.queue_redraw()
-		_path.pop_front()
-		if _path.size() >= 2:
-			_seg_from = _city_pos(int(_path[0]))
-			_seg_to = _city_pos(int(_path[1]))
-			_seg_progress = 0.0
-			_update_info(_city_name(arrived), arrived)
-		else:
-			_moving = false
-			_update_info(_city_name(arrived), arrived)
+	# 缩放分级显示（LOD）：避免全景下文字爆炸
+	if _camera == null:
 		return
-	var p: Vector2 = _seg_from.lerp(_seg_to, _seg_progress)
-	_player.points = PackedVector2Array([p])
-	# 朝向 = 移动方向
-	_player.extra["facing"] = (_seg_to - _seg_from).angle()
-	_player.queue_redraw()
+	var z := _camera.zoom.x
+	var lod := 0
+	if z >= 0.9:
+		lod = 1
+	if z >= 1.5:
+		lod = 2
+	if lod != _lod:
+		_lod = lod
+		_apply_lod(lod)
+
+
+## 按缩放级控制文字标签：0 全景（国名+城名）、1 中（+町名/山名/景点）、2 近（+干道名）
+func _apply_lod(lod: int) -> void:
+	_set_labels("World/Provinces", lod >= 0)
+	_set_labels("World/Cities", lod >= 0, "city")
+	_set_labels("World/Cities", lod >= 1, "town")
+	_set_labels("World/Mountains/Peaks", lod >= 1)
+	_set_labels("World/Sights", lod >= 1)
+	_set_labels("World/Roads/Trunk", lod >= 2)
+
+
+func _set_labels(group_path: String, on: bool, only_kind: String = "") -> void:
+	var group := get_node_or_null(group_path)
+	if group == null:
+		return
+	for ch in group.get_children():
+		if not ch is Node2D:
+			continue
+		if only_kind != "" and str(ch.get("kind")) != only_kind:
+			continue
+		if ch.get("show_label") != on:
+			ch.set("show_label", on)
+			ch.queue_redraw()
 
 
 func _update_info(cur_name: String, cid: int) -> void:

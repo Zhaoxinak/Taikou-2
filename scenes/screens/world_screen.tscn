@@ -13,6 +13,11 @@ script = ExtResource("1_wscr")
 
 [node name="Land" type="Node2D" parent="World"]
 
+[node name="Sea" type="Node2D" parent="World/Land"]
+script = ExtResource("2_item")
+kind = "sea"
+points = PackedVector2Array(-300, -300, 1746, -300, 1746, 1653, -300, 1653)
+
 [node name="Honshu" type="Node2D" parent="World/Land"]
 script = ExtResource("2_item")
 kind = "land"
@@ -119,114 +124,133 @@ script = ExtResource("2_item")
 kind = "peak"
 label = "岩手山"
 points = PackedVector2Array(1385.4, 114.0)
+extra = {"h": 2038}
 
 [node name="P_鸟海山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "鸟海山"
 points = PackedVector2Array(1270.5, 226.5)
+extra = {"h": 2236}
 
 [node name="P_月山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "月山"
 points = PackedVector2Array(1268.1, 309.0)
+extra = {"h": 1984}
 
 [node name="P_藏王山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "藏王山"
 points = PackedVector2Array(1317.7, 370.5)
+extra = {"h": 1841}
 
 [node name="P_吾妻山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "吾妻山"
 points = PackedVector2Array(1281.4, 432.0)
+extra = {"h": 2035}
 
 [node name="P_日光白根山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "日光白根山"
 points = PackedVector2Array(1189.4, 571.5)
+extra = {"h": 2578}
 
 [node name="P_男体山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "男体山"
 points = PackedVector2Array(1202.7, 577.5)
+extra = {"h": 2486}
 
 [node name="P_浅间山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "浅间山"
 points = PackedVector2Array(1086.6, 630.0)
+extra = {"h": 2568}
 
 [node name="P_立山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "立山"
 points = PackedVector2Array(974.0, 604.5)
+extra = {"h": 3015}
 
 [node name="P_白山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "白山"
 points = PackedVector2Array(873.6, 667.5)
+extra = {"h": 2702}
 
 [node name="P_富士山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "富士山"
 points = PackedVector2Array(1110.8, 787.5)
+extra = {"h": 3776}
 
 [node name="P_御岳山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "御岳山"
 points = PackedVector2Array(959.5, 706.5)
+extra = {"h": 3067}
 
 [node name="P_八岳" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "八岳"
 points = PackedVector2Array(1067.2, 696.0)
+extra = {"h": 2899}
 
 [node name="P_阿苏山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "阿苏山"
 points = PackedVector2Array(188.8, 1159.5)
+extra = {"h": 1592}
 
 [node name="P_樱岛" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "樱岛"
 points = PackedVector2Array(134.3, 1354.5)
+extra = {"h": 1117}
 
 [node name="P_开闻岳" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "开闻岳"
 points = PackedVector2Array(106.5, 1414.5)
+extra = {"h": 924}
 
 [node name="P_石锤山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "石锤山"
 points = PackedVector2Array(432.0, 1026.0)
+extra = {"h": 1982}
 
 [node name="P_大山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "大山"
 points = PackedVector2Array(481.6, 786.0)
+extra = {"h": 1729}
 
 [node name="P_高野山" type="Node2D" parent="World/Mountains/Peaks"]
 script = ExtResource("2_item")
 kind = "peak"
 label = "高野山"
 points = PackedVector2Array(729.6, 960.0)
+extra = {"h": 984}
 
 [node name="Rivers" type="Node2D" parent="World"]
 

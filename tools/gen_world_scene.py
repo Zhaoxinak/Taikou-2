@@ -52,6 +52,14 @@ A('')
 # 陆地
 A('[node name="Land" type="Node2D" parent="World"]')
 A('')
+# 海面（背景，四边外扩 300 保证缩放时铺满）
+mw, mh = d["meta"]["map_w"], d["meta"]["map_h"]
+PAD = 300
+A('[node name="Sea" type="Node2D" parent="World/Land"]')
+A('script = ExtResource("2_item")')
+A('kind = "sea"')
+A('points = PackedVector2Array(%d, %d, %d, %d, %d, %d, %d, %d)' % (-PAD, -PAD, mw + PAD, -PAD, mw + PAD, mh + PAD, -PAD, mh + PAD))
+A('')
 LAND_NAMES = {"honshu": "Honshu", "shikoku": "Shikoku", "kyushu": "Kyushu"}
 for key, poly in d["land"].items():
     if isinstance(poly, dict):  # islands: {name: points}
@@ -87,6 +95,7 @@ for p in d["peaks"]:
     A('kind = "peak"')
     A('label = "%s"' % p["name"])
     A('points = PackedVector2Array(%.1f, %.1f)' % (p["x"], p["y"]))
+    A('extra = {"h": %d}' % int(p.get("h", 0)))
     A('')
 # 河流
 A('[node name="Rivers" type="Node2D" parent="World"]')

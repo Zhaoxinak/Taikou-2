@@ -1,0 +1,25 @@
+# _shot_world.gd — 渲染大地图截图（验收立体效果用，非交付物）
+extends SceneTree
+
+func _init() -> void:
+	var ps: PackedScene = load("res://scenes/screens/world_screen.tscn")
+	if ps == null:
+		print("load fail")
+		quit(1)
+		return
+	var w = ps.instantiate()
+	root.add_child(w)
+	await process_frame
+	await process_frame
+	await process_frame
+	root.size = Vector2(1500, 1400)
+	await process_frame
+	var cam = w.get_node("Camera2D")
+	cam.zoom = Vector2(1.05, 1.05)
+	cam.position = Vector2(723, 660)
+	await process_frame
+	await process_frame
+	var img = root.get_viewport().get_texture().get_image()
+	var ok = img.save_png("F:/Games/Taikou 2/tmp_world_preview.png")
+	print("saved=", ok)
+	quit(0)

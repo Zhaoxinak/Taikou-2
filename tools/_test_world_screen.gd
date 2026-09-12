@@ -23,11 +23,15 @@ func _init() -> void:
 	root.add_child(w)
 	await process_frame
 	await process_frame
+	if w.get_script() == null:
+		push_error("[FAIL] world_screen.gd 脚本未加载（场景挂载失败），中止测试")
+		quit(1)
+		return
 
 	# —— 元素 item 节点数（编辑器可见、可归类）——
 	check(w.get_node_or_null("World/Cities") != null, "Cities 分组存在")
 	check(w.get_node_or_null("World/Cities").get_child_count() == 200, "城市 item 200 (got %d)" % w.get_node_or_null("World/Cities").get_child_count())
-	check(w.get_node_or_null("World/Land").get_child_count() == 8, "陆地多边形 item 8 (got %d)" % w.get_node_or_null("World/Land").get_child_count())
+	check(w.get_node_or_null("World/Land").get_child_count() == 9, "陆地多边形 item 9 (8 陆地+海面, got %d)" % w.get_node_or_null("World/Land").get_child_count())
 	check(w.get_node_or_null("World/Rivers").get_child_count() == 20, "河流 item 20 (got %d)" % w.get_node_or_null("World/Rivers").get_child_count())
 	check(w.get_node_or_null("World/Mountains/Ranges").get_child_count() == 11, "山系 item 11 (got %d)" % w.get_node_or_null("World/Mountains/Ranges").get_child_count())
 	check(w.get_node_or_null("World/Mountains/Peaks").get_child_count() == 19, "山峰 item 19 (got %d)" % w.get_node_or_null("World/Mountains/Peaks").get_child_count())
