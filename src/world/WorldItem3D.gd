@@ -109,9 +109,9 @@ func _ready() -> void:
 	if not Engine.is_editor_hint():
 		return
 	match kind:
-		"river": _build_band(0.9, Color(0.30, 0.56, 0.88), 0.45)
-		"road_trunk": _build_band(1.6, Color(0.78, 0.64, 0.40), 1.3)
-		"road_branch": _build_band(0.7, Color(0.66, 0.60, 0.50), 0.9)
+		"river": _build_band(0.7, Color(0.30, 0.56, 0.88), 0.45)
+		"road_trunk": _build_band(1.2, Color(0.78, 0.64, 0.40), 1.3)
+		"road_branch": _build_band(0.55, Color(0.66, 0.60, 0.50), 0.9)
 		"peak": _build_peak()
 		"sight": _build_sight()
 
