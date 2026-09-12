@@ -1,6 +1,8 @@
+@tool
 extends Control
 ## 自绘面板：和风深褐底 + 金边；可选标题栏（左侧金竖条 + 标题文字）。
 ## ⚠️ 不用 class_name（无头模式不建类缓存），引用方 preload 本脚本。
+## @tool：编辑器内实时绘制外观（场景化后可直接在编辑器查看）。
 
 const UiTheme = preload("res://src/ui/UiTheme.gd")
 ## 所有度量来自 UiTheme（设计空间），跨分辨率自动缩放。

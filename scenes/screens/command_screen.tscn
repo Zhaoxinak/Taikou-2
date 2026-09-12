@@ -1,15 +1,620 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://src/ui/command_screen.gd" id="1_cmd"]
+[ext_resource type="Script" path="res://src/ui/UiPanel.gd" id="2_panel"]
+[ext_resource type="Script" path="res://src/ui/UiLabel.gd" id="3_label"]
+[ext_resource type="Script" path="res://src/ui/UiButton.gd" id="4_btn"]
 
 [node name="CommandScreen" type="Control"]
-script = ExtResource("1_cmd")
-
-[node name="Background" type="ColorRect" parent="."]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.09, 0.08, 0.06, 1)
-show_behind_parent = true
+mouse_filter = 1
+script = ExtResource("1_cmd")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.07, 0.05, 1)
+
+[node name="Panel" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -660.0
+offset_top = -430.0
+offset_right = 660.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_panel")
+title = "主 命"
+
+[node name="Ctx" type="Control" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -362.0
+offset_right = 600.0
+offset_bottom = -318.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_label")
+font_size = 44
+h_align = 1
+
+[node name="Grid" type="GridContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = -290.0
+offset_right = 600.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 4
+
+[node name="Cmd0" type="Control" parent="Panel/Grid"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "贩卖军粮"
+font_size = 24
+
+[node name="Cmd1" type="Control" parent="Panel/Grid"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "购买军粮"
+font_size = 24
+
+[node name="Cmd2" type="Control" parent="Panel/Grid"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "购买军马"
+font_size = 24
+
+[node name="Cmd3" type="Control" parent="Panel/Grid"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "购买洋枪"
+font_size = 24
+
+[node name="Cmd4" type="Control" parent="Panel/Grid"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "开垦农田"
+font_size = 24
+
+[node name="Cmd5" type="Control" parent="Panel/Grid"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "改建"
+font_size = 24
+
+[node name="Cmd6" type="Control" parent="Panel/Grid"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "筑城"
+font_size = 24
+
+[node name="Cmd7" type="Control" parent="Panel/Grid"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "进贡"
+font_size = 24
+
+[node name="Cmd8" type="Control" parent="Panel/Grid"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "威吓"
+font_size = 24
+
+[node name="Cmd9" type="Control" parent="Panel/Grid"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "朝廷工作"
+font_size = 24
+
+[node name="Cmd10" type="Control" parent="Panel/Grid"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "收集情报"
+font_size = 24
+
+[node name="Cmd11" type="Control" parent="Panel/Grid"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "谋略"
+font_size = 24
+enabled = false
+
+[node name="Msg" type="Control" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -600.0
+offset_top = 0.0
+offset_right = 600.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="BackBtn" type="Control" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = 250.0
+offset_right = -20.0
+offset_bottom = 314.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_btn")
+text = "返回状态画面"
+font_size = 24
+
+[node name="DipBtn" type="Control" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = 250.0
+offset_right = 380.0
+offset_bottom = 314.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_btn")
+text = "外交関係一览"
+font_size = 24
+
+[node name="ProvPicker" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -390.0
+offset_right = 640.0
+offset_bottom = 390.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_panel")
+title = "选择目标国"
+
+[node name="ProvGrid" type="GridContainer" parent="ProvPicker"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -590.0
+offset_top = -240.0
+offset_right = 590.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 7
+
+[node name="Prov0" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov1" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov2" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov3" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov4" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov5" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov6" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov7" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov8" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov9" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov10" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov11" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov12" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov13" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov14" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov15" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov16" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov17" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov18" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov19" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov20" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov21" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov22" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov23" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov24" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov25" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov26" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov27" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov28" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov29" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov30" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov31" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov32" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov33" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov34" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov35" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov36" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov37" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov38" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov39" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov40" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov41" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov42" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov43" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov44" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov45" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov46" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov47" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Prov48" type="Control" parent="ProvPicker/ProvGrid"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="CancelBtn" type="Control" parent="ProvPicker"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = 300.0
+offset_right = 160.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_btn")
+text = "取消"
+font_size = 24
+
+[connection signal="pressed" from="Panel/BackBtn" to="." method="_on_back"]
+[connection signal="pressed" from="Panel/DipBtn" to="." method="_on_open_diplomacy"]
+[connection signal="pressed" from="ProvPicker/CancelBtn" to="." method="_close_picker"]

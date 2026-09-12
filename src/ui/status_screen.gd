@@ -3,136 +3,49 @@ extends Control
 ## 主命：修行（10 技能各一钮，封顶 3）/ 休养（回满体力）；每次主命推进 1 月。
 ##
 ## 布局全在 UiTheme 设计空间（1920×1080），废除旧实现的硬编码 font_size(30/20) 与像素偏移。
-## 2026-09-09 修正：改为 VBoxContainer 主布局，避免旧版手动 position + Container 混用导致的
-## 技能按钮错位、底部按钮不可见/无法点击问题；同时保留键盘兜底（Esc/Enter/Space）。
+## 2026-09-12 重构：UI 全部预置在 scenes/screens/status_screen.tscn（编辑器可见、可归类），
+## 脚本只做信号接线与逻辑刷新；事件弹窗同样预置为 EventOverlay（visible 切换）。
 ##
 ## ⚠️ 对外契约保持不变：`_info` / `_stat`（均有 `.text`）、`_skill_buttons`（有 `.text`）、
 ##    `_on_train(idx)` / `_on_rest()` / `_on_back()` —— UI 流程测试依赖这些名字。
 
 const UiTheme = preload("res://src/ui/UiTheme.gd")
-const UiPanel = preload("res://src/ui/UiPanel.gd")
-const UiButton = preload("res://src/ui/UiButton.gd")
-const UiLabel = preload("res://src/ui/UiLabel.gd")
 const ConstsRef = preload("res://src/core/Consts.gd")
 
-# 自绘文本（平替原 Godot Label，保留 .text 契约）——故意不标类型，便于动态访问自定义属性
-var _info
-var _stat
-var _skill_buttons: Array = []
+# 场景预置节点（编辑器可见；命名见 status_screen.tscn）
+@onready var _info = $Panel/VBox/Info
+@onready var _stat = $Panel/VBox/Stat
+@onready var _help = $Panel/VBox/Help
+@onready var _skill_buttons: Array = _collect_skill_buttons()
+@onready var _event_overlay: Control = $EventOverlay
+@onready var _event_text = $EventOverlay/PopupPanel/PopupVBox/Scroll/Text
 
 # 事件流弹窗（event_log 渲染层；事件解释器效果执行层的 UI 出口）
-var _event_overlay = null          # 当前弹出的事件层（Control），非 null 即模态中
 var _event_read_idx: int = 0       # 已读到的 event_log 下标（避免重复弹旧事件）
 
-const _PANEL := Vector2(1240, 820)
-const _CONTENT_W := 1120.0
-const _CONTENT_TOP := 64.0   # 标题栏高度 + 留白
-
 # 帮助栏（MSGX 原版说明文接 UI）
-var _help
 const _HELP_HINT := "将鼠标移到技能上，可查看原版说明（MSGX）；Enter/Space=休养，Esc=回标题"
 # 技能槽顺序（Consts.SKILL_NAMES）→ MSGX 文本 id（§MESSAGE1 帮助文 7..16）
 #   口才7 马术8 算术9 剑术12 忍术15 兵法13 洋枪14 筑城16 礼法10 茶道11
 const _SKILL_MSGX: Array[int] = [7, 8, 9, 12, 15, 13, 14, 16, 10, 11]
 
 
-func _ready() -> void:
-	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	mouse_filter = Control.MOUSE_FILTER_PASS
-	_build()
-	_refresh()
-
-
-func _build() -> void:
-	# —— 自绘面板（背景 + 标题栏）——
-	var panel := UiPanel.new()
-	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.size = _PANEL
-	panel.position = -_PANEL * 0.5
-	panel.title = "状 态"
-	add_child(panel)
-
-	# —— 主内容区：VBoxContainer，避免旧版手动 position 与 Container 布局冲突 ——
-	var vbox := VBoxContainer.new()
-	vbox.set_anchors_preset(Control.PRESET_CENTER)
-	vbox.size = Vector2(_CONTENT_W, _PANEL.y - _CONTENT_TOP - 20)
-	vbox.position = Vector2(-_CONTENT_W * 0.5, -_PANEL.y * 0.5 + _CONTENT_TOP)
-	vbox.add_theme_constant_override("separation", 14)
-	add_child(vbox)
-
-	# —— 顶行：姓名 / 職位 / 年月 ——
-	_info = UiLabel.new()
-	_info.custom_minimum_size = Vector2(0, 52)
-	_info.font_size = UiTheme.FONT_HEAD
-	_info.h_align = HORIZONTAL_ALIGNMENT_CENTER
-	vbox.add_child(_info)
-
-	# —— 五维 / 忠诚 / 体力 / 功勲（多行自绘）——
-	_stat = UiLabel.new()
-	_stat.custom_minimum_size = Vector2(0, 260)
-	_stat.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_stat.font_size = UiTheme.FONT_BODY
-	vbox.add_child(_stat)
-
-	# —— 10 技能按钮（5×2 网格）——
-	var grid := GridContainer.new()
-	grid.columns = 5
-	grid.custom_minimum_size = Vector2(0, 136)
-	grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	grid.add_theme_constant_override("h_separation", 10)
-	grid.add_theme_constant_override("v_separation", 10)
-	vbox.add_child(grid)
-
+func _collect_skill_buttons() -> Array:
+	var arr: Array = []
 	for k in ConstsRef.SKILL_NAMES.size():
-		var b := UiButton.new()
-		b.font_size = UiTheme.FONT_SMALL
-		b.custom_minimum_size = Vector2(0, 58)
-		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		var b = $Panel/VBox/SkillGrid.get_child(k)
 		b.pressed.connect(_on_train.bind(k))
 		b.mouse_entered.connect(_show_skill_help.bind(k))
 		b.mouse_exited.connect(_reset_help)
-		grid.add_child(b)
-		_skill_buttons.append(b)
-
-	# —— 休养 / 回标题 ——
-	var row2 := HBoxContainer.new()
-	row2.custom_minimum_size = Vector2(0, 64)
-	row2.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	row2.add_theme_constant_override("separation", 16)
-	vbox.add_child(row2)
-
-	var rest_btn := UiButton.new()
-	rest_btn.text = "休养（体力回满）"
-	rest_btn.font_size = UiTheme.FONT_SMALL
-	rest_btn.custom_minimum_size = Vector2(0, 58)
-	rest_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	rest_btn.pressed.connect(_on_rest)
-	row2.add_child(rest_btn)
-
-	var back_btn := UiButton.new()
-	back_btn.text = "回标题"
-	back_btn.font_size = UiTheme.FONT_SMALL
-	back_btn.custom_minimum_size = Vector2(0, 58)
-	back_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	back_btn.pressed.connect(_on_back)
-	row2.add_child(back_btn)
+		arr.append(b)
+	return arr
 
 
-	var cmd_btn := UiButton.new()
-	cmd_btn.text = "执行主命"
-	cmd_btn.font_size = UiTheme.FONT_SMALL
-	cmd_btn.custom_minimum_size = Vector2(0, 58)
-	cmd_btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	cmd_btn.pressed.connect(_on_go_command)
-	row2.add_child(cmd_btn)
-
-	# —— 底部帮助栏（MSGX 说明文渲染）——
-	_help = UiLabel.new()
-	_help.custom_minimum_size = Vector2(0, 44)
-	_help.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_help.font_size = UiTheme.FONT_SMALL
-	vbox.add_child(_help)
+func _ready() -> void:
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mouse_filter = Control.MOUSE_FILTER_PASS
 	_reset_help()
+	_refresh()
 
 
 ## 键盘兜底：即使鼠标/按钮焦点异常也能操作。
@@ -142,7 +55,7 @@ func _input(event: InputEvent) -> void:
 		match event.keycode:
 			KEY_ESCAPE:
 				# 事件弹窗模态中：Esc 先关弹窗，不回标题
-				if _event_overlay != null:
+				if _event_overlay.visible:
 					accept_event()
 					_close_events_popup()
 					return
@@ -192,77 +105,28 @@ func _on_go_command() -> void:
 	get_tree().change_scene_to_file("res://scenes/screens/command_screen.tscn")
 
 
-## 事件流弹窗：把 event_log[_event_read_idx..] 的叙事行渲染为模态面板。
+## 事件流弹窗：把 event_log[_event_read_idx..] 的叙事行渲染为模态面板（预置节点显隐）。
 ## 无新事件 / 未开局 / 已弹窗中 → 直接返回（幂等，可安全从 _refresh 反复调用）。
 func _show_events_popup() -> void:
-	if _event_overlay != null:
+	if _event_overlay.visible:
 		return
 	if not GameState.is_started():
 		return
 	var lines := GameState.pending_event_lines(_event_read_idx)
 	if lines.is_empty():
 		return
-
-	# —— 模态遮罩：拦截点击，半透明压暗底层 ——
-	var backdrop := Control.new()
-	backdrop.name = "EventOverlay"
-	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	backdrop.mouse_filter = Control.MOUSE_FILTER_STOP
-	var dim := ColorRect.new()
-	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	dim.color = Color(0.0, 0.0, 0.0, 0.55)
-	dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	backdrop.add_child(dim)
-
-	# —— 和风面板（复用 UiPanel 自绘）——
-	var panel := UiPanel.new()
-	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.title = "事 件"
-	var psize := Vector2(960, 600)
-	panel.size = psize
-	panel.position = -psize * 0.5
-	backdrop.add_child(panel)
-
-	# —— 内容 VBox（文本可滚动 + 关闭钮）——
-	# 默认锚点 (0,0,0,0) 即面板左上角；用 size/position 直接定位，无锚点冲突警告。
-	var vbox := VBoxContainer.new()
-	vbox.size = Vector2(psize.x - 80, psize.y - 140)
-	vbox.position = Vector2(40, 90)   # 水平居中留白 + 标题栏下方
-	vbox.add_theme_constant_override("separation", 14)
-	panel.add_child(vbox)
-
-	# 文本（单 UiLabel 多行；长文本放 ScrollContainer 内可滚动）
-	var sc := ScrollContainer.new()
-	sc.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	vbox.add_child(sc)
-	var lbl := UiLabel.new()
-	lbl.text = "\n".join(PackedStringArray(lines))
-	lbl.font_size = UiTheme.FONT_BODY
-	lbl.h_align = HORIZONTAL_ALIGNMENT_LEFT
-	lbl.custom_minimum_size = Vector2(vbox.size.x - 24, 0)
-	sc.add_child(lbl)
-
-	var close := UiButton.new()
-	close.text = "知道了"
-	close.font_size = UiTheme.FONT_SMALL
-	close.custom_minimum_size = Vector2(280, UiTheme.BTN_H)
-	close.pressed.connect(_close_events_popup)
-	vbox.add_child(close)
-
-	add_child(backdrop)
-	_event_overlay = backdrop
+	_event_text.text = "\n".join(PackedStringArray(lines))
+	_event_overlay.show()
 	# 把已读下标推到队尾，避免下次 _refresh 重复弹同批事件
 	_event_read_idx = GameState.get_event_log().size()
 	# 有弹窗时主内容按钮不应抢焦点（仅模态允许关闭钮交互）
 	_release_skill_focus()
 
 
-## 关闭事件弹窗：释放遮罩、复位状态；idempotent。
+## 关闭事件弹窗：隐藏预置遮罩、复位状态；idempotent。
 func _close_events_popup() -> void:
-	if _event_overlay != null and is_instance_valid(_event_overlay):
-		_event_overlay.queue_free()
-	_event_overlay = null
+	if _event_overlay.visible:
+		_event_overlay.hide()
 	_event_read_idx = GameState.get_event_log().size()
 
 

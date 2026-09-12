@@ -1,0 +1,118 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://src/ui/castle_town.gd" id="1_ct"]
+[ext_resource type="Script" path="res://src/ui/UiPanel.gd" id="2_panel"]
+[ext_resource type="Script" path="res://src/ui/UiLabel.gd" id="3_label"]
+[ext_resource type="Script" path="res://src/ui/UiButton.gd" id="4_btn"]
+
+[node name="CastleTown" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+script = ExtResource("1_ct")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0, 0, 0, 0.55)
+
+[node name="Panel" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -340.0
+offset_right = 450.0
+offset_bottom = 340.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_panel")
+title = "城下町"
+title_height = 56
+
+[node name="Margin" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Body" type="VBoxContainer" parent="Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="StatusLabel" type="Control" parent="Panel/Margin/Body"]
+custom_minimum_size = Vector2(800, 36)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="MsgLabel" type="Control" parent="Panel/Margin/Body"]
+custom_minimum_size = Vector2(800, 28)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 24
+
+[node name="MenuGrid" type="GridContainer" parent="Panel/Margin/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="ShopBtn" type="Control" parent="Panel/Margin/Body/MenuGrid"]
+custom_minimum_size = Vector2(380, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "商店"
+font_size = 30
+
+[node name="InnBtn" type="Control" parent="Panel/Margin/Body/MenuGrid"]
+custom_minimum_size = Vector2(380, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "宿屋"
+font_size = 30
+
+[node name="DojoBtn" type="Control" parent="Panel/Margin/Body/MenuGrid"]
+custom_minimum_size = Vector2(380, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "道場"
+font_size = 30
+
+[node name="MedBtn" type="Control" parent="Panel/Margin/Body/MenuGrid"]
+custom_minimum_size = Vector2(380, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "医館"
+font_size = 30
+
+[node name="ExitBtn" type="Control" parent="Panel/Margin/Body/MenuGrid"]
+custom_minimum_size = Vector2(380, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "出る"
+font_size = 30

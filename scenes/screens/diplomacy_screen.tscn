@@ -1,0 +1,1424 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://src/ui/diplomacy_screen.gd" id="1_dip"]
+[ext_resource type="Script" path="res://src/ui/UiPanel.gd" id="2_panel"]
+[ext_resource type="Script" path="res://src/ui/UiLabel.gd" id="3_label"]
+[ext_resource type="Script" path="res://src/ui/UiButton.gd" id="4_btn"]
+
+[node name="DiplomacyScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+script = ExtResource("1_dip")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0, 0, 0, 0.6)
+
+[node name="Panel" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -590.0
+offset_top = -430.0
+offset_right = 590.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_panel")
+title = "外交関係一览"
+title_height = 56
+
+[node name="Margin" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 28
+
+[node name="Body" type="VBoxContainer" parent="Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="SubTitle" type="Control" parent="Panel/Margin/Body"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 44
+
+[node name="Scroll" type="ScrollContainer" parent="Panel/Margin/Body"]
+custom_minimum_size = Vector2(1124, 560)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="List" type="VBoxContainer" parent="Panel/Margin/Body/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="Row0" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row0"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row0"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row0"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row1" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row1"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row1"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row1"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row2" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row2"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row2"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row2"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row3" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row3"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row3"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row3"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row4" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row4"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row4"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row4"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row5" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row5"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row5"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row5"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row6" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row6"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row6"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row6"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row7" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row7"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row7"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row7"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row8" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row8"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row8"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row8"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row9" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row9"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row9"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row9"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row10" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row10"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row10"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row10"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row11" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row11"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row11"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row11"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row12" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row12"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row12"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row12"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row13" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row13"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row13"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row13"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row14" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row14"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row14"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row14"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row15" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row15"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row15"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row15"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row16" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row16"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row16"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row16"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row17" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row17"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row17"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row17"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row18" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row18"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row18"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row18"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row19" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row19"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row19"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row19"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row20" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row20"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row20"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row20"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row21" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row21"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row21"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row21"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row22" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row22"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row22"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row22"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row23" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row23"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row23"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row23"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row24" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row24"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row24"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row24"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row25" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row25"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row25"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row25"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row26" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row26"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row26"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row26"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row27" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row27"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row27"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row27"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row28" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row28"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row28"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row28"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row29" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row29"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row29"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row29"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row30" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row30"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row30"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row30"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row31" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row31"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row31"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row31"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row32" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row32"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row32"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row32"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row33" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row33"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row33"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row33"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row34" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row34"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row34"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row34"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row35" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row35"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row35"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row35"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row36" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row36"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row36"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row36"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row37" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row37"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row37"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row37"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row38" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row38"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row38"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row38"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row39" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row39"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row39"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row39"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row40" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row40"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row40"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row40"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row41" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row41"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row41"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row41"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row42" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row42"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row42"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row42"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row43" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row43"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row43"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row43"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row44" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row44"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row44"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row44"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row45" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row45"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row45"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row45"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row46" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row46"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row46"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row46"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row47" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row47"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row47"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row47"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Row48" type="HBoxContainer" parent="Panel/Margin/Body/Scroll/List"]
+custom_minimum_size = Vector2(1100, 44)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Name" type="Control" parent="Panel/Margin/Body/Scroll/List/Row48"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Dipl" type="Control" parent="Panel/Margin/Body/Scroll/List/Row48"]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Mv" type="Control" parent="Panel/Margin/Body/Scroll/List/Row48"]
+custom_minimum_size = Vector2(240, 40)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="Legend" type="VBoxContainer" parent="Panel/Margin/Body"]
+custom_minimum_size = Vector2(1100, 96)
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="LegendTitle" type="Control" parent="Panel/Margin/Body/Legend"]
+layout_mode = 2
+script = ExtResource("3_label")
+text = "图例"
+font_size = 24
+
+[node name="LegendRowD" type="HBoxContainer" parent="Panel/Margin/Body/Legend"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Chip" type="HBoxContainer" parent="Panel/Margin/Body/Legend/LegendRowD"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Swatch" type="ColorRect" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+color = Color(0.36, 0.80, 0.45, 1)
+
+[node name="Text" type="Control" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+layout_mode = 2
+script = ExtResource("3_label")
+text = "盟友"
+color = Color(0.36, 0.80, 0.45, 1)
+font_size = 24
+
+[node name="Chip" type="HBoxContainer" parent="Panel/Margin/Body/Legend/LegendRowD"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Swatch" type="ColorRect" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+color = Color(0.36, 0.80, 0.45, 1)
+
+[node name="Text" type="Control" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+layout_mode = 2
+script = ExtResource("3_label")
+text = "亲密"
+color = Color(0.36, 0.80, 0.45, 1)
+font_size = 24
+
+[node name="Chip" type="HBoxContainer" parent="Panel/Margin/Body/Legend/LegendRowD"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Swatch" type="ColorRect" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+color = Color(0.541, 0.510, 0.463, 1)
+
+[node name="Text" type="Control" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+layout_mode = 2
+script = ExtResource("3_label")
+text = "良好"
+color = Color(0.541, 0.510, 0.463, 1)
+font_size = 24
+
+[node name="Chip" type="HBoxContainer" parent="Panel/Margin/Body/Legend/LegendRowD"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Swatch" type="ColorRect" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+color = Color(0.541, 0.510, 0.463, 1)
+
+[node name="Text" type="Control" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+layout_mode = 2
+script = ExtResource("3_label")
+text = "普通"
+color = Color(0.541, 0.510, 0.463, 1)
+font_size = 24
+
+[node name="Chip" type="HBoxContainer" parent="Panel/Margin/Body/Legend/LegendRowD"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Swatch" type="ColorRect" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+color = Color(0.541, 0.510, 0.463, 1)
+
+[node name="Text" type="Control" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+layout_mode = 2
+script = ExtResource("3_label")
+text = "敌视"
+color = Color(0.541, 0.510, 0.463, 1)
+font_size = 24
+
+[node name="Chip" type="HBoxContainer" parent="Panel/Margin/Body/Legend/LegendRowD"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Swatch" type="ColorRect" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+color = Color(0.90, 0.38, 0.34, 1)
+
+[node name="Text" type="Control" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+layout_mode = 2
+script = ExtResource("3_label")
+text = "险恶"
+color = Color(0.90, 0.38, 0.34, 1)
+font_size = 24
+
+[node name="Chip" type="HBoxContainer" parent="Panel/Margin/Body/Legend/LegendRowD"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Swatch" type="ColorRect" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+color = Color(0.90, 0.38, 0.34, 1)
+
+[node name="Text" type="Control" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+layout_mode = 2
+script = ExtResource("3_label")
+text = "绝交"
+color = Color(0.90, 0.38, 0.34, 1)
+font_size = 24
+
+[node name="Chip" type="HBoxContainer" parent="Panel/Margin/Body/Legend/LegendRowD"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Swatch" type="ColorRect" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+color = Color(0.90, 0.38, 0.34, 1)
+
+[node name="Text" type="Control" parent="Panel/Margin/Body/Legend/LegendRowD/Chip"]
+layout_mode = 2
+script = ExtResource("3_label")
+text = "交战"
+color = Color(0.90, 0.38, 0.34, 1)
+font_size = 24
+
+[node name="LegendRowM" type="HBoxContainer" parent="Panel/Margin/Body/Legend"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Chip" type="HBoxContainer" parent="Panel/Margin/Body/Legend/LegendRowM"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Swatch" type="ColorRect" parent="Panel/Margin/Body/Legend/LegendRowM/Chip"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+color = Color(0.541, 0.510, 0.463, 1)
+
+[node name="Text" type="Control" parent="Panel/Margin/Body/Legend/LegendRowM/Chip"]
+layout_mode = 2
+script = ExtResource("3_label")
+text = "空白"
+color = Color(0.541, 0.510, 0.463, 1)
+font_size = 24
+
+[node name="Chip" type="HBoxContainer" parent="Panel/Margin/Body/Legend/LegendRowM"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Swatch" type="ColorRect" parent="Panel/Margin/Body/Legend/LegendRowM/Chip"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+color = Color(0.95, 0.80, 0.30, 1)
+
+[node name="Text" type="Control" parent="Panel/Margin/Body/Legend/LegendRowM/Chip"]
+layout_mode = 2
+script = ExtResource("3_label")
+text = "同盟"
+color = Color(0.95, 0.80, 0.30, 1)
+font_size = 24
+
+[node name="Chip" type="HBoxContainer" parent="Panel/Margin/Body/Legend/LegendRowM"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Swatch" type="ColorRect" parent="Panel/Margin/Body/Legend/LegendRowM/Chip"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+color = Color(0.90, 0.38, 0.34, 1)
+
+[node name="Text" type="Control" parent="Panel/Margin/Body/Legend/LegendRowM/Chip"]
+layout_mode = 2
+script = ExtResource("3_label")
+text = "从属"
+color = Color(0.90, 0.38, 0.34, 1)
+font_size = 24
+
+[node name="Chip" type="HBoxContainer" parent="Panel/Margin/Body/Legend/LegendRowM"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Swatch" type="ColorRect" parent="Panel/Margin/Body/Legend/LegendRowM/Chip"]
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 2
+color = Color(0.36, 0.80, 0.45, 1)
+
+[node name="Text" type="Control" parent="Panel/Margin/Body/Legend/LegendRowM/Chip"]
+layout_mode = 2
+script = ExtResource("3_label")
+text = "支配"
+color = Color(0.36, 0.80, 0.45, 1)
+font_size = 24
+
+[node name="BackBtn" type="Control" parent="Panel/Margin/Body"]
+custom_minimum_size = Vector2(360, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+script = ExtResource("4_btn")
+text = "返回"
+font_size = 30
+
+[connection signal="pressed" from="Panel/Margin/Body/BackBtn" to="." method="_on_back"]

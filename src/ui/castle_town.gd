@@ -12,7 +12,6 @@ extends Control
 ##      属 UI/对话驱动层，留待后续；③ 美术为极简 UI 控件。
 
 const UiTheme = preload("res://src/ui/UiTheme.gd")
-const UiPanel = preload("res://src/ui/UiPanel.gd")
 const UiButton = preload("res://src/ui/UiButton.gd")
 const UiLabel = preload("res://src/ui/UiLabel.gd")
 const ConstsRef = preload("res://src/core/Consts.gd")
@@ -22,10 +21,12 @@ const ShopRef = preload("res://src/core/shop.gd")
 var castle_id: int = -1
 var callback_exit: Callable = Callable()   # 调用方注入：关闭本 UI 时回调
 
-var _panel: Control
-var _body: VBoxContainer
-var _status_label: CanvasItem
-var _msg_label: CanvasItem
+# —— 场景预置节点（2026-09-12 场景化重构：框架+设施菜单见 castle_town.tscn）——
+@onready var _panel: Control = $Panel
+@onready var _body: VBoxContainer = $Panel/Margin/Body
+@onready var _status_label = $Panel/Margin/Body/StatusLabel
+@onready var _msg_label = $Panel/Margin/Body/MsgLabel
+@onready var _menu_grid: GridContainer = $Panel/Margin/Body/MenuGrid
 
 
 
@@ -41,43 +42,18 @@ func _gd() -> Node:
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
-
-	var dim := ColorRect.new()
-	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	dim.color = Color(0.0, 0.0, 0.0, 0.55)
-	dim.mouse_filter = Control.MOUSE_FILTER_STOP
-	add_child(dim)
-
-	_panel = UiPanel.new()
-	_panel.title = "城下町"
-	_panel.title_height = 56
-	_panel.set_anchors_preset(Control.PRESET_CENTER)
-	_panel.custom_minimum_size = Vector2(900, 680)
-	add_child(_panel)
-
-	var margin := MarginContainer.new()
-	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 24)
-	margin.add_theme_constant_override("margin_top", 24)
-	margin.add_theme_constant_override("margin_right", 24)
-	margin.add_theme_constant_override("margin_bottom", 24)
-	_panel.add_child(margin)
-
-	_body = VBoxContainer.new()
-	_body.add_theme_constant_override("separation", 12)
-	margin.add_child(_body)
-
-	_status_label = UiLabel.new()
-	_status_label.font_size = UiTheme.FONT_BODY
-	_status_label.custom_minimum_size = Vector2(800, 36)
-	_body.add_child(_status_label)
-	_msg_label = UiLabel.new()
-	_msg_label.font_size = UiTheme.FONT_SMALL
-	_msg_label.custom_minimum_size = Vector2(800, 28)
-	_body.add_child(_msg_label)
-
+	_bind_facilities()
 	_show_facilities()
 	_refresh_status()
+
+
+## 设施菜单（场景预置 5 钮）绑定回调：商店带 mode、其余无参。
+func _bind_facilities() -> void:
+	$Panel/Margin/Body/MenuGrid/ShopBtn.pressed.connect(_show_shop.bind("buy"))
+	$Panel/Margin/Body/MenuGrid/InnBtn.pressed.connect(_show_inn)
+	$Panel/Margin/Body/MenuGrid/DojoBtn.pressed.connect(_show_dojo)
+	$Panel/Margin/Body/MenuGrid/MedBtn.pressed.connect(_show_medicine)
+	$Panel/Margin/Body/MenuGrid/ExitBtn.pressed.connect(_exit)
 
 
 func _refresh_status() -> void:
@@ -90,9 +66,10 @@ func _refresh_status() -> void:
 	]
 
 
+## 清理动态子视图；常驻的 StatusLabel / MsgLabel / 设施菜单 MenuGrid 保留。
 func _clear_body() -> void:
 	for c in _body.get_children():
-		if c != _status_label and c != _msg_label:
+		if c != _status_label and c != _msg_label and c != _menu_grid:
 			c.queue_free()
 
 
@@ -116,16 +93,8 @@ func _add_btn(parent: Control, text: String, cb: Callable) -> UiButton:
 func _show_facilities() -> void:
 	_clear_body()
 	_msg("施設を選んでください（Esc で出る）")
-	var grid := GridContainer.new()
-	grid.columns = 2
-	grid.add_theme_constant_override("h_separation", 12)
-	grid.add_theme_constant_override("v_separation", 12)
-	_body.add_child(grid)
-	_add_btn(grid, "商店", _show_shop.bind("buy"))
-	_add_btn(grid, "宿屋", _show_inn)
-	_add_btn(grid, "道場", _show_dojo)
-	_add_btn(grid, "医館", _show_medicine)
-	_add_btn(grid, "出る", _exit)
+	# 设施菜单为场景预置常驻节点（MenuGrid），此处不再重建
+	_menu_grid.show()
 
 
 # ============================================================ 商店（买 / 卖）

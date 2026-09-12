@@ -9,8 +9,7 @@
 extends Control
 
 const BattleFlow = preload("res://src/battle/battle_flow.gd")
-const UiPanel = preload("res://src/ui/UiPanel.gd")
-const UiLabel = preload("res://src/ui/UiLabel.gd")
+const UiTheme = preload("res://src/ui/UiTheme.gd")
 
 # 降水 ⇒ 湿润旗 wet（weather.gd 0x43d223/0x43d233：nw == RAIN or SNOW ⇒ wet=1）
 # wet 进入 ctx.mode_m2 ⇒ cat==2 洋枪战力 ×2/3（0x42d62e）
@@ -34,7 +33,9 @@ signal battle_finished(result: Dictionary)
 
 var _battles: Array = []
 var result: Dictionary = {}
-var _result_layer: CanvasLayer = null
+# 战果层为场景预置节点（battle_screen.tscn）：CanvasLayer/BattleResult/Root，_show_result 只填充+显隐
+@onready var _result_root: Control = $BattleResult/Root
+@onready var _result_label = $BattleResult/Root/Panel/Margin/ResultLabel
 
 
 func _ready() -> void:
@@ -87,34 +88,11 @@ func result_summary() -> String:
 
 
 func _show_result() -> void:
-	if _result_layer != null:
-		_result_layer.queue_free()
-		_result_layer = null
 	if result.is_empty():
+		_result_root.hide()
 		return
-	_result_layer = CanvasLayer.new()
-	_result_layer.name = "BattleResult"
-	add_child(_result_layer)
-
-	var panel := UiPanel.new()
-	panel.title = "合戦結果"
-	panel.title_height = 56
-	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.custom_minimum_size = Vector2(760, 300)
-	_result_layer.add_child(panel)
-
-	var margin := MarginContainer.new()
-	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 36)
-	margin.add_theme_constant_override("margin_top", 56 + 24)
-	margin.add_theme_constant_override("margin_right", 36)
-	margin.add_theme_constant_override("margin_bottom", 24)
-	panel.add_child(margin)
-
-	var lab := UiLabel.new()
-	lab.text = _result_text()
-	lab.h_align = HORIZONTAL_ALIGNMENT_CENTER
-	margin.add_child(lab)
+	_result_label.text = _result_text()
+	_result_root.show()
 
 
 func _result_text() -> String:

@@ -11,9 +11,6 @@ extends Control
 ##   不随月自动演变（原版月结链未在复刻层建模）；③ 美术为极简 UI 控件。
 
 const UiTheme = preload("res://src/ui/UiTheme.gd")
-const UiPanel = preload("res://src/ui/UiPanel.gd")
-const UiButton = preload("res://src/ui/UiButton.gd")
-const UiLabel = preload("res://src/ui/UiLabel.gd")
 const DiplomacyRef = preload("res://src/core/diplomacy.gd")
 
 var callback_back: Callable = Callable()   # 调用方注入：关闭本屏回到上一屏
@@ -22,71 +19,23 @@ var _self: int = -1
 var _rows: Array = []          # 每个国一行 Control（供测试遍历）
 var _legend_ok: bool = false
 
+# —— 场景预置节点（2026-09-12 场景化重构：49 行+图例见 diplomacy_screen.tscn）——
+@onready var _sub = $Panel/Margin/Body/SubTitle
+@onready var _list: VBoxContainer = $Panel/Margin/Body/Scroll/List
+
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
-	var dim := ColorRect.new()
-	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	dim.color = Color(0.0, 0.0, 0.0, 0.6)
-	dim.mouse_filter = Control.MOUSE_FILTER_STOP
-	add_child(dim)
-
-	var panel := UiPanel.new()
-	panel.title = "外交関係一览"
-	panel.title_height = 56
-	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.custom_minimum_size = Vector2(1180, 860)
-	panel.size = Vector2(1180, 860)
-	add_child(panel)
-
-	var margin := MarginContainer.new()
-	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	margin.add_theme_constant_override("margin_left", 28)
-	margin.add_theme_constant_override("margin_top", 28)
-	margin.add_theme_constant_override("margin_right", 28)
-	margin.add_theme_constant_override("margin_bottom", 28)
-	panel.add_child(margin)
-
-	var body := VBoxContainer.new()
-	body.add_theme_constant_override("separation", 14)
-	margin.add_child(body)
-
 	# —— 自国标题 ——
 	_self = int(GameState.protagonist_province())
-	var sub := UiLabel.new()
-	sub.font_size = UiTheme.FONT_HEAD
-	sub.custom_minimum_size = Vector2(1100, 44)
-	sub.text = "自国：%s（%d）" % [_prov_name(_self), _self]
-	body.add_child(sub)
+	_sub.text = "自国：%s（%d）" % [_prov_name(_self), _self]
 
-	# —— 列表（可滚动）——
-	var scroll := ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(1124, 560)
-	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	body.add_child(scroll)
-
-	var list := VBoxContainer.new()
-	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	list.add_theme_constant_override("separation", 4)
-	scroll.add_child(list)
-
-	for p in 49:
-		list.add_child(_row(p))
-
-	# —— 图例 ——
-	body.add_child(_legend())
+	# —— 49 行数据填充（结构已预置）——
+	for p in _list.get_child_count():
+		_rows.append(_row(p))
 	_legend_ok = true
-
-	# —— 返回 ——
-	var back := UiButton.new()
-	back.text = "返回"
-	back.font_size = UiTheme.FONT_BODY
-	back.custom_minimum_size = Vector2(360, 56)
-	back.pressed.connect(_on_back)
-	body.add_child(back)
 
 
 ## 等级色板：DIPL_COLOR / MV_COLOR 的索引 → 显示色
@@ -104,27 +53,18 @@ func _prov_name(pid: int) -> String:
 	return str(GameData.get_province_name(pid))
 
 
+## 填充第 p 行的预置三个标签（结构已在 .tscn：Row{p}/Name|Dipl|Mv）
 func _row(p: int) -> Control:
-	var h := HBoxContainer.new()
-	h.add_theme_constant_override("separation", 12)
-	h.custom_minimum_size = Vector2(1100, 44)
+	var h: HBoxContainer = _list.get_child(p)
+	var name: Control = h.get_node("Name")
+	var dipl: Control = h.get_node("Dipl")
+	var mv: Control = h.get_node("Mv")
 
-	var name := UiLabel.new()
-	name.font_size = UiTheme.FONT_BODY
-	name.custom_minimum_size = Vector2(300, 40)
 	if p == _self:
 		name.text = "%s（自国）" % _prov_name(p)
 		name.color = UiTheme.C_ACCENT
 	else:
 		name.text = "%s" % _prov_name(p)
-	h.add_child(name)
-
-	var dipl := UiLabel.new()
-	dipl.font_size = UiTheme.FONT_BODY
-	dipl.custom_minimum_size = Vector2(280, 40)
-	var mv := UiLabel.new()
-	mv.font_size = UiTheme.FONT_BODY
-	mv.custom_minimum_size = Vector2(240, 40)
 
 	if p == _self:
 		dipl.text = "（自国）"
@@ -138,54 +78,6 @@ func _row(p: int) -> Control:
 		dipl.color = _tier_color(int(DiplomacyRef.DIPL_COLOR[d]))
 		mv.text = "主从：%s" % DiplomacyRef.MV_NAMES[m] if m < DiplomacyRef.MV_NAMES.size() else "?"
 		mv.color = _tier_color(int(DiplomacyRef.MV_COLOR[m]))
-	h.add_child(dipl)
-	h.add_child(mv)
-
-	_rows.append(h)
-	return h
-
-
-func _legend() -> Control:
-	var box := VBoxContainer.new()
-	box.add_theme_constant_override("separation", 6)
-	box.custom_minimum_size = Vector2(1100, 96)
-
-	var lab := UiLabel.new()
-	lab.font_size = UiTheme.FONT_SMALL
-	lab.text = "图例"
-	box.add_child(lab)
-
-	# 外交関係 8 级
-	var row_d := HBoxContainer.new()
-	row_d.add_theme_constant_override("separation", 10)
-	for d in range(DiplomacyRef.DIPL_NAMES.size()):
-		row_d.add_child(_chip(DiplomacyRef.DIPL_NAMES[d], _tier_color(int(DiplomacyRef.DIPL_COLOR[d]))))
-	box.add_child(row_d)
-
-	# 主从関係 4 级
-	var row_m := HBoxContainer.new()
-	row_m.add_theme_constant_override("separation", 10)
-	for m in range(DiplomacyRef.MV_NAMES.size()):
-		var nm: String = DiplomacyRef.MV_NAMES[m]
-		if nm == "":
-			nm = "空白"
-		row_m.add_child(_chip(nm, _tier_color(int(DiplomacyRef.MV_COLOR[m]))))
-	box.add_child(row_m)
-	return box
-
-
-func _chip(text: String, col: Color) -> Control:
-	var h := HBoxContainer.new()
-	h.add_theme_constant_override("separation", 6)
-	var swatch := ColorRect.new()
-	swatch.custom_minimum_size = Vector2(22, 22)
-	swatch.color = col
-	h.add_child(swatch)
-	var lab := UiLabel.new()
-	lab.font_size = UiTheme.FONT_SMALL
-	lab.text = text
-	lab.color = col
-	h.add_child(lab)
 	return h
 
 

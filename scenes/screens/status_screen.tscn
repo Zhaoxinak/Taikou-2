@@ -1,14 +1,254 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://src/ui/status_screen.gd" id="1_stat"]
+[ext_resource type="Script" path="res://src/ui/UiPanel.gd" id="2_panel"]
+[ext_resource type="Script" path="res://src/ui/UiLabel.gd" id="3_label"]
+[ext_resource type="Script" path="res://src/ui/UiButton.gd" id="4_btn"]
 
 [node name="StatusScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_stat")
 
 [node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.09, 0.08, 0.06, 1)
+
+[node name="Panel" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -620.0
+offset_top = -410.0
+offset_right = 620.0
+offset_bottom = 410.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_panel")
+title = "状 态"
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -560.0
+offset_top = -346.0
+offset_right = 560.0
+offset_bottom = 390.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Info" type="Control" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 44
+h_align = 1
+
+[node name="Stat" type="Control" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 260)
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("3_label")
+font_size = 30
+
+[node name="SkillGrid" type="GridContainer" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 136)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 5
+
+[node name="Skill0" type="Control" parent="Panel/VBox/SkillGrid"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Skill1" type="Control" parent="Panel/VBox/SkillGrid"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Skill2" type="Control" parent="Panel/VBox/SkillGrid"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Skill3" type="Control" parent="Panel/VBox/SkillGrid"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Skill4" type="Control" parent="Panel/VBox/SkillGrid"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Skill5" type="Control" parent="Panel/VBox/SkillGrid"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Skill6" type="Control" parent="Panel/VBox/SkillGrid"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Skill7" type="Control" parent="Panel/VBox/SkillGrid"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Skill8" type="Control" parent="Panel/VBox/SkillGrid"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Skill9" type="Control" parent="Panel/VBox/SkillGrid"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+font_size = 24
+
+[node name="Row2" type="HBoxContainer" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="RestBtn" type="Control" parent="Panel/VBox/Row2"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "休养（体力回满）"
+font_size = 24
+
+[node name="CmdBtn" type="Control" parent="Panel/VBox/Row2"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "执行主命"
+font_size = 24
+
+[node name="BackBtn" type="Control" parent="Panel/VBox/Row2"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "回标题"
+font_size = 24
+
+[node name="Help" type="Control" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("3_label")
+font_size = 24
+
+[node name="EventOverlay" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="Dim" type="ColorRect" parent="EventOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.55)
+
+[node name="PopupPanel" type="Control" parent="EventOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -480.0
+offset_top = -300.0
+offset_right = 480.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_panel")
+title = "事 件"
+
+[node name="PopupVBox" type="VBoxContainer" parent="EventOverlay/PopupPanel"]
+layout_mode = 1
+offset_left = 40.0
+offset_top = 90.0
+offset_right = 920.0
+offset_bottom = 560.0
+theme_override_constants/separation = 14
+
+[node name="Scroll" type="ScrollContainer" parent="EventOverlay/PopupPanel/PopupVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Text" type="Control" parent="EventOverlay/PopupPanel/PopupVBox/Scroll"]
+custom_minimum_size = Vector2(856, 0)
+layout_mode = 2
+script = ExtResource("3_label")
+font_size = 30
+h_align = 0
+
+[node name="CloseBtn" type="Control" parent="EventOverlay/PopupPanel/PopupVBox"]
+custom_minimum_size = Vector2(280, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+script = ExtResource("4_btn")
+text = "知道了"
+font_size = 24
+
+[connection signal="pressed" from="Panel/VBox/Row2/RestBtn" to="." method="_on_rest"]
+[connection signal="pressed" from="Panel/VBox/Row2/CmdBtn" to="." method="_on_go_command"]
+[connection signal="pressed" from="Panel/VBox/Row2/BackBtn" to="." method="_on_back"]
+[connection signal="pressed" from="EventOverlay/PopupPanel/PopupVBox/CloseBtn" to="." method="_close_events_popup"]

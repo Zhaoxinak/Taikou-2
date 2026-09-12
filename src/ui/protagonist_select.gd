@@ -3,39 +3,23 @@ extends Control
 ##
 ## 布局全在 UiTheme 设计空间；废除旧实现的硬编码 font_size(32/22) 与像素偏移。
 ## ⚠️ VBoxContainer 保持为**根的直接子节点**（UI 流程测试按此结构遍历按钮）。
+## 2026-09-12 重构：UI 预置在 scenes/screens/protagonist_select.tscn（6 个主角槽），
+## 脚本只填充文本与绑定 pid。
 
 const UiTheme = preload("res://src/ui/UiTheme.gd")
-const UiPanel = preload("res://src/ui/UiPanel.gd")
-const UiButton = preload("res://src/ui/UiButton.gd")
 const ConstsRef = preload("res://src/core/Consts.gd")
 
-const _PANEL := Vector2(880, 660)
-const _LIST_W := 760.0
+@onready var _list: VBoxContainer = $Panel/List
 
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_PASS
-	_build()
+	_fill_slots()
 
 
-func _build() -> void:
-	# —— 自绘面板（背景 + 标题栏）——
-	var panel := UiPanel.new()
-	panel.set_anchors_preset(Control.PRESET_CENTER)
-	panel.size = _PANEL
-	panel.position = -_PANEL * 0.5
-	panel.title = "选 择 主 角"
-	add_child(panel)
-
-	# —— 主角列表（VBox + 自绘按钮）——
-	var list := VBoxContainer.new()
-	list.set_anchors_preset(Control.PRESET_CENTER)
-	list.size = Vector2(_LIST_W, 520)
-	list.position = Vector2(-_LIST_W * 0.5, -_PANEL.y * 0.5 + 60)
-	list.add_theme_constant_override("separation", 12)
-	add_child(list)
-
+## 按 is_selectable 顺序把 6 个预置槽位填上主角名，并绑定点击事件。
+func _fill_slots() -> void:
 	var officers: Array = GameData._loader.officers.values() if GameData._loader != null else []
 	var selectable: Array = []
 	for o in officers:
@@ -43,16 +27,14 @@ func _build() -> void:
 			selectable.append(o)
 	selectable.sort_custom(func(a, b): return int(a["id"]) < int(b["id"]))
 
-	for o in selectable:
+	for i in mini(selectable.size(), _list.get_child_count()):
+		var o: Dictionary = selectable[i]
 		var pid := int(o["id"])
 		var rank: int = int(o.get("rank", 0))
 		var rank_name: String = ConstsRef.RANK_NAMES[rank] if rank < ConstsRef.RANK_NAMES.size() else "?"
-		var b := UiButton.new()
+		var b: Control = _list.get_child(i)
 		b.text = "%s%s　（%s / #%-3d）" % [o.get("surname", ""), o.get("given", ""), rank_name, pid]
-		b.font_size = UiTheme.FONT_SMALL
-		b.custom_minimum_size = Vector2(0, 58)
 		b.pressed.connect(_on_pick.bind(pid))
-		list.add_child(b)
 
 
 func _on_pick(pid: int) -> void:

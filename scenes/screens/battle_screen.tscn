@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://src/battle/battle_screen.gd" id="1_bscr"]
+[ext_resource type="Script" path="res://src/ui/UiPanel.gd" id="2_panel"]
+[ext_resource type="Script" path="res://src/ui/UiLabel.gd" id="3_label"]
 
 [node name="BattleScreen" type="Control"]
 layout_mode = 3
@@ -10,3 +12,71 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bscr")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07, 0.06, 0.05, 1)
+
+[node name="BattleResult" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Root" type="Control" parent="BattleResult"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="Dim" type="ColorRect" parent="BattleResult/Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0, 0, 0, 0.55)
+
+[node name="Panel" type="Control" parent="BattleResult/Root"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -150.0
+offset_right = 380.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_panel")
+title = "合戦結果"
+title_height = 56
+
+[node name="Margin" type="MarginContainer" parent="BattleResult/Root/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 24
+
+[node name="ResultLabel" type="Control" parent="BattleResult/Root/Panel/Margin"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("3_label")
+font_size = 30
+h_align = 1
