@@ -37,6 +37,7 @@ var _player: Node3D = null
 var _moving := false
 var _route: Array[Vector3] = []
 var _route_i := 0
+var _key_dir := Vector2.ZERO   # 键盘自由行走方向（WASD / 方向键）
 
 
 func _ready() -> void:
@@ -154,9 +155,9 @@ func _hmv(g: Array, i: int, j: int, o: Array, cell: float) -> Vector3:
 # ── 道路/河流合批生成（运行时，编辑器内仍逐节点可见）─────
 func _build_batched_items() -> void:
 	var groups := [
-		["Rivers", Color(0.30, 0.56, 0.88), 0.45],
-		["Roads/Trunk", Color(0.78, 0.64, 0.40), 1.3],
-		["Roads/Branch", Color(0.66, 0.60, 0.50), 0.9],
+		["Rivers", Color(0.30, 0.56, 0.88), 0.18],
+		["Roads/Trunk", Color(0.78, 0.64, 0.40), 0.30],
+		["Roads/Branch", Color(0.66, 0.60, 0.50), 0.22],
 	]
 	for grp in groups:
 		var parent_name: String = grp[0]
@@ -362,6 +363,25 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif _drag_btn == MOUSE_BUTTON_MIDDLE:
 			_pan_camera(mm.relative)
 		_drag_last = mm.position
+	elif event is InputEventKey and event.pressed and not event.echo:
+		# WASD / 方向键自由行走（松开即停；与点击寻路互斥）
+		match event.keycode:
+			KEY_W, KEY_UP:
+				_key_dir.y = -1.0
+			KEY_S, KEY_DOWN:
+				_key_dir.y = 1.0
+			KEY_A, KEY_LEFT:
+				_key_dir.x = -1.0
+			KEY_D, KEY_RIGHT:
+				_key_dir.x = 1.0
+		if _key_dir != Vector2.ZERO:
+			_moving = false
+	elif event is InputEventKey and not event.pressed and not event.echo:
+		match event.keycode:
+			KEY_W, KEY_S, KEY_UP, KEY_DOWN:
+				_key_dir.y = 0.0
+			KEY_A, KEY_D, KEY_LEFT, KEY_RIGHT:
+				_key_dir.x = 0.0
 
 
 func _pan_camera(rel: Vector2) -> void:
@@ -476,7 +496,12 @@ func _find_path(from_id: int, to_id: int) -> Array:
 
 
 func _process(delta: float) -> void:
-	if _moving and _route_i < _route.size():
+	# 键盘自由行走（优先于寻路）
+	if _key_dir != Vector2.ZERO:
+		var mv := Vector3(_key_dir.x, 0.0, _key_dir.y) * _SPEED * delta
+		_player.global_position += mv
+		_follow_player(delta)
+	elif _moving and _route_i < _route.size():
 		var cur := _player.global_position
 		var target_p: Vector3 = _route[_route_i]
 		var step := _SPEED * delta
@@ -488,13 +513,17 @@ func _process(delta: float) -> void:
 		else:
 			var dirv := (target_p - cur).normalized()
 			_player.global_position = cur + dirv * step
-	# 相机跟随玩家：行走时平滑跟随（静止后保持当前视野，用户可自由查看/缩放）
-	if _moving:
-		var p := _player.global_position
-		_target = _target.lerp(Vector3(p.x, 0.0, p.z), minf(1.0, delta * 3.0))
-		_update_cam()
+		# 相机跟随玩家：行走时平滑跟随（静止后保持当前视野，用户可自由查看/缩放）
+		_follow_player(delta)
 	_process_city_labels()
 	_process_province_labels()
+
+
+## 相机平滑跟随玩家（保持当前 dist/pitch/yaw）
+func _follow_player(delta: float) -> void:
+	var p := _player.global_position
+	_target = _target.lerp(Vector3(p.x, 0.0, p.z), minf(1.0, delta * 3.0))
+	_update_cam()
 
 
 func _set_player_pos(cid: int) -> void:
