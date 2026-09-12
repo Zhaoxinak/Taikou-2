@@ -24,6 +24,11 @@ def hmh(x2, y2):
 def p3(x2, y2):
     return (x2 * S, hmh(x2, y2), y2 * S)
 
+## Godot 节点名不允许 `/` `:` `@` `"` `%` 等（会破坏父路径解析，导致子 mesh 丢失/错位）。
+## 生成节点名时净化，显示文本仍用原名。
+def safe(n):
+    return str(n).replace("/", "・").replace(":", "：").replace("@", "＠").replace('"', "＂").replace("%", "％")
+
 # ---------- 资源收集 ----------
 subs = []          # [id, 定义行]
 sub_ids = set()
@@ -258,7 +263,7 @@ out.append('[node name="Rivers" type="Node3D" parent="."]')
 for i, r in enumerate(d["rivers"]):
     pts = r["points"]
     p2 = ", ".join("%.1f, %.1f" % (q[0], q[1]) for q in pts)
-    out.append('[node name="R%d_%s" type="Node3D" parent="Rivers"]' % (i, r["name"]))
+    out.append('[node name="R%d_%s" type="Node3D" parent="Rivers"]' % (i, safe(r["name"])))
     out.append('script = ExtResource("2_item")')
     out.append('kind = "river"')
     out.append('pts2d = PackedVector2Array(%s)' % p2)
@@ -273,7 +278,7 @@ for i, r in enumerate(d["roads"]):
         continue
     pts = r["points"]
     p2 = ", ".join("%.1f, %.1f" % (q[0], q[1]) for q in pts)
-    out.append('[node name="T%d_%s" type="Node3D" parent="Roads/Trunk"]' % (i, r["name"]))
+    out.append('[node name="T%d_%s" type="Node3D" parent="Roads/Trunk"]' % (i, safe(r["name"])))
     out.append('script = ExtResource("2_item")')
     out.append('kind = "road_trunk"')
     out.append('pts2d = PackedVector2Array(%s)' % p2)
@@ -284,7 +289,7 @@ for i, r in enumerate(d["roads"]):
         continue
     pts = r["points"]
     p2 = ", ".join("%.1f, %.1f" % (q[0], q[1]) for q in pts)
-    out.append('[node name="B%d_%s" type="Node3D" parent="Roads/Branch"]' % (i, r["name"]))
+    out.append('[node name="B%d_%s" type="Node3D" parent="Roads/Branch"]' % (i, safe(r["name"])))
     out.append('script = ExtResource("2_item")')
     out.append('kind = "road_branch"')
     out.append('pts2d = PackedVector2Array(%s)' % p2)
@@ -296,22 +301,23 @@ out.append('[node name="Cities" type="Node3D" parent="."]')
 for c in d["cities"]:
     x, y, z = p3(c["x"], c["y"])
     rank = c["rank"]
-    out.append('[node name="C%d_%s" type="Node3D" parent="Cities"]' % (c["id"], c["name"]))
+    sn = safe(c["name"])
+    out.append('[node name="C%d_%s" type="Node3D" parent="Cities"]' % (c["id"], sn))
     out.append('transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, %.1f, %.1f, %.1f)' % (x, y, z))
     if c["type"] == "castle":
-        castle("Cities/C%d_%s" % (c["id"], c["name"]), 0 if rank == 0 else (1 if rank == 1 else 2))
+        castle("Cities/C%d_%s" % (c["id"], sn), 0 if rank == 0 else (1 if rank == 1 else 2))
         ly = 20.0 if rank == 0 else (14.5 if rank == 1 else 9.0)
     else:
-        town("Cities/C%d_%s" % (c["id"], c["name"]), rank)
+        town("Cities/C%d_%s" % (c["id"], sn), rank)
         ly = 5.8 if rank == 3 else (5.0 if rank == 4 else 4.2)
-    label3d("CityLabel", "Cities/C%d_%s" % (c["id"], c["name"]), c["name"], 0, y + ly, 0, fs=26)
+    label3d("CityLabel", "Cities/C%d_%s" % (c["id"], sn), c["name"], 0, y + ly, 0, fs=26)
 
 # 山峰雪顶
 out.append('')
 out.append('[node name="Peaks" type="Node3D" parent="."]')
 for i, p in enumerate(d["peaks"]):
     x, y, z = p3(p["x"], p["y"])
-    out.append('[node name="P%d_%s" type="Node3D" parent="Peaks"]' % (i, p["name"]))
+    out.append('[node name="P%d_%s" type="Node3D" parent="Peaks"]' % (i, safe(p["name"])))
     out.append('script = ExtResource("2_item")')
     out.append('kind = "peak"')
     out.append('pts2d = PackedVector2Array(%.1f, %.1f)' % (p["x"], p["y"]))
@@ -322,7 +328,7 @@ out.append('')
 out.append('[node name="Sights" type="Node3D" parent="."]')
 for i, s in enumerate(d["sights"]):
     x, y, z = p3(s["x"], s["y"])
-    out.append('[node name="S%d_%s" type="Node3D" parent="Sights"]' % (i, s["name"]))
+    out.append('[node name="S%d_%s" type="Node3D" parent="Sights"]' % (i, safe(s["name"])))
     out.append('script = ExtResource("2_item")')
     out.append('kind = "sight"')
     out.append('sight_kind = "%s"' % s["kind"])
@@ -333,7 +339,7 @@ out.append('')
 out.append('[node name="Provinces" type="Node3D" parent="."]')
 for p in d["provinces"]:
     x, y, z = p3(p["cx"], p["cy"])
-    label3d("P_%s" % p["name"], "Provinces", p["name"], x, y + 8.0, z, fs=34)
+    label3d("P_%s" % safe(p["name"]), "Provinces", p["name"], x, y + 8.0, z, fs=34)
 
 # 玩家（金色标记：立柱 + 顶球，编辑器可见、运行时随脚本移动）
 out.append('')

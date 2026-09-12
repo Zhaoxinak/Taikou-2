@@ -11,6 +11,10 @@ const _SPEED := 130.0        # 3D 行走速度（单位/秒）
 const _CLICK_R := 14.0       # 点击半径（3D 单位）
 const _PICK_R := 12.0        # 拾取碰撞球半径
 
+## Godot 节点名不允许 `/` 等字符；与生成器 gen_world_scene_3d.py 的 safe() 保持一致
+static func safe_name(n: String) -> String:
+	return n.replace("/", "・").replace(":", "：").replace("@", "＠").replace("\"", "＂").replace("%", "％")
+
 var _data: Dictionary = {}
 var _cities: Array = []
 var _roads: Array = []
@@ -225,7 +229,7 @@ func _build_batched_items() -> void:
 func _setup_cities() -> void:
 	for c in _cities:
 		var cid: int = c["id"]
-		var node := get_node_or_null("Cities/C%d_%s" % [cid, c["name"]])
+		var node := get_node_or_null("Cities/C%d_%s" % [cid, safe_name(c["name"])])
 		if node == null:
 			continue
 		_city_node[cid] = node
@@ -399,9 +403,17 @@ func _pick_city(sp: Vector2) -> void:
 			best_id = cid
 	if best_id >= 0:
 		_start_move(best_id)
+	else:
+		# 点击地面：主角直线走过去（自由行走）
+		_start_move_to(hit)
 
 
 # ── 寻路 + 移动 ───────────────────────────────────────
+## 点击地面任意处：直线走向目标点
+func _start_move_to(p: Vector3) -> void:
+	_route = [Vector3(p.x, 1.0, p.z)]
+	_route_i = 0
+	_moving = true
 func _start_move(target_id: int) -> void:
 	var start := 0  # 玩家当前城 id（简化：从初始城开始；后续可加"最近城"）
 	var path := _find_path(start, target_id)
