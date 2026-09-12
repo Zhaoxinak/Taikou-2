@@ -9,15 +9,15 @@ albedo_color = Color(0.72, 0.68, 0.62, 1)
 roughness = 0.85
 metallic = 0.05
 [sub_resource type="StandardMaterial3D" id="mat_wall"]
-albedo_color = Color(0.93, 0.91, 0.85, 1)
+albedo_color = Color(0.96, 0.94, 0.90, 1)
 roughness = 0.85
 metallic = 0.05
 [sub_resource type="StandardMaterial3D" id="mat_wall_d"]
-albedo_color = Color(0.80, 0.78, 0.72, 1)
+albedo_color = Color(0.84, 0.82, 0.78, 1)
 roughness = 0.85
 metallic = 0.05
 [sub_resource type="StandardMaterial3D" id="mat_roof"]
-albedo_color = Color(0.26, 0.28, 0.38, 1)
+albedo_color = Color(0.16, 0.18, 0.24, 1)
 roughness = 0.85
 metallic = 0.05
 [sub_resource type="StandardMaterial3D" id="mat_wood"]
@@ -25,7 +25,7 @@ albedo_color = Color(0.62, 0.49, 0.34, 1)
 roughness = 0.85
 metallic = 0.05
 [sub_resource type="StandardMaterial3D" id="mat_thatch"]
-albedo_color = Color(0.50, 0.37, 0.22, 1)
+albedo_color = Color(0.68, 0.54, 0.32, 1)
 roughness = 0.85
 metallic = 0.05
 [sub_resource type="StandardMaterial3D" id="mat_gold"]
@@ -116,14 +116,14 @@ material = SubResource("mat_wall")
 size = Vector3(2.8, 2.2, 2.8)
 material = SubResource("mat_wall_d")
 [sub_resource type="CylinderMesh" id="cyl_thatch"]
-top_radius = 2.7
+top_radius = 0.5
 bottom_radius = 2.7
-height = 2.1
+height = 2.6
 material = SubResource("mat_thatch")
 [sub_resource type="CylinderMesh" id="cyl_thatch_s"]
-top_radius = 2.0
+top_radius = 0.35
 bottom_radius = 2.0
-height = 1.7
+height = 1.9
 material = SubResource("mat_thatch")
 [sub_resource type="CylinderMesh" id="cyl_cone"]
 top_radius = 0.05
