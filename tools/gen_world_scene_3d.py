@@ -36,7 +36,8 @@ def sub(res_id, txt):
 def mat(id_, color, rough=0.85, meta=True):
     lines = ['[sub_resource type="StandardMaterial3D" id="%s"]' % id_,
              'albedo_color = Color(%s, 1)' % color,
-             'roughness = %s' % rough]
+             'roughness = %s' % rough,
+             'shading_mode = 0']   # unshaded：图标恒色，不受光照影响
     if meta:
         lines += ['metallic = 0.05']
     sub(id_, "\n".join(lines))
@@ -59,7 +60,7 @@ def cyl(id_, r1, r2, h, mat_id):
 mat("mat_stone", "0.72, 0.68, 0.62")
 mat("mat_wall", "0.96, 0.94, 0.90")
 mat("mat_wall_d", "0.84, 0.82, 0.78")
-mat("mat_roof", "0.16, 0.18, 0.24")
+mat("mat_roof", "0.30, 0.36, 0.46")
 mat("mat_wood", "0.62, 0.49, 0.34")
 mat("mat_thatch", "0.68, 0.54, 0.32")
 mat("mat_gold", "0.83, 0.66, 0.30")
@@ -92,24 +93,32 @@ sub('env', '\n'.join([
     'glow_enabled = false']))
 
 # 网格资源（按 rank 模板复用，尺寸 ×1.4 便于全景可见）
-box("box_stone0", 12.6, 3.4, 12.6, "mat_stone")
-box("box_stone1", 9.5, 2.8, 9.5, "mat_stone")
-box("box_stone2", 6.4, 2.2, 6.4, "mat_stone")
-for i, sz in enumerate([8.7, 6.7, 5.0, 3.6]):
-    box("box_w%d" % (i + 1), sz, 3.4, sz, "mat_wall" if i % 2 == 0 else "mat_wall_d")
-for i, sz in enumerate([9.5, 7.6, 5.9, 4.5]):
-    box("box_e%d" % (i + 1), sz, 0.7, sz, "mat_roof")
-box("box_gold", 1.0, 0.85, 1.0, "mat_gold")
-box("box_flag", 0.34, 2.8, 2.1, "mat_flag")
-box("box_flagp", 0.25, 3.6, 0.25, "mat_door")
-box("box_door", 2.2, 2.2, 0.5, "mat_door")
-box("box_house", 3.9, 2.8, 3.9, "mat_wood")
-box("box_bighouse", 7.0, 4.5, 7.0, "mat_wall")
-box("box_house_d", 2.8, 2.2, 2.8, "mat_wall_d")
-cyl("cyl_thatch", 0.5, 2.7, 2.6, "mat_thatch")
-cyl("cyl_thatch_s", 0.35, 2.0, 1.9, "mat_thatch")
-cyl("cyl_cone", 0.05, 2.7, 2.4, "mat_roof")
-cyl("cyl_cone_s", 0.05, 2.1, 1.8, "mat_roof")
+box("box_stone0", 11.0, 2.6, 11.0, "mat_stone")
+box("box_stone1", 8.4, 2.2, 8.4, "mat_stone")
+box("box_stone2", 5.8, 1.8, 5.8, "mat_stone")
+for i, sz in enumerate([12.0, 9.6, 7.4, 5.8]):
+    box("box_w%d" % (i + 1), sz, 3.2, sz, "mat_wall" if i % 2 == 0 else "mat_wall_d")
+for i, sz in enumerate([12.6, 10.2, 8.0, 6.4]):
+    box("box_e%d" % (i + 1), sz, 0.6, sz, "mat_roof")
+box("box_gold", 0.9, 0.8, 0.9, "mat_gold")
+box("box_flag", 0.3, 1.2, 2.2, "mat_flag")
+box("box_flagp", 0.22, 3.2, 0.22, "mat_door")
+box("box_door", 2.0, 2.0, 0.5, "mat_door")
+box("box_house", 3.8, 2.6, 3.8, "mat_wall")      # 町屋白墙
+box("box_house_s", 2.6, 2.0, 2.6, "mat_wall")    # 小茅屋墙
+cyl("cyl_thatch", 0.5, 2.4, 2.3, "mat_thatch")
+cyl("cyl_thatch_s", 0.35, 1.8, 1.7, "mat_thatch")
+cyl("cyl_cone", 0.05, 2.4, 2.2, "mat_roof")
+cyl("cyl_cone_s", 0.05, 1.9, 1.7, "mat_roof")
+# 人字屋顶（太阁2 町屋/天守顶）
+sub('prism_roof', '\n'.join([
+    '[sub_resource type="PrismMesh" id="prism_roof"]',
+    'size = Vector3(6.4, 2.6, 6.8)',
+    'material = SubResource("mat_roof")']))
+sub('prism_roof_s', '\n'.join([
+    '[sub_resource type="PrismMesh" id="prism_roof_s"]',
+    'size = Vector3(4.4, 1.9, 4.8)',
+    'material = SubResource("mat_roof")']))
 
 # ---------- 节点输出 ----------
 L = []
@@ -150,64 +159,52 @@ def house(parent, dx, dy, dz, big=False, thatch=True):
         MI(parent, "ht", "cyl_cone_s", dx, dy + 4.8, dz)
 
 def castle(parent, rank):
+    # 太阁2 风格：天守剪影图标（白墙黑瓦 + 石垣 + 旗），无城下町
     if rank == 0:
-        # 石垣 + 四层 + 挑檐 + 攒尖 + 金 + 双旗
-        MI(parent, "stone", "box_stone0", 0, 1.7, 0)
-        for i, h0 in enumerate([3.4, 6.9, 10.2, 13.4]):
-            MI(parent, "w%d" % i, "box_w%d" % (i + 1), 0, h0 + 1.7, 0)
-            MI(parent, "e%d" % i, "box_e%d" % (i + 1), 0, h0 + 3.5, 0)
-        MI(parent, "cone", "cyl_cone", 0, 17.0, 0)
-        MI(parent, "gold", "box_gold", 0, 18.6, 0)
-        MI(parent, "fpl", "box_flagp", -2.2, 20.4, 0)
-        MI(parent, "fpr", "box_flagp", 2.2, 20.4, 0)
-        MI(parent, "fl", "box_flag", -2.2, 21.6, 0)
-        MI(parent, "fr", "box_flag", 2.2, 21.6, 0)
-        # 城下町：沿街两排（前街 5 间 + 后街 4 间，错落成街，不环绕）
-        for i, dx in enumerate([-12.0, -6.0, 0.0, 6.0, 12.0]):
-            house(parent, dx, 0, 5.2)
-        for i, dx in enumerate([-9.0, -3.0, 3.0, 9.0]):
-            house(parent, dx, 0, -4.6)
+        # 大城：三层天守（白墙方块层层收窄 + 黑瓦出檐 + 大蓝灰瓦顶 + 金饰 + 大旗）
+        MI(parent, "stone", "box_stone0", 0, 1.3, 0)
+        MI(parent, "w1", "box_w1", 0, 4.0, 0)
+        MI(parent, "e1", "box_e1", 0, 2.7, 0)
+        MI(parent, "w2", "box_w2", 0, 7.5, 0)
+        MI(parent, "e2", "box_e2", 0, 6.2, 0)
+        MI(parent, "w3", "box_w3", 0, 11.0, 0)
+        MI(parent, "e3", "box_e3", 0, 9.7, 0)
+        MI(parent, "prism", "prism_roof", 0, 14.8, 0)
+        MI(parent, "gold", "box_gold", 0, 16.6, 0)
+        MI(parent, "fp", "box_flagp", 0, 17.6, 0)
+        MI(parent, "f", "box_flag", 0, 19.0, 0)
     elif rank == 1:
-        MI(parent, "stone", "box_stone1", 0, 1.4, 0)
-        for i, h0 in enumerate([3.1, 6.4, 9.6]):
-            MI(parent, "w%d" % i, "box_w%d" % (i + 1), 0, h0 + 1.4, 0)
-            MI(parent, "e%d" % i, "box_e%d" % (i + 1), 0, h0 + 3.5, 0)
-        MI(parent, "cone", "cyl_cone_s", 0, 13.0, 0)
-        MI(parent, "gold", "box_gold", 0, 14.4, 0)
-        MI(parent, "fp", "box_flagp", 0, 16.0, 0)
-        MI(parent, "f", "box_flag", 0, 17.0, 0)
-        # 城下町：沿街三间 + 后一间
-        for i, dx in enumerate([-9.0, 0.0, 9.0]):
-            house(parent, dx, 0, 4.4)
-        house(parent, 0.0, 0, -4.0)
+        # 中城：两层天守
+        MI(parent, "stone", "box_stone1", 0, 1.1, 0)
+        MI(parent, "w1", "box_w2", 0, 3.6, 0)
+        MI(parent, "e1", "box_e2", 0, 2.5, 0)
+        MI(parent, "w2", "box_w3", 0, 6.7, 0)
+        MI(parent, "e2", "box_e3", 0, 5.6, 0)
+        MI(parent, "prism", "prism_roof_s", 0, 9.8, 0)
+        MI(parent, "gold", "box_gold", 0, 11.0, 0)
+        MI(parent, "fp", "box_flagp", 0, 12.0, 0)
+        MI(parent, "f", "box_flag", 0, 13.2, 0)
     else:
-        MI(parent, "stone", "box_stone2", 0, 1.1, 0)
-        for i, h0 in enumerate([2.5, 5.3]):
-            MI(parent, "w%d" % i, "box_w%d" % (i + 2), 0, h0 + 1.4, 0)
-            MI(parent, "e%d" % i, "box_e%d" % (i + 2), 0, h0 + 3.1, 0)
-        MI(parent, "cone", "cyl_cone_s", 0, 8.4, 0)
-        MI(parent, "fp", "box_flagp", 0, 9.8, 0)
-        MI(parent, "f", "box_flag", 0, 10.8, 0)
-        # 小城：天守两侧各一间町屋，干净利落
-        house(parent, -7.0, 0, 3.8)
-        house(parent, 7.0, 0, 3.8)
+        # 小城：单层小天守
+        MI(parent, "stone", "box_stone2", 0, 0.9, 0)
+        MI(parent, "w1", "box_w4", 0, 3.0, 0)
+        MI(parent, "e1", "box_e4", 0, 2.1, 0)
+        MI(parent, "prism", "prism_roof_s", 0, 5.7, 0)
+        MI(parent, "fp", "box_flagp", 0, 6.7, 0)
+        MI(parent, "f", "box_flag", 0, 7.7, 0)
 
 def town(parent, rank):
-    if rank == 3:      # 大町：豪商大屋 + 街道两排（仿城下町但无天守）
-        MI(parent, "bg", "box_bighouse", 0, 2.2, 0)
-        MI(parent, "be", "box_e2", 0, 4.8, 0)
-        MI(parent, "bd", "box_door", 0, 1.7, 4.6)
-        for i, dx in enumerate([-10.0, -5.0, 0.0, 5.0, 10.0]):
-            house(parent, dx, 0, 4.8)
-        for i, dx in enumerate([-7.5, -2.5, 2.5, 7.5]):
-            house(parent, dx, 0, -4.2)
-    elif rank == 4:    # 小镇：沿路 4 间
-        for i, (dx, dz) in enumerate([(-3.6, 3.1), (3.9, 3.4), (-2.2, -2.2), (3.6, -1.7)]):
-            house(parent, dx, 0, dz, big=(i == 0))
-    else:              # 村庄：3 茅屋散落（保持独立干净）
-        house(parent, -3.0, 0, 1.9, big=False)
-        house(parent, 2.6, 0, 1.4, big=False)
-        house(parent, -0.4, 0, -2.2, big=False)
+    if rank == 3:      # 大町：三间连排白墙黑瓦町屋
+        for i, dx in enumerate([-3.6, 0.0, 3.6]):
+            MI(parent, "h%d" % i, "box_house", dx, 1.3, 0)
+            MI(parent, "r%d" % i, "prism_roof", dx, 3.4, 0)
+    elif rank == 4:    # 小町：两间
+        for i, dx in enumerate([-2.4, 2.4]):
+            MI(parent, "h%d" % i, "box_house", dx, 1.3, 0)
+            MI(parent, "r%d" % i, "prism_roof_s", dx, 3.0, 0)
+    else:              # 村：一间茅草屋（干净独立）
+        MI(parent, "h", "box_house_s", 0, 1.0, 0)
+        MI(parent, "ht", "cyl_thatch_s", 0, 2.5, 0)
 
 # ---------- 主流程 ----------
 out = []
@@ -291,10 +288,10 @@ for c in d["cities"]:
     out.append('transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, %.1f, %.1f, %.1f)' % (x, y, z))
     if c["type"] == "castle":
         castle("Cities/C%d_%s" % (c["id"], c["name"]), 0 if rank == 0 else (1 if rank == 1 else 2))
-        ly = 24.0 if rank == 0 else (19.0 if rank == 1 else 13.0)
+        ly = 20.0 if rank == 0 else (14.5 if rank == 1 else 9.0)
     else:
         town("Cities/C%d_%s" % (c["id"], c["name"]), rank)
-        ly = 9.5 if rank == 3 else (8.0 if rank == 4 else 6.5)
+        ly = 5.8 if rank == 3 else (5.0 if rank == 4 else 4.2)
     label3d("CityLabel", "Cities/C%d_%s" % (c["id"], c["name"]), c["name"], 0, y + ly, 0, fs=26)
 
 # 山峰雪顶
