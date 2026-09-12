@@ -177,6 +177,14 @@ script = ExtResource("4_btn")
 text = "回标题"
 font_size = 24
 
+[node name="GoWorldBtn" type="Control" parent="Panel/VBox/Row2"]
+custom_minimum_size = Vector2(0, 58)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("4_btn")
+text = "外 出（大地图）"
+font_size = 24
+
 [node name="Help" type="Control" parent="Panel/VBox"]
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
@@ -251,4 +259,5 @@ font_size = 24
 [connection signal="pressed" from="Panel/VBox/Row2/RestBtn" to="." method="_on_rest"]
 [connection signal="pressed" from="Panel/VBox/Row2/CmdBtn" to="." method="_on_go_command"]
 [connection signal="pressed" from="Panel/VBox/Row2/BackBtn" to="." method="_on_back"]
+[connection signal="pressed" from="Panel/VBox/Row2/GoWorldBtn" to="." method="_on_go_world"]
 [connection signal="pressed" from="EventOverlay/PopupPanel/PopupVBox/CloseBtn" to="." method="_close_events_popup"]

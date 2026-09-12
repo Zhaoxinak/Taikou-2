@@ -201,9 +201,8 @@ func _test_converted_screens() -> void:
 	await process_frame
 	_count(status, ub, nb, pn, lb)
 	check(pn[0] >= 1, "状态画面含自绘面板 (got %d)" % pn[0])
-	# 14 = 10 技能 + 休养 + 执行主命 + 回标题 + 事件弹窗关闭钮（弹窗预置常驻，hidden 态）
-	# （「执行主命」= command_screen 入口，12 主命对玩家开放；「外出（大地图）」随大地图删除）
-	check(ub[0] == 14, "状态画面含 14 个自绘按钮 (10 技能+休养+执行主命+回标题+弹窗关闭钮, got %d)" % ub[0])
+	# 15 = 10 技能 + 休养 + 执行主命 + 回标题 + 外出（大地图）+ 事件弹窗关闭钮（弹窗预置常驻）
+	check(ub[0] == 15, "状态画面含 15 个自绘按钮 (10 技能+休养+执行主命+回标题+外出+弹窗关闭钮, got %d)" % ub[0])
 	check(nb[0] == 0, "状态画面已无原生 Button (got %d)" % nb[0])
 	check(lb[0] == 4, "状态画面含 4 个自绘文本 _info/_stat/_help+事件文本 (got %d)" % lb[0])
 	# 对外契约仍在
