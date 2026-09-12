@@ -242,7 +242,7 @@ out.append('')
 out.append('[node name="Terrain" type="Node3D" parent="."]')
 out.append('')
 out.append('[node name="Sea" type="MeshInstance3D" parent="."]')
-out.append('transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 542.0, -1.0, 507.0)')
+out.append('transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 542.0, -1.0, 507.0)')   # 水平海面（y=-1）；旧版误绕X轴旋转成竖直深蓝墙（地图中间的"屏障"）
 out.append('mesh = SubResource("pl_sea")')
 out.append('material_override = SubResource("mat_sea")')
 

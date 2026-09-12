@@ -168,7 +168,7 @@ script = ExtResource("1_scr")
 [node name="Terrain" type="Node3D" parent="."]
 
 [node name="Sea" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 542.0, -1.0, 507.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 542.0, -1.0, 507.0)
 mesh = SubResource("pl_sea")
 material_override = SubResource("mat_sea")
 
