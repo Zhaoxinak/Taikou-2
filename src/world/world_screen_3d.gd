@@ -9,6 +9,7 @@ const UiTheme := preload("res://src/ui/UiTheme.gd")
 const S := 0.25
 const _SPEED := 130.0        # 3D 行走速度（单位/秒）
 const _CLICK_R := 14.0       # 点击半径（3D 单位）
+const _HOVER_R := 18.0       # 悬停显示城名半径（比点击略宽，易命中）
 const _PICK_R := 12.0        # 拾取碰撞球半径
 
 ## Godot 节点名不允许 `/` 等字符；与生成器 gen_world_scene_3d.py 的 safe() 保持一致
@@ -38,6 +39,7 @@ var _moving := false
 var _route: Array[Vector3] = []
 var _route_i := 0
 var _key_pan := Vector2.ZERO   # WASD / 方向键平移地图（镜头移动）
+var _hover_city_id := -1       # 悬停/选中的城（太阁2原版式：移上才显示名字）
 
 
 func _ready() -> void:
@@ -265,6 +267,7 @@ const _TARGET_PROV_PX := 26.0     # 国名目标屏幕像素
 const _LABEL_FS := 300            # 固定字号（atlas 小、生成快）
 const _PS_MIN := 0.002
 const _PS_MAX := 0.5
+const _PS_MIN_HOVER := 0.10       # 悬停城名最小字号（放大到清晰可读）
 
 
 func _ps_for(dist: float, target_px: float) -> float:
@@ -280,26 +283,20 @@ func _ps_for(dist: float, target_px: float) -> float:
 	return clampf(ps, _PS_MIN, _PS_MAX)
 
 
+## 城名标签：太阁2 原版式——不常驻，仅悬停/选中的城显示名字
 func _process_city_labels() -> void:
-	var cam_pos: Vector3 = _cam.global_position
+	var hover_id: int = _hover_city_id
 	for cid in _city_node:
 		var node: Node3D = _city_node[cid]
 		var lb := node.get_node_or_null("CityLabel")
 		if lb == null:
 			continue
-		var d := node.global_position.distance_to(cam_pos)
-		var rank: int = int(_city_rank(cid))
-		var show := false
-		if rank <= 1 and d < 700.0:
-			show = true
-		elif rank <= 3 and d < 380.0:
-			show = true
-		elif d < 200.0:
-			show = true
+		var show: bool = (cid == hover_id)
 		if lb.visible != show:
 			lb.visible = show
 		if show:
-			var ps: float = _ps_for(d, _TARGET_CITY_PX)
+			var d := node.global_position.distance_to(_cam.global_position)
+			var ps: float = maxf(_ps_for(d, _TARGET_CITY_PX * 2.2), _PS_MIN_HOVER)
 			if absf(lb.pixel_size - ps) > ps * 0.02:
 				lb.pixel_size = ps
 
@@ -363,6 +360,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_update_cam()
 		elif _drag_btn == MOUSE_BUTTON_MIDDLE:
 			_pan_camera(mm.relative)
+		else:
+			_hover_pick(mm.position)
 		_drag_last = mm.position
 	elif event is InputEventKey and event.pressed and not event.echo:
 		# WASD / 方向键：平移地图（镜头移动）
@@ -399,6 +398,30 @@ func _update_cam() -> void:
 	_cam.look_at(_target, Vector3.UP)
 
 
+## 悬停检测：屏幕点射线 → 显示最近城名（移开自动隐藏）
+func _hover_pick(sp: Vector2) -> void:
+	var origin := _cam.project_ray_origin(sp)
+	var dir := _cam.project_ray_normal(sp)
+	if absf(dir.y) < 1e-5:
+		return
+	var t := -origin.y / dir.y
+	if t < 0.0:
+		return
+	var hit := origin + dir * t
+	var best_id := -1
+	var best_d := 1e9
+	for cid in _city_pos2:
+		var node: Node3D = _city_node.get(cid)
+		if node == null:
+			continue
+		var p3v: Vector3 = node.global_position
+		var d := Vector2(p3v.x - hit.x, p3v.z - hit.z).length()
+		if d < _HOVER_R and d < best_d:
+			best_d = d
+			best_id = cid
+	_hover_city_id = best_id
+
+
 ## 屏幕点 → 射线与 y=0 平面交点（粗略地形拾取）
 func _pick_city(sp: Vector2) -> void:
 	var origin := _cam.project_ray_origin(sp)
@@ -421,11 +444,13 @@ func _pick_city(sp: Vector2) -> void:
 			best_d = d
 			best_id = cid
 	if best_id >= 0:
+		_hover_city_id = best_id
 		_start_move(best_id)
 	else:
 		# 点击地面：吸附到最近城/镇，沿道路网走过去（走路必须沿路径）
 		var near := _nearest_city(hit)
 		if near >= 0:
+			_hover_city_id = near
 			_start_move(near)
 
 
