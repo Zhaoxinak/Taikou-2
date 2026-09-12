@@ -105,7 +105,7 @@
    "x": 4011.1,
    "y": 1197.0,
    "type": "town",
-   "rank": 5,
+   "rank": 3,
    "gunryo": 800,
    "shikin": 450,
    "minkok": 120
@@ -161,7 +161,7 @@
    "x": 3884.1,
    "y": 796.5,
    "type": "town",
-   "rank": 5,
+   "rank": 4,
    "gunryo": 500,
    "shikin": 300,
    "minkok": 130
@@ -482,8 +482,8 @@
    "lng": 139.75,
    "x": 3702.6,
    "y": 2218.5,
-   "type": "town",
-   "rank": 5,
+   "type": "castle",
+   "rank": 1,
    "gunryo": 500,
    "shikin": 500,
    "minkok": 120
@@ -539,7 +539,7 @@
    "x": 3499.3,
    "y": 2259.0,
    "type": "town",
-   "rank": 5,
+   "rank": 4,
    "gunryo": 500,
    "shikin": 350,
    "minkok": 110
@@ -553,7 +553,7 @@
    "x": 3651.8,
    "y": 2457.0,
    "type": "town",
-   "rank": 5,
+   "rank": 4,
    "gunryo": 500,
    "shikin": 300,
    "minkok": 120
@@ -595,7 +595,7 @@
    "x": 3279.1,
    "y": 2248.5,
    "type": "town",
-   "rank": 5,
+   "rank": 4,
    "gunryo": 500,
    "shikin": 250,
    "minkok": 180
@@ -902,8 +902,8 @@
    "lng": 137.5809,
    "x": 2915.2,
    "y": 2559.4,
-   "type": "town",
-   "rank": 5,
+   "type": "castle",
+   "rank": 2,
    "gunryo": 200,
    "shikin": 100,
    "minkok": 70
@@ -930,8 +930,8 @@
    "lng": 137.39,
    "x": 2845.9,
    "y": 2628.0,
-   "type": "town",
-   "rank": 5,
+   "type": "castle",
+   "rank": 1,
    "gunryo": 600,
    "shikin": 250,
    "minkok": 60
@@ -1042,8 +1042,8 @@
    "lng": 136.7044,
    "x": 2598.957452030075,
    "y": 2358.4335696583717,
-   "type": "town",
-   "rank": 5,
+   "type": "castle",
+   "rank": 2,
    "gunryo": 0,
    "shikin": 0,
    "minkok": 0
@@ -1182,8 +1182,8 @@
    "lng": 136.85,
    "x": 2649.9,
    "y": 2758.5,
-   "type": "town",
-   "rank": 5,
+   "type": "castle",
+   "rank": 1,
    "gunryo": 500,
    "shikin": 500,
    "minkok": 130
@@ -1420,8 +1420,8 @@
    "lng": 136.2639,
    "x": 2437.1,
    "y": 2358.2,
-   "type": "town",
-   "rank": 5,
+   "type": "castle",
+   "rank": 1,
    "gunryo": 500,
    "shikin": 250,
    "minkok": 170
@@ -1463,7 +1463,7 @@
    "x": 2435.1453746455195,
    "y": 2478.211837886369,
    "type": "town",
-   "rank": 5,
+   "rank": 4,
    "gunryo": 500,
    "shikin": 200,
    "minkok": 120
@@ -1491,7 +1491,7 @@
    "x": 2290.5,
    "y": 2497.5,
    "type": "town",
-   "rank": 5,
+   "rank": 3,
    "gunryo": 500,
    "shikin": 200,
    "minkok": 110
@@ -1715,7 +1715,7 @@
    "x": 2211.0164997282377,
    "y": 2594.9772403204497,
    "type": "town",
-   "rank": 5,
+   "rank": 3,
    "gunryo": 300,
    "shikin": 120,
    "minkok": 60
@@ -1813,7 +1813,7 @@
    "x": 2189.8982700227934,
    "y": 2716.435948866462,
    "type": "town",
-   "rank": 5,
+   "rank": 4,
    "gunryo": 600,
    "shikin": 400,
    "minkok": 50
@@ -1939,7 +1939,7 @@
    "x": 1971.0,
    "y": 2691.0,
    "type": "town",
-   "rank": 5,
+   "rank": 3,
    "gunryo": 700,
    "shikin": 350,
    "minkok": 110
@@ -2149,7 +2149,7 @@
    "x": 1383.0,
    "y": 2736.0,
    "type": "town",
-   "rank": 5,
+   "rank": 4,
    "gunryo": 500,
    "shikin": 400,
    "minkok": 110
@@ -2205,7 +2205,7 @@
    "x": 1049.1,
    "y": 2808.0,
    "type": "town",
-   "rank": 5,
+   "rank": 4,
    "gunryo": 500,
    "shikin": 300,
    "minkok": 120
@@ -2247,7 +2247,7 @@
    "x": 1506.4,
    "y": 2502.0,
    "type": "town",
-   "rank": 5,
+   "rank": 4,
    "gunryo": 700,
    "shikin": 400,
    "minkok": 120
@@ -2386,8 +2386,8 @@
    "lng": 133.55,
    "x": 1452.0,
    "y": 3199.5,
-   "type": "town",
-   "rank": 5,
+   "type": "castle",
+   "rank": 1,
    "gunryo": 500,
    "shikin": 250,
    "minkok": 150
@@ -2428,8 +2428,8 @@
    "lng": 131.19,
    "x": 595.3,
    "y": 3154.5,
-   "type": "town",
-   "rank": 5,
+   "type": "castle",
+   "rank": 1,
    "gunryo": 800,
    "shikin": 400,
    "minkok": 120
@@ -2457,7 +2457,7 @@
    "x": 364.4,
    "y": 3064.5,
    "type": "town",
-   "rank": 5,
+   "rank": 3,
    "gunryo": 600,
    "shikin": 250,
    "minkok": 100
@@ -2625,7 +2625,7 @@
    "x": 1132.1,
    "y": 3035.9,
    "type": "town",
-   "rank": 5,
+   "rank": 4,
    "gunryo": 800,
    "shikin": 480,
    "minkok": 110

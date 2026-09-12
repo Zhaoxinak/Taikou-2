@@ -3544,14 +3544,26 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C6_白石/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C6_白石/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C6_白石/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C6_白石/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 3.4, 0)
+mesh = SubResource("prism_roof")
+[node name="h1" type="MeshInstance3D" parent="Cities/C6_白石/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C6_白石/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 3.4, 0)
+mesh = SubResource("prism_roof")
+[node name="h2" type="MeshInstance3D" parent="Cities/C6_白石/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r2" type="MeshInstance3D" parent="Cities/C6_白石/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 3.4, 0)
+mesh = SubResource("prism_roof")
 [node name="CityLabel" type="Label3D" parent="Cities/C6_白石"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.325, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.725, 0)
 text = "白石"
 font_size = 26
 outline_size = 6
@@ -3653,14 +3665,20 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C10_鲑延/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C10_鲑延/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C10_鲑延/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C10_鲑延/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
+[node name="h1" type="MeshInstance3D" parent="Cities/C10_鲑延/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C10_鲑延/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
 [node name="CityLabel" type="Label3D" parent="Cities/C10_鲑延"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.050000000000001, 0)
 text = "鲑延"
 font_size = 26
 outline_size = 6
@@ -4321,14 +4339,35 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C33_江户/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C33_江户/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
-[node name="CityLabel" type="Label3D" parent="Cities/C33_江户"]
+[node name="stone" type="MeshInstance3D" parent="Cities/C33_江户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+mesh = SubResource("box_stone1")
+[node name="w1" type="MeshInstance3D" parent="Cities/C33_江户/Bld"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+mesh = SubResource("box_w2")
+[node name="e1" type="MeshInstance3D" parent="Cities/C33_江户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+mesh = SubResource("box_e2")
+[node name="w2" type="MeshInstance3D" parent="Cities/C33_江户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.7, 0)
+mesh = SubResource("box_w3")
+[node name="e2" type="MeshInstance3D" parent="Cities/C33_江户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.6, 0)
+mesh = SubResource("box_e3")
+[node name="prism" type="MeshInstance3D" parent="Cities/C33_江户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.8, 0)
+mesh = SubResource("prism_roof_s")
+[node name="gold" type="MeshInstance3D" parent="Cities/C33_江户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0, 0)
+mesh = SubResource("box_gold")
+[node name="fp" type="MeshInstance3D" parent="Cities/C33_江户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0, 0)
+mesh = SubResource("box_flagp")
+[node name="f" type="MeshInstance3D" parent="Cities/C33_江户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.2, 0)
+mesh = SubResource("box_flag")
+[node name="CityLabel" type="Label3D" parent="Cities/C33_江户"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0, 0)
 text = "江户"
 font_size = 26
 outline_size = 6
@@ -4439,14 +4478,20 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C37_津久井/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C37_津久井/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C37_津久井/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C37_津久井/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
+[node name="h1" type="MeshInstance3D" parent="Cities/C37_津久井/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C37_津久井/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
 [node name="CityLabel" type="Label3D" parent="Cities/C37_津久井"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.625, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.425000000000001, 0)
 text = "津久井"
 font_size = 26
 outline_size = 6
@@ -4455,14 +4500,20 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C38_三浦/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C38_三浦/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C38_三浦/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C38_三浦/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
+[node name="h1" type="MeshInstance3D" parent="Cities/C38_三浦/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C38_三浦/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
 [node name="CityLabel" type="Label3D" parent="Cities/C38_三浦"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4, 0)
 text = "三浦"
 font_size = 26
 outline_size = 6
@@ -4521,14 +4572,20 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C41_下山/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C41_下山/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C41_下山/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C41_下山/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
+[node name="h1" type="MeshInstance3D" parent="Cities/C41_下山/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C41_下山/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
 [node name="CityLabel" type="Label3D" parent="Cities/C41_下山"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.125, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.925, 0)
 text = "下山"
 font_size = 26
 outline_size = 6
@@ -5185,14 +5242,26 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C63_长筱/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C63_长筱/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="stone" type="MeshInstance3D" parent="Cities/C63_长筱/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("box_stone2")
+[node name="w1" type="MeshInstance3D" parent="Cities/C63_长筱/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0, 0)
+mesh = SubResource("box_w4")
+[node name="e1" type="MeshInstance3D" parent="Cities/C63_长筱/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
+mesh = SubResource("box_e4")
+[node name="prism" type="MeshInstance3D" parent="Cities/C63_长筱/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7, 0)
+mesh = SubResource("prism_roof_s")
+[node name="fp" type="MeshInstance3D" parent="Cities/C63_长筱/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.7, 0)
+mesh = SubResource("box_flagp")
+[node name="f" type="MeshInstance3D" parent="Cities/C63_长筱/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.7, 0)
+mesh = SubResource("box_flag")
 [node name="CityLabel" type="Label3D" parent="Cities/C63_长筱"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.8, 0)
 text = "长筱"
 font_size = 26
 outline_size = 6
@@ -5223,14 +5292,35 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C65_吉田/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C65_吉田/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
-[node name="CityLabel" type="Label3D" parent="Cities/C65_吉田"]
+[node name="stone" type="MeshInstance3D" parent="Cities/C65_吉田/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+mesh = SubResource("box_stone1")
+[node name="w1" type="MeshInstance3D" parent="Cities/C65_吉田/Bld"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+mesh = SubResource("box_w2")
+[node name="e1" type="MeshInstance3D" parent="Cities/C65_吉田/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+mesh = SubResource("box_e2")
+[node name="w2" type="MeshInstance3D" parent="Cities/C65_吉田/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.7, 0)
+mesh = SubResource("box_w3")
+[node name="e2" type="MeshInstance3D" parent="Cities/C65_吉田/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.6, 0)
+mesh = SubResource("box_e3")
+[node name="prism" type="MeshInstance3D" parent="Cities/C65_吉田/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.8, 0)
+mesh = SubResource("prism_roof_s")
+[node name="gold" type="MeshInstance3D" parent="Cities/C65_吉田/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0, 0)
+mesh = SubResource("box_gold")
+[node name="fp" type="MeshInstance3D" parent="Cities/C65_吉田/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0, 0)
+mesh = SubResource("box_flagp")
+[node name="f" type="MeshInstance3D" parent="Cities/C65_吉田/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.2, 0)
+mesh = SubResource("box_flag")
+[node name="CityLabel" type="Label3D" parent="Cities/C65_吉田"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0, 0)
 text = "吉田"
 font_size = 26
 outline_size = 6
@@ -5456,14 +5546,26 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C73_墨俣/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C73_墨俣/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="stone" type="MeshInstance3D" parent="Cities/C73_墨俣/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("box_stone2")
+[node name="w1" type="MeshInstance3D" parent="Cities/C73_墨俣/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0, 0)
+mesh = SubResource("box_w4")
+[node name="e1" type="MeshInstance3D" parent="Cities/C73_墨俣/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
+mesh = SubResource("box_e4")
+[node name="prism" type="MeshInstance3D" parent="Cities/C73_墨俣/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7, 0)
+mesh = SubResource("prism_roof_s")
+[node name="fp" type="MeshInstance3D" parent="Cities/C73_墨俣/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.7, 0)
+mesh = SubResource("box_flagp")
+[node name="f" type="MeshInstance3D" parent="Cities/C73_墨俣/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.7, 0)
+mesh = SubResource("box_flag")
 [node name="CityLabel" type="Label3D" parent="Cities/C73_墨俣"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.8, 0)
 text = "墨俣"
 font_size = 26
 outline_size = 6
@@ -5757,14 +5859,35 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C83_鸟羽/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C83_鸟羽/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
-[node name="CityLabel" type="Label3D" parent="Cities/C83_鸟羽"]
+[node name="stone" type="MeshInstance3D" parent="Cities/C83_鸟羽/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+mesh = SubResource("box_stone1")
+[node name="w1" type="MeshInstance3D" parent="Cities/C83_鸟羽/Bld"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+mesh = SubResource("box_w2")
+[node name="e1" type="MeshInstance3D" parent="Cities/C83_鸟羽/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+mesh = SubResource("box_e2")
+[node name="w2" type="MeshInstance3D" parent="Cities/C83_鸟羽/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.7, 0)
+mesh = SubResource("box_w3")
+[node name="e2" type="MeshInstance3D" parent="Cities/C83_鸟羽/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.6, 0)
+mesh = SubResource("box_e3")
+[node name="prism" type="MeshInstance3D" parent="Cities/C83_鸟羽/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.8, 0)
+mesh = SubResource("prism_roof_s")
+[node name="gold" type="MeshInstance3D" parent="Cities/C83_鸟羽/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0, 0)
+mesh = SubResource("box_gold")
+[node name="fp" type="MeshInstance3D" parent="Cities/C83_鸟羽/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0, 0)
+mesh = SubResource("box_flagp")
+[node name="f" type="MeshInstance3D" parent="Cities/C83_鸟羽/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.2, 0)
+mesh = SubResource("box_flag")
+[node name="CityLabel" type="Label3D" parent="Cities/C83_鸟羽"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0, 0)
 text = "鸟羽"
 font_size = 26
 outline_size = 6
@@ -6242,14 +6365,35 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C100_今滨/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C100_今滨/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
-[node name="CityLabel" type="Label3D" parent="Cities/C100_今滨"]
+[node name="stone" type="MeshInstance3D" parent="Cities/C100_今滨/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+mesh = SubResource("box_stone1")
+[node name="w1" type="MeshInstance3D" parent="Cities/C100_今滨/Bld"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+mesh = SubResource("box_w2")
+[node name="e1" type="MeshInstance3D" parent="Cities/C100_今滨/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+mesh = SubResource("box_e2")
+[node name="w2" type="MeshInstance3D" parent="Cities/C100_今滨/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.7, 0)
+mesh = SubResource("box_w3")
+[node name="e2" type="MeshInstance3D" parent="Cities/C100_今滨/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.6, 0)
+mesh = SubResource("box_e3")
+[node name="prism" type="MeshInstance3D" parent="Cities/C100_今滨/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.8, 0)
+mesh = SubResource("prism_roof_s")
+[node name="gold" type="MeshInstance3D" parent="Cities/C100_今滨/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0, 0)
+mesh = SubResource("box_gold")
+[node name="fp" type="MeshInstance3D" parent="Cities/C100_今滨/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0, 0)
+mesh = SubResource("box_flagp")
+[node name="f" type="MeshInstance3D" parent="Cities/C100_今滨/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.2, 0)
+mesh = SubResource("box_flag")
+[node name="CityLabel" type="Label3D" parent="Cities/C100_今滨"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0, 0)
 text = "今滨"
 font_size = 26
 outline_size = 6
@@ -6329,14 +6473,20 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C103_长光寺/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C103_长光寺/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C103_长光寺/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C103_长光寺/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
+[node name="h1" type="MeshInstance3D" parent="Cities/C103_长光寺/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C103_长光寺/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
 [node name="CityLabel" type="Label3D" parent="Cities/C103_长光寺"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4, 0)
 text = "长光寺"
 font_size = 26
 outline_size = 6
@@ -6373,14 +6523,26 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C105_坂本/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C105_坂本/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C105_坂本/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C105_坂本/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 3.4, 0)
+mesh = SubResource("prism_roof")
+[node name="h1" type="MeshInstance3D" parent="Cities/C105_坂本/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C105_坂本/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 3.4, 0)
+mesh = SubResource("prism_roof")
+[node name="h2" type="MeshInstance3D" parent="Cities/C105_坂本/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r2" type="MeshInstance3D" parent="Cities/C105_坂本/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 3.4, 0)
+mesh = SubResource("prism_roof")
 [node name="CityLabel" type="Label3D" parent="Cities/C105_坂本"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.0, 0)
 text = "坂本"
 font_size = 26
 outline_size = 6
@@ -6869,14 +7031,26 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C121_高槻/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C121_高槻/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C121_高槻/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C121_高槻/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 3.4, 0)
+mesh = SubResource("prism_roof")
+[node name="h1" type="MeshInstance3D" parent="Cities/C121_高槻/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C121_高槻/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 3.4, 0)
+mesh = SubResource("prism_roof")
+[node name="h2" type="MeshInstance3D" parent="Cities/C121_高槻/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r2" type="MeshInstance3D" parent="Cities/C121_高槻/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 3.4, 0)
+mesh = SubResource("prism_roof")
 [node name="CityLabel" type="Label3D" parent="Cities/C121_高槻"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.0, 0)
 text = "高槻"
 font_size = 26
 outline_size = 6
@@ -7053,14 +7227,20 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C128_高屋/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C128_高屋/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C128_高屋/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C128_高屋/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
+[node name="h1" type="MeshInstance3D" parent="Cities/C128_高屋/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C128_高屋/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
 [node name="CityLabel" type="Label3D" parent="Cities/C128_高屋"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4, 0)
 text = "高屋"
 font_size = 26
 outline_size = 6
@@ -7302,14 +7482,26 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C137_鱼住/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C137_鱼住/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C137_鱼住/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C137_鱼住/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 3.4, 0)
+mesh = SubResource("prism_roof")
+[node name="h1" type="MeshInstance3D" parent="Cities/C137_鱼住/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C137_鱼住/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 3.4, 0)
+mesh = SubResource("prism_roof")
+[node name="h2" type="MeshInstance3D" parent="Cities/C137_鱼住/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r2" type="MeshInstance3D" parent="Cities/C137_鱼住/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 3.4, 0)
+mesh = SubResource("prism_roof")
 [node name="CityLabel" type="Label3D" parent="Cities/C137_鱼住"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.0, 0)
 text = "鱼住"
 font_size = 26
 outline_size = 6
@@ -7791,14 +7983,20 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C152_神边/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C152_神边/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C152_神边/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C152_神边/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
+[node name="h1" type="MeshInstance3D" parent="Cities/C152_神边/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C152_神边/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
 [node name="CityLabel" type="Label3D" parent="Cities/C152_神边"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4, 0)
 text = "神边"
 font_size = 26
 outline_size = 6
@@ -7924,14 +8122,20 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C156_樱尾/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C156_樱尾/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C156_樱尾/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C156_樱尾/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
+[node name="h1" type="MeshInstance3D" parent="Cities/C156_樱尾/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C156_樱尾/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
 [node name="CityLabel" type="Label3D" parent="Cities/C156_樱尾"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.85, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.65, 0)
 text = "樱尾"
 font_size = 26
 outline_size = 6
@@ -8005,14 +8209,20 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C159_胜山/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C159_胜山/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C159_胜山/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C159_胜山/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
+[node name="h1" type="MeshInstance3D" parent="Cities/C159_胜山/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C159_胜山/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
 [node name="CityLabel" type="Label3D" parent="Cities/C159_胜山"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.875, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.675000000000001, 0)
 text = "胜山"
 font_size = 26
 outline_size = 6
@@ -8297,14 +8507,35 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C169_浦户/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C169_浦户/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
-[node name="CityLabel" type="Label3D" parent="Cities/C169_浦户"]
+[node name="stone" type="MeshInstance3D" parent="Cities/C169_浦户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+mesh = SubResource("box_stone1")
+[node name="w1" type="MeshInstance3D" parent="Cities/C169_浦户/Bld"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+mesh = SubResource("box_w2")
+[node name="e1" type="MeshInstance3D" parent="Cities/C169_浦户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+mesh = SubResource("box_e2")
+[node name="w2" type="MeshInstance3D" parent="Cities/C169_浦户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.7, 0)
+mesh = SubResource("box_w3")
+[node name="e2" type="MeshInstance3D" parent="Cities/C169_浦户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.6, 0)
+mesh = SubResource("box_e3")
+[node name="prism" type="MeshInstance3D" parent="Cities/C169_浦户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.8, 0)
+mesh = SubResource("prism_roof_s")
+[node name="gold" type="MeshInstance3D" parent="Cities/C169_浦户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0, 0)
+mesh = SubResource("box_gold")
+[node name="fp" type="MeshInstance3D" parent="Cities/C169_浦户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0, 0)
+mesh = SubResource("box_flagp")
+[node name="f" type="MeshInstance3D" parent="Cities/C169_浦户/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.2, 0)
+mesh = SubResource("box_flag")
+[node name="CityLabel" type="Label3D" parent="Cities/C169_浦户"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0, 0)
 text = "浦户"
 font_size = 26
 outline_size = 6
@@ -8363,14 +8594,35 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C172_中津/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C172_中津/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
-[node name="CityLabel" type="Label3D" parent="Cities/C172_中津"]
+[node name="stone" type="MeshInstance3D" parent="Cities/C172_中津/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+mesh = SubResource("box_stone1")
+[node name="w1" type="MeshInstance3D" parent="Cities/C172_中津/Bld"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+mesh = SubResource("box_w2")
+[node name="e1" type="MeshInstance3D" parent="Cities/C172_中津/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+mesh = SubResource("box_e2")
+[node name="w2" type="MeshInstance3D" parent="Cities/C172_中津/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.7, 0)
+mesh = SubResource("box_w3")
+[node name="e2" type="MeshInstance3D" parent="Cities/C172_中津/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.6, 0)
+mesh = SubResource("box_e3")
+[node name="prism" type="MeshInstance3D" parent="Cities/C172_中津/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.8, 0)
+mesh = SubResource("prism_roof_s")
+[node name="gold" type="MeshInstance3D" parent="Cities/C172_中津/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0, 0)
+mesh = SubResource("box_gold")
+[node name="fp" type="MeshInstance3D" parent="Cities/C172_中津/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0, 0)
+mesh = SubResource("box_flagp")
+[node name="f" type="MeshInstance3D" parent="Cities/C172_中津/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.2, 0)
+mesh = SubResource("box_flag")
+[node name="CityLabel" type="Label3D" parent="Cities/C172_中津"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0, 0)
 text = "中津"
 font_size = 26
 outline_size = 6
@@ -8416,14 +8668,26 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C174_宗像/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C174_宗像/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C174_宗像/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C174_宗像/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, 3.4, 0)
+mesh = SubResource("prism_roof")
+[node name="h1" type="MeshInstance3D" parent="Cities/C174_宗像/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C174_宗像/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 3.4, 0)
+mesh = SubResource("prism_roof")
+[node name="h2" type="MeshInstance3D" parent="Cities/C174_宗像/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r2" type="MeshInstance3D" parent="Cities/C174_宗像/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 3.4, 0)
+mesh = SubResource("prism_roof")
 [node name="CityLabel" type="Label3D" parent="Cities/C174_宗像"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.0, 0)
 text = "宗像"
 font_size = 26
 outline_size = 6
@@ -8752,14 +9016,20 @@ modulate = Color(0.95, 0.93, 0.88, 0.95)
 billboard = 1
 no_depth_test = true
 horizontal_alignment = 1
-[node name="h" type="MeshInstance3D" parent="Cities/C186_丹生岛/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("box_house_s")
-[node name="ht" type="MeshInstance3D" parent="Cities/C186_丹生岛/Bld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-mesh = SubResource("cyl_thatch_s")
+[node name="h0" type="MeshInstance3D" parent="Cities/C186_丹生岛/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r0" type="MeshInstance3D" parent="Cities/C186_丹生岛/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
+[node name="h1" type="MeshInstance3D" parent="Cities/C186_丹生岛/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 1.3, 0)
+mesh = SubResource("box_house")
+[node name="r1" type="MeshInstance3D" parent="Cities/C186_丹生岛/Bld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, 3.0, 0)
+mesh = SubResource("prism_roof_s")
 [node name="CityLabel" type="Label3D" parent="Cities/C186_丹生岛"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8000000000000003, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.6000000000000005, 0)
 text = "丹生岛"
 font_size = 26
 outline_size = 6
