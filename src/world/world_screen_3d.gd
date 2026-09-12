@@ -37,6 +37,7 @@ var _player: Node3D = null
 var _moving := false
 var _route: Array[Vector3] = []
 var _route_i := 0
+var _key_pan := Vector2.ZERO   # WASD / 方向键平移地图（镜头移动）
 
 
 func _ready() -> void:
@@ -155,9 +156,9 @@ func _hmv(g: Array, i: int, j: int, o: Array, cell: float) -> Vector3:
 # ── 道路/河流合批生成（运行时，编辑器内仍逐节点可见）─────
 func _build_batched_items() -> void:
 	var groups := [
-		["Rivers", Color(0.30, 0.56, 0.88), 0.18],
-		["Roads/Trunk", Color(0.78, 0.64, 0.40), 0.30],
-		["Roads/Branch", Color(0.66, 0.60, 0.50), 0.22],
+		["Rivers", Color(0.36, 0.62, 0.90), 0.10],
+		["Roads/Trunk", Color(0.78, 0.64, 0.40), 0.16],
+		["Roads/Branch", Color(0.74, 0.70, 0.63), 0.10],
 	]
 	for grp in groups:
 		var parent_name: String = grp[0]
@@ -363,6 +364,23 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif _drag_btn == MOUSE_BUTTON_MIDDLE:
 			_pan_camera(mm.relative)
 		_drag_last = mm.position
+	elif event is InputEventKey and event.pressed and not event.echo:
+		# WASD / 方向键：平移地图（镜头移动）
+		match event.keycode:
+			KEY_W, KEY_UP:
+				_key_pan.y = -1.0
+			KEY_S, KEY_DOWN:
+				_key_pan.y = 1.0
+			KEY_A, KEY_LEFT:
+				_key_pan.x = -1.0
+			KEY_D, KEY_RIGHT:
+				_key_pan.x = 1.0
+	elif event is InputEventKey and not event.pressed and not event.echo:
+		match event.keycode:
+			KEY_W, KEY_S, KEY_UP, KEY_DOWN:
+				_key_pan.y = 0.0
+			KEY_A, KEY_D, KEY_LEFT, KEY_RIGHT:
+				_key_pan.x = 0.0
 
 
 func _pan_camera(rel: Vector2) -> void:
@@ -485,6 +503,14 @@ func _find_path(from_id: int, to_id: int) -> Array:
 
 
 func _process(delta: float) -> void:
+	# WASD / 方向键：平移地图镜头
+	if _key_pan != Vector2.ZERO:
+		var fwd := (_target - _cam.global_position).normalized()
+		var right := fwd.cross(Vector3.UP).normalized()
+		var up := right.cross(fwd).normalized()
+		var k := _dist * 0.0012 * 55.0 * delta
+		_target += (-right * _key_pan.x + up * _key_pan.y) * k
+		_update_cam()
 	if _moving and _route_i < _route.size():
 		var cur := _player.global_position
 		var target_p: Vector3 = _route[_route_i]

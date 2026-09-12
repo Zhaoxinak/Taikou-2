@@ -267,7 +267,7 @@ for i, r in enumerate(d["rivers"]):
     out.append('script = ExtResource("2_item")')
     out.append('kind = "river"')
     out.append('pts2d = PackedVector2Array(%s)' % p2)
-    out.append('line_w = 1.2')
+    out.append('line_w = 0.8')
 
 # 道路
 out.append('')
@@ -282,7 +282,7 @@ for i, r in enumerate(d["roads"]):
     out.append('script = ExtResource("2_item")')
     out.append('kind = "road_trunk"')
     out.append('pts2d = PackedVector2Array(%s)' % p2)
-    out.append('line_w = 1.6')
+    out.append('line_w = 1.1')
 out.append('[node name="Branch" type="Node3D" parent="Roads"]')
 for i, r in enumerate(d["roads"]):
     if r["kind"] != "branch":
@@ -293,7 +293,7 @@ for i, r in enumerate(d["roads"]):
     out.append('script = ExtResource("2_item")')
     out.append('kind = "road_branch"')
     out.append('pts2d = PackedVector2Array(%s)' % p2)
-    out.append('line_w = 1.0')
+    out.append('line_w = 0.6')
 
 # 城 / 村
 out.append('')
