@@ -21,7 +21,10 @@
    "x": 4301.5,
    "y": 58.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2000,
+   "shikin": 1200,
+   "minkok": 130
   },
   {
    "id": 1,
@@ -32,7 +35,10 @@
    "x": 4334.2,
    "y": 45.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1000,
+   "shikin": 150,
+   "minkok": 120
   },
   {
    "id": 2,
@@ -43,7 +49,10 @@
    "x": 3964.0,
    "y": 0.0,
    "type": "castle",
-   "rank": 0
+   "rank": 1,
+   "gunryo": 1000,
+   "shikin": 320,
+   "minkok": 110
   },
   {
    "id": 3,
@@ -54,7 +63,10 @@
    "x": 3836.9,
    "y": 1215.0,
    "type": "castle",
-   "rank": 0
+   "rank": 1,
+   "gunryo": 3400,
+   "shikin": 2800,
+   "minkok": 130
   },
   {
    "id": 4,
@@ -65,7 +77,10 @@
    "x": 4109.2,
    "y": 931.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1400,
+   "shikin": 900,
+   "minkok": 110
   },
   {
    "id": 5,
@@ -76,7 +91,10 @@
    "x": 4258.0,
    "y": 859.5,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 300,
+   "shikin": 180,
+   "minkok": 100
   },
   {
    "id": 6,
@@ -87,7 +105,10 @@
    "x": 4011.1,
    "y": 1197.0,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 800,
+   "shikin": 450,
+   "minkok": 120
   },
   {
    "id": 7,
@@ -98,7 +119,10 @@
    "x": 3982.1,
    "y": 1242.0,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 500,
+   "shikin": 350,
+   "minkok": 130
   },
   {
    "id": 8,
@@ -109,7 +133,10 @@
    "x": 3916.8,
    "y": 1062.0,
    "type": "castle",
-   "rank": 0
+   "rank": 1,
+   "gunryo": 2000,
+   "shikin": 2400,
+   "minkok": 140
   },
   {
    "id": 9,
@@ -120,7 +147,10 @@
    "x": 4000.3,
    "y": 580.5,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 500,
+   "shikin": 350,
+   "minkok": 120
   },
   {
    "id": 10,
@@ -131,7 +161,10 @@
    "x": 3847.8,
    "y": 729.0,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 500,
+   "shikin": 300,
+   "minkok": 130
   },
   {
    "id": 11,
@@ -142,7 +175,10 @@
    "x": 3731.6,
    "y": 846.0,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 500,
+   "shikin": 250,
+   "minkok": 120
   },
   {
    "id": 12,
@@ -153,7 +189,10 @@
    "x": 3836.9,
    "y": 1372.5,
    "type": "castle",
-   "rank": 0
+   "rank": 1,
+   "gunryo": 2800,
+   "shikin": 2400,
+   "minkok": 150
   },
   {
    "id": 13,
@@ -164,7 +203,10 @@
    "x": 3949.4,
    "y": 1363.5,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 500,
+   "shikin": 300,
+   "minkok": 120
   },
   {
    "id": 14,
@@ -175,7 +217,10 @@
    "x": 3931.3,
    "y": 1494.0,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 500,
+   "shikin": 350,
+   "minkok": 130
   },
   {
    "id": 15,
@@ -186,7 +231,10 @@
    "x": 3452.1,
    "y": 1899.0,
    "type": "town",
-   "rank": 2
+   "rank": 3,
+   "gunryo": 3300,
+   "shikin": 2200,
+   "minkok": 160
   },
   {
    "id": 16,
@@ -197,7 +245,10 @@
    "x": 3444.9,
    "y": 1782.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1000,
+   "shikin": 450,
+   "minkok": 150
   },
   {
    "id": 17,
@@ -208,7 +259,10 @@
    "x": 3404.9,
    "y": 1872.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1600,
+   "shikin": 850,
+   "minkok": 150
   },
   {
    "id": 18,
@@ -219,7 +273,10 @@
    "x": 3357.8,
    "y": 1935.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1600,
+   "shikin": 800,
+   "minkok": 150
   },
   {
    "id": 19,
@@ -230,7 +287,10 @@
    "x": 3622.7,
    "y": 1962.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1000,
+   "shikin": 500,
+   "minkok": 140
   },
   {
    "id": 20,
@@ -241,7 +301,10 @@
    "x": 3749.8,
    "y": 1827.0,
    "type": "town",
-   "rank": 0
+   "rank": 3,
+   "gunryo": 4000,
+   "shikin": 2900,
+   "minkok": 110
   },
   {
    "id": 21,
@@ -252,7 +315,10 @@
    "x": 3669.9,
    "y": 1903.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 3000,
+   "shikin": 800,
+   "minkok": 90
   },
   {
    "id": 22,
@@ -263,7 +329,10 @@
    "x": 3720.8,
    "y": 1935.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1400,
+   "shikin": 600,
+   "minkok": 100
   },
   {
    "id": 23,
@@ -274,7 +343,10 @@
    "x": 3568.3,
    "y": 1944.0,
    "type": "castle",
-   "rank": 1
+   "rank": 0,
+   "gunryo": 5000,
+   "shikin": 4000,
+   "minkok": 140
   },
   {
    "id": 24,
@@ -285,7 +357,10 @@
    "x": 3964.0,
    "y": 1908.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 2400,
+   "shikin": 1200,
+   "minkok": 140
   },
   {
    "id": 25,
@@ -296,7 +371,10 @@
    "x": 3869.6,
    "y": 1971.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1800,
+   "shikin": 1000,
+   "minkok": 130
   },
   {
    "id": 26,
@@ -307,7 +385,10 @@
    "x": 3757.0,
    "y": 2173.5,
    "type": "castle",
-   "rank": 1
+   "rank": 0,
+   "gunryo": 4500,
+   "shikin": 3800,
+   "minkok": 130
   },
   {
    "id": 27,
@@ -318,7 +399,10 @@
    "x": 3746.2,
    "y": 1939.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1900,
+   "shikin": 900,
+   "minkok": 120
   },
   {
    "id": 28,
@@ -329,7 +413,10 @@
    "x": 3804.2,
    "y": 2376.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2300,
+   "shikin": 1200,
+   "minkok": 120
   },
   {
    "id": 29,
@@ -340,7 +427,10 @@
    "x": 3630.0,
    "y": 1890.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1800,
+   "shikin": 1000,
+   "minkok": 110
   },
   {
    "id": 30,
@@ -351,7 +441,10 @@
    "x": 3608.2,
    "y": 2110.5,
    "type": "town",
-   "rank": 0
+   "rank": 3,
+   "gunryo": 3300,
+   "shikin": 3000,
+   "minkok": 130
   },
   {
    "id": 31,
@@ -362,7 +455,10 @@
    "x": 3590.1,
    "y": 2020.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 2200,
+   "shikin": 1800,
+   "minkok": 130
   },
   {
    "id": 32,
@@ -373,7 +469,10 @@
    "x": 3484.8,
    "y": 2025.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1800,
+   "shikin": 1600,
+   "minkok": 140
   },
   {
    "id": 33,
@@ -384,7 +483,10 @@
    "x": 3702.6,
    "y": 2218.5,
    "type": "town",
-   "rank": 0
+   "rank": 5,
+   "gunryo": 500,
+   "shikin": 500,
+   "minkok": 120
   },
   {
    "id": 34,
@@ -395,7 +497,10 @@
    "x": 3542.9,
    "y": 2250.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1500,
+   "shikin": 1400,
+   "minkok": 140
   },
   {
    "id": 35,
@@ -406,7 +511,10 @@
    "x": 3488.4,
    "y": 2412.0,
    "type": "town",
-   "rank": 0
+   "rank": 3,
+   "gunryo": 5000,
+   "shikin": 9500,
+   "minkok": 150
   },
   {
    "id": 36,
@@ -417,7 +525,10 @@
    "x": 3630.0,
    "y": 2380.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1000,
+   "shikin": 1100,
+   "minkok": 140
   },
   {
    "id": 37,
@@ -428,7 +539,10 @@
    "x": 3535.6,
    "y": 2259.0,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 500,
+   "shikin": 350,
+   "minkok": 110
   },
   {
    "id": 38,
@@ -439,7 +553,10 @@
    "x": 3651.8,
    "y": 2457.0,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 500,
+   "shikin": 300,
+   "minkok": 120
   },
   {
    "id": 39,
@@ -450,7 +567,10 @@
    "x": 3379.5,
    "y": 2479.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1000,
+   "shikin": 900,
+   "minkok": 120
   },
   {
    "id": 40,
@@ -461,7 +581,10 @@
    "x": 3274.3,
    "y": 2218.5,
    "type": "town",
-   "rank": 0
+   "rank": 3,
+   "gunryo": 5000,
+   "shikin": 6000,
+   "minkok": 200
   },
   {
    "id": 41,
@@ -472,7 +595,10 @@
    "x": 3277.9,
    "y": 2241.0,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 500,
+   "shikin": 250,
+   "minkok": 180
   },
   {
    "id": 42,
@@ -483,7 +609,10 @@
    "x": 3401.3,
    "y": 2254.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2400,
+   "shikin": 1250,
+   "minkok": 180
   },
   {
    "id": 43,
@@ -494,7 +623,10 @@
    "x": 3234.3,
    "y": 2196.0,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 500,
+   "shikin": 250,
+   "minkok": 180
   },
   {
    "id": 44,
@@ -505,7 +637,10 @@
    "x": 3139.9,
    "y": 1822.5,
    "type": "town",
-   "rank": 2
+   "rank": 3,
+   "gunryo": 5000,
+   "shikin": 1800,
+   "minkok": 170
   },
   {
    "id": 45,
@@ -516,7 +651,10 @@
    "x": 3201.7,
    "y": 1692.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1200,
+   "shikin": 500,
+   "minkok": 170
   },
   {
    "id": 46,
@@ -527,7 +665,10 @@
    "x": 3223.4,
    "y": 1962.0,
    "type": "castle",
-   "rank": 0
+   "rank": 1,
+   "gunryo": 2000,
+   "shikin": 1200,
+   "minkok": 160
   },
   {
    "id": 47,
@@ -538,7 +679,10 @@
    "x": 2958.4,
    "y": 2142.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 3000,
+   "shikin": 1500,
+   "minkok": 170
   },
   {
    "id": 48,
@@ -549,7 +693,10 @@
    "x": 3089.1,
    "y": 2146.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2400,
+   "shikin": 1200,
+   "minkok": 180
   },
   {
    "id": 49,
@@ -560,7 +707,10 @@
    "x": 3002.0,
    "y": 2290.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2500,
+   "shikin": 800,
+   "minkok": 170
   },
   {
    "id": 50,
@@ -571,7 +721,10 @@
    "x": 3147.2,
    "y": 1557.0,
    "type": "castle",
-   "rank": 0
+   "rank": 0,
+   "gunryo": 5000,
+   "shikin": 7000,
+   "minkok": 200
   },
   {
    "id": 51,
@@ -582,7 +735,10 @@
    "x": 3161.7,
    "y": 1566.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2400,
+   "shikin": 1000,
+   "minkok": 180
   },
   {
    "id": 52,
@@ -593,7 +749,10 @@
    "x": 3546.5,
    "y": 1197.0,
    "type": "town",
-   "rank": 2
+   "rank": 3,
+   "gunryo": 3200,
+   "shikin": 1800,
+   "minkok": 180
   },
   {
    "id": 53,
@@ -604,7 +763,10 @@
    "x": 3343.2,
    "y": 1408.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1200,
+   "shikin": 800,
+   "minkok": 170
   },
   {
    "id": 54,
@@ -615,7 +777,10 @@
    "x": 3205.3,
    "y": 2538.0,
    "type": "town",
-   "rank": 0
+   "rank": 3,
+   "gunryo": 5000,
+   "shikin": 3000,
+   "minkok": 70
   },
   {
    "id": 55,
@@ -626,7 +791,10 @@
    "x": 3339.6,
    "y": 2457.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 2000,
+   "shikin": 1000,
+   "minkok": 70
   },
   {
    "id": 56,
@@ -637,7 +805,10 @@
    "x": 3259.7,
    "y": 2506.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1000,
+   "shikin": 450,
+   "minkok": 70
   },
   {
    "id": 57,
@@ -648,7 +819,10 @@
    "x": 3292.4,
    "y": 2470.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1500,
+   "shikin": 700,
+   "minkok": 70
   },
   {
    "id": 58,
@@ -659,7 +833,10 @@
    "x": 2969.3,
    "y": 2655.0,
    "type": "town",
-   "rank": 0
+   "rank": 3,
+   "gunryo": 3000,
+   "shikin": 2000,
+   "minkok": 90
   },
   {
    "id": 59,
@@ -670,7 +847,10 @@
    "x": 2987.5,
    "y": 2605.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 2000,
+   "shikin": 1000,
+   "minkok": 80
   },
   {
    "id": 60,
@@ -681,7 +861,10 @@
    "x": 3016.5,
    "y": 2628.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 2500,
+   "shikin": 1200,
+   "minkok": 70
   },
   {
    "id": 61,
@@ -692,7 +875,10 @@
    "x": 3110.9,
    "y": 2682.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 3000,
+   "shikin": 1600,
+   "minkok": 90
   },
   {
    "id": 62,
@@ -703,7 +889,10 @@
    "x": 2762.4,
    "y": 2547.0,
    "type": "town",
-   "rank": 0
+   "rank": 4,
+   "gunryo": 1500,
+   "shikin": 3000,
+   "minkok": 190
   },
   {
    "id": 63,
@@ -714,7 +903,10 @@
    "x": 2911.3,
    "y": 2560.5,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 200,
+   "shikin": 100,
+   "minkok": 70
   },
   {
    "id": 64,
@@ -725,7 +917,10 @@
    "x": 2769.7,
    "y": 2605.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 2000,
+   "shikin": 500,
+   "minkok": 60
   },
   {
    "id": 65,
@@ -736,7 +931,10 @@
    "x": 2845.9,
    "y": 2628.0,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 600,
+   "shikin": 250,
+   "minkok": 60
   },
   {
    "id": 66,
@@ -747,7 +945,10 @@
    "x": 2649.9,
    "y": 2430.0,
    "type": "town",
-   "rank": 0
+   "rank": 4,
+   "gunryo": 2000,
+   "shikin": 4000,
+   "minkok": 110
   },
   {
    "id": 67,
@@ -758,7 +959,10 @@
    "x": 2678.9,
    "y": 2484.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 3000,
+   "shikin": 2000,
+   "minkok": 70
   },
   {
    "id": 68,
@@ -769,7 +973,10 @@
    "x": 2686.2,
    "y": 2394.0,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 300,
+   "shikin": 150,
+   "minkok": 90
   },
   {
    "id": 69,
@@ -780,7 +987,10 @@
    "x": 2682.6,
    "y": 2349.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1000,
+   "shikin": 500,
+   "minkok": 90
   },
   {
    "id": 70,
@@ -791,7 +1001,10 @@
    "x": 2689.8,
    "y": 2434.5,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 800,
+   "shikin": 450,
+   "minkok": 90
   },
   {
    "id": 71,
@@ -802,7 +1015,10 @@
    "x": 2668.0,
    "y": 2443.5,
    "type": "town",
-   "rank": 0
+   "rank": 4,
+   "gunryo": 1000,
+   "shikin": 800,
+   "minkok": 90
   },
   {
    "id": 72,
@@ -813,7 +1029,10 @@
    "x": 2624.5,
    "y": 2326.5,
    "type": "castle",
-   "rank": 0
+   "rank": 0,
+   "gunryo": 7500,
+   "shikin": 6000,
+   "minkok": 140
   },
   {
    "id": 73,
@@ -824,7 +1043,10 @@
    "x": 2591.8,
    "y": 2358.0,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 0,
+   "shikin": 0,
+   "minkok": 0
   },
   {
    "id": 74,
@@ -835,7 +1057,10 @@
    "x": 2566.4,
    "y": 2362.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 2000,
+   "shikin": 1400,
+   "minkok": 130
   },
   {
    "id": 75,
@@ -846,7 +1071,10 @@
    "x": 2577.3,
    "y": 2349.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1600,
+   "shikin": 1200,
+   "minkok": 130
   },
   {
    "id": 76,
@@ -857,7 +1085,10 @@
    "x": 2907.6,
    "y": 2362.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2400,
+   "shikin": 250,
+   "minkok": 130
   },
   {
    "id": 77,
@@ -868,7 +1099,10 @@
    "x": 2867.7,
    "y": 2380.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2000,
+   "shikin": 1200,
+   "minkok": 130
   },
   {
    "id": 78,
@@ -879,7 +1113,10 @@
    "x": 2522.8,
    "y": 2650.5,
    "type": "castle",
-   "rank": 1
+   "rank": 0,
+   "gunryo": 5000,
+   "shikin": 4200,
+   "minkok": 110
   },
   {
    "id": 79,
@@ -890,7 +1127,10 @@
    "x": 2595.4,
    "y": 2488.5,
    "type": "town",
-   "rank": 2
+   "rank": 3,
+   "gunryo": 3000,
+   "shikin": 4000,
+   "minkok": 200
   },
   {
    "id": 80,
@@ -901,7 +1141,10 @@
    "x": 2591.8,
    "y": 2493.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1500,
+   "shikin": 700,
+   "minkok": 110
   },
   {
    "id": 81,
@@ -912,7 +1155,10 @@
    "x": 2508.3,
    "y": 2592.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2000,
+   "shikin": 1100,
+   "minkok": 110
   },
   {
    "id": 82,
@@ -923,7 +1169,10 @@
    "x": 2472.0,
    "y": 2704.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1800,
+   "shikin": 900,
+   "minkok": 110
   },
   {
    "id": 83,
@@ -934,7 +1183,10 @@
    "x": 2649.9,
    "y": 2758.5,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 500,
+   "shikin": 500,
+   "minkok": 130
   },
   {
    "id": 84,
@@ -945,7 +1197,10 @@
    "x": 2780.6,
    "y": 1759.5,
    "type": "town",
-   "rank": 2
+   "rank": 3,
+   "gunryo": 3000,
+   "shikin": 1200,
+   "minkok": 100
   },
   {
    "id": 85,
@@ -956,7 +1211,10 @@
    "x": 2849.5,
    "y": 1705.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1000,
+   "shikin": 500,
+   "minkok": 90
   },
   {
    "id": 86,
@@ -967,7 +1225,10 @@
    "x": 2689.8,
    "y": 1602.0,
    "type": "castle",
-   "rank": 0
+   "rank": 0,
+   "gunryo": 4000,
+   "shikin": 2500,
+   "minkok": 110
   },
   {
    "id": 87,
@@ -978,7 +1239,10 @@
    "x": 2580.9,
    "y": 1818.0,
    "type": "town",
-   "rank": 0
+   "rank": 3,
+   "gunryo": 4000,
+   "shikin": 5000,
+   "minkok": 200
   },
   {
    "id": 88,
@@ -989,7 +1253,10 @@
    "x": 2504.7,
    "y": 1890.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1600,
+   "shikin": 2000,
+   "minkok": 200
   },
   {
    "id": 89,
@@ -1000,7 +1267,10 @@
    "x": 2453.9,
    "y": 1935.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2000,
+   "shikin": 2500,
+   "minkok": 200
   },
   {
    "id": 90,
@@ -1011,7 +1281,10 @@
    "x": 2446.6,
    "y": 2079.0,
    "type": "castle",
-   "rank": 0
+   "rank": 0,
+   "gunryo": 7000,
+   "shikin": 6000,
+   "minkok": 140
   },
   {
    "id": 91,
@@ -1022,7 +1295,10 @@
    "x": 2421.2,
    "y": 2043.0,
    "type": "town",
-   "rank": 0
+   "rank": 4,
+   "gunryo": 2000,
+   "shikin": 1200,
+   "minkok": 200
   },
   {
    "id": 92,
@@ -1033,7 +1309,10 @@
    "x": 2428.5,
    "y": 2137.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2500,
+   "shikin": 1800,
+   "minkok": 200
   },
   {
    "id": 93,
@@ -1044,7 +1323,10 @@
    "x": 2403.1,
    "y": 2119.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1800,
+   "shikin": 800,
+   "minkok": 130
   },
   {
    "id": 94,
@@ -1055,7 +1337,10 @@
    "x": 2359.5,
    "y": 2272.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1500,
+   "shikin": 1000,
+   "minkok": 130
   },
   {
    "id": 95,
@@ -1066,7 +1351,10 @@
    "x": 2203.4,
    "y": 2299.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1500,
+   "shikin": 800,
+   "minkok": 120
   },
   {
    "id": 96,
@@ -1077,7 +1365,10 @@
    "x": 2443.0,
    "y": 2326.5,
    "type": "castle",
-   "rank": 1
+   "rank": 0,
+   "gunryo": 5000,
+   "shikin": 4200,
+   "minkok": 180
   },
   {
    "id": 97,
@@ -1088,7 +1379,10 @@
    "x": 2450.2,
    "y": 2326.5,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 500,
+   "shikin": 200,
+   "minkok": 170
   },
   {
    "id": 98,
@@ -1099,7 +1393,10 @@
    "x": 2348.6,
    "y": 2502.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 2000,
+   "shikin": 800,
+   "minkok": 170
   },
   {
    "id": 99,
@@ -1110,7 +1407,10 @@
    "x": 2424.8,
    "y": 2425.5,
    "type": "town",
-   "rank": 2
+   "rank": 3,
+   "gunryo": 3000,
+   "shikin": 1800,
+   "minkok": 180
   },
   {
    "id": 100,
@@ -1121,7 +1421,10 @@
    "x": 2435.7,
    "y": 2353.5,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 500,
+   "shikin": 250,
+   "minkok": 170
   },
   {
    "id": 101,
@@ -1132,7 +1435,10 @@
    "x": 2424.8,
    "y": 2515.5,
    "type": "castle",
-   "rank": 1
+   "rank": 0,
+   "gunryo": 7000,
+   "shikin": 3200,
+   "minkok": 120
   },
   {
    "id": 102,
@@ -1143,7 +1449,10 @@
    "x": 2392.2,
    "y": 2457.0,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 500,
+   "shikin": 200,
+   "minkok": 110
   },
   {
    "id": 103,
@@ -1154,7 +1463,10 @@
    "x": 2435.7,
    "y": 2479.5,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 500,
+   "shikin": 200,
+   "minkok": 120
   },
   {
    "id": 104,
@@ -1165,7 +1477,10 @@
    "x": 2286.9,
    "y": 2515.5,
    "type": "town",
-   "rank": 2
+   "rank": 3,
+   "gunryo": 3000,
+   "shikin": 1500,
+   "minkok": 130
   },
   {
    "id": 105,
@@ -1176,7 +1491,10 @@
    "x": 2290.5,
    "y": 2497.5,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 500,
+   "shikin": 200,
+   "minkok": 110
   },
   {
    "id": 106,
@@ -1187,7 +1505,10 @@
    "x": 2265.1,
    "y": 2682.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 2000,
+   "shikin": 3500,
+   "minkok": 120
   },
   {
    "id": 107,
@@ -1198,7 +1519,10 @@
    "x": 2225.2,
    "y": 2700.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2000,
+   "shikin": 1200,
+   "minkok": 110
   },
   {
    "id": 108,
@@ -1209,7 +1533,10 @@
    "x": 2265.1,
    "y": 2668.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1400,
+   "shikin": 500,
+   "minkok": 120
   },
   {
    "id": 109,
@@ -1220,7 +1547,10 @@
    "x": 2388.5,
    "y": 2628.0,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 500,
+   "shikin": 200,
+   "minkok": 130
   },
   {
    "id": 110,
@@ -1231,7 +1561,10 @@
    "x": 2265.1,
    "y": 2772.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 3500,
+   "shikin": 3000,
+   "minkok": 120
   },
   {
    "id": 111,
@@ -1242,7 +1575,10 @@
    "x": 2247.0,
    "y": 2520.0,
    "type": "town",
-   "rank": 0
+   "rank": 4,
+   "gunryo": 2500,
+   "shikin": 1500,
+   "minkok": 85
   },
   {
    "id": 112,
@@ -1253,7 +1589,10 @@
    "x": 2315.9,
    "y": 2367.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2000,
+   "shikin": 4000,
+   "minkok": 200
   },
   {
    "id": 113,
@@ -1264,7 +1603,10 @@
    "x": 2239.7,
    "y": 2547.0,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 800,
+   "shikin": 400,
+   "minkok": 50
   },
   {
    "id": 114,
@@ -1275,7 +1617,10 @@
    "x": 2221.6,
    "y": 2556.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1000,
+   "shikin": 300,
+   "minkok": 60
   },
   {
    "id": 115,
@@ -1286,7 +1631,10 @@
    "x": 2047.3,
    "y": 2479.5,
    "type": "castle",
-   "rank": 1
+   "rank": 0,
+   "gunryo": 5000,
+   "shikin": 4500,
+   "minkok": 150
   },
   {
    "id": 116,
@@ -1297,7 +1645,10 @@
    "x": 2047.3,
    "y": 2281.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1000,
+   "shikin": 600,
+   "minkok": 145
   },
   {
    "id": 117,
@@ -1308,7 +1659,10 @@
    "x": 2152.6,
    "y": 2479.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1500,
+   "shikin": 900,
+   "minkok": 145
   },
   {
    "id": 118,
@@ -1319,7 +1673,10 @@
    "x": 2025.5,
    "y": 2389.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1400,
+   "shikin": 840,
+   "minkok": 145
   },
   {
    "id": 119,
@@ -1330,7 +1687,10 @@
    "x": 2185.3,
    "y": 2515.5,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 900,
+   "shikin": 540,
+   "minkok": 145
   },
   {
    "id": 120,
@@ -1341,7 +1701,10 @@
    "x": 2185.3,
    "y": 2596.5,
    "type": "castle",
-   "rank": 1
+   "rank": 0,
+   "gunryo": 5500,
+   "shikin": 5000,
+   "minkok": 80
   },
   {
    "id": 121,
@@ -1352,7 +1715,10 @@
    "x": 2159.8,
    "y": 2610.0,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 300,
+   "shikin": 120,
+   "minkok": 60
   },
   {
    "id": 122,
@@ -1363,7 +1729,10 @@
    "x": 2141.7,
    "y": 2632.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1600,
+   "shikin": 800,
+   "minkok": 70
   },
   {
    "id": 123,
@@ -1374,7 +1743,10 @@
    "x": 2123.5,
    "y": 2628.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1400,
+   "shikin": 600,
+   "minkok": 60
   },
   {
    "id": 124,
@@ -1385,7 +1757,10 @@
    "x": 2167.1,
    "y": 2668.5,
    "type": "town",
-   "rank": 0
+   "rank": 3,
+   "gunryo": 10000,
+   "shikin": 20000,
+   "minkok": 200
   },
   {
    "id": 125,
@@ -1396,7 +1771,10 @@
    "x": 2130.8,
    "y": 2650.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1500,
+   "shikin": 500,
+   "minkok": 55
   },
   {
    "id": 126,
@@ -1407,7 +1785,10 @@
    "x": 2058.2,
    "y": 2664.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1200,
+   "shikin": 400,
+   "minkok": 50
   },
   {
    "id": 127,
@@ -1418,7 +1799,10 @@
    "x": 2207.0,
    "y": 2646.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2300,
+   "shikin": 800,
+   "minkok": 30
   },
   {
    "id": 128,
@@ -1429,7 +1813,10 @@
    "x": 2188.9,
    "y": 2650.5,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 600,
+   "shikin": 400,
+   "minkok": 50
   },
   {
    "id": 129,
@@ -1440,7 +1827,10 @@
    "x": 2109.0,
    "y": 2772.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1600,
+   "shikin": 500,
+   "minkok": 40
   },
   {
    "id": 130,
@@ -1451,7 +1841,10 @@
    "x": 2069.1,
    "y": 2848.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2500,
+   "shikin": 2400,
+   "minkok": 180
   },
   {
    "id": 131,
@@ -1462,7 +1855,10 @@
    "x": 2087.2,
    "y": 2857.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2000,
+   "shikin": 1500,
+   "minkok": 170
   },
   {
    "id": 132,
@@ -1473,7 +1869,10 @@
    "x": 1974.7,
    "y": 2614.5,
    "type": "town",
-   "rank": 2
+   "rank": 3,
+   "gunryo": 4500,
+   "shikin": 4200,
+   "minkok": 130
   },
   {
    "id": 133,
@@ -1484,7 +1883,10 @@
    "x": 1916.6,
    "y": 2349.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1000,
+   "shikin": 450,
+   "minkok": 95
   },
   {
    "id": 134,
@@ -1495,7 +1897,10 @@
    "x": 1894.9,
    "y": 2394.0,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 800,
+   "shikin": 400,
+   "minkok": 100
   },
   {
    "id": 135,
@@ -1506,7 +1911,10 @@
    "x": 1858.6,
    "y": 2592.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 2000,
+   "shikin": 1800,
+   "minkok": 105
   },
   {
    "id": 136,
@@ -1517,7 +1925,10 @@
    "x": 1869.4,
    "y": 2596.5,
    "type": "town",
-   "rank": 0
+   "rank": 4,
+   "gunryo": 1200,
+   "shikin": 1000,
+   "minkok": 110
   },
   {
    "id": 137,
@@ -1528,7 +1939,10 @@
    "x": 1934.8,
    "y": 2659.5,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 700,
+   "shikin": 350,
+   "minkok": 110
   },
   {
    "id": 138,
@@ -1539,7 +1953,10 @@
    "x": 1713.4,
    "y": 2556.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1000,
+   "shikin": 450,
+   "minkok": 110
   },
   {
    "id": 139,
@@ -1550,7 +1967,10 @@
    "x": 1698.8,
    "y": 2299.5,
    "type": "castle",
-   "rank": 0
+   "rank": 0,
+   "gunryo": 4000,
+   "shikin": 3000,
+   "minkok": 120
   },
   {
    "id": 140,
@@ -1561,7 +1981,10 @@
    "x": 1568.2,
    "y": 2326.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1100,
+   "shikin": 500,
+   "minkok": 110
   },
   {
    "id": 141,
@@ -1572,7 +1995,10 @@
    "x": 1324.9,
    "y": 2331.0,
    "type": "castle",
-   "rank": 0
+   "rank": 0,
+   "gunryo": 5500,
+   "shikin": 3500,
+   "minkok": 130
   },
   {
    "id": 142,
@@ -1583,7 +2009,10 @@
    "x": 1179.8,
    "y": 2398.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2000,
+   "shikin": 700,
+   "minkok": 110
   },
   {
    "id": 143,
@@ -1594,7 +2023,10 @@
    "x": 1009.1,
    "y": 2466.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2000,
+   "shikin": 600,
+   "minkok": 120
   },
   {
    "id": 144,
@@ -1605,7 +2037,10 @@
    "x": 813.1,
    "y": 2763.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2000,
+   "shikin": 1000,
+   "minkok": 120
   },
   {
    "id": 145,
@@ -1616,7 +2051,10 @@
    "x": 1589.9,
    "y": 2677.5,
    "type": "town",
-   "rank": 0
+   "rank": 3,
+   "gunryo": 5000,
+   "shikin": 4500,
+   "minkok": 120
   },
   {
    "id": 146,
@@ -1627,7 +2065,10 @@
    "x": 1517.3,
    "y": 2691.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1000,
+   "shikin": 600,
+   "minkok": 110
   },
   {
    "id": 147,
@@ -1638,7 +2079,10 @@
    "x": 1491.9,
    "y": 2569.5,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 300,
+   "shikin": 180,
+   "minkok": 110
   },
   {
    "id": 148,
@@ -1649,7 +2093,10 @@
    "x": 1462.9,
    "y": 2772.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1000,
+   "shikin": 600,
+   "minkok": 110
   },
   {
    "id": 149,
@@ -1660,7 +2107,10 @@
    "x": 1550.0,
    "y": 2673.0,
    "type": "town",
-   "rank": 2
+   "rank": 3,
+   "gunryo": 3000,
+   "shikin": 2500,
+   "minkok": 120
   },
   {
    "id": 150,
@@ -1671,7 +2121,10 @@
    "x": 1415.7,
    "y": 2704.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1500,
+   "shikin": 800,
+   "minkok": 115
   },
   {
    "id": 151,
@@ -1682,7 +2135,10 @@
    "x": 1477.4,
    "y": 2610.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1600,
+   "shikin": 1000,
+   "minkok": 115
   },
   {
    "id": 152,
@@ -1693,7 +2149,10 @@
    "x": 1317.7,
    "y": 2704.5,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 500,
+   "shikin": 400,
+   "minkok": 110
   },
   {
    "id": 153,
@@ -1704,7 +2163,10 @@
    "x": 1143.4,
    "y": 2673.0,
    "type": "castle",
-   "rank": 0
+   "rank": 0,
+   "gunryo": 4000,
+   "shikin": 7000,
+   "minkok": 140
   },
   {
    "id": 154,
@@ -1715,7 +2177,10 @@
    "x": 1089.0,
    "y": 2691.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1200,
+   "shikin": 700,
+   "minkok": 120
   },
   {
    "id": 155,
@@ -1726,7 +2191,10 @@
    "x": 1049.1,
    "y": 2475.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1200,
+   "shikin": 720,
+   "minkok": 115
   },
   {
    "id": 156,
@@ -1737,7 +2205,10 @@
    "x": 1049.1,
    "y": 2808.0,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 500,
+   "shikin": 300,
+   "minkok": 120
   },
   {
    "id": 157,
@@ -1748,7 +2219,10 @@
    "x": 697.0,
    "y": 2889.0,
    "type": "town",
-   "rank": 0
+   "rank": 3,
+   "gunryo": 3000,
+   "shikin": 2200,
+   "minkok": 115
   },
   {
    "id": 158,
@@ -1759,7 +2233,10 @@
    "x": 969.2,
    "y": 2898.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2400,
+   "shikin": 800,
+   "minkok": 120
   },
   {
    "id": 159,
@@ -1770,7 +2247,10 @@
    "x": 1506.4,
    "y": 2502.0,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 700,
+   "shikin": 400,
+   "minkok": 120
   },
   {
    "id": 160,
@@ -1781,7 +2261,10 @@
    "x": 1815.0,
    "y": 2920.5,
    "type": "town",
-   "rank": 0
+   "rank": 4,
+   "gunryo": 2500,
+   "shikin": 1200,
+   "minkok": 110
   },
   {
    "id": 161,
@@ -1792,7 +2275,10 @@
    "x": 1771.4,
    "y": 2893.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 2000,
+   "shikin": 1100,
+   "minkok": 115
   },
   {
    "id": 162,
@@ -1803,7 +2289,10 @@
    "x": 1619.0,
    "y": 2889.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2500,
+   "shikin": 1200,
+   "minkok": 140
   },
   {
    "id": 163,
@@ -1814,7 +2303,10 @@
    "x": 1539.1,
    "y": 2848.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1300,
+   "shikin": 700,
+   "minkok": 110
   },
   {
    "id": 164,
@@ -1825,7 +2317,10 @@
    "x": 1161.6,
    "y": 3042.0,
    "type": "town",
-   "rank": 0
+   "rank": 3,
+   "gunryo": 3500,
+   "shikin": 3000,
+   "minkok": 95
   },
   {
    "id": 165,
@@ -1836,7 +2331,10 @@
    "x": 1226.9,
    "y": 3010.5,
    "type": "castle",
-   "rank": 1
+   "rank": 2,
+   "gunryo": 500,
+   "shikin": 200,
+   "minkok": 85
   },
   {
    "id": 166,
@@ -1847,7 +2345,10 @@
    "x": 1089.0,
    "y": 3199.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1800,
+   "shikin": 1000,
+   "minkok": 80
   },
   {
    "id": 167,
@@ -1858,7 +2359,10 @@
    "x": 1288.6,
    "y": 3042.0,
    "type": "castle",
-   "rank": 1
+   "rank": 0,
+   "gunryo": 5000,
+   "shikin": 4800,
+   "minkok": 170
   },
   {
    "id": 168,
@@ -1869,7 +2373,10 @@
    "x": 1252.3,
    "y": 2947.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1500,
+   "shikin": 1000,
+   "minkok": 170
   },
   {
    "id": 169,
@@ -1880,7 +2387,10 @@
    "x": 1593.6,
    "y": 3267.0,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 500,
+   "shikin": 250,
+   "minkok": 150
   },
   {
    "id": 170,
@@ -1891,7 +2401,10 @@
    "x": 1270.5,
    "y": 3402.0,
    "type": "town",
-   "rank": 2
+   "rank": 3,
+   "gunryo": 3000,
+   "shikin": 1200,
+   "minkok": 110
   },
   {
    "id": 171,
@@ -1902,7 +2415,10 @@
    "x": 479.2,
    "y": 3024.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 2400,
+   "shikin": 1800,
+   "minkok": 120
   },
   {
    "id": 172,
@@ -1913,7 +2429,10 @@
    "x": 595.3,
    "y": 3154.5,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 800,
+   "shikin": 400,
+   "minkok": 120
   },
   {
    "id": 173,
@@ -1924,7 +2443,10 @@
    "x": 363.0,
    "y": 3217.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 3500,
+   "shikin": 2500,
+   "minkok": 120
   },
   {
    "id": 174,
@@ -1935,7 +2457,10 @@
    "x": 359.4,
    "y": 3064.5,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 600,
+   "shikin": 250,
+   "minkok": 100
   },
   {
    "id": 175,
@@ -1946,7 +2471,10 @@
    "x": 421.1,
    "y": 3060.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 3200,
+   "shikin": 1400,
+   "minkok": 140
   },
   {
    "id": 176,
@@ -1957,7 +2485,10 @@
    "x": 344.8,
    "y": 3280.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1400,
+   "shikin": 600,
+   "minkok": 110
   },
   {
    "id": 177,
@@ -1968,7 +2499,10 @@
    "x": 312.2,
    "y": 3352.5,
    "type": "town",
-   "rank": 0
+   "rank": 4,
+   "gunryo": 1200,
+   "shikin": 700,
+   "minkok": 115
   },
   {
    "id": 178,
@@ -1979,7 +2513,10 @@
    "x": 272.2,
    "y": 3312.0,
    "type": "town",
-   "rank": 0
+   "rank": 3,
+   "gunryo": 3500,
+   "shikin": 5000,
+   "minkok": 170
   },
   {
    "id": 179,
@@ -1990,7 +2527,10 @@
    "x": 127.0,
    "y": 3276.0,
    "type": "town",
-   "rank": 2
+   "rank": 3,
+   "gunryo": 3000,
+   "shikin": 1000,
+   "minkok": 160
   },
   {
    "id": 180,
@@ -2001,7 +2541,10 @@
    "x": 116.2,
    "y": 3501.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1200,
+   "shikin": 700,
+   "minkok": 145
   },
   {
    "id": 181,
@@ -2012,7 +2555,10 @@
    "x": 0.0,
    "y": 3330.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1000,
+   "shikin": 800,
+   "minkok": 150
   },
   {
    "id": 182,
@@ -2023,7 +2569,10 @@
    "x": 747.8,
    "y": 3316.5,
    "type": "town",
-   "rank": 0
+   "rank": 3,
+   "gunryo": 4000,
+   "shikin": 5500,
+   "minkok": 120
   },
   {
    "id": 183,
@@ -2034,7 +2583,10 @@
    "x": 671.5,
    "y": 3276.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1300,
+   "shikin": 600,
+   "minkok": 100
   },
   {
    "id": 184,
@@ -2045,7 +2597,10 @@
    "x": 707.8,
    "y": 3343.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1600,
+   "shikin": 900,
+   "minkok": 100
   },
   {
    "id": 185,
@@ -2056,7 +2611,10 @@
    "x": 853.0,
    "y": 3442.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1300,
+   "shikin": 650,
+   "minkok": 100
   },
   {
    "id": 186,
@@ -2067,7 +2625,10 @@
    "x": 1107.1,
    "y": 2988.0,
    "type": "town",
-   "rank": 2
+   "rank": 5,
+   "gunryo": 800,
+   "shikin": 480,
+   "minkok": 110
   },
   {
    "id": 187,
@@ -2078,7 +2639,10 @@
    "x": 435.6,
    "y": 3780.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2900,
+   "shikin": 2000,
+   "minkok": 170
   },
   {
    "id": 188,
@@ -2089,7 +2653,10 @@
    "x": 381.1,
    "y": 3514.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1000,
+   "shikin": 450,
+   "minkok": 160
   },
   {
    "id": 189,
@@ -2100,7 +2667,10 @@
    "x": 421.1,
    "y": 3514.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1500,
+   "shikin": 650,
+   "minkok": 160
   },
   {
    "id": 190,
@@ -2111,7 +2681,10 @@
    "x": 381.1,
    "y": 3645.0,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1200,
+   "shikin": 500,
+   "minkok": 160
   },
   {
    "id": 191,
@@ -2122,7 +2695,10 @@
    "x": 671.5,
    "y": 3852.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2800,
+   "shikin": 2200,
+   "minkok": 120
   },
   {
    "id": 192,
@@ -2133,7 +2709,10 @@
    "x": 548.1,
    "y": 4000.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1500,
+   "shikin": 800,
+   "minkok": 120
   },
   {
    "id": 193,
@@ -2144,7 +2723,10 @@
    "x": 544.5,
    "y": 3883.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1200,
+   "shikin": 650,
+   "minkok": 110
   },
   {
    "id": 194,
@@ -2155,7 +2737,10 @@
    "x": 682.4,
    "y": 3856.5,
    "type": "town",
-   "rank": 2
+   "rank": 4,
+   "gunryo": 1200,
+   "shikin": 600,
+   "minkok": 110
   },
   {
    "id": 195,
@@ -2166,7 +2751,10 @@
    "x": 363.0,
    "y": 4054.5,
    "type": "town",
-   "rank": 0
+   "rank": 3,
+   "gunryo": 3000,
+   "shikin": 4800,
+   "minkok": 200
   },
   {
    "id": 196,
@@ -2177,7 +2765,10 @@
    "x": 453.8,
    "y": 3865.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1400,
+   "shikin": 650,
+   "minkok": 190
   },
   {
    "id": 197,
@@ -2188,7 +2779,10 @@
    "x": 406.6,
    "y": 3996.0,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 2000,
+   "shikin": 1250,
+   "minkok": 190
   },
   {
    "id": 198,
@@ -2199,7 +2793,10 @@
    "x": 315.8,
    "y": 4045.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1500,
+   "shikin": 800,
+   "minkok": 190
   },
   {
    "id": 199,
@@ -2210,7 +2807,10 @@
    "x": 508.2,
    "y": 4054.5,
    "type": "castle",
-   "rank": 1
+   "rank": 1,
+   "gunryo": 1500,
+   "shikin": 900,
+   "minkok": 180
   }
  ],
  "provinces": [

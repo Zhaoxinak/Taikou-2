@@ -284,18 +284,21 @@ func _process(delta: float) -> void:
 		_apply_lod(lod)
 
 
-## 按缩放级控制文字标签：0 全景（国名+大城名）、1 中（+中城名/山名/景点）、2 近（+村名/干道名）
+## 按缩放级控制文字标签：
+## 0 全景（国名 + 大城/中城名 rank0-1）
+## 1 中（+ 小城/大町名 rank2-3 + 山名/景点）
+## 2 近（+ 小镇/村庄名 rank4-5 + 干道名）
 func _apply_lod(lod: int) -> void:
 	_set_labels("World/Provinces", lod >= 0)
-	_set_labels_rank("World/Cities", lod >= 0, 0)
-	_set_labels_rank("World/Cities", lod >= 1, 1)
-	_set_labels_rank("World/Cities", lod >= 2, 2)
+	_set_labels_rank("World/Cities", lod >= 0, 0, 1)
+	_set_labels_rank("World/Cities", lod >= 1, 2, 3)
+	_set_labels_rank("World/Cities", lod >= 2, 4, 5)
 	_set_labels("World/Mountains/Peaks", lod >= 1)
 	_set_labels("World/Sights", lod >= 1)
 	_set_labels("World/Roads/Trunk", lod >= 2)
 
 
-func _set_labels_rank(group_path: String, on: bool, rank: int) -> void:
+func _set_labels_rank(group_path: String, on: bool, rank_min: int, rank_max: int) -> void:
 	var group := get_node_or_null(group_path)
 	if group == null:
 		return
@@ -303,7 +306,8 @@ func _set_labels_rank(group_path: String, on: bool, rank: int) -> void:
 		if not ch is Node2D:
 			continue
 		var ex: Dictionary = ch.get("extra")
-		if int(ex.get("rank", 1)) != rank:
+		var r := int(ex.get("rank", 1))
+		if r < rank_min or r > rank_max:
 			continue
 		if ch.get("show_label") != on:
 			ch.set("show_label", on)

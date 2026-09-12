@@ -2242,21 +2242,21 @@ script = ExtResource("2_item")
 kind = "town"
 label = "八户"
 points = PackedVector2Array(4334.2, 45.0)
-extra = {"id": 1, "province": 0, "rank": 2, "seed": 20}
+extra = {"id": 1, "province": 0, "rank": 4, "seed": 20}
 
 [node name="C2_弘前" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "弘前"
 points = PackedVector2Array(3964.0, 0.0)
-extra = {"id": 2, "province": 0, "rank": 0}
+extra = {"id": 2, "province": 0, "rank": 1}
 
 [node name="C3_米泽" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "米泽"
 points = PackedVector2Array(3836.9, 1215.0)
-extra = {"id": 3, "province": 1, "rank": 0}
+extra = {"id": 3, "province": 1, "rank": 1}
 
 [node name="C4_岩出山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2270,77 +2270,77 @@ script = ExtResource("2_item")
 kind = "castle"
 label = "登米"
 points = PackedVector2Array(4258.0, 859.5)
-extra = {"id": 5, "province": 1, "rank": 1}
+extra = {"id": 5, "province": 1, "rank": 2}
 
 [node name="C6_白石" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "白石"
 points = PackedVector2Array(4011.1, 1197.0)
-extra = {"id": 6, "province": 1, "rank": 2, "seed": 55}
+extra = {"id": 6, "province": 1, "rank": 5, "seed": 55}
 
 [node name="C7_桑折" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "桑折"
 points = PackedVector2Array(3982.1, 1242.0)
-extra = {"id": 7, "province": 1, "rank": 1}
+extra = {"id": 7, "province": 1, "rank": 2}
 
 [node name="C8_山形" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "山形"
 points = PackedVector2Array(3916.8, 1062.0)
-extra = {"id": 8, "province": 2, "rank": 0}
+extra = {"id": 8, "province": 2, "rank": 1}
 
 [node name="C9_横手" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "横手"
 points = PackedVector2Array(4000.3, 580.5)
-extra = {"id": 9, "province": 2, "rank": 1}
+extra = {"id": 9, "province": 2, "rank": 2}
 
 [node name="C10_鲑延" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "鲑延"
 points = PackedVector2Array(3847.8, 729.0)
-extra = {"id": 10, "province": 2, "rank": 2, "seed": 83}
+extra = {"id": 10, "province": 2, "rank": 5, "seed": 83}
 
 [node name="C11_鹤冈" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "鹤冈"
 points = PackedVector2Array(3731.6, 846.0)
-extra = {"id": 11, "province": 2, "rank": 1}
+extra = {"id": 11, "province": 2, "rank": 2}
 
 [node name="C12_黑川" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "黑川"
 points = PackedVector2Array(3836.9, 1372.5)
-extra = {"id": 12, "province": 3, "rank": 0}
+extra = {"id": 12, "province": 3, "rank": 1}
 
 [node name="C13_二本松" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "二本松"
 points = PackedVector2Array(3949.4, 1363.5)
-extra = {"id": 13, "province": 3, "rank": 1}
+extra = {"id": 13, "province": 3, "rank": 2}
 
 [node name="C14_须贺川" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "须贺川"
 points = PackedVector2Array(3931.3, 1494.0)
-extra = {"id": 14, "province": 3, "rank": 1}
+extra = {"id": 14, "province": 3, "rank": 2}
 
 [node name="C15_厩桥" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "厩桥"
 points = PackedVector2Array(3452.1, 1899.0)
-extra = {"id": 15, "province": 4, "rank": 2, "seed": 118}
+extra = {"id": 15, "province": 4, "rank": 3, "seed": 118}
 
 [node name="C16_沼田" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2368,14 +2368,14 @@ script = ExtResource("2_item")
 kind = "town"
 label = "馆林"
 points = PackedVector2Array(3622.7, 1962.0)
-extra = {"id": 19, "province": 4, "rank": 2, "seed": 146}
+extra = {"id": 19, "province": 4, "rank": 4, "seed": 146}
 
 [node name="C20_宇都宫" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "宇都宫"
 points = PackedVector2Array(3749.8, 1827.0)
-extra = {"id": 20, "province": 5, "rank": 0, "seed": 153}
+extra = {"id": 20, "province": 5, "rank": 3, "seed": 153}
 
 [node name="C21_唐泽山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2389,42 +2389,42 @@ script = ExtResource("2_item")
 kind = "town"
 label = "小山"
 points = PackedVector2Array(3720.8, 1935.0)
-extra = {"id": 22, "province": 5, "rank": 2, "seed": 167}
+extra = {"id": 22, "province": 5, "rank": 4, "seed": 167}
 
 [node name="C23_太田" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "太田"
 points = PackedVector2Array(3568.3, 1944.0)
-extra = {"id": 23, "province": 6, "rank": 1}
+extra = {"id": 23, "province": 6, "rank": 0}
 
 [node name="C24_水户" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "水户"
 points = PackedVector2Array(3964.0, 1908.0)
-extra = {"id": 24, "province": 6, "rank": 2, "seed": 181}
+extra = {"id": 24, "province": 6, "rank": 4, "seed": 181}
 
 [node name="C25_小田" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "小田"
 points = PackedVector2Array(3869.6, 1971.0)
-extra = {"id": 25, "province": 6, "rank": 2, "seed": 188}
+extra = {"id": 25, "province": 6, "rank": 4, "seed": 188}
 
 [node name="C26_国府台" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "国府台"
 points = PackedVector2Array(3757.0, 2173.5)
-extra = {"id": 26, "province": 7, "rank": 1}
+extra = {"id": 26, "province": 7, "rank": 0}
 
 [node name="C27_结" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "结"
 points = PackedVector2Array(3746.2, 1939.5)
-extra = {"id": 27, "province": 7, "rank": 2, "seed": 202}
+extra = {"id": 27, "province": 7, "rank": 4, "seed": 202}
 
 [node name="C28_久留里" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2438,35 +2438,35 @@ script = ExtResource("2_item")
 kind = "town"
 label = "稻村"
 points = PackedVector2Array(3630.0, 1890.0)
-extra = {"id": 29, "province": 7, "rank": 2, "seed": 216}
+extra = {"id": 29, "province": 7, "rank": 4, "seed": 216}
 
 [node name="C30_河越" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "河越"
 points = PackedVector2Array(3608.2, 2110.5)
-extra = {"id": 30, "province": 8, "rank": 0, "seed": 223}
+extra = {"id": 30, "province": 8, "rank": 3, "seed": 223}
 
 [node name="C31_忍" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "忍"
 points = PackedVector2Array(3590.1, 2020.5)
-extra = {"id": 31, "province": 8, "rank": 2, "seed": 230}
+extra = {"id": 31, "province": 8, "rank": 4, "seed": 230}
 
 [node name="C32_钵形" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "钵形"
 points = PackedVector2Array(3484.8, 2025.0)
-extra = {"id": 32, "province": 8, "rank": 2, "seed": 237}
+extra = {"id": 32, "province": 8, "rank": 4, "seed": 237}
 
 [node name="C33_江户" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "江户"
 points = PackedVector2Array(3702.6, 2218.5)
-extra = {"id": 33, "province": 8, "rank": 0, "seed": 244}
+extra = {"id": 33, "province": 8, "rank": 5, "seed": 244}
 
 [node name="C34_泷山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2480,7 +2480,7 @@ script = ExtResource("2_item")
 kind = "town"
 label = "小田原"
 points = PackedVector2Array(3488.4, 2412.0)
-extra = {"id": 35, "province": 9, "rank": 0, "seed": 258}
+extra = {"id": 35, "province": 9, "rank": 3, "seed": 258}
 
 [node name="C36_玉绳" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2494,35 +2494,35 @@ script = ExtResource("2_item")
 kind = "town"
 label = "津久井"
 points = PackedVector2Array(3535.6, 2259.0)
-extra = {"id": 37, "province": 9, "rank": 2, "seed": 272}
+extra = {"id": 37, "province": 9, "rank": 5, "seed": 272}
 
 [node name="C38_三浦" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "三浦"
 points = PackedVector2Array(3651.8, 2457.0)
-extra = {"id": 38, "province": 9, "rank": 2, "seed": 279}
+extra = {"id": 38, "province": 9, "rank": 5, "seed": 279}
 
 [node name="C39_韭山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "韭山"
 points = PackedVector2Array(3379.5, 2479.5)
-extra = {"id": 39, "province": 9, "rank": 2, "seed": 286}
+extra = {"id": 39, "province": 9, "rank": 4, "seed": 286}
 
 [node name="C40_踯躅崎" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "踯躅崎"
 points = PackedVector2Array(3274.3, 2218.5)
-extra = {"id": 40, "province": 10, "rank": 0, "seed": 293}
+extra = {"id": 40, "province": 10, "rank": 3, "seed": 293}
 
 [node name="C41_下山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "下山"
 points = PackedVector2Array(3277.9, 2241.0)
-extra = {"id": 41, "province": 10, "rank": 2, "seed": 300}
+extra = {"id": 41, "province": 10, "rank": 5, "seed": 300}
 
 [node name="C42_岩殿" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2536,14 +2536,14 @@ script = ExtResource("2_item")
 kind = "castle"
 label = "韭崎"
 points = PackedVector2Array(3234.3, 2196.0)
-extra = {"id": 43, "province": 10, "rank": 1}
+extra = {"id": 43, "province": 10, "rank": 2}
 
 [node name="C44_海津" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "海津"
 points = PackedVector2Array(3139.9, 1822.5)
-extra = {"id": 44, "province": 11, "rank": 2, "seed": 321}
+extra = {"id": 44, "province": 11, "rank": 3, "seed": 321}
 
 [node name="C45_饭山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2557,7 +2557,7 @@ script = ExtResource("2_item")
 kind = "castle"
 label = "小诸"
 points = PackedVector2Array(3223.4, 1962.0)
-extra = {"id": 46, "province": 11, "rank": 0}
+extra = {"id": 46, "province": 11, "rank": 1}
 
 [node name="C47_木曾福岛" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2599,7 +2599,7 @@ script = ExtResource("2_item")
 kind = "town"
 label = "新发田"
 points = PackedVector2Array(3546.5, 1197.0)
-extra = {"id": 52, "province": 12, "rank": 2, "seed": 377}
+extra = {"id": 52, "province": 12, "rank": 3, "seed": 377}
 
 [node name="C53_枥尾" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2613,49 +2613,49 @@ script = ExtResource("2_item")
 kind = "town"
 label = "骏府"
 points = PackedVector2Array(3205.3, 2538.0)
-extra = {"id": 54, "province": 13, "rank": 0, "seed": 391}
+extra = {"id": 54, "province": 13, "rank": 3, "seed": 391}
 
 [node name="C55_深泽" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "深泽"
 points = PackedVector2Array(3339.6, 2457.0)
-extra = {"id": 55, "province": 13, "rank": 2, "seed": 398}
+extra = {"id": 55, "province": 13, "rank": 4, "seed": 398}
 
 [node name="C56_兴津" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "兴津"
 points = PackedVector2Array(3259.7, 2506.5)
-extra = {"id": 56, "province": 13, "rank": 2, "seed": 405}
+extra = {"id": 56, "province": 13, "rank": 4, "seed": 405}
 
 [node name="C57_花泽" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "花泽"
 points = PackedVector2Array(3292.4, 2470.5)
-extra = {"id": 57, "province": 13, "rank": 2, "seed": 412}
+extra = {"id": 57, "province": 13, "rank": 4, "seed": 412}
 
 [node name="C58_滨松" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "滨松"
 points = PackedVector2Array(2969.3, 2655.0)
-extra = {"id": 58, "province": 14, "rank": 0, "seed": 419}
+extra = {"id": 58, "province": 14, "rank": 3, "seed": 419}
 
 [node name="C59_二俣" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "二俣"
 points = PackedVector2Array(2987.5, 2605.5)
-extra = {"id": 59, "province": 14, "rank": 2, "seed": 426}
+extra = {"id": 59, "province": 14, "rank": 4, "seed": 426}
 
 [node name="C60_挂川" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "挂川"
 points = PackedVector2Array(3016.5, 2628.0)
-extra = {"id": 60, "province": 14, "rank": 2, "seed": 433}
+extra = {"id": 60, "province": 14, "rank": 4, "seed": 433}
 
 [node name="C61_高天神" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2669,35 +2669,35 @@ script = ExtResource("2_item")
 kind = "town"
 label = "冈崎"
 points = PackedVector2Array(2762.4, 2547.0)
-extra = {"id": 62, "province": 15, "rank": 0, "seed": 447}
+extra = {"id": 62, "province": 15, "rank": 4, "seed": 447}
 
 [node name="C63_长筱" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "长筱"
 points = PackedVector2Array(2911.3, 2560.5)
-extra = {"id": 63, "province": 15, "rank": 2, "seed": 454}
+extra = {"id": 63, "province": 15, "rank": 5, "seed": 454}
 
 [node name="C64_野田" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "野田"
 points = PackedVector2Array(2769.7, 2605.5)
-extra = {"id": 64, "province": 15, "rank": 2, "seed": 461}
+extra = {"id": 64, "province": 15, "rank": 4, "seed": 461}
 
 [node name="C65_吉田" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "吉田"
 points = PackedVector2Array(2845.9, 2628.0)
-extra = {"id": 65, "province": 15, "rank": 2, "seed": 468}
+extra = {"id": 65, "province": 15, "rank": 5, "seed": 468}
 
 [node name="C66_清洲" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "清洲"
 points = PackedVector2Array(2649.9, 2430.0)
-extra = {"id": 66, "province": 16, "rank": 0, "seed": 475}
+extra = {"id": 66, "province": 16, "rank": 4, "seed": 475}
 
 [node name="C67_鸣海" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2711,7 +2711,7 @@ script = ExtResource("2_item")
 kind = "castle"
 label = "小牧山"
 points = PackedVector2Array(2686.2, 2394.0)
-extra = {"id": 68, "province": 16, "rank": 1}
+extra = {"id": 68, "province": 16, "rank": 2}
 
 [node name="C69_犬山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2725,14 +2725,14 @@ script = ExtResource("2_item")
 kind = "castle"
 label = "守山"
 points = PackedVector2Array(2689.8, 2434.5)
-extra = {"id": 70, "province": 16, "rank": 1}
+extra = {"id": 70, "province": 16, "rank": 2}
 
 [node name="C71_那古野" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "那古野"
 points = PackedVector2Array(2668.0, 2443.5)
-extra = {"id": 71, "province": 16, "rank": 0, "seed": 510}
+extra = {"id": 71, "province": 16, "rank": 4, "seed": 510}
 
 [node name="C72_稻叶山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2746,14 +2746,14 @@ script = ExtResource("2_item")
 kind = "town"
 label = "墨俣"
 points = PackedVector2Array(2591.8, 2358.0)
-extra = {"id": 73, "province": 17, "rank": 2, "seed": 524}
+extra = {"id": 73, "province": 17, "rank": 5, "seed": 524}
 
 [node name="C74_大垣" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "大垣"
 points = PackedVector2Array(2566.4, 2362.5)
-extra = {"id": 74, "province": 17, "rank": 2, "seed": 531}
+extra = {"id": 74, "province": 17, "rank": 4, "seed": 531}
 
 [node name="C75_曾根" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2781,21 +2781,21 @@ script = ExtResource("2_item")
 kind = "castle"
 label = "安浓津"
 points = PackedVector2Array(2522.8, 2650.5)
-extra = {"id": 78, "province": 18, "rank": 1}
+extra = {"id": 78, "province": 18, "rank": 0}
 
 [node name="C79_长岛" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "长岛"
 points = PackedVector2Array(2595.4, 2488.5)
-extra = {"id": 79, "province": 18, "rank": 2, "seed": 566}
+extra = {"id": 79, "province": 18, "rank": 3, "seed": 566}
 
 [node name="C80_桑名" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "桑名"
 points = PackedVector2Array(2591.8, 2493.0)
-extra = {"id": 80, "province": 18, "rank": 2, "seed": 573}
+extra = {"id": 80, "province": 18, "rank": 4, "seed": 573}
 
 [node name="C81_伊势龟山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2809,28 +2809,28 @@ script = ExtResource("2_item")
 kind = "town"
 label = "大河内"
 points = PackedVector2Array(2472.0, 2704.5)
-extra = {"id": 82, "province": 18, "rank": 2, "seed": 587}
+extra = {"id": 82, "province": 18, "rank": 4, "seed": 587}
 
 [node name="C83_鸟羽" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "鸟羽"
 points = PackedVector2Array(2649.9, 2758.5)
-extra = {"id": 83, "province": 18, "rank": 2, "seed": 594}
+extra = {"id": 83, "province": 18, "rank": 5, "seed": 594}
 
 [node name="C84_富山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "富山"
 points = PackedVector2Array(2780.6, 1759.5)
-extra = {"id": 84, "province": 19, "rank": 2, "seed": 601}
+extra = {"id": 84, "province": 19, "rank": 3, "seed": 601}
 
 [node name="C85_鱼津" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "鱼津"
 points = PackedVector2Array(2849.5, 1705.5)
-extra = {"id": 85, "province": 19, "rank": 2, "seed": 608}
+extra = {"id": 85, "province": 19, "rank": 4, "seed": 608}
 
 [node name="C86_七尾" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2844,14 +2844,14 @@ script = ExtResource("2_item")
 kind = "town"
 label = "金泽"
 points = PackedVector2Array(2580.9, 1818.0)
-extra = {"id": 87, "province": 21, "rank": 0, "seed": 622}
+extra = {"id": 87, "province": 21, "rank": 3, "seed": 622}
 
 [node name="C88_小松" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "小松"
 points = PackedVector2Array(2504.7, 1890.0)
-extra = {"id": 88, "province": 21, "rank": 2, "seed": 629}
+extra = {"id": 88, "province": 21, "rank": 4, "seed": 629}
 
 [node name="C89_大圣寺" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2872,7 +2872,7 @@ script = ExtResource("2_item")
 kind = "town"
 label = "北之庄"
 points = PackedVector2Array(2421.2, 2043.0)
-extra = {"id": 91, "province": 22, "rank": 0, "seed": 650}
+extra = {"id": 91, "province": 22, "rank": 4, "seed": 650}
 
 [node name="C92_大野" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2886,98 +2886,98 @@ script = ExtResource("2_item")
 kind = "town"
 label = "府中"
 points = PackedVector2Array(2403.1, 2119.5)
-extra = {"id": 93, "province": 22, "rank": 2, "seed": 664}
+extra = {"id": 93, "province": 22, "rank": 4, "seed": 664}
 
 [node name="C94_金崎" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "金崎"
 points = PackedVector2Array(2359.5, 2272.5)
-extra = {"id": 94, "province": 22, "rank": 2, "seed": 671}
+extra = {"id": 94, "province": 22, "rank": 4, "seed": 671}
 
 [node name="C95_小滨" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "小滨"
 points = PackedVector2Array(2203.4, 2299.5)
-extra = {"id": 95, "province": 22, "rank": 2, "seed": 678}
+extra = {"id": 95, "province": 22, "rank": 4, "seed": 678}
 
 [node name="C96_小谷" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "小谷"
 points = PackedVector2Array(2443.0, 2326.5)
-extra = {"id": 96, "province": 23, "rank": 1}
+extra = {"id": 96, "province": 23, "rank": 0}
 
 [node name="C97_横山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "横山"
 points = PackedVector2Array(2450.2, 2326.5)
-extra = {"id": 97, "province": 23, "rank": 1}
+extra = {"id": 97, "province": 23, "rank": 2}
 
 [node name="C98_大沟" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "大沟"
 points = PackedVector2Array(2348.6, 2502.0)
-extra = {"id": 98, "province": 23, "rank": 2, "seed": 699}
+extra = {"id": 98, "province": 23, "rank": 4, "seed": 699}
 
 [node name="C99_佐和山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "佐和山"
 points = PackedVector2Array(2424.8, 2425.5)
-extra = {"id": 99, "province": 23, "rank": 2, "seed": 706}
+extra = {"id": 99, "province": 23, "rank": 3, "seed": 706}
 
 [node name="C100_今滨" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "今滨"
 points = PackedVector2Array(2435.7, 2353.5)
-extra = {"id": 100, "province": 23, "rank": 2, "seed": 713}
+extra = {"id": 100, "province": 23, "rank": 5, "seed": 713}
 
 [node name="C101_观音寺" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "观音寺"
 points = PackedVector2Array(2424.8, 2515.5)
-extra = {"id": 101, "province": 24, "rank": 1}
+extra = {"id": 101, "province": 24, "rank": 0}
 
 [node name="C102_目加田/安土" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "目加田/安土"
 points = PackedVector2Array(2392.2, 2457.0)
-extra = {"id": 102, "province": 24, "rank": 1}
+extra = {"id": 102, "province": 24, "rank": 2}
 
 [node name="C103_长光寺" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "长光寺"
 points = PackedVector2Array(2435.7, 2479.5)
-extra = {"id": 103, "province": 24, "rank": 2, "seed": 734}
+extra = {"id": 103, "province": 24, "rank": 5, "seed": 734}
 
 [node name="C104_日野" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "日野"
 points = PackedVector2Array(2286.9, 2515.5)
-extra = {"id": 104, "province": 24, "rank": 2, "seed": 741}
+extra = {"id": 104, "province": 24, "rank": 3, "seed": 741}
 
 [node name="C105_坂本" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "坂本"
 points = PackedVector2Array(2290.5, 2497.5)
-extra = {"id": 105, "province": 24, "rank": 2, "seed": 748}
+extra = {"id": 105, "province": 24, "rank": 5, "seed": 748}
 
 [node name="C106_大和郡山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "大和郡山"
 points = PackedVector2Array(2265.1, 2682.0)
-extra = {"id": 106, "province": 25, "rank": 2, "seed": 755}
+extra = {"id": 106, "province": 25, "rank": 4, "seed": 755}
 
 [node name="C107_信贵山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -2991,14 +2991,14 @@ script = ExtResource("2_item")
 kind = "town"
 label = "多闻"
 points = PackedVector2Array(2265.1, 2668.5)
-extra = {"id": 108, "province": 25, "rank": 2, "seed": 769}
+extra = {"id": 108, "province": 25, "rank": 4, "seed": 769}
 
 [node name="C109_伊贺上野" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "伊贺上野"
 points = PackedVector2Array(2388.5, 2628.0)
-extra = {"id": 109, "province": 25, "rank": 1}
+extra = {"id": 109, "province": 25, "rank": 2}
 
 [node name="C110_高取" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3012,7 +3012,7 @@ script = ExtResource("2_item")
 kind = "town"
 label = "二条"
 points = PackedVector2Array(2247.0, 2520.0)
-extra = {"id": 111, "province": 26, "rank": 0, "seed": 790}
+extra = {"id": 111, "province": 26, "rank": 4, "seed": 790}
 
 [node name="C112_朽木谷" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3026,21 +3026,21 @@ script = ExtResource("2_item")
 kind = "castle"
 label = "槙岛"
 points = PackedVector2Array(2239.7, 2547.0)
-extra = {"id": 113, "province": 26, "rank": 1}
+extra = {"id": 113, "province": 26, "rank": 2}
 
 [node name="C114_胜龙寺" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "胜龙寺"
 points = PackedVector2Array(2221.6, 2556.0)
-extra = {"id": 114, "province": 26, "rank": 2, "seed": 811}
+extra = {"id": 114, "province": 26, "rank": 4, "seed": 811}
 
 [node name="C115_八上" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "八上"
 points = PackedVector2Array(2047.3, 2479.5)
-extra = {"id": 115, "province": 27, "rank": 1}
+extra = {"id": 115, "province": 27, "rank": 0}
 
 [node name="C116_宫津" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3068,21 +3068,21 @@ script = ExtResource("2_item")
 kind = "castle"
 label = "丹波龟山"
 points = PackedVector2Array(2185.3, 2515.5)
-extra = {"id": 119, "province": 27, "rank": 1}
+extra = {"id": 119, "province": 27, "rank": 2}
 
 [node name="C120_芥川" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "芥川"
 points = PackedVector2Array(2185.3, 2596.5)
-extra = {"id": 120, "province": 28, "rank": 1}
+extra = {"id": 120, "province": 28, "rank": 0}
 
 [node name="C121_高槻" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "高槻"
 points = PackedVector2Array(2159.8, 2610.0)
-extra = {"id": 121, "province": 28, "rank": 2, "seed": 860}
+extra = {"id": 121, "province": 28, "rank": 5, "seed": 860}
 
 [node name="C122_茨木" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3096,28 +3096,28 @@ script = ExtResource("2_item")
 kind = "town"
 label = "伊丹"
 points = PackedVector2Array(2123.5, 2628.0)
-extra = {"id": 123, "province": 28, "rank": 2, "seed": 874}
+extra = {"id": 123, "province": 28, "rank": 4, "seed": 874}
 
 [node name="C124_本愿寺/大阪" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "本愿寺/大阪"
 points = PackedVector2Array(2167.1, 2668.5)
-extra = {"id": 124, "province": 28, "rank": 0, "seed": 881}
+extra = {"id": 124, "province": 28, "rank": 3, "seed": 881}
 
 [node name="C125_尼崎" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "尼崎"
 points = PackedVector2Array(2130.8, 2650.5)
-extra = {"id": 125, "province": 28, "rank": 2, "seed": 888}
+extra = {"id": 125, "province": 28, "rank": 4, "seed": 888}
 
 [node name="C126_花隗" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "花隗"
 points = PackedVector2Array(2058.2, 2664.0)
-extra = {"id": 126, "province": 28, "rank": 2, "seed": 895}
+extra = {"id": 126, "province": 28, "rank": 4, "seed": 895}
 
 [node name="C127_饭盛" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3131,14 +3131,14 @@ script = ExtResource("2_item")
 kind = "town"
 label = "高屋"
 points = PackedVector2Array(2188.9, 2650.5)
-extra = {"id": 128, "province": 29, "rank": 2, "seed": 909}
+extra = {"id": 128, "province": 29, "rank": 5, "seed": 909}
 
 [node name="C129_岸和田" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "岸和田"
 points = PackedVector2Array(2109.0, 2772.0)
-extra = {"id": 129, "province": 29, "rank": 2, "seed": 916}
+extra = {"id": 129, "province": 29, "rank": 4, "seed": 916}
 
 [node name="C130_杂贺" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3159,7 +3159,7 @@ script = ExtResource("2_item")
 kind = "town"
 label = "三木"
 points = PackedVector2Array(1974.7, 2614.5)
-extra = {"id": 132, "province": 31, "rank": 2, "seed": 937}
+extra = {"id": 132, "province": 31, "rank": 3, "seed": 937}
 
 [node name="C133_出石" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3173,35 +3173,35 @@ script = ExtResource("2_item")
 kind = "castle"
 label = "竹田"
 points = PackedVector2Array(1894.9, 2394.0)
-extra = {"id": 134, "province": 31, "rank": 1}
+extra = {"id": 134, "province": 31, "rank": 2}
 
 [node name="C135_御着" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "御着"
 points = PackedVector2Array(1858.6, 2592.0)
-extra = {"id": 135, "province": 31, "rank": 2, "seed": 958}
+extra = {"id": 135, "province": 31, "rank": 4, "seed": 958}
 
 [node name="C136_姬路" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "姬路"
 points = PackedVector2Array(1869.4, 2596.5)
-extra = {"id": 136, "province": 31, "rank": 0, "seed": 965}
+extra = {"id": 136, "province": 31, "rank": 4, "seed": 965}
 
 [node name="C137_鱼住" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "鱼住"
 points = PackedVector2Array(1934.8, 2659.5)
-extra = {"id": 137, "province": 31, "rank": 2, "seed": 972}
+extra = {"id": 137, "province": 31, "rank": 5, "seed": 972}
 
 [node name="C138_上月" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "上月"
 points = PackedVector2Array(1713.4, 2556.0)
-extra = {"id": 138, "province": 31, "rank": 2, "seed": 979}
+extra = {"id": 138, "province": 31, "rank": 4, "seed": 979}
 
 [node name="C139_鸟取" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3250,7 +3250,7 @@ script = ExtResource("2_item")
 kind = "town"
 label = "冈山"
 points = PackedVector2Array(1589.9, 2677.5)
-extra = {"id": 145, "province": 34, "rank": 0, "seed": 1028}
+extra = {"id": 145, "province": 34, "rank": 3, "seed": 1028}
 
 [node name="C146_三星" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3264,21 +3264,21 @@ script = ExtResource("2_item")
 kind = "castle"
 label = "砥石山"
 points = PackedVector2Array(1491.9, 2569.5)
-extra = {"id": 147, "province": 34, "rank": 1}
+extra = {"id": 147, "province": 34, "rank": 2}
 
 [node name="C148_沼" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "沼"
 points = PackedVector2Array(1462.9, 2772.0)
-extra = {"id": 148, "province": 34, "rank": 2, "seed": 1049}
+extra = {"id": 148, "province": 34, "rank": 4, "seed": 1049}
 
 [node name="C149_备中高松" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "备中高松"
 points = PackedVector2Array(1550.0, 2673.0)
-extra = {"id": 149, "province": 35, "rank": 2, "seed": 1056}
+extra = {"id": 149, "province": 35, "rank": 3, "seed": 1056}
 
 [node name="C150_甲山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3299,7 +3299,7 @@ script = ExtResource("2_item")
 kind = "town"
 label = "神边"
 points = PackedVector2Array(1317.7, 2704.5)
-extra = {"id": 152, "province": 35, "rank": 2, "seed": 1077}
+extra = {"id": 152, "province": 35, "rank": 5, "seed": 1077}
 
 [node name="C153_吉田郡山" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3327,14 +3327,14 @@ script = ExtResource("2_item")
 kind = "town"
 label = "樱尾"
 points = PackedVector2Array(1049.1, 2808.0)
-extra = {"id": 156, "province": 36, "rank": 2, "seed": 1105}
+extra = {"id": 156, "province": 36, "rank": 5, "seed": 1105}
 
 [node name="C157_山口" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "山口"
 points = PackedVector2Array(697.0, 2889.0)
-extra = {"id": 157, "province": 37, "rank": 0, "seed": 1112}
+extra = {"id": 157, "province": 37, "rank": 3, "seed": 1112}
 
 [node name="C158_岩国" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3348,21 +3348,21 @@ script = ExtResource("2_item")
 kind = "town"
 label = "胜山"
 points = PackedVector2Array(1506.4, 2502.0)
-extra = {"id": 159, "province": 37, "rank": 2, "seed": 1126}
+extra = {"id": 159, "province": 37, "rank": 5, "seed": 1126}
 
 [node name="C160_胜瑞" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "胜瑞"
 points = PackedVector2Array(1815.0, 2920.5)
-extra = {"id": 160, "province": 38, "rank": 0, "seed": 1133}
+extra = {"id": 160, "province": 38, "rank": 4, "seed": 1133}
 
 [node name="C161_抚养" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "抚养"
 points = PackedVector2Array(1771.4, 2893.5)
-extra = {"id": 161, "province": 38, "rank": 2, "seed": 1140}
+extra = {"id": 161, "province": 38, "rank": 4, "seed": 1140}
 
 [node name="C162_十河" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3376,21 +3376,21 @@ script = ExtResource("2_item")
 kind = "town"
 label = "多度津"
 points = PackedVector2Array(1539.1, 2848.5)
-extra = {"id": 163, "province": 39, "rank": 2, "seed": 1154}
+extra = {"id": 163, "province": 39, "rank": 4, "seed": 1154}
 
 [node name="C164_汤筑" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "汤筑"
 points = PackedVector2Array(1161.6, 3042.0)
-extra = {"id": 164, "province": 40, "rank": 0, "seed": 1161}
+extra = {"id": 164, "province": 40, "rank": 3, "seed": 1161}
 
 [node name="C165_高冈" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "castle"
 label = "高冈"
 points = PackedVector2Array(1226.9, 3010.5)
-extra = {"id": 165, "province": 40, "rank": 1}
+extra = {"id": 165, "province": 40, "rank": 2}
 
 [node name="C166_大洲" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3404,7 +3404,7 @@ script = ExtResource("2_item")
 kind = "castle"
 label = "冈丰"
 points = PackedVector2Array(1288.6, 3042.0)
-extra = {"id": 167, "province": 41, "rank": 1}
+extra = {"id": 167, "province": 41, "rank": 0}
 
 [node name="C168_安艺" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3418,28 +3418,28 @@ script = ExtResource("2_item")
 kind = "town"
 label = "浦户"
 points = PackedVector2Array(1593.6, 3267.0)
-extra = {"id": 169, "province": 41, "rank": 2, "seed": 1196}
+extra = {"id": 169, "province": 41, "rank": 5, "seed": 1196}
 
 [node name="C170_中村" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "中村"
 points = PackedVector2Array(1270.5, 3402.0)
-extra = {"id": 170, "province": 41, "rank": 2, "seed": 1203}
+extra = {"id": 170, "province": 41, "rank": 3, "seed": 1203}
 
 [node name="C171_小仓" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "小仓"
 points = PackedVector2Array(479.2, 3024.0)
-extra = {"id": 171, "province": 42, "rank": 2, "seed": 1210}
+extra = {"id": 171, "province": 42, "rank": 4, "seed": 1210}
 
 [node name="C172_中津" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "中津"
 points = PackedVector2Array(595.3, 3154.5)
-extra = {"id": 172, "province": 42, "rank": 2, "seed": 1217}
+extra = {"id": 172, "province": 42, "rank": 5, "seed": 1217}
 
 [node name="C173_秋月" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3453,7 +3453,7 @@ script = ExtResource("2_item")
 kind = "town"
 label = "宗像"
 points = PackedVector2Array(359.4, 3064.5)
-extra = {"id": 174, "province": 43, "rank": 2, "seed": 1231}
+extra = {"id": 174, "province": 43, "rank": 5, "seed": 1231}
 
 [node name="C175_立花" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3467,49 +3467,49 @@ script = ExtResource("2_item")
 kind = "town"
 label = "久留米"
 points = PackedVector2Array(344.8, 3280.5)
-extra = {"id": 176, "province": 43, "rank": 2, "seed": 1245}
+extra = {"id": 176, "province": 43, "rank": 4, "seed": 1245}
 
 [node name="C177_柳川" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "柳川"
 points = PackedVector2Array(312.2, 3352.5)
-extra = {"id": 177, "province": 43, "rank": 0, "seed": 1252}
+extra = {"id": 177, "province": 43, "rank": 4, "seed": 1252}
 
 [node name="C178_佐嘉" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "佐嘉"
 points = PackedVector2Array(272.2, 3312.0)
-extra = {"id": 178, "province": 44, "rank": 0, "seed": 1259}
+extra = {"id": 178, "province": 44, "rank": 3, "seed": 1259}
 
 [node name="C179_势福寺" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "势福寺"
 points = PackedVector2Array(127.0, 3276.0)
-extra = {"id": 179, "province": 44, "rank": 2, "seed": 1266}
+extra = {"id": 179, "province": 44, "rank": 3, "seed": 1266}
 
 [node name="C180_大村" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "大村"
 points = PackedVector2Array(116.2, 3501.0)
-extra = {"id": 180, "province": 44, "rank": 2, "seed": 1273}
+extra = {"id": 180, "province": 44, "rank": 4, "seed": 1273}
 
 [node name="C181_平户" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "平户"
 points = PackedVector2Array(0.0, 3330.0)
-extra = {"id": 181, "province": 44, "rank": 2, "seed": 1280}
+extra = {"id": 181, "province": 44, "rank": 4, "seed": 1280}
 
 [node name="C182_府内" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "府内"
 points = PackedVector2Array(747.8, 3316.5)
-extra = {"id": 182, "province": 45, "rank": 0, "seed": 1287}
+extra = {"id": 182, "province": 45, "rank": 3, "seed": 1287}
 
 [node name="C183_高田" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3537,7 +3537,7 @@ script = ExtResource("2_item")
 kind = "town"
 label = "丹生岛"
 points = PackedVector2Array(1107.1, 2988.0)
-extra = {"id": 186, "province": 45, "rank": 2, "seed": 1315}
+extra = {"id": 186, "province": 45, "rank": 5, "seed": 1315}
 
 [node name="C187_人吉" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3565,7 +3565,7 @@ script = ExtResource("2_item")
 kind = "town"
 label = "八代"
 points = PackedVector2Array(381.1, 3645.0)
-extra = {"id": 190, "province": 46, "rank": 2, "seed": 1343}
+extra = {"id": 190, "province": 46, "rank": 4, "seed": 1343}
 
 [node name="C191_都于郡" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
@@ -3593,14 +3593,14 @@ script = ExtResource("2_item")
 kind = "town"
 label = "沃肥"
 points = PackedVector2Array(682.4, 3856.5)
-extra = {"id": 194, "province": 47, "rank": 2, "seed": 1371}
+extra = {"id": 194, "province": 47, "rank": 4, "seed": 1371}
 
 [node name="C195_鹿儿岛" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")
 kind = "town"
 label = "鹿儿岛"
 points = PackedVector2Array(363.0, 4054.5)
-extra = {"id": 195, "province": 48, "rank": 0, "seed": 1378}
+extra = {"id": 195, "province": 48, "rank": 3, "seed": 1378}
 
 [node name="C196_大口" type="Node2D" parent="World/Cities"]
 script = ExtResource("2_item")

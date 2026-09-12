@@ -82,27 +82,16 @@ geo = json.load(open(os.path.join(ROOT, "scripts/castle_geo.json"), encoding="ut
 castles = json.load(open(os.path.join(ROOT, "data/castles.json"), encoding="utf-8"))["castles"]
 names = json.load(open(os.path.join(ROOT, "data/names.json"), encoding="utf-8"))
 
-# 大名居城 / 战国历史名城（rank 0 大城，立体大天守）
-GREAT_CITIES = {
-    # 东北
-    "弘前", "米泽", "山形", "黑川",
-    # 关东
-    "江户", "小田原", "河越", "宇都宫",
-    # 甲信越
-    "踯躅崎", "春日山", "小诸",
-    # 东海
-    "骏府", "滨松", "清洲", "那古野", "稻叶山", "冈崎",
-    # 北陆
-    "七尾", "金泽", "一乘谷", "北之庄",
-    # 近畿
-    "二条", "本愿寺/大阪", "安土", "姬路",
-    # 中国
-    "鸟取", "月山富田", "冈山", "吉田郡山", "山口",
-    # 四国
-    "汤筑", "胜瑞",
-    # 九州
-    "府内", "柳川", "佐嘉", "鹿儿岛",
-}
+def rank_of(c, ctype):
+    """史实规模分级（依据原版数据 gunryo 兵粮）：
+    城(0x50x 军事据点) → rank0 大城(兵粮≥4000)/1 中城(1000~3999)/2 小城(<1000)
+    町(0x40x 市镇)     → rank3 大町(≥3000)/4 小镇(1000~2999)/5 村庄(<1000)
+    大坂 10000/稻叶山 7500/小田原 5000 为巨城；江户(战国初期) 500 归村庄——符合史实。
+    """
+    g = int(c["gunryo"])
+    if ctype == "castle":
+        return 0 if g >= 4000 else (1 if g >= 1000 else 2)
+    return 3 if g >= 3000 else (4 if g >= 1000 else 5)
 
 cities = []
 for c in castles:
@@ -110,15 +99,16 @@ for c in castles:
     lat, lng = geo[str(cid)]
     x, y = proj(lat, lng)
     ctype = "castle" if (int(c["castle_type"]) >> 8) == 0x05 else "town"
-    # 大名居城/历史名城（含江户/大阪/京都等原版町类型城市）→ rank0 大城市
-    rank = 0 if c["name"] in GREAT_CITIES else (1 if ctype == "castle" else 2)
     cities.append({
         "id": cid, "name": c["name"], "province": int(c["province"]),
-        "lat": lat, "lng": lng, "x": x, "y": y, "type": ctype, "rank": rank,
+        "lat": lat, "lng": lng, "x": x, "y": y, "type": ctype, "rank": rank_of(c, ctype),
+        "gunryo": int(c["gunryo"]), "shikin": int(c["shikin"]), "minkok": int(c["minkok"]),
     })
+from collections import Counter
+rc = Counter(c["rank"] for c in cities)
 print("cities:", len(cities), "| castle:", sum(1 for c in cities if c["type"] == "castle"),
       "| town:", sum(1 for c in cities if c["type"] == "town"),
-      "| rank0:", sum(1 for c in cities if c["rank"] == 0))
+      "| rank分布:", dict(sorted(rc.items())))
 
 # ── 2. 国：名称 + 中心（国内城坐标均值）──
 province_names = names["province_names"]
