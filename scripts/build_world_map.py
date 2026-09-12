@@ -24,16 +24,58 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # ── 投影参数 ──────────────────────────────────────────────
 LAT_MIN, LAT_MAX = 31.6, 40.61
 LNG_MIN, LNG_MAX = 129.55, 141.49
-# ×1.5 放大：拉开城市间距，避免密集（此前 121/150 导致近畿/东北城挤成一团）
-PX_LNG, PX_LAT = 181.5, 225.0
-MAP_W = int((LNG_MAX - LNG_MIN) * PX_LNG) + 2          # 2179
-MAP_H = int((LAT_MAX - LAT_MIN) * PX_LAT) + 2          # 2031
+# ×3（相对最初 121/150）：拉开城市间距，提供行走空间感
+PX_LNG, PX_LAT = 363.0, 450.0
+MAP_W = int((LNG_MAX - LNG_MIN) * PX_LNG) + 2          # 4334
+MAP_H = int((LAT_MAX - LAT_MIN) * PX_LAT) + 2          # 4055
 
 def proj(lat: float, lng: float):
     return (round((lng - LNG_MIN) * PX_LNG, 1), round((LAT_MAX - lat) * PX_LAT, 1))
 
 def proj_pts(pts):
     return [proj(lat, lng) for lat, lng in pts]
+
+# ── 样条平滑（Catmull-Rom）：让道路/河流/山脉自然弯曲 ──
+def catmull_rom(pts, samples=5):
+    """折线 → 平滑曲线（每段插入 samples 个采样点，含端点）"""
+    if len(pts) < 2:
+        return pts
+    out = []
+    n = len(pts)
+    for i in range(n - 1):
+        p0 = pts[i - 1] if i > 0 else pts[i]
+        p1 = pts[i]
+        p2 = pts[i + 1]
+        p3 = pts[i + 2] if i + 2 < n else p2
+        for t in range(samples):
+            t0 = t / samples
+            t2 = t0 * t0
+            t3 = t2 * t0
+            x = 0.5 * ((2 * p1[0]) + (-p0[0] + p2[0]) * t0 +
+                       (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * t2 +
+                       (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * t3)
+            y = 0.5 * ((2 * p1[1]) + (-p0[1] + p2[1]) * t0 +
+                       (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * t2 +
+                       (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * t3)
+            out.append((round(x, 1), round(y, 1)))
+    out.append(pts[-1])
+    return out
+
+
+def bend_branch(a, b, seed):
+    """支线：两点直线 → 中间加偏移控制点 → 样条弯曲（山路绕行感）"""
+    ax, ay = a
+    bx, by = b
+    dx, dy = bx - ax, by - ay
+    ln = math.hypot(dx, dy)
+    if ln < 1:
+        return [a, b]
+    px, py = -dy / ln, dx / ln
+    h = (seed * 2654435761) & 0xffffffff
+    sign = 1 if (h % 2) == 0 else -1
+    amp = (0.10 + (h % 100) / 1000.0 * 0.14) * ln
+    mx, my = (ax + bx) / 2.0 + px * amp * sign, (ay + by) / 2.0 + py * amp * sign
+    return catmull_rom([a, (round(mx, 1), round(my, 1)), b], samples=5)
 
 # ── 1. 城市：castle_geo + castles ─────────────────────────
 geo = json.load(open(os.path.join(ROOT, "scripts/castle_geo.json"), encoding="utf-8"))["geo"]
@@ -171,7 +213,7 @@ RIVERS = {
     "球磨川": [(32.35, 131.00), (32.25, 130.80), (32.20, 130.60)],
     "米代川": [(40.20, 140.50), (40.10, 140.25), (40.05, 140.00)],
 }
-rivers = [{"name": k, "points": proj_pts(v)} for k, v in RIVERS.items()]
+rivers = [{"name": k, "points": catmull_rom(proj_pts(v), 4)} for k, v in RIVERS.items()]
 
 # ── 5. 山脉（山系折线）与名山（点）──
 RANGES = {
@@ -196,7 +238,7 @@ PEAKS = {
     "开闻岳": (31.18, 130.43, 924), "石锤山": (33.77, 133.12, 1982), "大山": (35.37, 133.53, 1729),
     "高野山": (34.21, 135.58, 984),
 }
-mountains = [{"name": k, "points": proj_pts(v)} for k, v in RANGES.items()]
+mountains = [{"name": k, "points": catmull_rom(proj_pts(v), 4)} for k, v in RANGES.items()]
 peaks = [{"name": k, "x": proj(lat, lng)[0], "y": proj(lat, lng)[1], "h": h}
          for k, (lat, lng, h) in PEAKS.items()]
 
@@ -227,17 +269,17 @@ ROADS = {
                (31.60, 130.55), (33.25, 130.30), (33.45, 129.97), (33.36, 129.55),
                (32.84, 130.05), (32.75, 129.88), (33.60, 131.20), (33.53, 131.35), (33.24, 131.60)],
 }
-roads = [{"name": k, "kind": "trunk", "points": proj_pts(v)} for k, v in ROADS.items()]
+roads = [{"name": k, "kind": "trunk", "points": catmull_rom(proj_pts(v), 6)} for k, v in ROADS.items()]
 
 # 支线：跨省最近城连接（道路网）+ 最小生成树补边（保证全连通）
-# 道路图 = 每城→最近 2 个跨省城（限长 570px，随投影放大）×1.5 + 全图 MST 补边（全连通）
+# 道路图 = 每城→最近 2 个跨省城（限长 1140px，随投影 ×3）+ 全图 MST 补边（全连通）
 neigh = []
 for c in cities:
     others = [o for o in cities if o["province"] != c["province"]]
     others.sort(key=lambda o: (o["x"] - c["x"]) ** 2 + (o["y"] - c["y"]) ** 2)
     for o in others[:2]:
         d2 = (o["x"] - c["x"]) ** 2 + (o["y"] - c["y"]) ** 2
-        if d2 > 570 ** 2:
+        if d2 > 1140 ** 2:
             continue
         neigh.append((c["id"], o["id"], math.sqrt(d2)))
 
@@ -303,7 +345,7 @@ for a, b, dist in edges:
     branch.append({
         "name": "%s-%s" % (ca["name"], cb["name"]),
         "kind": "branch",
-        "points": [[ca["x"], ca["y"]], [cb["x"], cb["y"]]],
+        "points": bend_branch((ca["x"], ca["y"]), (cb["x"], cb["y"]), a * 31 + b * 17),
         "a": a, "b": b,
     })
 print("branch roads:", len(branch), "| mst added:", added)

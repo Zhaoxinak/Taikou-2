@@ -5,10 +5,10 @@ extends Node2D
 
 const UiTheme = preload("res://src/ui/UiTheme.gd")
 
-const _SPEED := 260.0          # 移动速度 px/s（设计空间，地图 ×1.5 后同步提速）
-const _CLICK_R := 26.0         # 城点击半径
-const _ZOOM_MIN := 0.55
-const _ZOOM_MAX := 3.2
+const _SPEED := 520.0          # 移动速度 px/s（地图 ×3 后同步提速，保持真实节奏）
+const _CLICK_R := 30.0         # 城点击半径
+const _ZOOM_MIN := 0.15
+const _ZOOM_MAX := 4.0
 
 var _cities: Dictionary = {}    # id -> {name, x, y, province, type}
 var _city_by_name: Dictionary = {}
@@ -22,9 +22,8 @@ var _world: Node2D = null
 
 # 移动状态
 var _path: Array = []           # [城id, ...]（含起点终点）
-var _seg_from: Vector2 = Vector2.ZERO
-var _seg_to: Vector2 = Vector2.ZERO
-var _seg_progress := 0.0
+var _route: PackedVector2Array = PackedVector2Array()  # 完整路线点（沿弯曲道路）
+var _route_i := 0
 var _moving := false
 var _drag_pos := Vector2.ZERO
 var _dragging := false
@@ -194,18 +193,52 @@ func _goto_city(target: int) -> void:
 	if not prev.has(target):
 		_update_info(_city_name(target), target)
 		return
-	# 还原路径
+	# 还原路径（城序列）
 	var path: Array = [target]
 	var cur2 := target
 	while prev.has(cur2):
 		cur2 = prev[cur2]
 		path.push_front(cur2)
 	_path = path
-	_seg_from = _city_pos(int(_path[0]))
-	_seg_to = _city_pos(int(_path[1]))
-	_seg_progress = 0.0
+	# 构造沿弯曲道路的完整路线点（每段用样条化支线点列）
+	var route := PackedVector2Array()
+	for k in range(path.size() - 1):
+		var a := int(path[k])
+		var b := int(path[k + 1])
+		var curve := _road_curve(a, b)
+		if route.is_empty():
+			route.append_array(curve)
+		else:
+			# 去重衔接点
+			for p in range(1, curve.size()):
+				route.append(curve[p])
+	_route = route
+	_route_i = 0
 	_moving = true
 	_update_info(_city_name(int(_path[0])), int(_path[0]))
+
+
+## 查支线道路的样条点列（找不到则直线兜底）
+func _road_curve(a: int, b: int) -> PackedVector2Array:
+	for r in _map_data.get("roads", []):
+		if r.get("kind") != "branch":
+			continue
+		var ra := int(r.get("a", -1))
+		var rb := int(r.get("b", -1))
+		if ra == a and rb == b:
+			return _pts_of(r)
+		if ra == b and rb == a:
+			var ps := _pts_of(r)
+			ps.reverse()
+			return ps
+	return PackedVector2Array([_city_pos(a), _city_pos(b)])
+
+
+func _pts_of(r: Dictionary) -> PackedVector2Array:
+	var out := PackedVector2Array()
+	for p in r.get("points", []):
+		out.append(Vector2(float(p[0]), float(p[1])))
+	return out
 
 
 func _city_name(cid: int) -> String:
@@ -214,40 +247,37 @@ func _city_name(cid: int) -> String:
 	return str(_cities[cid]["name"])
 
 
-# ── 移动：沿路径段平滑移动（真实感：速度 + 朝向）──
+# ── 移动：沿弯曲道路的路线点平滑移动（真实感：速度 + 朝向）──
 func _process(delta: float) -> void:
-	if not _moving or _path.size() < 2:
-		pass
-	else:
-		_seg_progress += _SPEED * delta / maxf(_seg_from.distance_to(_seg_to), 1.0)
-		if _seg_progress >= 1.0:
-			_seg_progress = 1.0
-			var arrived := int(_path[1])
-			_player.points = PackedVector2Array([_city_pos(arrived)])
-			_player.queue_redraw()
-			_path.pop_front()
-			if _path.size() >= 2:
-				_seg_from = _city_pos(int(_path[0]))
-				_seg_to = _city_pos(int(_path[1]))
-				_seg_progress = 0.0
-				_update_info(_city_name(arrived), arrived)
-			else:
+	if _moving and _route.size() > 0 and _route_i < _route.size():
+		var target_p: Vector2 = _route[_route_i]
+		var cur: Vector2 = _player.points[0] if _player.points.size() > 0 else Vector2.ZERO
+		var step := _SPEED * delta
+		if cur.distance_to(target_p) <= step:
+			# 到达当前路线点 → 下一段
+			_player.points = PackedVector2Array([target_p])
+			_route_i += 1
+			if _route_i >= _route.size():
 				_moving = false
-				_update_info(_city_name(arrived), arrived)
-			return
-		var p: Vector2 = _seg_from.lerp(_seg_to, _seg_progress)
-		_player.points = PackedVector2Array([p])
-		# 朝向 = 移动方向
-		_player.extra["facing"] = (_seg_to - _seg_from).angle()
-		_player.queue_redraw()
-	# 缩放分级显示（LOD）：避免全景下文字爆炸（地图放大后阈值上移）
+				_update_info(_city_name(int(_path[_path.size() - 1])), int(_path[_path.size() - 1]))
+			else:
+				var nxt: Vector2 = _route[_route_i]
+				_player.extra["facing"] = (nxt - target_p).angle()
+				_player.queue_redraw()
+		else:
+			var dirv := (target_p - cur).normalized()
+			var np := cur + dirv * step
+			_player.points = PackedVector2Array([np])
+			_player.extra["facing"] = dirv.angle()
+			_player.queue_redraw()
+	# 缩放分级显示（LOD）：避免全景下文字爆炸（地图大，阈值对应放大）
 	if _camera == null:
 		return
 	var z := _camera.zoom.x
 	var lod := 0
-	if z >= 1.2:
+	if z >= 1.8:
 		lod = 1
-	if z >= 2.0:
+	if z >= 3.0:
 		lod = 2
 	if lod != _lod:
 		_lod = lod

@@ -90,8 +90,8 @@ func _draw() -> void:
 		"river": _draw_river()
 		"mountain": _draw_ridge()
 		"peak": _draw_peak()
-		"road_trunk": _draw_road(6.0, 3.2, C_ROAD_BED, C_ROAD_FACE, 0)
-		"road_branch": _draw_road(3.0, 1.4, C_BRANCH_BED, C_BRANCH, 0)
+		"road_trunk": _draw_road(9.0, 5.0, C_ROAD_BED, C_ROAD_FACE, 0)
+		"road_branch": _draw_road(4.5, 2.2, C_BRANCH_BED, C_BRANCH, 0)
 		"city": _draw_city()
 		"town": _draw_town()
 		"sight": _draw_sight()
@@ -190,9 +190,9 @@ func _inset(pts: PackedVector2Array, c: Vector2, t: float) -> PackedVector2Array
 func _draw_river() -> void:
 	if points.size() < 2:
 		return
-	draw_polyline(points, Color(0.85, 0.92, 0.98, 0.9), 8.0, true)   # 岸/光
-	draw_polyline(points, C_RIVER, 5.0, true)
-	draw_polyline(points, C_RIVER_LIT, 2.0, true)
+	draw_polyline(points, Color(0.85, 0.92, 0.98, 0.9), 10.0, true)   # 岸/光
+	draw_polyline(points, C_RIVER, 6.0, true)
+	draw_polyline(points, C_RIVER_LIT, 2.5, true)
 
 
 # ── 山系：多层立体山脊（宽体凸起 + 投影）─────────────────
@@ -203,15 +203,15 @@ func _draw_ridge() -> void:
 	var sh := PackedVector2Array()
 	for p in points:
 		sh.append(p + Vector2(3, 4))
-	draw_polyline(sh, Color(0, 0, 0, 0.25), 14.0, true)
+	draw_polyline(sh, Color(0, 0, 0, 0.25), 16.0, true)
 	# 深色宽底 + 中色 + 亮色高光，末端圆收
-	draw_polyline(points, C_MOUNT_DARK, 14.0, true)
-	draw_polyline(points, C_MOUNT_MID, 8.5, true)
-	draw_polyline(points, C_MOUNT_LIT, 3.0, true)
+	draw_polyline(points, C_MOUNT_DARK, 16.0, true)
+	draw_polyline(points, C_MOUNT_MID, 9.5, true)
+	draw_polyline(points, C_MOUNT_LIT, 3.5, true)
 	# 山脊两端的"山头"（圆点）
 	for p in [points[0], points[points.size() - 1]]:
-		draw_circle(p, 6.0, C_MOUNT_DARK)
-		draw_circle(p, 3.0, C_MOUNT_LIT)
+		draw_circle(p, 7.0, C_MOUNT_DARK)
+		draw_circle(p, 3.5, C_MOUNT_LIT)
 
 
 # ── 山峰：按类型分型的立体山（富士/火山/雪峰/高山/低山）────
