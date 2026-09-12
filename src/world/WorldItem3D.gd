@@ -10,29 +10,46 @@ const SEA_Y := 0.0              # 海平面（3D）
 
 static var _hm: Dictionary = {}
 static var _hm_loaded := false
+static var _flat: PackedFloat32Array = PackedFloat32Array()
+static var _nw := 0
+static var _nh := 0
+static var _cell := 13.0
+static var _ox := -320.0
+static var _oy := -320.0
+
+
+static func _ensure_hm() -> void:
+	if _hm_loaded:
+		return
+	_hm_loaded = true
+	if not FileAccess.file_exists(HM_PATH):
+		return
+	var f := FileAccess.open(HM_PATH, FileAccess.READ)
+	_hm = JSON.parse_string(f.get_as_text())
+	if _hm.is_empty():
+		return
+	var g: Array = _hm.get("data", [])
+	_nw = int(_hm.get("w", 384))
+	_nh = g.size()
+	_cell = float(_hm.get("cell", 13.0))
+	var o: Array = _hm.get("origin", [0, 0])
+	_ox = float(o[0])
+	_oy = float(o[1])
+	_flat.resize(_nh * _nw)
+	for j in range(_nh):
+		var row: Array = g[j]
+		for i in range(_nw):
+			_flat[j * _nw + i] = float(row[i])
+
 
 ## 世界坐标(wx,wy)[2D px] → 3D 地形高度（单位）
 static func hm_height(wx: float, wy: float) -> float:
-	if not _hm_loaded:
-		_hm_loaded = true
-		if FileAccess.file_exists(HM_PATH):
-			var f := FileAccess.open(HM_PATH, FileAccess.READ)
-			_hm = JSON.parse_string(f.get_as_text())
-	if _hm.is_empty():
+	_ensure_hm()
+	if _flat.is_empty():
 		return 0.0
-	var o: Array = _hm.get("origin", [0, 0])
-	var cell: float = float(_hm.get("cell", 13.0))
-	var nw := int(_hm.get("w", 384))
-	var nh := int(_hm.get("h", 384))
-	var ix := clampi(int((wx - o[0]) / cell), 0, nw - 1)
-	var iy := clampi(int((wy - o[1]) / cell), 0, nh - 1)
-	var g: Array = _hm.get("data", [])
-	if iy >= g.size():
-		return 0.0
-	var row: Array = g[iy]
-	if ix >= row.size():
-		return 0.0
-	return float(row[ix]) * S
+	var ix := clampi(int((wx - _ox) / _cell), 0, _nw - 1)
+	var iy := clampi(int((wy - _oy) / _cell), 0, _nh - 1)
+	return _flat[iy * _nw + ix] * S
 
 ## 3D 坐标（2D px → 3D 单位，贴地）
 static func to3(pos2: Vector2) -> Vector3:
@@ -69,11 +86,28 @@ static func hm_color(h: float) -> Color:
 
 var _built := false
 
+## 材质共享缓存（同色道路/河流共用，避免每节点新建）
+static var _mat_cache: Dictionary = {}
+
+
+static func _mat_for(col: Color) -> StandardMaterial3D:
+	var k := col.to_html()
+	if _mat_cache.has(k):
+		return _mat_cache[k]
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = col
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	_mat_cache[k] = mat
+	return mat
+
 
 func _ready() -> void:
 	if _built:
 		return
 	_built = true
+	# 编辑器内逐节点生成（可视化）；运行时由 world_screen_3d 合批生成
+	if not Engine.is_editor_hint():
+		return
 	match kind:
 		"river": _build_band(0.9, Color(0.30, 0.56, 0.88), 0.45)
 		"road_trunk": _build_band(1.6, Color(0.78, 0.64, 0.40), 1.3)
@@ -129,15 +163,11 @@ func _build_band(he: float, col: Color, bed_w: float) -> void:
 		st.add_vertex(a1b)
 		st.add_vertex(b1b)
 		st.add_vertex(b2b)
-	st.generate_normals()
 	var mesh := st.commit()
 	var mi := MeshInstance3D.new()
 	mi.mesh = mesh
 	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = col
-	mat.roughness = 0.9
-	mat.shading_mode = BaseMaterial3D.SHADING_MODE_PER_PIXEL
+	var mat := _mat_for(col)
 	mi.material_override = mat
 	add_child(mi)
 

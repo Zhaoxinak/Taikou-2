@@ -21,10 +21,10 @@ var _city_name: Dictionary = {}
 
 # 相机
 var _cam: Camera3D = null
-var _target := Vector3(542, 0, 507)
-var _dist := 750.0
+var _target := Vector3(515, 0, 527)
+var _dist := 1250.0
 var _yaw := 0.0
-var _pitch := 48.0 * PI / 180.0
+var _pitch := 62.0 * PI / 180.0
 var _drag_btn := -1
 var _drag_last := Vector2.ZERO
 
@@ -36,14 +36,23 @@ var _route_i := 0
 
 
 func _ready() -> void:
+	var t0 := Time.get_ticks_msec()
 	_load_data()
+	var t1 := Time.get_ticks_msec()
 	_build_terrain()
+	var t2 := Time.get_ticks_msec()
+	_build_batched_items()
+	var t3 := Time.get_ticks_msec()
 	_setup_cities()
+	var t4 := Time.get_ticks_msec()
 	_apply_label_font()
+	var t5 := Time.get_ticks_msec()
 	_cam = $Camera3D
 	_player = $Player
 	_set_player_pos(0)
 	_update_cam()
+	var t6 := Time.get_ticks_msec()
+	print("PERF load=", t1 - t0, " terrain=", t2 - t1, " batch=", t3 - t2, " cities=", t4 - t3, " fonts=", t5 - t4, " cam=", t6 - t5)
 	# UI
 	var back: Button = $UI/BackBtn
 	back.pressed.connect(func():
@@ -85,6 +94,7 @@ func _build_terrain() -> void:
 	var g: Array = hm["data"]
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var vi := 0
 	for j in range(nh - 1):
 		for i in range(nw - 1):
 			var v00 := _hmv(g, i, j, o, cell)
@@ -95,20 +105,23 @@ func _build_terrain() -> void:
 			var c10 := WorldItem3D.hm_color(v10.y)
 			var c01 := WorldItem3D.hm_color(v01.y)
 			var c11 := WorldItem3D.hm_color(v11.y)
-			# 两个三角形（对角分割）
+			# 索引化：4 顶点 + 6 索引（两个三角形）
+			var i00: int = vi
+			vi += 4
 			st.set_color(c00)
 			st.add_vertex(v00)
 			st.set_color(c10)
 			st.add_vertex(v10)
 			st.set_color(c01)
 			st.add_vertex(v01)
-			st.set_color(c01)
-			st.add_vertex(v01)
-			st.set_color(c10)
-			st.add_vertex(v10)
 			st.set_color(c11)
 			st.add_vertex(v11)
-	st.generate_normals()
+			st.add_index(i00)
+			st.add_index(i00 + 1)
+			st.add_index(i00 + 2)
+			st.add_index(i00 + 2)
+			st.add_index(i00 + 1)
+			st.add_index(i00 + 3)
 	var mesh := st.commit()
 	var mi := MeshInstance3D.new()
 	mi.mesh = mesh
@@ -117,6 +130,7 @@ func _build_terrain() -> void:
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	mat.roughness = 1.0
 	mi.material_override = mat
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	$Terrain.add_child(mi)
 
 
@@ -128,6 +142,80 @@ func _hmv(g: Array, i: int, j: int, o: Array, cell: float) -> Vector3:
 	var v := Vector3(x, h3, z)
 	v = v + Vector3(0, 0.05, 0)
 	return v
+
+
+# ── 道路/河流合批生成（运行时，编辑器内仍逐节点可见）─────
+func _build_batched_items() -> void:
+	var groups := [
+		["Rivers", Color(0.30, 0.56, 0.88), 0.45],
+		["Roads/Trunk", Color(0.78, 0.64, 0.40), 1.3],
+		["Roads/Branch", Color(0.66, 0.60, 0.50), 0.9],
+	]
+	for grp in groups:
+		var parent_name: String = grp[0]
+		var col: Color = grp[1]
+		var bed_w: float = grp[2]
+		var parent := get_node_or_null(parent_name)
+		if parent == null:
+			continue
+		var st := SurfaceTool.new()
+		st.begin(Mesh.PRIMITIVE_TRIANGLES)
+		var count := 0
+		for child in parent.get_children():
+			if not (child is Node3D) or not child.has_method("get"):
+				continue
+			var pts: Variant = child.get("pts2d")
+			if pts == null or (pts is PackedVector2Array and (pts as PackedVector2Array).size() < 2):
+				continue
+			var n2: int = (pts as PackedVector2Array).size()
+			var he := 0.9
+			if parent_name == "Roads/Trunk":
+				he = 1.6
+			elif parent_name == "Roads/Branch":
+				he = 0.7
+			var lw: float = float(child.get("line_w"))
+			var w2 := lw * 0.5
+			var aw := w2 + bed_w
+			var prev: Vector3 = Vector3.INF
+			var prev_dir := Vector3.ZERO
+			for k in range(n2):
+				var p2 := Vector2((pts as PackedVector2Array)[k].x, (pts as PackedVector2Array)[k].y)
+				var c := WorldItem3D.to3(p2) + Vector3(0, he, 0)
+				if k > 0:
+					var dir := (c - prev)
+					dir.y = 0.0
+					var side := dir.normalized().cross(Vector3.UP).normalized()
+					var a1 := prev + side * aw
+					var a2 := prev - side * aw
+					var b1 := c + side * aw
+					var b2 := c - side * aw
+					st.add_vertex(a1)
+					st.add_vertex(a2)
+					st.add_vertex(b2)
+					st.add_vertex(a1)
+					st.add_vertex(b2)
+					st.add_vertex(b1)
+					var a1b := a1 - Vector3(0, 0.6, 0)
+					var a2b := a2 - Vector3(0, 0.6, 0)
+					var b1b := b1 - Vector3(0, 0.6, 0)
+					var b2b := b2 - Vector3(0, 0.6, 0)
+					st.add_vertex(a1b)
+					st.add_vertex(b2b)
+					st.add_vertex(a2b)
+					st.add_vertex(a1b)
+					st.add_vertex(b1b)
+					st.add_vertex(b2b)
+					count += 1
+				prev = c
+		if count == 0:
+			continue
+		var mesh := st.commit()
+		var mi := MeshInstance3D.new()
+		mi.mesh = mesh
+		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		mi.material_override = WorldItem3D._mat_for(col)
+		mi.name = parent_name.replace("/", "_") + "_mesh"
+		parent.add_child(mi)
 
 
 # ── 城池：运行时碰撞体 + 城名 LOD ──────────────────────
@@ -157,6 +245,7 @@ func _apply_label_font() -> void:
 		var n: Node = stack.pop_back()
 		if n is Label3D:
 			(n as Label3D).font = f
+			(n as Label3D).font_size = _LABEL_FS
 		for c in n.get_children():
 			stack.append(c)
 
@@ -164,12 +253,12 @@ func _apply_label_font() -> void:
 ## 城名标签 LOD：按相机距离显示
 const _TARGET_CITY_PX := 20.0     # 城名目标屏幕像素（2K 物理）
 const _TARGET_PROV_PX := 26.0     # 国名目标屏幕像素
-const _LABEL_PIXEL_W := 0.005     # Label3D 默认 pixel_size
-const _FS_MIN := 40
-const _FS_MAX := 12000
+const _LABEL_FS := 300            # 固定字号（atlas 小、生成快）
+const _PS_MIN := 0.002
+const _PS_MAX := 0.5
 
 
-func _fs_for(dist: float, target_px: float) -> int:
+func _ps_for(dist: float, target_px: float) -> float:
 	var vh := 1440.0
 	if get_node_or_null("/root/DisplayAdapter") != null:
 		var da: Node = get_node("/root/DisplayAdapter")
@@ -178,8 +267,8 @@ func _fs_for(dist: float, target_px: float) -> int:
 	if _cam != null:
 		fov = _cam.fov
 	var k: float = 2.0 * tan(deg_to_rad(fov) / 2.0)
-	var fs: float = target_px * k * dist / (_LABEL_PIXEL_W * vh)
-	return clampi(int(fs), _FS_MIN, _FS_MAX)
+	var ps: float = target_px * k * dist / (_LABEL_FS * vh)
+	return clampf(ps, _PS_MIN, _PS_MAX)
 
 
 func _process_city_labels() -> void:
@@ -201,7 +290,9 @@ func _process_city_labels() -> void:
 		if lb.visible != show:
 			lb.visible = show
 		if show:
-			lb.font_size = _fs_for(d, _TARGET_CITY_PX)
+			var ps: float = _ps_for(d, _TARGET_CITY_PX)
+			if absf(lb.pixel_size - ps) > ps * 0.02:
+				lb.pixel_size = ps
 
 
 func _process_province_labels() -> void:
@@ -209,10 +300,17 @@ func _process_province_labels() -> void:
 	var provs := get_node_or_null("Provinces")
 	if provs == null:
 		return
+	var cam_far: bool = cam_pos.distance_to(_target) > 800.0
 	for lb in provs.get_children():
 		if lb is Label3D:
 			var d: float = (lb as Node3D).global_position.distance_to(cam_pos)
-			(lb as Label3D).font_size = _fs_for(d, _TARGET_PROV_PX)
+			var show := cam_far or d < 600.0
+			if (lb as Label3D).visible != show:
+				(lb as Label3D).visible = show
+			if show:
+				var ps: float = _ps_for(d, _TARGET_PROV_PX)
+				if absf((lb as Label3D).pixel_size - ps) > ps * 0.02:
+					(lb as Label3D).pixel_size = ps
 
 
 func _city_rank(cid: int) -> int:
