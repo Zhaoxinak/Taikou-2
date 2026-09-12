@@ -151,7 +151,7 @@ def house(parent, dx, dy, dz, big=False, thatch=True):
 
 def castle(parent, rank):
     if rank == 0:
-        # 石垣 + 四层 + 挑檐 + 攒尖 + 金 + 双旗 + 城下町10屋
+        # 石垣 + 四层 + 挑檐 + 攒尖 + 金 + 双旗
         MI(parent, "stone", "box_stone0", 0, 1.7, 0)
         for i, h0 in enumerate([3.4, 6.9, 10.2, 13.4]):
             MI(parent, "w%d" % i, "box_w%d" % (i + 1), 0, h0 + 1.7, 0)
@@ -162,9 +162,11 @@ def castle(parent, rank):
         MI(parent, "fpr", "box_flagp", 2.2, 20.4, 0)
         MI(parent, "fl", "box_flag", -2.2, 21.6, 0)
         MI(parent, "fr", "box_flag", 2.2, 21.6, 0)
-        for i in range(10):
-            a = math.tau * i / 10.0 + 0.3
-            house(parent, math.cos(a) * 14.0, 0, math.sin(a) * 9.8 - 2.5)
+        # 城下町：沿街两排（前街 5 间 + 后街 4 间，错落成街，不环绕）
+        for i, dx in enumerate([-12.0, -6.0, 0.0, 6.0, 12.0]):
+            house(parent, dx, 0, 5.2)
+        for i, dx in enumerate([-9.0, -3.0, 3.0, 9.0]):
+            house(parent, dx, 0, -4.6)
     elif rank == 1:
         MI(parent, "stone", "box_stone1", 0, 1.4, 0)
         for i, h0 in enumerate([3.1, 6.4, 9.6]):
@@ -174,9 +176,10 @@ def castle(parent, rank):
         MI(parent, "gold", "box_gold", 0, 14.4, 0)
         MI(parent, "fp", "box_flagp", 0, 16.0, 0)
         MI(parent, "f", "box_flag", 0, 17.0, 0)
-        for i in range(6):
-            a = math.tau * i / 6.0 + 0.5
-            house(parent, math.cos(a) * 10.5, 0, math.sin(a) * 7.0 - 2.0)
+        # 城下町：沿街三间 + 后一间
+        for i, dx in enumerate([-9.0, 0.0, 9.0]):
+            house(parent, dx, 0, 4.4)
+        house(parent, 0.0, 0, -4.0)
     else:
         MI(parent, "stone", "box_stone2", 0, 1.1, 0)
         for i, h0 in enumerate([2.5, 5.3]):
@@ -185,21 +188,26 @@ def castle(parent, rank):
         MI(parent, "cone", "cyl_cone_s", 0, 8.4, 0)
         MI(parent, "fp", "box_flagp", 0, 9.8, 0)
         MI(parent, "f", "box_flag", 0, 10.8, 0)
+        # 小城：天守两侧各一间町屋，干净利落
+        house(parent, -7.0, 0, 3.8)
+        house(parent, 7.0, 0, 3.8)
 
 def town(parent, rank):
-    if rank == 3:      # 大町：豪商大屋 + 8 町屋
+    if rank == 3:      # 大町：豪商大屋 + 街道两排（仿城下町但无天守）
         MI(parent, "bg", "box_bighouse", 0, 2.2, 0)
         MI(parent, "be", "box_e2", 0, 4.8, 0)
         MI(parent, "bd", "box_door", 0, 1.7, 4.6)
-        for i in range(8):
-            a = math.tau * i / 8.0 + 0.35
-            house(parent, math.cos(a) * 9.8, 0, math.sin(a) * 7.0 - 1.5)
-    elif rank == 4:    # 小镇：4 町屋
+        for i, dx in enumerate([-10.0, -5.0, 0.0, 5.0, 10.0]):
+            house(parent, dx, 0, 4.8)
+        for i, dx in enumerate([-7.5, -2.5, 2.5, 7.5]):
+            house(parent, dx, 0, -4.2)
+    elif rank == 4:    # 小镇：沿路 4 间
         for i, (dx, dz) in enumerate([(-3.6, 3.1), (3.9, 3.4), (-2.2, -2.2), (3.6, -1.7)]):
             house(parent, dx, 0, dz, big=(i == 0))
-    else:              # 村庄：2 茅屋
-        house(parent, -2.5, 0, 1.7, big=False)
-        house(parent, 3.1, 0, 1.1, big=False)
+    else:              # 村庄：3 茅屋散落（保持独立干净）
+        house(parent, -3.0, 0, 1.9, big=False)
+        house(parent, 2.6, 0, 1.4, big=False)
+        house(parent, -0.4, 0, -2.2, big=False)
 
 # ---------- 主流程 ----------
 out = []
