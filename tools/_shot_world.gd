@@ -12,14 +12,20 @@ func _init() -> void:
 	await process_frame
 	await process_frame
 	await process_frame
-	root.size = Vector2(1500, 1400)
+	root.size = Vector2(1600, 1500)
 	await process_frame
 	var cam = w.get_node("Camera2D")
-	cam.zoom = Vector2(1.05, 1.05)
-	cam.position = Vector2(723, 660)
+	cam.zoom = Vector2(2.4, 2.4)
+	cam.position = Vector2(1125, 1259)  # 二条（京都）
 	await process_frame
 	await process_frame
 	var img = root.get_viewport().get_texture().get_image()
-	var ok = img.save_png("F:/Games/Taikou 2/tmp_world_preview.png")
-	print("saved=", ok)
+	var ok = img.save_png("F:/Games/Taikou 2/tmp_world_zoom1.png")
+	print("saved1=", ok)
+	cam.position = Vector2(1666, 1181)  # 富士山
+	await process_frame
+	await process_frame
+	var img2 = root.get_viewport().get_texture().get_image()
+	var ok2 = img2.save_png("F:/Games/Taikou 2/tmp_world_zoom2.png")
+	print("saved2=", ok2)
 	quit(0)

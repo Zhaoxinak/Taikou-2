@@ -24,9 +24,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # ── 投影参数 ──────────────────────────────────────────────
 LAT_MIN, LAT_MAX = 31.6, 40.61
 LNG_MIN, LNG_MAX = 129.55, 141.49
-PX_LNG, PX_LAT = 121.0, 150.0
-MAP_W = int((LNG_MAX - LNG_MIN) * PX_LNG) + 2          # 1454
-MAP_H = int((LAT_MAX - LAT_MIN) * PX_LAT) + 2          # 1354
+# ×1.5 放大：拉开城市间距，避免密集（此前 121/150 导致近畿/东北城挤成一团）
+PX_LNG, PX_LAT = 181.5, 225.0
+MAP_W = int((LNG_MAX - LNG_MIN) * PX_LNG) + 2          # 2179
+MAP_H = int((LAT_MAX - LAT_MIN) * PX_LAT) + 2          # 2031
 
 def proj(lat: float, lng: float):
     return (round((lng - LNG_MIN) * PX_LNG, 1), round((LAT_MAX - lat) * PX_LAT, 1))
@@ -39,18 +40,43 @@ geo = json.load(open(os.path.join(ROOT, "scripts/castle_geo.json"), encoding="ut
 castles = json.load(open(os.path.join(ROOT, "data/castles.json"), encoding="utf-8"))["castles"]
 names = json.load(open(os.path.join(ROOT, "data/names.json"), encoding="utf-8"))
 
+# 大名居城 / 战国历史名城（rank 0 大城，立体大天守）
+GREAT_CITIES = {
+    # 东北
+    "弘前", "米泽", "山形", "黑川",
+    # 关东
+    "江户", "小田原", "河越", "宇都宫",
+    # 甲信越
+    "踯躅崎", "春日山", "小诸",
+    # 东海
+    "骏府", "滨松", "清洲", "那古野", "稻叶山", "冈崎",
+    # 北陆
+    "七尾", "金泽", "一乘谷", "北之庄",
+    # 近畿
+    "二条", "本愿寺/大阪", "安土", "姬路",
+    # 中国
+    "鸟取", "月山富田", "冈山", "吉田郡山", "山口",
+    # 四国
+    "汤筑", "胜瑞",
+    # 九州
+    "府内", "柳川", "佐嘉", "鹿儿岛",
+}
+
 cities = []
 for c in castles:
     cid = int(c["id"])
     lat, lng = geo[str(cid)]
     x, y = proj(lat, lng)
     ctype = "castle" if (int(c["castle_type"]) >> 8) == 0x05 else "town"
+    # 大名居城/历史名城（含江户/大阪/京都等原版町类型城市）→ rank0 大城市
+    rank = 0 if c["name"] in GREAT_CITIES else (1 if ctype == "castle" else 2)
     cities.append({
         "id": cid, "name": c["name"], "province": int(c["province"]),
-        "lat": lat, "lng": lng, "x": x, "y": y, "type": ctype,
+        "lat": lat, "lng": lng, "x": x, "y": y, "type": ctype, "rank": rank,
     })
 print("cities:", len(cities), "| castle:", sum(1 for c in cities if c["type"] == "castle"),
-      "| town:", sum(1 for c in cities if c["type"] == "town"))
+      "| town:", sum(1 for c in cities if c["type"] == "town"),
+      "| rank0:", sum(1 for c in cities if c["rank"] == 0))
 
 # ── 2. 国：名称 + 中心（国内城坐标均值）──
 province_names = names["province_names"]
@@ -204,14 +230,14 @@ ROADS = {
 roads = [{"name": k, "kind": "trunk", "points": proj_pts(v)} for k, v in ROADS.items()]
 
 # 支线：跨省最近城连接（道路网）+ 最小生成树补边（保证全连通）
-# 道路图 = 每城→最近 2 个跨省城（限长 380px）+ 全图 MST 补边（全连通）
+# 道路图 = 每城→最近 2 个跨省城（限长 570px，随投影放大）×1.5 + 全图 MST 补边（全连通）
 neigh = []
 for c in cities:
     others = [o for o in cities if o["province"] != c["province"]]
     others.sort(key=lambda o: (o["x"] - c["x"]) ** 2 + (o["y"] - c["y"]) ** 2)
     for o in others[:2]:
         d2 = (o["x"] - c["x"]) ** 2 + (o["y"] - c["y"]) ** 2
-        if d2 > 380 ** 2:
+        if d2 > 570 ** 2:
             continue
         neigh.append((c["id"], o["id"], math.sqrt(d2)))
 

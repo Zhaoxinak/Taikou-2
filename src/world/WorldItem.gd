@@ -190,9 +190,9 @@ func _inset(pts: PackedVector2Array, c: Vector2, t: float) -> PackedVector2Array
 func _draw_river() -> void:
 	if points.size() < 2:
 		return
-	draw_polyline(points, Color(0.85, 0.92, 0.98, 0.9), 5.5, true)   # 岸/光
-	draw_polyline(points, C_RIVER, 3.4, true)
-	draw_polyline(points, C_RIVER_LIT, 1.2, true)
+	draw_polyline(points, Color(0.85, 0.92, 0.98, 0.9), 8.0, true)   # 岸/光
+	draw_polyline(points, C_RIVER, 5.0, true)
+	draw_polyline(points, C_RIVER_LIT, 2.0, true)
 
 
 # ── 山系：多层立体山脊（宽体凸起 + 投影）─────────────────
@@ -202,102 +202,226 @@ func _draw_ridge() -> void:
 	# 投影
 	var sh := PackedVector2Array()
 	for p in points:
-		sh.append(p + Vector2(2, 3))
-	draw_polyline(sh, Color(0, 0, 0, 0.25), 9.0, true)
+		sh.append(p + Vector2(3, 4))
+	draw_polyline(sh, Color(0, 0, 0, 0.25), 14.0, true)
 	# 深色宽底 + 中色 + 亮色高光，末端圆收
-	draw_polyline(points, C_MOUNT_DARK, 9.0, true)
-	draw_polyline(points, C_MOUNT_MID, 5.5, true)
-	draw_polyline(points, C_MOUNT_LIT, 2.0, true)
+	draw_polyline(points, C_MOUNT_DARK, 14.0, true)
+	draw_polyline(points, C_MOUNT_MID, 8.5, true)
+	draw_polyline(points, C_MOUNT_LIT, 3.0, true)
 	# 山脊两端的"山头"（圆点）
 	for p in [points[0], points[points.size() - 1]]:
-		draw_circle(p, 4.5, C_MOUNT_DARK)
-		draw_circle(p, 2.2, C_MOUNT_LIT)
+		draw_circle(p, 6.0, C_MOUNT_DARK)
+		draw_circle(p, 3.0, C_MOUNT_LIT)
 
 
-# ── 山峰：锥体立体山（底座等高线 + 明暗面 + 雪顶）────────
+# ── 山峰：按类型分型的立体山（富士/火山/雪峰/高山/低山）────
 func _draw_peak() -> void:
 	if points.is_empty():
 		return
 	var p := points[0]
 	var h := float(extra.get("h", 0))
-	var sz := clampf(16.0 + h / 150.0, 16.0, 40.0)
-	# 底部阴影
-	draw_ellipse_shadow(p + Vector2(4, 6), sz * 1.15)
-	# 底座等高线（2 圈，山势）
-	draw_ellipse_ring(p + Vector2(0, 4), sz * 1.0, Color(0.30, 0.44, 0.24, 0.5))
-	draw_ellipse_ring(p + Vector2(0, 4), sz * 0.72, Color(0.38, 0.52, 0.28, 0.6))
-	# 主体锥体：左亮右暗
-	var top := p + Vector2(0, -sz)
-	var base_l := p + Vector2(-sz, 4)
-	var base_r := p + Vector2(sz, 4)
-	draw_colored_polygon(PackedVector2Array([top, base_l, p + Vector2(0, 4)]), C_PEAK_LIT)
-	draw_colored_polygon(PackedVector2Array([top, p + Vector2(0, 4), base_r]), C_PEAK_SHADE)
-	# 雪顶（富士山式：山顶下沿自然分界）
-	var snow_w := sz * 0.36
-	var snow_h := sz * 0.36
-	draw_colored_polygon(PackedVector2Array([
-		top, top + Vector2(snow_w, snow_h), top + Vector2(-snow_w, snow_h)]), C_SNOW)
-	# 山体轮廓描边
-	draw_line(base_l, top, C_PEAK_SHADE.darkened(0.35), 1.2)
-	draw_line(top, base_r, C_PEAK_SHADE.darkened(0.35), 1.2)
+	var nm := str(extra.get("name", label))
+	var sz := clampf(20.0 + h / 110.0, 20.0, 58.0)
+	# 底部阴影 + 底座等高线
+	draw_ellipse_shadow(p + Vector2(4, 6), sz * 1.2)
+	draw_ellipse_ring(p + Vector2(0, 4), sz * 1.05, Color(0.30, 0.44, 0.24, 0.5))
+	draw_ellipse_ring(p + Vector2(0, 4), sz * 0.75, Color(0.38, 0.52, 0.28, 0.6))
+	if nm == "富士山":
+		_draw_peak_fuji(p, sz)
+	elif nm in ["阿苏山", "樱岛", "浅间山", "开闻岳"]:
+		_draw_peak_volcano(p, sz)
+	elif h >= 2500.0:
+		_draw_peak_cone(p, sz, 0.36)
+	elif h >= 1500.0:
+		_draw_peak_cone(p, sz, 0.18)
+	else:
+		_draw_peak_dome(p, sz)
 	if not label.is_empty() and show_label:
 		var f := _font
 		if f != null:
 			var txt := label if h <= 0 else "%s %dm" % [label, int(h)]
 			var fs := 12
 			var tw := f.get_string_size(txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
-			draw_string(f, Vector2(p.x - tw * 0.5, p.y - sz - 6 + UiTheme.baseline_y(txt, fs, fs)),
+			draw_string(f, Vector2(p.x - tw * 0.5, p.y - sz - 8 + UiTheme.baseline_y(txt, fs, fs)),
 				txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, C_TEXT_DIM)
+
+
+## 富士山：宽缓大锥 + 大范围雪顶 + 火山口
+func _draw_peak_fuji(p: Vector2, sz: float) -> void:
+	var top := p + Vector2(0, -sz)
+	var base_l := p + Vector2(-sz * 1.35, 5)
+	var base_r := p + Vector2(sz * 1.35, 5)
+	draw_colored_polygon(PackedVector2Array([top, base_l, p + Vector2(0, 5)]), C_PEAK_LIT)
+	draw_colored_polygon(PackedVector2Array([top, p + Vector2(0, 5), base_r]), C_PEAK_SHADE)
+	# 大雪顶（约占上部 40%）
+	var sw := sz * 0.52
+	var sh := sz * 0.42
+	draw_colored_polygon(PackedVector2Array([
+		top, top + Vector2(sw, sh), top + Vector2(-sw, sh)]), C_SNOW)
+	# 火山口
+	draw_ellipse_ring(top + Vector2(0, sz * 0.10), sz * 0.13, Color(0.6, 0.42, 0.24, 0.8))
+	draw_line(base_l, top, C_PEAK_SHADE.darkened(0.35), 1.4)
+	draw_line(top, base_r, C_PEAK_SHADE.darkened(0.35), 1.4)
+
+
+## 火山：平顶锥 + 火口（红褐火口）
+func _draw_peak_volcano(p: Vector2, sz: float) -> void:
+	var top := p + Vector2(0, -sz * 0.86)
+	var base_l := p + Vector2(-sz, 5)
+	var base_r := p + Vector2(sz, 5)
+	var col_l := Color(0.58, 0.42, 0.30, 1)
+	var col_r := Color(0.42, 0.30, 0.22, 1)
+	draw_colored_polygon(PackedVector2Array([top, base_l, p + Vector2(0, 5)]), col_l)
+	draw_colored_polygon(PackedVector2Array([top, p + Vector2(0, 5), base_r]), col_r)
+	# 平顶 + 火口（暗红内凹）
+	draw_rect(Rect2(top + Vector2(-sz * 0.22, 0), Vector2(sz * 0.44, sz * 0.14)), col_r.darkened(0.2))
+	draw_rect(Rect2(top + Vector2(-sz * 0.12, sz * 0.02), Vector2(sz * 0.24, sz * 0.10)), Color(0.7, 0.3, 0.16, 0.9))
+	# 山体裂线
+	draw_line(p + Vector2(-sz * 0.3, 2), p + Vector2(-sz * 0.18, sz * 0.4), Color(0.3, 0.22, 0.16, 0.6), 1.2)
+
+
+## 雪峰 / 高山：标准锥体，雪顶比例不同
+func _draw_peak_cone(p: Vector2, sz: float, snow_ratio: float) -> void:
+	var top := p + Vector2(0, -sz)
+	var base_l := p + Vector2(-sz, 5)
+	var base_r := p + Vector2(sz, 5)
+	draw_colored_polygon(PackedVector2Array([top, base_l, p + Vector2(0, 5)]), C_PEAK_LIT)
+	draw_colored_polygon(PackedVector2Array([top, p + Vector2(0, 5), base_r]), C_PEAK_SHADE)
+	var sw := sz * 0.40
+	var sh := sz * snow_ratio
+	draw_colored_polygon(PackedVector2Array([
+		top, top + Vector2(sw, sh), top + Vector2(-sw, sh)]), C_SNOW)
+	draw_line(base_l, top, C_PEAK_SHADE.darkened(0.35), 1.3)
+	draw_line(top, base_r, C_PEAK_SHADE.darkened(0.35), 1.3)
+
+
+## 低山：圆顶小山丘（弧线顶）
+func _draw_peak_dome(p: Vector2, sz: float) -> void:
+	var base_l := p + Vector2(-sz * 0.9, 4)
+	var base_r := p + Vector2(sz * 0.9, 4)
+	var top := p + Vector2(0, -sz * 0.85)
+	var pts := PackedVector2Array()
+	var n := 12
+	for i in range(n + 1):
+		var t := float(i) / float(n)
+		var a := lerpf(0.0, PI, t)
+		pts.append(Vector2(lerpf(base_l.x, base_r.x, t), top.y + sin(a) * sz * 0.85))
+	draw_colored_polygon(pts, C_PEAK_LIT)
+	draw_colored_polygon(PackedVector2Array([
+		base_r, base_l, top + Vector2(0, sz * 0.85)]), C_PEAK_SHADE)
+	draw_polyline(pts, C_PEAK_SHADE.darkened(0.3), 1.3, true)
 
 
 # ── 道路：厚路面（深色底 + 亮色路面）───────────────────────
 func _draw_road(w_bed: float, w_face: float, bed: Color, face: Color, _pad: int) -> void:
 	if points.size() < 2:
 		return
+	draw_polyline(points, Color(0, 0, 0, 0.20), w_bed + 1.5, true)
 	draw_polyline(points, bed, w_bed, true)
 	draw_polyline(points, face, w_face, true)
 
 
-# ── 城：立体城堡（石基 + 塔楼 + 瓦顶 + 旗）────────────────
+# ── 城：按 rank 立体城堡（rank0 大名居城三层天守 / rank1 普通城二层）──
 func _draw_city() -> void:
 	if points.is_empty():
 		return
 	var p := points[0]
-	# 投影
-	draw_ellipse_shadow(p + Vector2(3, 4), 16.0)
-	# 石台
+	var rank := int(extra.get("rank", 1))
+	if rank <= 0:
+		_draw_castle_big(p)
+	elif rank == 1:
+		_draw_castle_mid(p)
+	else:
+		_draw_house(p, float(extra.get("seed", 0)), 10.0)
+	if not label.is_empty() and show_label:
+		_draw_label(p + Vector2(0, 16), label, 20, C_TEXT, true)
+
+
+## 大名居城/大城市：石垣 + 三层天守 + 大门 + 双旗 + 城下町
+func _draw_castle_big(p: Vector2) -> void:
+	draw_ellipse_shadow(p + Vector2(4, 6), 24.0)
+	# 城下町（绕城小屋群）
+	for i in range(6):
+		var a := TAU * float(i) / 6.0 + 0.5
+		var hp := p + Vector2(cos(a) * 30.0, sin(a) * 22.0 + 10.0)
+		_draw_house(hp, float(i * 11 + 3), 4.5)
+	# 石垣（宽台）
 	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-13, 6), p + Vector2(13, 6), p + Vector2(13, 0), p + Vector2(-13, 0)]), C_CASTLE_STONE)
-	# 塔楼（两层收窄）
+		p + Vector2(-18, 8), p + Vector2(18, 8), p + Vector2(16, 0), p + Vector2(-16, 0)]), C_CASTLE_STONE)
+	draw_line(p + Vector2(-16, 0), p + Vector2(16, 0), C_CASTLE_DARK.darkened(0.3), 1.4)
+	# 三层天守（每层收窄）
+	draw_colored_polygon(PackedVector2Array([
+		p + Vector2(-12, 0), p + Vector2(12, 0), p + Vector2(9, -8), p + Vector2(-9, -8)]), C_CASTLE_DARK)
+	draw_colored_polygon(PackedVector2Array([
+		p + Vector2(-9, -8), p + Vector2(9, -8), p + Vector2(7, -16), p + Vector2(-7, -16)]), C_CASTLE_STONE)
+	draw_colored_polygon(PackedVector2Array([
+		p + Vector2(-6.5, -16), p + Vector2(6.5, -16), p + Vector2(4.8, -24), p + Vector2(-4.8, -24)]), C_CASTLE_DARK)
+	# 三层瓦顶
+	draw_colored_polygon(PackedVector2Array([
+		p + Vector2(-10, -8), p + Vector2(10, -8), p + Vector2(0, -13)]), C_ROOF)
+	draw_colored_polygon(PackedVector2Array([
+		p + Vector2(-7.5, -16), p + Vector2(7.5, -16), p + Vector2(0, -21)]), C_ROOF)
+	draw_colored_polygon(PackedVector2Array([
+		p + Vector2(-5.5, -24), p + Vector2(5.5, -24), p + Vector2(0, -29)]), C_ROOF)
+	# 大门 + 围墙
+	draw_rect(Rect2(p + Vector2(-3.5, 1), Vector2(7, 6)), Color(0.35, 0.25, 0.18, 1))
+	draw_line(p + Vector2(-16, 0), p + Vector2(-16, 6), C_CASTLE_DARK, 1.6)
+	draw_line(p + Vector2(16, 0), p + Vector2(16, 6), C_CASTLE_DARK, 1.6)
+	# 双旗
+	for dx in [-4.0, 4.0]:
+		draw_line(p + Vector2(dx, -29), p + Vector2(dx, -36), Color(0.2, 0.16, 0.12, 1), 1.2)
+		draw_colored_polygon(PackedVector2Array([
+			p + Vector2(dx, -36), p + Vector2(dx + 8, -33.5), p + Vector2(dx, -31)]),
+			Color(0.85, 0.3, 0.25, 1))
+
+
+## 普通城：石垣 + 二层天守 + 单旗
+func _draw_castle_mid(p: Vector2) -> void:
+	draw_ellipse_shadow(p + Vector2(3, 5), 14.0)
+	draw_colored_polygon(PackedVector2Array([
+		p + Vector2(-13, 6), p + Vector2(13, 6), p + Vector2(12, 0), p + Vector2(-12, 0)]), C_CASTLE_STONE)
 	draw_colored_polygon(PackedVector2Array([
 		p + Vector2(-9, 0), p + Vector2(9, 0), p + Vector2(7, -9), p + Vector2(-7, -9)]), C_CASTLE_DARK)
 	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-6, -9), p + Vector2(6, -9), p + Vector2(4.5, -16), p + Vector2(-4.5, -16)]), C_CASTLE_STONE)
-	# 瓦顶（深蓝灰）
+		p + Vector2(-6, -9), p + Vector2(6, -9), p + Vector2(4.5, -17), p + Vector2(-4.5, -17)]), C_CASTLE_STONE)
 	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-6.5, -16), p + Vector2(6.5, -16), p + Vector2(0, -23)]), C_ROOF)
-	# 天守旗
-	draw_line(p + Vector2(0, -23), p + Vector2(0, -30), Color(0.2, 0.16, 0.12, 1), 1.2)
+		p + Vector2(-7.5, -9), p + Vector2(7.5, -9), p + Vector2(0, -14)]), C_ROOF)
 	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(0, -30), p + Vector2(7, -27.5), p + Vector2(0, -25)]), Color(0.85, 0.3, 0.25, 1))
-	if not label.is_empty() and show_label:
-		_draw_label(p + Vector2(0, 12), label, 20, C_TEXT, true)
+		p + Vector2(-5.5, -17), p + Vector2(5.5, -17), p + Vector2(0, -22)]), C_ROOF)
+	draw_line(p + Vector2(0, -22), p + Vector2(0, -28), Color(0.2, 0.16, 0.12, 1), 1.2)
+	draw_colored_polygon(PackedVector2Array([
+		p + Vector2(0, -28), p + Vector2(7, -25.5), p + Vector2(0, -23)]), Color(0.85, 0.3, 0.25, 1))
 
 
-# ── 町：小屋（墙 + 三角顶 + 烟囱）────────────────────────
+# ── 町：差异化小屋（屋顶颜色按 seed 变化）────────────────
 func _draw_town() -> void:
 	if points.is_empty():
 		return
 	var p := points[0]
-	draw_ellipse_shadow(p + Vector2(2, 3), 9.0)
+	var seed := float(extra.get("seed", 0))
+	_draw_house(p, seed, 7.0)
+	if not label.is_empty() and show_label:
+		_draw_label(p + Vector2(0, 12), label, 15, C_TEXT_DIM, true)
+
+
+## 小屋：墙 + 三角顶（屋顶色 4 选 1）+ 小院
+func _draw_house(p: Vector2, seed: float, base: float) -> void:
+	draw_ellipse_shadow(p + Vector2(2, 3), base + 2.0)
+	var roof_col := C_HOUSE_ROOF
+	var r := int(seed) % 4
+	match r:
+		0: roof_col = Color(0.55, 0.38, 0.22, 1)   # 茅草棕
+		1: roof_col = Color(0.42, 0.30, 0.30, 1)   # 深赤
+		2: roof_col = Color(0.36, 0.42, 0.52, 1)   # 蓝灰瓦
+		3: roof_col = Color(0.52, 0.56, 0.38, 1)   # 灰绿
+	# 院墙
+	draw_rect(Rect2(p + Vector2(-base - 4, -2), Vector2((base + 4) * 2, 7)), Color(0.72, 0.66, 0.52, 0.55))
 	# 屋身
 	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-7, 4), p + Vector2(7, 4), p + Vector2(7, -3), p + Vector2(-7, -3)]), C_HOUSE_WALL)
+		p + Vector2(-base, 4), p + Vector2(base, 4), p + Vector2(base, -3), p + Vector2(-base, -3)]), C_HOUSE_WALL)
 	# 屋顶
 	draw_colored_polygon(PackedVector2Array([
-		p + Vector2(-9, -3), p + Vector2(9, -3), p + Vector2(0, -10)]), C_HOUSE_ROOF)
-	if not label.is_empty() and show_label:
-		_draw_label(p + Vector2(0, 10), label, 15, C_TEXT_DIM, true)
+		p + Vector2(-base - 2.5, -3), p + Vector2(base + 2.5, -3), p + Vector2(0, -base - 6)]), roof_col)
 
 
 # ── 景点：按类型小图标 ────────────────────────────────────

@@ -40,11 +40,12 @@ func _init() -> void:
 	check(w.get_node_or_null("World/Sights").get_child_count() == 32, "景点 item 32 (got %d)" % w.get_node_or_null("World/Sights").get_child_count())
 	check(w.get_node_or_null("World/Provinces").get_child_count() == 49, "国名 item 49 (got %d)" % w.get_node_or_null("World/Provinces").get_child_count())
 
-	# —— 玩家初始化（未开局 → 三户 id0）——
+	# —— 玩家初始化（未开局 → 三户 id0，坐标随投影放大动态断言）——
 	var player = w.get_node_or_null("World/Player")
 	check(player != null, "玩家节点存在")
 	var p0: Vector2 = player.points[0] if player != null and player.points.size() > 0 else Vector2.ZERO
-	check(p0.distance_to(Vector2(1433.8, 19.5)) < 5.0, "玩家初始在三户 (%s)" % p0)
+	var home: Vector2 = w._city_pos(0)
+	check(p0.distance_to(home) < 5.0, "玩家初始在主角城(三户) (%s ≈ %s)" % [p0, home])
 
 	# —— 寻路：三户(0) → 八户(1)（相邻）——
 	w._goto_city(1)

@@ -141,7 +141,10 @@ for c in d["cities"]:
     A('kind = "%s"' % c["type"])
     A('label = "%s"' % c["name"])
     A('points = PackedVector2Array(%.1f, %.1f)' % (c["x"], c["y"]))
-    A('extra = {"id": %d, "province": %d}' % (c["id"], c["province"]))
+    if c["type"] == "town":
+        A('extra = {"id": %d, "province": %d, "rank": %d, "seed": %d}' % (c["id"], c["province"], c["rank"], c["id"] * 7 + 13))
+    else:
+        A('extra = {"id": %d, "province": %d, "rank": %d}' % (c["id"], c["province"], c["rank"]))
     A('')
 # 景点
 A('[node name="Sights" type="Node2D" parent="World"]')

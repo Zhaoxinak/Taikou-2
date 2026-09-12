@@ -5,8 +5,8 @@ extends Node2D
 
 const UiTheme = preload("res://src/ui/UiTheme.gd")
 
-const _SPEED := 160.0          # 移动速度 px/s（设计空间）
-const _CLICK_R := 22.0         # 城点击半径
+const _SPEED := 260.0          # 移动速度 px/s（设计空间，地图 ×1.5 后同步提速）
+const _CLICK_R := 26.0         # 城点击半径
 const _ZOOM_MIN := 0.55
 const _ZOOM_MAX := 3.2
 
@@ -63,6 +63,14 @@ func _ready() -> void:
 	_player.queue_redraw()
 	_update_info("", start_id)
 	_refresh_hint()
+	# 初始视角：适配全图（不超出缩放范围）
+	var vp := get_viewport().get_visible_rect().size
+	if vp.x > 0.0 and vp.y > 0.0 and _map_data.has("meta"):
+		var m: Dictionary = _map_data["meta"]
+		var z := minf(vp.x / float(m["map_w"]), vp.y / float(m["map_h"]))
+		z = clampf(z, _ZOOM_MIN, 1.0)
+		_camera.zoom = Vector2(z, z)
+	_camera.position = _map_center()
 
 
 func _load_map_data() -> Dictionary:
@@ -232,28 +240,44 @@ func _process(delta: float) -> void:
 		# 朝向 = 移动方向
 		_player.extra["facing"] = (_seg_to - _seg_from).angle()
 		_player.queue_redraw()
-	# 缩放分级显示（LOD）：避免全景下文字爆炸
+	# 缩放分级显示（LOD）：避免全景下文字爆炸（地图放大后阈值上移）
 	if _camera == null:
 		return
 	var z := _camera.zoom.x
 	var lod := 0
-	if z >= 0.9:
+	if z >= 1.2:
 		lod = 1
-	if z >= 1.5:
+	if z >= 2.0:
 		lod = 2
 	if lod != _lod:
 		_lod = lod
 		_apply_lod(lod)
 
 
-## 按缩放级控制文字标签：0 全景（国名+城名）、1 中（+町名/山名/景点）、2 近（+干道名）
+## 按缩放级控制文字标签：0 全景（国名+大城名）、1 中（+中城名/山名/景点）、2 近（+村名/干道名）
 func _apply_lod(lod: int) -> void:
 	_set_labels("World/Provinces", lod >= 0)
-	_set_labels("World/Cities", lod >= 0, "city")
-	_set_labels("World/Cities", lod >= 1, "town")
+	_set_labels_rank("World/Cities", lod >= 0, 0)
+	_set_labels_rank("World/Cities", lod >= 1, 1)
+	_set_labels_rank("World/Cities", lod >= 2, 2)
 	_set_labels("World/Mountains/Peaks", lod >= 1)
 	_set_labels("World/Sights", lod >= 1)
 	_set_labels("World/Roads/Trunk", lod >= 2)
+
+
+func _set_labels_rank(group_path: String, on: bool, rank: int) -> void:
+	var group := get_node_or_null(group_path)
+	if group == null:
+		return
+	for ch in group.get_children():
+		if not ch is Node2D:
+			continue
+		var ex: Dictionary = ch.get("extra")
+		if int(ex.get("rank", 1)) != rank:
+			continue
+		if ch.get("show_label") != on:
+			ch.set("show_label", on)
+			ch.queue_redraw()
 
 
 func _set_labels(group_path: String, on: bool, only_kind: String = "") -> void:
@@ -281,6 +305,13 @@ func _update_info(cur_name: String, cid: int) -> void:
 	if _cities.has(cid):
 		line += "　（%s）" % _province_name(int(_cities[cid]["province"]))
 	_info_label.text = line
+
+
+func _map_center() -> Vector2:
+	if _map_data.has("meta"):
+		var m: Dictionary = _map_data["meta"]
+		return Vector2(float(m["map_w"]) * 0.5, float(m["map_h"]) * 0.5)
+	return Vector2(700, 660)
 
 
 func _province_name(pid: int) -> String:
