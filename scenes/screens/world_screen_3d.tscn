@@ -2211,6 +2211,31 @@ script = ExtResource("2_item")
 kind = "road_branch"
 pts2d = PackedVector2Array(671.5, 3276.0, 702.2, 3253.2, 747.8, 3316.5)
 line_w = 0.6
+[node name="B385_长光寺-日野" type="Node3D" parent="Roads/Branch"]
+script = ExtResource("2_item")
+kind = "road_branch"
+pts2d = PackedVector2Array(2435.1, 2478.2, 2451.8, 2516.8)
+line_w = 0.6
+[node name="B386_小牧山-守山" type="Node3D" parent="Roads/Branch"]
+script = ExtResource("2_item")
+kind = "road_branch"
+pts2d = PackedVector2Array(2684.9, 2390.7, 2700.7, 2429.7)
+line_w = 0.6
+[node name="B387_长筱-野田" type="Node3D" parent="Roads/Branch"]
+script = ExtResource("2_item")
+kind = "road_branch"
+pts2d = PackedVector2Array(2915.2, 2559.4, 2874.6, 2570.6)
+line_w = 0.6
+[node name="B388_观音寺-日野" type="Node3D" parent="Roads/Branch"]
+script = ExtResource("2_item")
+kind = "road_branch"
+pts2d = PackedVector2Array(2409.2, 2515.5, 2451.8, 2516.8)
+line_w = 0.6
+[node name="B389_冈丰-浦户" type="Node3D" parent="Roads/Branch"]
+script = ExtResource("2_item")
+kind = "road_branch"
+pts2d = PackedVector2Array(1481.0, 3163.5, 1452.0, 3199.5)
+line_w = 0.6
 
 [node name="Cities" type="Node3D" parent="."]
 [node name="C0_三户" type="Node3D" parent="Cities"]
