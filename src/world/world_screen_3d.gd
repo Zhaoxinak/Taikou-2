@@ -37,7 +37,6 @@ var _player: Node3D = null
 var _moving := false
 var _route: Array[Vector3] = []
 var _route_i := 0
-var _key_dir := Vector2.ZERO   # 键盘自由行走方向（WASD / 方向键）
 
 
 func _ready() -> void:
@@ -54,8 +53,9 @@ func _ready() -> void:
 	var t5 := Time.get_ticks_msec()
 	_cam = $Camera3D
 	_player = $Player
-	_set_player_pos(0)
-	# 初始聚焦玩家：相机中心对准主角（东北三户）
+	# 出生城 = 所选主角的居城（GameState 主角 officer 的 city 字段）
+	_set_player_pos(_home_city_id())
+	# 初始聚焦玩家：相机中心对准主角
 	var p0 := _player.global_position
 	_target = Vector3(p0.x, 0.0, p0.z)
 	_update_cam()
@@ -363,25 +363,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif _drag_btn == MOUSE_BUTTON_MIDDLE:
 			_pan_camera(mm.relative)
 		_drag_last = mm.position
-	elif event is InputEventKey and event.pressed and not event.echo:
-		# WASD / 方向键自由行走（松开即停；与点击寻路互斥）
-		match event.keycode:
-			KEY_W, KEY_UP:
-				_key_dir.y = -1.0
-			KEY_S, KEY_DOWN:
-				_key_dir.y = 1.0
-			KEY_A, KEY_LEFT:
-				_key_dir.x = -1.0
-			KEY_D, KEY_RIGHT:
-				_key_dir.x = 1.0
-		if _key_dir != Vector2.ZERO:
-			_moving = false
-	elif event is InputEventKey and not event.pressed and not event.echo:
-		match event.keycode:
-			KEY_W, KEY_S, KEY_UP, KEY_DOWN:
-				_key_dir.y = 0.0
-			KEY_A, KEY_D, KEY_LEFT, KEY_RIGHT:
-				_key_dir.x = 0.0
 
 
 func _pan_camera(rel: Vector2) -> void:
@@ -424,18 +405,16 @@ func _pick_city(sp: Vector2) -> void:
 	if best_id >= 0:
 		_start_move(best_id)
 	else:
-		# 点击地面：主角直线走过去（自由行走）
-		_start_move_to(hit)
+		# 点击地面：吸附到最近城/镇，沿道路网走过去（走路必须沿路径）
+		var near := _nearest_city(hit)
+		if near >= 0:
+			_start_move(near)
 
 
 # ── 寻路 + 移动 ───────────────────────────────────────
-## 点击地面任意处：直线走向目标点
-func _start_move_to(p: Vector3) -> void:
-	_route = [Vector3(p.x, 1.0, p.z)]
-	_route_i = 0
-	_moving = true
+## 从玩家最近城出发，沿道路网寻路到目标城
 func _start_move(target_id: int) -> void:
-	var start := 0  # 玩家当前城 id（简化：从初始城开始；后续可加"最近城"）
+	var start := _nearest_city(_player.global_position)
 	var path := _find_path(start, target_id)
 	if path.size() < 2:
 		return
@@ -447,6 +426,12 @@ func _start_move(target_id: int) -> void:
 		if seg.is_empty():
 			route.append(_city_node[b].global_position)
 			continue
+		# 方向校正：数据中 a/b 顺序不保证，确保从 a 城出发（首点靠近 a）
+		var pa3: Vector3 = _city_node[a].global_position
+		var seg_first: Vector3 = WorldItem3D.to3(seg[0])
+		var seg_last: Vector3 = WorldItem3D.to3(seg[seg.size() - 1])
+		if seg_first.distance_to(pa3) > seg_last.distance_to(pa3):
+			seg.reverse()
 		for p2 in seg:
 			route.append(WorldItem3D.to3(p2) + Vector3(0, 1.0, 0))
 	_route = route
@@ -459,33 +444,37 @@ func _road_points(a: int, b: int) -> PackedVector2Array:
 		if r.get("kind", "") != "branch":
 			continue
 		if (int(r["a"]) == a and int(r["b"]) == b) or (int(r["a"]) == b and int(r["b"]) == a):
-			return r["points"]
+			# JSON points 是 Array[Array]，必须手动转 PackedVector2Array（直接赋值会全变 (0,0)）
+			var raw: Array = r["points"]
+			var out := PackedVector2Array()
+			for q in raw:
+				out.append(Vector2(float(q[0]), float(q[1])))
+			return out
 	return PackedVector2Array()
 
 
+## BFS 最短路径（道路网络无权图；连通性保证所有城/镇可达）
 func _find_path(from_id: int, to_id: int) -> Array:
-	var dist: Dictionary = {from_id: 0.0}
+	if from_id == to_id:
+		return [from_id]
 	var prev: Dictionary = {}
-	var done := {}
-	var cur := from_id
-	while cur != to_id:
-		done[cur] = true
-		var best := -1
-		var best_d := 1e18
+	var queue: Array = [from_id]
+	var seen := {from_id: true}
+	var head := 0
+	while head < queue.size():
+		var cur: int = queue[head]
+		head += 1
+		if cur == to_id:
+			break
 		for nb in _adj.get(cur, []):
 			var nid: int = nb[0]
-			if done.has(nid):
+			if seen.has(nid):
 				continue
-			var nd: float = dist.get(cur, 1e9) + 1.0
-			if nd < dist.get(nid, 1e18):
-				dist[nid] = nd
-				prev[nid] = cur
-			if dist[nid] < best_d:
-				best_d = dist[nid]
-				best = nid
-		if best < 0:
-			return [from_id]
-		cur = best
+			seen[nid] = true
+			prev[nid] = cur
+			queue.append(nid)
+	if not prev.has(to_id):
+		return [from_id]
 	var path: Array = [to_id]
 	var v := to_id
 	while prev.has(v):
@@ -496,12 +485,7 @@ func _find_path(from_id: int, to_id: int) -> Array:
 
 
 func _process(delta: float) -> void:
-	# 键盘自由行走（优先于寻路）
-	if _key_dir != Vector2.ZERO:
-		var mv := Vector3(_key_dir.x, 0.0, _key_dir.y) * _SPEED * delta
-		_player.global_position += mv
-		_follow_player(delta)
-	elif _moving and _route_i < _route.size():
+	if _moving and _route_i < _route.size():
 		var cur := _player.global_position
 		var target_p: Vector3 = _route[_route_i]
 		var step := _SPEED * delta
@@ -529,3 +513,29 @@ func _follow_player(delta: float) -> void:
 func _set_player_pos(cid: int) -> void:
 	var p2: Vector2 = _city_pos2.get(cid, Vector2(4301, 58))
 	_player.global_position = WorldItem3D.to3(p2) + Vector3(0, 1.6, 0)
+
+
+## 当前主角居城（world_map city id）；无 GameState / 数据缺失回退 0（三户）
+func _home_city_id() -> int:
+	var gs := get_node_or_null("/root/GameState")
+	if gs == null:
+		return 0
+	var p: Variant = gs.get_protagonist()
+	if p is Dictionary:
+		return int(p.get("city", 0))
+	return 0
+
+
+## 玩家 3D 位置最近的城市 id（寻路起点用）
+func _nearest_city(p3v: Vector3) -> int:
+	var best_id := 0
+	var best_d := 1e18
+	for cid in _city_pos2:
+		var node: Node3D = _city_node.get(cid)
+		if node == null:
+			continue
+		var d := Vector2(node.global_position.x - p3v.x, node.global_position.z - p3v.z).length()
+		if d < best_d:
+			best_d = d
+			best_id = cid
+	return best_id
