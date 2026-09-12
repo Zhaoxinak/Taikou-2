@@ -22,7 +22,7 @@ var _city_name: Dictionary = {}
 # 相机
 var _cam: Camera3D = null
 var _target := Vector3(515, 0, 527)
-var _dist := 1250.0
+var _dist := 1600.0
 var _yaw := 0.0
 var _pitch := 62.0 * PI / 180.0
 var _drag_btn := -1
