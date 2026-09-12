@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://src/ui/title_screen.gd" id="1_title"]
 [ext_resource type="Script" path="res://src/ui/UiPanel.gd" id="2_panel"]
 [ext_resource type="Script" path="res://src/ui/UiButton.gd" id="3_btn"]
+[ext_resource type="Script" path="res://src/ui/UiLabel.gd" id="4_lbl"]
+[ext_resource type="Script" path="res://src/ui/settings_panel.gd" id="5_sp"]
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -56,4 +58,190 @@ script = ExtResource("3_btn")
 text = "开 始 新 游 戏"
 font_size = 30
 
+[node name="SettingsBtn" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = 190.0
+offset_right = 180.0
+offset_bottom = 262.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_btn")
+text = "设 置"
+font_size = 30
+
+[node name="SettingsPanel" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -310.0
+offset_right = 380.0
+offset_bottom = 310.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_sp")
+
+[node name="BgmLabel" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 60.0
+offset_top = 120.0
+offset_right = 260.0
+offset_bottom = 180.0
+script = ExtResource("4_lbl")
+text = "音乐音量"
+font_size = 28
+
+[node name="BgmMinus" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 300.0
+offset_top = 112.0
+offset_right = 372.0
+offset_bottom = 176.0
+script = ExtResource("3_btn")
+text = "﹣"
+font_size = 30
+
+[node name="BgmVal" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 384.0
+offset_top = 120.0
+offset_right = 480.0
+offset_bottom = 176.0
+script = ExtResource("4_lbl")
+text = "80%"
+font_size = 28
+color = Color(0.949, 0.894, 0.784, 1)
+
+[node name="BgmPlus" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 492.0
+offset_top = 112.0
+offset_right = 564.0
+offset_bottom = 176.0
+script = ExtResource("3_btn")
+text = "＋"
+font_size = 30
+
+[node name="SfxLabel" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 60.0
+offset_top = 220.0
+offset_right = 260.0
+offset_bottom = 280.0
+script = ExtResource("4_lbl")
+text = "音效音量"
+font_size = 28
+
+[node name="SfxMinus" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 300.0
+offset_top = 212.0
+offset_right = 372.0
+offset_bottom = 276.0
+script = ExtResource("3_btn")
+text = "﹣"
+font_size = 30
+
+[node name="SfxVal" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 384.0
+offset_top = 220.0
+offset_right = 480.0
+offset_bottom = 276.0
+script = ExtResource("4_lbl")
+text = "80%"
+font_size = 28
+color = Color(0.949, 0.894, 0.784, 1)
+
+[node name="SfxPlus" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 492.0
+offset_top = 212.0
+offset_right = 564.0
+offset_bottom = 276.0
+script = ExtResource("3_btn")
+text = "＋"
+font_size = 30
+
+[node name="ResLabel" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 60.0
+offset_top = 330.0
+offset_right = 260.0
+offset_bottom = 390.0
+script = ExtResource("4_lbl")
+text = "窗口大小"
+font_size = 28
+
+[node name="Res1080" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 290.0
+offset_top = 322.0
+offset_right = 410.0
+offset_bottom = 386.0
+script = ExtResource("3_btn")
+text = "▸ 1080p"
+font_size = 24
+
+[node name="Res2K" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 424.0
+offset_top = 322.0
+offset_right = 544.0
+offset_bottom = 386.0
+script = ExtResource("3_btn")
+text = "  2K"
+font_size = 24
+
+[node name="Res4K" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 558.0
+offset_top = 322.0
+offset_right = 678.0
+offset_bottom = 386.0
+script = ExtResource("3_btn")
+text = "  4K"
+font_size = 24
+
+[node name="FsLabel" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 60.0
+offset_top = 440.0
+offset_right = 260.0
+offset_bottom = 500.0
+script = ExtResource("4_lbl")
+text = "全屏显示"
+font_size = 28
+
+[node name="FullscreenBtn" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 290.0
+offset_top = 432.0
+offset_right = 510.0
+offset_bottom = 496.0
+script = ExtResource("3_btn")
+text = "全 屏：关"
+font_size = 24
+
+[node name="CloseBtn" type="Control" parent="SettingsPanel"]
+layout_mode = 1
+offset_left = 280.0
+offset_top = 548.0
+offset_right = 480.0
+offset_bottom = 612.0
+script = ExtResource("3_btn")
+text = "关 闭"
+font_size = 26
+
 [connection signal="pressed" from="StartBtn" to="." method="_on_start"]
+[connection signal="pressed" from="SettingsBtn" to="." method="_on_settings"]

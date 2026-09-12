@@ -126,6 +126,8 @@ func is_muted() -> bool:
 
 ## 按 CD 轨号播放（1..34）；返回是否真的起播
 func play_bgm_track(track: int) -> bool:
+	if _bgm_player == null:
+		return false                     # autoload 未就绪（--script 无头测试等）
 	if track < Bgm.TRACK_MIN or track > Bgm.TRACK_MAX:
 		stop_bgm()                       # 0 / 越界 ⇒ 停止（原版语义）
 		return false

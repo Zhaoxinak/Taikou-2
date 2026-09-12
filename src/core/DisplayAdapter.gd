@@ -84,6 +84,30 @@ func toggle_fullscreen() -> void:
 	win.mode = Window.MODE_FULLSCREEN if win.mode != Window.MODE_FULLSCREEN else Window.MODE_WINDOWED
 
 
+func is_fullscreen() -> bool:
+	return get_window().mode == Window.MODE_FULLSCREEN
+
+
+# 按档位切换窗口分辨率（1080p / 2K / 4K），设置界面调用
+func set_resolution_preset(preset: String) -> void:
+	var target: Vector2i
+	match preset:
+		"4K":
+			target = PRESET_4K
+			resolution_label = "4K"
+		"2K":
+			target = PRESET_2K
+			resolution_label = "2K"
+		_:
+			target = PRESET_1080P
+			resolution_label = "1080p"
+	_apply_viewport(target)
+
+
+func current_preset() -> String:
+	return resolution_label
+
+
 # 供 HUD 调用的便捷查询
 func is_4k() -> bool: return resolution_label == "4K"
 func is_2k() -> bool: return resolution_label == "2K"
