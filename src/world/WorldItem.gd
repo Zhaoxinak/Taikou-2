@@ -242,8 +242,8 @@ func _draw_peak() -> void:
 			var txt := label if h <= 0 else "%s %dm" % [label, int(h)]
 			var fs := 12
 			var tw := f.get_string_size(txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
-			draw_string(f, Vector2(p.x - tw * 0.5, p.y - sz - 8 + UiTheme.baseline_y(txt, fs, fs)),
-				txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, C_TEXT_DIM)
+			_draw_outline_text(f, Vector2(p.x - tw * 0.5, p.y - sz - 8 + UiTheme.baseline_y(txt, fs, fs)),
+				txt, fs, C_TEXT_DIM, 1.0)
 
 
 ## 富士山：宽缓大锥 + 大范围雪顶 + 火山口
@@ -461,7 +461,7 @@ func _draw_sight() -> void:
 		_draw_label(p + Vector2(0, 14), label, 15, C_TEXT_DIM, true)
 
 
-# ── 国名标签 ─────────────────────────────────────────────
+# ── 国名标签：浅色文字 + 深色描边（无背景块，像印在地图上）──
 func _draw_province() -> void:
 	if points.is_empty() or label.is_empty() or not show_label:
 		return
@@ -469,13 +469,10 @@ func _draw_province() -> void:
 	var f := _font
 	if f == null:
 		return
-	var fs := 21
+	var fs := 24
 	var tw := f.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
-	var rect := Rect2(p.x - tw * 0.5 - 8, p.y - fs - 6, tw + 16, fs + 12)
-	draw_rect(rect, C_PROV_BG)
-	draw_rect(rect, Color(0.85, 0.72, 0.45, 0.30), false, 1.0)
-	draw_string(f, Vector2(p.x - tw * 0.5, p.y - 2 + UiTheme.baseline_y(label, fs, fs)),
-		label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, C_PROV_TX)
+	var pos := Vector2(p.x - tw * 0.5, p.y + UiTheme.baseline_y(label, fs, fs))
+	_draw_outline_text(f, pos, label, fs, C_PROV_TX, 1.6)
 
 
 # ── 玩家：立体小人 + 朝向 ────────────────────────────────
@@ -509,6 +506,14 @@ func _draw_selection() -> void:
 
 
 # ── 工具 ─────────────────────────────────────────────────
+## 带深色描边的文字（4 向偏移，印在地图上的干净感）
+func _draw_outline_text(f: Font, pos: Vector2, txt: String, fs: int, col: Color, w: float = 1.0) -> void:
+	var outline := Color(0.12, 0.10, 0.06, 0.92)
+	for off in [Vector2(-w, 0), Vector2(w, 0), Vector2(0, -w), Vector2(0, w)]:
+		draw_string(f, pos + off, txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, outline)
+	draw_string(f, pos, txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, col)
+
+
 func _draw_label(pos: Vector2, txt: String, fs: int, col: Color, center: bool) -> void:
 	var f := _font
 	if f == null:
@@ -517,8 +522,7 @@ func _draw_label(pos: Vector2, txt: String, fs: int, col: Color, center: bool) -
 	if center:
 		var tw := f.get_string_size(txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
 		x -= tw * 0.5
-	draw_string(f, Vector2(x, pos.y + UiTheme.baseline_y(txt, fs, fs)),
-		txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, col)
+	_draw_outline_text(f, Vector2(x, pos.y + UiTheme.baseline_y(txt, fs, fs)), txt, fs, col, 1.0)
 
 
 func draw_ellipse_shadow(center: Vector2, r: float) -> void:
