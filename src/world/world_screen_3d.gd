@@ -40,6 +40,7 @@ var _route: Array[Vector3] = []
 var _route_i := 0
 var _key_pan := Vector2.ZERO   # WASD / 方向键平移地图（镜头移动）
 var _hover_city_id := -1       # 悬停/选中的城（太阁2原版式：移上才显示名字）
+var _hover_tip: Label = null   # 悬停城名横条（深色底+白字，2D UI）
 
 
 func _ready() -> void:
@@ -51,6 +52,7 @@ func _ready() -> void:
 	_build_batched_items()
 	var t3 := Time.get_ticks_msec()
 	_setup_cities()
+	_setup_hover_tip()
 	var t4 := Time.get_ticks_msec()
 	_apply_label_font()
 	var t5 := Time.get_ticks_msec()
@@ -229,7 +231,7 @@ func _build_batched_items() -> void:
 		parent.add_child(mi)
 
 
-# ── 城池：运行时碰撞体 + 城名 LOD ──────────────────────
+# ── 城池：运行时碰撞体 + 城名悬停提示 ──────────────────────
 func _setup_cities() -> void:
 	for c in _cities:
 		var cid: int = c["id"]
@@ -237,6 +239,7 @@ func _setup_cities() -> void:
 		if node == null:
 			continue
 		_city_node[cid] = node
+		_city_name[cid] = c["name"]
 		# 拾取碰撞体
 		var body := StaticBody3D.new()
 		var shape := CollisionShape3D.new()
@@ -246,6 +249,38 @@ func _setup_cities() -> void:
 		body.add_child(shape)
 		node.add_child(body)
 		body.set_meta("city_id", cid)
+		# 运行时隐藏城名 Label3D（悬停改用 2D 横条，编辑器内仍可见）
+		var lb := node.get_node_or_null("CityLabel")
+		if lb is Label3D:
+			(lb as Label3D).visible = false
+
+
+## 创建悬停城名横条（太阁2原版：深色半透明底 + 白字，屏幕像素字号）
+func _setup_hover_tip() -> void:
+	var ui := get_node_or_null("UI")
+	if ui == null or _hover_tip != null:
+		return
+	var lb := Label.new()
+	var st := StyleBoxFlat.new()
+	st.bg_color = Color(0.08, 0.06, 0.04, 0.82)
+	st.corner_radius_top_left = 5
+	st.corner_radius_top_right = 5
+	st.corner_radius_bottom_left = 5
+	st.corner_radius_bottom_right = 5
+	st.set_border_width_all(1)
+	st.border_color = Color(0.85, 0.74, 0.42, 0.85)
+	st.content_margin_left = 14.0
+	st.content_margin_right = 14.0
+	st.content_margin_top = 5.0
+	st.content_margin_bottom = 5.0
+	lb.add_theme_stylebox_override("normal", st)
+	lb.add_theme_font_size_override("font_size", 26)
+	lb.add_theme_color_override("font_color", Color(0.97, 0.94, 0.86, 1))
+	lb.add_theme_color_override("font_outline_color", Color(0.10, 0.08, 0.05, 1))
+	lb.add_theme_constant_override("outline_size", 6)
+	ui.add_child(lb)
+	lb.visible = false
+	_hover_tip = lb
 
 
 ## 运行时给所有 Label3D 补中文字体（编辑器未导入字体时的保险）
@@ -261,13 +296,11 @@ func _apply_label_font() -> void:
 			stack.append(c)
 
 
-## 城名标签 LOD：按相机距离显示
-const _TARGET_CITY_PX := 20.0     # 城名目标屏幕像素（2K 物理）
+## 国名/城名标签（城名用 2D 横条；国名仍为 Label3D LOD）
 const _TARGET_PROV_PX := 26.0     # 国名目标屏幕像素
 const _LABEL_FS := 300            # 固定字号（atlas 小、生成快）
 const _PS_MIN := 0.002
 const _PS_MAX := 0.5
-const _PS_MIN_HOVER := 0.10       # 悬停城名最小字号（放大到清晰可读）
 
 
 func _ps_for(dist: float, target_px: float) -> float:
@@ -283,22 +316,25 @@ func _ps_for(dist: float, target_px: float) -> float:
 	return clampf(ps, _PS_MIN, _PS_MAX)
 
 
-## 城名标签：太阁2 原版式——不常驻，仅悬停/选中的城显示名字
+## 城名悬停横条：跟随城图标屏幕位置，移开自动隐藏
 func _process_city_labels() -> void:
+	if _hover_tip == null or _cam == null:
+		return
 	var hover_id: int = _hover_city_id
-	for cid in _city_node:
-		var node: Node3D = _city_node[cid]
-		var lb := node.get_node_or_null("CityLabel")
-		if lb == null:
-			continue
-		var show: bool = (cid == hover_id)
-		if lb.visible != show:
-			lb.visible = show
-		if show:
-			var d := node.global_position.distance_to(_cam.global_position)
-			var ps: float = maxf(_ps_for(d, _TARGET_CITY_PX * 2.2), _PS_MIN_HOVER)
-			if absf(lb.pixel_size - ps) > ps * 0.02:
-				lb.pixel_size = ps
+	if hover_id < 0 or not _city_node.has(hover_id):
+		if _hover_tip.visible:
+			_hover_tip.visible = false
+		return
+	var node: Node3D = _city_node[hover_id]
+	var sp := _cam.unproject_position(node.global_position + Vector3(0, 6.0, 0))
+	var vs := get_viewport().get_visible_rect().size
+	_hover_tip.text = _city_name.get(hover_id, "")
+	var ts: Vector2 = _hover_tip.get_combined_minimum_size()
+	_hover_tip.position = Vector2(
+		clampf(sp.x - ts.x * 0.5, 6.0, vs.x - ts.x - 6.0),
+		clampf(sp.y - ts.y - 20.0, 6.0, vs.y - ts.y - 6.0))
+	if not _hover_tip.visible:
+		_hover_tip.visible = true
 
 
 func _process_province_labels() -> void:
