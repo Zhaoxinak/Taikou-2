@@ -5,7 +5,7 @@ extends Node3D
 ## 编辑器内即生成 mesh（@tool + _ready），全部为可视化 3D 节点（非贴图）
 
 const HM_PATH := "res://data/heightmap.json"
-const S := 0.25                 # 3D 世界缩放（2D px × 0.25 → 3D 单位）
+const S := 0.375                # 3D 世界缩放（2D px × 0.375 → 3D 单位；地图整体放大1.5倍）
 const SEA_Y := 0.0              # 海平面（3D）
 
 static var _hm: Dictionary = {}

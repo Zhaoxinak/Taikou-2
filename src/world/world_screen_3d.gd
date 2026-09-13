@@ -6,7 +6,7 @@ const MAP_JSON := "res://data/world_map.json"
 const HM_PATH := "res://data/heightmap.json"
 const WorldItem3D := preload("res://src/world/WorldItem3D.gd")
 const UiTheme := preload("res://src/ui/UiTheme.gd")
-const S := 0.25
+const S := 0.375
 const _SPEED := 130.0        # 3D 行走速度（单位/秒）
 const _CLICK_R := 14.0       # 点击半径（3D 单位）
 const _HOVER_R := 18.0       # 悬停显示城名半径（比点击略宽，易命中）
@@ -26,8 +26,8 @@ var _city_name: Dictionary = {}
 
 # 相机
 var _cam: Camera3D = null
-var _target := Vector3(515, 0, 527)
-var _dist := 900.0
+var _target := Vector3(813, 0, 740)
+var _dist := 1350.0
 var _yaw := 0.0
 var _pitch := 70.0 * PI / 180.0
 var _drag_btn := -1
@@ -342,11 +342,11 @@ func _process_province_labels() -> void:
 	var provs := get_node_or_null("Provinces")
 	if provs == null:
 		return
-	var cam_far: bool = cam_pos.distance_to(_target) > 800.0
+	var cam_far: bool = cam_pos.distance_to(_target) > 1200.0
 	for lb in provs.get_children():
 		if lb is Label3D:
 			var d: float = (lb as Node3D).global_position.distance_to(cam_pos)
-			var show := cam_far or d < 600.0
+			var show := cam_far or d < 900.0
 			if (lb as Label3D).visible != show:
 				(lb as Label3D).visible = show
 			if show:
@@ -368,10 +368,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		var mb := event as InputEventMouseButton
 		if mb.pressed:
 			if mb.button_index == MOUSE_BUTTON_WHEEL_UP:
-				_dist = clampf(_dist * 0.85, 70.0, 2200.0)
+				_dist = clampf(_dist * 0.85, 70.0, 3400.0)
 				_update_cam()
 			elif mb.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				_dist = clampf(_dist * 1.18, 70.0, 2200.0)
+				_dist = clampf(_dist * 1.18, 70.0, 3400.0)
 				_update_cam()
 			elif mb.button_index == MOUSE_BUTTON_LEFT:
 				_drag_btn = MOUSE_BUTTON_LEFT

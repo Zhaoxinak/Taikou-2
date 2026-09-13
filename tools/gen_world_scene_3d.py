@@ -9,7 +9,7 @@ import json, math, re
 SRC = "data/world_map.json"
 HM = "data/heightmap.json"
 DST = "scenes/screens/world_screen_3d.tscn"
-S = 0.25
+S = 0.375
 
 d = json.load(open(SRC, encoding="utf-8"))
 hm = json.load(open(HM, encoding="utf-8"))
@@ -91,7 +91,7 @@ sub('mat_sea', '\n'.join([
 # 海面 + 天空环境
 sub('pl_sea', '\n'.join([
     '[sub_resource type="PlaneMesh" id="pl_sea"]',
-    'size = Vector2(2600, 2600)']))
+    'size = Vector2(3400, 3400)']))
 sub('sky_mat', '\n'.join([
     '[sub_resource type="ProceduralSkyMaterial" id="sky_mat"]',
     'sky_top_color = Color(0.62, 0.76, 0.95, 1)',
@@ -242,7 +242,7 @@ out.append('')
 out.append('[node name="Terrain" type="Node3D" parent="."]')
 out.append('')
 out.append('[node name="Sea" type="MeshInstance3D" parent="."]')
-out.append('transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 542.0, -1.0, 507.0)')   # 水平海面（y=-1）；旧版误绕X轴旋转成竖直深蓝墙（地图中间的"屏障"）
+out.append('transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 813.0, -1.0, 740.0)')   # 水平海面（y=-1）；中心随地图放大后移到 (813,740)
 out.append('mesh = SubResource("pl_sea")')
 out.append('material_override = SubResource("mat_sea")')
 
@@ -363,7 +363,7 @@ out.append('material_override = SubResource("mat_player")')
 # 相机
 out.append('')
 out.append('[node name="Camera3D" type="Camera3D" parent="."]')
-out.append('transform = Transform3D(0.87, 0.0, -0.49, 0.0, 1.0, 0.0, 0.49, 0.0, 0.87, 542.0, 420.0, 507.0)')
+out.append('transform = Transform3D(0.87, 0.0, -0.49, 0.0, 1.0, 0.0, 0.49, 0.0, 0.87, 813.0, 630.0, 740.0)')
 out.append('fov = 45.0')
 
 # UI
