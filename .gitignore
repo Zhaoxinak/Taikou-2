@@ -12,3 +12,9 @@ __pycache__/
 *.pyc
 *.log
 _hd6_run.log
+
+# 本地私有文件（勿入库/勿推送）
+Taikou2 Original/TAIK2W95_HD.exe
+Taikou2 Original/_dbg_orig.exe
+kaodata_tmp/
+scripts/_unpacked_mem.bin
