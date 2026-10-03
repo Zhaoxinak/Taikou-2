@@ -18,3 +18,7 @@ Taikou2 Original/TAIK2W95_HD.exe
 Taikou2 Original/_dbg_orig.exe
 kaodata_tmp/
 scripts/_unpacked_mem.bin
+
+# modkit 产物（可再生：work=解出的段，output=重打包结果，别入库）
+modkit/work/
+modkit/output/

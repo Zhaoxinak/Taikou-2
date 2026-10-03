@@ -1,3 +1,3 @@
 @echo off
-cd /d "%~dp0"
+rem Pure ASCII on purpose - see StartTaikou2.bat for the reason.
 call "%~dp0StartTaikou2.bat"

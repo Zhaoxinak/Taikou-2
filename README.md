@@ -79,6 +79,7 @@
 | `assets/` | **全部导入资源（按类型）**：`fonts/` · `audio/{sfx,bgm}` · `sprites/{portraits,units,chips}` · `environments/` · `samples/`(gitignore) |
 | `scripts/` | ⚠️ **逆向 / 数据导出工具（Python，非游戏代码）**：180 个 `*_ref.py` 自检依赖扁平布局 + 同目录 import，**切勿移动或改名**（详见 `scripts/README.md`） |
 | `tools/` | 离线构建产物（`portrait_prompts.json` 等） |
+| `modkit/` | ★ **MOD 工具**：LS11 容器解开/装回（`cli.py` `ls11.py` `msgx.py` `selftest.py`），详见 [`modkit/README.md`](modkit/README.md) |
 
 ---
 
