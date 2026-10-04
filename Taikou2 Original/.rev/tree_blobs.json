@@ -1,0 +1,113 @@
+{
+ "sec_va": 5464064,
+ "sec_ptr": 1266688,
+ "sec_sz": 22528,
+ "o_code": 13056,
+ "n_api": 27,
+ "gdi_tab": 5464064,
+ "rstate": 5465024,
+ "famdir": 5465344,
+ "nodes": 5466112,
+ "pool": 5467648,
+ "ndir": 27,
+ "nnode": 141,
+ "entry_va": 5483828,
+ "blobs": [
+  {
+   "name": "log_init",
+   "va": 5477120,
+   "size": 58,
+   "off": 0
+  },
+  {
+   "name": "resolve_api",
+   "va": 5477178,
+   "size": 218,
+   "off": 58
+  },
+  {
+   "name": "make_res",
+   "va": 5477396,
+   "size": 582,
+   "off": 276
+  },
+  {
+   "name": "free_res",
+   "va": 5477978,
+   "size": 333,
+   "off": 858
+  },
+  {
+   "name": "wait_rel",
+   "va": 5478311,
+   "size": 127,
+   "off": 1191
+  },
+  {
+   "name": "clamp",
+   "va": 5478438,
+   "size": 301,
+   "off": 1318
+  },
+  {
+   "name": "pump",
+   "va": 5478739,
+   "size": 903,
+   "off": 1619
+  },
+  {
+   "name": "draw_frame",
+   "va": 5479642,
+   "size": 493,
+   "off": 2522
+  },
+  {
+   "name": "draw_edges",
+   "va": 5480135,
+   "size": 1006,
+   "off": 3015
+  },
+  {
+   "name": "draw_nodes",
+   "va": 5481141,
+   "size": 824,
+   "off": 4021
+  },
+  {
+   "name": "draw_detail",
+   "va": 5481965,
+   "size": 587,
+   "off": 4845
+  },
+  {
+   "name": "tree_show",
+   "va": 5482552,
+   "size": 1276,
+   "off": 5432
+  },
+  {
+   "name": "tree_entry",
+   "va": 5483828,
+   "size": 338,
+   "off": 6708
+  },
+  {
+   "name": "ft_probe",
+   "va": 5484166,
+   "size": 88,
+   "off": 7046
+  },
+  {
+   "name": "univ_thunk",
+   "va": 5484254,
+   "size": 15,
+   "off": 7134
+  },
+  {
+   "name": "univ2_thunk",
+   "va": 5484269,
+   "size": 17,
+   "off": 7149
+  }
+ ]
+}

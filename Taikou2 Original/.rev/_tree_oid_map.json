@@ -1,0 +1,3015 @@
+[
+ {
+  "sur": "柴田",
+  "giv": "胜音",
+  "rel": "父",
+  "status": 1,
+  "fams": [
+   "柴田"
+  ],
+  "oid": 1,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "柴田胜家",
+   "birth_year": 1521,
+   "father_id": 65535,
+   "rank_name": "家老",
+   "archetype_name": "柴田胜家",
+   "province": 13,
+   "city": 66,
+   "lead": 87,
+   "martial": 90,
+   "domestic": 67,
+   "diplomacy": 31,
+   "charm": 61
+  },
+  "amb": [
+   [
+    "柴田胜家",
+    1
+   ],
+   [
+    "柴田胜丰",
+    36
+   ]
+  ]
+ },
+ {
+  "sur": "柴田",
+  "giv": "胜久",
+  "rel": "兄",
+  "status": 0,
+  "fams": [
+   "柴田"
+  ],
+  "oid": 485,
+  "conf": "unique_given",
+  "officer": {
+   "name": "尼子胜久",
+   "birth_year": 1553,
+   "father_id": 481,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 31,
+   "city": 255,
+   "lead": 40,
+   "martial": 54,
+   "domestic": 38,
+   "diplomacy": 41,
+   "charm": 65
+  },
+  "amb": []
+ },
+ {
+  "sur": "柴田",
+  "giv": "胜家",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "柴田"
+  ],
+  "oid": 1,
+  "conf": "exact",
+  "officer": {
+   "name": "柴田胜家",
+   "birth_year": 1521,
+   "father_id": 65535,
+   "rank_name": "家老",
+   "archetype_name": "柴田胜家",
+   "province": 13,
+   "city": 66,
+   "lead": 87,
+   "martial": 90,
+   "domestic": 67,
+   "diplomacy": 31,
+   "charm": 61
+  },
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "阿市",
+  "rel": "正室",
+  "status": 0,
+  "fams": [
+   "柴田",
+   "浅井"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "柴田",
+  "giv": "胜政",
+  "rel": "弟",
+  "status": 0,
+  "fams": [
+   "柴田"
+  ],
+  "oid": 1,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "柴田胜家",
+   "birth_year": 1521,
+   "father_id": 65535,
+   "rank_name": "家老",
+   "archetype_name": "柴田胜家",
+   "province": 13,
+   "city": 66,
+   "lead": 87,
+   "martial": 90,
+   "domestic": 67,
+   "diplomacy": 31,
+   "charm": 61
+  },
+  "amb": [
+   [
+    "柴田胜家",
+    1
+   ],
+   [
+    "柴田胜丰",
+    36
+   ]
+  ]
+ },
+ {
+  "sur": "柴田",
+  "giv": "胜丰",
+  "rel": "养子",
+  "status": 0,
+  "fams": [
+   "柴田"
+  ],
+  "oid": 36,
+  "conf": "exact",
+  "officer": {
+   "name": "柴田胜丰",
+   "birth_year": 1551,
+   "father_id": 1,
+   "rank_name": "足轻头",
+   "archetype_name": "一般武将A",
+   "province": 13,
+   "city": 66,
+   "lead": 61,
+   "martial": 57,
+   "domestic": 42,
+   "diplomacy": 54,
+   "charm": 48
+  },
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "茶茶",
+  "rel": "养女",
+  "status": 2,
+  "fams": [
+   "柴田",
+   "浅井"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "初",
+  "rel": "养女",
+  "status": 2,
+  "fams": [
+   "柴田",
+   "浅井"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "江",
+  "rel": "养女",
+  "status": 2,
+  "fams": [
+   "柴田",
+   "浅井"
+  ],
+  "oid": 174,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "板部冈江雪斋",
+   "birth_year": 1537,
+   "father_id": 65535,
+   "rank_name": "足轻头",
+   "archetype_name": "一般武将B",
+   "province": 6,
+   "city": 35,
+   "lead": 38,
+   "martial": 8,
+   "domestic": 69,
+   "diplomacy": 83,
+   "charm": 66
+  },
+  "amb": [
+   [
+    "板部冈江雪斋",
+    174
+   ]
+  ]
+ },
+ {
+  "sur": "织田",
+  "giv": "信长",
+  "rel": "妻兄",
+  "status": 0,
+  "fams": [
+   "柴田",
+   "浅井",
+   "织田"
+  ],
+  "oid": 13,
+  "conf": "exact",
+  "officer": {
+   "name": "织田信长",
+   "birth_year": 1534,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "织田信长",
+   "province": 13,
+   "city": 66,
+   "lead": 96,
+   "martial": 85,
+   "domestic": 92,
+   "diplomacy": 99,
+   "charm": 90
+  },
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "土田御前",
+  "rel": "母",
+  "status": 0,
+  "fams": [
+   "织田"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "织田",
+  "giv": "信秀",
+  "rel": "父",
+  "status": 1,
+  "fams": [
+   "织田"
+  ],
+  "oid": 13,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "织田信长",
+   "birth_year": 1534,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "织田信长",
+   "province": 13,
+   "city": 66,
+   "lead": 96,
+   "martial": 85,
+   "domestic": 92,
+   "diplomacy": 99,
+   "charm": 90
+  },
+  "amb": [
+   [
+    "织田信长",
+    13
+   ],
+   [
+    "织田信忠",
+    47
+   ],
+   [
+    "织田信雄",
+    48
+   ],
+   [
+    "织田信孝",
+    49
+   ]
+  ]
+ },
+ {
+  "sur": "",
+  "giv": "浓姬",
+  "rel": "正室",
+  "status": 0,
+  "fams": [
+   "织田"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "织田",
+  "giv": "信行",
+  "rel": "弟",
+  "status": 1,
+  "fams": [
+   "织田"
+  ],
+  "oid": 13,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "织田信长",
+   "birth_year": 1534,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "织田信长",
+   "province": 13,
+   "city": 66,
+   "lead": 96,
+   "martial": 85,
+   "domestic": 92,
+   "diplomacy": 99,
+   "charm": 90
+  },
+  "amb": [
+   [
+    "织田信长",
+    13
+   ],
+   [
+    "织田信忠",
+    47
+   ],
+   [
+    "织田信雄",
+    48
+   ],
+   [
+    "织田信孝",
+    49
+   ]
+  ]
+ },
+ {
+  "sur": "织田",
+  "giv": "信包",
+  "rel": "弟",
+  "status": 0,
+  "fams": [
+   "织田"
+  ],
+  "oid": 13,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "织田信长",
+   "birth_year": 1534,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "织田信长",
+   "province": 13,
+   "city": 66,
+   "lead": 96,
+   "martial": 85,
+   "domestic": 92,
+   "diplomacy": 99,
+   "charm": 90
+  },
+  "amb": [
+   [
+    "织田信长",
+    13
+   ],
+   [
+    "织田信忠",
+    47
+   ],
+   [
+    "织田信雄",
+    48
+   ],
+   [
+    "织田信孝",
+    49
+   ]
+  ]
+ },
+ {
+  "sur": "织田",
+  "giv": "信忠",
+  "rel": "长子",
+  "status": 0,
+  "fams": [
+   "织田"
+  ],
+  "oid": 47,
+  "conf": "exact",
+  "officer": {
+   "name": "织田信忠",
+   "birth_year": 1557,
+   "father_id": 13,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将B",
+   "province": 13,
+   "city": 255,
+   "lead": 78,
+   "martial": 71,
+   "domestic": 76,
+   "diplomacy": 68,
+   "charm": 95
+  },
+  "amb": []
+ },
+ {
+  "sur": "织田",
+  "giv": "信雄",
+  "rel": "次子",
+  "status": 0,
+  "fams": [
+   "织田"
+  ],
+  "oid": 48,
+  "conf": "exact",
+  "officer": {
+   "name": "织田信雄",
+   "birth_year": 1686,
+   "father_id": 13,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 13,
+   "city": 255,
+   "lead": 45,
+   "martial": 32,
+   "domestic": 35,
+   "diplomacy": 21,
+   "charm": 68
+  },
+  "amb": []
+ },
+ {
+  "sur": "织田",
+  "giv": "信孝",
+  "rel": "三子",
+  "status": 0,
+  "fams": [
+   "织田"
+  ],
+  "oid": 49,
+  "conf": "exact",
+  "officer": {
+   "name": "织田信孝",
+   "birth_year": 1686,
+   "father_id": 13,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 13,
+   "city": 255,
+   "lead": 66,
+   "martial": 62,
+   "domestic": 57,
+   "diplomacy": 58,
+   "charm": 62
+  },
+  "amb": []
+ },
+ {
+  "sur": "织田",
+  "giv": "五德",
+  "rel": "女",
+  "status": 0,
+  "fams": [
+   "织田"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "织田",
+  "giv": "信胜",
+  "rel": "长孙",
+  "status": 2,
+  "fams": [
+   "织田"
+  ],
+  "oid": 604,
+  "conf": "unique_given",
+  "officer": {
+   "name": "成松信胜",
+   "birth_year": 1537,
+   "father_id": 65535,
+   "rank_name": "家老",
+   "archetype_name": "一般武将A",
+   "province": 39,
+   "city": 178,
+   "lead": 79,
+   "martial": 84,
+   "domestic": 52,
+   "diplomacy": 43,
+   "charm": 62
+  },
+  "amb": []
+ },
+ {
+  "sur": "浅井",
+  "giv": "胜久",
+  "rel": "祖父",
+  "status": 1,
+  "fams": [
+   "浅井"
+  ],
+  "oid": 485,
+  "conf": "unique_given",
+  "officer": {
+   "name": "尼子胜久",
+   "birth_year": 1553,
+   "father_id": 481,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 31,
+   "city": 255,
+   "lead": 40,
+   "martial": 54,
+   "domestic": 38,
+   "diplomacy": 41,
+   "charm": 65
+  },
+  "amb": []
+ },
+ {
+  "sur": "浅井",
+  "giv": "久政",
+  "rel": "父",
+  "status": 0,
+  "fams": [
+   "浅井"
+  ],
+  "oid": 384,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "浅井长政",
+   "birth_year": 1545,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将B",
+   "province": 20,
+   "city": 96,
+   "lead": 85,
+   "martial": 82,
+   "domestic": 71,
+   "diplomacy": 58,
+   "charm": 94
+  },
+  "amb": [
+   [
+    "浅井长政",
+    384
+   ]
+  ]
+ },
+ {
+  "sur": "浅井",
+  "giv": "长政",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "浅井"
+  ],
+  "oid": 384,
+  "conf": "exact",
+  "officer": {
+   "name": "浅井长政",
+   "birth_year": 1545,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将B",
+   "province": 20,
+   "city": 96,
+   "lead": 85,
+   "martial": 82,
+   "domestic": 71,
+   "diplomacy": 58,
+   "charm": 94
+  },
+  "amb": []
+ },
+ {
+  "sur": "浅井",
+  "giv": "万福",
+  "rel": "长子",
+  "status": 2,
+  "fams": [
+   "浅井"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "明智",
+  "giv": "光秀",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "明智"
+  ],
+  "oid": 364,
+  "conf": "exact",
+  "officer": {
+   "name": "明智光秀",
+   "birth_year": 1528,
+   "father_id": 65535,
+   "rank_name": "足轻工头",
+   "archetype_name": "明智光秀",
+   "province": 19,
+   "city": 90,
+   "lead": 87,
+   "martial": 86,
+   "domestic": 91,
+   "diplomacy": 88,
+   "charm": 71
+  },
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "煚子",
+  "rel": "正室",
+  "status": 0,
+  "fams": [
+   "明智"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "明智",
+  "giv": "秀满",
+  "rel": "从兄弟",
+  "status": 0,
+  "fams": [
+   "明智"
+  ],
+  "oid": 364,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "明智光秀",
+   "birth_year": 1528,
+   "father_id": 65535,
+   "rank_name": "足轻工头",
+   "archetype_name": "明智光秀",
+   "province": 19,
+   "city": 90,
+   "lead": 87,
+   "martial": 86,
+   "domestic": 91,
+   "diplomacy": 88,
+   "charm": 71
+  },
+  "amb": [
+   [
+    "明智光秀",
+    364
+   ]
+  ]
+ },
+ {
+  "sur": "细川",
+  "giv": "忠兴",
+  "rel": "女婿",
+  "status": 2,
+  "fams": [
+   "明智"
+  ],
+  "oid": 409,
+  "conf": "exact",
+  "officer": {
+   "name": "细川忠兴",
+   "birth_year": 1563,
+   "father_id": 405,
+   "rank_name": "家老",
+   "archetype_name": "一般武将A",
+   "province": 24,
+   "city": 255,
+   "lead": 82,
+   "martial": 80,
+   "domestic": 81,
+   "diplomacy": 77,
+   "charm": 74
+  },
+  "amb": []
+ },
+ {
+  "sur": "明智",
+  "giv": "十五",
+  "rel": "长子",
+  "status": 2,
+  "fams": [
+   "明智"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "明智",
+  "giv": "五郎",
+  "rel": "次子",
+  "status": 2,
+  "fams": [
+   "明智"
+  ],
+  "oid": 577,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "丰永藤五郎",
+   "birth_year": 1678,
+   "father_id": 65535,
+   "rank_name": "足轻工头",
+   "archetype_name": "一般武将A",
+   "province": 35,
+   "city": 255,
+   "lead": 64,
+   "martial": 53,
+   "domestic": 66,
+   "diplomacy": 49,
+   "charm": 57
+  },
+  "amb": [
+   [
+    "丰永藤五郎",
+    577
+   ]
+  ]
+ },
+ {
+  "sur": "细川",
+  "giv": "伽罗奢",
+  "rel": "三女",
+  "status": 2,
+  "fams": [
+   "明智"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "町",
+  "rel": "四女",
+  "status": 2,
+  "fams": [
+   "明智"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "天瑞院",
+  "rel": "母",
+  "status": 0,
+  "fams": [
+   "丰臣"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "木下弥次郎",
+  "rel": "父",
+  "status": 1,
+  "fams": [
+   "丰臣"
+  ],
+  "oid": 269,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "荒川弥次郎",
+   "birth_year": 1670,
+   "father_id": 65535,
+   "rank_name": "足轻组头",
+   "archetype_name": "一般武将B",
+   "province": 5,
+   "city": 255,
+   "lead": 52,
+   "martial": 70,
+   "domestic": 39,
+   "diplomacy": 24,
+   "charm": 45
+  },
+  "amb": [
+   [
+    "荒川弥次郎",
+    269
+   ]
+  ]
+ },
+ {
+  "sur": "丰臣",
+  "giv": "秀吉",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "丰臣"
+  ],
+  "oid": 16,
+  "conf": "alias",
+  "officer": {
+   "name": "木下藤吉郎",
+   "birth_year": 1536,
+   "father_id": 65535,
+   "rank_name": "足轻组头",
+   "archetype_name": "木下藤吉郎",
+   "province": 13,
+   "city": 66,
+   "lead": 84,
+   "martial": 42,
+   "domestic": 89,
+   "diplomacy": 94,
+   "charm": 97
+  },
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "宁宁",
+  "rel": "正室",
+  "status": 0,
+  "fams": [
+   "丰臣"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "丰臣",
+  "giv": "秀长",
+  "rel": "弟",
+  "status": 0,
+  "fams": [
+   "丰臣"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "木下",
+  "giv": "家定",
+  "rel": "异母弟",
+  "status": 0,
+  "fams": [
+   "丰臣"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "大村",
+  "giv": "由己",
+  "rel": "异母弟",
+  "status": 0,
+  "fams": [
+   "丰臣"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "羽柴",
+  "giv": "秀胜",
+  "rel": "养子",
+  "status": 2,
+  "fams": [
+   "丰臣"
+  ],
+  "oid": 64,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "羽柴秀次",
+   "birth_year": 1696,
+   "father_id": 65535,
+   "rank_name": "足轻组头",
+   "archetype_name": "一般武将B",
+   "province": 13,
+   "city": 255,
+   "lead": 47,
+   "martial": 61,
+   "domestic": 52,
+   "diplomacy": 25,
+   "charm": 41
+  },
+  "amb": [
+   [
+    "羽柴秀次",
+    64
+   ]
+  ]
+ },
+ {
+  "sur": "小早川",
+  "giv": "秀秋",
+  "rel": "养子",
+  "status": 2,
+  "fams": [
+   "丰臣",
+   "小早川"
+  ],
+  "oid": 68,
+  "conf": "exact",
+  "officer": {
+   "name": "小早川秀秋",
+   "birth_year": 1710,
+   "father_id": 65535,
+   "rank_name": "足轻组头",
+   "archetype_name": "一般武将A",
+   "province": 13,
+   "city": 255,
+   "lead": 31,
+   "martial": 67,
+   "domestic": 24,
+   "diplomacy": 28,
+   "charm": 36
+  },
+  "amb": []
+ },
+ {
+  "sur": "宇喜多",
+  "giv": "秀家",
+  "rel": "养子",
+  "status": 2,
+  "fams": [
+   "丰臣"
+  ],
+  "oid": 499,
+  "conf": "exact",
+  "officer": {
+   "name": "宇喜多秀家",
+   "birth_year": 1572,
+   "father_id": 489,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将B",
+   "province": 32,
+   "city": 255,
+   "lead": 66,
+   "martial": 58,
+   "domestic": 71,
+   "diplomacy": 66,
+   "charm": 80
+  },
+  "amb": []
+ },
+ {
+  "sur": "丰臣",
+  "giv": "鹤松",
+  "rel": "长子",
+  "status": 2,
+  "fams": [
+   "丰臣"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "丰臣",
+  "giv": "弃",
+  "rel": "次子",
+  "status": 2,
+  "fams": [
+   "丰臣"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "于大之方",
+  "rel": "母",
+  "status": 0,
+  "fams": [
+   "德川"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "松平",
+  "giv": "广忠",
+  "rel": "父",
+  "status": 1,
+  "fams": [
+   "德川"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "德川",
+  "giv": "家康",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "德川"
+  ],
+  "oid": 304,
+  "conf": "exact",
+  "officer": {
+   "name": "德川家康",
+   "birth_year": 1542,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将A",
+   "province": 12,
+   "city": 62,
+   "lead": 94,
+   "martial": 86,
+   "domestic": 91,
+   "diplomacy": 89,
+   "charm": 92
+  },
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "筑山殿",
+  "rel": "正室",
+  "status": 0,
+  "fams": [
+   "德川"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "松平",
+  "giv": "信康",
+  "rel": "长子",
+  "status": 0,
+  "fams": [
+   "德川"
+  ],
+  "oid": 95,
+  "conf": "ambiguous_given",
+  "officer": {
+   "name": "后藤信康",
+   "birth_year": 1688,
+   "father_id": 65535,
+   "rank_name": "足轻工头",
+   "archetype_name": "一般武将A",
+   "province": 1,
+   "city": 255,
+   "lead": 64,
+   "martial": 69,
+   "domestic": 61,
+   "diplomacy": 50,
+   "charm": 63
+  },
+  "amb": [
+   [
+    "后藤信康",
+    95
+   ],
+   [
+    "德川信康",
+    315
+   ],
+   [
+    "安宅信康",
+    447
+   ]
+  ]
+ },
+ {
+  "sur": "",
+  "giv": "见松殿",
+  "rel": "儿媳",
+  "status": 0,
+  "fams": [
+   "德川"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "结城",
+  "giv": "秀康",
+  "rel": "次子",
+  "status": 2,
+  "fams": [
+   "德川"
+  ],
+  "oid": 320,
+  "conf": "unique_given",
+  "officer": {
+   "name": "德川秀康",
+   "birth_year": 1702,
+   "father_id": 304,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将B",
+   "province": 12,
+   "city": 255,
+   "lead": 70,
+   "martial": 79,
+   "domestic": 60,
+   "diplomacy": 34,
+   "charm": 85
+  },
+  "amb": []
+ },
+ {
+  "sur": "德川",
+  "giv": "秀忠",
+  "rel": "三子",
+  "status": 2,
+  "fams": [
+   "德川"
+  ],
+  "oid": 321,
+  "conf": "exact",
+  "officer": {
+   "name": "德川秀忠",
+   "birth_year": 1579,
+   "father_id": 304,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 12,
+   "city": 255,
+   "lead": 65,
+   "martial": 58,
+   "domestic": 84,
+   "diplomacy": 71,
+   "charm": 88
+  },
+  "amb": []
+ },
+ {
+  "sur": "松平",
+  "giv": "忠吉",
+  "rel": "四子",
+  "status": 2,
+  "fams": [
+   "德川"
+  ],
+  "oid": 211,
+  "conf": "unique_given",
+  "officer": {
+   "name": "青沼忠吉",
+   "birth_year": 1659,
+   "father_id": 65535,
+   "rank_name": "足轻工头",
+   "archetype_name": "一般武将B",
+   "province": 10,
+   "city": 255,
+   "lead": 52,
+   "martial": 44,
+   "domestic": 74,
+   "diplomacy": 57,
+   "charm": 50
+  },
+  "amb": []
+ },
+ {
+  "sur": "井伊",
+  "giv": "直政",
+  "rel": "五子",
+  "status": 2,
+  "fams": [
+   "德川"
+  ],
+  "oid": 316,
+  "conf": "exact",
+  "officer": {
+   "name": "井伊直政",
+   "birth_year": 1689,
+   "father_id": 65535,
+   "rank_name": "足轻头",
+   "archetype_name": "一般武将B",
+   "province": 12,
+   "city": 255,
+   "lead": 81,
+   "martial": 86,
+   "domestic": 83,
+   "diplomacy": 78,
+   "charm": 78
+  },
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "大井之方",
+  "rel": "母",
+  "status": 0,
+  "fams": [
+   "武田"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "武田",
+  "giv": "信虎",
+  "rel": "父",
+  "status": 0,
+  "fams": [
+   "武田"
+  ],
+  "oid": 199,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "武田信玄",
+   "birth_year": 1521,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将C",
+   "province": 10,
+   "city": 40,
+   "lead": 99,
+   "martial": 90,
+   "domestic": 92,
+   "diplomacy": 93,
+   "charm": 90
+  },
+  "amb": [
+   [
+    "武田信玄",
+    199
+   ],
+   [
+    "武田信繁",
+    204
+   ],
+   [
+    "武田信廉",
+    206
+   ],
+   [
+    "武田义信",
+    222
+   ]
+  ]
+ },
+ {
+  "sur": "武田",
+  "giv": "信玄",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "武田"
+  ],
+  "oid": 199,
+  "conf": "exact",
+  "officer": {
+   "name": "武田信玄",
+   "birth_year": 1521,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将C",
+   "province": 10,
+   "city": 40,
+   "lead": 99,
+   "martial": 90,
+   "domestic": 92,
+   "diplomacy": 93,
+   "charm": 90
+  },
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "御姬",
+  "rel": "休室",
+  "status": 0,
+  "fams": [
+   "武田"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "武田",
+  "giv": "义信",
+  "rel": "长子",
+  "status": 0,
+  "fams": [
+   "武田"
+  ],
+  "oid": 222,
+  "conf": "exact",
+  "officer": {
+   "name": "武田义信",
+   "birth_year": 1538,
+   "father_id": 199,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将B",
+   "province": 10,
+   "city": 40,
+   "lead": 82,
+   "martial": 65,
+   "domestic": 66,
+   "diplomacy": 56,
+   "charm": 60
+  },
+  "amb": []
+ },
+ {
+  "sur": "北条",
+  "giv": "黄梅院",
+  "rel": "儿媳",
+  "status": 0,
+  "fams": [
+   "武田"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "武田",
+  "giv": "胜赖",
+  "rel": "四子",
+  "status": 0,
+  "fams": [
+   "武田"
+  ],
+  "oid": 230,
+  "conf": "exact",
+  "officer": {
+   "name": "武田胜赖",
+   "birth_year": 1674,
+   "father_id": 199,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 10,
+   "city": 255,
+   "lead": 76,
+   "martial": 89,
+   "domestic": 41,
+   "diplomacy": 42,
+   "charm": 74
+  },
+  "amb": []
+ },
+ {
+  "sur": "武田",
+  "giv": "见松殿",
+  "rel": "长女",
+  "status": 0,
+  "fams": [
+   "武田"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "仁科",
+  "giv": "盛信",
+  "rel": "六子",
+  "status": 2,
+  "fams": [
+   "武田"
+  ],
+  "oid": 234,
+  "conf": "exact",
+  "officer": {
+   "name": "仁科盛信",
+   "birth_year": 1685,
+   "father_id": 199,
+   "rank_name": "组头",
+   "archetype_name": "一般武将A",
+   "province": 10,
+   "city": 255,
+   "lead": 80,
+   "martial": 78,
+   "domestic": 60,
+   "diplomacy": 48,
+   "charm": 72
+  },
+  "amb": []
+ },
+ {
+  "sur": "长尾",
+  "giv": "为景",
+  "rel": "父",
+  "status": 1,
+  "fams": [
+   "上杉"
+  ],
+  "oid": 243,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "长尾政景",
+   "birth_year": 1520,
+   "father_id": 65535,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 5,
+   "city": 50,
+   "lead": 84,
+   "martial": 72,
+   "domestic": 62,
+   "diplomacy": 36,
+   "charm": 49
+  },
+  "amb": [
+   [
+    "长尾政景",
+    243
+   ]
+  ]
+ },
+ {
+  "sur": "上杉",
+  "giv": "宪景",
+  "rel": "兄",
+  "status": 1,
+  "fams": [
+   "上杉"
+  ],
+  "oid": 250,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "上杉景信",
+   "birth_year": 1527,
+   "father_id": 65535,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 5,
+   "city": 50,
+   "lead": 62,
+   "martial": 54,
+   "domestic": 69,
+   "diplomacy": 71,
+   "charm": 54
+  },
+  "amb": [
+   [
+    "上杉景信",
+    250
+   ],
+   [
+    "上杉景虎",
+    273
+   ],
+   [
+    "上杉景胜",
+    274
+   ]
+  ]
+ },
+ {
+  "sur": "上杉",
+  "giv": "谦信",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "上杉"
+  ],
+  "oid": 257,
+  "conf": "exact",
+  "officer": {
+   "name": "上杉谦信",
+   "birth_year": 1530,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "上杉谦信/本愿寺显如",
+   "province": 5,
+   "city": 50,
+   "lead": 98,
+   "martial": 100,
+   "domestic": 64,
+   "diplomacy": 68,
+   "charm": 99
+  },
+  "amb": []
+ },
+ {
+  "sur": "上杉",
+  "giv": "景胜",
+  "rel": "养子",
+  "status": 0,
+  "fams": [
+   "上杉"
+  ],
+  "oid": 274,
+  "conf": "exact",
+  "officer": {
+   "name": "上杉景胜",
+   "birth_year": 1555,
+   "father_id": 257,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将B",
+   "province": 5,
+   "city": 255,
+   "lead": 88,
+   "martial": 89,
+   "domestic": 73,
+   "diplomacy": 54,
+   "charm": 90
+  },
+  "amb": []
+ },
+ {
+  "sur": "上杉",
+  "giv": "与三郎",
+  "rel": "养子",
+  "status": 0,
+  "fams": [
+   "上杉"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "北条",
+  "giv": "氏纲",
+  "rel": "父",
+  "status": 1,
+  "fams": [
+   "北条"
+  ],
+  "oid": 415,
+  "conf": "unique_given",
+  "officer": {
+   "name": "荒木氏纲",
+   "birth_year": 1660,
+   "father_id": 65535,
+   "rank_name": "家老",
+   "archetype_name": "一般武将A",
+   "province": 26,
+   "city": 115,
+   "lead": 70,
+   "martial": 84,
+   "domestic": 22,
+   "diplomacy": 22,
+   "charm": 68
+  },
+  "amb": []
+ },
+ {
+  "sur": "北条",
+  "giv": "氏康",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "北条"
+  ],
+  "oid": 159,
+  "conf": "exact",
+  "officer": {
+   "name": "北条氏康",
+   "birth_year": 1515,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将A",
+   "province": 6,
+   "city": 35,
+   "lead": 91,
+   "martial": 82,
+   "domestic": 94,
+   "diplomacy": 89,
+   "charm": 84
+  },
+  "amb": []
+ },
+ {
+  "sur": "北条",
+  "giv": "氏政",
+  "rel": "长子",
+  "status": 0,
+  "fams": [
+   "北条"
+  ],
+  "oid": 175,
+  "conf": "exact",
+  "officer": {
+   "name": "北条氏政",
+   "birth_year": 1538,
+   "father_id": 159,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 6,
+   "city": 35,
+   "lead": 69,
+   "martial": 52,
+   "domestic": 78,
+   "diplomacy": 74,
+   "charm": 76
+  },
+  "amb": []
+ },
+ {
+  "sur": "北条",
+  "giv": "氏照",
+  "rel": "次子",
+  "status": 0,
+  "fams": [
+   "北条"
+  ],
+  "oid": 176,
+  "conf": "exact",
+  "officer": {
+   "name": "北条氏照",
+   "birth_year": 1540,
+   "father_id": 159,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 6,
+   "city": 34,
+   "lead": 82,
+   "martial": 78,
+   "domestic": 44,
+   "diplomacy": 60,
+   "charm": 75
+  },
+  "amb": []
+ },
+ {
+  "sur": "北条",
+  "giv": "氏邦",
+  "rel": "三子",
+  "status": 0,
+  "fams": [
+   "北条"
+  ],
+  "oid": 181,
+  "conf": "exact",
+  "officer": {
+   "name": "北条氏邦",
+   "birth_year": 1541,
+   "father_id": 159,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 6,
+   "city": 32,
+   "lead": 58,
+   "martial": 53,
+   "domestic": 69,
+   "diplomacy": 28,
+   "charm": 74
+  },
+  "amb": []
+ },
+ {
+  "sur": "北条",
+  "giv": "氏规",
+  "rel": "四子",
+  "status": 0,
+  "fams": [
+   "北条"
+  ],
+  "oid": 186,
+  "conf": "exact",
+  "officer": {
+   "name": "北条氏规",
+   "birth_year": 1545,
+   "father_id": 159,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 6,
+   "city": 39,
+   "lead": 73,
+   "martial": 64,
+   "domestic": 57,
+   "diplomacy": 78,
+   "charm": 83
+  },
+  "amb": []
+ },
+ {
+  "sur": "武田",
+  "giv": "黄梅院",
+  "rel": "长女",
+  "status": 0,
+  "fams": [
+   "北条"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "北条",
+  "giv": "氏直",
+  "rel": "长孙",
+  "status": 2,
+  "fams": [
+   "北条"
+  ],
+  "oid": 191,
+  "conf": "exact",
+  "officer": {
+   "name": "北条氏直",
+   "birth_year": 1690,
+   "father_id": 175,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 6,
+   "city": 255,
+   "lead": 63,
+   "martial": 53,
+   "domestic": 67,
+   "diplomacy": 61,
+   "charm": 71
+  },
+  "amb": []
+ },
+ {
+  "sur": "毛利",
+  "giv": "弘元",
+  "rel": "父",
+  "status": 1,
+  "fams": [
+   "毛利"
+  ],
+  "oid": 500,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "毛利元就",
+   "birth_year": 1497,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将B",
+   "province": 33,
+   "city": 153,
+   "lead": 92,
+   "martial": 76,
+   "domestic": 96,
+   "diplomacy": 100,
+   "charm": 91
+  },
+  "amb": [
+   [
+    "毛利元就",
+    500
+   ],
+   [
+    "毛利隆元",
+    512
+   ],
+   [
+    "毛利辉元",
+    534
+   ]
+  ]
+ },
+ {
+  "sur": "毛利",
+  "giv": "兴元",
+  "rel": "兄",
+  "status": 1,
+  "fams": [
+   "毛利"
+  ],
+  "oid": 500,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "毛利元就",
+   "birth_year": 1497,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将B",
+   "province": 33,
+   "city": 153,
+   "lead": 92,
+   "martial": 76,
+   "domestic": 96,
+   "diplomacy": 100,
+   "charm": 91
+  },
+  "amb": [
+   [
+    "毛利元就",
+    500
+   ],
+   [
+    "毛利隆元",
+    512
+   ],
+   [
+    "毛利辉元",
+    534
+   ]
+  ]
+ },
+ {
+  "sur": "毛利",
+  "giv": "元就",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "吉川",
+   "小早川",
+   "毛利"
+  ],
+  "oid": 500,
+  "conf": "exact",
+  "officer": {
+   "name": "毛利元就",
+   "birth_year": 1497,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将B",
+   "province": 33,
+   "city": 153,
+   "lead": 92,
+   "martial": 76,
+   "domestic": 96,
+   "diplomacy": 100,
+   "charm": 91
+  },
+  "amb": []
+ },
+ {
+  "sur": "毛利",
+  "giv": "隆元",
+  "rel": "长子",
+  "status": 0,
+  "fams": [
+   "吉川",
+   "毛利"
+  ],
+  "oid": 512,
+  "conf": "exact",
+  "officer": {
+   "name": "毛利隆元",
+   "birth_year": 1523,
+   "father_id": 500,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 33,
+   "city": 153,
+   "lead": 70,
+   "martial": 76,
+   "domestic": 72,
+   "diplomacy": 76,
+   "charm": 90
+  },
+  "amb": []
+ },
+ {
+  "sur": "吉川",
+  "giv": "元春",
+  "rel": "次子",
+  "status": 0,
+  "fams": [
+   "吉川",
+   "小早川",
+   "毛利"
+  ],
+  "oid": 518,
+  "conf": "exact",
+  "officer": {
+   "name": "吉川元春",
+   "birth_year": 1530,
+   "father_id": 500,
+   "rank_name": "组头",
+   "archetype_name": "一般武将B",
+   "province": 33,
+   "city": 153,
+   "lead": 91,
+   "martial": 89,
+   "domestic": 65,
+   "diplomacy": 61,
+   "charm": 80
+  },
+  "amb": []
+ },
+ {
+  "sur": "小早川",
+  "giv": "隆景",
+  "rel": "三子",
+  "status": 0,
+  "fams": [
+   "吉川",
+   "小早川",
+   "毛利"
+  ],
+  "oid": 521,
+  "conf": "exact",
+  "officer": {
+   "name": "小早川隆景",
+   "birth_year": 1533,
+   "father_id": 500,
+   "rank_name": "组头",
+   "archetype_name": "一般武将A",
+   "province": 33,
+   "city": 153,
+   "lead": 86,
+   "martial": 74,
+   "domestic": 88,
+   "diplomacy": 92,
+   "charm": 88
+  },
+  "amb": []
+ },
+ {
+  "sur": "穗井田",
+  "giv": "元清",
+  "rel": "四子",
+  "status": 0,
+  "fams": [
+   "毛利"
+  ],
+  "oid": 533,
+  "conf": "exact",
+  "officer": {
+   "name": "穗井田元清",
+   "birth_year": 1551,
+   "father_id": 500,
+   "rank_name": "组头",
+   "archetype_name": "一般武将C",
+   "province": 33,
+   "city": 255,
+   "lead": 68,
+   "martial": 63,
+   "domestic": 55,
+   "diplomacy": 62,
+   "charm": 77
+  },
+  "amb": []
+ },
+ {
+  "sur": "毛利",
+  "giv": "辉元",
+  "rel": "长孙",
+  "status": 0,
+  "fams": [
+   "毛利"
+  ],
+  "oid": 534,
+  "conf": "exact",
+  "officer": {
+   "name": "毛利辉元",
+   "birth_year": 1681,
+   "father_id": 512,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将B",
+   "province": 33,
+   "city": 255,
+   "lead": 52,
+   "martial": 54,
+   "domestic": 70,
+   "diplomacy": 76,
+   "charm": 93
+  },
+  "amb": []
+ },
+ {
+  "sur": "吉川",
+  "giv": "元长",
+  "rel": "长子",
+  "status": 0,
+  "fams": [
+   "吉川"
+  ],
+  "oid": 532,
+  "conf": "exact",
+  "officer": {
+   "name": "吉川元长",
+   "birth_year": 1676,
+   "father_id": 518,
+   "rank_name": "家老",
+   "archetype_name": "一般武将B",
+   "province": 33,
+   "city": 255,
+   "lead": 76,
+   "martial": 83,
+   "domestic": 64,
+   "diplomacy": 58,
+   "charm": 81
+  },
+  "amb": []
+ },
+ {
+  "sur": "小早川",
+  "giv": "元氏",
+  "rel": "次子",
+  "status": 0,
+  "fams": [
+   "吉川"
+  ],
+  "oid": 536,
+  "conf": "unique_given",
+  "officer": {
+   "name": "繁泽元氏",
+   "birth_year": 1684,
+   "father_id": 518,
+   "rank_name": "家老",
+   "archetype_name": "一般武将A",
+   "province": 33,
+   "city": 255,
+   "lead": 65,
+   "martial": 60,
+   "domestic": 61,
+   "diplomacy": 43,
+   "charm": 58
+  },
+  "amb": []
+ },
+ {
+  "sur": "岛津",
+  "giv": "忠良",
+  "rel": "父",
+  "status": 0,
+  "fams": [
+   "岛津"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "岛津",
+  "giv": "贵久",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "岛津"
+  ],
+  "oid": 651,
+  "conf": "exact",
+  "officer": {
+   "name": "岛津贵久",
+   "birth_year": 1514,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将C",
+   "province": 43,
+   "city": 195,
+   "lead": 88,
+   "martial": 77,
+   "domestic": 82,
+   "diplomacy": 78,
+   "charm": 86
+  },
+  "amb": []
+ },
+ {
+  "sur": "岛津",
+  "giv": "义久",
+  "rel": "长子",
+  "status": 0,
+  "fams": [
+   "岛津"
+  ],
+  "oid": 662,
+  "conf": "exact",
+  "officer": {
+   "name": "岛津义久",
+   "birth_year": 1533,
+   "father_id": 651,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将B",
+   "province": 43,
+   "city": 195,
+   "lead": 88,
+   "martial": 80,
+   "domestic": 86,
+   "diplomacy": 91,
+   "charm": 84
+  },
+  "amb": []
+ },
+ {
+  "sur": "岛津",
+  "giv": "岁久",
+  "rel": "次子",
+  "status": 0,
+  "fams": [
+   "岛津"
+  ],
+  "oid": 671,
+  "conf": "exact",
+  "officer": {
+   "name": "岛津岁久",
+   "birth_year": 1537,
+   "father_id": 651,
+   "rank_name": "组头",
+   "archetype_name": "一般武将A",
+   "province": 43,
+   "city": 195,
+   "lead": 75,
+   "martial": 71,
+   "domestic": 82,
+   "diplomacy": 78,
+   "charm": 80
+  },
+  "amb": []
+ },
+ {
+  "sur": "岛津",
+  "giv": "义弘",
+  "rel": "三子",
+  "status": 0,
+  "fams": [
+   "岛津"
+  ],
+  "oid": 666,
+  "conf": "exact",
+  "officer": {
+   "name": "岛津义弘",
+   "birth_year": 1535,
+   "father_id": 651,
+   "rank_name": "组头",
+   "archetype_name": "一般武将A",
+   "province": 43,
+   "city": 195,
+   "lead": 98,
+   "martial": 97,
+   "domestic": 81,
+   "diplomacy": 68,
+   "charm": 94
+  },
+  "amb": []
+ },
+ {
+  "sur": "岛津",
+  "giv": "家久",
+  "rel": "四子",
+  "status": 0,
+  "fams": [
+   "岛津"
+  ],
+  "oid": 679,
+  "conf": "exact",
+  "officer": {
+   "name": "岛津家久",
+   "birth_year": 1547,
+   "father_id": 651,
+   "rank_name": "组头",
+   "archetype_name": "一般武将A",
+   "province": 43,
+   "city": 255,
+   "lead": 87,
+   "martial": 96,
+   "domestic": 61,
+   "diplomacy": 56,
+   "charm": 90
+  },
+  "amb": []
+ },
+ {
+  "sur": "岛津",
+  "giv": "忠恒",
+  "rel": "孙",
+  "status": 2,
+  "fams": [
+   "岛津"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "伊达",
+  "giv": "晴宗",
+  "rel": "父",
+  "status": 0,
+  "fams": [
+   "伊达"
+  ],
+  "oid": 81,
+  "conf": "exact",
+  "officer": {
+   "name": "伊达晴宗",
+   "birth_year": 1519,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将A",
+   "province": 1,
+   "city": 3,
+   "lead": 82,
+   "martial": 74,
+   "domestic": 79,
+   "diplomacy": 68,
+   "charm": 71
+  },
+  "amb": []
+ },
+ {
+  "sur": "伊达",
+  "giv": "辉宗",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "伊达"
+  ],
+  "oid": 100,
+  "conf": "exact",
+  "officer": {
+   "name": "伊达辉宗",
+   "birth_year": 1544,
+   "father_id": 81,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将B",
+   "province": 1,
+   "city": 3,
+   "lead": 80,
+   "martial": 68,
+   "domestic": 79,
+   "diplomacy": 82,
+   "charm": 91
+  },
+  "amb": []
+ },
+ {
+  "sur": "",
+  "giv": "义姬",
+  "rel": "正室",
+  "status": 0,
+  "fams": [
+   "伊达"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "伊达",
+  "giv": "盛宗",
+  "rel": "弟",
+  "status": 0,
+  "fams": [
+   "伊达"
+  ],
+  "oid": 105,
+  "conf": "unique_given",
+  "officer": {
+   "name": "小梁川盛宗",
+   "birth_year": 1523,
+   "father_id": 85,
+   "rank_name": "足轻头",
+   "archetype_name": "一般武将B",
+   "province": 1,
+   "city": 3,
+   "lead": 63,
+   "martial": 64,
+   "domestic": 35,
+   "diplomacy": 45,
+   "charm": 51
+  },
+  "amb": []
+ },
+ {
+  "sur": "最上",
+  "giv": "义光",
+  "rel": "妻兄",
+  "status": 0,
+  "fams": [
+   "伊达",
+   "最上"
+  ],
+  "oid": 120,
+  "conf": "exact",
+  "officer": {
+   "name": "最上义光",
+   "birth_year": 1546,
+   "father_id": 116,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将B",
+   "province": 3,
+   "city": 8,
+   "lead": 90,
+   "martial": 86,
+   "domestic": 71,
+   "diplomacy": 87,
+   "charm": 80
+  },
+  "amb": []
+ },
+ {
+  "sur": "伊达",
+  "giv": "政宗",
+  "rel": "长子",
+  "status": 2,
+  "fams": [
+   "伊达"
+  ],
+  "oid": 112,
+  "conf": "exact",
+  "officer": {
+   "name": "伊达政宗",
+   "birth_year": 1567,
+   "father_id": 100,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将B",
+   "province": 1,
+   "city": 255,
+   "lead": 91,
+   "martial": 86,
+   "domestic": 88,
+   "diplomacy": 96,
+   "charm": 88
+  },
+  "amb": []
+ },
+ {
+  "sur": "伊达",
+  "giv": "小次郎",
+  "rel": "次子",
+  "status": 2,
+  "fams": [
+   "伊达"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "最上",
+  "giv": "义守",
+  "rel": "父",
+  "status": 0,
+  "fams": [
+   "最上"
+  ],
+  "oid": 116,
+  "conf": "exact",
+  "officer": {
+   "name": "最上义守",
+   "birth_year": 1521,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将B",
+   "province": 3,
+   "city": 8,
+   "lead": 78,
+   "martial": 72,
+   "domestic": 57,
+   "diplomacy": 60,
+   "charm": 74
+  },
+  "amb": []
+ },
+ {
+  "sur": "中村",
+  "giv": "义康",
+  "rel": "弟",
+  "status": 0,
+  "fams": [
+   "最上"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "最上",
+  "giv": "家光",
+  "rel": "长子",
+  "status": 2,
+  "fams": [
+   "最上"
+  ],
+  "oid": 120,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "最上义光",
+   "birth_year": 1546,
+   "father_id": 116,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将B",
+   "province": 3,
+   "city": 8,
+   "lead": 90,
+   "martial": 86,
+   "domestic": 71,
+   "diplomacy": 87,
+   "charm": 80
+  },
+  "amb": [
+   [
+    "最上义光",
+    120
+   ]
+  ]
+ },
+ {
+  "sur": "大友",
+  "giv": "义鉴",
+  "rel": "父",
+  "status": 1,
+  "fams": [
+   "大友"
+  ],
+  "oid": 628,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "大友义统",
+   "birth_year": 1686,
+   "father_id": 618,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 37,
+   "city": 255,
+   "lead": 40,
+   "martial": 47,
+   "domestic": 27,
+   "diplomacy": 29,
+   "charm": 31
+  },
+  "amb": [
+   [
+    "大友义统",
+    628
+   ]
+  ]
+ },
+ {
+  "sur": "大友",
+  "giv": "宗麟",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "大友"
+  ],
+  "oid": 618,
+  "conf": "exact",
+  "officer": {
+   "name": "大友宗麟",
+   "birth_year": 1530,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将C",
+   "province": 37,
+   "city": 182,
+   "lead": 77,
+   "martial": 80,
+   "domestic": 73,
+   "diplomacy": 78,
+   "charm": 65
+  },
+  "amb": []
+ },
+ {
+  "sur": "大友",
+  "giv": "义统",
+  "rel": "长子",
+  "status": 0,
+  "fams": [
+   "大友"
+  ],
+  "oid": 628,
+  "conf": "exact",
+  "officer": {
+   "name": "大友义统",
+   "birth_year": 1686,
+   "father_id": 618,
+   "rank_name": "家臣",
+   "archetype_name": "一般武将A",
+   "province": 37,
+   "city": 255,
+   "lead": 40,
+   "martial": 47,
+   "domestic": 27,
+   "diplomacy": 29,
+   "charm": 31
+  },
+  "amb": []
+ },
+ {
+  "sur": "大友",
+  "giv": "亲直",
+  "rel": "次子",
+  "status": 2,
+  "fams": [
+   "大友"
+  ],
+  "oid": 599,
+  "conf": "unique_given",
+  "officer": {
+   "name": "久武亲直",
+   "birth_year": 1540,
+   "father_id": 65535,
+   "rank_name": "足轻头",
+   "archetype_name": "一般武将A",
+   "province": 35,
+   "city": 167,
+   "lead": 53,
+   "martial": 49,
+   "domestic": 56,
+   "diplomacy": 68,
+   "charm": 25
+  },
+  "amb": []
+ },
+ {
+  "sur": "森",
+  "giv": "可成",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "森"
+  ],
+  "oid": 2,
+  "conf": "exact",
+  "officer": {
+   "name": "森可成",
+   "birth_year": 1523,
+   "father_id": 65535,
+   "rank_name": "足轻头",
+   "archetype_name": "一般武将B",
+   "province": 13,
+   "city": 66,
+   "lead": 72,
+   "martial": 79,
+   "domestic": 51,
+   "diplomacy": 42,
+   "charm": 70
+  },
+  "amb": []
+ },
+ {
+  "sur": "森",
+  "giv": "长可",
+  "rel": "长子",
+  "status": 0,
+  "fams": [
+   "森"
+  ],
+  "oid": 50,
+  "conf": "exact",
+  "officer": {
+   "name": "森长可",
+   "birth_year": 1686,
+   "father_id": 2,
+   "rank_name": "足轻头",
+   "archetype_name": "一般武将B",
+   "province": 13,
+   "city": 255,
+   "lead": 67,
+   "martial": 83,
+   "domestic": 59,
+   "diplomacy": 54,
+   "charm": 84
+  },
+  "amb": []
+ },
+ {
+  "sur": "森",
+  "giv": "兰丸",
+  "rel": "三子",
+  "status": 0,
+  "fams": [
+   "森"
+  ],
+  "oid": 61,
+  "conf": "exact",
+  "officer": {
+   "name": "森兰丸",
+   "birth_year": 1693,
+   "father_id": 2,
+   "rank_name": "足轻组头",
+   "archetype_name": "一般武将B",
+   "province": 13,
+   "city": 255,
+   "lead": 52,
+   "martial": 56,
+   "domestic": 84,
+   "diplomacy": 71,
+   "charm": 85
+  },
+  "amb": []
+ },
+ {
+  "sur": "森",
+  "giv": "松寿丸",
+  "rel": "孙",
+  "status": 2,
+  "fams": [
+   "森"
+  ],
+  "oid": 61,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "森兰丸",
+   "birth_year": 1693,
+   "father_id": 2,
+   "rank_name": "足轻组头",
+   "archetype_name": "一般武将B",
+   "province": 13,
+   "city": 255,
+   "lead": 52,
+   "martial": 56,
+   "domestic": 84,
+   "diplomacy": 71,
+   "charm": 85
+  },
+  "amb": [
+   [
+    "森兰丸",
+    61
+   ]
+  ]
+ },
+ {
+  "sur": "真田",
+  "giv": "幸隆",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "真田"
+  ],
+  "oid": 196,
+  "conf": "exact",
+  "officer": {
+   "name": "真田幸隆",
+   "birth_year": 1512,
+   "father_id": 65535,
+   "rank_name": "家老",
+   "archetype_name": "一般武将A",
+   "province": 10,
+   "city": 40,
+   "lead": 88,
+   "martial": 58,
+   "domestic": 87,
+   "diplomacy": 91,
+   "charm": 74
+  },
+  "amb": []
+ },
+ {
+  "sur": "真田",
+  "giv": "信纲",
+  "rel": "长子",
+  "status": 0,
+  "fams": [
+   "真田"
+  ],
+  "oid": 220,
+  "conf": "exact",
+  "officer": {
+   "name": "真田信纲",
+   "birth_year": 1537,
+   "father_id": 196,
+   "rank_name": "足轻头",
+   "archetype_name": "一般武将B",
+   "province": 10,
+   "city": 40,
+   "lead": 77,
+   "martial": 70,
+   "domestic": 50,
+   "diplomacy": 43,
+   "charm": 75
+  },
+  "amb": []
+ },
+ {
+  "sur": "真田",
+  "giv": "昌辉",
+  "rel": "二郎",
+  "status": 0,
+  "fams": [
+   "真田"
+  ],
+  "oid": 224,
+  "conf": "exact",
+  "officer": {
+   "name": "真田昌辉",
+   "birth_year": 1540,
+   "father_id": 196,
+   "rank_name": "足轻头",
+   "archetype_name": "一般武将B",
+   "province": 10,
+   "city": 40,
+   "lead": 69,
+   "martial": 74,
+   "domestic": 48,
+   "diplomacy": 38,
+   "charm": 66
+  },
+  "amb": []
+ },
+ {
+  "sur": "真田",
+  "giv": "幸村",
+  "rel": "三男",
+  "status": 0,
+  "fams": [
+   "真田"
+  ],
+  "oid": 236,
+  "conf": "exact",
+  "officer": {
+   "name": "真田幸村",
+   "birth_year": 1695,
+   "father_id": 231,
+   "rank_name": "足轻头",
+   "archetype_name": "一般武将B",
+   "province": 10,
+   "city": 255,
+   "lead": 93,
+   "martial": 96,
+   "domestic": 61,
+   "diplomacy": 76,
+   "charm": 95
+  },
+  "amb": []
+ },
+ {
+  "sur": "真田",
+  "giv": "信幸",
+  "rel": "孙",
+  "status": 2,
+  "fams": [
+   "真田"
+  ],
+  "oid": 196,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "真田幸隆",
+   "birth_year": 1512,
+   "father_id": 65535,
+   "rank_name": "家老",
+   "archetype_name": "一般武将A",
+   "province": 10,
+   "city": 40,
+   "lead": 88,
+   "martial": 58,
+   "domestic": 87,
+   "diplomacy": 91,
+   "charm": 74
+  },
+  "amb": [
+   [
+    "真田幸隆",
+    196
+   ],
+   [
+    "真田信纲",
+    220
+   ],
+   [
+    "真田昌幸",
+    231
+   ],
+   [
+    "真田信之",
+    235
+   ]
+  ]
+ },
+ {
+  "sur": "今川",
+  "giv": "氏亲",
+  "rel": "父",
+  "status": 1,
+  "fams": [
+   "今川"
+  ],
+  "oid": 287,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "今川氏真",
+   "birth_year": 1538,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将A",
+   "province": 11,
+   "city": 54,
+   "lead": 54,
+   "martial": 28,
+   "domestic": 38,
+   "diplomacy": 45,
+   "charm": 60
+  },
+  "amb": [
+   [
+    "今川氏真",
+    287
+   ]
+  ]
+ },
+ {
+  "sur": "今川",
+  "giv": "义元",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "今川"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "今川",
+  "giv": "氏真",
+  "rel": "长子",
+  "status": 0,
+  "fams": [
+   "今川"
+  ],
+  "oid": 287,
+  "conf": "exact",
+  "officer": {
+   "name": "今川氏真",
+   "birth_year": 1538,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将A",
+   "province": 11,
+   "city": 54,
+   "lead": 54,
+   "martial": 28,
+   "domestic": 38,
+   "diplomacy": 45,
+   "charm": 60
+  },
+  "amb": []
+ },
+ {
+  "sur": "斋藤",
+  "giv": "道三",
+  "rel": "父",
+  "status": 0,
+  "fams": [
+   "斋藤"
+  ],
+  "oid": 330,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "斋藤利三",
+   "birth_year": 1534,
+   "father_id": 65535,
+   "rank_name": "足轻组头",
+   "archetype_name": "一般武将B",
+   "province": 14,
+   "city": 72,
+   "lead": 85,
+   "martial": 87,
+   "domestic": 61,
+   "diplomacy": 26,
+   "charm": 75
+  },
+  "amb": [
+   [
+    "斋藤利三",
+    330
+   ]
+  ]
+ },
+ {
+  "sur": "斋藤",
+  "giv": "义龙",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "斋藤"
+  ],
+  "oid": 331,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "斋藤长龙",
+   "birth_year": 1665,
+   "father_id": 65535,
+   "rank_name": "足轻头",
+   "archetype_name": "一般武将A",
+   "province": 14,
+   "city": 72,
+   "lead": 71,
+   "martial": 69,
+   "domestic": 38,
+   "diplomacy": 45,
+   "charm": 72
+  },
+  "amb": [
+   [
+    "斋藤长龙",
+    331
+   ],
+   [
+    "斋藤龙兴",
+    335
+   ]
+  ]
+ },
+ {
+  "sur": "织田",
+  "giv": "浓姬",
+  "rel": "妹",
+  "status": 0,
+  "fams": [
+   "斋藤"
+  ],
+  "oid": null,
+  "conf": "none",
+  "officer": {},
+  "amb": []
+ },
+ {
+  "sur": "朝仓",
+  "giv": "义定",
+  "rel": "父",
+  "status": 1,
+  "fams": [
+   "朝仓"
+  ],
+  "oid": 368,
+  "conf": "fuzzy",
+  "officer": {
+   "name": "朝仓义景",
+   "birth_year": 1533,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将B",
+   "province": 19,
+   "city": 90,
+   "lead": 72,
+   "martial": 58,
+   "domestic": 74,
+   "diplomacy": 56,
+   "charm": 78
+  },
+  "amb": [
+   [
+    "朝仓义景",
+    368
+   ]
+  ]
+ },
+ {
+  "sur": "朝仓",
+  "giv": "义景",
+  "rel": "本人",
+  "status": 0,
+  "fams": [
+   "朝仓"
+  ],
+  "oid": 368,
+  "conf": "exact",
+  "officer": {
+   "name": "朝仓义景",
+   "birth_year": 1533,
+   "father_id": 65535,
+   "rank_name": "大名",
+   "archetype_name": "一般武将B",
+   "province": 19,
+   "city": 90,
+   "lead": 72,
+   "martial": 58,
+   "domestic": 74,
+   "diplomacy": 56,
+   "charm": 78
+  },
+  "amb": []
+ }
+]

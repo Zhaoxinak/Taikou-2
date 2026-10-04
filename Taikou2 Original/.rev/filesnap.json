@@ -1,0 +1,958 @@
+{
+ "before": {
+  "ACERTWP.GRP": [
+   "339a7731c7dd21baeb821410b503430a",
+   128006
+  ],
+  "ANMSEQ.LZW": [
+   "1a12edd94f310a625ecf5439981aca66",
+   13381
+  ],
+  "BSDATA1.TR2": [
+   "ba8f264b90d882f00cd45a3980117c41",
+   41300
+  ],
+  "BSDATA2.TR2": [
+   "2c900ad3d5b229823829b681af91f8c7",
+   41300
+  ],
+  "CANCEL.KOS": [
+   "241b3257213e70316691bb22bde75d8e",
+   3067
+  ],
+  "CLICK.KOS": [
+   "6aa36d65d8f7824e5f864f74eafefbae",
+   2329
+  ],
+  "END.GRP": [
+   "df707fb4fa879e7e0b3fc330f9ea3b29",
+   733380
+  ],
+  "ENDING1.AVI": [
+   "34b2a1f85bf4d0a73c071d27163904bb",
+   2222266
+  ],
+  "ENDING2.AVI": [
+   "a233209db138c60ba16a9b363b7b879d",
+   2133906
+  ],
+  "EXTFACE.PK8": [
+   "c919622ab3026bd2e38c9bcbd556ec16",
+   1533
+  ],
+  "FACE.LZW": [
+   "d7d3e508c8dbce87eecaddce6c6226cb",
+   1093638
+  ],
+  "GAIJI.TR2": [
+   "aef89094a60fa167b30f69c6b4b6a091",
+   544
+  ],
+  "GIHEI.KOS": [
+   "10eb3bc685b192073c088bfde7873a8d",
+   1031
+  ],
+  "GINOUUP.KOS": [
+   "98b2e0a917a515888fa59b6ce01a42ac",
+   32173
+  ],
+  "GRPDATA.LZW": [
+   "9a43f8d5f63a572c5b2190933e524eaf",
+   21415
+  ],
+  "GRPDATA2.LZW": [
+   "e1f44309f594f13beaffa472f76db76f",
+   4166
+  ],
+  "HBCHAR.LZW": [
+   "c82bb00f7ac4ca0a7f3627fc75d2a754",
+   24358
+  ],
+  "HBCHAR2.LZW": [
+   "bd8af7c0f0c5facf6e2b2458b4bd6ab5",
+   7608
+  ],
+  "HBMAP.LZW": [
+   "5dd80bb04fb24030e8db3a4173337317",
+   123077
+  ],
+  "HBOBJ.DAT": [
+   "432127d9fc849383627195255e6a54f6",
+   5120
+  ],
+  "HEXMES.LZW": [
+   "63225c9f03f129d72d166cae9e311264",
+   5375
+  ],
+  "HGRP.LZW": [
+   "c8c9912218ec90971ee92159bdbf361c",
+   23784
+  ],
+  "HJCHAR.lZW": [
+   "106bd894a55af7ab445d1cd7e5f8e932",
+   14038
+  ],
+  "HJMAP.LZW": [
+   "b9490a2b5d55e93870b4796d63bce9c8",
+   28351
+  ],
+  "HJMAPDAT.DAT": [
+   "602f7caf94bff9fb9b90724a0260e29c",
+   64600
+  ],
+  "HKCHAR.LZW": [
+   "880d137d51123931f062e7a1e0213095",
+   18038
+  ],
+  "HKMAP.LZW": [
+   "81ee155ea86782919307e5d45345a65a",
+   28551
+  ],
+  "HKMAPDAT.LZW": [
+   "da5d1ec6fa41fec629b7d99cdae3c8a3",
+   65646
+  ],
+  "HKMAPNEW.LZW": [
+   "d20eb6c39d7936e18c25ef52b7604c12",
+   65646
+  ],
+  "IATSU.KOS": [
+   "561c840de5b2751f8f9dab8dbb5e5599",
+   66089
+  ],
+  "IDOU.KOS": [
+   "2a8d354627f11f9a473c94bcc466e88c",
+   17321
+  ],
+  "IGENSYOU.KOS": [
+   "26df578626650219fa80553fb313c01a",
+   3693
+  ],
+  "IKARI.KOS": [
+   "37cc68dd1f7d3af5886e943d91f71e15",
+   28973
+  ],
+  "INOTIGOI.KOS": [
+   "b29efaabdd6422ccd168aaf591047155",
+   35661
+  ],
+  "IZOUKA.KOS": [
+   "1a00c66ae83383af3476fe058348064e",
+   3789
+  ],
+  "KAIKON.LZW": [
+   "0c182ea6019ee5f2d86ea503108d1bb5",
+   16349
+  ],
+  "KAISHIN.KOS": [
+   "b0135b4853fec5d3452a1a683de96f75",
+   16589
+  ],
+  "KAKEI.KOS": [
+   "1f05a3ec40e61358270ccdf89760dc31",
+   85545
+  ],
+  "KAMINARI.KOS": [
+   "916abfceb6f8f80819861849f476c576",
+   75945
+  ],
+  "KEMURI.KOS": [
+   "c40037c1549960897370313e977b9d24",
+   18989
+  ],
+  "KOATARI.KOS": [
+   "a11a37f3dfa81dd40748922ea5727e26",
+   20525
+  ],
+  "KOEILOGO.AVI": [
+   "f86631171c3d966cde17138023b887b6",
+   1432576
+  ],
+  "KOEILOGO.GRP": [
+   "7a4aec4e98e25d02f47cc89ae6162668",
+   128006
+  ],
+  "KOSENGRP.LZW": [
+   "d3be28004c5542638a55202e89b318f2",
+   281658
+  ],
+  "KOUGEKI1.KOS": [
+   "c3087b14fe84986bc6140debb79389fa",
+   13891
+  ],
+  "KOUGEKI2.KOS": [
+   "46dec3b899dbd0a98e605430dad70898",
+   12937
+  ],
+  "MACHIMES.KOS": [
+   "825869f73cea4bbbff44e42083ef1008",
+   20333
+  ],
+  "MAPCHAR.LZW": [
+   "973d77adbbf589d397e12381a8c2ee1f",
+   13133
+  ],
+  "MAPCHIP.LZW": [
+   "8faa8bc33193615248849d6ce916a2a6",
+   31478
+  ],
+  "MATISIRO.KOS": [
+   "60862fb8466421df690df361c2e1a687",
+   26925
+  ],
+  "MESSAGE1.LZW": [
+   "c4f17cc40ee2e22175bbacc0d1deda10",
+   45553
+  ],
+  "MESSAGE2.LZW": [
+   "6e69a3caa067db02e111c3cc97ee1d55",
+   45421
+  ],
+  "MESSAGE3.LZW": [
+   "3cec9ae6931d27eec8af71496a9d51eb",
+   52304
+  ],
+  "MESSAGE4.LZW": [
+   "e0e496e932e2731cbb6606cf8e623c7d",
+   28831
+  ],
+  "METUBUSI.KOS": [
+   "70a429580e7d5ea1a274b0975639c53e",
+   20521
+  ],
+  "MI_AME.KOS": [
+   "3cb61258315e67e835a15ae5750c91b9",
+   57769
+  ],
+  "MI_HARE.KOS": [
+   "3e5f38b41b836f5d6503c05e5d9a8e84",
+   60461
+  ],
+  "NIGERU.KOS": [
+   "f09275525f6562d422f05a1565f57083",
+   24683
+  ],
+  "NINJA.KOS": [
+   "b1e9842f63d70f8fdcc23ce73d770d8e",
+   34013
+  ],
+  "NPKDATA.IDX": [
+   "9c64c66e08e5aa9b2d434bbf5994807c",
+   296263
+  ],
+  "OOATARI.KOS": [
+   "8a23b0aa1a22e88029f40763b42462fb",
+   21487
+  ],
+  "OPENGATE.KOS": [
+   "b50fad2b6442a7ae84874093c76e9b7f",
+   29161
+  ],
+  "OPENNING.AVI": [
+   "b460d73115ab2462f39c96051c8db569",
+   36982112
+  ],
+  "PK8DATA.LZW": [
+   "e9687baa31d1b2bb4ae50b3703c8efd3",
+   38850
+  ],
+  "PRESS.GRP": [
+   "27b101cad2fd9e4c60a8906e4bdb23b9",
+   128006
+  ],
+  "RAKUSEKI.KOS": [
+   "45e107b62e60c942b82430e90c61ff20",
+   81961
+  ],
+  "SAVEDATA.TR2": [
+   "c47a7afb971041c9c17798b50d31a818",
+   328088
+  ],
+  "SEIKOU.KOS": [
+   "94b2b27a928345624e6168e78c145533",
+   16301
+  ],
+  "SHIKI.KOS": [
+   "97b04a2dfad544d6103bd175a41da475",
+   16109
+  ],
+  "SHIPPAI.KOS": [
+   "7bdba2e8096d2795f7f50d73bff8eedc",
+   9513
+  ],
+  "SHOPCHAR.LZW": [
+   "07e88570a394f612d91125995287e100",
+   478601
+  ],
+  "SHOPMAP.LZW": [
+   "07b2ed3967b2ea95b2a39f8e55635ca5",
+   34049
+  ],
+  "SHOP_BG.LZW": [
+   "4f5b5922392677f6a388a85d56ce54de",
+   26465
+  ],
+  "SHOP_MSK.LZW": [
+   "0f9856938cf92acffbd4beed4b225361",
+   4414
+  ],
+  "SHOP_OBJ.LZW": [
+   "09d5d0ad1429414b72c09aae42ccd439",
+   24938
+  ],
+  "SIKAKU.KOS": [
+   "87a55de009d4fcd92a76c1ce3af16dc0",
+   12969
+  ],
+  "SMODE.GRP": [
+   "17e898b61d9f30f43f16501c5e53e01b",
+   133537
+  ],
+  "SNDATA1.TR2": [
+   "10d99652362619e2a405948eec890bd0",
+   40856
+  ],
+  "SNDATA2.TR2": [
+   "2be630cc207ed2995e26c345dcea99e1",
+   40856
+  ],
+  "SYUUZEN.KOS": [
+   "8fbeeb34a17e0f3b7c07f1cd6ff5ca4c",
+   8801
+  ],
+  "StartTaikou2.bat": [
+   "9d551e48d1bf9cd002c5f697250bdc2a",
+   1496
+  ],
+  "TAIK2W95.exe": [
+   "f9e643c2b031841dde4681dc063e8512",
+   451584
+  ],
+  "TAIK2W95_HD.exe": [
+   "1f8f592d1d5985fad2203e83af42dbcd",
+   1273856
+  ],
+  "TAIK2W95_clean.exe": [
+   "9c1c6b367217e0d1099f8e4a9e00e0a0",
+   1257472
+  ],
+  "TAIK2W95_wide.exe": [
+   "ec5c8f82516d46b536192b09cb532239",
+   1257472
+  ],
+  "TAIK2W95_zoom.exe": [
+   "b4c9187fbd941e2a2e21a636db1c8b2d",
+   1266688
+  ],
+  "TEPPOU.KOS": [
+   "4815f280c11ed49c85d419ee910a958a",
+   36393
+  ],
+  "TERRAIN.LZW": [
+   "56e7eca984d8d66bd5b92eea36a69738",
+   164499
+  ],
+  "TGENSYOU.KOS": [
+   "1a507e1163e806489c24668ddabf8eae",
+   12589
+  ],
+  "TOTUGEKI.KOS": [
+   "8fd099b07d0d7b89a2ab16230161ece7",
+   16809
+  ],
+  "TOWNCHAR.LZW": [
+   "4603b43f141f5b6cbde7d9c7363cf329",
+   20876
+  ],
+  "TOWNCHIP.LZW": [
+   "820a66dcaefd150a25eb7e1f2d1940c2",
+   28509
+  ],
+  "TOWNMAP.LZW": [
+   "db8353e8b6ebf7f6bca4053fe17acdf1",
+   36939
+  ],
+  "TOWNPOS.DAT": [
+   "42b7b60657057f75c69b7ab732a4bc40",
+   2450
+  ],
+  "TOWNTBL.DAT": [
+   "86cc997968e896f3f81f733dadbaeb83",
+   2560
+  ],
+  "UKETA.KOS": [
+   "35df2fd86582c149197e9a83da6c86c4",
+   24237
+  ],
+  "UMETATE.KOS": [
+   "60abcf874df6b41b903409a7066200f8",
+   25865
+  ],
+  "WAVE.TMP": [
+   "d41d8cd98f00b204e9800998ecf8427e",
+   0
+  ],
+  "YOKETA.KOS": [
+   "62f2993c113e9211d4cc43531d2436ab",
+   22701
+  ],
+  "ZANSYU.KOS": [
+   "49d6b930385ef4bb1212fd723065211c",
+   4905
+  ],
+  "_ascii_strip.bmp": [
+   "6d439ed0ef468f42fde89b000e46ec0b",
+   102774
+  ],
+  "_ascii_strip.bmp.import": [
+   "93727eafc1cf1088c78e2a287fad29c5",
+   957
+  ],
+  "_dbg_orig.exe": [
+   "f9e643c2b031841dde4681dc063e8512",
+   451584
+  ],
+  "_font_ascii.bmp": [
+   "7c7012ebe6cf23aa96f0afcdc1e253fc",
+   337622
+  ],
+  "_font_ascii.bmp.import": [
+   "cec3180964a9b623e9ac74e8d1f12b7c",
+   954
+  ],
+  "_font_ascii.png": [
+   "c13305738758496239de2b83bb32a9d1",
+   7561
+  ],
+  "_font_ascii.png.import": [
+   "a1e85c7fefe1a3c9106762b97f789c15",
+   953
+  ],
+  "_font_bulk0.bmp": [
+   "9efddbc935e47956e8340c47ad8aa465",
+   225830
+  ],
+  "_font_bulk0.bmp.import": [
+   "45db21fcf28e09a940bc10e36a0ad085",
+   954
+  ],
+  "_font_bulk0.png": [
+   "5ee88c2b7dcb4494d4d07168339c5597",
+   5191
+  ],
+  "_font_bulk0.png.import": [
+   "931e4bb10c5223e8010f6aef184c26e7",
+   954
+  ],
+  "_message_strip.bmp": [
+   "44124d8de03a4018421079fb956433cf",
+   54214
+  ],
+  "_message_strip.bmp.import": [
+   "3790e035a9c9aa1baa0f84bfd23b1953",
+   963
+  ],
+  "mount_cd.ps1": [
+   "3a40fc0582743d55a148ad4e9775888a",
+   356
+  ],
+  "mp3.dll": [
+   "484d9a58f8fe91515b1b1e2d14045cc4",
+   2048
+  ],
+  "mp3.dll.orig.bak": [
+   "4b45ec6efe15ad93924f3b297dfbce13",
+   69632
+  ],
+  "rmKOEI.bin": [
+   "a1b3229a41bdd8d64368ac870875edbe",
+   24576
+  ],
+  "taikou2_cd.iso": [
+   "245667bb50630e29db3dd606fba9e33f",
+   63488
+  ],
+  "启动游戏.bat": [
+   "6f2bee9efde3f6693a03c6b95f8020ff",
+   107
+  ]
+ },
+ "after": {
+  "ACERTWP.GRP": [
+   "339a7731c7dd21baeb821410b503430a",
+   128006
+  ],
+  "ANMSEQ.LZW": [
+   "1a12edd94f310a625ecf5439981aca66",
+   13381
+  ],
+  "BSDATA1.TR2": [
+   "ba8f264b90d882f00cd45a3980117c41",
+   41300
+  ],
+  "BSDATA2.TR2": [
+   "2c900ad3d5b229823829b681af91f8c7",
+   41300
+  ],
+  "CANCEL.KOS": [
+   "241b3257213e70316691bb22bde75d8e",
+   3067
+  ],
+  "CLICK.KOS": [
+   "6aa36d65d8f7824e5f864f74eafefbae",
+   2329
+  ],
+  "END.GRP": [
+   "df707fb4fa879e7e0b3fc330f9ea3b29",
+   733380
+  ],
+  "ENDING1.AVI": [
+   "34b2a1f85bf4d0a73c071d27163904bb",
+   2222266
+  ],
+  "ENDING2.AVI": [
+   "a233209db138c60ba16a9b363b7b879d",
+   2133906
+  ],
+  "EXTFACE.PK8": [
+   "c919622ab3026bd2e38c9bcbd556ec16",
+   1533
+  ],
+  "FACE.LZW": [
+   "d7d3e508c8dbce87eecaddce6c6226cb",
+   1093638
+  ],
+  "GAIJI.TR2": [
+   "aef89094a60fa167b30f69c6b4b6a091",
+   544
+  ],
+  "GIHEI.KOS": [
+   "10eb3bc685b192073c088bfde7873a8d",
+   1031
+  ],
+  "GINOUUP.KOS": [
+   "98b2e0a917a515888fa59b6ce01a42ac",
+   32173
+  ],
+  "GRPDATA.LZW": [
+   "9a43f8d5f63a572c5b2190933e524eaf",
+   21415
+  ],
+  "GRPDATA2.LZW": [
+   "e1f44309f594f13beaffa472f76db76f",
+   4166
+  ],
+  "HBCHAR.LZW": [
+   "c82bb00f7ac4ca0a7f3627fc75d2a754",
+   24358
+  ],
+  "HBCHAR2.LZW": [
+   "bd8af7c0f0c5facf6e2b2458b4bd6ab5",
+   7608
+  ],
+  "HBMAP.LZW": [
+   "5dd80bb04fb24030e8db3a4173337317",
+   123077
+  ],
+  "HBOBJ.DAT": [
+   "432127d9fc849383627195255e6a54f6",
+   5120
+  ],
+  "HEXMES.LZW": [
+   "63225c9f03f129d72d166cae9e311264",
+   5375
+  ],
+  "HGRP.LZW": [
+   "c8c9912218ec90971ee92159bdbf361c",
+   23784
+  ],
+  "HJCHAR.lZW": [
+   "106bd894a55af7ab445d1cd7e5f8e932",
+   14038
+  ],
+  "HJMAP.LZW": [
+   "b9490a2b5d55e93870b4796d63bce9c8",
+   28351
+  ],
+  "HJMAPDAT.DAT": [
+   "602f7caf94bff9fb9b90724a0260e29c",
+   64600
+  ],
+  "HKCHAR.LZW": [
+   "880d137d51123931f062e7a1e0213095",
+   18038
+  ],
+  "HKMAP.LZW": [
+   "81ee155ea86782919307e5d45345a65a",
+   28551
+  ],
+  "HKMAPDAT.LZW": [
+   "da5d1ec6fa41fec629b7d99cdae3c8a3",
+   65646
+  ],
+  "HKMAPNEW.LZW": [
+   "d20eb6c39d7936e18c25ef52b7604c12",
+   65646
+  ],
+  "IATSU.KOS": [
+   "561c840de5b2751f8f9dab8dbb5e5599",
+   66089
+  ],
+  "IDOU.KOS": [
+   "2a8d354627f11f9a473c94bcc466e88c",
+   17321
+  ],
+  "IGENSYOU.KOS": [
+   "26df578626650219fa80553fb313c01a",
+   3693
+  ],
+  "IKARI.KOS": [
+   "37cc68dd1f7d3af5886e943d91f71e15",
+   28973
+  ],
+  "INOTIGOI.KOS": [
+   "b29efaabdd6422ccd168aaf591047155",
+   35661
+  ],
+  "IZOUKA.KOS": [
+   "1a00c66ae83383af3476fe058348064e",
+   3789
+  ],
+  "KAIKON.LZW": [
+   "0c182ea6019ee5f2d86ea503108d1bb5",
+   16349
+  ],
+  "KAISHIN.KOS": [
+   "b0135b4853fec5d3452a1a683de96f75",
+   16589
+  ],
+  "KAKEI.KOS": [
+   "1f05a3ec40e61358270ccdf89760dc31",
+   85545
+  ],
+  "KAMINARI.KOS": [
+   "916abfceb6f8f80819861849f476c576",
+   75945
+  ],
+  "KEMURI.KOS": [
+   "c40037c1549960897370313e977b9d24",
+   18989
+  ],
+  "KOATARI.KOS": [
+   "a11a37f3dfa81dd40748922ea5727e26",
+   20525
+  ],
+  "KOEILOGO.AVI": [
+   "f86631171c3d966cde17138023b887b6",
+   1432576
+  ],
+  "KOEILOGO.GRP": [
+   "7a4aec4e98e25d02f47cc89ae6162668",
+   128006
+  ],
+  "KOSENGRP.LZW": [
+   "d3be28004c5542638a55202e89b318f2",
+   281658
+  ],
+  "KOUGEKI1.KOS": [
+   "c3087b14fe84986bc6140debb79389fa",
+   13891
+  ],
+  "KOUGEKI2.KOS": [
+   "46dec3b899dbd0a98e605430dad70898",
+   12937
+  ],
+  "MACHIMES.KOS": [
+   "825869f73cea4bbbff44e42083ef1008",
+   20333
+  ],
+  "MAPCHAR.LZW": [
+   "973d77adbbf589d397e12381a8c2ee1f",
+   13133
+  ],
+  "MAPCHIP.LZW": [
+   "8faa8bc33193615248849d6ce916a2a6",
+   31478
+  ],
+  "MATISIRO.KOS": [
+   "60862fb8466421df690df361c2e1a687",
+   26925
+  ],
+  "MESSAGE1.LZW": [
+   "c4f17cc40ee2e22175bbacc0d1deda10",
+   45553
+  ],
+  "MESSAGE2.LZW": [
+   "6e69a3caa067db02e111c3cc97ee1d55",
+   45421
+  ],
+  "MESSAGE3.LZW": [
+   "3cec9ae6931d27eec8af71496a9d51eb",
+   52304
+  ],
+  "MESSAGE4.LZW": [
+   "e0e496e932e2731cbb6606cf8e623c7d",
+   28831
+  ],
+  "METUBUSI.KOS": [
+   "70a429580e7d5ea1a274b0975639c53e",
+   20521
+  ],
+  "MI_AME.KOS": [
+   "3cb61258315e67e835a15ae5750c91b9",
+   57769
+  ],
+  "MI_HARE.KOS": [
+   "3e5f38b41b836f5d6503c05e5d9a8e84",
+   60461
+  ],
+  "NIGERU.KOS": [
+   "f09275525f6562d422f05a1565f57083",
+   24683
+  ],
+  "NINJA.KOS": [
+   "b1e9842f63d70f8fdcc23ce73d770d8e",
+   34013
+  ],
+  "NPKDATA.IDX": [
+   "9c64c66e08e5aa9b2d434bbf5994807c",
+   296263
+  ],
+  "OOATARI.KOS": [
+   "8a23b0aa1a22e88029f40763b42462fb",
+   21487
+  ],
+  "OPENGATE.KOS": [
+   "b50fad2b6442a7ae84874093c76e9b7f",
+   29161
+  ],
+  "OPENNING.AVI": [
+   "b460d73115ab2462f39c96051c8db569",
+   36982112
+  ],
+  "PK8DATA.LZW": [
+   "e9687baa31d1b2bb4ae50b3703c8efd3",
+   38850
+  ],
+  "PRESS.GRP": [
+   "27b101cad2fd9e4c60a8906e4bdb23b9",
+   128006
+  ],
+  "RAKUSEKI.KOS": [
+   "45e107b62e60c942b82430e90c61ff20",
+   81961
+  ],
+  "SAVEDATA.TR2": [
+   "c47a7afb971041c9c17798b50d31a818",
+   328088
+  ],
+  "SEIKOU.KOS": [
+   "94b2b27a928345624e6168e78c145533",
+   16301
+  ],
+  "SHIKI.KOS": [
+   "97b04a2dfad544d6103bd175a41da475",
+   16109
+  ],
+  "SHIPPAI.KOS": [
+   "7bdba2e8096d2795f7f50d73bff8eedc",
+   9513
+  ],
+  "SHOPCHAR.LZW": [
+   "07e88570a394f612d91125995287e100",
+   478601
+  ],
+  "SHOPMAP.LZW": [
+   "07b2ed3967b2ea95b2a39f8e55635ca5",
+   34049
+  ],
+  "SHOP_BG.LZW": [
+   "4f5b5922392677f6a388a85d56ce54de",
+   26465
+  ],
+  "SHOP_MSK.LZW": [
+   "0f9856938cf92acffbd4beed4b225361",
+   4414
+  ],
+  "SHOP_OBJ.LZW": [
+   "09d5d0ad1429414b72c09aae42ccd439",
+   24938
+  ],
+  "SIKAKU.KOS": [
+   "87a55de009d4fcd92a76c1ce3af16dc0",
+   12969
+  ],
+  "SMODE.GRP": [
+   "17e898b61d9f30f43f16501c5e53e01b",
+   133537
+  ],
+  "SNDATA1.TR2": [
+   "10d99652362619e2a405948eec890bd0",
+   40856
+  ],
+  "SNDATA2.TR2": [
+   "2be630cc207ed2995e26c345dcea99e1",
+   40856
+  ],
+  "SYUUZEN.KOS": [
+   "8fbeeb34a17e0f3b7c07f1cd6ff5ca4c",
+   8801
+  ],
+  "StartTaikou2.bat": [
+   "9d551e48d1bf9cd002c5f697250bdc2a",
+   1496
+  ],
+  "TAIK2W95.exe": [
+   "f9e643c2b031841dde4681dc063e8512",
+   451584
+  ],
+  "TAIK2W95_HD.exe": [
+   "1f8f592d1d5985fad2203e83af42dbcd",
+   1273856
+  ],
+  "TAIK2W95_clean.exe": [
+   "9c1c6b367217e0d1099f8e4a9e00e0a0",
+   1257472
+  ],
+  "TAIK2W95_wide.exe": [
+   "ec5c8f82516d46b536192b09cb532239",
+   1257472
+  ],
+  "TAIK2W95_zoom.exe": [
+   "b4c9187fbd941e2a2e21a636db1c8b2d",
+   1266688
+  ],
+  "TEPPOU.KOS": [
+   "4815f280c11ed49c85d419ee910a958a",
+   36393
+  ],
+  "TERRAIN.LZW": [
+   "56e7eca984d8d66bd5b92eea36a69738",
+   164499
+  ],
+  "TGENSYOU.KOS": [
+   "1a507e1163e806489c24668ddabf8eae",
+   12589
+  ],
+  "TOTUGEKI.KOS": [
+   "8fd099b07d0d7b89a2ab16230161ece7",
+   16809
+  ],
+  "TOWNCHAR.LZW": [
+   "4603b43f141f5b6cbde7d9c7363cf329",
+   20876
+  ],
+  "TOWNCHIP.LZW": [
+   "820a66dcaefd150a25eb7e1f2d1940c2",
+   28509
+  ],
+  "TOWNMAP.LZW": [
+   "db8353e8b6ebf7f6bca4053fe17acdf1",
+   36939
+  ],
+  "TOWNPOS.DAT": [
+   "42b7b60657057f75c69b7ab732a4bc40",
+   2450
+  ],
+  "TOWNTBL.DAT": [
+   "86cc997968e896f3f81f733dadbaeb83",
+   2560
+  ],
+  "UKETA.KOS": [
+   "35df2fd86582c149197e9a83da6c86c4",
+   24237
+  ],
+  "UMETATE.KOS": [
+   "60abcf874df6b41b903409a7066200f8",
+   25865
+  ],
+  "WAVE.TMP": [
+   "d41d8cd98f00b204e9800998ecf8427e",
+   0
+  ],
+  "YOKETA.KOS": [
+   "62f2993c113e9211d4cc43531d2436ab",
+   22701
+  ],
+  "ZANSYU.KOS": [
+   "49d6b930385ef4bb1212fd723065211c",
+   4905
+  ],
+  "_ascii_strip.bmp": [
+   "6d439ed0ef468f42fde89b000e46ec0b",
+   102774
+  ],
+  "_ascii_strip.bmp.import": [
+   "93727eafc1cf1088c78e2a287fad29c5",
+   957
+  ],
+  "_dbg_orig.exe": [
+   "f9e643c2b031841dde4681dc063e8512",
+   451584
+  ],
+  "_font_ascii.bmp": [
+   "7c7012ebe6cf23aa96f0afcdc1e253fc",
+   337622
+  ],
+  "_font_ascii.bmp.import": [
+   "cec3180964a9b623e9ac74e8d1f12b7c",
+   954
+  ],
+  "_font_ascii.png": [
+   "c13305738758496239de2b83bb32a9d1",
+   7561
+  ],
+  "_font_ascii.png.import": [
+   "a1e85c7fefe1a3c9106762b97f789c15",
+   953
+  ],
+  "_font_bulk0.bmp": [
+   "9efddbc935e47956e8340c47ad8aa465",
+   225830
+  ],
+  "_font_bulk0.bmp.import": [
+   "45db21fcf28e09a940bc10e36a0ad085",
+   954
+  ],
+  "_font_bulk0.png": [
+   "5ee88c2b7dcb4494d4d07168339c5597",
+   5191
+  ],
+  "_font_bulk0.png.import": [
+   "931e4bb10c5223e8010f6aef184c26e7",
+   954
+  ],
+  "_message_strip.bmp": [
+   "44124d8de03a4018421079fb956433cf",
+   54214
+  ],
+  "_message_strip.bmp.import": [
+   "3790e035a9c9aa1baa0f84bfd23b1953",
+   963
+  ],
+  "mount_cd.ps1": [
+   "3a40fc0582743d55a148ad4e9775888a",
+   356
+  ],
+  "mp3.dll": [
+   "484d9a58f8fe91515b1b1e2d14045cc4",
+   2048
+  ],
+  "mp3.dll.orig.bak": [
+   "4b45ec6efe15ad93924f3b297dfbce13",
+   69632
+  ],
+  "rmKOEI.bin": [
+   "a1b3229a41bdd8d64368ac870875edbe",
+   24576
+  ],
+  "taikou2_cd.iso": [
+   "245667bb50630e29db3dd606fba9e33f",
+   63488
+  ],
+  "启动游戏.bat": [
+   "6f2bee9efde3f6693a03c6b95f8020ff",
+   107
+  ]
+ }
+}

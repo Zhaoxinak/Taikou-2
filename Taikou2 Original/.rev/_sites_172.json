@@ -1,0 +1,4592 @@
+[
+ {
+  "addr": 4200409,
+  "off": 2009,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4200534,
+  "off": 2134,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x401871"
+ },
+ {
+  "addr": 4200576,
+  "off": 2176,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40189c"
+ },
+ {
+  "addr": 4200995,
+  "off": 2595,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x401a3f"
+ },
+ {
+  "addr": 4202004,
+  "off": 3604,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x401e30"
+ },
+ {
+  "addr": 4202084,
+  "off": 3684,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x401e7f"
+ },
+ {
+  "addr": 4202230,
+  "off": 3830,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x401f11"
+ },
+ {
+  "addr": 4202272,
+  "off": 3872,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x401f3c"
+ },
+ {
+  "addr": 4202739,
+  "off": 4339,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40210e"
+ },
+ {
+  "addr": 4202783,
+  "off": 4383,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40213a"
+ },
+ {
+  "addr": 4202970,
+  "off": 4570,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4021f9"
+ },
+ {
+  "addr": 4203064,
+  "off": 4664,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x402254"
+ },
+ {
+  "addr": 4203591,
+  "off": 5191,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x402462"
+ },
+ {
+  "addr": 4203657,
+  "off": 5257,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4024a4"
+ },
+ {
+  "addr": 4203769,
+  "off": 5369,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x402514"
+ },
+ {
+  "addr": 4204424,
+  "off": 6024,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4027a7"
+ },
+ {
+  "addr": 4204474,
+  "off": 6074,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4027d5"
+ },
+ {
+  "addr": 4204717,
+  "off": 6317,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4204980,
+  "off": 6580,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4029cf"
+ },
+ {
+  "addr": 4205083,
+  "off": 6683,
+  "bytes": "6681ff7201",
+  "text": "cmp di, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x402a37"
+ },
+ {
+  "addr": 4205168,
+  "off": 6768,
+  "bytes": "6681fd7201",
+  "text": "cmp bp, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x402a8f"
+ },
+ {
+  "addr": 4205266,
+  "off": 6866,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x402aed"
+ },
+ {
+  "addr": 4205613,
+  "off": 7213,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x402c48"
+ },
+ {
+  "addr": 4205860,
+  "off": 7460,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x402d3f"
+ },
+ {
+  "addr": 4206226,
+  "off": 7826,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x402ead"
+ },
+ {
+  "addr": 4206263,
+  "off": 7863,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x402ed3"
+ },
+ {
+  "addr": 4206379,
+  "off": 7979,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x402f47"
+ },
+ {
+  "addr": 4206744,
+  "off": 8344,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4206851,
+  "off": 8451,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40311e"
+ },
+ {
+  "addr": 4206895,
+  "off": 8495,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40314a"
+ },
+ {
+  "addr": 4207120,
+  "off": 8720,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40322c"
+ },
+ {
+  "addr": 4207215,
+  "off": 8815,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40328a"
+ },
+ {
+  "addr": 4207783,
+  "off": 9383,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4034c2"
+ },
+ {
+  "addr": 4207871,
+  "off": 9471,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40351a"
+ },
+ {
+  "addr": 4208113,
+  "off": 9713,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40360c"
+ },
+ {
+  "addr": 4208978,
+  "off": 10578,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "ja",
+  "next": "ja 0x4039d3"
+ },
+ {
+  "addr": 4211553,
+  "off": 13153,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40437c"
+ },
+ {
+  "addr": 4230311,
+  "off": 31911,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4230348,
+  "off": 31948,
+  "bytes": "6681ff7201",
+  "text": "cmp di, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x408ce8"
+ },
+ {
+  "addr": 4230596,
+  "off": 32196,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x408de0"
+ },
+ {
+  "addr": 4231130,
+  "off": 32730,
+  "bytes": "c744241072010000",
+  "text": "mov dword ptr [esp + 0x10], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4231828,
+  "off": 33428,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4092af"
+ },
+ {
+  "addr": 4232032,
+  "off": 33632,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4093b3"
+ },
+ {
+  "addr": 4232171,
+  "off": 33771,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x409409"
+ },
+ {
+  "addr": 4232203,
+  "off": 33803,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x409449"
+ },
+ {
+  "addr": 4232568,
+  "off": 34168,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4236384,
+  "off": 37984,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4240302,
+  "off": 41902,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov word ptr [esp + 0xc], ax"
+ },
+ {
+  "addr": 4240481,
+  "off": 42081,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov word ptr [esp + 0x10], ax"
+ },
+ {
+  "addr": 4244521,
+  "off": 46121,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40c444"
+ },
+ {
+  "addr": 4245786,
+  "off": 47386,
+  "bytes": "c744241072010000",
+  "text": "mov dword ptr [esp + 0x10], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4247911,
+  "off": 49511,
+  "bytes": "6681fe7201",
+  "text": "cmp si, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40d185"
+ },
+ {
+  "addr": 4247982,
+  "off": 49582,
+  "bytes": "6681fe7201",
+  "text": "cmp si, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40d1ca"
+ },
+ {
+  "addr": 4249018,
+  "off": 50618,
+  "bytes": "c744241072010000",
+  "text": "mov dword ptr [esp + 0x10], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4253750,
+  "off": 55350,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4254506,
+  "off": 56106,
+  "bytes": "c744241072010000",
+  "text": "mov dword ptr [esp + 0x10], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4255299,
+  "off": 56899,
+  "bytes": "6681397201",
+  "text": "cmp word ptr [ecx], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40ee57"
+ },
+ {
+  "addr": 4255475,
+  "off": 57075,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x40ef0e"
+ },
+ {
+  "addr": 4255801,
+  "off": 57401,
+  "bytes": "bb72010000",
+  "text": "mov ebx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4256013,
+  "off": 57613,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4257178,
+  "off": 58778,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4258138,
+  "off": 59738,
+  "bytes": "c744241072010000",
+  "text": "mov dword ptr [esp + 0x10], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4261635,
+  "off": 63235,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41071e"
+ },
+ {
+  "addr": 4261677,
+  "off": 63277,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41074d"
+ },
+ {
+  "addr": 4261726,
+  "off": 63326,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x410779"
+ },
+ {
+  "addr": 4261768,
+  "off": 63368,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4107a3"
+ },
+ {
+  "addr": 4261810,
+  "off": 63410,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4107cb"
+ },
+ {
+  "addr": 4263063,
+  "off": 64663,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x410cb3"
+ },
+ {
+  "addr": 4264496,
+  "off": 66096,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov word ptr [esp + 8], ax"
+ },
+ {
+  "addr": 4265081,
+  "off": 66681,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov word ptr [esp + 4], ax"
+ },
+ {
+  "addr": 4267466,
+  "off": 69066,
+  "bytes": "c744241072010000",
+  "text": "mov dword ptr [esp + 0x10], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4270058,
+  "off": 71658,
+  "bytes": "c744241072010000",
+  "text": "mov dword ptr [esp + 0x10], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4273983,
+  "off": 75583,
+  "bytes": "6681fa7201",
+  "text": "cmp dx, 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x413723"
+ },
+ {
+  "addr": 4276235,
+  "off": 77835,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x414027"
+ },
+ {
+  "addr": 4276269,
+  "off": 77869,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4276423,
+  "off": 78023,
+  "bytes": "6681ff7201",
+  "text": "cmp di, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4140e3"
+ },
+ {
+  "addr": 4277274,
+  "off": 78874,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x414436"
+ },
+ {
+  "addr": 4278841,
+  "off": 80441,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x414a74"
+ },
+ {
+  "addr": 4282132,
+  "off": 83732,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x415730"
+ },
+ {
+  "addr": 4282344,
+  "off": 83944,
+  "bytes": "be72010000",
+  "text": "mov esi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4282910,
+  "off": 84510,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x415a39"
+ },
+ {
+  "addr": 4283844,
+  "off": 85444,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x415df7"
+ },
+ {
+  "addr": 4284053,
+  "off": 85653,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4285766,
+  "off": 87366,
+  "bytes": "6681fe7201",
+  "text": "cmp si, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov dword ptr [esp + 0x10], eax"
+ },
+ {
+  "addr": 4286690,
+  "off": 88290,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4168fe"
+ },
+ {
+  "addr": 4286735,
+  "off": 88335,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41692a"
+ },
+ {
+  "addr": 4287116,
+  "off": 88716,
+  "bytes": "66817e047201",
+  "text": "cmp word ptr [esi + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x416ac8"
+ },
+ {
+  "addr": 4287255,
+  "off": 88855,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x416b33"
+ },
+ {
+  "addr": 4287423,
+  "off": 89023,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4287559,
+  "off": 89159,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4287818,
+  "off": 89418,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x416d65"
+ },
+ {
+  "addr": 4288295,
+  "off": 89895,
+  "bytes": "6681fa7201",
+  "text": "cmp dx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x416f45"
+ },
+ {
+  "addr": 4288494,
+  "off": 90094,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41700a"
+ },
+ {
+  "addr": 4288794,
+  "off": 90394,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x417135"
+ },
+ {
+  "addr": 4288828,
+  "off": 90428,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x417158"
+ },
+ {
+  "addr": 4288955,
+  "off": 90555,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4171d6"
+ },
+ {
+  "addr": 4289582,
+  "off": 91182,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x417447"
+ },
+ {
+  "addr": 4289884,
+  "off": 91484,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x417578"
+ },
+ {
+  "addr": 4289922,
+  "off": 91522,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41759f"
+ },
+ {
+  "addr": 4290139,
+  "off": 91739,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x417676"
+ },
+ {
+  "addr": 4291132,
+  "off": 92732,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x417a5b"
+ },
+ {
+  "addr": 4292020,
+  "off": 93620,
+  "bytes": "6681fa7201",
+  "text": "cmp dx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x417dd2"
+ },
+ {
+  "addr": 4292079,
+  "off": 93679,
+  "bytes": "6681fa7201",
+  "text": "cmp dx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x417e0d"
+ },
+ {
+  "addr": 4292138,
+  "off": 93738,
+  "bytes": "6681fa7201",
+  "text": "cmp dx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x417e48"
+ },
+ {
+  "addr": 4292331,
+  "off": 93931,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x417f06"
+ },
+ {
+  "addr": 4292612,
+  "off": 94212,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41801f"
+ },
+ {
+  "addr": 4292764,
+  "off": 94364,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4180b8"
+ },
+ {
+  "addr": 4292802,
+  "off": 94402,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4180df"
+ },
+ {
+  "addr": 4293176,
+  "off": 94776,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x418251"
+ },
+ {
+  "addr": 4296602,
+  "off": 98202,
+  "bytes": "c744241072010000",
+  "text": "mov dword ptr [esp + 0x10], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4297192,
+  "off": 98792,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x419207"
+ },
+ {
+  "addr": 4297237,
+  "off": 98837,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x419230"
+ },
+ {
+  "addr": 4297276,
+  "off": 98876,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x419257"
+ },
+ {
+  "addr": 4297315,
+  "off": 98915,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41927c"
+ },
+ {
+  "addr": 4297852,
+  "off": 99452,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4297924,
+  "off": 99524,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x419508"
+ },
+ {
+  "addr": 4298099,
+  "off": 99699,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41958e"
+ },
+ {
+  "addr": 4298141,
+  "off": 99741,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4195bd"
+ },
+ {
+  "addr": 4298190,
+  "off": 99790,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4195e9"
+ },
+ {
+  "addr": 4298232,
+  "off": 99832,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x419613"
+ },
+ {
+  "addr": 4298274,
+  "off": 99874,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41963b"
+ },
+ {
+  "addr": 4298980,
+  "off": 100580,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x419900"
+ },
+ {
+  "addr": 4299182,
+  "off": 100782,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4299368,
+  "off": 100968,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x419a84"
+ },
+ {
+  "addr": 4299956,
+  "off": 101556,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4300092,
+  "off": 101692,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x419daa"
+ },
+ {
+  "addr": 4300423,
+  "off": 102023,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4300460,
+  "off": 102060,
+  "bytes": "6681397201",
+  "text": "cmp word ptr [ecx], 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x419eb4"
+ },
+ {
+  "addr": 4300769,
+  "off": 102369,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x419ffd"
+ },
+ {
+  "addr": 4301253,
+  "off": 102853,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41a1e1"
+ },
+ {
+  "addr": 4303798,
+  "off": 105398,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41abd2"
+ },
+ {
+  "addr": 4304598,
+  "off": 106198,
+  "bytes": "c744241072010000",
+  "text": "mov dword ptr [esp + 0x10], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4304955,
+  "off": 106555,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4305828,
+  "off": 107428,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41b3c0"
+ },
+ {
+  "addr": 4313058,
+  "off": 114658,
+  "bytes": "bd72010000",
+  "text": "mov ebp, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4313215,
+  "off": 114815,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41d09b"
+ },
+ {
+  "addr": 4313336,
+  "off": 114936,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x41d0ee"
+ },
+ {
+  "addr": 4313402,
+  "off": 115002,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41d155"
+ },
+ {
+  "addr": 4313476,
+  "off": 115076,
+  "bytes": "6681ff7201",
+  "text": "cmp di, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41d1a2"
+ },
+ {
+  "addr": 4313654,
+  "off": 115254,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41d251"
+ },
+ {
+  "addr": 4313814,
+  "off": 115414,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41d2f2"
+ },
+ {
+  "addr": 4313995,
+  "off": 115595,
+  "bytes": "6681fe7201",
+  "text": "cmp si, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41d3aa"
+ },
+ {
+  "addr": 4314788,
+  "off": 116388,
+  "bytes": "6681fe7201",
+  "text": "cmp si, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41d6c2"
+ },
+ {
+  "addr": 4314934,
+  "off": 116534,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41d752"
+ },
+ {
+  "addr": 4315018,
+  "off": 116618,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41d7ab"
+ },
+ {
+  "addr": 4315161,
+  "off": 116761,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41d834"
+ },
+ {
+  "addr": 4315705,
+  "off": 117305,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41da55"
+ },
+ {
+  "addr": 4315878,
+  "off": 117478,
+  "bytes": "66813e7201",
+  "text": "cmp word ptr [esi], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41db11"
+ },
+ {
+  "addr": 4316054,
+  "off": 117654,
+  "bytes": "66813e7201",
+  "text": "cmp word ptr [esi], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41dbc1"
+ },
+ {
+  "addr": 4316158,
+  "off": 117758,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41dc19"
+ },
+ {
+  "addr": 4316266,
+  "off": 117866,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41dc86"
+ },
+ {
+  "addr": 4316692,
+  "off": 118292,
+  "bytes": "be72010000",
+  "text": "mov esi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4317054,
+  "off": 118654,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41df99"
+ },
+ {
+  "addr": 4317533,
+  "off": 119133,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41e178"
+ },
+ {
+  "addr": 4318072,
+  "off": 119672,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov word ptr [esp + 0x18], ax"
+ },
+ {
+  "addr": 4318171,
+  "off": 119771,
+  "bytes": "6681ff7201",
+  "text": "cmp di, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41e3f9"
+ },
+ {
+  "addr": 4318255,
+  "off": 119855,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41e448"
+ },
+ {
+  "addr": 4318303,
+  "off": 119903,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41e47e"
+ },
+ {
+  "addr": 4318431,
+  "off": 120031,
+  "bytes": "6681ff7201",
+  "text": "cmp di, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41e4fd"
+ },
+ {
+  "addr": 4318495,
+  "off": 120095,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41e53a"
+ },
+ {
+  "addr": 4318765,
+  "off": 120365,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4319261,
+  "off": 120861,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41e83a"
+ },
+ {
+  "addr": 4319395,
+  "off": 120995,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4319597,
+  "off": 121197,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41e988"
+ },
+ {
+  "addr": 4319790,
+  "off": 121390,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41ea4a"
+ },
+ {
+  "addr": 4319963,
+  "off": 121563,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41eaf6"
+ },
+ {
+  "addr": 4320241,
+  "off": 121841,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41ec0d"
+ },
+ {
+  "addr": 4320701,
+  "off": 122301,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov word ptr [esp + 0x20], ax"
+ },
+ {
+  "addr": 4320926,
+  "off": 122526,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41eeba"
+ },
+ {
+  "addr": 4321007,
+  "off": 122607,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x41ef0b"
+ },
+ {
+  "addr": 4407555,
+  "off": 209155,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4407599,
+  "off": 209199,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x43414a"
+ },
+ {
+  "addr": 4407647,
+  "off": 209247,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4445760,
+  "off": 247360,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x43d65d"
+ },
+ {
+  "addr": 4446620,
+  "off": 248220,
+  "bytes": "6681fa7201",
+  "text": "cmp dx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x43d9bb"
+ },
+ {
+  "addr": 4448538,
+  "off": 250138,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x43e135"
+ },
+ {
+  "addr": 4459831,
+  "off": 261431,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4462700,
+  "off": 264300,
+  "bytes": "66817b047201",
+  "text": "cmp word ptr [ebx + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x4418fc"
+ },
+ {
+  "addr": 4463528,
+  "off": 265128,
+  "bytes": "bb72010000",
+  "text": "mov ebx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4469178,
+  "off": 270778,
+  "bytes": "bb72010000",
+  "text": "mov ebx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4471062,
+  "off": 272662,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov dword ptr [esp + 0x18], eax"
+ },
+ {
+  "addr": 4484919,
+  "off": 286519,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x446f53"
+ },
+ {
+  "addr": 4485059,
+  "off": 286659,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x446fde"
+ },
+ {
+  "addr": 4487203,
+  "off": 288803,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4478bd"
+ },
+ {
+  "addr": 4487467,
+  "off": 289067,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x447946"
+ },
+ {
+  "addr": 4493148,
+  "off": 294748,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x448f78"
+ },
+ {
+  "addr": 4493860,
+  "off": 295460,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x44923f"
+ },
+ {
+  "addr": 4494788,
+  "off": 296388,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4495df"
+ },
+ {
+  "addr": 4506611,
+  "off": 308211,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x44c40e"
+ },
+ {
+  "addr": 4508601,
+  "off": 310201,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x44cbd4"
+ },
+ {
+  "addr": 4509185,
+  "off": 310785,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x44ce1c"
+ },
+ {
+  "addr": 4513269,
+  "off": 314869,
+  "bytes": "66817e047201",
+  "text": "cmp word ptr [esi + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x44de5d"
+ },
+ {
+  "addr": 4514824,
+  "off": 316424,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4514888,
+  "off": 316488,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4514969,
+  "off": 316569,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x44e4b4"
+ },
+ {
+  "addr": 4532575,
+  "off": 334175,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x45298a"
+ },
+ {
+  "addr": 4532828,
+  "off": 334428,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4534391,
+  "off": 335991,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4534574,
+  "off": 336174,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x453149"
+ },
+ {
+  "addr": 4534702,
+  "off": 336302,
+  "bytes": "66c705283f51007201",
+  "text": "mov word ptr [0x513f28], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4534773,
+  "off": 336373,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4534849,
+  "off": 336449,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4535570,
+  "off": 337170,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x45352d"
+ },
+ {
+  "addr": 4542453,
+  "off": 344053,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x455015"
+ },
+ {
+  "addr": 4543635,
+  "off": 345235,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4554af"
+ },
+ {
+  "addr": 4544683,
+  "off": 346283,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4545407,
+  "off": 347007,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x455b9a"
+ },
+ {
+  "addr": 4546941,
+  "off": 348541,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4547858,
+  "off": 349458,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x45652d"
+ },
+ {
+  "addr": 4548016,
+  "off": 349616,
+  "bytes": "6681fa7201",
+  "text": "cmp dx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4565cd"
+ },
+ {
+  "addr": 4548630,
+  "off": 350230,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x456831"
+ },
+ {
+  "addr": 4548726,
+  "off": 350326,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x456892"
+ },
+ {
+  "addr": 4548964,
+  "off": 350564,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x456981"
+ },
+ {
+  "addr": 4549182,
+  "off": 350782,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x456a5a"
+ },
+ {
+  "addr": 4549359,
+  "off": 350959,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x456b0b"
+ },
+ {
+  "addr": 4550454,
+  "off": 352054,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x456f51"
+ },
+ {
+  "addr": 4551859,
+  "off": 353459,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4574ce"
+ },
+ {
+  "addr": 4556090,
+  "off": 357690,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x458555"
+ },
+ {
+  "addr": 4556892,
+  "off": 358492,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x458878"
+ },
+ {
+  "addr": 4558028,
+  "off": 359628,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x458ce7"
+ },
+ {
+  "addr": 4561217,
+  "off": 362817,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4561652,
+  "off": 363252,
+  "bytes": "6681fb7201",
+  "text": "cmp bx, 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x459a89"
+ },
+ {
+  "addr": 4562137,
+  "off": 363737,
+  "bytes": "bb72010000",
+  "text": "mov ebx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4562319,
+  "off": 363919,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x459dd8"
+ },
+ {
+  "addr": 4563015,
+  "off": 364615,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x45a0a0"
+ },
+ {
+  "addr": 4563806,
+  "off": 365406,
+  "bytes": "bb72010000",
+  "text": "mov ebx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4564803,
+  "off": 366403,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x45a7c3"
+ },
+ {
+  "addr": 4570174,
+  "off": 371774,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x45bc5d"
+ },
+ {
+  "addr": 4575216,
+  "off": 376816,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x45d00b"
+ },
+ {
+  "addr": 4579492,
+  "off": 381092,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4580546,
+  "off": 382146,
+  "bytes": "6681fb7201",
+  "text": "cmp bx, 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x45e3fb"
+ },
+ {
+  "addr": 4582941,
+  "off": 384541,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x45ee38"
+ },
+ {
+  "addr": 4584844,
+  "off": 386444,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4599337,
+  "off": 400937,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov dword ptr [esp + 0x14], eax"
+ },
+ {
+  "addr": 4601297,
+  "off": 402897,
+  "bytes": "6681fe7201",
+  "text": "cmp si, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4635f0"
+ },
+ {
+  "addr": 4602524,
+  "off": 404124,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x463b92"
+ },
+ {
+  "addr": 4602661,
+  "off": 404261,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x463b46"
+ },
+ {
+  "addr": 4604249,
+  "off": 405849,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x464175"
+ },
+ {
+  "addr": 4604952,
+  "off": 406552,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x464437"
+ },
+ {
+  "addr": 4629688,
+  "off": 431288,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x46a4d4"
+ },
+ {
+  "addr": 4629770,
+  "off": 431370,
+  "bytes": "6681fa7201",
+  "text": "cmp dx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x46a528"
+ },
+ {
+  "addr": 4630048,
+  "off": 431648,
+  "bytes": "bb72010000",
+  "text": "mov ebx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4630089,
+  "off": 431689,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4633085,
+  "off": 434685,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4642070,
+  "off": 443670,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x46d531"
+ },
+ {
+  "addr": 4642151,
+  "off": 443751,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x46d583"
+ },
+ {
+  "addr": 4642673,
+  "off": 444273,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x46d78c"
+ },
+ {
+  "addr": 4642759,
+  "off": 444359,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x46d7e2"
+ },
+ {
+  "addr": 4643186,
+  "off": 444786,
+  "bytes": "66817e0a7201",
+  "text": "cmp word ptr [esi + 0xa], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x46db6f"
+ },
+ {
+  "addr": 4643335,
+  "off": 444935,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x46da22"
+ },
+ {
+  "addr": 4643824,
+  "off": 445424,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x46dc0c"
+ },
+ {
+  "addr": 4643999,
+  "off": 445599,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x46dcbb"
+ },
+ {
+  "addr": 4646279,
+  "off": 447879,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x46e5a6"
+ },
+ {
+  "addr": 4651576,
+  "off": 453176,
+  "bytes": "c744241072010000",
+  "text": "mov dword ptr [esp + 0x10], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4652258,
+  "off": 453858,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x46fcfd"
+ },
+ {
+  "addr": 4653033,
+  "off": 454633,
+  "bytes": "bd72010000",
+  "text": "mov ebp, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4654800,
+  "off": 456400,
+  "bytes": "c744241072010000",
+  "text": "mov dword ptr [esp + 0x10], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4655808,
+  "off": 457408,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4657689,
+  "off": 459289,
+  "bytes": "6872010000",
+  "text": "push 0x172",
+  "kind": "SET/push",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4660609,
+  "off": 462209,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov word ptr [esp + 0xc], ax"
+ },
+ {
+  "addr": 4667279,
+  "off": 468879,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4737ae"
+ },
+ {
+  "addr": 4667372,
+  "off": 468972,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x473808"
+ },
+ {
+  "addr": 4668177,
+  "off": 469777,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "push edi"
+ },
+ {
+  "addr": 4676384,
+  "off": 477984,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x475b3c"
+ },
+ {
+  "addr": 4681340,
+  "off": 482940,
+  "bytes": "6872010000",
+  "text": "push 0x172",
+  "kind": "SET/push",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4709622,
+  "off": 511222,
+  "bytes": "c744241472010000",
+  "text": "mov dword ptr [esp + 0x14], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4709719,
+  "off": 511319,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x47dd73"
+ },
+ {
+  "addr": 4710166,
+  "off": 511766,
+  "bytes": "c744241472010000",
+  "text": "mov dword ptr [esp + 0x14], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4710262,
+  "off": 511862,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4710738,
+  "off": 512338,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x47e16e"
+ },
+ {
+  "addr": 4711034,
+  "off": 512634,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4719453,
+  "off": 521053,
+  "bytes": "6681fd7201",
+  "text": "cmp bp, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x480379"
+ },
+ {
+  "addr": 4719833,
+  "off": 521433,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4804f4"
+ },
+ {
+  "addr": 4726375,
+  "off": 527975,
+  "bytes": "6681ff7201",
+  "text": "cmp di, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x481e85"
+ },
+ {
+  "addr": 4728393,
+  "off": 529993,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x48266a"
+ },
+ {
+  "addr": 4728461,
+  "off": 530061,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4826ae"
+ },
+ {
+  "addr": 4728587,
+  "off": 530187,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x482727"
+ },
+ {
+  "addr": 4730725,
+  "off": 532325,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4736496,
+  "off": 538096,
+  "bytes": "66813c55bc7951007201",
+  "text": "cmp word ptr [edx*2 + 0x5179bc], 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "lea eax, [edx*2 + 0x5179b8]"
+ },
+ {
+  "addr": 4750116,
+  "off": 551716,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x487b40"
+ },
+ {
+  "addr": 4750424,
+  "off": 552024,
+  "bytes": "be72010000",
+  "text": "mov esi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4751625,
+  "off": 553225,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4751655,
+  "off": 553255,
+  "bytes": "6681fa7201",
+  "text": "cmp dx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x488145"
+ },
+ {
+  "addr": 4751774,
+  "off": 553374,
+  "bytes": "bb72010000",
+  "text": "mov ebx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4765207,
+  "off": 566807,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x48b632"
+ },
+ {
+  "addr": 4765535,
+  "off": 567135,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x48b77a"
+ },
+ {
+  "addr": 4765758,
+  "off": 567358,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x48b85a"
+ },
+ {
+  "addr": 4776110,
+  "off": 577710,
+  "bytes": "b972010000",
+  "text": "mov ecx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4776496,
+  "off": 578096,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x48e24b"
+ },
+ {
+  "addr": 4786079,
+  "off": 587679,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4907ba"
+ },
+ {
+  "addr": 4786218,
+  "off": 587818,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x490845"
+ },
+ {
+  "addr": 4789288,
+  "off": 590888,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49144c"
+ },
+ {
+  "addr": 4818137,
+  "off": 619737,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4984f4"
+ },
+ {
+  "addr": 4818391,
+  "off": 619991,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4985f2"
+ },
+ {
+  "addr": 4819797,
+  "off": 621397,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x498b71"
+ },
+ {
+  "addr": 4819971,
+  "off": 621571,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x498c1f"
+ },
+ {
+  "addr": 4827460,
+  "off": 629060,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4828260,
+  "off": 629860,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49ac7f"
+ },
+ {
+  "addr": 4830548,
+  "off": 632148,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49b570"
+ },
+ {
+  "addr": 4834789,
+  "off": 636389,
+  "bytes": "6872010000",
+  "text": "push 0x172",
+  "kind": "SET/push",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4835021,
+  "off": 636621,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49c6e9"
+ },
+ {
+  "addr": 4835501,
+  "off": 637101,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49c8c9"
+ },
+ {
+  "addr": 4836537,
+  "off": 638137,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49ccd5"
+ },
+ {
+  "addr": 4836669,
+  "off": 638269,
+  "bytes": "6872010000",
+  "text": "push 0x172",
+  "kind": "SET/push",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4837162,
+  "off": 638762,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49cf45"
+ },
+ {
+  "addr": 4837451,
+  "off": 639051,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49d066"
+ },
+ {
+  "addr": 4837644,
+  "off": 639244,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49d128"
+ },
+ {
+  "addr": 4837938,
+  "off": 639538,
+  "bytes": "66817eef7201",
+  "text": "cmp word ptr [esi - 0x11], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49d2c1"
+ },
+ {
+  "addr": 4838314,
+  "off": 639914,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4838699,
+  "off": 640299,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49d547"
+ },
+ {
+  "addr": 4838821,
+  "off": 640421,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49d5c0"
+ },
+ {
+  "addr": 4841440,
+  "off": 643040,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4841523,
+  "off": 643123,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4841733,
+  "off": 643333,
+  "bytes": "668178047201",
+  "text": "cmp word ptr [eax + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49e2c5"
+ },
+ {
+  "addr": 4843099,
+  "off": 644699,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49e677"
+ },
+ {
+  "addr": 4843181,
+  "off": 644781,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49e6c8"
+ },
+ {
+  "addr": 4843533,
+  "off": 645133,
+  "bytes": "be72010000",
+  "text": "mov esi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4843659,
+  "off": 645259,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4845143,
+  "off": 646743,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49ee72"
+ },
+ {
+  "addr": 4845325,
+  "off": 646925,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov dword ptr [esp + 0x10], eax"
+ },
+ {
+  "addr": 4846010,
+  "off": 647610,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49f1d6"
+ },
+ {
+  "addr": 4846086,
+  "off": 647686,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49f221"
+ },
+ {
+  "addr": 4846596,
+  "off": 648196,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49f420"
+ },
+ {
+  "addr": 4846869,
+  "off": 648469,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49f530"
+ },
+ {
+  "addr": 4846929,
+  "off": 648529,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49f56c"
+ },
+ {
+  "addr": 4846968,
+  "off": 648568,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49f593"
+ },
+ {
+  "addr": 4847020,
+  "off": 648620,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49f5c7"
+ },
+ {
+  "addr": 4847078,
+  "off": 648678,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49f601"
+ },
+ {
+  "addr": 4847127,
+  "off": 648727,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov word ptr [esp], ax"
+ },
+ {
+  "addr": 4847476,
+  "off": 649076,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49f78f"
+ },
+ {
+  "addr": 4847771,
+  "off": 649371,
+  "bytes": "6681fa7201",
+  "text": "cmp dx, 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x49f889"
+ },
+ {
+  "addr": 4847809,
+  "off": 649409,
+  "bytes": "b872010000",
+  "text": "mov eax, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4847864,
+  "off": 649464,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4847897,
+  "off": 649497,
+  "bytes": "6681fa7201",
+  "text": "cmp dx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49f93b"
+ },
+ {
+  "addr": 4848401,
+  "off": 650001,
+  "bytes": "66817e047201",
+  "text": "cmp word ptr [esi + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x49fb50"
+ },
+ {
+  "addr": 4849752,
+  "off": 651352,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4849785,
+  "off": 651385,
+  "bytes": "6681fa7201",
+  "text": "cmp dx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a0097"
+ },
+ {
+  "addr": 4849927,
+  "off": 651527,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov word ptr [esp], ax"
+ },
+ {
+  "addr": 4850047,
+  "off": 651647,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4851189,
+  "off": 652789,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jge",
+  "next": "jge 0x4a062c"
+ },
+ {
+  "addr": 4851201,
+  "off": 652801,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jge",
+  "next": "jge 0x4a062c"
+ },
+ {
+  "addr": 4851350,
+  "off": 652950,
+  "bytes": "6681ff7201",
+  "text": "cmp di, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a06b3"
+ },
+ {
+  "addr": 4851768,
+  "off": 653368,
+  "bytes": "668179047201",
+  "text": "cmp word ptr [ecx + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a0852"
+ },
+ {
+  "addr": 4852395,
+  "off": 653995,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4854126,
+  "off": 655726,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a1189"
+ },
+ {
+  "addr": 4854293,
+  "off": 655893,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "push ebx"
+ },
+ {
+  "addr": 4854340,
+  "off": 655940,
+  "bytes": "6681fa7201",
+  "text": "cmp dx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a1261"
+ },
+ {
+  "addr": 4855305,
+  "off": 656905,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a1625"
+ },
+ {
+  "addr": 4855443,
+  "off": 657043,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a16af"
+ },
+ {
+  "addr": 4855605,
+  "off": 657205,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a1750"
+ },
+ {
+  "addr": 4855899,
+  "off": 657499,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a1877"
+ },
+ {
+  "addr": 4856057,
+  "off": 657657,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a1915"
+ },
+ {
+  "addr": 4856550,
+  "off": 658150,
+  "bytes": "66817f0a7201",
+  "text": "cmp word ptr [edi + 0xa], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a1b19"
+ },
+ {
+  "addr": 4856809,
+  "off": 658409,
+  "bytes": "bb72010000",
+  "text": "mov ebx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4857722,
+  "off": 659322,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4857859,
+  "off": 659459,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4857979,
+  "off": 659579,
+  "bytes": "66817e047201",
+  "text": "cmp word ptr [esi + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a209a"
+ },
+ {
+  "addr": 4858080,
+  "off": 659680,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4858344,
+  "off": 659944,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4863596,
+  "off": 665196,
+  "bytes": "bd72010000",
+  "text": "mov ebp, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4863916,
+  "off": 665516,
+  "bytes": "bd72010000",
+  "text": "mov ebp, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4864078,
+  "off": 665678,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a386a"
+ },
+ {
+  "addr": 4864301,
+  "off": 665901,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4864396,
+  "off": 665996,
+  "bytes": "bd72010000",
+  "text": "mov ebp, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4864715,
+  "off": 666315,
+  "bytes": "bb72010000",
+  "text": "mov ebx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4865418,
+  "off": 667018,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4866249,
+  "off": 667849,
+  "bytes": "be72010000",
+  "text": "mov esi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4866292,
+  "off": 667892,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4866364,
+  "off": 667964,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4867114,
+  "off": 668714,
+  "bytes": "6681fb7201",
+  "text": "cmp bx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a449b"
+ },
+ {
+  "addr": 4867220,
+  "off": 668820,
+  "bytes": "6681fb7201",
+  "text": "cmp bx, 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x4a4436"
+ },
+ {
+  "addr": 4867310,
+  "off": 668910,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a4519"
+ },
+ {
+  "addr": 4869914,
+  "off": 671514,
+  "bytes": "6681fe7201",
+  "text": "cmp si, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov byte ptr [eax + 0x519288], 1"
+ },
+ {
+  "addr": 4870017,
+  "off": 671617,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a4fad"
+ },
+ {
+  "addr": 4870225,
+  "off": 671825,
+  "bytes": "6681ff7201",
+  "text": "cmp di, 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x4a503f"
+ },
+ {
+  "addr": 4870328,
+  "off": 671928,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4870732,
+  "off": 672332,
+  "bytes": "6681ff7201",
+  "text": "cmp di, 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x4a523a"
+ },
+ {
+  "addr": 4870856,
+  "off": 672456,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a52ef"
+ },
+ {
+  "addr": 4871449,
+  "off": 673049,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a5535"
+ },
+ {
+  "addr": 4871631,
+  "off": 673231,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a55ea"
+ },
+ {
+  "addr": 4871912,
+  "off": 673512,
+  "bytes": "6681ff7201",
+  "text": "cmp di, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a5704"
+ },
+ {
+  "addr": 4872118,
+  "off": 673718,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a57d2"
+ },
+ {
+  "addr": 4872309,
+  "off": 673909,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a5891"
+ },
+ {
+  "addr": 4873050,
+  "off": 674650,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a5b76"
+ },
+ {
+  "addr": 4873292,
+  "off": 674892,
+  "bytes": "66813d9c7a51007201",
+  "text": "cmp word ptr [0x517a9c], 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x4a5c5a"
+ },
+ {
+  "addr": 4874068,
+  "off": 675668,
+  "bytes": "bd72010000",
+  "text": "mov ebp, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4874226,
+  "off": 675826,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a600e"
+ },
+ {
+  "addr": 4875108,
+  "off": 676708,
+  "bytes": "66817e047201",
+  "text": "cmp word ptr [esi + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a6385"
+ },
+ {
+  "addr": 4875432,
+  "off": 677032,
+  "bytes": "6681fa7201",
+  "text": "cmp dx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a64ce"
+ },
+ {
+  "addr": 4875497,
+  "off": 677097,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a6512"
+ },
+ {
+  "addr": 4876188,
+  "off": 677788,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a67b7"
+ },
+ {
+  "addr": 4876725,
+  "off": 678325,
+  "bytes": "bb72010000",
+  "text": "mov ebx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4876820,
+  "off": 678420,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a6a2f"
+ },
+ {
+  "addr": 4877392,
+  "off": 678992,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a6c6c"
+ },
+ {
+  "addr": 4878154,
+  "off": 679754,
+  "bytes": "6681fb7201",
+  "text": "cmp bx, 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x4a6e7d"
+ },
+ {
+  "addr": 4878544,
+  "off": 680144,
+  "bytes": "bd72010000",
+  "text": "mov ebp, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4879453,
+  "off": 681053,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a7479"
+ },
+ {
+  "addr": 4879553,
+  "off": 681153,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a74dc"
+ },
+ {
+  "addr": 4880297,
+  "off": 681897,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a77c5"
+ },
+ {
+  "addr": 4880465,
+  "off": 682065,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a786c"
+ },
+ {
+  "addr": 4880909,
+  "off": 682509,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a7a29"
+ },
+ {
+  "addr": 4881009,
+  "off": 682609,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a7a8c"
+ },
+ {
+  "addr": 4881155,
+  "off": 682755,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a7b1e"
+ },
+ {
+  "addr": 4881796,
+  "off": 683396,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a7d9f"
+ },
+ {
+  "addr": 4882386,
+  "off": 683986,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a7fed"
+ },
+ {
+  "addr": 4882594,
+  "off": 684194,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a80bd"
+ },
+ {
+  "addr": 4882768,
+  "off": 684368,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a816b"
+ },
+ {
+  "addr": 4883048,
+  "off": 684648,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov ebp, ecx"
+ },
+ {
+  "addr": 4883766,
+  "off": 685366,
+  "bytes": "66817e047201",
+  "text": "cmp word ptr [esi + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a8575"
+ },
+ {
+  "addr": 4884612,
+  "off": 686212,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4886232,
+  "off": 687832,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a8ef3"
+ },
+ {
+  "addr": 4886764,
+  "off": 688364,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a9107"
+ },
+ {
+  "addr": 4886877,
+  "off": 688477,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a9179"
+ },
+ {
+  "addr": 4887149,
+  "off": 688749,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a9289"
+ },
+ {
+  "addr": 4887554,
+  "off": 689154,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a941d"
+ },
+ {
+  "addr": 4887673,
+  "off": 689273,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a9495"
+ },
+ {
+  "addr": 4887800,
+  "off": 689400,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a9513"
+ },
+ {
+  "addr": 4888219,
+  "off": 689819,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a96b6"
+ },
+ {
+  "addr": 4888661,
+  "off": 690261,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a9872"
+ },
+ {
+  "addr": 4888760,
+  "off": 690360,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4a98d4"
+ },
+ {
+  "addr": 4888879,
+  "off": 690479,
+  "bytes": "bb72010000",
+  "text": "mov ebx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4889044,
+  "off": 690644,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4889589,
+  "off": 691189,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4892316,
+  "off": 693916,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4aa6b7"
+ },
+ {
+  "addr": 4892865,
+  "off": 694465,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4aa8dc"
+ },
+ {
+  "addr": 4893082,
+  "off": 694682,
+  "bytes": "c744241c72010000",
+  "text": "mov dword ptr [esp + 0x1c], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4893705,
+  "off": 695305,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4aac22"
+ },
+ {
+  "addr": 4895257,
+  "off": 696857,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4ab234"
+ },
+ {
+  "addr": 4895550,
+  "off": 697150,
+  "bytes": "668179f87201",
+  "text": "cmp word ptr [ecx - 8], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4ab362"
+ },
+ {
+  "addr": 4895730,
+  "off": 697330,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4ab40d"
+ },
+ {
+  "addr": 4896460,
+  "off": 698060,
+  "bytes": "66817e047201",
+  "text": "cmp word ptr [esi + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x4ab6dc"
+ },
+ {
+  "addr": 4897084,
+  "off": 698684,
+  "bytes": "66817e047201",
+  "text": "cmp word ptr [esi + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x4ab94c"
+ },
+ {
+  "addr": 4897263,
+  "off": 698863,
+  "bytes": "bd72010000",
+  "text": "mov ebp, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4897338,
+  "off": 698938,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4aba55"
+ },
+ {
+  "addr": 4897484,
+  "off": 699084,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4abae7"
+ },
+ {
+  "addr": 4897636,
+  "off": 699236,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4abb7f"
+ },
+ {
+  "addr": 4897673,
+  "off": 699273,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4abba4"
+ },
+ {
+  "addr": 4897949,
+  "off": 699549,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4abcb9"
+ },
+ {
+  "addr": 4898082,
+  "off": 699682,
+  "bytes": "bd72010000",
+  "text": "mov ebp, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4898201,
+  "off": 699801,
+  "bytes": "668178047201",
+  "text": "cmp word ptr [eax + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4abede"
+ },
+ {
+  "addr": 4898615,
+  "off": 700215,
+  "bytes": "66817b047201",
+  "text": "cmp word ptr [ebx + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4ac086"
+ },
+ {
+  "addr": 4899449,
+  "off": 701049,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4ac29a"
+ },
+ {
+  "addr": 4910031,
+  "off": 711631,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov dword ptr [esp + 0x10], eax"
+ },
+ {
+  "addr": 4913172,
+  "off": 714772,
+  "bytes": "6681fb7201",
+  "text": "cmp bx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4af834"
+ },
+ {
+  "addr": 4913615,
+  "off": 715215,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4af9ea"
+ },
+ {
+  "addr": 4927118,
+  "off": 728718,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "push edi"
+ },
+ {
+  "addr": 4928635,
+  "off": 730235,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b3496"
+ },
+ {
+  "addr": 4933868,
+  "off": 735468,
+  "bytes": "6872010000",
+  "text": "push 0x172",
+  "kind": "SET/push",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4934522,
+  "off": 736122,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b4b95"
+ },
+ {
+  "addr": 4935467,
+  "off": 737067,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b4f47"
+ },
+ {
+  "addr": 4935975,
+  "off": 737575,
+  "bytes": "bd72010000",
+  "text": "mov ebp, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4936505,
+  "off": 738105,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b5354"
+ },
+ {
+  "addr": 4940234,
+  "off": 741834,
+  "bytes": "bf72010000",
+  "text": "mov edi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4944197,
+  "off": 745797,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4944700,
+  "off": 746300,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b7361"
+ },
+ {
+  "addr": 4945379,
+  "off": 746979,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4945838,
+  "off": 747438,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b77ca"
+ },
+ {
+  "addr": 4945910,
+  "off": 747510,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4946057,
+  "off": 747657,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4946185,
+  "off": 747785,
+  "bytes": "be72010000",
+  "text": "mov esi, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4946381,
+  "off": 747981,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4946749,
+  "off": 748349,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4946999,
+  "off": 748599,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b7c52"
+ },
+ {
+  "addr": 4947277,
+  "off": 748877,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4947489,
+  "off": 749089,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b7e48"
+ },
+ {
+  "addr": 4947774,
+  "off": 749374,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov word ptr [esp], cx"
+ },
+ {
+  "addr": 4948255,
+  "off": 749855,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b813a"
+ },
+ {
+  "addr": 4948735,
+  "off": 750335,
+  "bytes": "6681fe7201",
+  "text": "cmp si, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b8336"
+ },
+ {
+  "addr": 4948742,
+  "off": 750342,
+  "bytes": "6681ff7201",
+  "text": "cmp di, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b8336"
+ },
+ {
+  "addr": 4949267,
+  "off": 750867,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b852e"
+ },
+ {
+  "addr": 4950177,
+  "off": 751777,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4950989,
+  "off": 752589,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b8be9"
+ },
+ {
+  "addr": 4952352,
+  "off": 753952,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b913b"
+ },
+ {
+  "addr": 4953618,
+  "off": 755218,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b962d"
+ },
+ {
+  "addr": 4953770,
+  "off": 755370,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4b96c5"
+ },
+ {
+  "addr": 4957793,
+  "off": 759393,
+  "bytes": "6681f97201",
+  "text": "cmp cx, 0x172",
+  "kind": "BOUND",
+  "cond": "jb",
+  "next": "jb 0x4ba63e"
+ },
+ {
+  "addr": 4957897,
+  "off": 759497,
+  "bytes": "66817e047201",
+  "text": "cmp word ptr [esi + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4ba6ff"
+ },
+ {
+  "addr": 4959561,
+  "off": 761161,
+  "bytes": "66817e047201",
+  "text": "cmp word ptr [esi + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4bad9d"
+ },
+ {
+  "addr": 4975243,
+  "off": 776843,
+  "bytes": "bd72010000",
+  "text": "mov ebp, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4977727,
+  "off": 779327,
+  "bytes": "6681fb7201",
+  "text": "cmp bx, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4bf45c"
+ },
+ {
+  "addr": 4977766,
+  "off": 779366,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4978735,
+  "off": 780335,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4bf84a"
+ },
+ {
+  "addr": 4979182,
+  "off": 780782,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4bfa0a"
+ },
+ {
+  "addr": 4979357,
+  "off": 780957,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4bfab8"
+ },
+ {
+  "addr": 4979544,
+  "off": 781144,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4bfb73"
+ },
+ {
+  "addr": 4980690,
+  "off": 782290,
+  "bytes": "bd72010000",
+  "text": "mov ebp, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4981106,
+  "off": 782706,
+  "bytes": "c744241072010000",
+  "text": "mov dword ptr [esp + 0x10], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4981268,
+  "off": 782868,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4981431,
+  "off": 783031,
+  "bytes": "c744241472010000",
+  "text": "mov dword ptr [esp + 0x14], 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4981737,
+  "off": 783337,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4985127,
+  "off": 786727,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4985209,
+  "off": 786809,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4985281,
+  "off": 786881,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4987394,
+  "off": 788994,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4c1a1c"
+ },
+ {
+  "addr": 4990686,
+  "off": 792286,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4c26f9"
+ },
+ {
+  "addr": 4991453,
+  "off": 793053,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4c29f9"
+ },
+ {
+  "addr": 4991593,
+  "off": 793193,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4c2a84"
+ },
+ {
+  "addr": 4992055,
+  "off": 793655,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4992141,
+  "off": 793741,
+  "bytes": "ba72010000",
+  "text": "mov edx, 0x172",
+  "kind": "SET/mov",
+  "cond": "",
+  "next": ""
+ },
+ {
+  "addr": 4992615,
+  "off": 794215,
+  "bytes": "66817f047201",
+  "text": "cmp word ptr [edi + 4], 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4c2e87"
+ },
+ {
+  "addr": 4992696,
+  "off": 794296,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "push ebx"
+ },
+ {
+  "addr": 4992744,
+  "off": 794344,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "CMP(no-jcc)",
+  "cond": "",
+  "next": "mov dword ptr [esp + 0x20], eax"
+ },
+ {
+  "addr": 4992793,
+  "off": 794393,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4c2f38"
+ },
+ {
+  "addr": 4993917,
+  "off": 795517,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4c3389"
+ },
+ {
+  "addr": 4993941,
+  "off": 795541,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4c33b0"
+ },
+ {
+  "addr": 4995435,
+  "off": 797035,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4c3986"
+ },
+ {
+  "addr": 4996104,
+  "off": 797704,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4c3c23"
+ },
+ {
+  "addr": 4996476,
+  "off": 798076,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4c3d98"
+ },
+ {
+  "addr": 4996719,
+  "off": 798319,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4c3e8a"
+ },
+ {
+  "addr": 4996906,
+  "off": 798506,
+  "bytes": "663d7201",
+  "text": "cmp ax, 0x172",
+  "kind": "BOUND",
+  "cond": "jae",
+  "next": "jae 0x4c3f45"
+ }
+]

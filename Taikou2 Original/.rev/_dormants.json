@@ -1,0 +1,922 @@
+[
+ {
+  "slot": 371,
+  "sur": "柴田",
+  "giv": "胜音",
+  "sur_hex": "b2f1ccef",
+  "giv_hex": "caa4d2f4",
+  "state": 1,
+  "rel": "父",
+  "orig": "柴田胜音"
+ },
+ {
+  "slot": 372,
+  "sur": "柴田",
+  "giv": "胜久",
+  "sur_hex": "b2f1ccef",
+  "giv_hex": "caa4bec3",
+  "state": 0,
+  "rel": "兄",
+  "orig": "柴田胜久"
+ },
+ {
+  "slot": 373,
+  "sur": "",
+  "giv": "阿市",
+  "sur_hex": "",
+  "giv_hex": "b0a2cad0",
+  "state": 0,
+  "rel": "正室",
+  "orig": "阿市"
+ },
+ {
+  "slot": 374,
+  "sur": "柴田",
+  "giv": "胜政",
+  "sur_hex": "b2f1ccef",
+  "giv_hex": "caa4d5fe",
+  "state": 0,
+  "rel": "弟",
+  "orig": "柴田胜政"
+ },
+ {
+  "slot": 375,
+  "sur": "柴田",
+  "giv": "胜丰",
+  "sur_hex": "b2f1ccef",
+  "giv_hex": "caa4b7e1",
+  "state": 0,
+  "rel": "养子",
+  "orig": "柴田胜丰"
+ },
+ {
+  "slot": 376,
+  "sur": "",
+  "giv": "茶茶",
+  "sur_hex": "",
+  "giv_hex": "b2e8b2e8",
+  "state": 2,
+  "rel": "养女",
+  "orig": "茶茶"
+ },
+ {
+  "slot": 377,
+  "sur": "",
+  "giv": "初",
+  "sur_hex": "",
+  "giv_hex": "b3f5",
+  "state": 2,
+  "rel": "养女",
+  "orig": "初"
+ },
+ {
+  "slot": 378,
+  "sur": "",
+  "giv": "江",
+  "sur_hex": "",
+  "giv_hex": "bdad",
+  "state": 2,
+  "rel": "养女",
+  "orig": "江"
+ },
+ {
+  "slot": 379,
+  "sur": "土田",
+  "giv": "御前",
+  "sur_hex": "cdc1ccef",
+  "giv_hex": "d3f9c7b0",
+  "state": 0,
+  "rel": "母",
+  "orig": "土田御前"
+ },
+ {
+  "slot": 380,
+  "sur": "织田",
+  "giv": "信秀",
+  "sur_hex": "d6afccef",
+  "giv_hex": "d0c5d0e3",
+  "state": 1,
+  "rel": "父",
+  "orig": "织田信秀"
+ },
+ {
+  "slot": 381,
+  "sur": "",
+  "giv": "浓姬",
+  "sur_hex": "",
+  "giv_hex": "c5a8bca7",
+  "state": 0,
+  "rel": "正室",
+  "orig": "浓姬"
+ },
+ {
+  "slot": 382,
+  "sur": "织田",
+  "giv": "信行",
+  "sur_hex": "d6afccef",
+  "giv_hex": "d0c5d0d0",
+  "state": 1,
+  "rel": "弟",
+  "orig": "织田信行"
+ },
+ {
+  "slot": 383,
+  "sur": "织田",
+  "giv": "信包",
+  "sur_hex": "d6afccef",
+  "giv_hex": "d0c5b0fc",
+  "state": 0,
+  "rel": "弟",
+  "orig": "织田信包"
+ },
+ {
+  "slot": 384,
+  "sur": "织田",
+  "giv": "信忠",
+  "sur_hex": "d6afccef",
+  "giv_hex": "d0c5d6d2",
+  "state": 0,
+  "rel": "长子",
+  "orig": "织田信忠"
+ },
+ {
+  "slot": 385,
+  "sur": "织田",
+  "giv": "信雄",
+  "sur_hex": "d6afccef",
+  "giv_hex": "d0c5d0db",
+  "state": 0,
+  "rel": "次子",
+  "orig": "织田信雄"
+ },
+ {
+  "slot": 386,
+  "sur": "织田",
+  "giv": "信孝",
+  "sur_hex": "d6afccef",
+  "giv_hex": "d0c5d0a2",
+  "state": 0,
+  "rel": "三子",
+  "orig": "织田信孝"
+ },
+ {
+  "slot": 387,
+  "sur": "织田",
+  "giv": "五德",
+  "sur_hex": "d6afccef",
+  "giv_hex": "cee5b5c2",
+  "state": 0,
+  "rel": "女",
+  "orig": "织田五德"
+ },
+ {
+  "slot": 388,
+  "sur": "织田",
+  "giv": "信胜",
+  "sur_hex": "d6afccef",
+  "giv_hex": "d0c5caa4",
+  "state": 2,
+  "rel": "长孙",
+  "orig": "织田信胜"
+ },
+ {
+  "slot": 389,
+  "sur": "浅井",
+  "giv": "胜久",
+  "sur_hex": "c7b3beae",
+  "giv_hex": "caa4bec3",
+  "state": 1,
+  "rel": "祖父",
+  "orig": "浅井胜久"
+ },
+ {
+  "slot": 390,
+  "sur": "浅井",
+  "giv": "久政",
+  "sur_hex": "c7b3beae",
+  "giv_hex": "bec3d5fe",
+  "state": 0,
+  "rel": "父",
+  "orig": "浅井久政"
+ },
+ {
+  "slot": 391,
+  "sur": "浅井",
+  "giv": "万福",
+  "sur_hex": "c7b3beae",
+  "giv_hex": "cdf2b8a3",
+  "state": 2,
+  "rel": "长子",
+  "orig": "浅井万福"
+ },
+ {
+  "slot": 392,
+  "sur": "",
+  "giv": "煚子",
+  "sur_hex": "",
+  "giv_hex": "9fa0d7d3",
+  "state": 0,
+  "rel": "正室",
+  "orig": "煚子"
+ },
+ {
+  "slot": 393,
+  "sur": "明智",
+  "giv": "秀满",
+  "sur_hex": "c3f7d6c7",
+  "giv_hex": "d0e3c2fa",
+  "state": 0,
+  "rel": "从兄弟",
+  "orig": "明智秀满"
+ },
+ {
+  "slot": 394,
+  "sur": "细川",
+  "giv": "忠兴",
+  "sur_hex": "cfb8b4a8",
+  "giv_hex": "d6d2d0cb",
+  "state": 2,
+  "rel": "女婿",
+  "orig": "细川忠兴"
+ },
+ {
+  "slot": 395,
+  "sur": "明智",
+  "giv": "十五",
+  "sur_hex": "c3f7d6c7",
+  "giv_hex": "caaecee5",
+  "state": 2,
+  "rel": "长子",
+  "orig": "明智十五"
+ },
+ {
+  "slot": 396,
+  "sur": "明智",
+  "giv": "五郎",
+  "sur_hex": "c3f7d6c7",
+  "giv_hex": "cee5c0c9",
+  "state": 2,
+  "rel": "次子",
+  "orig": "明智五郎"
+ },
+ {
+  "slot": 397,
+  "sur": "细川",
+  "giv": "伽罗奢",
+  "sur_hex": "cfb8b4a8",
+  "giv_hex": "d9a4c2dec9dd",
+  "state": 2,
+  "rel": "三女",
+  "orig": "细川伽罗奢"
+ },
+ {
+  "slot": 398,
+  "sur": "",
+  "giv": "町",
+  "sur_hex": "",
+  "giv_hex": "eeae",
+  "state": 2,
+  "rel": "四女",
+  "orig": "町"
+ },
+ {
+  "slot": 399,
+  "sur": "",
+  "giv": "天瑞院",
+  "sur_hex": "",
+  "giv_hex": "ccecc8f0d4ba",
+  "state": 0,
+  "rel": "母",
+  "orig": "天瑞院"
+ },
+ {
+  "slot": 400,
+  "sur": "木下",
+  "giv": "弥次郎",
+  "sur_hex": "c4becfc2",
+  "giv_hex": "c3d6b4cec0c9",
+  "state": 1,
+  "rel": "父",
+  "orig": "木下弥次郎"
+ },
+ {
+  "slot": 401,
+  "sur": "丰臣",
+  "giv": "秀吉",
+  "sur_hex": "b7e1b3bc",
+  "giv_hex": "d0e3bcaa",
+  "state": 0,
+  "rel": "本人",
+  "orig": "丰臣秀吉"
+ },
+ {
+  "slot": 402,
+  "sur": "",
+  "giv": "宁宁",
+  "sur_hex": "",
+  "giv_hex": "c4fec4fe",
+  "state": 0,
+  "rel": "正室",
+  "orig": "宁宁"
+ },
+ {
+  "slot": 403,
+  "sur": "丰臣",
+  "giv": "秀长",
+  "sur_hex": "b7e1b3bc",
+  "giv_hex": "d0e3b3a4",
+  "state": 0,
+  "rel": "弟",
+  "orig": "丰臣秀长"
+ },
+ {
+  "slot": 404,
+  "sur": "木下",
+  "giv": "家定",
+  "sur_hex": "c4becfc2",
+  "giv_hex": "bcd2b6a8",
+  "state": 0,
+  "rel": "异母弟",
+  "orig": "木下家定"
+ },
+ {
+  "slot": 405,
+  "sur": "大村",
+  "giv": "由己",
+  "sur_hex": "b4f3b4e5",
+  "giv_hex": "d3c9bcba",
+  "state": 0,
+  "rel": "异母弟",
+  "orig": "大村由己"
+ },
+ {
+  "slot": 406,
+  "sur": "羽柴",
+  "giv": "秀胜",
+  "sur_hex": "d3f0b2f1",
+  "giv_hex": "d0e3caa4",
+  "state": 2,
+  "rel": "养子",
+  "orig": "羽柴秀胜"
+ },
+ {
+  "slot": 407,
+  "sur": "小早川",
+  "giv": "秀秋",
+  "sur_hex": "d0a1d4e7b4a8",
+  "giv_hex": "d0e3c7ef",
+  "state": 2,
+  "rel": "养子",
+  "orig": "小早川秀秋"
+ },
+ {
+  "slot": 408,
+  "sur": "宇喜多",
+  "giv": "秀家",
+  "sur_hex": "d3eecfb2b6e0",
+  "giv_hex": "d0e3bcd2",
+  "state": 2,
+  "rel": "养子",
+  "orig": "宇喜多秀家"
+ },
+ {
+  "slot": 409,
+  "sur": "丰臣",
+  "giv": "鹤松",
+  "sur_hex": "b7e1b3bc",
+  "giv_hex": "bad7cbc9",
+  "state": 2,
+  "rel": "长子",
+  "orig": "丰臣鹤松"
+ },
+ {
+  "slot": 410,
+  "sur": "丰臣",
+  "giv": "弃",
+  "sur_hex": "b7e1b3bc",
+  "giv_hex": "c6fa",
+  "state": 2,
+  "rel": "次子",
+  "orig": "丰臣弃"
+ },
+ {
+  "slot": 411,
+  "sur": "于大",
+  "giv": "之方",
+  "sur_hex": "d3dab4f3",
+  "giv_hex": "d6aeb7bd",
+  "state": 0,
+  "rel": "母",
+  "orig": "于大之方"
+ },
+ {
+  "slot": 412,
+  "sur": "松平",
+  "giv": "广忠",
+  "sur_hex": "cbc9c6bd",
+  "giv_hex": "b9e3d6d2",
+  "state": 1,
+  "rel": "父",
+  "orig": "松平广忠"
+ },
+ {
+  "slot": 413,
+  "sur": "",
+  "giv": "筑山殿",
+  "sur_hex": "",
+  "giv_hex": "d6fec9bdb5ee",
+  "state": 0,
+  "rel": "正室",
+  "orig": "筑山殿"
+ },
+ {
+  "slot": 414,
+  "sur": "松平",
+  "giv": "信康",
+  "sur_hex": "cbc9c6bd",
+  "giv_hex": "d0c5bfb5",
+  "state": 0,
+  "rel": "长子",
+  "orig": "松平信康"
+ },
+ {
+  "slot": 415,
+  "sur": "",
+  "giv": "见松殿",
+  "sur_hex": "",
+  "giv_hex": "bcfbcbc9b5ee",
+  "state": 0,
+  "rel": "儿媳",
+  "orig": "见松殿"
+ },
+ {
+  "slot": 416,
+  "sur": "结城",
+  "giv": "秀康",
+  "sur_hex": "bde1b3c7",
+  "giv_hex": "d0e3bfb5",
+  "state": 2,
+  "rel": "次子",
+  "orig": "结城秀康"
+ },
+ {
+  "slot": 417,
+  "sur": "德川",
+  "giv": "秀忠",
+  "sur_hex": "b5c2b4a8",
+  "giv_hex": "d0e3d6d2",
+  "state": 2,
+  "rel": "三子",
+  "orig": "德川秀忠"
+ },
+ {
+  "slot": 418,
+  "sur": "松平",
+  "giv": "忠吉",
+  "sur_hex": "cbc9c6bd",
+  "giv_hex": "d6d2bcaa",
+  "state": 2,
+  "rel": "四子",
+  "orig": "松平忠吉"
+ },
+ {
+  "slot": 419,
+  "sur": "井伊",
+  "giv": "直政",
+  "sur_hex": "beaed2c1",
+  "giv_hex": "d6b1d5fe",
+  "state": 2,
+  "rel": "五子",
+  "orig": "井伊直政"
+ },
+ {
+  "slot": 420,
+  "sur": "大井",
+  "giv": "之方",
+  "sur_hex": "b4f3beae",
+  "giv_hex": "d6aeb7bd",
+  "state": 0,
+  "rel": "母",
+  "orig": "大井之方"
+ },
+ {
+  "slot": 421,
+  "sur": "武田",
+  "giv": "信虎",
+  "sur_hex": "cee4ccef",
+  "giv_hex": "d0c5bba2",
+  "state": 0,
+  "rel": "父",
+  "orig": "武田信虎"
+ },
+ {
+  "slot": 422,
+  "sur": "",
+  "giv": "御姬",
+  "sur_hex": "",
+  "giv_hex": "d3f9bca7",
+  "state": 0,
+  "rel": "休室",
+  "orig": "御姬"
+ },
+ {
+  "slot": 423,
+  "sur": "北条",
+  "giv": "黄梅院",
+  "sur_hex": "b1b1ccf5",
+  "giv_hex": "bbc6c3b7d4ba",
+  "state": 0,
+  "rel": "儿媳",
+  "orig": "北条黄梅院"
+ },
+ {
+  "slot": 424,
+  "sur": "武田",
+  "giv": "胜赖",
+  "sur_hex": "cee4ccef",
+  "giv_hex": "caa4c0b5",
+  "state": 0,
+  "rel": "四子",
+  "orig": "武田胜赖"
+ },
+ {
+  "slot": 425,
+  "sur": "武田",
+  "giv": "见松殿",
+  "sur_hex": "cee4ccef",
+  "giv_hex": "bcfbcbc9b5ee",
+  "state": 0,
+  "rel": "长女",
+  "orig": "武田见松殿"
+ },
+ {
+  "slot": 426,
+  "sur": "仁科",
+  "giv": "盛信",
+  "sur_hex": "c8cabfc6",
+  "giv_hex": "caa2d0c5",
+  "state": 2,
+  "rel": "六子",
+  "orig": "仁科盛信"
+ },
+ {
+  "slot": 427,
+  "sur": "长尾",
+  "giv": "为景",
+  "sur_hex": "b3a4ceb2",
+  "giv_hex": "ceaabeb0",
+  "state": 1,
+  "rel": "父",
+  "orig": "长尾为景"
+ },
+ {
+  "slot": 428,
+  "sur": "上杉",
+  "giv": "宪景",
+  "sur_hex": "c9cfc9bc",
+  "giv_hex": "cfdcbeb0",
+  "state": 1,
+  "rel": "兄",
+  "orig": "上杉宪景"
+ },
+ {
+  "slot": 429,
+  "sur": "上杉",
+  "giv": "景胜",
+  "sur_hex": "c9cfc9bc",
+  "giv_hex": "beb0caa4",
+  "state": 0,
+  "rel": "养子",
+  "orig": "上杉景胜"
+ },
+ {
+  "slot": 430,
+  "sur": "上杉",
+  "giv": "与三郎",
+  "sur_hex": "c9cfc9bc",
+  "giv_hex": "d3ebc8fdc0c9",
+  "state": 0,
+  "rel": "养子",
+  "orig": "上杉与三郎"
+ },
+ {
+  "slot": 431,
+  "sur": "北条",
+  "giv": "氏纲",
+  "sur_hex": "b1b1ccf5",
+  "giv_hex": "cacfb8d9",
+  "state": 1,
+  "rel": "父",
+  "orig": "北条氏纲"
+ },
+ {
+  "slot": 432,
+  "sur": "武田",
+  "giv": "黄梅院",
+  "sur_hex": "cee4ccef",
+  "giv_hex": "bbc6c3b7d4ba",
+  "state": 0,
+  "rel": "长女",
+  "orig": "武田黄梅院"
+ },
+ {
+  "slot": 433,
+  "sur": "北条",
+  "giv": "氏直",
+  "sur_hex": "b1b1ccf5",
+  "giv_hex": "cacfd6b1",
+  "state": 2,
+  "rel": "长孙",
+  "orig": "北条氏直"
+ },
+ {
+  "slot": 434,
+  "sur": "毛利",
+  "giv": "弘元",
+  "sur_hex": "c3abc0fb",
+  "giv_hex": "baebd4aa",
+  "state": 1,
+  "rel": "父",
+  "orig": "毛利弘元"
+ },
+ {
+  "slot": 435,
+  "sur": "毛利",
+  "giv": "兴元",
+  "sur_hex": "c3abc0fb",
+  "giv_hex": "d0cbd4aa",
+  "state": 1,
+  "rel": "兄",
+  "orig": "毛利兴元"
+ },
+ {
+  "slot": 436,
+  "sur": "穗井田",
+  "giv": "元清",
+  "sur_hex": "cbebbeaeccef",
+  "giv_hex": "d4aac7e5",
+  "state": 0,
+  "rel": "四子",
+  "orig": "穗井田元清"
+ },
+ {
+  "slot": 437,
+  "sur": "毛利",
+  "giv": "辉元",
+  "sur_hex": "c3abc0fb",
+  "giv_hex": "bbd4d4aa",
+  "state": 0,
+  "rel": "长孙",
+  "orig": "毛利辉元"
+ },
+ {
+  "slot": 438,
+  "sur": "吉川",
+  "giv": "元长",
+  "sur_hex": "bcaab4a8",
+  "giv_hex": "d4aab3a4",
+  "state": 0,
+  "rel": "长子",
+  "orig": "吉川元长"
+ },
+ {
+  "slot": 439,
+  "sur": "小早川",
+  "giv": "元氏",
+  "sur_hex": "d0a1d4e7b4a8",
+  "giv_hex": "d4aacacf",
+  "state": 0,
+  "rel": "次子",
+  "orig": "小早川元氏"
+ },
+ {
+  "slot": 440,
+  "sur": "岛津",
+  "giv": "忠良",
+  "sur_hex": "b5babdf2",
+  "giv_hex": "d6d2c1bc",
+  "state": 0,
+  "rel": "父",
+  "orig": "岛津忠良"
+ },
+ {
+  "slot": 441,
+  "sur": "岛津",
+  "giv": "家久",
+  "sur_hex": "b5babdf2",
+  "giv_hex": "bcd2bec3",
+  "state": 0,
+  "rel": "四子",
+  "orig": "岛津家久"
+ },
+ {
+  "slot": 442,
+  "sur": "岛津",
+  "giv": "忠恒",
+  "sur_hex": "b5babdf2",
+  "giv_hex": "d6d2bae3",
+  "state": 2,
+  "rel": "孙",
+  "orig": "岛津忠恒"
+ },
+ {
+  "slot": 443,
+  "sur": "",
+  "giv": "义姬",
+  "sur_hex": "",
+  "giv_hex": "d2e5bca7",
+  "state": 0,
+  "rel": "正室",
+  "orig": "义姬"
+ },
+ {
+  "slot": 444,
+  "sur": "伊达",
+  "giv": "盛宗",
+  "sur_hex": "d2c1b4ef",
+  "giv_hex": "caa2d7da",
+  "state": 0,
+  "rel": "弟",
+  "orig": "伊达盛宗"
+ },
+ {
+  "slot": 445,
+  "sur": "伊达",
+  "giv": "政宗",
+  "sur_hex": "d2c1b4ef",
+  "giv_hex": "d5fed7da",
+  "state": 2,
+  "rel": "长子",
+  "orig": "伊达政宗"
+ },
+ {
+  "slot": 446,
+  "sur": "伊达",
+  "giv": "小次郎",
+  "sur_hex": "d2c1b4ef",
+  "giv_hex": "d0a1b4cec0c9",
+  "state": 2,
+  "rel": "次子",
+  "orig": "伊达小次郎"
+ },
+ {
+  "slot": 447,
+  "sur": "中村",
+  "giv": "义康",
+  "sur_hex": "d6d0b4e5",
+  "giv_hex": "d2e5bfb5",
+  "state": 0,
+  "rel": "弟",
+  "orig": "中村义康"
+ },
+ {
+  "slot": 448,
+  "sur": "最上",
+  "giv": "家光",
+  "sur_hex": "d7eec9cf",
+  "giv_hex": "bcd2b9e2",
+  "state": 2,
+  "rel": "长子",
+  "orig": "最上家光"
+ },
+ {
+  "slot": 449,
+  "sur": "大友",
+  "giv": "义鉴",
+  "sur_hex": "b4f3d3d1",
+  "giv_hex": "d2e5bcf8",
+  "state": 1,
+  "rel": "父",
+  "orig": "大友义鉴"
+ },
+ {
+  "slot": 450,
+  "sur": "大友",
+  "giv": "义统",
+  "sur_hex": "b4f3d3d1",
+  "giv_hex": "d2e5cdb3",
+  "state": 0,
+  "rel": "长子",
+  "orig": "大友义统"
+ },
+ {
+  "slot": 451,
+  "sur": "大友",
+  "giv": "亲直",
+  "sur_hex": "b4f3d3d1",
+  "giv_hex": "c7d7d6b1",
+  "state": 2,
+  "rel": "次子",
+  "orig": "大友亲直"
+ },
+ {
+  "slot": 452,
+  "sur": "森",
+  "giv": "长可",
+  "sur_hex": "c9ad",
+  "giv_hex": "b3a4bfc9",
+  "state": 0,
+  "rel": "长子",
+  "orig": "森长可"
+ },
+ {
+  "slot": 453,
+  "sur": "森",
+  "giv": "兰丸",
+  "sur_hex": "c9ad",
+  "giv_hex": "c0bccde8",
+  "state": 0,
+  "rel": "三子",
+  "orig": "森兰丸"
+ },
+ {
+  "slot": 454,
+  "sur": "森",
+  "giv": "松寿丸",
+  "sur_hex": "c9ad",
+  "giv_hex": "cbc9cad9cde8",
+  "state": 2,
+  "rel": "孙",
+  "orig": "森松寿丸"
+ },
+ {
+  "slot": 455,
+  "sur": "真田",
+  "giv": "幸村",
+  "sur_hex": "d5e6ccef",
+  "giv_hex": "d0d2b4e5",
+  "state": 0,
+  "rel": "三男",
+  "orig": "真田幸村"
+ },
+ {
+  "slot": 456,
+  "sur": "真田",
+  "giv": "信幸",
+  "sur_hex": "d5e6ccef",
+  "giv_hex": "d0c5d0d2",
+  "state": 2,
+  "rel": "孙",
+  "orig": "真田信幸"
+ },
+ {
+  "slot": 457,
+  "sur": "今川",
+  "giv": "氏亲",
+  "sur_hex": "bdf1b4a8",
+  "giv_hex": "cacfc7d7",
+  "state": 1,
+  "rel": "父",
+  "orig": "今川氏亲"
+ },
+ {
+  "slot": 458,
+  "sur": "今川",
+  "giv": "义元",
+  "sur_hex": "bdf1b4a8",
+  "giv_hex": "d2e5d4aa",
+  "state": 0,
+  "rel": "本人",
+  "orig": "今川义元"
+ },
+ {
+  "slot": 459,
+  "sur": "斋藤",
+  "giv": "道三",
+  "sur_hex": "d5abccd9",
+  "giv_hex": "b5c0c8fd",
+  "state": 0,
+  "rel": "父",
+  "orig": "斋藤道三"
+ },
+ {
+  "slot": 460,
+  "sur": "斋藤",
+  "giv": "义龙",
+  "sur_hex": "d5abccd9",
+  "giv_hex": "d2e5c1fa",
+  "state": 0,
+  "rel": "本人",
+  "orig": "斋藤义龙"
+ },
+ {
+  "slot": 461,
+  "sur": "织田",
+  "giv": "浓姬",
+  "sur_hex": "d6afccef",
+  "giv_hex": "c5a8bca7",
+  "state": 0,
+  "rel": "妹",
+  "orig": "织田浓姬"
+ },
+ {
+  "slot": 462,
+  "sur": "朝仓",
+  "giv": "义定",
+  "sur_hex": "b3afb2d6",
+  "giv_hex": "d2e5b6a8",
+  "state": 1,
+  "rel": "父",
+  "orig": "朝仓义定"
+ }
+]
