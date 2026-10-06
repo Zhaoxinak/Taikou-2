@@ -31,6 +31,10 @@
    [
     "柴田胜丰",
     36
+   ],
+   [
+    "柴田胜政",
+    695
    ]
   ]
  },
@@ -95,9 +99,22 @@
    "柴田",
    "浅井"
   ],
-  "oid": null,
-  "conf": "none",
-  "officer": {},
+  "oid": 696,
+  "conf": "exact",
+  "officer": {
+   "name": "阿市",
+   "birth_year": 1540,
+   "father_id": 65535,
+   "rank_name": "无",
+   "archetype_name": "一般武将A",
+   "province": 255,
+   "city": 255,
+   "lead": 0,
+   "martial": 0,
+   "domestic": 0,
+   "diplomacy": 0,
+   "charm": 0
+  },
   "amb": []
  },
  {
@@ -108,32 +125,23 @@
   "fams": [
    "柴田"
   ],
-  "oid": 1,
-  "conf": "fuzzy",
+  "oid": 695,
+  "conf": "exact",
   "officer": {
-   "name": "柴田胜家",
-   "birth_year": 1521,
+   "name": "柴田胜政",
+   "birth_year": 1540,
    "father_id": 65535,
-   "rank_name": "家老",
-   "archetype_name": "柴田胜家",
-   "province": 13,
-   "city": 66,
-   "lead": 87,
-   "martial": 90,
-   "domestic": 67,
-   "diplomacy": 31,
-   "charm": 61
+   "rank_name": "无",
+   "archetype_name": "一般武将A",
+   "province": 255,
+   "city": 255,
+   "lead": 0,
+   "martial": 0,
+   "domestic": 0,
+   "diplomacy": 0,
+   "charm": 0
   },
-  "amb": [
-   [
-    "柴田胜家",
-    1
-   ],
-   [
-    "柴田胜丰",
-    36
-   ]
-  ]
+  "amb": []
  },
  {
   "sur": "柴田",
@@ -170,9 +178,22 @@
    "柴田",
    "浅井"
   ],
-  "oid": null,
-  "conf": "none",
-  "officer": {},
+  "oid": 697,
+  "conf": "unique_given",
+  "officer": {
+   "name": "浅井茶茶",
+   "birth_year": 1540,
+   "father_id": 65535,
+   "rank_name": "无",
+   "archetype_name": "一般武将A",
+   "province": 255,
+   "city": 255,
+   "lead": 0,
+   "martial": 0,
+   "domestic": 0,
+   "diplomacy": 0,
+   "charm": 0
+  },
   "amb": []
  },
  {
@@ -184,9 +205,22 @@
    "柴田",
    "浅井"
   ],
-  "oid": null,
-  "conf": "none",
-  "officer": {},
+  "oid": 698,
+  "conf": "unique_given",
+  "officer": {
+   "name": "浅井初",
+   "birth_year": 1540,
+   "father_id": 65535,
+   "rank_name": "无",
+   "archetype_name": "一般武将A",
+   "province": 255,
+   "city": 255,
+   "lead": 0,
+   "martial": 0,
+   "domestic": 0,
+   "diplomacy": 0,
+   "charm": 0
+  },
   "amb": []
  },
  {
@@ -198,28 +232,23 @@
    "柴田",
    "浅井"
   ],
-  "oid": 174,
-  "conf": "fuzzy",
+  "oid": 699,
+  "conf": "unique_given",
   "officer": {
-   "name": "板部冈江雪斋",
-   "birth_year": 1537,
+   "name": "浅井江",
+   "birth_year": 1540,
    "father_id": 65535,
-   "rank_name": "足轻头",
-   "archetype_name": "一般武将B",
-   "province": 6,
-   "city": 35,
-   "lead": 38,
-   "martial": 8,
-   "domestic": 69,
-   "diplomacy": 83,
-   "charm": 66
+   "rank_name": "无",
+   "archetype_name": "一般武将A",
+   "province": 255,
+   "city": 255,
+   "lead": 0,
+   "martial": 0,
+   "domestic": 0,
+   "diplomacy": 0,
+   "charm": 0
   },
-  "amb": [
-   [
-    "板部冈江雪斋",
-    174
-   ]
-  ]
+  "amb": []
  },
  {
   "sur": "织田",
@@ -442,7 +471,7 @@
   "conf": "exact",
   "officer": {
    "name": "织田信雄",
-   "birth_year": 1686,
+   "birth_year": 1558,
    "father_id": 13,
    "rank_name": "家臣",
    "archetype_name": "一般武将A",
@@ -468,7 +497,7 @@
   "conf": "exact",
   "officer": {
    "name": "织田信孝",
-   "birth_year": 1686,
+   "birth_year": 1558,
    "father_id": 13,
    "rank_name": "家臣",
    "archetype_name": "一般武将A",
@@ -738,7 +767,7 @@
   "conf": "fuzzy",
   "officer": {
    "name": "丰永藤五郎",
-   "birth_year": 1678,
+   "birth_year": 1550,
    "father_id": 65535,
    "rank_name": "足轻工头",
    "archetype_name": "一般武将A",
@@ -808,7 +837,7 @@
   "conf": "fuzzy",
   "officer": {
    "name": "荒川弥次郎",
-   "birth_year": 1670,
+   "birth_year": 1542,
    "father_id": 65535,
    "rank_name": "足轻组头",
    "archetype_name": "一般武将B",
@@ -917,7 +946,7 @@
   "conf": "fuzzy",
   "officer": {
    "name": "羽柴秀次",
-   "birth_year": 1696,
+   "birth_year": 1568,
    "father_id": 65535,
    "rank_name": "足轻组头",
    "archetype_name": "一般武将B",
@@ -949,7 +978,7 @@
   "conf": "exact",
   "officer": {
    "name": "小早川秀秋",
-   "birth_year": 1710,
+   "birth_year": 1582,
    "father_id": 65535,
    "rank_name": "足轻组头",
    "archetype_name": "一般武将A",
@@ -1092,7 +1121,7 @@
   "conf": "ambiguous_given",
   "officer": {
    "name": "后藤信康",
-   "birth_year": 1688,
+   "birth_year": 1560,
    "father_id": 65535,
    "rank_name": "足轻工头",
    "archetype_name": "一般武将A",
@@ -1144,7 +1173,7 @@
   "conf": "unique_given",
   "officer": {
    "name": "德川秀康",
-   "birth_year": 1702,
+   "birth_year": 1574,
    "father_id": 304,
    "rank_name": "家臣",
    "archetype_name": "一般武将B",
@@ -1196,7 +1225,7 @@
   "conf": "unique_given",
   "officer": {
    "name": "青沼忠吉",
-   "birth_year": 1659,
+   "birth_year": 1531,
    "father_id": 65535,
    "rank_name": "足轻工头",
    "archetype_name": "一般武将B",
@@ -1222,7 +1251,7 @@
   "conf": "exact",
   "officer": {
    "name": "井伊直政",
-   "birth_year": 1689,
+   "birth_year": 1561,
    "father_id": 65535,
    "rank_name": "足轻头",
    "archetype_name": "一般武将B",
@@ -1382,7 +1411,7 @@
   "conf": "exact",
   "officer": {
    "name": "武田胜赖",
-   "birth_year": 1674,
+   "birth_year": 1546,
    "father_id": 199,
    "rank_name": "家臣",
    "archetype_name": "一般武将A",
@@ -1413,7 +1442,7 @@
   "sur": "仁科",
   "giv": "盛信",
   "rel": "六子",
-  "status": 2,
+  "status": 0,
   "fams": [
    "武田"
   ],
@@ -1421,7 +1450,7 @@
   "conf": "exact",
   "officer": {
    "name": "仁科盛信",
-   "birth_year": 1685,
+   "birth_year": 1557,
    "father_id": 199,
    "rank_name": "组头",
    "archetype_name": "一般武将A",
@@ -1582,7 +1611,7 @@
   "conf": "unique_given",
   "officer": {
    "name": "荒木氏纲",
-   "birth_year": 1660,
+   "birth_year": 1532,
    "father_id": 65535,
    "rank_name": "家老",
    "archetype_name": "一般武将A",
@@ -1751,7 +1780,7 @@
   "conf": "exact",
   "officer": {
    "name": "北条氏直",
-   "birth_year": 1690,
+   "birth_year": 1562,
    "father_id": 175,
    "rank_name": "家臣",
    "archetype_name": "一般武将A",
@@ -1992,7 +2021,7 @@
   "conf": "exact",
   "officer": {
    "name": "毛利辉元",
-   "birth_year": 1681,
+   "birth_year": 1553,
    "father_id": 512,
    "rank_name": "家臣",
    "archetype_name": "一般武将B",
@@ -2018,7 +2047,7 @@
   "conf": "exact",
   "officer": {
    "name": "吉川元长",
-   "birth_year": 1676,
+   "birth_year": 1548,
    "father_id": 518,
    "rank_name": "家老",
    "archetype_name": "一般武将B",
@@ -2044,7 +2073,7 @@
   "conf": "unique_given",
   "officer": {
    "name": "繁泽元氏",
-   "birth_year": 1684,
+   "birth_year": 1556,
    "father_id": 518,
    "rank_name": "家老",
    "archetype_name": "一般武将A",
@@ -2453,7 +2482,7 @@
   "conf": "fuzzy",
   "officer": {
    "name": "大友义统",
-   "birth_year": 1686,
+   "birth_year": 1558,
    "father_id": 618,
    "rank_name": "家臣",
    "archetype_name": "一般武将A",
@@ -2510,7 +2539,7 @@
   "conf": "exact",
   "officer": {
    "name": "大友义统",
-   "birth_year": 1686,
+   "birth_year": 1558,
    "father_id": 618,
    "rank_name": "家臣",
    "archetype_name": "一般武将A",
@@ -2588,7 +2617,7 @@
   "conf": "exact",
   "officer": {
    "name": "森长可",
-   "birth_year": 1686,
+   "birth_year": 1558,
    "father_id": 2,
    "rank_name": "足轻头",
    "archetype_name": "一般武将B",
@@ -2606,7 +2635,7 @@
   "sur": "森",
   "giv": "兰丸",
   "rel": "三子",
-  "status": 0,
+  "status": 2,
   "fams": [
    "森"
   ],
@@ -2614,7 +2643,7 @@
   "conf": "exact",
   "officer": {
    "name": "森兰丸",
-   "birth_year": 1693,
+   "birth_year": 1565,
    "father_id": 2,
    "rank_name": "足轻组头",
    "archetype_name": "一般武将B",
@@ -2627,37 +2656,6 @@
    "charm": 85
   },
   "amb": []
- },
- {
-  "sur": "森",
-  "giv": "松寿丸",
-  "rel": "孙",
-  "status": 2,
-  "fams": [
-   "森"
-  ],
-  "oid": 61,
-  "conf": "fuzzy",
-  "officer": {
-   "name": "森兰丸",
-   "birth_year": 1693,
-   "father_id": 2,
-   "rank_name": "足轻组头",
-   "archetype_name": "一般武将B",
-   "province": 13,
-   "city": 255,
-   "lead": 52,
-   "martial": 56,
-   "domestic": 84,
-   "diplomacy": 71,
-   "charm": 85
-  },
-  "amb": [
-   [
-    "森兰丸",
-    61
-   ]
-  ]
  },
  {
   "sur": "真田",
@@ -2739,9 +2737,61 @@
  },
  {
   "sur": "真田",
-  "giv": "幸村",
+  "giv": "昌幸",
   "rel": "三男",
   "status": 0,
+  "fams": [
+   "真田"
+  ],
+  "oid": 231,
+  "conf": "exact",
+  "officer": {
+   "name": "真田昌幸",
+   "birth_year": 1547,
+   "father_id": 196,
+   "rank_name": "足轻工头",
+   "archetype_name": "一般武将A",
+   "province": 10,
+   "city": 40,
+   "lead": 94,
+   "martial": 71,
+   "domestic": 82,
+   "diplomacy": 97,
+   "charm": 81
+  },
+  "amb": []
+ },
+ {
+  "sur": "真田",
+  "giv": "信之",
+  "rel": "孙",
+  "status": 2,
+  "fams": [
+   "真田"
+  ],
+  "oid": 235,
+  "conf": "exact",
+  "officer": {
+   "name": "真田信之",
+   "birth_year": 1566,
+   "father_id": 231,
+   "rank_name": "足轻头",
+   "archetype_name": "一般武将A",
+   "province": 10,
+   "city": 255,
+   "lead": 79,
+   "martial": 67,
+   "domestic": 84,
+   "diplomacy": 79,
+   "charm": 81
+  },
+  "amb": []
+ },
+ {
+  "sur": "真田",
+  "giv": "幸村",
+  "rel": "孙",
+  "status": 2,
   "fams": [
    "真田"
   ],
@@ -2749,7 +2799,7 @@
   "conf": "exact",
   "officer": {
    "name": "真田幸村",
-   "birth_year": 1695,
+   "birth_year": 1567,
    "father_id": 231,
    "rank_name": "足轻头",
    "archetype_name": "一般武将B",
@@ -2762,49 +2812,6 @@
    "charm": 95
   },
   "amb": []
- },
- {
-  "sur": "真田",
-  "giv": "信幸",
-  "rel": "孙",
-  "status": 2,
-  "fams": [
-   "真田"
-  ],
-  "oid": 196,
-  "conf": "fuzzy",
-  "officer": {
-   "name": "真田幸隆",
-   "birth_year": 1512,
-   "father_id": 65535,
-   "rank_name": "家老",
-   "archetype_name": "一般武将A",
-   "province": 10,
-   "city": 40,
-   "lead": 88,
-   "martial": 58,
-   "domestic": 87,
-   "diplomacy": 91,
-   "charm": 74
-  },
-  "amb": [
-   [
-    "真田幸隆",
-    196
-   ],
-   [
-    "真田信纲",
-    220
-   ],
-   [
-    "真田昌幸",
-    231
-   ],
-   [
-    "真田信之",
-    235
-   ]
-  ]
  },
  {
   "sur": "今川",
@@ -2919,7 +2926,7 @@
   "conf": "fuzzy",
   "officer": {
    "name": "斋藤长龙",
-   "birth_year": 1665,
+   "birth_year": 1537,
    "father_id": 65535,
    "rank_name": "足轻头",
    "archetype_name": "一般武将A",

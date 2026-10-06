@@ -1,0 +1,14 @@
+Reading exe...
+Read 1387520 bytes
+PE header at 0xB0
+Number of sections: 6, optional header size: 224
+Section 0: .text RVA=0x1000 raw=0x400
+Section 1: .data RVA=0xC4000 raw=0xC3400
+Section 2: .rsrc RVA=0x132000 raw=0x131400
+Section 3: .idata RVA=0x133000 raw=0x132400
+Section 4: .fdata RVA=0x136000 raw=0x135400
+Section 5: .edata RVA=0x13C000 raw=0x13AC00
+0x4CD47C (table slot 7): 0x00550FD0 (expected 0x00550FD0)
+0x4CD390 (cmp limit): 0x07 (expected 0x07)
+0x4CD563 (hook): e998390800 (expected e9xxxxxxxx)
+0x550FD0 (foster handler) first 16 bytes: 5355565783ec38ff0538d65400893424

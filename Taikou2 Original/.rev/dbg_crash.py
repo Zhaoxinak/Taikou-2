@@ -11,11 +11,16 @@
 import ctypes, os, sys, time, struct
 from ctypes import wintypes
 
+try:
+    sys.stdout.reconfigure(encoding='utf-8')
+except Exception:
+    pass
+
 k32 = ctypes.WinDLL('kernel32', use_last_error=True)
 u32 = ctypes.WinDLL('user32', use_last_error=True)
 
-EXE = sys.argv[1] if len(sys.argv) > 1 else r'F:\Games\Taikou 2\Taikou2 Original\TAIK2W95_clean.exe'
-RUN = float(sys.argv[2]) if len(sys.argv) > 2 else 30.0
+EXE = sys.argv[1] if len(sys.argv) > 1 else r'F:\Games\Taikou 2\Taikou2 Original\TAIK2W95_big.exe'
+RUN = float(sys.argv[2]) if len(sys.argv) > 2 else 300.0
 DEBUG_EVENTS = '--ev' in sys.argv
 DO_KEYS = '--keys' in sys.argv
 DO_CLICK = '--click' in sys.argv
@@ -161,6 +166,35 @@ def dump_crash(hProcess, ev, r):
     print('模块列表:')
     for b, s, nm in modules:
         print('   0x%08X  %s' % (b, nm))
+    # 检查内存埋点标记
+    print('内存埋点标记:')
+    markers = [
+        (0x54B676, 'F', '游戏入口 @0x4F44B0'),
+        (0x54B675, 'E', '日推进外层 @0x4A0D50'),
+        (0x54B677, 'G', '日推进每日早期 @0x4A0E41'),
+        (0x54B674, 'D', '日推进每日晚期 @0x4A0E47'),
+        (0x54B678, 'H', '月边界 @0x4A0DED'),
+    ]
+    fired = []
+    for va, name, desc in markers:
+        data = readmem(hProcess, va, 1)
+        value = data[0] if len(data) > 0 else 0
+        status = '✓ 已触发' if value == 0xFF else '✗ 未触发'
+        print('   [%s] 0x%08X = 0x%02X  %s  (%s)' % (name, va, value, status, desc))
+        if value == 0xFF:
+            fired.append(name)
+    if not fired:
+        print('   → 没有任何埋点被触发 (崩溃在入口之前)')
+    elif 'F' in fired and 'E' not in fired:
+        print('   → 崩溃在: 启动 → 日推进外层之间')
+    elif 'E' in fired and 'G' not in fired:
+        print('   → 崩溃在: 日推进外层 → 日推进每日早期之间')
+    elif 'G' in fired and 'D' not in fired:
+        print('   → 崩溃在: 日推进每日早期 → 日推进每日晚期之间')
+    elif 'D' in fired and 'H' not in fired:
+        print('   → 崩溃在: 日推进每日晚期之后 (非月边界)')
+    elif 'H' in fired:
+        print('   → 崩溃在: 月边界路径 (月结算)')
     print('=' * 72)
     sys.stdout.flush()
 
@@ -263,19 +297,10 @@ def main():
                 else:
                     addr = r.ExceptionAddress or 0
                     in_main = 0x400000 <= addr < 0x540000
-                    if not in_main:
-                        # 非主模块（DirectShow/解码器等）的异常：记录后放行
-                        key = (c, addr)
-                        noise[key] = noise.get(key, 0) + 1
-                        if noise[key] <= 3:
-                            print('  [忽略] 非主模块异常 0x%08X @ %s %s (出现 %d 次)'
-                                  % (c, hex(addr), where(addr), noise[key]))
-                            sys.stdout.flush()
-                        cont = 0x00010002
-                    else:
-                        dump_crash(hp, ev, r)
-                        crash_done = True
-                        cont = 0x80010001
+                    # 所有异常都捕获（包括非主模块），因为崩溃可能发生在任何地方
+                    dump_crash(hp, ev, r)
+                    crash_done = True
+                    cont = 0x80010001
             elif code == 5:  # EXIT_PROCESS
                 print('进程退出, 退出码结构体首 4 字节 =', struct.unpack('<I', bytes(ev.u.raw[:4]))[0])
                 crash_done = True

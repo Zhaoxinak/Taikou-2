@@ -6,6 +6,10 @@
        - SELDETOFF (RSTATE+0xF8): 点中节点时是详情串在 .fdata POOL 里的偏移,
          未选中/刚关树 = 0xFFFFFFFF。据此还原并打印那行 GBK 文案。
        - tk_tree.log 末字节: 崩溃时最后写入的阶段就是崩溃点(A0=命中测试, A1=画详情)。
+       - M3b 成长/培养 + M4 元服 + M6 影子档 共 22+9 个埋点, 变化时打印并当场核身份式:
+         CMD=ROLL+REJECT / ROLL=OK+FAIL / SAVE=SAVED+WERR / LOAD=RESTORE+REJECT /
+         元服: FREEZE == CHILD_GENPUKU == MOUNT+RONIN
+       - KID_TAB 有动作的孩子逐行(含 +10 元服归属码: 未/随父/国主/浪人)
 
 用法: 先像平常一样进游戏、开族谱, 再在另一个终端 `python tkwatch.py`, 然后手点人物。
 """
@@ -34,7 +38,37 @@ RSTATE = M['rstate']
 POOL = M['pool']
 SELDET = RSTATE + 0xF8          # 点选节点详情串在 POOL 内的偏移; 0xFFFFFFFF=未选
 CARD_CUR = 0x514EE8
-BGM_CNT = 0x543C40              # big.exe BGM-STUB 埋点: play 请求被抑制次数(证明背景乐路径命中并拦下)
+# --- big.exe 埋点 + 运行池读数: 地址取自 build_big.py 落的 _big_layout.json (换 CAP 不用改本脚本)
+try:
+    _LY = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                      '_big_layout.json'), encoding='utf-8'))
+except Exception:
+    _LY = None
+if _LY:
+    _V = _LY['v']
+    BGM_CNT = _V['BGM_CNT']
+    APPEAR_CNT, VACANT_CNT = _V['APPEAR_CNT'], _V['VACANT_CNT']
+    MONTH_CNT, ARMED_CNT = _V['MONTH_CNT'], _V['ARMED_CNT']
+    ENT_POOL, ENT_STRIDE = _LY['pool_va'], _LY['stride']
+    SUR_TAB, GIV_TAB = _LY['sur_va'], _LY['giv_va']
+    RES_LO, RES_N = _LY['reserve_lo'], _LY['reserve_n']
+    ENT_CAP = _LY['cap']
+    GROWTH = dict(_LY['growth_ctrs'])          # 4B 埋点表 (名->VA): 成长/培养 + M4 元服两个 + M6 影子存档九个
+    KID_TAB, KID_ESZ = _V['KID_TAB'], _LY['kid_esz']
+    CMD_RING, CHILD_BM = _V['CMD_RING'], _V['CHILD_BM']
+    GENPUKU = _V['CHILD_GENPUKU']
+else:
+    BGM_CNT = 0x543C40            # BGM-STUB 埋点: play 请求被抑制次数
+    APPEAR_CNT = 0x543C48         # 真正登场人次 (0x4A4F40 trampoline 计数)
+    VACANT_CNT = 0x543C4C         # 待登场槽被扫到次数 (每月每空槽 +1)
+    MONTH_CNT = 0x543C50          # 登场例程执行次数 (约等于推进的月数)
+    ARMED_CNT = 0x543C54          # 池尾空槽武装成 0x800B 的次数
+    ENT_POOL, ENT_STRIDE, SUR_TAB, GIV_TAB = 0x53C000, 47, 0x541E00, 0x542C00
+    RES_LO, RES_N, ENT_CAP = 354, 16, 512
+    GROWTH, KID_TAB, KID_ESZ, CMD_RING, CHILD_BM = {}, 0, 0, 0, 0   # 无 layout json: 不盯成长
+    GENPUKU = 0x54B6C8
+DATE_Y, DATE_M = 0x5205F0, 0x5205F1
+PUKU_AGE = _LY.get('genpuku_age', 15) if _LY else 15      # M4 元服线 (虚岁)
 # 详情记录必须落在 [POOL, DETLTAB) 内; 越过即 .fdata 里读到别的东西(搬家/越界征兆)
 POOL_HI = M['sec_va'] + 0x3100  # O_DETAILTAB: 串池区上界
 SEC_HI = M['sec_va'] + M['sec_sz']
@@ -191,6 +225,50 @@ def stream(hwnd, pid):
     last_off = 'init'
     last_tail = b''
     last_bgm = None
+    last_appear = None
+
+    def slot_status(k):
+        d = dw(ENT_POOL + k * ENT_STRIDE + 0x2c)
+        return None if d is None else d & 0xFFFF
+
+    def slot_name(k):
+        # 极性: SUR_TAB(=原 0x520660) 是**名**表, GIV_TAB(=原 0x521AA8) 是**姓**表
+        s = (rd(GIV_TAB + k * 7, 7) or b'').split(b'\0')[0]
+        g = (rd(SUR_TAB + k * 7, 7) or b'').split(b'\0')[0]
+        return (s + g).decode('gbk', 'replace').strip()
+
+    def kid_rows():
+        """KID_TAB 里有动作的孩子逐行列一遍 (12B/槽: +0 亲密 u16 / +2 已投入点 u16 /
+        +4 五维增量位图 / +5 自然累加器 / +6 上次活动 / +8 教席 / +9 上次结算月+1, 0=从未 /
+        +10 元服归属 0未 1随父 2挂国主 3浪人)。只在埋点有变化时被调用, 所以不必省着读。"""
+        if not (GROWTH and KID_TAB and CMD_RING):
+            return []
+        bm = rd(CHILD_BM, (ENT_CAP + 7) // 8)
+        if not bm:
+            return []
+        out = []
+        for s in range(ENT_CAP):
+            if not (bm[s >> 3] >> (s & 7)) & 1:
+                continue
+            r = rd(KID_TAB + s * KID_ESZ, KID_ESZ)
+            if not r or len(r) < KID_ESZ:
+                continue
+            pk = struct.unpack_from('<H', r, 10)[0]
+            if r[4] == 0 and struct.unpack_from('<H', r, 2)[0] == 0 and r[9] == 0 and pk == 0:
+                continue                       # 完全没动过, 不刷屏
+            st = struct.unpack_from('<HH', r, 0)
+            out.append('槽%-4d %-8s 亲密%-3d 投入%-3d 增量%s 累加%2d 活动%s 教席%s 上月%s 元服%s'
+                       % (s, slot_name(s) or '?', st[0], st[1],
+                          ''.join('%d' % ((r[4] >> d) & 1) for d in range(5)),
+                          r[5],
+                          # +6/+8 开局是 0(=表里的 读书/自学), 只有结算过才有意义
+                          '-' if r[9] == 0 else r[6],
+                          '-' if r[9] == 0 else r[8],
+                          '从未' if r[9] == 0 else r[9] - 1,
+                          {0: '未', 1: '随父', 2: '国主', 3: '浪人'}.get(pk, '?%d' % pk)))
+        return out
+
+    last_growth = None
     ok = True
     try:
         while True:
@@ -212,6 +290,91 @@ def stream(hwnd, pid):
                 print('  [BGM] 背景乐 play 请求被抑制累计 %d 次 (0x%X)  -> 崩溃源(DirectShow图)已切断'
                       % (bgm, BGM_CNT))
                 last_bgm = bgm
+
+            # [登场] big.exe 4i: 每月钩进大地图后自动推进, 到年份就有人元服登场。
+            # 待登场空槽=还没被填的 0x800B; 已入住=被填上的槽(附姓名, 应能在游戏里找到这人)。
+            ap = dw(APPEAR_CNT)
+            if ap is not None:
+                yb, mb = rd(DATE_Y, 1), rd(DATE_M, 1)
+                vc, mh, ar = dw(VACANT_CNT), dw(MONTH_CNT), dw(ARMED_CNT)
+                armed, fills = 0, []
+                for k in range(RES_LO, RES_LO + RES_N):
+                    s = slot_status(k)
+                    if s is None:
+                        break
+                    if s == 0x800B:
+                        armed += 1
+                    elif s != 0x808F:
+                        nm = slot_name(k)
+                        fills.append('%d:%s' % (k, nm or '?'))
+                date = '%d年%d月' % (1560 + yb[0], mb[0]) if yb and mb else '日期?'
+                sig = (date, ap, armed, tuple(fills))
+                if sig != last_appear:
+                    print('[登场] %s | 例程跑 %s 月次 武装 %s 次 | 待登场空槽 %d/%d | 登场人次 %d | 空槽遭遇 %d'
+                          % (date, mh, ar, armed, RES_N, ap, vc))
+                    if fills:
+                        print('       已入住: ' + '  '.join(fills))
+                    last_appear = sig
+
+            # [成长/培养] 埋点表(20 个成长/培养 + 9 个影子存档)。只在数值变化时打印, 并当场核对身份式:
+            #   CMD = ROLL + REJECT (每条指令要么被门拒掉, 要么真掷骰)
+            #   ROLL = OK + FAIL    (掷了就必有一个结果)
+            #   SAVE = SAVED + WERR / LOAD = RESTORE + REJECT (M6 影子档两方向各自的落地式)
+            if GROWTH:
+                gv = {k: dw(a) for k, a in GROWTH.items()}
+                hd, tl = dw(CMD_RING), dw(CMD_RING + 4)
+                if None not in gv.values() and hd is not None:
+                    sig = tuple(gv[n] for n in GROWTH) + (hd - tl,)
+                    if sig != last_growth:
+                        yb2, mb2 = rd(DATE_Y, 1), rd(DATE_M, 1)
+                        date2 = '%d年%d月' % (1560 + yb2[0], mb2[0]) if yb2 and mb2 else '日期?'
+                        bad = []
+                        if gv['GROWTH_CMD'] != gv['GROWTH_ROLL'] + gv['GROWTH_REJECT']:
+                            bad.append('!! CMD(%d) != ROLL+REJECT(%d)'
+                                       % (gv['GROWTH_CMD'], gv['GROWTH_ROLL'] + gv['GROWTH_REJECT']))
+                        if gv['GROWTH_ROLL'] != gv['GROWTH_OK'] + gv['GROWTH_FAIL']:
+                            bad.append('!! ROLL(%d) != OK+FAIL(%d)'
+                                       % (gv['GROWTH_ROLL'], gv['GROWTH_OK'] + gv['GROWTH_FAIL']))
+                        print('[成长] %s | 自然: 趟%d 结算%d 重月%d 触顶%d 加点+%d'
+                              % (date2, gv['GROWTH_PASS'], gv['GROWTH_SETTLED'], gv['GROWTH_DUPM'],
+                                 gv['GROWTH_FULL'], gv['GROWTH_NATURAL']))
+                        print('       培养: 指令%d 掷骰%d 成功%d 落空%d 拒收%d | 环 head=%d tail=%d 待发%d%s'
+                              % (gv['GROWTH_CMD'], gv['GROWTH_ROLL'], gv['GROWTH_OK'],
+                                 gv['GROWTH_FAIL'], gv['GROWTH_REJECT'], hd, tl, hd - tl,
+                                 ('  ' + ' '.join(bad)) if bad else ''))
+                        # M4 元服三条身份式: FREEZE == CHILD_GENPUKU == MOUNT + RONIN (每人恰计一次)
+                        if 'GROWTH_PUKU_MOUNT' in gv:
+                            _gp, _pm, _pr = dw(GENPUKU), gv['GROWTH_PUKU_MOUNT'], gv['GROWTH_PUKU_RONIN']
+                            _gb = []
+                            if _gp is None:
+                                _gb.append('!! 读不到 CHILD_GENPUKU@0x%06X' % GENPUKU)
+                            else:
+                                if _gp != gv['GROWTH_FREEZE']:
+                                    _gb.append('!! 元服%d != FREEZE%d (有人被元服两次或支路漏计)'
+                                               % (_gp, gv['GROWTH_FREEZE']))
+                                if _pm + _pr != _gp:
+                                    _gb.append('!! 挂%d+浪%d != 元服%d (有孩子没归属也出了支)'
+                                               % (_pm, _pr, _gp))
+                            print('       元服: 人次%d 挂上%d 浪人%d 冻结%d (阈值 虚岁>=%d)%s'
+                                  % (-1 if _gp is None else _gp, _pm, _pr, gv['GROWTH_FREEZE'],
+                                     PUKU_AGE, ('  ' + ' '.join(_gb)) if _gb else ''))
+                        if 'SIDECAR_SAVE' in gv:
+                            _sc = [gv['SIDECAR_SAVE'], gv['SIDECAR_SAVED'], gv['SIDECAR_WERR'],
+                                   gv['SIDECAR_SLOT'], gv['SIDECAR_LOAD'], gv['SIDECAR_RESTORE'],
+                                   gv['SIDECAR_MISS'], gv['SIDECAR_REJECT'], gv['SIDECAR_GATE']]
+                            _sb = []
+                            if _sc[0] != _sc[1] + _sc[2]:
+                                _sb.append('!! SAVE(%d) != SAVED+WERR(%d)' % (_sc[0], _sc[1] + _sc[2]))
+                            if _sc[4] != _sc[5] + _sc[7]:
+                                _sb.append('!! LOAD(%d) != RESTORE+REJECT(%d)' % (_sc[4], _sc[5] + _sc[7]))
+                            if _sc[3]:
+                                _sb.append('!! SLOT 解析失败 %d 次(钩点上下文变了?)' % _sc[3])
+                            print('       影子档: 保存%d 落地%d 写错%d | 载入%d 复原%d 拒收%d 无档%d 门%d 槽错%d%s'
+                                  % (_sc[0], _sc[1], _sc[2], _sc[4], _sc[5], _sc[7], _sc[6], _sc[8],
+                                     _sc[3], ('  ' + ' '.join(_sb)) if _sb else ''))
+                        for ln in kid_rows():
+                            print('       ' + ln)
+                        last_growth = sig
 
             if os.path.exists(LOG):
                 d = open(LOG, 'rb').read()

@@ -4,16 +4,59 @@
 分级(置信度从高到低):
   exact         姓+名精确命中
   alias         手设别名(名字形态差异的史实人物)命中
-  unique_given  名在 700 库里唯一命中
+  unique_given  名在 700 库里唯一命中          —— 夫人/女儿常"无姓记录 + 名唯一"(阿市/茶茶/初/江),
+                                                 这档正是接母系的那一档, 不许删
   fuzzy         名互为子串/共享字符的最近候选(标 ambiguous, 需人工复核)
   none          游戏真无档案 -> 详情走纯 tree_data 自绘 / 未来须合成 BSDATA 记录
 
+前置: officers.json 的占位名先按 BSDATA 内联纠正 (见 sync_names) —— 不纠正会把确有其人的人判成 none。
+
 产物 _tree_oid_map.json: 每 tree 人 -> {oid, conf, officer 关键档案, amb=[候选]}.
 """
-import json, os, unicodedata
+import json, os, re, unicodedata
 import tree_data as td
 
 OFF = json.load(open(r'F:\Games\Taikou 2\data\officers.json', encoding='utf-8'))
+
+def norm(s):
+    return unicodedata.normalize('NFKC', (s or '')).strip()
+
+
+# BSDATA 内联名才是唯一权威 (记录 +0..6=姓 / +7..13=名, GBK)。
+# officers.json 是 modkit 解出来的, 对尾部扩展记录填的是占位名 "姓NNNN/名NNNN" —— 实测 oid695..699
+# (柴田胜政/阿市/浅井茶茶/浅井初/浅井江) 全中, 于是这些**游戏里确有其人**的角色被判成"无档案"。
+# 母系覆盖 0/49 的头号真因就在这: 不是引擎没有这些女性, 是名字压根没读出来。
+BSDATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'BSDATA1.TR2')
+
+
+def bsd_inline_names():
+    raw = open(BSDATA, 'rb').read()
+    out = {}
+    for k in range(len(raw) // 59):
+        r = raw[k * 59:(k + 1) * 59]
+        out[k] = (r[0:7].split(b'\x00')[0].decode('gbk', 'replace').strip(),
+                  r[7:14].split(b'\x00')[0].decode('gbk', 'replace').strip())
+    return out
+
+
+def sync_names(officers):
+    """只把 officers.json 的**占位名**(`姓NNNN`/`名NNNN`)换成 BSDATA 内联名, 返回纠正记录。
+
+    不是无条件覆写: 生僻字那批 (oid182 垪和氏续 / 557,568,581,583 長宗我部·香宗我部) 的内联字节用
+    游戏自有码页, GBK 解出来是 U+FFFD —— modkit 的解码反而对, 无条件覆写会把 5 条好名字改坏。
+    """
+    names, fixed = bsd_inline_names(), []
+    ph = re.compile(r'^(姓|名)\d+$')
+    for r in officers:
+        cur = (norm(r.get('surname')), norm(r.get('given')))
+        if not any(ph.match(x) for x in cur):
+            continue                        # 不是占位名 => 原样保留
+        s, g = names.get(r['bushou_id'], ('', ''))
+        if not (s or g) or '\ufffd' in s + g:
+            continue                        # 内联也拿不到干净名字 => 留给上层判"无档案"
+        fixed.append((r['bushou_id'], ''.join(cur), s + g))
+        r['surname'], r['given'] = s, g
+    return fixed
 
 # 别名: 族谱用名(姓,名) -> BSDATA 里的 (姓,名) 或直接 bushou_id
 # 只填有把握的史实同人; 越保守越好, 拿不准的留 fuzzy/none 让人工判。
@@ -28,6 +71,8 @@ ALIAS_BY_GIVEN = {
     '秀吉': '藤吉郎', '阿市': None, '茶茶': None, '宁宁': None, '浓姬': None,
 }
 
+NAME_FIXES = sync_names(OFF)
+
 by_exact = {}
 by_given = {}
 by_surn = {}
@@ -39,10 +84,6 @@ for r in OFF:
         by_given.setdefault(g, []).append(r)
     if sg[0]:
         by_surn.setdefault(sg[0], []).append(r)
-
-
-def norm(s):
-    return unicodedata.normalize('NFKC', (s or '')).strip()
 
 
 def cjk_dist(a, b):
@@ -105,13 +146,23 @@ def resolve(sur, giv):
     return None, 'none', None, []
 
 
+def _fix_birth(by):
+    """BSDATA 生年字节带 0x80 标志位(疑似"已故/未登场"), modkit 解码器把它当成
+    年偏移一并加进 birth_year -> 命中该位的记录生年虚高 +128(如森长可 1686=1558+128、
+    森兰丸 1693=1565+128)。实测正常记录 1493..1627、被污染记录 1643..1710, 中间
+    [1628,1643) 是空档, 故以 1630 为阈值减回 128 即可无损还原真实生年。"""
+    if isinstance(by, int) and by >= 1630:
+        return by - 128
+    return by
+
+
 def brief(r):
     if not r:
         return {}
     f = r.get('forces', {})
     return {
         'name': r.get('surname', '') + r.get('given', ''),
-        'birth_year': r.get('birth_year'),
+        'birth_year': _fix_birth(r.get('birth_year')),
         'father_id': r.get('father_id'),
         'rank_name': r.get('rank_name'),
         'archetype_name': r.get('archetype_name'),
@@ -125,6 +176,7 @@ def brief(r):
 def main():
     order, seen = collect_persons()
     out, tally = [], {}
+    print('officers.json 名字被 BSDATA 内联纠正 %d 条: %s' % (len(NAME_FIXES), NAME_FIXES))
     for key in order:
         sur, giv = key
         oid, conf, rec, amb = resolve(sur, giv)

@@ -22,3 +22,34 @@ scripts/_unpacked_mem.bin
 # modkit 产物（可再生：work=解出的段，output=重打包结果，别入库）
 modkit/work/
 modkit/output/
+
+# Qoder 本地会话产物（agent 记忆/计划，非工程内容）
+**/.qoder/
+
+# .rev 逆向探针的可再生输出（下划线开头 txt；.py 源码与知识 md 照常入库）
+Taikou2 Original/.rev/_*.txt
+
+# 游戏原始资源（BGM / 第三方修改器 / 动画备份）：体积大且有版权，不入库
+Taikou2 Original/MP3/
+Taikou2 Original/taielizhit2.rar
+Taikou2 Original/taielizhit2/
+Taikou2 Original/*.bak
+Taikou2 Original/*.orig
+Taikou2 Original/mp3.dll.orig.bak
+Taikou2 Original/WAVE.TMP
+Taikou2 Original/TKMODSAVE_*.DAT
+Taikou2 Original/_big_reloc.json
+Taikou2 Original/370)
+
+# .rev 的可再生中间产物（历史 exe 归档 / 截图 / 变体 / 内存 dump / 日志输出）
+Taikou2 Original/.rev/_archive/
+Taikou2 Original/.rev/shots/
+Taikou2 Original/.rev/shots2/
+Taikou2 Original/.rev/variants/
+Taikou2 Original/.rev/crash_mem.bin
+Taikou2 Original/.rev/clean_dump.bin
+Taikou2 Original/.rev/short.avi
+Taikou2 Original/.rev/OPENNING_long.bak
+Taikou2 Original/.rev/tk_det_*.bmp
+Taikou2 Original/.rev/*.out
+Taikou2 Original/.rev/*.bak-fix4

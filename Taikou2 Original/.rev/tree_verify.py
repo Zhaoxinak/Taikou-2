@@ -38,7 +38,11 @@ EXT_OK = {
 }
 
 buf = open(EXE, 'rb').read()
-assert len(buf) == SEC_PTR + SEC_SZ, '文件尾与新节 raw 不吻合 %d vs %d' % (len(buf), SEC_PTR + SEC_SZ)
+# 族谱节必须完整落到文件尾方向; big.exe 在 .fdata 之后还挂 .edata(实体池), 故允许尾部更大。
+assert len(buf) >= SEC_PTR + SEC_SZ, '文件尾缺 .fdata raw %d < %d' % (len(buf), SEC_PTR + SEC_SZ)
+if len(buf) != SEC_PTR + SEC_SZ:
+    print('注: 文件尾另有 %d B (big.exe 的 .edata 实体池节), 跳过精确等长校验'
+          % (len(buf) - SEC_PTR - SEC_SZ))
 sec = buf[SEC_PTR:SEC_PTR + SEC_SZ]
 
 md = Cs(CS_ARCH_X86, CS_MODE_32); md.detail = True

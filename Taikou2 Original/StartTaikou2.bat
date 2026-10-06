@@ -13,6 +13,7 @@ cd /d "%~dp0"
 
 set "ISO=%~dp0taikou2_cd.iso"
 set "EXE=%~dp0TAIK2W95_zoom.exe"
+if not "%~1"=="" set "EXE=%~1"
 if not exist "%EXE%" set "EXE=%~dp0TAIK2W95_clean.exe"
 
 if not exist "%EXE%" (
