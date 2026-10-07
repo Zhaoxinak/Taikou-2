@@ -1,113 +1,135 @@
 {
  "sec_va": 5464064,
  "sec_ptr": 1266688,
- "sec_sz": 22528,
- "o_code": 13056,
+ "sec_sz": 24576,
+ "o_code": 15872,
  "n_api": 27,
  "gdi_tab": 5464064,
  "rstate": 5465024,
  "famdir": 5465344,
  "nodes": 5466112,
- "pool": 5467648,
- "ndir": 27,
- "nnode": 140,
- "entry_va": 5483828,
+ "pool": 5469952,
+ "famp": 5465032,
+ "oidtab": 5469184,
+ "detailtab": 5479168,
+ "dyn_fn": 5466048,
+ "dyn_lit": 5466052,
+ "dyn_call": 5466056,
+ "dyn_nosub": 5466060,
+ "dyn_slot": 5466064,
+ "dyn_pool": 5469952,
+ "dyn_str_sz": 16,
+ "dyn_slots": 6,
+ "generic_dir": 5465992,
+ "gen_nodes_va": 5468852,
+ "gen_static_n": 1,
+ "gen_name_idx": 6,
+ "gen_title_idx": 7,
+ "gen_flag": 1,
+ "gen_title_suffix": "\u6c0f",
+ "gen_recs": 8,
+ "scan_ndir": 27,
+ "ndir": 28,
+ "nnode": 282,
+ "nstatic": 140,
+ "entry_va": 5486656,
+ "fallback_va": 5465344,
  "blobs": [
   {
    "name": "log_init",
-   "va": 5477120,
+   "va": 5479936,
    "size": 58,
    "off": 0
   },
   {
    "name": "resolve_api",
-   "va": 5477178,
+   "va": 5479994,
    "size": 218,
    "off": 58
   },
   {
    "name": "make_res",
-   "va": 5477396,
+   "va": 5480212,
    "size": 582,
    "off": 276
   },
   {
    "name": "free_res",
-   "va": 5477978,
+   "va": 5480794,
    "size": 333,
    "off": 858
   },
   {
    "name": "wait_rel",
-   "va": 5478311,
+   "va": 5481127,
    "size": 127,
    "off": 1191
   },
   {
    "name": "clamp",
-   "va": 5478438,
+   "va": 5481254,
    "size": 301,
    "off": 1318
   },
   {
    "name": "pump",
-   "va": 5478739,
-   "size": 903,
+   "va": 5481555,
+   "size": 906,
    "off": 1619
   },
   {
    "name": "draw_frame",
-   "va": 5479642,
+   "va": 5482461,
    "size": 493,
-   "off": 2522
+   "off": 2525
   },
   {
    "name": "draw_edges",
-   "va": 5480135,
+   "va": 5482954,
    "size": 1006,
-   "off": 3015
+   "off": 3018
   },
   {
    "name": "draw_nodes",
-   "va": 5481141,
+   "va": 5483960,
    "size": 824,
-   "off": 4021
+   "off": 4024
   },
   {
    "name": "draw_detail",
-   "va": 5481965,
+   "va": 5484784,
    "size": 587,
-   "off": 4845
+   "off": 4848
   },
   {
    "name": "tree_show",
-   "va": 5482552,
-   "size": 1276,
-   "off": 5432
+   "va": 5485371,
+   "size": 1285,
+   "off": 5435
   },
   {
    "name": "tree_entry",
-   "va": 5483828,
-   "size": 338,
-   "off": 6708
+   "va": 5486656,
+   "size": 482,
+   "off": 6720
   },
   {
    "name": "ft_probe",
-   "va": 5484166,
+   "va": 5487138,
    "size": 88,
-   "off": 7046
+   "off": 7202
   },
   {
    "name": "univ_thunk",
-   "va": 5484254,
+   "va": 5487226,
    "size": 15,
-   "off": 7134
+   "off": 7290
   },
   {
    "name": "univ2_thunk",
-   "va": 5484269,
+   "va": 5487241,
    "size": 17,
-   "off": 7149
+   "off": 7305
   }
  ]
 }

@@ -20,6 +20,18 @@ Godot 4.7.1 复刻工程 + 已完成的逆向成果（`scripts/` 180 个 `*_ref.
 - 范围明确：**只做数值 / 玩法 / 数据**，不做像素 / UI / 字体（2026-08-25 起）
 - Git：AI 可执行 commit / pull / rebase，**push 前必须用户确认**
 
+## Git 仓库约定（2026-10-07 用户拍板）
+
+- 仓库根 `F:\Games\Taikou 2\`（**不是**子目录），远端 `git@github.com:Zhaoxinak/Taikou-2.git`，分支 `main`
+- **入库**：`.rev/` 源码/文档/配置、`.workbuddy/memory/`、已跟踪的游戏数据改动（BSDATA/AVI/bat）、
+  根目录 MOD exe 产物（`TAIK2W95_big*.exe` / `_clean` / `_family` / `_zoom`）
+- **不入库**（已写进 `.gitignore`）：`MP3/` 34 个 BGM wav（约 400MB，版权+体积）、
+  `taielizhit2.rar` + `taielizhit2/`（第三方修改器）、`*.bak` / `*.orig`、`OPENNING_long.bak`(36MB)、
+  `.rev/_archive/` 历史 exe、`shots*` / `variants/` 截图、`crash_mem.bin` / `clean_dump.bin`、
+  `WAVE.TMP`、`TKMODSAVE_*.DAT`、`370)`
+- **push 前必做**：`git ls-files --others --exclude-standard -z` 递归统计真实体积再定范围 ——
+  `git status --short | wc -l` 会把目录算成一行，严重低估（这次 152 行 → 实际 492MB）
+
 ## 已闭的关键结论
 
 - 非图像部分 100% 收口（2026-09-08，续253 结案）

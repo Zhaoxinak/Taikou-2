@@ -109,8 +109,12 @@ DIR_ENTRY  = 12
 #   只有最大头的字符串池搬到 .fdata 的 FAM_POOL_VA. SEC_SZ 已扩到 0x5400 容纳。
 #   (v8: 树形族谱 21 家 141 节点, 节内数据区重排 -> 代码区推到 0x2800,
 #    旧列表串池尾随其后, 搬至 0x53AE00; 节末 0x53B400。)
-FAM_POOL_VA = 0x53B200               # .fdata 内旧列表串池基址 (= 0x536000 + 0x5200; v11 详情框加宽代码后节扩到 0x5800)
-FAM_LIMIT  = 0x53B800                # .fdata 节末 (0x536000 + 0x5800) 串池上界
+FAM_POOL_VA = 0x53BC00               # .fdata 内旧列表串池基址 (= 0x536000 + 0x5C00; v13 动态族谱
+                                     #   又加了通用「本人+子嗣」块(+8 节点/+1 目录)与更长的代码
+                                     #   (实测末 0x5A9A) -> 旧列表串池(576B)再尾随到 0x5C00,
+                                     #   池尾 0x53BE40 仍在节内)
+FAM_LIMIT  = 0x53C000                # .fdata 节末 (0x536000 + 0x6000) 串池上界
+                                     #   ★ 0x53C000 正是 .edata(实体池) 的起点, 再抬就撞 MOD
 
 # ===== 家族树数据 =====
 # 格式: (触发者姓, 触发者名, [ (缩进级, 姓, 名, 关系) ... ])
@@ -367,7 +371,7 @@ import tree_render as TR
 IAT_GETMOD, IAT_GETPROC = 0x4fb138, 0x4fb0e0   # 与 ft_resolve 用同一组 IAT 槽位
 
 _TREEDATA = TD.encode()
-SEC_RVA, SEC_PTR, SEC_SZ = 0x136000, 0x135400, 0x5800   # 节头用的 RVA / 文件偏移 / 大小
+SEC_RVA, SEC_PTR, SEC_SZ = 0x136000, 0x135400, 0x6000   # 节头用的 RVA / 文件偏移 / 大小
 SEC_VA   = IMAGE_BASE + SEC_RVA                          # 0x536000 运行时虚拟地址
 assert SEC_VA == 0x536000 and SEC_RVA == 0x136000
 # 旧代码洞 0x535000-0x536000 紧邻新节起点之前, 两者不重叠
@@ -380,11 +384,14 @@ O_GDIOFF = 0x0340     # N_API × u16: 名字在 O_GDINAM 内的偏移
 O_GDIMOD = 0x0380     # N_API × u8:  该函数所属模块索引(0=kernel32 1=user32 2=gdi32)
 O_RSTATE = 0x03C0     # 运行时状态(256B)
 O_SCRATCH= 0x04C0     # 临时区: RECT(16B) + MSG(28B) + POINT(8B)
-O_FAMDIR = 0x0500     # FAM_DIR  27×24 = 648B -> 0x788  (v8: 21 家 + 别名多触发)
-O_NODES  = 0x0800     # NODE_TAB 141×10 = 1410B -> 0xD82
-O_POOL   = 0x0E00     # 树串池(名字/关系/标题/详情, ~8.9KB -> 0x30AE)
-O_DETAILTAB = 0x3100  # 每节点 u16 -> 详情串在 O_POOL 内的偏移 (141×2 = 282B -> 0x321A)
-O_CODE   = 0x3300     # 渲染代码(需 < FAM_POOL_VA 偏移 0x4E00; 预算 0x1B00=6912B)
+O_FAMDIR = 0x0500     # FAM_DIR  28×24 = 672B -> 0x7A0  (21 家 + 别名多触发 + 末尾 1 条通用块)
+O_DYNCTRL = 0x07C0    # 动态族谱控制块 0x40B: +0 桩入口dword(build_big 写; family.exe 留 0=不点亮)
+                      #              +4 本次点亮数 | +8 开树次数 | +0xC 因没有本人实体而跳过
+O_NODES  = 0x0800     # NODE_TAB 282×10 = 2820B -> 0x1304  (v12: 21 家 6 动态子嗣槽 + 1 个通用块)
+O_OIDTAB = 0x1400     # OIDTAB   282×2 = 564B -> 0x1624 (每节点对应的实体编号 oid, 0xFFFF=无)
+O_POOL   = 0x1700     # 树串池(名字/关系/标题/详情, ~9KB -> ~0x3A60); 池首 8×16B 是运行时可变区
+O_DETAILTAB = 0x3B00  # 每节点 u16 -> 详情串在 O_POOL 内的偏移 (282×2 = 564B -> 0x3D34)
+O_CODE   = 0x3E00     # 渲染代码(实测 7254B + 挂钩桩 -> 需 < FAM_POOL_VA 偏移 0x5C00)
 
 O_RC, O_MSG, O_PT = O_SCRATCH + 0x00, O_SCRATCH + 0x10, O_SCRATCH + 0x30
 
@@ -398,10 +405,17 @@ RC_VA        = SEC_VA + O_RC
 MSGBUF_VA    = SEC_VA + O_MSG
 PT_VA        = SEC_VA + O_PT
 FAMDIR_VA    = SEC_VA + O_FAMDIR
+DYNCTRL_VA   = SEC_VA + O_DYNCTRL
 NODES_VA     = SEC_VA + O_NODES
+OIDTAB_VA    = SEC_VA + O_OIDTAB
 POOL_VA      = SEC_VA + O_POOL
 DETAILTAB_VA = SEC_VA + O_DETAILTAB
 TREE_CODE_VA = SEC_VA + O_CODE
+DYN_FN_VA    = DYNCTRL_VA                 # dword: 动态点亮桩入口(build_big 写)
+DYN_LIT_VA   = DYNCTRL_VA + 0x04          # dword: 本次开树点亮了几个动态槽
+DYN_CALL_VA  = DYNCTRL_VA + 0x08          # dword: 点亮桩被执行次数
+DYN_NOSUB_VA = DYNCTRL_VA + 0x0C          # dword: 本人无实体(oid=0xFFFF)而跳过的次数
+DYN_SLOT_VA  = DYNCTRL_VA + 0x10          # dword: tree_entry 存下的当前卡人物池槽(通用树要用)
 
 MODS_VA  = RSTATE_VA + 0xC8      # 3 × dword: kernel32/user32/gdi32 句柄
 GDIOK_VA = RSTATE_VA + 0xD8      # dword: 已解析标志
@@ -506,13 +520,21 @@ for _k1, _v1 in sorted(RS.items(), key=lambda kv: (kv[1], kv[0])):
 _sec_blob = bytearray(SEC_SZ)
 _sec_blob[O_FAMDIR:O_FAMDIR + len(_TREEDATA['dir'])] = _TREEDATA['dir']
 _sec_blob[O_NODES:O_NODES + len(_TREEDATA['nodes'])] = _TREEDATA['nodes']
+_sec_blob[O_OIDTAB:O_OIDTAB + len(_TREEDATA['oids'])] = _TREEDATA['oids']
 _sec_blob[O_POOL:O_POOL + len(_TREEDATA['pool'])] = _TREEDATA['pool']
 _sec_blob[O_DETAILTAB:O_DETAILTAB + len(_TREEDATA['detail'])] = _TREEDATA['detail']
-assert O_FAMDIR + len(_TREEDATA['dir']) <= O_NODES, 'FAM_DIR 溢出'
-assert O_NODES + len(_TREEDATA['nodes']) <= O_POOL, 'NODE_TAB 溢出'
+assert O_FAMDIR + len(_TREEDATA['dir']) <= O_DYNCTRL, 'FAM_DIR 溢出'
+assert O_NODES + len(_TREEDATA['nodes']) <= O_OIDTAB, 'NODE_TAB 溢出'
+assert O_OIDTAB + len(_TREEDATA['oids']) <= O_POOL, 'OIDTAB 溢出'
 assert O_POOL + len(_TREEDATA['pool']) <= O_DETAILTAB, '树串池溢出到详情表'
 assert O_DETAILTAB + len(_TREEDATA['detail']) <= O_CODE, '详情表溢出到代码区'
 assert len(_TREEDATA['detail']) == _TREEDATA['nnode'] * 2, '详情表与节点数不齐'
+assert len(_TREEDATA['oids']) == _TREEDATA['nnode'] * 2, 'OIDTAB 与节点数不齐'
+# 动态可变区: 池首 8 条 16B 记录(6 子嗣槽 + 通用树本人 + 通用树标题)由运行时桩填姓名,
+# 构建期必须全是 0(长度=0 => 一个字都不画)
+assert _TREEDATA['dyn_str_base'] == 0 and \
+    bytes(_TREEDATA['pool'][:_TREEDATA['gen_recs'] * _TREEDATA['dyn_str_sz']]) == \
+    b'\x00' * (_TREEDATA['gen_recs'] * _TREEDATA['dyn_str_sz']), '动态姓名区没钉在池首或非零'
 
 # 函数名串池 + 偏移表 + 模块索引表 + DLL 名
 _np = bytearray()
@@ -549,19 +571,22 @@ _rblobs, TREE_ENTRY_VA = TR.build(dict(
     CODE_VA=TREE_CODE_VA, RSTATE_VA=RSTATE_VA, GDI_TAB_VA=GDI_TAB_VA,
     GDIOK_VA=GDIOK_VA, MODS_VA=MODS_VA, MODTAB_VA=GDI_MOD_VA,
     OFFTAB_VA=GDI_OFF_VA, NAM_VA=GDI_NAM_VA, NODES_VA=NODES_VA,
-    POOL_VA=POOL_VA, DETAILTAB_VA=DETAILTAB_VA,
+    POOL_VA=POOL_VA, DETAILTAB_VA=DETAILTAB_VA, OIDTAB_VA=OIDTAB_VA,
+    DYN_FN_VA=DYN_FN_VA, DYN_LIT_VA=DYN_LIT_VA, DYN_SLOT_VA=DYN_SLOT_VA,
     MSGBUF_VA=MSGBUF_VA, RC_VA=RC_VA, PT_VA=PT_VA,
     FAMDIR_VA=FAMDIR_VA,
     STR_FONT_VA=STR_FONT_VA, STR_HINT_VA=STR_HINT_VA, HINT_LEN=HINT_LEN,
     STR_LOG_VA=STR_LOG_VA, LOGBUF_VA=LOGBUF_VA,
     DLLS=(STR_K32_VA, STR_U32_VA, STR_G32_VA),
     IAT_GETMOD=IAT_GETMOD, IAT_GETPROC=IAT_GETPROC,
-    CARD_CUR=CARD_CUR, N_API=N_API, NDIR=_TREEDATA['ndir'],
+    CARD_CUR=CARD_CUR, N_API=N_API, NDIR=_TREEDATA['scan_ndir'],
     # 关闭时消费点击用的洞内变量(定义在下方 ft_click 段, 此处按值写死并断言)
     LBDOWN_VA=0x535EE0, LBSEEN_VA=0x535EE4, LBPREV_VA=0x535EE8,
     FAMILY_VA=G_FAMILY,
-    # 调试期: 当前武将不在 13 个家族里时, 回落到柴田树(否则点了没反应, 无法验收)
-    FALLBACK_VA=FAMDIR_VA + 0 * 20,
+    # 动态桩在(=big.exe): 未命中史实家族的人开「本人+子嗣」通用树;
+    # 动态桩不在(=family.exe, 没有 .edata): 回落柴田树(调试期兜底, 至少能验收渲染)。
+    GENERIC_DIR_VA=FAMDIR_VA + _TREEDATA['generic_dir'],
+    FALLBACK_VA=FAMDIR_VA + 0 * 24,
     RS=RS, T=T, A=A, C=C))
 _o = O_CODE
 _bloblist = []
@@ -661,8 +686,24 @@ import json as _json
 _json.dump(dict(sec_va=SEC_VA, sec_ptr=SEC_PTR, sec_sz=SEC_SZ, o_code=O_CODE,
                 n_api=N_API, gdi_tab=GDI_TAB_VA, rstate=RSTATE_VA,
                 famdir=FAMDIR_VA, nodes=NODES_VA, pool=POOL_VA,
+                famp=RSTATE_VA + RS['FAMP'],
+                oidtab=OIDTAB_VA, detailtab=DETAILTAB_VA,
+                dyn_fn=DYN_FN_VA, dyn_lit=DYN_LIT_VA, dyn_call=DYN_CALL_VA,
+                dyn_nosub=DYN_NOSUB_VA, dyn_slot=DYN_SLOT_VA,
+                dyn_pool=POOL_VA + _TREEDATA['dyn_str_base'],
+                dyn_str_sz=_TREEDATA['dyn_str_sz'], dyn_slots=_TREEDATA['dyn_slots'],
+                generic_dir=FAMDIR_VA + _TREEDATA['generic_dir'],
+                gen_nodes_va=NODES_VA + _TREEDATA['gen_start'] * 10,
+                gen_static_n=_TREEDATA['gen_static_n'],
+                gen_name_idx=_TREEDATA['gen_name_idx'],
+                gen_title_idx=_TREEDATA['gen_title_idx'],
+                gen_flag=_TREEDATA['gen_flag'],
+                gen_title_suffix=_TREEDATA['gen_title_suffix'],
+                gen_recs=_TREEDATA['gen_recs'],
+                scan_ndir=_TREEDATA['scan_ndir'],
                 ndir=_TREEDATA['ndir'], nnode=_TREEDATA['nnode'],
-                entry_va=TREE_ENTRY_VA,
+                nstatic=sum(m['static_n'] for m in _TREEDATA['meta']),
+                entry_va=TREE_ENTRY_VA, fallback_va=FAMDIR_VA,
                 blobs=[dict(name=n, va=v, size=z, off=v - SEC_VA - O_CODE)
                        for n, v, z in _bloblist]),
            open('tree_blobs.json', 'w'), indent=1)

@@ -31,13 +31,15 @@
                  Python 参考实现全枚举不越界 + 四向单调
   C22 队列     : CMD_RING 头尾开局相等(空队)、条目区全 0、桩只写 head 只读 tail (tail 留给 M3c 的 UI),
                  消费前的五道门各恰 1 处, 五个培养埋点互不重号
-  ---- M3c 回家菜单「培养孩子」 ----
-  C23 三处补丁 : 0x4CD563 钩子 jmp / 0x4CD390 cmp 6->7 / 0x4CD47C 表槽 7 -> 培养处理;
-                 两块桩逐字节复现, 原生 7 个处理与表 0..6 槽对 clean 一字未改,
+  ---- M3c 回家菜单「培养孩子 / 生孩子」 ----
+  C23 三处补丁 : 0x4CD563 钩子 jmp / 0x4CD390 cmp 6->8 / 0x4CD47C 表槽 7 -> 培养处理;
+                 三块桩逐字节复现, 原生 7 个处理与表 0..6 槽对 clean 一字未改,
                  串池/DEC100/三级子菜单指针数组 = child_menu 定义, 面板埋点各恰 1 处
   C23r 回环    : 用 exe 里的钩子字节+跳转表+调用方预判, 对「全在6/金库隐藏5/无宁宁无探病3/最短2」
-                 四种形态逐 pick 算出回到调用方的 eax 与最终处理地址: 原生项必落原生处理,
-                 末项必落 0x550F90, 取消必出环
+                 四种形态逐 pick 算出回到调用方的 eax 与最终落点: 原生项必落原生处理,
+                 倒数第二行必落培养处理, 末行必落生孩处理 (两行同发码 7, 靠 BIRTH_PICK 在
+                 培养处理**头部**分流 —— 表没有第 9 格, 且钩子里 jmp 会把调用方的栈带歪),
+                 取消必出环
   C23s~x 对偶  : 面板的三道资格门/47*槽地址式/圈条目偏移/tail 读写约束 全部与成长桩同一条指令 —— 
                  面板能选到的孩子 == 桩会消费的孩子, 选到的指令 == 桩读得懂的指令
   ---- M6 sidecar 影子存档 ----
@@ -424,12 +426,22 @@ for i in mins:
             PASS <= int(i.op_str, 16) < PASS + len(ccode):
         _ic[int(i.op_str, 16)] = _ic.get(int(i.op_str, 16), 0) + 1
 # 桩内部互调账本: 期望表只写"为什么是这个数", 实际值由上面从 exe 反汇编得出。
-#   0x54C8AC make_child : 2  (两条出生路径都汇到这里)
-#   0x54C90D place_child: 2  (make_child 末尾 + rearm) —— C14e 的题眼就在这里
-#   0x54C94B init_stats : 1  (make_child 里 INST 之后那一次)
-#   0x54C988 debug_log  : 2  (进出各一处打点, stdcall ret 4)
-#   0x54C800 child_pass : 2  (月钩 + 载入钩各自 call 回预载入口)
-_MK, _PL, _INI = 0x54C8AC, 0x54C90D, 0x54C94B
+#   被调方地址一律从 cva (child_stub.entry_vas 语义定位) / layout 取 —— 桩里加一条指令就会漂,
+#   写死地址的表每次都要跟着手改 (2026-10-07 就漂过一次: 见 build_big 的 LBL_* 注释)。
+#   make_child : 2  (两条出生路径都汇到这里)
+#   place_child: 2  (make_child 末尾 + rearm) —— C14e 的题眼就在这里
+#   init_stats : 1  (make_child 里 INST 之后那一次)
+#   debug_log  : 2  (进出各一处打点, stdcall ret 4)
+#   child_pass : 2  (月钩 + 载入钩各自 call 回预载入口)
+_MK, _PL, _INI = cva['make_child'], cva['place_child'], cva['init_stats']
+check('C14e0 桩内标签地址与 layout 记的一致 (桩一改就有人记账, 别再写死 0x54C9xx)',
+      V.get('DEBUG_LOG') == cva['debug_log'] and V.get('LBL_MAKE_CHILD') == _MK
+      and V.get('LBL_PLACE_CHILD') == _PL and V.get('LBL_INIT_STATS') == _INI,
+      'layout %s / 重装配 %s' % ({k: hex(V.get(k) or 0) for k in
+                                  ('DEBUG_LOG', 'LBL_MAKE_CHILD', 'LBL_PLACE_CHILD', 'LBL_INIT_STATS')},
+                                 {k: hex(v) for k, v in (('DEBUG_LOG', cva['debug_log']),
+                                                         ('MAKE_CHILD', _MK), ('PLACE_CHILD', _PL),
+                                                         ('INIT_STATS', _INI))}))
 _EXP_IC = {_MK: 2, _PL: 2, _INI: 1, cva['debug_log']: 2, PASS: 2}
 check('C14e 桩内互调 9 处 / 5 个被调方: make_child 2 + place_child 2(make_child 末尾 + rearm) '
       '+ init_stats 1 + debug_log 2 + child_pass 2(月钩/载入钩)',
@@ -588,7 +600,8 @@ GL = {'sched': SCHED, 'pool': POOL, 'kid_tab': V['KID_TAB'], 'esz': CS.ESZ,
       'teach_lord': GC['TEACH_LORD'], 'teach_parent': GC['TEACH_PARENT'],
       'teach_shope': GC['TEACH_SHOPE'],
       # debug_log 桩 VA (stdcall ret 4; 缺失会让 CG.build 的 %-替换 KeyError)
-      'debug_log': V.get('DEBUG_LOG', 0x54C988)}
+      #   ★ 从 layout 取: 它是**预载桩里的一个标签**, 预载桩长度一变就会漂。
+      'debug_log': V['DEBUG_LOG']}
 PUKU_AGE = LY.get('genpuku_age', CG.AGE_PUKU)
 
 
@@ -1013,13 +1026,33 @@ ML.update({'f_ym': _M5['fo']['ym'], 'f_cnt': _M5['fo']['cnt'],
            'deny_time_ptr': _M5['fo']['deny_time'],
            'deny_gold_ptr': _M5['fo']['deny_gold'],
            'kd_msg': _M5['msg_kd']})
+# 生孩子: 码 7 只有一格跳转表槽 (第 9 槽 = 构建器自身), 所以生孩子不发新码 ——
+#   钩子把选中行号写进 BIRTH_PICK, 培养处理头部 cmp pick 分流到生孩桩。
+ML.update({'c_birth': MU['cnt_birth'], 'birth_handler': MU['birth_va'],
+           'pick': MU['pick_va'],
+           'name_pool': MU['name_pool_va'], 'flagtab': MU['flagtab'],
+           # v2: 本次可选表 / 计数 / 已选标记 (bn_avail 写的三块)
+           'avail': MU['avail_va'], 'avail_n': MU['avail_n_va'], 'used': MU['used_va'],
+           'birth_label': MU['birth_label_va'],
+           'date_y': MU['date_y'], 'surname_tab': LY['surname_tab_va'],
+           'child_bm': V['CHILD_BM'],
+           # 实例化 = 往排程表尾追一条再 call child_pass (不自己抄配方)
+           'sched': V['CHILD_SCHED'], 'sched_end': V['CHILD_PASS'],
+           'slot_lo': MU['birth_slot_lo'],
+           # 出生提示: 三行指针数组 + 运行时拼的姓名缓冲 (都在 MOD 区尾, 布局表里记着)
+           'msg_arr': MU['msg_arr_va'], 'name_tmp': MU['name_tmp_va']})
+BVA = MU['birth_va']
 hcode, _hsrc = CM.build_hook(HVA, ML)
 fcode, _fsrc = CM.build_foster(FVA, ML)
+bcode, _bsrc = CM.build_birth(BVA, ML)
 hgot, fgot = bytes(E(HVA, len(hcode))), bytes(E(FVA, len(fcode)))
+bgot = bytes(E(BVA, len(bcode)))
 check('C23a 钩子 %dB @0x%06X 与 child_menu.build_hook() 逐字节一致' % (len(hcode), HVA),
       hgot == hcode, '钩尾 0x%06X' % (HVA + len(hcode)))
 check('C23b 培养处理 %dB @0x%06X 与 child_menu.build_foster() 逐字节一致' % (len(fcode), FVA),
       fgot == fcode, '处理尾 0x%06X / MOD 尾 0x%06X' % (FVA + len(fcode), MODB + LY['mod_sz']))
+check('C23b3 生孩处理 %dB @0x%06X 与 child_menu.build_birth() 逐字节一致' % (len(bcode), BVA),
+      bgot == bcode, '处理尾 0x%06X / 布局记 %dB' % (BVA + len(bcode), MU['birth_sz']))
 # 0x47BED0 实机约定 (入口 mov edx,[esp+4] / test dx,dx / 拷贝循环 cmp ax,dx): arg1 = 条目数,
 # arg2 = 串指针数组, arg3 = 样式。末推 = arg1, 必须是 ecx(=cnt+1); 把 s_flag(样式 2/4) 推在
 # 末位会导致菜单只画 2 项且样式参数错 —— 2026-10-06 自宅界面卡死的根因, 此处钉死防回归。
@@ -1031,10 +1064,14 @@ check('C23b2 对话框实参顺序 (样式, 指针数组, 条目数): 末推=arg
       len(_dl) == 1 and _hpre == [('push', 'dword ptr [0x%x]' % ML['s_flag']),
                                   ('push', 'edx'), ('push', 'ecx')],
       '实际 %s' % (_hpre,))
-check('C23c 两块不重叠、处理 16B 对齐、都在 MOD_SZ 内',
-      HVA + len(hcode) <= FVA and FVA % 0x10 == 0 and FVA + len(fcode) <= MODB + LY['mod_sz'],
-      '钩 0x%06X(%dB) 处理 0x%06X(%dB) 余 %dB' % (HVA, len(hcode), FVA, len(fcode),
-                                                  MODB + LY['mod_sz'] - FVA - len(fcode)))
+check('C23c 三块各在自己的窗口内: 钩子->培养同区不重叠, 培养尾不越 SC_CODE, 生孩尾不越 BIRTH_CODE',
+      HVA + len(hcode) <= FVA and FVA % 0x10 == 0
+      and FVA + len(fcode) <= LY['sc']['code_va'] and BVA % 0x10 == 0
+      and BVA + len(bcode) <= BVA + MU['birth_code_sz']
+      and BVA + MU['birth_code_sz'] <= MODB + LY['mod_sz'],
+      '钩 0x%06X(%dB) 培养 0x%06X(%dB) 生孩 0x%06X(%dB)/窗%d 邻 SC_CODE 0x%06X'
+      % (HVA, len(hcode), FVA, len(fcode), BVA, len(bcode), MU['birth_code_sz'],
+         LY['sc']['code_va']))
 
 # ---- 三处补丁: 站点原字节(对 clean) + 现字节(对目标) ----
 HS, CL, T8 = CM.HOOK_MENU_SITE, CM.CODE_LIMIT_SITE, CM.TABLE8_SITE
@@ -1050,12 +1087,12 @@ check('C23e 钩子把原生 call 0x47BED0 整段接管: 被覆盖的 call 起点
 _win = bytearray(AT(0x4CD38E, 0x12))
 check('C23f 上界 0x4CD390 = %d (clean 上 %d): 除这一个字节外与 clean 逐字节相同'
       % (_win[2], CLN[CL - CB]),
-      _win[2] == 7 and CLN[CL - CB] == 6 and (lambda x: (x.__setitem__(2, 6), bytes(x))[1])(
+      _win[2] == 8 and CLN[CL - CB] == 6 and (lambda x: (x.__setitem__(2, 6), bytes(x))[1])(
           bytearray(_win)) == CLN[0x4CD38E - CB:0x4CD38E - CB + 0x12])
 _c4 = {i.address: i for i in md.disasm(bytes(AT(0x4CD38E, 0x12)), 0x4CD38E)}
-check('C23g 0x4CD38E 反汇编形态 = cmp eax,7 / ja 出环 0x%06X / movsx / jmp [eax*4+0x4CD460]'
+check('C23g 0x4CD38E 反汇编形态 = cmp eax,8 / ja 出环 0x%06X / movsx / jmp [eax*4+0x4CD460]'
       % CM.MENU_EXIT,
-      _c4[0x4CD38E].op_str == 'eax, 7'
+      _c4[0x4CD38E].op_str == 'eax, 8'
       and _c4[0x4CD391].mnemonic == 'ja' and _c4[0x4CD391].op_str == '0x%x' % CM.MENU_EXIT
       and _c4[0x4CD397].op_str == 'dword ptr [eax*4 + 0x4cd460]',
       ' '.join('%s %s' % (_c4[a].mnemonic, _c4[a].op_str) for a in sorted(_c4)))
@@ -1107,8 +1144,8 @@ for c in _codes:
 w('  构建器 0x4CD480 会写的指令码 (exe 现读): %s' % ' '.join('%d=%s' % (c, _lbl[c]) for c in _codes))
 check('C23l 原生码全在 0..6 且不含 7 (码 7 是我们独占的新路径)',
       _codes and max(_codes) <= 6 and 7 not in _codes, str(_codes))
-check('C23m 原生构建器最多 %d 项, 我们追加 1 项 => 弹窗最多 %d 项, 远低于 12 硬门'
-      % (CM.HOME_ITEM_MAX, CM.HOME_ITEM_MAX + 1), CM.HOME_ITEM_MAX + 1 <= MU['item_max'],
+check('C23m 原生构建器最多 %d 项, 我们追加 2 项(培养/生孩) => 弹窗最多 %d 项, 远低于 12 硬门'
+      % (CM.HOME_ITEM_MAX, CM.HOME_ITEM_MAX + 2), CM.HOME_ITEM_MAX + 2 <= MU['item_max'],
       '拷贝区实测: 串指针 +0x%X(0x40B) / 指令码 +0x%X(0x20B), 各容 16 项'
       % (V['MENU_PTR'] - MODB, V['MENU_CODE'] - MODB))
 
@@ -1125,27 +1162,296 @@ def needm(mn, *pats):
 import re as _re
 _imms = [imm(_re.match(r'eax, (.+)$', i.op_str).group(1))
          for i in hm if i.mnemonic == 'mov' and _re.match(r'eax, (0x[0-9a-f]+|\d+)$', i.op_str)]
-FOSTER_CODE = [v for v in _imms if v != 0xffffffff]
+FOSTER_CODE = sorted({v for v in _imms if v != 0xffffffff})   # 两枚追加行同发码 7 => 去重再比
 check('C23n 钩子对调用方只回三种 eax: 取消 0xffffffff / 培养码 %s / 其余查码表自译'
       % FOSTER_CODE, len(FOSTER_CODE) == 1 and 0xffffffff in _imms, str([hex(v) for v in _imms]))
 FOSTER_CODE = FOSTER_CODE[0]
 _xl = needm('movzx', '[ecx*2 + 0x%x]' % V['MENU_CODE'])
 check('C23n2 钩子自译: 序号->码 查的是我们自己拷的码表 0x%06X (原生 0x4CD583 那条已绕开)'
       % V['MENU_CODE'], len(_xl) == 1, _xl[0].op_str if _xl else '无')
-_ap = [i for i in hm if i.mnemonic == 'mov' and 'dword ptr [edx + eax], 0x' in i.op_str]
-_apva = imm(_ap[0].op_str.rsplit(', ', 1)[1]) if _ap else 0
+_ap = [i for i in hm if i.mnemonic == 'mov' and i.op_str.startswith('dword ptr [edx + eax')
+       and ', 0x' in i.op_str]
+_apva = [imm(i.op_str.rsplit(', ', 1)[1]) for i in _ap]
 _w0 = gbk(bytes(E(V['MENU_STR'], CM.STR_ROW))).strip()
-check('C23o 追加项只有一项: 串池第 %d 行「%s」@0x%06X (%d 行 x %dB @0x%06X)'
-      % (CM.S_HOME, _w0, _apva, MU['str_n'], MU['str_row'], V['MENU_STR']),
-      len(_ap) == 1 and _apva == V['MENU_STR'] + CM.S_HOME * CM.STR_ROW, _w0)
-check('C23n3 钩子按 count 比序号决定分支 (cmp cx,[s_cnt] -> 相等就是末项 -> 码 %d), '
-      '翻译用码表步长 2 (ecx*2 寻址)' % FOSTER_CODE,
-      len(needm('cmp', 'cx, word ptr [0x%x]' % ML['s_cnt'])) == 1
+_w1 = gbk(bytes(E(MU['birth_label_va'], CM.STR_ROW))).strip()
+check('C23o 尾追两项: 串池第 %d 行「%s」@0x%06X (%d 行 x %dB) + 独立标签「%s」@0x%06X'
+      % (CM.S_HOME, _w0, V['MENU_STR'], MU['str_n'], MU['str_row'], _w1, MU['birth_label_va']),
+      len(_ap) == 2 and _apva == [V['MENU_STR'] + CM.S_HOME * CM.STR_ROW, MU['birth_label_va']],
+      '%s / %s' % (_w0, _w1))
+check('C23o2 标签行逐字节 = child_menu.birth_label_bytes() (MENU_STR 那 24 行不动, 标签独立成行)',
+      bytes(E(MU['birth_label_va'], MU['birth_label_sz'])) == CM.birth_label_bytes(),
+      '区 0x%06X+%02X' % (MU['birth_label_va'], MU['birth_label_sz']))
+check('C23n3 钩子按 count 比行号决定分支 (cmp cx,[s_cnt] 两次: 倒数第二行=培养, 末行=生孩子), '
+      '翻译用码表步长 2 (ecx*2 寻址)',
+      len(needm('cmp', 'cx, word ptr [0x%x]' % ML['s_cnt'])) == 2
       and len(_xl) == 1)
 check('C23p 码 %d 三处吻合: 钩子给的 eax / 0x4CD390 的上界 / 跳转表第 %d 槽 -> 0x%06X'
       % (FOSTER_CODE, FOSTER_CODE, _tbl[FOSTER_CODE]),
-      FOSTER_CODE == 7 == _win[2] and _tbl[FOSTER_CODE] == FVA,
+      FOSTER_CODE == 7 and _win[2] == 8 and _tbl[FOSTER_CODE] == FVA,
       '钩子 eax=%d / cmp 界=%d / 表[%d]=0x%08X' % (FOSTER_CODE, _win[2], FOSTER_CODE, _tbl[FOSTER_CODE]))
+
+# ---- 生孩子: 码 7 只有一格表槽 (第 9 槽 0x4CD460+8*4 = 构建器自身), 所以不发新码 ——
+#      钩子把选中行号记进 BIRTH_PICK, 培养处理**头部**按它分流到生孩桩。
+#      分流必须在派发层做: 钩子内部站在构建器的帧上 (sub esp,0x24 + 3 push + 返回地址 未展开),
+#      从那里 jmp 出去会把调用方的 esp 和栈上的返回地址带歪 => 出自宅 AV (上一版「点生孩子=休息」)。
+_bd = list(md.disasm(bgot, BVA))
+assert sum(len(i.bytes) for i in _bd) == len(bgot), '生孩桩反汇编没吃满'
+_ba2 = {'%s %s' % (i.mnemonic, i.op_str) for i in _bd}
+
+
+def cntb(mn, *pats):
+    return len([i for i in _bd if i.mnemonic == mn and all(p in i.op_str for p in pats)])
+
+
+mf = list(md.disasm(fgot, FVA))
+assert sum(len(i.bytes) for i in mf) == len(fgot), '培养处理反汇编没吃满'
+_fhead = mf[:3]
+check('C23r 分流在派发层: 钩子里 0 处 jmp 生孩桩 0x%06X, 培养处理头三条 = cmp [pick],0 / je 本体 / jmp 生孩桩'
+      % BVA,
+      len(needm('jmp', '0x%x' % BVA)) == 0
+      and [i.mnemonic for i in _fhead] == ['cmp', 'je', 'jmp']
+      and _fhead[0].op_str == 'dword ptr [0x%x], 0' % MU['pick_va']
+      and _fhead[2].op_str == '0x%x' % BVA,
+      ' '.join('%s %s' % (i.mnemonic, i.op_str) for i in _fhead))
+check('C23r2 钩子给两枚追加行各写一次 BIRTH_PICK (0=培养 / 1=生孩子), 两枚同发码 %d (表只有一槽)'
+      % FOSTER_CODE,
+      len([i for i in hm if i.mnemonic == 'mov'
+           and i.op_str == 'dword ptr [0x%x], 0' % MU['pick_va']]) == 1
+      and len([i for i in hm if i.mnemonic == 'mov'
+               and i.op_str == 'dword ptr [0x%x], 1' % MU['pick_va']]) == 1
+      and len([i for i in hm if i.mnemonic == 'mov' and i.op_str == 'eax, 7']) == 2
+      and len([i for i in hm if i.mnemonic == 'jmp'
+               and i.op_str == '0x%x' % CM.MENU_EXIT]) == 0,   # 钩子只 ret, 不 jmp 走
+      'pick0=%d pick1=%d eax7=%d' % (
+          len([i for i in hm if i.op_str == 'dword ptr [0x%x], 0' % MU['pick_va']]),
+          len([i for i in hm if i.op_str == 'dword ptr [0x%x], 1' % MU['pick_va']]),
+          len([i for i in hm if i.mnemonic == 'mov' and i.op_str == 'eax, 7'])))
+# 帧收尾不在整段末尾: bn_avail / bn_live 两个子程序是**追加在 b_cancel 之后**的,
+# 所以按"最后一条 jmp MENU_TOP"定位收尾, 而不是按 _bd[-6:] (挪一次就得改断言的写法)。
+_btail_i = max(i for i, i2 in enumerate(_bd)
+               if i2.mnemonic == 'jmp' and i2.op_str == '0x%x' % CM.MENU_TOP)
+check('C23s 生孩桩帧完整且自平衡: push ebx/ebp/esi/edi + sub esp,0x20 ... add esp,0x20 + 4 pop + jmp 回环 0x%06X '
+      '(桩体后还追加 bn_avail/bn_live, 收尾按最后一条 jmp 回环定位)'
+      % CM.MENU_TOP,
+      [i.op_str for i in _bd[:4]] == ['ebx', 'ebp', 'esi', 'edi']
+      and cntb('sub', 'esp, 0x20') == 1 and cntb('add', 'esp, 0x20') == 1
+      and [i.mnemonic for i in _bd[_btail_i - 5:_btail_i + 1]] == ['add', 'pop', 'pop', 'pop', 'pop', 'jmp']
+      and _bd[_btail_i].op_str == '0x%x' % CM.MENU_TOP
+      and _bd[-1].mnemonic == 'ret',   # 收尾之后只剩 bn_avail/bn_live 两个子程序, 整段以 ret 结束
+      '收尾 %s..%s / 整段尾 6 条 %s' % (
+          _btail_i, len(_bd),
+          ['%s %s' % (i.mnemonic, i.op_str) for i in _bd[-6:]]))
+check('C23t 生孩桩不自己实例化 (0 处 call 0x47F7B0 / 0 处状态原语), 只追排程表 + call child_pass 0x%06X 一次; '
+      '弹窗 3 次 (选名字 + 没有空位 + 出生提示)' % V['CHILD_PASS'],
+      cntb('call', '0x47f7b0') == 0 and cntb('call', '0x49a860') == 0
+      and cntb('call', '0x49a73f') == 0 and cntb('call', '0x49a6b0') == 0
+      and cntb('call', '0x49a6d0') == 0 and cntb('call', '0x49a7e0') == 0
+      and cntb('call', '0x%x' % V['CHILD_PASS']) == 1
+      and cntb('call', '0x%x' % CM.DIALOG) == 3
+      and cntb('add', 'esp, 0x14') == 3,
+      ' '.join(i.op_str for i in _bd if i.mnemonic == 'call'))
+check('C23t2 对话框按原生 5 参规格 (样式4/指针数组/条数), 名字每页压在 %d => 本页 %d+1 行导航 <= 硬门 12; '
+      'push 4 共 4 处 = 三次弹窗的样式 + 出生提示的行数'
+      % (CM.BIRTH_NAME_PAGE, CM.BIRTH_NAME_PAGE),
+      len([i for i in _bd if i.mnemonic == 'push' and i.op_str == '4']) == 4
+      and len([i for i in _bd if i.mnemonic == 'push'
+               and i.op_str == '0x%x' % V['SUB_PTR']]) == 1
+      and len([i for i in _bd if i.mnemonic == 'cmp'
+               and i.op_str == 'edi, ' + CM.cap_imm(CM.BIRTH_NAME_PAGE)]) == 1,
+      ' '.join('%s %s' % (i.mnemonic, i.op_str) for i in _bd if i.mnemonic in ('push', 'cmp')))
+_b_cp = [i for i in _bd if i.mnemonic == 'call' and i.op_str == '0x%x' % V['CHILD_PASS']][0]
+_b_age = [i for i in _bd if i.op_str == 'byte ptr [ecx + 0x1b], al'][0]
+_b_sur = [i for i in _bd if i.op_str == 'edi, 0x%x' % LY['surname_tab_va']][0]
+_b_fs = [i for i in _bd if i.mnemonic == 'mov' and i.op_str == 'eax, dword ptr [esp + 0x1c]'][0]
+_b_sd = [i for i in _bd if i.mnemonic == 'mov' and i.op_str == 'edx, dword ptr [esp + 0x1c]'][0]
+check('C23u 生孩桩追排程表 5 写(oid/slot/父槽/国城/尾哨兵) 后 call child_pass, 再做三笔改: '
+      '虚岁 1([+0x1b]=date_y+0x46) / 父 oid word[+0x1d] / 姓行+名行各 7B 逐字节拷; '
+      '两个键空间不混: fslot 与姓行取主角**槽**(esp+0x1c <- ent+0), 父链取主角**oid**(ent+2)',
+      'mov word ptr [ebx + 8], 0xffff' in _ba2
+      and cntb('mov', 'word ptr [ebx], ax') == 1
+      and cntb('mov', 'word ptr [ebx + 2], ax') == 1
+      and cntb('mov', 'word ptr [ebx + 4], ax') == 1
+      and cntb('mov', 'word ptr [ebx + 6], ax') == 1
+      and _bd.index(_b_fs) + 1 == _bd.index([i for i in _bd
+                                            if i.op_str == 'word ptr [ebx + 4], ax'][0])
+      and _bd.index(_b_sd) + 1 == _bd.index([i for i in _bd if i.op_str == 'esi, [edx*8]'][0])
+      and len([i for i in _bd if i.mnemonic == 'mov'
+               and i.op_str == 'dword ptr [esp + 0x1c], eax']) == 1
+      and 'add eax, 0x46' in _ba2 and _bd.index(_b_cp) < _bd.index(_b_age)
+      and 'mov word ptr [ecx + 0x1d], ax' in _ba2
+      and _bd.index(_b_age) < _bd.index(_b_sur) and cntb('mov', 'ecx, 7') == 4
+      and cntb('rep', 'movsb') == 0,
+      'age@0x%06X call@0x%06X sur@0x%06X / mov ecx,7 x%d'
+      % (_b_age.address, _b_cp.address, _b_sur.address, cntb('mov', 'ecx, 7')))
+check('C23u2 找空位两道门都在: 槽向上扫 [CHILD_BM]bt + 记录 [+0x2c]&0x8080==0x8080; '
+      '身份键向下扫 flagtab==0 且再比一遍排程表 (不用 child_stub 那条写坏登场标志的路)',
+      cntb('bt', 'dword ptr [0x%x]' % V['CHILD_BM']) == 1
+      and 'and edx, 0x8080' in _ba2 and 'cmp edx, 0x8080' in _ba2
+      and len([i for i in _bd if i.mnemonic == 'cmp'
+               and i.op_str == 'byte ptr [ebx + 0x%x], 0' % MU['flagtab']]) == 1
+      and cntb('mov', 'ebx, 0x%x' % V['CHILD_SCHED']) == 1
+      and cntb('mov', 'ecx, 0x%x' % V['CHILD_SCHED']) == 1
+      and len([i for i in _bd if i.mnemonic == 'push'
+               and i.op_str == '0x%x' % _M5['ms_no_slot']]) == 1
+      and cntb('cmp', 'ax, -1') == 3 and cntb('add', 'ecx, 8') == 1,
+      'bt=%d sched ebx=%d ecx=%d' % (cntb('bt', 'dword ptr [0x%x]' % V['CHILD_BM']),
+                                     cntb('mov', 'ebx, 0x%x' % V['CHILD_SCHED']),
+                                     cntb('mov', 'ecx, 0x%x' % V['CHILD_SCHED'])))
+check('C23u3 空槽下界 = 本构建已预定扩展槽的最大槽 +1 (休眠人物 371..462 的姓/名行 与 儿童预载批次 '
+      '都不得被新生孩子盖掉)',
+      MU['birth_slot_lo'] == MU['birth_taken_hi'] + 1
+      and MU['birth_taken_hi'] >= max(int(k) for k in pred)
+      and len([i for i in _bd if i.mnemonic == 'mov'
+               and i.op_str == 'ebx, 0x%x' % MU['birth_slot_lo']]) == 1,
+      'slot_lo=%d taken_hi=%d 预载最大槽=%d'
+      % (MU['birth_slot_lo'], MU['birth_taken_hi'], max(int(k) for k in pred)))
+# ★★ 出生提示 (实机反馈「我生了孩子后, 没有任何的提示」): 办完事必须当着玩家的面确认一次。
+#    三行 = 静态标题 / 运行时拼的姓名串 / 住在哪一句; 姓名两行各 7B 且 NUL 补位, 中间那个 NUL
+#    会把 C 串截断, 所以要把两行**拼**进独立缓冲再显示。提示必须在实例化+写表之后弹。
+_MA, _NT = MU['msg_arr_va'], MU['name_tmp_va']
+_b_arr = [i for i in _bd if i.mnemonic == 'push' and i.op_str == '0x%x' % _MA]
+_b_call = [i for i in _bd if i.mnemonic == 'call' and i.op_str == '0x%x' % CM.DIALOG]
+_b_ai = _bd.index(_b_arr[0]) if _b_arr else -1
+_b_tail = ['%s %s' % (i.mnemonic, i.op_str) for i in _bd[_b_ai:_b_ai + 4]] if _b_arr else []
+check('C23u4 出生提示四行指针数组落 %s: [0]=「%s」 [1]=姓名缓冲 %s [2]=「%s」 [3]=「%s」, '
+      '紧接 push 4 + call 对话框 + add esp,0x14, 且在 child_pass/写表之后 (弹窗共 %d 次)'
+      % (hex(_MA), CM.MSG_STRINGS[CM.MS_BORN], hex(_NT), CM.MSG_STRINGS[CM.MS_BORN_AT],
+         CM.MSG_STRINGS[CM.MS_BORN_GK], len(_b_call)),
+      len(_b_arr) == 1 and len(_b_call) == 3
+      and _b_tail == ['push 0x%x' % _MA, 'push 4', 'call 0x%x' % CM.DIALOG, 'add esp, 0x14']
+      and 'mov dword ptr [0x%x], 0x%x' % (_MA, MU['ms_born']) in _ba2
+      and 'mov dword ptr [0x%x], 0x%x' % (_MA + 4, _NT) in _ba2
+      and 'mov dword ptr [0x%x], 0x%x' % (_MA + 8, MU['ms_born_at']) in _ba2
+      and 'mov dword ptr [0x%x], 0x%x' % (_MA + 12, MU['ms_born_gk']) in _ba2
+      and _bd[_b_ai + 1].op_str == '4'
+      and _bd.index([i for i in _bd if i.op_str == 'edi, 0x%x' % _NT][0]) > _bd.index(_b_cp)
+      and _bd[_b_ai].address > _b_sur.address,
+      'push msg_arr x%d / call x%d / 弹窗四条 %s (child_pass @0x%06X)'
+      % (len(_b_arr), len(_b_call), _b_tail, _b_cp.address))
+# 数据块与代码块互不重叠 (500 名池 + USED 位图挤不进老槽, 已经挪进 MOD 尾部空闲段;
+# 老槽改成 AVAIL 表且**尺寸不变**, 所以 LABEL/PICK/PROMPT/NAME_TMP 与下游地址一律没动)
+_bblocks = sorted([
+    ('AVAIL 表', MU['avail_va'], MU['avail_sz']),
+    ('出生标签串', MU['birth_label_va'], MU['birth_label_sz']),
+    ('分流标记', MU['pick_va'], 4),
+    ('提示指针数组', MU['msg_arr_va'], MU['msg_arr_sz']),
+    ('姓名缓冲', MU['name_tmp_va'], MU['name_tmp_sz']),
+    ('名字池', MU['name_pool_va'], MU['name_pool_sz']),
+    ('已用位图', MU['used_va'], MU['used_sz']),
+    ('生孩代码', MU['birth_va'], MU['birth_code_sz']),
+], key=lambda t: t[1])
+_bovl = [(a[0], b[0]) for a, b in zip(_bblocks, _bblocks[1:]) if a[1] + a[2] > b[1]]
+check('C23u5 姓名拼串两趟循环都有界收尾 (姓/名 各"写表"与"读回"一趟 = mov ecx,7 共 4 处 + '
+      '补 NUL 2 处), 且名字池/已用位图/提示区/代码窗 %d 块按地址排开互不重叠、整段落在 MOD 区内 '
+      '(%s)' % (len(_bblocks), ' < '.join(nm for nm, _, _ in _bblocks)),
+      cntb('mov', 'ecx, 7') == 4
+      and len([i for i in _bd if i.mnemonic == 'mov' and i.op_str == 'byte ptr [edi], 0']) == 2
+      and not _bovl and _bblocks[0][1] >= LY['mod_base']
+      and _bblocks[-1][1] + _bblocks[-1][2] <= LY['mod_base'] + LY['mod_sz'],
+      '重叠 %s / 首块 0x%06X / 末块尾 0x%06X / MOD 尾 0x%06X'
+      % (_bovl, _bblocks[0][1], _bblocks[-1][1] + _bblocks[-1][2],
+         LY['mod_base'] + LY['mod_sz']))
+check('C23u6 出生提示三行静态串已落进串池 (GBK+NUL, 行宽 %d): [%d]=%r [%d]=%r [%d]=%r'
+      % (CM.MS_STR_ROW, CM.MS_BORN, CM.MSG_STRINGS[CM.MS_BORN],
+         CM.MS_BORN_AT, CM.MSG_STRINGS[CM.MS_BORN_AT],
+         CM.MS_BORN_GK, CM.MSG_STRINGS[CM.MS_BORN_GK]),
+      all(bytes(E(MU[i], CM.MS_STR_ROW)).split(b'\x00')[0] == CM.MSG_STRINGS[j].encode('gbk')
+          for i, j in (('ms_born', CM.MS_BORN), ('ms_born_at', CM.MS_BORN_AT),
+                       ('ms_born_gk', CM.MS_BORN_GK))),
+      ' / '.join(repr(bytes(E(MU[k], CM.MS_STR_ROW)).split(b'\x00')[0].decode('gbk', 'replace'))
+                 for k in ('ms_born', 'ms_born_at', 'ms_born_gk')))
+_bp = bytes(E(MU['name_pool_va'], MU['name_pool_sz']))
+check('C23v 名字池 %d 项 x 7B @0x%06X 与 child_menu.birth_name_pool_bytes() 逐字节一致'
+      % (MU['name_count'], MU['name_pool_va']), _bp == CM.birth_name_pool_bytes(),
+      _bp[:14].decode('gbk', 'replace').split('\0')[0])
+check('C23v2 名字池/姓行/名行都用 *7 的地址式 (lea [r*8] 之后 sub 回自己, 共 9 处 = 选名填页 1 + '
+      'bn_avail 1 + bn_live 1 + 写表 4 + 出生提示读回 2) 且 %d %% 页 %d == 0 (整页无半页)'
+      % (MU['name_count'], CM.BIRTH_NAME_PAGE),
+      cntb('lea', '*8]') == 9 and cntb('lea', '*9]') == 0
+      and MU['name_count'] % CM.BIRTH_NAME_PAGE == 0,
+      'lea*8=%d name_count=%d page=%d'
+      % (cntb('lea', '*8]'), MU['name_count'], CM.BIRTH_NAME_PAGE))
+check('C23w BIRTH_COUNT 自增只在生孩桩 (钩子/培养桩各 0 处)',
+      cntb('inc', 'dword ptr [0x%x]' % MU['cnt_birth']) == 1
+      and len([i for i in hm if i.mnemonic == 'inc' and 'dword ptr [0x%x]' % MU['cnt_birth'] in i.op_str]) == 0
+      and len([i for i in mf if i.mnemonic == 'inc' and 'dword ptr [0x%x]' % MU['cnt_birth'] in i.op_str]) == 0,
+      '计数区 0x%06X' % MU['cnt_birth'])
+
+# ---------------- C23x: 500 名真实名池 + 在世重名避让 (v2 选名门) ----------------
+# 两个子程序是追加在 b_cancel 之后的, 地址 = 收尾 jmp 之后的第一条 (bn_avail) 与
+# bn_avail 里第一条 ret 之后的那条 (bn_live)。
+_BA = _bd[_btail_i + 1].address
+_BRET = _btail_i + 1 + [k for k, i in enumerate(_bd[_btail_i + 1:])
+                        if i.mnemonic == 'ret'][0]
+_BL = _bd[_BRET + 1].address
+_b_dialog0 = min(i.address for i in _bd if i.mnemonic == 'call'
+                 and i.op_str == '0x%x' % CM.DIALOG)
+# capstone 的内存式写法是 `[eax*2 + 0x..]` (星号两边不空格), 且 0x1 渲染成十进制 1 —— 一律子串匹配
+_b_used_set = [i for i in _bd if i.mnemonic == 'mov'
+               and 'byte ptr [edx + 0x%x]' % MU['used_va'] in i.op_str]
+_b_avail_wr = [i for i in _bd if i.mnemonic == 'mov'
+               and 'word ptr [eax*2 + 0x%x], bx' % MU['avail_va'] in i.op_str]
+_b_avail_rd = [i for i in _bd if i.mnemonic == 'movzx'
+               and 'word ptr [eax*2 + 0x%x]' % MU['avail_va'] in i.op_str]
+check('C23x 选名只从 AVAIL 取, 不再按下标直推池: call bn_avail(0x%06X) 在第一次弹窗(0x%06X)之前, '
+      '页填充读 AVAIL x%d / bn_avail 写 AVAIL x%d / 池行基址只在填充处进 edx 一次; '
+      '选中即置 USED[名]=1 x%d 且在 child_pass 之前 (玩家要求"选过就不重发")'
+      % (_BA, _b_dialog0, len(_b_avail_rd), len(_b_avail_wr), len(_b_used_set)),
+      cntb('call', '0x%x' % _BA) == 1
+      and len(_b_avail_rd) == 1 and len(_b_avail_wr) == 1 and len(_b_used_set) == 1
+      and cntb('add', 'edx, 0x%x' % MU['name_pool_va']) == 1
+      and _b_used_set[0].address < _b_cp.address
+      and [i.address for i in _bd if i.mnemonic == 'call' and i.op_str == '0x%x' % _BA][0]
+      < _b_dialog0,
+      'avail rd/wr=%d/%d used=%d used@0x%06X child_pass@0x%06X add_edx_pool=%d'
+      % (len(_b_avail_rd), len(_b_avail_wr), len(_b_used_set),
+         _b_used_set[0].address if _b_used_set else 0, _b_cp.address,
+         cntb('add', 'edx, 0x%x' % MU['name_pool_va'])))
+_bl_gate = set('%s %s' % (i.mnemonic, i.op_str) for i in _bd if i.address >= _BL)
+check('C23x2 bn_live(0x%06X) 的在世门 = 族谱动态桩同款三分支: [+0x2c]&0x8080==0x8080 成人 / '
+      '掩 0x879F 后 ==0x1b 儿童 / ==0x10f 已元服, 且整池 %d 项按 7B 行与名表 0x%06X 比两 dword'
+      % (_BL, MU['name_count'], LY['given_tab_va']),
+      {'and eax, 0x8080', 'cmp eax, 0x8080', 'and edx, 0x879f', 'cmp edx, 0x1b',
+       'cmp edx, 0x10f', 'add edi, 0x%x' % LY['given_tab_va'],
+       'cmp eax, dword ptr [edi]', 'cmp eax, dword ptr [edi + 3]'} <= _bl_gate
+      and cntb('call', '0x%x' % _BL) == 1
+      and cntb('cmp', 'esi, %s' % capimm(CAP)) == 1,
+      '门内助记符 %s / call bn_live=%d' % (sorted(_bl_gate)[:6], cntb('call', '0x%x' % _BL)))
+check('C23x3 每轮最多凑 %d 个候选 (cmp eax,%s 早停) 且扫描上界 = 池 %d 项 (已扫格数 ebp 与绕回池头 ebx '
+      '各一道界), 起点由原生 rand 0x%06X 现取 => 两次开框不是同一批; 页内 %d 行 + 1 导航 <= 原生硬门 12'
+      % (CM.BIRTH_NAME_OFFER, capimm(CM.BIRTH_NAME_OFFER), MU['name_count'], CG.RAND,
+         CM.BIRTH_NAME_PAGE),
+      cntb('cmp', 'eax, %s' % capimm(CM.BIRTH_NAME_OFFER)) == 1
+      and cntb('cmp', 'ebx, %s' % capimm(MU['name_count'])) == 1
+      and cntb('cmp', 'ebp, %s' % capimm(MU['name_count'])) == 1
+      and cntb('call', '0x%x' % CG.RAND) == 1
+      and cntb('push', '%s' % capimm(MU['name_count'])) == 1
+      and cntb('add', 'esp, 4') == 1 and cntb('mov', 'ebx, eax') == 1
+      and CM.BIRTH_NAME_OFFER // CM.BIRTH_NAME_PAGE + 1 <= 12,
+      'offer=%d count=%d rand=%d' % (CM.BIRTH_NAME_OFFER, MU['name_count'],
+                                     cntb('call', '0x%x' % CG.RAND)))
+_bused = bytes(E(MU['used_va'], MU['used_sz']))
+_bavail = bytes(E(MU['avail_va'], MU['avail_sz']))
+check('C23x4 已用位图 %dB @0x%06X 与 AVAIL 暂存 %dB @0x%06X 构建期全 0 (开局没有名被预定)'
+      % (MU['used_sz'], MU['used_va'], MU['avail_sz'], MU['avail_va']),
+      _bused == b'\x00' * MU['used_sz'] and _bavail == b'\x00' * MU['avail_sz'],
+      'used 非零 %d / avail 非零 %d' % (sum(1 for x in _bused if x),
+                                        sum(1 for x in _bavail if x)))
+# 静态冲突数: 名池里有多少个名字正被本构建的**在岗**人物占用 => 这些名字开局不会出现在选单上
+_prole = bytes(E(POOL, CAP * STRIDE))
+_worn = set()
+for _s in range(CAP):
+    _v = struct.unpack_from('<H', _prole, _s * STRIDE + 0x2c)[0]
+    if (_v & 0x8080) == 0x8080 or (_v & 0x879F) in (0x1B, 0x10F):
+        _worn.add(bytes(E(LY['given_tab_va'] + 7 * _s, 7)).split(b'\x00')[0])
+_rows = [_bp[i * 7:i * 7 + 7].split(b'\x00')[0] for i in range(MU['name_count'])]
+_conf = sum(1 for r in _rows if r in _worn)
+check('C23x5 名池 %d 项与开局在岗人物的名无重名冲突 (%d 项被在世者占用 => 避让后仍有 %d 项可选, '
+      '>= 一轮候选 %d)' % (MU['name_count'], _conf, MU['name_count'] - _conf,
+                           CM.BIRTH_NAME_OFFER),
+      len(set(_rows)) == MU['name_count'] and MU['name_count'] - _conf >= CM.BIRTH_NAME_OFFER,
+      '冲突 %d / 可选 %d / 在岗名 %d 个' % (_conf, MU['name_count'] - _conf, len(_worn)))
+
 # 收尾必须是原生那五条指令的逐字节复刻 (pop edi/esi/ebp + add esp,0x24 + ret = 0x4CD577..0x4CD57D, 7 字节)
 _epi_native = CLN[0x4CD577 - CB:0x4CD577 - CB + 7]
 check('C23n4 钩子收尾 = 原生收尾逐字节 (%s): 帧/寄存器复原后才 ret, 循环状态与进来时一致'
@@ -1169,42 +1475,57 @@ check('C23q 调用方预判仍在: ax==0xffff(取消) 与 ax==4(离开) 都直�
 
 
 def route(codes, pick):
-    """按 big.exe 里的字节解释一次「选了第 pick 项」: 返回 (回到调用方的 ax, 最终处理地址或说明)"""
+    """按 big.exe 里的字节 + 钩子/分流逻辑解释一次「选了第 pick 行」。
+    行序: 0..len-1 原生 | len 培养孩子 | len+1 生孩子 (钩子尾追的就是这两行, 顺序照源码)。
+    返回 (回到调用方的 eax, 落点种类, 落点地址)"""
     if pick is None:                                   # 取消
-        return 0xffff, '出环@0x%06X (调用方 ax==0xffff 分支)' % CM.MENU_PRE_EXIT
-    eax = FOSTER_CODE if pick == len(codes) else codes[pick]
+        return 0xffff, 'cancel', None
+    if pick > len(codes) + 1:                          # 行号越界 (钩子只可能收到 <= len+1)
+        return None, 'oob', None
+    if pick >= len(codes):
+        # 两枚追加行**同发码 7** (跳转表只有一格空槽): 差别只在钩子写进 BIRTH_PICK 的行号,
+        # 培养处理头部 cmp pick 分流 —— 0 走培养本体, 非 0 jmp 生孩桩。
+        _kind = 'foster' if pick == len(codes) else 'birth'
+        return FOSTER_CODE, _kind, (FVA if _kind == 'foster' else BVA)
+    eax = codes[pick]
     if eax == 4:
-        return eax, '出环@0x%06X (原生「离开」, 表槽 4 也指 0x%06X)' % (CM.MENU_PRE_EXIT, _tbl[4])
+        return eax, 'exit', CM.MENU_PRE_EXIT
     if eax > _win[2]:
-        return eax, 'ja 出环 0x%06X' % CM.MENU_EXIT
-    return eax, ('表槽%d -> 0x%08X%s' % (eax, _tbl[eax],
-                                        ' [MOD 培养处理]' if eax == FOSTER_CODE else ' [原生]'))
+        return eax, 'ja_exit', CM.MENU_EXIT
+    return eax, 'native', _tbl[eax]
 
 
 FORMS = [('甲 全在(6 项)', [0, 1, 2, 3, 5, 4]), ('乙 金库隐藏(5 项)', [0, 2, 3, 5, 4]),
          ('丙 无宁宁/无探病(3 项)', [0, 1, 4]), ('丁 最短(2 项)', [0, 4])]
-_native_dst = {'表槽%d -> 0x%08X [原生]' % (i, v) for i, v in enumerate(_tbl[:7]) if i != 4}
-_mine_dst = '表槽%d -> 0x%08X [MOD 培养处理]' % (FOSTER_CODE, FVA)
 bad, rows = [], []
 for nm, cs in FORMS:
-    if len(cs) + 1 > MU['item_max']:
-        bad.append('%s 项数 %d 超弹窗上限' % (nm, len(cs) + 1))
-    for pk in range(len(cs) + 1):
-        _eax, _dst = route(cs, pk)
-        rows.append('  %s pick=%d -> eax=%d -> %s' % (nm, pk, _eax, _dst))
-        if pk == len(cs):
-            if _dst != _mine_dst:
-                bad.append('%s 末项没落到培养处理: %s' % (nm, _dst))
-        elif _eax != 4 and _dst not in _native_dst:
-            bad.append('%s pick=%d 落点异常: %s' % (nm, pk, _dst))
-    _eax, _dst = route(cs, None)
-    rows.append('  %s 取消   -> ax=0xffff -> %s' % (nm, _dst))
-    if '出环' not in _dst:
-        bad.append('%s 取消没出环: %s' % (nm, _dst))
+    _items = len(cs) + 2                               # 原生 + 培养 + 生孩子
+    if _items > MU['item_max']:
+        bad.append('%s 项数 %d 超拷贝区上限 %d' % (nm, _items, MU['item_max']))
+    if _items > 12:
+        bad.append('%s 项数 %d 超 0x47BED0 硬门 12 (整个菜单一个都不显示)' % (nm, _items))
+    for pk in range(_items):
+        _eax, _kind, _dst = route(cs, pk)
+        rows.append('  %s pick=%d -> eax=%s -> %-8s 0x%08X' % (nm, pk, _eax, _kind, _dst or 0))
+        if _kind == 'native':
+            if _dst not in _tbl[:7] or _dst == FVA:
+                bad.append('%s pick=%d 原生行没落原生处理: %s' % (nm, pk, _dst))
+        elif _kind == 'foster':
+            if pk != len(cs) or _dst != FVA:
+                bad.append('%s 倒数第二行没落培养处理: pk=%d dst=0x%08X' % (nm, pk, _dst))
+        elif _kind == 'birth':
+            if pk != len(cs) + 1 or _dst != BVA:
+                bad.append('%s 末行没落生孩处理: pk=%d dst=0x%08X' % (nm, pk, _dst))
+        elif _kind not in ('exit', 'ja_exit'):
+            bad.append('%s pick=%d 落点异常: %s' % (nm, pk, _kind))
+    _eax, _kind, _dst = route(cs, None)
+    rows.append('  %s 取消   -> ax=0xffff -> %s' % (nm, _kind))
+    if _kind != 'cancel':
+        bad.append('%s 取消没出环: %s' % (nm, _kind))
 for r in sorted(rows):
     w(r)
-check('C23r 四种 count 形态逐 pick 回环: 原生项 -> 原生处理(表 0..6), 末项 -> 0x%06X, 取消 -> 出环'
-      % FVA, not bad, str(bad))
+check('C23r 四种 count 形态逐 pick 回环: 原生行 -> 表 0..6, 倒数第二行 -> 培养 0x%06X, 末行 -> 生孩 0x%06X, '
+      '取消 -> 出环' % (FVA, BVA), not bad, str(bad))
 
 # ---- 面板选到的孩子必须正是桩会消费的孩子: 三道门与成长桩同写法 ----
 mf = list(md.disasm(fgot, FVA))
@@ -1362,8 +1683,8 @@ check('C23z3c 费用行地址 = %s + act*%d (%s) -> 三槽指针数组 [0]=费�
       and len(_hitx(mf, 'mov', 'dword ptr [0x%x], eax' % _ca)) == 1
       and len(_hitx(mf, 'mov', 'dword ptr [0x%x], 0x%x' % (_ca + 4, _M5['ms_ok']))) == 1
       and len(_hitx(mf, 'mov', 'dword ptr [0x%x], 0x%x' % (_ca + 8, _M5['ms_cancel']))) == 1
-      and len(CM.MSG_STRINGS) == CM.MS_NONE + 1,
-      '串池 %d 条 / 期望 %d' % (len(CM.MSG_STRINGS), CM.MS_NONE + 1))
+      and len(CM.MSG_STRINGS) == CM.MS_BORN_GK + 1,
+      '串池 %d 条 / 期望 %d' % (len(CM.MSG_STRINGS), CM.MS_BORN_GK + 1))
 # 每条活动一条费用串, 且天/金与 child_growth 的表逐条对得上 (换表就炸, 不给口径漂移留口子)
 _cbad = []
 for _i, (_nm, _d, _b) in enumerate(CG.ACTS):

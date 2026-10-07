@@ -151,6 +151,9 @@ make_child:
   push 0
   call %(a_rank)s
   mov word ptr [esi + 0x2a], 0xffff
+  ; ★ 标志表按 oid 索引，而五个状态原语都会改写 eax（A_RANK 返回的是状态字），
+  ;   所以写表前必须从表项 +0 重新取 oid。
+  movzx eax, word ptr [ebx]
   mov byte ptr [eax + %(flagtab)s], 1
   call place_child
   movzx edx, word ptr [ebx + 2]
@@ -319,8 +322,22 @@ def entry_vas(code, origin):
             debug_log_va = int(i.op_str, 16)
             break
     assert debug_log_va is not None, '找不到 debug_log call 目标'
+
+    def _head(op, nxt):
+        """按 (首条指令, 第二条指令) 定位内部标签入口: 桩内代码增删后不用再手改地址。"""
+        got = [i for k, i in enumerate(ins)
+               if k + 1 < len(ins) and i.mnemonic == 'movzx' and i.op_str == op
+               and ins[k + 1].op_str == nxt]
+        assert len(got) == 1, ('标签定位 %s / %s 命中 %d 处' % (op, nxt, len(got)))
+        return got[0].address
+
+    _mk = _head('eax, word ptr [ebx]', 'edi, word ptr [ebx + 2]')      # make_child
+    _ini = _head('eax, word ptr [ebx]', 'eax, eax, 0x3b')                # init_stats
+    _pl = [i for i in ins if i.mnemonic == 'movzx' and i.op_str == 'ecx, word ptr [ebx + 4]']
+    assert len(_pl) == 1, ('place_child 定位命中 %d 处' % len(_pl))
     return {'child_pass': origin, 'month_hook': mh.address, 'load_hook': lh[0].address,
             'debug_log': debug_log_va,
+            'make_child': _mk, 'place_child': _pl[0].address, 'init_stats': _ini,
             'month_hook_sz': lh[0].address - mh.address,
             'load_hook_sz': 12,                       # pushad(1) call rel32(5) popad(1) jmp rel32(5)
             'stub_end': lh[0].address + 12}
@@ -361,7 +378,12 @@ def selfcheck(code, origin, va, L):
         assert len(got) == n, ('缺少指令 %s %s (命中 %d, 期望 %d)' % (mn, pat, len(got), n))
 
     need('mov', ['word ptr [esi + 0x2a]', '0xffff'])
-    need('mov', ['byte ptr [eax + 0x519288]', '1'])
+    _ft = [i for i in ins if i.mnemonic == 'mov' and 'byte ptr [eax + 0x519288]' in i.op_str]
+    assert len(_ft) == 1, ('登场标志写应恰好 1 处, 实得 %d' % len(_ft))
+    _prev = ins[ins.index(_ft[0]) - 1]
+    assert (_prev.mnemonic, _prev.op_str) == ('movzx', 'eax, word ptr [ebx]'), \
+        ('★标志表按 oid 索引: 写表前一条必须重新取表项 +0 的 oid (状态原语全都会改写 eax), 实得 %s %s'
+         % (_prev.mnemonic, _prev.op_str))
     need('bt', ['0x%x' % L['bm']])
     need('bts', ['0x%x' % L['bm']])
     for key, n in (('scan', 1), ('preload', 2), ('rearm', 1), ('skip', 1), ('place', 2), ('init5', 1)):

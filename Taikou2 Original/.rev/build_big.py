@@ -73,7 +73,7 @@ POOL_SZ = STRIDE * CAP                      # 实体池字节
 SUR_OFF = _align(POOL_SZ, 0x100)            # = 原 0x520660 -> 实为 **名表** (CAP×7)
 GIV_OFF = _align(SUR_OFF + 7 * CAP, 0x100)  # = 原 0x521AA8 -> 实为 **姓表** (CAP×7)
 MOD_OFF = _align(GIV_OFF + 7 * CAP + 0x200, 0x100)   # MOD 私有区(桩/钩子/埋点/位图/排程表/预载桩)
-MOD_SZ = 0x8000                   # 私有区配额 (M3c-2 起 32KB): 埋点 0xC0 | 儿童位图 0x100(CAP bit)
+MOD_SZ = 0xA000                   # 私有区配额 (v13 动态族谱起 40KB): 埋点 0xC0 | 儿童位图 0x100(CAP bit)
                                   #   | 排程表 0x180..0x1200(8B/条, <=527) | 预载桩 0x1200..
                                   #   | 成长桩 0x1400.. | 成长埋点 0x2000.. | KID_TAB 0x2100(CAP*12)
                                   #   | CMD_RING 其后 544B | 回家菜单数组 再其后
@@ -146,6 +146,71 @@ FO = dict(ym=0x00, cnt=0x04, days=0x08, gold=0x0C,        # dword: 上次培养�
           deny_month=0x34, deny_time=0x38, deny_gold=0x3C)  # dword[1] x3: 三种拒绝的单按钮提示框
 assert FO['deny_gold'] + 4 <= FOSTER_SZ, FO
 assert FO['deny_gold'] + 4 <= FOSTER_SZ, FO
+# ---- 生孩子: 「本次可选表」(v1 的 20 个名字池原来住这儿) ----
+#   v2 (2026-10-08): 名字池扩到 500 个真名并搬到 MOD 尾 (BIRTH_POOL, 见下), 这里只留
+#   bn_avail 每次开框收进来的「本次可选 20 个」= 20 x 2B 池内下标 + 1 个 dword 计数。
+#   ★ 这块的尺寸**保持 0x8C 不变**: BIRTH_LABEL 及它后面的每个地址都不动 (verify/补丁站点
+#     按布局表读, 但 4x 跳转表补丁与桩自检锁的是地址, 一挪就得全链重跑)。
+BIRTH_AVAIL_VA = FOSTER_VA + FOSTER_SZ
+BIRTH_AVAIL_SZ = 0x8C
+BIRTH_AVAILN_VA = BIRTH_AVAIL_VA + 2 * CM.BIRTH_NAME_OFFER
+assert 2 * CM.BIRTH_NAME_OFFER + 4 <= BIRTH_AVAIL_SZ, (CM.BIRTH_NAME_OFFER, BIRTH_AVAIL_SZ)
+#   菜单标签「生孩子」另起一行: MENU_STR 那 24 行已把 0x240 用满, 且 DEC100 起的下游各区紧排无余量,
+#   塞进去要把九个区整体顺移 (verify 侧有多处硬编码) => 标签放自己区尾, 不动任何既有地址。
+BIRTH_LABEL_VA = BIRTH_AVAIL_VA + BIRTH_AVAIL_SZ
+BIRTH_LABEL_SZ = CM.STR_ROW
+assert BIRTH_LABEL_VA + BIRTH_LABEL_SZ <= NEW + MOD_OFF + MOD_SZ, \
+    '生孩子名字池+标签越出 MOD_SZ (%06X + %02X > %06X)' % (
+        BIRTH_LABEL_VA, BIRTH_LABEL_SZ, NEW + MOD_OFF + MOD_SZ)
+# ---- 生孩子处理程序: 代码窗口 (v2 搬进 MOD 尾的新空地, 见下面 BIRTH_POOL 一段) ----
+#   为什么搬: v1 窗口 M(0x7C00)+0x300 只剩 25B 余量, 而 v2 要在开框前筛「选过没有 / 本剧本
+#   有活人叫这个名没有」, 处理长到近 1KB; 就地加长会压掉紧跟其后的 BIRTH_PICK/出生提示。
+#   旧窗口 M(0x7C00)..M(0x7F00) 从此留白, BIRTH_PICK/PROMPT/NAME_TMP 三个地址一个都不动。
+BIRTH_PICK_VA = M(0x7F00)                             # dword: 码 7 的分流标记 0=培养孩子 / 1=生孩子
+assert BIRTH_PICK_VA >= BIRTH_LABEL_VA + BIRTH_LABEL_SZ, \
+    '生孩分流标记压到可选表/标签 (%06X < %06X)' % (
+        BIRTH_PICK_VA, BIRTH_LABEL_VA + BIRTH_LABEL_SZ)
+assert BIRTH_PICK_VA + 4 <= NEW + MOD_OFF + MOD_SZ, \
+    '生孩标记越出 MOD_SZ (%06X > %06X)' % (BIRTH_PICK_VA + 4, NEW + MOD_OFF + MOD_SZ)
+# ---- 出生提示 (实机「生了孩子没有任何提示」): 四行指针数组 + 运行时拼的姓名串 ----
+#   姓行/名行各 7B 且 NUL 补位, 不能直接当 C 串连着显示 (中间 NUL 会截断), 所以要一块 16B 缓冲
+#   把两行拼成 "姓+名" (最长 6+6+1 = 13B)。指针数组 4 x 4B = 标题 / 姓名 / 随父居住 / 元服才进列表。
+BIRTH_PROMPT_VA = M(0x7F10)
+BIRTH_PROMPT_SZ = 16
+BIRTH_NAME_TMP_VA = M(0x7F20)
+BIRTH_NAME_TMP_SZ = 16
+assert BIRTH_PROMPT_VA >= BIRTH_PICK_VA + 4, '出生提示指针数组压到分流标记'
+assert BIRTH_NAME_TMP_VA >= BIRTH_PROMPT_VA + BIRTH_PROMPT_SZ, '姓名缓冲压到指针数组'
+assert BIRTH_NAME_TMP_VA + BIRTH_NAME_TMP_SZ <= NEW + MOD_OFF + MOD_SZ, \
+    '出生提示区越出 MOD_SZ (%06X > %06X)' % (BIRTH_NAME_TMP_VA + BIRTH_NAME_TMP_SZ,
+                                             NEW + MOD_OFF + MOD_SZ)
+# ---- v13 动态族谱: 运行时点亮桩 (tree_dyn.py), 落在 MOD 区新开的尾段 ----
+#   前面所有区都排到 0x7F30, 余量只有 0xD0 —— 抬 MOD_SZ 到 0xA000 是**纯加长文件尾**
+#   (.edata 是最后一节, Raw==Virt==整节零填充), 既有 M() 地址一个都不动 (同 R8 的口径)。
+TREE_DYN_VA = M(0x8000)
+TREE_DYN_SZ = 0x400
+assert TREE_DYN_VA >= BIRTH_NAME_TMP_VA + BIRTH_NAME_TMP_SZ, '动态族谱桩压到出生提示区'
+assert TREE_DYN_VA + TREE_DYN_SZ <= NEW + MOD_OFF + MOD_SZ, \
+    '动态族谱桩越出 MOD_SZ (%06X > %06X)' % (TREE_DYN_VA + TREE_DYN_SZ,
+                                             NEW + MOD_OFF + MOD_SZ)
+# ---- 生孩子 v2: 500 个真名 + 已选标记 + 处理代码, 全落在树桩之后的 MOD 尾空地 ----
+#   为什么放这儿: MOD_SZ 抬到 0xA000 时 M(0x8400) 起就是纯余量, 而名字池从 20 涨到 500 要 3.5KB,
+#   原区(FOSTER 后面那 0x8C)装不下; 既有地址一个都不动, 只是把新东西往后接。
+#   ★ 名字行 7B: bn_live 用 dword@+0 与 dword@+3 两段比完整行, 最后一行只读到 +6, 不越界。
+BIRTH_POOL_VA = M(0x8400)
+BIRTH_POOL_SZ = 7 * CM.BIRTH_NAME_COUNT               # 3500
+BIRTH_USED_VA = _align(BIRTH_POOL_VA + BIRTH_POOL_SZ, 0x10)   # 1B/名: 玩家选过 = 永不重发
+BIRTH_USED_SZ = CM.BIRTH_NAME_COUNT                   # 500
+BIRTH_CODE_VA = M(0x9400)                             # 生孩处理 (含 bn_avail/bn_live)
+BIRTH_CODE_SZ = 0x600
+assert BIRTH_POOL_VA >= TREE_DYN_VA + TREE_DYN_SZ, '名字池压到动态族谱桩'
+assert BIRTH_USED_VA + BIRTH_USED_SZ <= BIRTH_CODE_VA, '已选标记压到生孩代码窗口'
+assert BIRTH_CODE_VA + BIRTH_CODE_SZ <= NEW + MOD_OFF + MOD_SZ, \
+    '生孩代码越出 MOD_SZ (%06X > %06X)' % (BIRTH_CODE_VA + BIRTH_CODE_SZ,
+                                           NEW + MOD_OFF + MOD_SZ)
+# .fdata 那边的清单(由 build_fam_btn2 落地): 桩要引用的全在那儿, 不重复算一遍
+TB = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                 'tree_blobs.json'), encoding='utf-8'))
 # 成长埋点表 (M3b): 顺序即 0x2000 起的 4B 槽位, 加一项就 append, 别插中间 (tkwatch/verify 按下标取)。
 GROWTH_CTRS = ['GROWTH_NATURAL',    # 自然保底 +1 成功次数 (桩: cg_grow 落点)
                'GROWTH_ROLL',       # 掷骰次数 (M3b-3 培养成效门才用; 自然保底不用 rand)
@@ -164,7 +229,8 @@ GROWTH_CTRS = ['GROWTH_NATURAL',    # 自然保底 +1 成功次数 (桩: cg_grow
                'GROWTH_PUKU_MOUNT', # M4 元服且**挂上了人**(归属码 1 随父 / 2 本国国主) 人次
                'GROWTH_PUKU_RONIN', # M4 元服但浪人化(归属码 3, 无父可跟且本国查不到国主) 人次
                'PAGE_ROWS',         # M3c 分页: 一级"选孩子"弹窗**见过的最大行数** (>PAGE_KIDS 即导航行已出现)
-               'PAGE_NAV']          # M3c 分页: 下一页/上一页被点的次数 (默认档 fam13 应恒 0 = 从没翻过页)
+               'PAGE_NAV',          # M3c 分页: 下一页/上一页被点的次数 (默认档 fam13 应恒 0 = 从没翻过页)
+               'BIRTH_COUNT']       # 生孩子次数 (M7; 每次点"生孩子"并成功创建 +1)
 GROWTH_CTRS += SV.SC_CTRS                           # M6 影子存档 9 个 (append 在尾, 别插中间)
 assert len(GROWTH_CTRS) <= 0x100 // 4, '埋点表只有 0x100 字节 = 64 槽, 现在 %d 个' % len(GROWTH_CTRS)
 GC_IDX = {n: GROWTH_CNT_VA + i * 4 for i, n in enumerate(GROWTH_CTRS)}
@@ -836,7 +902,16 @@ def main():
                ('SC_CODE', SC_CODE_VA, 0x600), ('SC_DATA', SC_DATA_VA, SV.SC_DATA_SZ),
                ('KD_STR', KD_STR_VA, 0x100), ('KD_DATA', KD_DATA_VA, 0x80),
                ('KD_CODE', KD_CODE_VA, KD_CODE_SZ),
-               ('MSG_STR', MSG_STR_VA, MSG_STR_SZ), ('FOSTER', FOSTER_VA, FOSTER_SZ)]
+               ('MSG_STR', MSG_STR_VA, MSG_STR_SZ), ('FOSTER', FOSTER_VA, FOSTER_SZ),
+               ('BIRTH_AVAIL', BIRTH_AVAIL_VA, BIRTH_AVAIL_SZ),
+               ('BIRTH_LABEL', BIRTH_LABEL_VA, BIRTH_LABEL_SZ),
+               ('BIRTH_PICK', BIRTH_PICK_VA, 4),
+               ('BIRTH_PROMPT', BIRTH_PROMPT_VA, BIRTH_PROMPT_SZ),
+               ('BIRTH_NAME_TMP', BIRTH_NAME_TMP_VA, BIRTH_NAME_TMP_SZ),
+               ('TREE_DYN', TREE_DYN_VA, TREE_DYN_SZ),
+               ('BIRTH_POOL', BIRTH_POOL_VA, BIRTH_POOL_SZ),
+               ('BIRTH_USED', BIRTH_USED_VA, BIRTH_USED_SZ),
+               ('BIRTH_CODE', BIRTH_CODE_VA, BIRTH_CODE_SZ)]
     prev_end = cva['stub_end']                           # 预载桩尾(含两块钩子): 数据区不得与桩代码重叠
     for nm, va, sz in regions:
         assert va >= prev_end, 'M3b 区域 %s 与桩代码重叠 (0x%06X < 0x%06X)' % (nm, va, prev_end)
@@ -918,6 +993,33 @@ def main():
     print('M5-GATE: 月上限 %d 次 / 每日 %d 金 / 天数表 %s ; 串池 %dB @0x%06X ; 计数区 @0x%06X'
           % (CG.MONTHLY_CAP, CG.GOLD_PER_DAY, CG.ACT_DAYS, len(_msp), MSG_STR_VA, FOSTER_VA))
 
+    # ---------- 4j3d) 生孩子: 500 个真名串池 + 已选标记清零 + 菜单标签行 ----------
+    _bnp = CM.birth_name_pool_bytes()
+    assert len(_bnp) == BIRTH_POOL_SZ, (len(_bnp), BIRTH_POOL_SZ)
+    b[ed_off(BIRTH_POOL_VA):ed_off(BIRTH_POOL_VA) + len(_bnp)] = _bnp
+    # USED 上面按区域表清过零 (0 = 没被选过); AVAIL 是运行期写的, 静态留零即可。
+    assert bytes(b[ed_off(BIRTH_USED_VA):ed_off(BIRTH_USED_VA) + BIRTH_USED_SZ]) == \
+        b'\x00' * BIRTH_USED_SZ, '已选标记区必须从全零起步'
+    _blb = CM.birth_label_bytes()
+    assert len(_blb) == BIRTH_LABEL_SZ, (len(_blb), BIRTH_LABEL_SZ)
+    b[ed_off(BIRTH_LABEL_VA):ed_off(BIRTH_LABEL_VA) + len(_blb)] = _blb
+    print('BIRTH-NAME: %d 个真名 %dB @0x%06X (每次开框供 %d 个, 已选标记 %dB @0x%06X) ; 菜单标签 %dB @0x%06X'
+          % (CM.BIRTH_NAME_COUNT, len(_bnp), BIRTH_POOL_VA, CM.BIRTH_NAME_OFFER,
+             BIRTH_USED_SZ, BIRTH_USED_VA, len(_blb), BIRTH_LABEL_VA))
+
+    # ---------- 4j3e) 生孩子: 空槽扫描的下界 (新生孩子从哪一格起找) ----------
+    #   扩展槽不是空地: 371..462 = P3b 休眠人物 (姓/名行已在构建期打死), 463..476 = 儿童预载批次。
+    #   桩里"状态字 0x808F"这道门只看实体槽, 看不出姓名行有没有人预定 —— 从 N0(370) 起扫的话,
+    #   第二个孩子就会盖掉某个还没登场的休眠人物的姓/名行 (他日后登场顶着孩子的名字)。
+    #   所以本构建里已有的最大占用槽 +1 才是新生孩子的起点。
+    _taken = [e['slot'] for e in entries] + [d['slot'] for d in dorm]
+    BIRTH_SLOT_LO = max([N0 - 1] + _taken) + 1
+    assert BIRTH_SLOT_LO < CAP, '扩展槽已被占满, 没有生孩子的余量'
+    print('BIRTH-SLOT-LO: 新生孩子从槽 %d (0x%X) 起找 (原生 0..%d / 休眠 %d..%d / 预载 %d..%d 之后; 余 %d 格)'
+          % (BIRTH_SLOT_LO, BIRTH_SLOT_LO, N0 - 1, min(d['slot'] for d in dorm),
+             max(d['slot'] for d in dorm), entries[0]['slot'], entries[-1]['slot'],
+             CAP - BIRTH_SLOT_LO))
+
     # ---------- 4j3c) M3c: 回家菜单「培养孩子」+ M5 门禁/扣费/推天数/反馈 ----------
     #   三处补丁: 0x4CD563(构建器弹菜单前) -> cm_hook 拷表+尾追一项+自译序号;
     #             0x4CD390 `cmp eax,6` -> 7;  0x4CD47C 跳转表第 8 槽(原对齐 NOP) -> cm_foster。
@@ -930,6 +1032,7 @@ def main():
           'c_menu': GC_IDX['MENU_COUNT'], 'c_panel': GC_IDX['PANEL_OPEN'],
           'c_push': GC_IDX['CMD_PUSH'], 'c_notcity': GC_IDX['KID_NOTSAME_CITY'],
           'c_nav': GC_IDX['PAGE_NAV'], 'c_rows': GC_IDX['PAGE_ROWS'],
+          'c_birth': GC_IDX['BIRTH_COUNT'],
           'last_slot': GC_IDX['KID_LAST_SLOT'], 'last_act': GC_IDX['KID_LAST_ACT'],
           # M3c-2 培养详情面板 + M5 反馈小框入口
           'kd_show': KD_CODE_VA, 'kd_msg': KD_MSG_VA,
@@ -945,7 +1048,24 @@ def main():
           'msg_str': MSG_STR_VA,
           'deny_month_ptr': FOSTER_VA + FO['deny_month'],
           'deny_time_ptr': FOSTER_VA + FO['deny_time'],
-          'deny_gold_ptr': FOSTER_VA + FO['deny_gold']}
+          'deny_gold_ptr': FOSTER_VA + FO['deny_gold'],
+          # 生孩子: 名字池 / 本次可选表 / 已选标记 / 标志表 / 日期 / 实例化 / 状态原语
+          'name_pool': BIRTH_POOL_VA,
+          'avail': BIRTH_AVAIL_VA, 'avail_n': BIRTH_AVAILN_VA, 'used': BIRTH_USED_VA,
+          'birth_label': BIRTH_LABEL_VA,
+          'flagtab': 0x519288,
+          'date_y': 0x5205F0,
+          'surname_tab': GIV_NEW,
+          'child_bm': CHILD_BM_VA,
+          # 生孩子: 码 7 只有一格跳转表槽 (0x4CD47C; 下一槽 0x4CD480 = 构建器自己的序言),
+          #   所以"生孩子"不发新码: 钩子把选中行记进 BIRTH_PICK, cm_foster 头部按它分流到这里。
+          'pick': BIRTH_PICK_VA,
+          'birth_handler': BIRTH_CODE_VA,
+          'sched': CHILD_SCHED_VA,
+          'sched_end': CHILD_PASS_VA,
+          'slot_lo': BIRTH_SLOT_LO,
+          # 出生提示: 三行指针数组 + 运行时拼的姓名串缓冲
+          'msg_arr': BIRTH_PROMPT_VA, 'name_tmp': BIRTH_NAME_TMP_VA}
     for _k, _v in _kdADR.items():
         ML['kd_' + _k] = _v
     ML.update(CM.scratch_layout(MENU_SCR_VA))
@@ -954,19 +1074,25 @@ def main():
     MENU_FOSTER_VA = _align(MENU_STUB_VA + len(hcode), 0x10)
     fcode, fsrc = CM.build_foster(MENU_FOSTER_VA, ML)
     CM.selfcheck_foster(fcode, MENU_FOSTER_VA, ML)
-    assert MENU_FOSTER_VA + len(fcode) <= NEW + MOD_OFF + MOD_SZ, \
-        'M3c 桩越出 MOD_SZ (钩子 %dB + 处理程序 %dB)' % (len(hcode), len(fcode))
-    # ★ 紧邻上一家 SC_CODE 才是真门禁: 只查 MOD_SZ 的话, 培养处理悄悄长过 0x800B 就会把
-    #   sidecar 桩的前半截吃掉 (症状 = 点培养后 AV, 而只查总边界的旧断言完全看不出来)。
+    MENU_BIRTH_VA = BIRTH_CODE_VA
+    bcode, bsrc = CM.build_birth(MENU_BIRTH_VA, ML)
+    CM.selfcheck_birth(bcode, MENU_BIRTH_VA, ML)
+    assert MENU_BIRTH_VA + len(bcode) <= NEW + MOD_OFF + MOD_SZ, \
+        'M3c 桩越出 MOD_SZ (钩子 %dB + 培养 %dB + 生孩 %dB)' % (len(hcode), len(fcode), len(bcode))
+    # ★ 紧邻上一家才是真门禁: 只查 MOD_SZ 的话, 培养处理悄悄长过窗口就会把 sidecar 桩的前半截
+    #   吃掉 (症状 = 点培养后 AV, 而只查总边界的旧断言完全看不出来)。
     assert MENU_STUB_VA + len(hcode) <= MENU_FOSTER_VA, \
         'M3c 钩子 %dB 压到培养处理 (%d 处未跳)' % (len(hcode), MENU_STUB_VA + len(hcode) - MENU_FOSTER_VA)
     assert MENU_FOSTER_VA + len(fcode) <= SC_CODE_VA, \
-        'M3c 桩总长 %dB(钩 %d + 处理 %d) 越出 MENU_STUB 窗口 0x%X..0x%X (余 %dB, 缺 %dB)' \
-        % (MENU_FOSTER_VA + len(fcode) - MENU_STUB_VA, len(hcode), len(fcode),
-           MENU_STUB_VA, SC_CODE_VA, SC_CODE_VA - MENU_STUB_VA,
-           MENU_FOSTER_VA + len(fcode) - SC_CODE_VA)
+        'M3c 培养处理 %dB 越出 MENU_STUB 窗口 0x%X..0x%X (缺 %dB)' \
+        % (len(fcode), MENU_FOSTER_VA, SC_CODE_VA, MENU_FOSTER_VA + len(fcode) - SC_CODE_VA)
+    assert MENU_BIRTH_VA + len(bcode) <= MENU_BIRTH_VA + BIRTH_CODE_SZ, \
+        'M3c 生孩处理 %dB 越出 BIRTH_CODE 窗口 0x%X+%d (缺 %dB)' \
+        % (len(bcode), MENU_BIRTH_VA, BIRTH_CODE_SZ,
+           MENU_BIRTH_VA + len(bcode) - MENU_BIRTH_VA - BIRTH_CODE_SZ)
     b[ed_off(MENU_STUB_VA):ed_off(MENU_STUB_VA) + len(hcode)] = hcode
     b[ed_off(MENU_FOSTER_VA):ed_off(MENU_FOSTER_VA) + len(fcode)] = fcode
+    b[ed_off(MENU_BIRTH_VA):ed_off(MENU_BIRTH_VA) + len(bcode)] = bcode
     # 菜单数据: 串池 / DEC100 / 三级静态子菜单指针数组
     _sp = CM.str_pool_bytes()
     assert len(_sp) == 0x240 and len(CM.dec100_bytes()) == 0xC8, (len(_sp),)
@@ -986,23 +1112,23 @@ def main():
             'M3c 站点漂移 %08X: %s' % (_site, bytes(b[text_off(_site):text_off(_site) + _sz]).hex())
     b[text_off(CM.HOOK_MENU_SITE):text_off(CM.HOOK_MENU_SITE) + 5] = \
         CM.jmp_rel(CM.HOOK_MENU_SITE, MENU_STUB_VA)
-    b[text_off(CM.CODE_LIMIT_SITE)] = 0x07
+    b[text_off(CM.CODE_LIMIT_SITE)] = 0x08
     struct.pack_into('<I', b, text_off(CM.TABLE8_SITE), MENU_FOSTER_VA)
     _hi = sweep(bytes(b[text_off(CM.HOOK_MENU_SITE):text_off(CM.HOOK_MENU_SITE) + 5]),
                 CM.HOOK_MENU_SITE)[CM.HOOK_MENU_SITE]
     assert _hi.mnemonic == 'jmp' and _hi.op_str == '0x%x' % MENU_STUB_VA, _hi.op_str
     _ci = sweep(bytes(b[text_off(0x4CD38E):text_off(0x4CD38E) + 16]), 0x4CD38E)
-    assert _ci[0x4CD38E].op_str == 'eax, 7' and _ci[0x4CD397].mnemonic == 'jmp', \
+    assert _ci[0x4CD38E].op_str == 'eax, 8' and _ci[0x4CD397].mnemonic == 'jmp', \
         [(_x.address, _x.mnemonic, _x.op_str) for _x in sorted(_ci.values())][:4]
     assert struct.unpack_from('<I', bytes(b), text_off(CM.TABLE8_SITE))[0] == MENU_FOSTER_VA
     MOD_USED = prev_end - (NEW + MOD_OFF)
-    print('M3C-MENU: 钩子 %dB @0x%06X -> 培养 %dB @0x%06X ; 串池 %d 项 x %dB @0x%06X ; 分页 每页%d人(TKID_PAGE_KIDS)'
-          % (len(hcode), MENU_STUB_VA, len(fcode), MENU_FOSTER_VA, CM.STR_N, CM.STR_ROW, MENU_STR_VA,
-             CM.PAGE_KIDS))
-    print('  分页埋点 PAGE_ROWS(最大行数)0x%06X  PAGE_NAV(翻页次数)0x%06X  —— fam13 单城最多 6 个孩子:'
-          ' 每页 %d 人 => 6<=%d 不生成导航行(PAGE_NAV 恒 0); 想看翻页就 TKID_PAGE_KIDS=2 构建(6 人翻 3 页)'
-          % (GC_IDX['PAGE_ROWS'], GC_IDX['PAGE_NAV'], CM.PAGE_KIDS, CM.PAGE_KIDS))
-    print('M3C-PATCH: 0x%06X 钩 %s | 0x%06X cmp 6->7 | 0x%06X 表槽7=%s'
+    print('M3C-MENU: 钩子 %dB @0x%06X -> 培养 %dB @0x%06X -> 生孩 %dB @0x%06X ; 串池 %d 项 x %dB @0x%06X ; 分页 每页%d人(TKID_PAGE_KIDS)'
+          % (len(hcode), MENU_STUB_VA, len(fcode), MENU_FOSTER_VA, len(bcode), MENU_BIRTH_VA,
+             CM.STR_N, CM.STR_ROW, MENU_STR_VA, CM.PAGE_KIDS))
+    print('  分页埋点 PAGE_ROWS(最大行数)0x%06X  PAGE_NAV(翻页次数)0x%06X  BIRTH_COUNT(生孩子)0x%06X'
+          '  —— fam13 单城最多 6 个孩子: 每页 %d 人 => 6<=%d 不生成导航行(PAGE_NAV 恒 0); 想看翻页就 TKID_PAGE_KIDS=2 构建(6 人翻 3 页)'
+          % (GC_IDX['PAGE_ROWS'], GC_IDX['PAGE_NAV'], GC_IDX['BIRTH_COUNT'], CM.PAGE_KIDS, CM.PAGE_KIDS))
+    print('M3C-PATCH: 0x%06X 钩 %s | 0x%06X cmp 6->8 | 0x%06X 表槽7=%s'
           % (CM.HOOK_MENU_SITE, CM.jmp_rel(CM.HOOK_MENU_SITE, MENU_STUB_VA).hex(),
              CM.CODE_LIMIT_SITE, CM.TABLE8_SITE, '%08X' % MENU_FOSTER_VA))
 
@@ -1054,6 +1180,51 @@ def main():
     print('  SC_DATA 0x%06X+%dB (路径@0x%06X 表@0x%06X 模板@0x%06X OFSTRUCT@0x%06X) ; 埋点 %s'
           % (SC_DATA_VA, SV.SC_DATA_SZ, SC_DATA_VA + SV.D_PATH, SC_DATA_VA + SV.D_BLK,
              SC_DATA_VA + SV.D_TMPL, SC_DATA_VA + SV.D_OFS, ' '.join(SV.SC_CTRS)))
+
+    # ---------- 4j5) v13: 动态族谱点亮桩 (tree_dyn.py) + .fdata 的 DYN_FN 落址 ----------
+    #   开树时 tree_entry `call [DYN_FN]`: 复位 count -> 扫实体池点「父链 +0x1d = 本人 oid」的子嗣
+    #   -> 姓名写进串池池首可变区 -> count = static_n + 点亮数。
+    #   27 个史实家族之外的人走**通用块**(FAM_DIR+22 = GEN_FLAG): 本人姓名 + 「X氏」标题 +
+    #   他的游戏内子嗣 —— 这就是「审查所有人的族谱」, 不再回落柴田树。
+    import tree_dyn as TDYN
+    import tree_data as TDATA
+    assert TDYN.GEN_FLAG == TB['gen_flag'] == TDATA.GEN_FLAG, '通用块标记三处不一致'
+    assert TB['dyn_str_sz'] == TDATA.DYN_STR_SZ and TB['dyn_slots'] == TDATA.DYN_SLOTS
+    assert TB['gen_recs'] == TDATA.GEN_RECS
+    assert TB['sec_sz'] == fd.SizeOfRawData, \
+        '.fdata 节大小与清单不符 (0x%X vs 0x%X) —— 先跑 build_fam_btn2 再跑本脚本' % (
+            TB['sec_sz'], fd.SizeOfRawData)
+    gstart = (TB['gen_nodes_va'] - TB['nodes']) // 10
+    assert TB['gen_nodes_va'] == TB['nodes'] + gstart * 10 and gstart % 2 == 0, '通用块节点序号异常'
+    assert TB['generic_dir'] == TB['famdir'] + TB['scan_ndir'] * 24, '通用目录条位置异常'
+    TL = {'famp': TB['famp'], 'oidtab': TB['oidtab'], 'pool': NEW, 'cap': CAP,
+          'giv': GIV_NEW, 'sur': SUR_NEW,
+          'dynpool': TB['dyn_pool'],
+          'gname': TB['dyn_pool'] + TB['gen_name_idx'] * TB['dyn_str_sz'],
+          'gtitle': TB['dyn_pool'] + TB['gen_title_idx'] * TB['dyn_str_sz'],
+          'gstart': gstart, 'slots': TB['dyn_slots'],
+          'suffix': TDYN.title_suffix_word(TB['gen_title_suffix']),
+          'slot': TB['dyn_slot'], 'lit': TB['dyn_lit'],
+          'calls': TB['dyn_call'], 'nosub': TB['dyn_nosub'],
+          'genflag': TB['gen_flag'], 'locals': TDYN.LOCALS}
+    tcode, tsrc = TDYN.build(TREE_DYN_VA, TL)
+    TDYN.selfcheck(tcode, TREE_DYN_VA, TL)
+    assert len(tcode) <= TREE_DYN_SZ, \
+        '动态族谱桩 %dB 越出窗口 0x%X' % (len(tcode), TREE_DYN_SZ)
+    b[ed_off(TREE_DYN_VA):ed_off(TREE_DYN_VA) + len(tcode)] = tcode
+    # 控制块是**可写节内数据**(.fdata 属性 X|R|W, 桩正是往里写姓名), 这里只填桩入口:
+    #   family.exe 里这颗 dword 是 0, 渲染层判空后压根不 call => 老产物行为逐位不变。
+    _fnoff = fd.PointerToRawData + (TB['dyn_fn'] - TB['sec_va'])
+    assert struct.unpack_from('<I', b, _fnoff)[0] == 0, \
+        'DYN_FN 已非零 —— 上游不是干净的 family.exe(被重复打过?)'
+    struct.pack_into('<I', b, _fnoff, TREE_DYN_VA)
+    _i = sweep(bytes(b[ed_off(TREE_DYN_VA):ed_off(TREE_DYN_VA) + 8]), TREE_DYN_VA)[TREE_DYN_VA]
+    # ★ capstone 在 32 位默认操作数大小下把 pushad 打成 **pushal**, 两种写法都算通过。
+    assert _i.mnemonic in ('pushad', 'pushal'), '%s %s' % (_i.mnemonic, _i.op_str)
+    print('TREE-DYN: 桩 %dB @0x%06X (窗口 0x%X) ; DYN_FN 0x%06X[file 0x%X] <- 0x%06X'
+          % (len(tcode), TREE_DYN_VA, TREE_DYN_SZ, TB['dyn_fn'], _fnoff, TREE_DYN_VA))
+    print('  本人串 0x%06X / 标题串 0x%06X / 子嗣槽串 0x%06X x%d ; 通用块节点基 %d ; 扫槽 0..0x%X'
+          % (TL['gname'], TL['gtitle'], TL['dynpool'], TL['slots'], gstart, CAP - 1))
 
     # ★ 2026-10-07: 这 5 个 diagnostics trampoline 的定位使命已完成, 默认关闭。
     #   三条硬理由:
@@ -1218,6 +1389,19 @@ def main():
         'given_tab_va': SUR_NEW, 'surname_tab_va': GIV_NEW,
         'mod_used_upto': MOD_USED,                       # MOD 区已吃字节(数据区已算进去)
         'mod_sz': MOD_SZ, 'kid_esz': KID_ESZ,
+        # ---- v13: 动态族谱 (桩在 .edata, 控制块/数据在 .fdata; 验收与 tkwatch 按下表取) ----
+        'tree_dyn': {'code_va': TREE_DYN_VA, 'code_sz': len(tcode), 'win_sz': TREE_DYN_SZ,
+                     'genpuku_note': 'tree_entry call [dyn_fn]; 通用块由 FAM_DIR+22 分流',
+                     'dyn_fn': TB['dyn_fn'], 'dyn_lit': TB['dyn_lit'],
+                     'dyn_call': TB['dyn_call'], 'dyn_nosub': TB['dyn_nosub'],
+                     'dyn_slot': TB['dyn_slot'], 'dyn_pool': TB['dyn_pool'],
+                     'dyn_slots': TB['dyn_slots'], 'dyn_str_sz': TB['dyn_str_sz'],
+                     'famp': TB['famp'], 'oidtab': TB['oidtab'], 'famdir': TB['famdir'],
+                     'generic_dir': TB['generic_dir'], 'gen_start': gstart,
+                     'gen_name_rec': TL['gname'], 'gen_title_rec': TL['gtitle'],
+                     'scan_ndir': TB['scan_ndir'], 'ndir': TB['ndir'],
+                     'nnode': TB['nnode'], 'nstatic': TB['nstatic'],
+                     'entry_va': TB['entry_va'], 'nodes': TB['nodes'], 'pool': TB['pool']},
         'genpuku_age': PUKU_AGE, 'puku_codes': CG.PUKU,   # M4: 阈值(虚岁) + KID_TAB+10 归属码表
         'growth_ctrs': GC_IDX,
         # ---- M6: 影子存档 (verify_children C24 族按这张表核对 exe 内的桩/数据区/钩子/埋点) ----
@@ -1253,6 +1437,10 @@ def main():
               'CHILD_INIT5': CHILD_INIT5_VA,
               'CHILD_SCHED': CHILD_SCHED_VA, 'CHILD_PASS': cva['child_pass'],
               'CHILD_MONTH_HOOK': cva['month_hook'], 'CHILD_LOAD_HOOK': cva['load_hook'],
+              # 桩内标签/被调方的真实 VA: 桩代码一改, 这些地址就跟着动。
+              #   验收脚本一律从这里取, 别再写死 (0x54C9xx 那批硬编码就因为这个漂了一次)。
+              'DEBUG_LOG': cva['debug_log'], 'LBL_MAKE_CHILD': cva['make_child'],
+              'LBL_PLACE_CHILD': cva['place_child'], 'LBL_INIT_STATS': cva['init_stats'],
               'CHILD_GROWTH': CHILD_GROWTH_VA, 'GROWTH_CNT': GROWTH_CNT_VA,
               'KID_TAB': KID_TAB_VA, 'CMD_RING': CMD_RING_VA,
               'MENU_PTR': MENU_PTR_VA, 'MENU_CODE': MENU_CODE_VA, 'PANEL': PANEL_VA,
@@ -1262,11 +1450,29 @@ def main():
               'TEACH_PTR': TEACH_PTR_VA, 'TIER_PTR': TIER_PTR_VA, 'MENU_SCR': MENU_SCR_VA},
         # M3c: 回家菜单「培养孩子」的桩与三处补丁 —— verify_children.py 逐字节复核
         'menu': {'hook_va': MENU_STUB_VA, 'foster_va': MENU_FOSTER_VA,
-                 'hook_sz': len(hcode), 'foster_sz': len(fcode),
+                 'birth_va': MENU_BIRTH_VA,
+                 'birth_code_sz': BIRTH_CODE_SZ, 'pick_va': BIRTH_PICK_VA,
+                 'birth_slot_lo': BIRTH_SLOT_LO, 'birth_taken_hi': max(_taken),
+                 'slot_lo': BIRTH_SLOT_LO,
+                 'hook_sz': len(hcode), 'foster_sz': len(fcode), 'birth_sz': len(bcode),
+                 'name_pool_va': BIRTH_POOL_VA, 'name_pool_sz': BIRTH_POOL_SZ,
+                 'name_count': CM.BIRTH_NAME_COUNT, 'name_offer': CM.BIRTH_NAME_OFFER,
+                 'avail_va': BIRTH_AVAIL_VA, 'avail_sz': BIRTH_AVAIL_SZ,
+                 'avail_n_va': BIRTH_AVAILN_VA,
+                 'used_va': BIRTH_USED_VA, 'used_sz': BIRTH_USED_SZ,
+                 'birth_label_va': BIRTH_LABEL_VA, 'birth_label_sz': BIRTH_LABEL_SZ,
+                 'flagtab': ML['flagtab'], 'date_y': ML['date_y'],
                  'str_n': CM.STR_N, 'str_row': CM.STR_ROW,
                  'item_max': CM.MENU_ITEM_MAX, 'page_kids': CM.PAGE_KIDS,
                  'cnt_rows': GC_IDX['PAGE_ROWS'], 'cnt_nav': GC_IDX['PAGE_NAV'],
+                 'cnt_birth': GC_IDX['BIRTH_COUNT'],
                  'cnt_bytes': 0x100,
+                 # 出生提示: 四行指针数组 / 姓名缓冲 / 三行静态串的地址 (verify_children 按这张表复核)
+                 'msg_arr_va': BIRTH_PROMPT_VA, 'name_tmp_va': BIRTH_NAME_TMP_VA,
+                 'msg_arr_sz': BIRTH_PROMPT_SZ, 'name_tmp_sz': BIRTH_NAME_TMP_SZ,
+                 'ms_born': MSG_STR_VA + CM.MS_BORN * CM.MS_STR_ROW,
+                 'ms_born_at': MSG_STR_VA + CM.MS_BORN_AT * CM.MS_STR_ROW,
+                 'ms_born_gk': MSG_STR_VA + CM.MS_BORN_GK * CM.MS_STR_ROW,
                  'patches': {'hook_site': CM.HOOK_MENU_SITE, 'code_limit': CM.CODE_LIMIT_SITE,
                              'table8': CM.TABLE8_SITE, 'menu_top': CM.MENU_TOP,
                              'menu_exit': CM.MENU_EXIT, 'dialog': CM.DIALOG,
@@ -1283,6 +1489,8 @@ def main():
                'ms_cancel': MSG_STR_VA + CM.MS_CANCEL * CM.MS_STR_ROW,
                'ms_cost0': MSG_STR_VA + CM.MS_COST0 * CM.MS_STR_ROW,
                'msg_str_n': len(CM.MSG_STRINGS),
+               'ms_none': MSG_STR_VA + CM.MS_NONE * CM.MS_STR_ROW,
+               'ms_no_slot': MSG_STR_VA + CM.MS_NO_SLOT * CM.MS_STR_ROW,
                'deny_month_str': MSG_STR_VA + CM.MS_DENY_MONTH * CM.MS_STR_ROW,
                'deny_time_str': MSG_STR_VA + CM.MS_DENY_TIME * CM.MS_STR_ROW,
                'deny_gold_str': MSG_STR_VA + CM.MS_DENY_GOLD * CM.MS_STR_ROW,},

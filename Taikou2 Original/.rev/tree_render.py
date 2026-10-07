@@ -39,6 +39,11 @@ import struct
 AV_HX, AV_HY = 13, 15    # 头像框半宽/半高(与 tree_data.AV_W/AV_H 同步)
 NODE_SZ = 10             # NODE_TAB 单条字节数
 DIR_SZ = 24              # FAM_DIR 单条字节数
+# ★v12 动态族谱: FAM_DIR+8 存的是 **start/2**(族块长被 tree_data 凑偶保证), 所以任何
+#   "起始节点指针 = start*NODE_SZ + NODES_VA" 的地方都要乘 2*NODE_SZ(=20)。
+#   count(+9) 由 build_big 的动态点亮桩在开树时从 static_n(+21) 抬到 static_n+点亮数,
+#   渲染层照旧读 count —— 它不知道也不关心哪些是动态槽。
+START_MUL = 2 * NODE_SZ  # 乘 start(+8) 得到族基址的系数
 
 OFS_NAME = AV_HY + 7     # 姓名基线相对 cy (与 tree_data.OFS_NAME 同步)
 OFS_REL = OFS_NAME + 12  # 关系基线相对 cy
@@ -209,6 +214,7 @@ def build(ctx):
     """ctx 需要的键:
         CODE_VA, RSTATE_VA, GDI_TAB_VA, GDIOK_VA, MODS_VA, MODTAB_VA, OFFTAB_VA,
         NAM_VA, NODES_VA, POOL_VA, MSGBUF_VA, RC_VA, PT_VA, FAMDIR_VA,
+        OIDTAB_VA, DYN_FN_VA, DYN_SLOT_VA, GENERIC_DIR_VA,
         STR_FONT_VA, STR_HINT_VA, STR_LOG_VA, HINT_LEN, LOGBUF_VA,
         DLLS, IAT_GETMOD, IAT_GETPROC, CARD_CUR, N_API, NDIR,
         LBDOWN_VA, LBSEEN_VA, LBPREV_VA, FAMILY_VA, FALLBACK_VA,
@@ -657,9 +663,9 @@ def build(ctx):
     logb(a, 0xA0)
     a.b(0x8B, 0x1D); a.dw(RV + RS['FAMP'])                # mov ebx,[FAMP]
     a.b(0x85, 0xDB); a.jr32(0x84, 'quit')                 # 无家族 -> 关
-    a.b(0x0F, 0xB6, 0x43, 0x08)                           # movzx eax,byte[ebx+8] start
+    a.b(0x0F, 0xB6, 0x43, 0x08)                           # movzx eax,byte[ebx+8] start/2
     a.b(0x0F, 0xB6, 0x4B, 0x09)                           # movzx ecx,byte[ebx+9] count
-    a.b(0x6B, 0xC0, NODE_SZ)                              # imul eax,eax,NODE_SZ
+    a.b(0x6B, 0xC0, START_MUL)                            # imul eax,eax,2*NODE_SZ
     a.b(0x05); a.dw(NODES_VA)                             # add eax,NODES_VA
     a.b(0x89, 0xC6)                                       # mov esi,eax
     a.b(0x31, 0xFF)                                       # xor edi,edi (i)
@@ -680,8 +686,9 @@ def build(ctx):
     a.b(0xF7, 0xD8)                                       # neg eax
     a.label('hy1')
     a.b(0x83, 0xF8, AV_HY); a.jr8(0x77, 'htn')            # cmp eax,15 ; ja next
-    # 命中: 全局索引 = start + i -> DETAILTAB[gi] -> SELDETOFF
-    a.b(0x0F, 0xB6, 0x43, 0x08)                           # movzx eax,byte[ebx+8] start
+    # 命中: 全局索引 = 2*(start/2) + i -> DETAILTAB[gi] -> SELDETOFF
+    a.b(0x0F, 0xB6, 0x43, 0x08)                           # movzx eax,byte[ebx+8] start/2
+    a.b(0x6B, 0xC0, 0x02)                                 # imul eax,eax,2
     a.b(0x01, 0xF8)                                       # add eax,edi
     a.b(0x0F, 0xB7, 0x04, 0x45); a.dw(DETAILTAB_VA)       # movzx eax,word[eax*2+DTLTAB]
     a.b(0xA3); a.dw(RV + RS['SELDETOFF'])                 # mov [SELDETOFF],eax
@@ -760,8 +767,8 @@ def build(ctx):
     logb(a, 0x80)
     a.b(0x8B, 0x1D); a.dw(RV + RS['FAMP'])
     # --- 前置 1: 找「本人」, 存内容坐标 cx,cy 到 SUBJX/SUBJY ---
-    a.b(0x0F, 0xB6, 0x6B, 8)                              # ebp = start
-    a.b(0x6B, 0xED, NODE_SZ); a.b(0x81, 0xC5); a.dw(NODES_VA)   # ebp = start*NSZ+NODES_VA
+    a.b(0x0F, 0xB6, 0x6B, 8)                              # ebp = start/2
+    a.b(0x6B, 0xED, START_MUL); a.b(0x81, 0xC5); a.dw(NODES_VA)   # ebp = start*NSZ+NODES_VA
     a.b(0x89, 0xEE)                                       # mov esi,ebp (扫描指针)
     a.b(0x0F, 0xB6, 0x4B, 9)                              # ecx = count
     a.b(0x31, 0xC0)                                       # xor eax,eax (i)
@@ -802,8 +809,8 @@ def build(ctx):
     a.label('fsp_done')
     # --- 主循环准备 ---
     a.b(0x0F, 0xB6, 0x7B, 9)                              # edi = count
-    a.b(0x0F, 0xB6, 0x6B, 8)                              # ebp = start
-    a.b(0x6B, 0xED, NODE_SZ); a.b(0x81, 0xC5); a.dw(NODES_VA)
+    a.b(0x0F, 0xB6, 0x6B, 8)                              # ebp = start/2
+    a.b(0x6B, 0xED, START_MUL); a.b(0x81, 0xC5); a.dw(NODES_VA)
     a.b(0x8B, 0xDD)                                       # mov ebx,ebp
     a.b(0x85, 0xFF); a.jr32(0x84, 'done')
     sel(a, RS['PENLN'])
@@ -944,7 +951,7 @@ def build(ctx):
     a.b(0x8B, 0x1D); a.dw(RV + RS['FAMP'])
     a.b(0x0F, 0xB6, 0x7B, 9)
     a.b(0x0F, 0xB6, 0x6B, 8)
-    a.b(0x6B, 0xED, NODE_SZ); a.b(0x81, 0xC5); a.dw(NODES_VA)
+    a.b(0x6B, 0xED, START_MUL); a.b(0x81, 0xC5); a.dw(NODES_VA)
     a.b(0x8B, 0xDD)
     a.b(0x85, 0xFF); a.jr32(0x84, 'done')
     _p8(a, 0x01); push_hdc(a)
@@ -1099,8 +1106,13 @@ def build(ctx):
     stage(a, 3)
     # --- 初始平移: 把「本人」放到视口正中 ---
     a.b(0x8B, 0x1D); a.dw(RV + RS['FAMP'])
-    a.b(0x0F, 0xB6, 0x43, 20)                             # movzx eax,byte[fam+20] subject
+    a.b(0x0F, 0xB6, 0x43, 20)                             # movzx eax,byte[fam+20] subject(族内索引)
     a.b(0x6B, 0xC0, NODE_SZ)
+    a.b(0x0F, 0xB6, 0x4B, 8)                              # movzx ecx,byte[fam+8] start/2
+    a.b(0x6B, 0xC9, START_MUL)                            # imul ecx,ecx,2*NODE_SZ
+    a.b(0x03, 0xC8)                                       # add eax,ecx
+    # ★旧代码只乘了 subject, 把 start 当 0 —— 于是第 2 个以后的族开树时"居中"对准的是
+    #   柴田家的人(坐标读到的是别的节点), 表现为"一开树本人不在中间/画面歪一半"。
     a.b(0x0F, 0xBF, 0x88); a.dw(NODES_VA); st(a, RS['CX'])
     a.b(0x0F, 0xBF, 0x90); a.dw(NODES_VA + 2); std(a, RS['CY'])
     ld(a, RS['VX0']); ldc(a, RS['VX1'])
@@ -1170,6 +1182,8 @@ def build(ctx):
     a.b(0x0F, 0xB7, 0x28)                                 # movzx ebp,word[eax] (S1 槽位)
     a.b(0x81, 0xFD); a.dw(1000)
     a.jr32(0x83, 'oob')
+    _set(a, ctx['DYN_SLOT_VA'], 0)                          # 先清: 通用树只有在真拿到人才会填
+    a.b(0x89, 0x2D); a.dw(ctx['DYN_SLOT_VA'])               # mov [dyn_slot],ebp (通用桩要这张卡的人)
     a.b(0x6B, 0xC5, 0x07)                                 # imul eax,ebp,7
     a.b(0x8B, 0x88); a.dw(0x520660)                       # mov ecx,[eax+名表]
     a.b(0x8B, 0x90); a.dw(0x521aa8)                       # mov edx,[eax+姓表]
@@ -1183,12 +1197,23 @@ def build(ctx):
     a.label('dn')
     a.b(0x83, 0xC6, DIR_SZ); a.b(0x4F); a.jr8(0x75, 'dl')
     fb = ctx.get('FALLBACK_VA')
+    gen = ctx.get('GENERIC_DIR_VA')
+    if gen is not None:
+        # 未命中 27 个史实家族: 有动态桩(.edata 在) -> 走运行时自建的「本人+子嗣」通用树;
+        # 没桩(family.exe, 只到 .fdata) -> 仍回落柴田, 否则通用块是一片空白框。
+        logb(a, 0xE6)
+        _ld(a, ctx['DYN_FN_VA'])
+        a.b(0x85, 0xC0); a.jr32(0x85, 'gen')              # 桩在 -> 通用树
     if fb is None:
         logb(a, 0xE5)
         a.jmpabs('out')
     else:
         logb(a, 0xE4)                                     # 未命中 -> 兜底(调试期=柴田)
         a.b(0xBE); a.dw(fb)
+        a.jmpabs('found')
+    if gen is not None:
+        a.label('gen')
+        a.b(0xBE); a.dw(gen)
         a.jmpabs('found')
     a.label('noc')
     logb(a, 0xE1)
@@ -1199,6 +1224,14 @@ def build(ctx):
     a.b(0x61); a.b(0xC3)
     a.label('found')
     a.b(0x89, 0x35); a.dw(RV + RS['FAMP'])                # mov [FAMP],esi
+    # 动态点亮桩(build_big 写在 .edata 里): 复位 count=static_n -> 扫实体池 ->
+    #   把「父亲=本人 且 儿童位图点亮」的人名写进池首可变姓名区, 并抬 count。
+    #   ★ 必须先判空再 call: GDI 桩没落地时该 dword 是 0, call 0 = 当场 AV。
+    _ld(a, ctx['DYN_FN_VA'])
+    a.b(0x85, 0xC0); a.jr32(0x84, 'dyned')                # je 没桩 -> 直接开树(纯静态)
+    a.b(0xFF, 0xD0)                                       # call eax
+    a.label('dyned')
+    logb(a, 0xE7)
     a.b(0x61)
     a.jmpabs(show_va)
     blobs.append(('tree_entry', commit(a)))

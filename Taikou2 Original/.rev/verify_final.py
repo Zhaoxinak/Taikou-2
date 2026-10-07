@@ -8,9 +8,12 @@
   D) 培养面板 kd_* 五段必须完整(尾部保有 kd_itoa 的 ret), 且 kd_row 区内
      不得出现任何 0x54B6xx 写标记字节(那是被 trampoline 本体踩过的痕迹)
 """
-import struct, sys, capstone
+import struct, sys, json, os, capstone, json, os
 
-EXE = sys.argv[1] if len(sys.argv) > 1 else r'F:\Games\Taikou 2\Taikou2 Original\TAIK2W95_big.exe'
+# ★ 与 verify_children 同一口径: TKID_EXE 指哪份产物就验哪份(试演档/m5 交付名各不同),
+#   不设环境变量时才是发布默认的 TAIK2W95_big.exe。漏了这一步 = 验的是过期档。
+EXE = sys.argv[1] if len(sys.argv) > 1 else os.path.join(
+    r'F:\Games\Taikou 2\Taikou2 Original', os.environ.get('TKID_EXE') or 'TAIK2W95_big.exe')
 IB = 0x400000
 OK, BAD = [], []
 
@@ -81,7 +84,9 @@ for va in (0x49C5E5, 0x49CD3D):
 
 # ---- C) debug_log 调用约定 ----
 print('\n[C] debug_log(ret 4) 调用点之后的清栈:')
-LOGGER = 0x54C988
+#   debug_log 是预载桩里的一个标签, 桩长度一变就会漂 ⇒ 从 layout 取, 不写死。
+LOGGER = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                     '_big_layout.json'), encoding='utf-8'))['v']['DEBUG_LOG']
 _nsaw = 0
 _bad = 0
 for nm, va, vs, ra in secs:

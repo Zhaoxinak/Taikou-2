@@ -21,7 +21,8 @@ except Exception:
     pass
 
 ROOT = r'F:\Games\Taikou 2\Taikou2 Original'
-EXE = os.path.join(ROOT, 'TAIK2W95_big.exe')
+# ★ TKID_EXE 与 build_big/verify_children 同口径: 交付名(m5/试演档)各不同, 不设=发布默认。
+EXE = os.path.join(ROOT, os.environ.get('TKID_EXE') or 'TAIK2W95_big.exe')
 BASE = 0x400000
 # 地址唯一真源 = build_big.py 落的 _big_layout.json (换 CAP 不用改本脚本)
 LY = json.load(open(os.path.join(ROOT, '.rev', '_big_layout.json'), encoding='utf-8'))

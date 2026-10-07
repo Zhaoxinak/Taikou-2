@@ -20,18 +20,22 @@
 FAM_DIR 每条 24 字节
     +0  name_dword  dword  触发者名(GBK 前 4B, 用于匹配当前武将)
     +4  sur_dword   dword  触发者姓
-    +8  start       u8     起始节点索引
-    +9  count       u8     节点数
+    +8  start2      u8     起始节点索引 / 2 (★族块长凑偶, 渲染层 imul 20 取字节偏移)
+    +9  count       u8     本次要画的节点数 —— 开树时由动态桩从 static_n 抬到 static_n+点亮数
     +10 title_off   u16    家族标题串偏移(如 "柴田氏")
-    +12 cx0/cy0/cx1/cy1  i16×4  内容包围盒(平移钳制用)
+    +12 cx0/cy0/cx1/cy1  i16×4  内容包围盒(平移钳制用, 已含动态槽那一行)
     +20 subject     u8     「本人」节点在家族内的相对索引(打开时居中到它)
-    +21 pad u8 / +22 pad2 u16
+    +21 static_n    u8     静态人数(动态桩每次开树用它复位 count, 它是只读真值)
+    +22 pad u8 / +23 pad u8
 
 NODE_TAB 每条 10 字节
     +0  cx, +2 cy (i16 内容坐标, 头像框中心)
     +4  name_off, +6 rel_off (u16 串池偏移)
     +8  parent u8 (家族内索引, 0xFF=根), +9 flags u8
-        flags: bit0-1 状态(0在世 1已故 2未出生), bit2=本人, bit3=配偶
+        flags: bit0-1 状态(0在世 1已故 2未出生), bit2=本人, bit3=配偶, bit4=动态子嗣槽
+
+OIDTAB 每节点 u16 —— 该节点在游戏实体表里的人物编号(BSDATA oid), 无对应人 = 0xFFFF。
+  动态桩靠它认「本人的孩子」(实体 word[+0x1d] = 父 oid)并对掉谱里已有的人。
 
 ★ 节点写法: (父索引|None=根, 姓, 名, 关系, 状态[, 是配偶])
   - 配偶节点(v9): parent=**丈夫索引**, 与丈夫同排、列丈夫右侧半格;
@@ -52,6 +56,7 @@ S_ALIVE, S_DEAD, S_UNBORN = 0, 1, 2
 #   仅取 conf in (exact, alias) 的安全命中做详情增强; fuzzy/none 一律不加,
 #   否则会把父/子张冠李戴(实测 fuzzy 大量错人)。文件缺失则静默降级为纯族谱详情。
 def _load_offmap():
+    """-> {(姓,名): (BSDATA 档案, oid)}  仅 exact/alias 两档(其余会张冠李戴)。"""
     p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)),
                       '_tree_oid_map.json')
     m = {}
@@ -59,7 +64,7 @@ def _load_offmap():
         return m
     for e in _json.load(open(p, encoding='utf-8')):
         if e['conf'] in ('exact', 'alias') and e.get('officer'):
-            m[(e['sur'], e['giv'])] = e['officer']
+            m[(e['sur'], e['giv'])] = (e['officer'], e['oid'])
     return m
 
 
@@ -69,6 +74,34 @@ STATE_NAME = ('在世', '已故', '未出生')
 
 F_SUBJECT = 0x04
 F_SPOUSE  = 0x08              # 配偶: 与本人平级, 渲染时画水平连线而非亲子线
+F_DYN     = 0x10              # 动态子嗣槽(开树时由实体表点亮, 未点亮不进 count)
+
+# ---------- 动态子嗣 (v13): 游戏内生的孩子要能出现在族谱里 ----------
+#   每家在「本人」的子代行右侧烘死 DYN_SLOTS 个空槽(坐标/亲缘线全在构建期算好,
+#   运行时只写名字串 + 把 FAM_DIR.count 从 static_n 抬到 static_n+used),
+#   于是渲染层零算术 —— 手写 x86 少一处几何就越少一处崩。
+#   槽的名字串是**共享可变**记录(同一次只显示一家, 槽位 j 复用): [u8 len][GBK<=14B][NUL]
+DYN_SLOTS = 6
+DYN_STR_SZ = 16               # 单条可变名字记录占位
+DYN_REL = '子'                # 性别引擎没记(见 child-preload 计划的欠账), 族谱一律称"子"
+DYN_DETAIL = u'游戏内出生之子  子  在世  随父亲住在本城'
+DYN_STR_BASE = 0              # 可变名字区就放在串池最前面, 偏移构建期即定值
+
+# ---- 通用「本人 + 子嗣」块 (审查所有人的族谱) ----
+#   27 家之外的人物(含玩家自创/元服后改姓/主角)过去一律回落柴田树 = 误导。
+#   现在 FAM_DIR 尾上多一条**不参与姓名匹配**的通用记录, 它指向 NODE_TAB 末尾一块
+#   8 节点的固定几何(本人在上, 6 个子嗣槽在下), 运行时桩把本人姓名/「X氏」标题/
+#   子嗣姓名写进池首可变区并抬 count —— 谁点族谱都看得到自己的孩子。
+GEN_NAME_IDX = DYN_SLOTS                  # 可变区第 6 条 = 本人姓名
+GEN_TITLE_IDX = DYN_SLOTS + 1             # 第 7 条 = 标题「X氏」
+GEN_RECS = DYN_SLOTS + 2                  # 池首可变区总条数
+GEN_TITLE_SUFFIX = '氏'
+GEN_DETAIL = u'当前查看的人物  本人  在世  下排为其游戏内子嗣'
+GEN_FLAG = 1                              # FAM_DIR+22 = 1 -> 动态桩走通用分支
+
+
+def dyn_str_off(j):
+    return DYN_STR_BASE + j * DYN_STR_SZ
 
 # ---------- 几何常量 (内容坐标系, 单位为物理像素) ----------
 AV_W, AV_H = 26, 30          # 头像框尺寸
@@ -485,9 +518,10 @@ def layout(nodes):
 
 
 def build_layouts():
-    """-> [ dict(title, triggers, rows, bbox, subject) ]
+    """-> [ dict(title, triggers, rows, bbox, subject, static_n, dyn_at) ]
 
-    rows 里每项: (cx, cy, name_str, rel_str, parent_index_or_FF, flags)
+    rows 里每项: (cx, cy, name_str|None, rel_str, parent_index_or_FF, flags, sg, dyn)
+      dyn = None 真人节点 / 0..DYN_SLOTS-1 动态子嗣槽 / -1 对齐填充(永不显示)
     坐标是**内容坐标系**(左上角不固定), 运行时加平移量后才是屏幕坐标。
     """
     out = []
@@ -502,27 +536,50 @@ def build_layouts():
                 if gen[i] == g:
                     rel_y[i] = a
             a += gaps[g]
+        cys = [int(round(TREE_TOP + AV_HY + rel_y[i])) for i in range(len(nds))]
         rows = []
         si = -1
         for i, nd in enumerate(nds):
             p, s, g, rt, st = nd[:5]
             is_spouse = bool(nd[5]) if len(nd) > 5 else False
             cx = int(round(slot[i] * COL_W + COL_W / 2))
-            cy = int(round(TREE_TOP + AV_HY + rel_y[i]))
+            cy = cys[i]
             name = (s + g) if s else g
             flags = st | (F_SUBJECT if (s, g) == subj else 0) | (F_SPOUSE if is_spouse else 0)
             if flags & F_SUBJECT:
                 assert si < 0, '%s氏: 本人节点重名/多命中' % title
                 si = i
-            rows.append((cx, cy, name, rt, 0xFF if p is None else p, flags, (s, g)))
+            rows.append((cx, cy, name, rt, 0xFF if p is None else p, flags, (s, g), None))
         assert si >= 0, '%s氏: 找不到本人节点 %r' % (title, subj)
+        static_n = len(rows)
 
-        xs = [r[0] for r in rows]
-        ys = [r[1] for r in rows]
+        # ---- 动态子嗣槽: 「本人」下一代那一行的最右边接着排 ----
+        #   该行的其它分支(兄弟/侄)也算进来, 所以取"同 cy 那一行的最大列槽 + 1"起排,
+        #   保证孩子生多少个都不会跟已有的框叠在一起。
+        nxt = [i for i in range(len(nds)) if gen[i] == gen[si] + 1]
+        if nxt:
+            dyn_cy = cys[nxt[0]]
+        else:
+            dyn_cy = cys[si] + ROW_HI
+            nxt = [i for i in range(len(nds)) if cys[i] == dyn_cy]
+        base = (max(slot[i] for i in nxt) + 1.0) if nxt else slot[si] + 1.0
+        dyn_at = len(rows)
+        for j in range(DYN_SLOTS):
+            rows.append((int(round((base + j) * COL_W + COL_W / 2)), dyn_cy,
+                         None, DYN_REL, si, S_ALIVE | F_DYN, None, j))
+        # 块长凑偶: FAM_DIR.start 存的是"块长/2"(u8), 渲染层 imul 20 拿字节偏移
+        pad = None
+        if len(rows) % 2:
+            pad = (rows[dyn_at][0], dyn_cy, ' ', ' ', 0xFF, 0, None, -1)
+            rows.append(pad)
+
+        xs = [r[0] for r in rows if r[7] != -1]
+        ys = [r[1] for r in rows if r[7] != -1]
         bbox = (min(xs) - AV_HX, min(ys) - AV_HY,
                 max(xs) + AV_HX, max(ys) + OFS_REL + REL_H)
         out.append(dict(title=title + '氏', triggers=list(triggers), subject=si,
-                        rows=rows, bbox=bbox))
+                        rows=rows, bbox=bbox, static_n=static_n, dyn_at=dyn_at,
+                        subj_oid=(OFFMAP.get(rows[si][6]) or (None, None))[1]))
     return out
 
 
@@ -535,7 +592,7 @@ def _detail(title, name, rt, flags, sg):
     绝不塞 fuzzy/none —— 会张冠李戴到别人。"""
     line1 = '%s  %s  %s  【%s】' % (name, rt, STATE_NAME[flags & 3], title)
     line2 = ''
-    o = OFFMAP.get(sg)
+    o = (OFFMAP.get(sg) or (None, None))[0]
     if o:
         seg = []
         by = o.get('birth_year')
@@ -557,9 +614,9 @@ def _detail(title, name, rt, flags, sg):
 
 
 def encode():
-    """-> dict(dir=bytes, nodes=bytes, pool=bytes, meta=[...])"""
+    """-> dict(dir, nodes, pool, detail, oids, meta, dyn_*, ndir, nnode)"""
     layouts = build_layouts()
-    pool = bytearray()
+    pool = bytearray(b'\x00' * (GEN_RECS * DYN_STR_SZ))   # 可变区钉在池首(6 子嗣 + 本人 + 标题)
     off = {}
 
     def intern(t):
@@ -584,32 +641,93 @@ def encode():
         assert len(pool) < 65536, '串池超过 64KB'
         return o
 
+    dyn_detail = detail_rec(DYN_DETAIL, '')
+
     dir_b = bytearray()
     node_b = bytearray()
     detail_b = bytearray()
+    oid_b = bytearray()
     meta = []
     for L in layouts:
         start = len(node_b) // 10
-        for cx, cy, name, rt, par, flags, sg in L['rows']:
-            node_b.extend(struct.pack('<hhHHBB', cx, cy,
-                                      intern(name), intern(rt), par, flags))
-            detail_b.extend(struct.pack('<H', detail_rec(*_detail(L['title'], name, rt, flags, sg))))
+        assert start % 2 == 0, '%s氏: 族块长未凑偶, start/2 编码会错' % L['title']
+        static_n = L['static_n']
+        for cx, cy, name, rt, par, flags, sg, dj in L['rows']:
+            if dj is None:                                 # 真人节点
+                doff = detail_rec(*_detail(L['title'], name, rt, flags, sg))
+                noff = intern(name)
+                oid = (OFFMAP.get(sg) or (None, None))[1]
+            elif dj >= 0:                                   # 动态子嗣槽(名字运行时写进池首)
+                noff, doff, oid = dyn_str_off(dj), dyn_detail, None
+            else:                                           # 对齐填充, 永不进 count
+                noff, doff, oid = intern(' '), dyn_detail, None
+            node_b.extend(struct.pack('<hhHHBB', cx, cy, noff, intern(rt), par, flags))
+            detail_b.extend(struct.pack('<H', doff))
+            oid_b.extend(struct.pack('<H', 0xFFFF if oid is None else oid))
         assert len(node_b) % 10 == 0, '节点表切不齐'
-        assert len(L['rows']) < 256 and start < 256
+        assert static_n + DYN_SLOTS < 256 and start // 2 < 256
         title_off = intern(L['title'])
         for tgiv, tsur in [(g, s) for s, g in L['triggers']]:
             dir_b.extend(struct.pack(
                 '<II',
                 struct.unpack('<I', (tgiv.encode('gbk') + b'\0\0\0\0')[:4])[0],
                 struct.unpack('<I', (tsur.encode('gbk') + b'\0\0\0\0')[:4])[0]))
-            dir_b.extend(struct.pack('<BBH', start, len(L['rows']), title_off))
+            dir_b.extend(struct.pack('<BBH', start // 2, static_n, title_off))
             dir_b.extend(struct.pack('<hhhh', *L['bbox']))
-            dir_b.extend(struct.pack('<BBH', L['subject'], 0, 0))
+            # +20 本人槽 / +21 静态人数(开树时由它复位 count) / +22,+23 保留
+            dir_b.extend(struct.pack('<BBBB', L['subject'], static_n, 0, 0))
             assert len(dir_b) % 24 == 0
         meta.append(dict(L, start=start, n=len(L['rows'])))
+
+    # ---- 通用块: 27 家之外所有人的树 = 本人 + 最多 6 个游戏内子嗣 ----
+    #   几何在这里烘死(运行时桩零算术), 名字/标题走池首可变区, 所以整棵树可以
+    #   只靠"写 8 条串 + 抬 count"就画出来。触发键 (0,0) 永不匹配任何活名,
+    #   渲染层的姓名扫描会跳过它, 只有兜底路径按 GENERIC_DIR 直接指过来。
+    gen_start = len(node_b) // 10
+    assert gen_start % 2 == 0, '通用块起点未凑偶, start/2 编码会错'
+    gen_doff = detail_rec(GEN_DETAIL, '')
+    GEN_SUBJ_CX, GEN_SUBJ_CY = 210, 25
+    GEN_ROW_CX0, GEN_ROW_CY = 35, GEN_SUBJ_CY + ROW_HI + 20   # 125
+    node_b.extend(struct.pack('<hhHHBB', GEN_SUBJ_CX, GEN_SUBJ_CY,
+                              dyn_str_off(GEN_NAME_IDX), intern('本人'),
+                              0xFF, S_ALIVE | F_SUBJECT))
+    detail_b.extend(struct.pack('<H', gen_doff))
+    oid_b.extend(struct.pack('<H', 0xFFFF))
+    for j in range(DYN_SLOTS):
+        node_b.extend(struct.pack('<hhHHBB', GEN_ROW_CX0 + j * COL_W, GEN_ROW_CY,
+                                  dyn_str_off(j), intern(DYN_REL),
+                                  0, S_ALIVE | F_DYN))
+        detail_b.extend(struct.pack('<H', dyn_detail))
+        oid_b.extend(struct.pack('<H', 0xFFFF))
+    # 块长凑偶(8 节点已偶, 这条只是把"填充永不显示"的约定写满)
+    node_b.extend(struct.pack('<hhHHBB', GEN_SUBJ_CX, GEN_SUBJ_CY,
+                              intern(' '), intern(' '), 0xFF, 0))
+    detail_b.extend(struct.pack('<H', dyn_detail))
+    oid_b.extend(struct.pack('<H', 0xFFFF))
+    generic_dir = len(dir_b)
+    dir_b.extend(struct.pack('<II', 0, 0))                   # 不参与姓名匹配
+    dir_b.extend(struct.pack('<BBH', gen_start // 2, 1, dyn_str_off(GEN_TITLE_IDX)))
+    dir_b.extend(struct.pack('<hhhh',
+                             GEN_ROW_CX0 - AV_HX, GEN_SUBJ_CY - AV_HY,
+                             GEN_ROW_CX0 + (DYN_SLOTS - 1) * COL_W + AV_HX,
+                             GEN_ROW_CY + OFS_REL + REL_H))
+    dir_b.extend(struct.pack('<BBBB', 0, 1, GEN_FLAG, 0))
+    assert len(dir_b) % 24 == 0 and len(node_b) % 10 == 0
+
     return dict(dir=bytes(dir_b), nodes=bytes(node_b), pool=bytes(pool),
-                detail=bytes(detail_b),
-                ndir=len(dir_b) // 24, nnode=len(node_b) // 10, meta=meta)
+                detail=bytes(detail_b), oids=bytes(oid_b),
+                ndir=len(dir_b) // 24, nnode=len(node_b) // 10, meta=meta,
+                dyn_str_base=DYN_STR_BASE, dyn_str_sz=DYN_STR_SZ,
+                dyn_slots=DYN_SLOTS, dyn_detail=dyn_detail,
+                # 姓名扫描的界限只数史实家族; 通用记录(触发键 0,0)靠 GENERIC_DIR 直达,
+                # 不参与扫描 —— 省一个"活名恰好全零"的隐患。
+                scan_ndir=generic_dir // 24,
+                generic_dir=generic_dir,
+                gen_start=gen_start, gen_static_n=1, gen_slots=DYN_SLOTS,
+                gen_dyn_at=1, gen_name_idx=GEN_NAME_IDX,
+                gen_title_idx=GEN_TITLE_IDX, gen_flag=GEN_FLAG,
+                gen_recs=GEN_RECS,
+                gen_detail_off=gen_doff, gen_title_suffix=GEN_TITLE_SUFFIX)
 
 
 def preview():
@@ -618,19 +736,23 @@ def preview():
     sys.stdout.reconfigure(encoding='utf-8')
     for L in build_layouts():
         b = L['bbox']
-        print('=== %s  触发%s  %d 人  内容框 %s (%dx%d)  本人#%d ==='
+        print('=== %s  触发%s  %d 人(静态%d+动态槽%d)  内容框 %s (%dx%d)  本人#%d oid=%s ==='
               % (L['title'], '/'.join(s + g for s, g in L['triggers']),
-                 len(L['rows']), b, b[2] - b[0], b[3] - b[1], L['subject']))
-        for i, (cx, cy, nm, rt, par, fl, sg) in enumerate(L['rows']):
-            print('  #%-2d (%4d,%4d) %-10s %-6s %-4s %s%s%s'
-                  % (i, cx, cy, nm, rt, STATE_NAME[fl & 3],
+                 len(L['rows']), L['static_n'], DYN_SLOTS,
+                 b, b[2] - b[0], b[3] - b[1], L['subject'], L['subj_oid']))
+        for i, (cx, cy, nm, rt, par, fl, sg, dj) in enumerate(L['rows']):
+            tag = '' if dj is None else (' (填充)' if dj < 0 else ' 动态#%d' % dj)
+            print('  #%-2d (%4d,%4d) %-10s %-6s %-4s %s%s%s%s'
+                  % (i, cx, cy, nm if nm is not None else '(运行时)', rt,
+                     STATE_NAME[fl & 3],
                      '' if par == 0xFF else 'p=%d' % par,
                      ' ★本人' if fl & F_SUBJECT else '',
-                     ' ♀配偶' if fl & F_SPOUSE else ''))
+                     ' ♀配偶' if fl & F_SPOUSE else '', tag))
     e = encode()
     print()
-    print('FAM_DIR %d 条 %dB | NODE_TAB %d 条 %dB | STR_POOL %dB | 合计 %dB'
-          % (e['ndir'], len(e['dir']), e['nnode'], len(e['nodes']), len(e['pool']),
+    print('FAM_DIR %d 条 %dB | NODE_TAB %d 条 %dB | OIDTAB %dB | STR_POOL %dB | 合计 %dB'
+          % (e['ndir'], len(e['dir']), e['nnode'], len(e['nodes']), len(e['oids']),
+             len(e['pool']),
              len(e['dir']) + len(e['nodes']) + len(e['pool'])))
 
 

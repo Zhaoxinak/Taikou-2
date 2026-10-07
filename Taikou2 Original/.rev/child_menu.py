@@ -46,10 +46,12 @@ import child_growth as CG
 # ================= 补丁站点 (VA 与原始字节, 构建与验收共用) =================
 HOOK_MENU_SITE = 0x4CD563        # 回家菜单构建器 0x4CD480 内, push ecx / push edx / push edi + call 前 2 字节
 HOOK_MENU_ORIG = bytes.fromhex('515257E865')
-CODE_LIMIT_SITE = 0x4CD390       # `cmp eax, 6` 的立即数 -> 7 (让码 7 不再是"越界即退出")
+CODE_LIMIT_SITE = 0x4CD390       # `cmp eax, 6` 的立即数 -> 8 (让码 7/8 不再是"越界即退出")
 CODE_LIMIT_ORIG = b'\x06'
 TABLE8_SITE = 0x4CD47C           # 跳转表第 8 槽 (表尾后的 4 字节对齐 NOP, 全镜像 0 引用)
 TABLE8_ORIG = b'\x90\x90\x90\x90'
+DISPATCH_SITE = 0x4CD38E         # `cmp eax, 7` 前 5 字节 (用于插入 item 8 的特判)
+DISPATCH_ORIG = bytes.fromhex('83F8070F87')  # `cmp eax, 7; ja ...`
 MENU_TOP = 0x4CD339              # 回家菜单循环头 (处理程序完事跳这里 = 重弹菜单)
 MENU_EXIT = 0x4CD455             # 回家菜单退出 (leave)
 MENU_CALL = 0x4CD367             # 循环里 call 构建器 0x4CD480 的位置
@@ -84,6 +86,8 @@ STR_ROW = 24                     # 串池每项字节
 AGE_GET_MASK = 0x63              # 标签里年龄钳到 99
 
 # 串池槽位 (每项 STR_ROW 字节, GBK + NUL)
+#   ★ 这一池 24 项把 MENU_STR 区 0x240 用满, 且下游 DEC100/NAME_BUF/... 紧排无余量
+#     => 新增菜单项**不进这池**: 「生孩子」标签落在生孩子私有区尾部的独立 24B 行 (BIRTH_LABEL)。
 S_HOME = 0                       # 培养孩子 (回家菜单第 7 项)
 S_ACT0 = 1                       # 1..10 活动
 S_TEACH0 = 11                    # 11..15 教席
@@ -126,8 +130,115 @@ MS_LINE0, MS_MSG_HINT = 5, 15
 MS_COST0 = 16                        # 费用提示首条下标; 与 ACTS 同序, 行地址 = 池首 + (MS_COST0+act)*24
 MS_NONE = MS_COST0 + len(CG.ACTS)    # 26: "此城还没有可培养的孩子" (首屏为空时才弹)
 MSG_STRINGS = MSG_STRINGS + (u'此城还没有可培养的孩子',)
-assert len(MSG_STRINGS) == MS_NONE + 1, (len(MSG_STRINGS), MS_NONE)
+MS_NO_SLOT = MS_NONE + 1             # 27: 生孩子扫不到空槽/空身份键 (满员) 的明说
+MSG_STRINGS = MSG_STRINGS + (u'已经没有空位了',)
+# ★ 28..30: 出生提示 (2026-10-07 实机反馈「我生了孩子后, 没有任何的提示」)。
+#   原来办完事直接 jmp 收尾, 玩家看不到"到底生了没有" => 必须显式确认, 并把孩子姓名读回来
+#   (姓行 + 名行 拼成的连续串显示在第 2 行)。
+MS_BORN = MS_NO_SLOT + 1             # 28: 提示标题
+MSG_STRINGS = MSG_STRINGS + (u'孩子出生了',)
+MS_BORN_AT = MS_BORN + 1             # 29: 说明他跟着父亲住在哪
+MSG_STRINGS = MSG_STRINGS + (u'他随父亲住在本城',)
+# ★ 30: 为什么城里的武将列表看不到他 —— 原生就是这样的 (武将列表走本城家臣链,
+#   只有元服时 0x4A0540 才把人挂进链; 见 .rev/_list_probe_report.md)。不写清就会被当成 bug。
+MS_BORN_GK = MS_BORN_AT + 1
+MSG_STRINGS = MSG_STRINGS + (u'元服后进入武将列表',)
+assert len(MSG_STRINGS) == MS_BORN_GK + 1, (len(MSG_STRINGS), MS_BORN_GK)
+assert MS_STR_ROW * len(MSG_STRINGS) <= 0x300, 'MSG_STR 池吃掉 FOSTER 前的全部余量'
 assert MS_COST0 == MS_MSG_HINT + 1, (MS_COST0, MS_MSG_HINT)
+
+
+# ================= 生孩子: 预选名字列表 =================
+# 回家菜单第 8 项的标签 (不进 MENU_STR 那 24 行的池, 见上面的槽位说明)
+BIRTH_LABEL = u'生孩子'
+
+
+def birth_label_bytes():
+    """生孩子菜单标签: 一行 STR_ROW 字节的 C 字符串 (GBK + NUL + pad)"""
+    b = BIRTH_LABEL.encode('gbk')
+    assert len(b) + 1 <= STR_ROW, b
+    return b + b'\x00' * (STR_ROW - len(b))
+
+
+# 名字池: 游戏没有键盘输入, 只能预置。这里放 **500 个真实日本名**(男 405 + 女 95,
+#   每 4 个男名后插 1 个女名 => 选择框每一页都有女性名), 每次开框只供 BIRTH_NAME_OFFER 个,
+#   选过的记进 USED 永不重发, 且与**游戏内在世人物的名**自动避让 (bn_avail/bn_live 在运行时筛)。
+#   名单来源/审查见 .rev/_names_draft.py (603 候选 -> 去重 600 -> 砍 100 个生僻尾名 = 500)。
+# 每行 7B = 最多 6B GBK(3 汉字) + NUL, 所以长度硬门是 3 个汉字。
+BIRTH_NAMES = (
+    u'信长', u'信忠', u'信雄', u'信孝', u'阿市', u'信秀', u'信胜', u'信包', u'信澄', u'阿松',
+    u'信广', u'信定', u'长则', u'长益', u'阿茶', u'胜家', u'胜丰', u'胜政', u'胜俊', u'阿静',
+    u'胜以', u'吉胜', u'胜重', u'胜吉', u'阿菊', u'辉政', u'恒兴', u'忠继', u'元光', u'阿虎',
+    u'长泰', u'由之', u'胜入', u'宗二', u'阿初', u'光秀', u'光忠', u'元智', u'秀满', u'阿江',
+    u'光胜', u'朝景', u'光家', u'秀有', u'阿督', u'长秀', u'氏秀', u'长重', u'长遗', u'阿完',
+    u'秀政', u'秀治', u'利家', u'利长', u'阿胜', u'利常', u'利玄', u'利春', u'利久', u'阿万',
+    u'庆次', u'利庆', u'利孝', u'盛政', u'阿龟', u'正胜', u'安政', u'信治', u'盛之', u'阿梅',
+    u'一益', u'贞胜', u'具益', u'秀正', u'阿兰', u'良通', u'贞通', u'重通', u'通之', u'阿竹',
+    u'清秀', u'重政', u'藤孝', u'忠兴', u'阿桂', u'赖尚', u'忠利', u'秀吉', u'秀长', u'阿樱',
+    u'秀胜', u'秀保', u'秀秋', u'秀宗', u'阿雪', u'秀包', u'秀次', u'秀赖', u'吉治', u'阿月',
+    u'长吉', u'秀俊', u'定久', u'定利', u'阿春', u'利定', u'吉亲', u'木吉', u'秀房', u'阿佐',
+    u'吉房', u'久吉', u'小一郎', u'鹤松', u'阿通', u'清正', u'光泰', u'嘉明', u'忠广', u'阿爱',
+    u'明成', u'雅量', u'正则', u'高政', u'阿都', u'广纲', u'正之', u'家政', u'至家', u'阿古',
+    u'家利', u'小六', u'秀重', u'弘就', u'阿六', u'孝高', u'长政', u'直之', u'利之', u'阿十',
+    u'之由', u'长兴', u'高次', u'高通', u'阿八', u'高清', u'高珍', u'三成', u'家继', u'阿世',
+    u'重家', u'正澄', u'家俊', u'行长', u'宁宁', u'隆康', u'重成', u'宜朝', u'正家', u'茶茶',
+    u'正氏', u'氏信', u'元存', u'且元', u'小督', u'孝贞', u'盛重', u'长盛', u'利政', u'见松',
+    u'俊次', u'盛次', u'幸长', u'幸贞', u'于大', u'长之', u'幸一', u'一氏', u'一正', u'千代',
+    u'重次', u'亲重', u'高吉', u'俊胜', u'五德', u'亲澄', u'安国', u'直泰', u'家康', u'见月',
+    u'秀忠', u'家光', u'家纲', u'信康', u'世恋', u'忠吉', u'忠胜', u'忠直', u'家成', u'五郎八',
+    u'家亲', u'家忠', u'家清', u'康亲', u'初', u'康长', u'康继', u'康直', u'清康', u'江',
+    u'广忠', u'元康', u'昌久', u'定积', u'完', u'信光', u'亲长', u'亲忠', u'康俊', u'督',
+    u'长亲', u'忠昌', u'忠良', u'光普', u'胜', u'家正', u'忠克', u'忠弘', u'信纲', u'市',
+    u'光重', u'定纲', u'齐裕', u'纲重', u'久', u'忠教', u'忠年', u'康昭', u'直政', u'万',
+    u'直孝', u'直继', u'直宗', u'直盛', u'龟', u'直亲', u'直亮', u'直澄', u'直时', u'鹤',
+    u'好直', u'忠政', u'正纯', u'正信', u'铃', u'康纪', u'尚广', u'平八', u'重忠', u'琴',
+    u'忠真', u'忠义', u'利忠', u'以忠', u'操', u'政朝', u'忠平', u'正利', u'忠次', u'枫',
+    u'家次', u'忠世', u'忠清', u'家业', u'莲', u'忠景', u'数正', u'家重', u'康家', u'政子',
+    u'氏家', u'康政', u'康种', u'政近', u'昌子', u'正成', u'半藏', u'就正', u'忠邻', u'清子',
+    u'长安', u'忠为', u'秀兴', u'政清', u'幸子', u'正重', u'元忠', u'元臣', u'贞宗', u'德子',
+    u'康景', u'信玄', u'义信', u'胜赖', u'光子', u'信繁', u'信赖', u'信虎', u'晴信', u'直子',
+    u'信廉', u'信丰', u'信满', u'信之', u'爱子', u'虎纲', u'昌景', u'房守', u'昌丰', u'敏子',
+    u'虎胤', u'虎盛', u'虎泰', u'虎昌', u'静子', u'幸隆', u'昌幸', u'幸村', u'信幸', u'贞子',
+    u'大助', u'高信', u'胜沼', u'信守', u'惠子', u'满幸', u'基胜', u'景信', u'辉虎', u'良子',
+    u'政虎', u'景胜', u'定胜', u'宪政', u'弘子', u'房实', u'定实', u'显家', u'勘助', u'稙子',
+    u'定满', u'景广', u'宪房', u'兼续', u'氏子', u'光实', u'弥太郎', u'重房', u'宪定', u'义子',
+    u'胜实', u'辉定', u'景宪', u'氏时', u'长子', u'氏纲', u'氏康', u'氏政', u'氏直', u'景子',
+    u'氏照', u'氏邦', u'氏规', u'宪盛', u'胜子', u'宪秀', u'纲景', u'定冈', u'氏房', u'春子',
+    u'氏治', u'氏定', u'氏澄', u'氏一', u'夏子', u'义元', u'氏亲', u'义直', u'义康', u'秋子',
+    u'范忠', u'氏峰', u'雪斋', u'氏资', u'冬子', u'义均', u'氏廉', u'道三', u'义龙', u'梅子',
+    u'龙兴', u'利尧', u'利三', u'藤高', u'竹子', u'义效', u'光氏', u'尧之', u'高光', u'菊子',
+    u'宗滴', u'义景', u'敏景', u'贞景', u'松子', u'景丰', u'教景', u'景范', u'繁景', u'桃子',
+    u'持景', u'宗淳', u'久政', u'秀久', u'樱子', u'政家', u'万吉', u'景继', u'高景', u'兰子',
+    u'元就', u'隆元', u'辉元', u'秀元', u'鹤子', u'元春', u'元清', u'元相', u'广家', u'铃子',
+    u'元胜', u'就胜', u'房家', u'就兴', u'琴子', u'元氏', u'就实', u'方实', u'就昭', u'秀子',
+    u'隆景', u'元苗', u'惠琼', u'元知', u'完子', u'春元', u'元房', u'国元', u'经元', u'督子',
+    u'经久', u'晴久', u'义久', u'幸久', u'初子', u'盛久', u'丰国', u'氏清', u'幸盛', u'江子',
+    u'秀纲', u'久纲', u'义祐', u'宗景', u'万子', u'长治', u'良赖', u'澄久', u'义春', u'国久',
+    u'元有', u'高久', u'久幸', u'义镇', u'义统', u'鉴连', u'道雪', u'宗茂', u'统虎', u'绍运',
+    u'隆信', u'辉宗', u'政宗', u'义光', u'元亲', u'元秋', u'久秀', u'基次', u'利休', u'织部',
+)
+assert len(BIRTH_NAMES) == 500, len(BIRTH_NAMES)
+assert len(set(BIRTH_NAMES)) == len(BIRTH_NAMES), '名字池内有重复'
+assert all(len(n.encode('gbk')) <= 6 for n in BIRTH_NAMES), '名字超 3 汉字'
+BIRTH_NAME_COUNT = len(BIRTH_NAMES)
+# 每次开框供 20 个 —— bn_avail 的起点由原生 rand 现取、扫到池尾绕回池头 (所以两次开框给的**不是同一批**),
+#   收满 20 就停; 一页 PAGE_KIDS=10 行 + 1 行导航 = 11 行, 压在原生列表对话框 0x47BED0 的 12 项硬门里
+#   => 20 个正好两页。
+BIRTH_NAME_PAGE = PAGE_KIDS
+BIRTH_NAME_OFFER = 20
+assert BIRTH_NAME_OFFER % BIRTH_NAME_PAGE == 0, (BIRTH_NAME_OFFER, BIRTH_NAME_PAGE)
+assert BIRTH_NAME_OFFER // BIRTH_NAME_PAGE + 1 <= 12, '一页最多 11 行(含导航)'
+BIRTH_OID_MAX = 0x2BC                  # BSDATA 身份键上界 (0..0x2BB), 与 gen_oid_map/M1 同源
+
+
+def birth_name_pool_bytes():
+    """名字串池: 500 项 x 7 字节 (GBK + NUL)"""
+    out = bytearray()
+    for n in BIRTH_NAMES:
+        b = n.encode('gbk')
+        assert len(b) + 1 <= 7, ('名字行越界', n, len(b))
+        out += b + b'\x00' * (7 - len(b))
+    return bytes(out)
 
 
 def msg_str_pool_bytes():
@@ -216,13 +327,14 @@ cm_ptr_loop:
   jne cm_ptr_loop
 cm_append:
   # 0x47BED0 arg1 = item count (edx=count, cmp ax,dx as copy bound), arg2 = string ptr array, arg3 = style
-  # => last push = arg1 must be ecx(=cnt+1); pushing s_flag(style 2/4) last drew only 2 items, wrong style
+  # => last push = arg1 must be ecx(=cnt+2); pushing s_flag(style 2/4) last drew only 2 items, wrong style
   mov eax, dword ptr [%(s_cnt)s]
-  lea ecx, [eax + 1]
+  lea ecx, [eax + 2]
   mov dword ptr [%(s_cnt1)s], ecx
   shl eax, 2
   mov edx, %(menu_ptr)s
   mov dword ptr [edx + eax], %(str_foster)s
+  mov dword ptr [edx + eax + 4], %(str_birth)s
   push dword ptr [%(s_flag)s]
   push edx
   push ecx
@@ -233,9 +345,18 @@ cm_append:
   movzx ecx, ax
   cmp cx, word ptr [%(s_cnt)s]
   je cm_foster
+  dec cx
+  cmp cx, word ptr [%(s_cnt)s]
+  je cm_birth
+  inc cx
   movzx eax, word ptr [ecx * 2 + %(menu_code)s]
   jmp cm_out
 cm_foster:
+  mov dword ptr [%(pick)s], 0
+  mov eax, 7
+  jmp cm_out
+cm_birth:
+  mov dword ptr [%(pick)s], 1
   mov eax, 7
   jmp cm_out
 cm_cancel:
@@ -246,6 +367,368 @@ cm_out:
   pop esi
   pop ebp
   add esp, 0x24
+  ret
+"""
+
+
+# ================= C) 码 7 的第二条路: 生孩子流程 =================
+# 帧: push ebx/ebp/esi/edi + sub esp,0x20
+#   +0x00 L_LORD  主角实体指针 (= 进来的 esi)   +0x04 L_PAGE 名字页起点 (0 / PAGE_KIDS)
+#   +0x08 L_ROWS  本页行数                     +0x0C L_NAME 选中的名字下标
+#   +0x10 L_SLOT  选中的空槽                   +0x14 L_OID  选中的空身份键
+#   +0x18 L_CITY  主角 国|城 (排程表项的静态兜底)
+#   +0x1C L_FSLOT 主角自己的池槽 (= 排程表的 fslot, 也 = 主角姓行的索引)
+#
+#   ★ 池槽与 oid 是两个键空间, 别混: 排程表 fslot / 姓表行号 / 名表行号 = **槽**;
+#     孩子的 +0x1d 父链 = **oid** (probe_keyspace: ent+0=槽号、ent+2=oid, 352/352)。
+#
+# ★ 实例化**不自己来**: 往 child_pass 的排程表尾追一条 (oid, slot, fslot=主角, 国|城), 然后
+#   call child_pass。那条路是实机验证过的唯一配方 (INST + init_stats 五维减半 + bit15/bit7/
+#   nibble 0xb/bit4/身分码 + 主君 0xffff + 登场标志 + place_child 随父居住 + 位图记账),
+#   自己照抄一份等于把已经踩稳的坑再踩一次; 而且追进表以后这个孩子从此有月钩复臂、
+#   成长结算、到龄元服, 不用再单独接。
+SRC_BIRTH = """
+cm_birth_handler:
+  push ebx
+  push ebp
+  push esi
+  push edi
+  sub esp, 0x20
+  inc dword ptr [%(c_birth)s]
+  mov dword ptr [esp + 0x00], esi
+  movzx eax, word ptr [esi + 0x24]
+  mov dword ptr [esp + 0x18], eax
+  movzx eax, word ptr [esi + 0x00]
+  mov dword ptr [esp + 0x1c], eax
+  mov dword ptr [esp + 0x04], 0
+  # Before opening the box, collect the names this round may offer into AVAIL: skip the ones
+  #   already picked (USED) and the ones a LIVING character in this scenario wears (bn_live
+  #   walks every entity's given-name row). The scan starts at a NATIVE-RAND position and
+  #   wraps, so opening the box twice in a row offers a DIFFERENT slice of 0x14 names
+  #   (player's ask: "each time must be different"). ebp counts slots scanned => at most
+  #   one full turn. Pool holds 0x1F4 real names, we stop at 0x14 => 0xA rows per page +
+  #   1 nav row, inside the native list dialog's hard 0xC-row limit.
+  call bn_avail
+bn_page:
+  xor edi, edi
+bn_fill:
+  mov eax, dword ptr [esp + 0x04]
+  add eax, edi
+  cmp eax, dword ptr [%(avail_n)s]
+  jae bn_nav
+  movzx eax, word ptr [eax * 2 + %(avail)s]
+  lea edx, [eax * 8]
+  sub edx, eax
+  add edx, %(name_pool)s
+  mov dword ptr [edi * 4 + %(sub_ptr)s], edx
+  mov word ptr [edi * 2 + %(slot_arr)s], ax
+  inc edi
+  cmp edi, %(page_max)s
+  jb bn_fill
+bn_nav:
+  cmp dword ptr [esp + 0x04], 0
+  je bn_nav_next
+  mov dword ptr [edi * 4 + %(sub_ptr)s], %(str_prev)s
+  mov word ptr [edi * 2 + %(slot_arr)s], 0xFFFD
+  jmp bn_show
+bn_nav_next:
+  mov eax, %(page_max)s
+  add eax, dword ptr [esp + 0x04]
+  cmp eax, dword ptr [%(avail_n)s]
+  jae bn_show
+  mov dword ptr [edi * 4 + %(sub_ptr)s], %(str_next)s
+  mov word ptr [edi * 2 + %(slot_arr)s], 0xFFFE
+bn_show:
+  inc edi
+  mov dword ptr [esp + 0x08], edi
+  push 0
+  push 0
+  push 4
+  push %(sub_ptr)s
+  push edi
+  call %(dialog)s
+  add esp, 0x14
+  cmp ax, -1
+  je b_cancel
+  movzx eax, ax
+  movzx edx, word ptr [eax * 2 + %(slot_arr)s]
+  cmp edx, 0xFFFE
+  je bn_next
+  cmp edx, 0xFFFD
+  je bn_prev
+  mov dword ptr [esp + 0x0C], edx
+  # A picked name goes into USED so bn_avail never offers it again (player's own request).
+  mov byte ptr [edx + %(used)s], 0x1
+  jmp b_slot
+bn_next:
+  add dword ptr [esp + 0x04], %(page_max)s
+  jmp bn_page
+bn_prev:
+  sub dword ptr [esp + 0x04], %(page_max)s
+  jmp bn_page
+b_slot:
+  mov ebx, %(slot_lo)s
+bs_loop:
+  cmp ebx, %(cap)s
+  jae b_none
+  bt dword ptr [%(child_bm)s], ebx
+  jc bs_next
+  lea ecx, [ebx + ebx * 2]
+  shl ecx, 4
+  sub ecx, ebx
+  add ecx, %(pool)s
+  movzx edx, word ptr [ecx + 0x2c]
+  and edx, 0x8080
+  cmp edx, 0x8080
+  jne bs_next
+  mov dword ptr [esp + 0x10], ebx
+  jmp b_oid
+bs_next:
+  inc ebx
+  jmp bs_loop
+b_oid:
+  mov ebx, %(oid_hi)s
+bo_loop:
+  cmp ebx, 0
+  jl b_none
+  cmp byte ptr [ebx + %(flagtab)s], 0
+  jne bo_next
+  mov ecx, %(sched)s
+bo_used:
+  movzx eax, word ptr [ecx]
+  cmp ax, 0xffff
+  je bo_found
+  cmp eax, ebx
+  je bo_next
+  add ecx, 8
+  jmp bo_used
+bo_next:
+  dec ebx
+  jmp bo_loop
+bo_found:
+  mov dword ptr [esp + 0x14], ebx
+  mov ebx, %(sched)s
+bse_loop:
+  cmp ebx, %(sched_end)s
+  jae b_none
+  movzx eax, word ptr [ebx]
+  cmp ax, 0xffff
+  je bse_write
+  add ebx, 8
+  jmp bse_loop
+bse_write:
+  mov eax, dword ptr [esp + 0x14]
+  mov word ptr [ebx], ax
+  mov eax, dword ptr [esp + 0x10]
+  mov word ptr [ebx + 2], ax
+  mov eax, dword ptr [esp + 0x1c]
+  mov word ptr [ebx + 4], ax
+  mov eax, dword ptr [esp + 0x18]
+  mov word ptr [ebx + 6], ax
+  mov word ptr [ebx + 8], 0xFFFF
+  call %(child_pass)s
+  movzx ebx, word ptr [esp + 0x10]
+  lea ecx, [ebx + ebx * 2]
+  shl ecx, 4
+  sub ecx, ebx
+  add ecx, %(pool)s
+  # virtual age 1: age = (year+0x618) - (([+0x1b]&0x7f)+0x5d2) + 1  =>  [+0x1b] = year + 0x46
+  movzx eax, byte ptr [%(date_y)s]
+  add eax, 0x46
+  mov byte ptr [ecx + 0x1b], al
+  # father link (+0x1d, and record+0x29 through it) is an OID, while the name tables are indexed
+  #   by SLOT -- the two live in different key spaces (probe_keyspace: ent+0=slot, ent+2=oid).
+  mov eax, dword ptr [esp + 0x00]
+  movzx eax, word ptr [eax + 0x02]
+  mov word ptr [ecx + 0x1d], ax
+  # surname = the lord's row (surname table GIV, 7B per SLOT) -- INST copied the free oid's own
+  #   surname, so it must be overwritten. Byte loop instead of rep movsb: we do not want to
+  #   depend on the direction flag being clear.
+  mov edx, dword ptr [esp + 0x1c]
+  lea esi, [edx * 8]
+  sub esi, edx
+  add esi, %(giv)s
+  lea edi, [ebx * 8]
+  sub edi, ebx
+  add edi, %(giv)s
+  mov ecx, 7
+bcp_sur:
+  mov dl, byte ptr [esi]
+  mov byte ptr [edi], dl
+  inc esi
+  inc edi
+  dec ecx
+  jne bcp_sur
+  # given name = the row the player picked (given table SUR, 7B/slot; pool rows are NUL-padded)
+  movzx ebx, word ptr [esp + 0x10]
+  lea edi, [ebx * 8]
+  sub edi, ebx
+  add edi, %(sur)s
+  movzx ecx, word ptr [esp + 0x0C]
+  lea esi, [ecx * 8]
+  sub esi, ecx
+  add esi, %(name_pool)s
+  mov ecx, 7
+bcp_giv:
+  mov dl, byte ptr [esi]
+  mov byte ptr [edi], dl
+  inc esi
+  inc edi
+  dec ecx
+  jne bcp_giv
+  # ---- birth confirmation box (real-machine report: "nothing at all happens, so I cannot
+  #   so I cannot tell whether a child was born"). The surname/given rows are 7B each and
+  #   NUL-padded, so the two rows cannot simply be concatenated -- the middle NUL truncates
+  #   the C string. Compose one contiguous string first (max 6+6+1 = 13B into a 16B buffer),
+  #   and read it back from the RUNTIME name tables so the box shows what really got stored.
+  movzx ebx, word ptr [esp + 0x10]
+  lea esi, [ebx * 8]
+  sub esi, ebx
+  add esi, %(giv)s
+  mov edi, %(name_tmp)s
+  mov ecx, 7
+bp_sur:
+  mov al, byte ptr [esi]
+  mov byte ptr [edi], al
+  test al, al
+  je bp_sur_end
+  inc esi
+  inc edi
+  dec ecx
+  jne bp_sur
+bp_sur_end:
+  mov byte ptr [edi], 0
+  movzx ebx, word ptr [esp + 0x10]
+  lea esi, [ebx * 8]
+  sub esi, ebx
+  add esi, %(sur)s
+  mov ecx, 7
+bp_giv:
+  mov al, byte ptr [esi]
+  mov byte ptr [edi], al
+  test al, al
+  je bp_giv_end
+  inc esi
+  inc edi
+  dec ecx
+  jne bp_giv
+bp_giv_end:
+  mov byte ptr [edi], 0
+  # four-row pointer array (title / name / lives-with-father / why-not-in-the-list) into the
+  #   BIRTH_PROMPT area, then the native 5-arg dialog convention (count, ptr array, style, 0, 0).
+  #   Row 4 answers the real-machine question "why is he not in the castle's retainer list":
+  #   that list walks the castle's vassal CHAIN (only genpuku inserts a person into it,
+  #   see _list_probe_report.md), so a child is absent by native design -- not a lost binding.
+  mov dword ptr [%(msg_arr)s], %(born_str)s
+  mov dword ptr [%(msg_arr)s + 4], %(name_tmp)s
+  mov dword ptr [%(msg_arr)s + 8], %(born_at)s
+  mov dword ptr [%(msg_arr)s + 0xC], %(born_gk)s
+  push 0
+  push 0
+  push 4
+  push %(msg_arr)s
+  push 4
+  call %(dialog)s
+  add esp, 0x14
+  jmp b_cancel
+b_none:
+  push 0
+  push 0
+  push 4
+  push %(str_none)s
+  push 1
+  call %(dialog)s
+  add esp, 0x14
+b_cancel:
+  add esp, 0x20
+  pop edi
+  pop esi
+  pop ebp
+  pop ebx
+  jmp %(menu_top)s
+bn_avail:
+  # in: nothing; fills AVAIL with up to OFFER pool indices and AVAIL_N with how many.
+  #   Native rand 0x4EBD60(n) -> 0..n-1 (cdecl, clobbers only eax/edx) gives a RANDOM START
+  #   and the scan wraps, so every opening of the box offers a different slice of the pool.
+  #   ebp = slots scanned (bounded by one full turn => we cannot spin forever even when the
+  #   pool runs dry, e.g. after the player has picked hundreds of them). Only
+  #   ebx/eax/edx/ecx/ebp are touched -- ebx/ebp are pushed by the handler, and ecx holds
+  #   the pool row for bn_live.
+  mov dword ptr [%(avail_n)s], 0
+  xor ebp, ebp
+  push %(count)s
+  call %(rand)s
+  add esp, 4
+  mov ebx, eax
+ba_loop:
+  cmp ebp, %(count)s
+  jae ba_done
+  inc ebp
+  mov eax, dword ptr [%(avail_n)s]
+  cmp eax, %(offer)s
+  jae ba_done
+  cmp byte ptr [ebx + %(used)s], 0
+  jne ba_next
+  lea ecx, [ebx * 8]
+  sub ecx, ebx
+  add ecx, %(name_pool)s
+  call bn_live
+  test eax, eax
+  jne ba_next
+  mov eax, dword ptr [%(avail_n)s]
+  mov word ptr [eax * 2 + %(avail)s], bx
+  inc dword ptr [%(avail_n)s]
+ba_next:
+  inc ebx
+  cmp ebx, %(count)s
+  jb ba_loop
+  xor ebx, ebx
+  jmp ba_loop
+ba_done:
+  ret
+bn_live:
+  # in: ecx = the pool row (7 bytes); out: eax = 1 somebody wears it / 0 the name is free.
+  #   The on-duty test is the SAME three-branch gate the dynamic family-tree stub uses
+  #   (tree_dyn): adult 0x8080, child 0x001B, post-genpuku 0x010F -- mask 0x879F strips the
+  #   castle-lord bits, so 0x081B (a child who is already head of house) counts too.
+  #   Touches eax/edx/esi/edi only, keeping the caller's ebx and the ecx argument alive.
+  xor esi, esi
+bl_loop:
+  cmp esi, %(cap)s
+  jae bl_free
+  lea eax, [esi + esi * 2]
+  shl eax, 4
+  sub eax, esi
+  add eax, %(pool)s
+  movzx edx, word ptr [eax + 0x2c]
+  mov eax, edx
+  and eax, 0x8080
+  cmp eax, 0x8080
+  je bl_same
+  and edx, 0x879F
+  cmp edx, 0x001B
+  je bl_same
+  cmp edx, 0x010F
+  jne bl_next
+bl_same:
+  lea edi, [esi * 8]
+  sub edi, esi
+  add edi, %(sur)s
+  # Whole-row compare: dword at +0 covers bytes 0-3 and dword at +3 covers 3-6, so seven
+  #   bytes get checked with two reads. Both rows are NUL-padded, so equality == same name.
+  mov eax, dword ptr [ecx]
+  cmp eax, dword ptr [edi]
+  jne bl_next
+  mov eax, dword ptr [ecx + 3]
+  cmp eax, dword ptr [edi + 3]
+  jne bl_next
+  mov eax, 0x1
+  ret
+bl_next:
+  inc esi
+  jmp bl_loop
+bl_free:
+  xor eax, eax
   ret
 """
 
@@ -265,6 +748,17 @@ cm_out:
 #   +0x34 备用 (导航不靠行号判定: 行号在"只有上一页/只有下一页"时会撞车, 所以把哨兵写进行表)
 SRC_FOSTER = """
 cm_foster:
+  # Code 7 has only ONE table slot (0x4CD47C; slot 8 would be 0x4CD480 = the builder's own
+  #   prologue), so the appended birth row does not get a code of its own: the hook records
+  #   which row was picked in BIRTH_PICK and we route here.
+  #   Routing must happen at the DISPATCHER level, not by jmp-ing out of the hook --
+  #   inside the hook we still stand on the builder's frame (sub esp,0x24 + push ebp/esi/edi
+  #   + return address = 0x34 bytes not unwound), so jmp-ing from there tilts the caller's
+  #   esp and the return address on its stack => AV on leaving the home menu.
+  cmp dword ptr [%(pick)s], 0
+  je cm_foster_body
+  jmp %(birth_handler)s
+cm_foster_body:
   push ebx
   push ebp
   push esi
@@ -666,11 +1160,12 @@ def _hexsubs(L):
 
 
 def build_hook(hook_va, L):
-    """A) 回家菜单钩子。L 需含 menu_ptr/menu_code/str_va/s_*/c_menu。返回 (code, ins)。"""
+    """A) 回家菜单钩子。L 需含 menu_ptr/menu_code/str_va/s_*/c_menu/birth_label/pick。返回 (code, ins)。"""
     from keystone import Ks, KS_ARCH_X86, KS_MODE_32, KS_OPT_SYNTAX_INTEL
     subs = _hexsubs(L)
     subs['dialog'] = '0x%X' % DIALOG
     subs['str_foster'] = '0x%X' % (L['str_va'] + S_HOME * STR_ROW)
+    subs['str_birth'] = '0x%X' % L['birth_label']
     src = SRC_HOOK % subs
     lint_src(src)
     ks = Ks(KS_ARCH_X86, KS_MODE_32)
@@ -735,6 +1230,39 @@ def build_foster(foster_va, L):
     return code, src
 
 
+def build_birth(birth_va, L):
+    """C) 生孩子处理程序 (码 7 的第二条路, 由 cm_foster 头部按 BIRTH_PICK 分流)。
+
+    L 需含 c_birth/menu_top/name_pool/avail/avail_n/used/sub_ptr/slot_arr/child_bm/pool/cap/
+    flagtab/sched/sched_end/child_pass/date_y/giv/sur/msg_str/str_va/slot_lo/name_tmp/msg_arr。
+    返回 (code, src)。"""
+    from keystone import Ks, KS_ARCH_X86, KS_MODE_32, KS_OPT_SYNTAX_INTEL
+    subs = _hexsubs(L)
+    subs['menu_top'] = '0x%X' % MENU_TOP
+    subs['dialog'] = '0x%X' % DIALOG
+    subs['page_max'] = '0x%X' % BIRTH_NAME_PAGE
+    subs['offer'] = '0x%X' % BIRTH_NAME_OFFER
+    subs['count'] = '0x%X' % BIRTH_NAME_COUNT
+    subs['rand'] = '0x%X' % CG.RAND
+    subs['str_next'] = '0x%X' % (L['str_va'] + S_NEXT * STR_ROW)
+    subs['str_prev'] = '0x%X' % (L['str_va'] + S_PREV * STR_ROW)
+    subs['slot_lo'] = '0x%X' % L['slot_lo']
+    subs['oid_hi'] = '0x%X' % (BIRTH_OID_MAX - 1)
+    subs['str_none'] = '0x%X' % (L['msg_str'] + MS_NO_SLOT * MS_STR_ROW)
+    # 出生提示: 标题/住在哪两行是静态串, 姓名行是运行时拼进 name_tmp 的连续串
+    subs['born_str'] = '0x%X' % (L['msg_str'] + MS_BORN * MS_STR_ROW)
+    subs['born_at'] = '0x%X' % (L['msg_str'] + MS_BORN_AT * MS_STR_ROW)
+    subs['born_gk'] = '0x%X' % (L['msg_str'] + MS_BORN_GK * MS_STR_ROW)
+    subs['name_tmp'] = '0x%X' % L['name_tmp']
+    subs['msg_arr'] = '0x%X' % L['msg_arr']
+    src = SRC_BIRTH % subs
+    lint_src(src)
+    ks = Ks(KS_ARCH_X86, KS_MODE_32)
+    ks.syntax = KS_OPT_SYNTAX_INTEL
+    code = bytes(ks.asm(src, birth_va)[0])
+    return code, src
+
+
 def jmp_rel(site, target):
     """5 字节 E9 rel32 补丁 (构建与验收同一算法, 防止两边算歪)"""
     import struct
@@ -778,13 +1306,27 @@ def selfcheck_hook(code, origin, L):
         '对话框实参顺序必须是 (样式, 指针数组, 条目数): 末推=arg1=条目数, 现在是 %s' % (_pre,)
     assert cnt('add', 'esp, 0x14') == 1, '只调一次对话框'
     one('cmp', 'ax, -1')
-    one('cmp', 'cx, word ptr [0x%x]' % L['s_cnt'])
+    assert cnt('cmp', 'cx, word ptr [0x%x]' % L['s_cnt']) == 2, '两次检查: item 7 和 item 8'
+    # ★ 两次比较的"偏"必须相反: 第一次比 ax==cnt (培养孩子), 第二次比 ax-1==cnt (生孩子)。
+    #   以前写成"先 inc 再比 cnt", 于是点第 cnt+2 行(生孩子)时两条都不中, 掉去查没拷过的
+    #   码表空位 = 0 = 休息 (2026-10-07 实机症状); 反过来点最后一个原生项会误进生孩子。
+    _cc = [i for i in ins if i.mnemonic == 'cmp' and i.op_str == 'cx, word ptr [0x%x]' % L['s_cnt']]
+    _i1, _i2 = ins.index(_cc[0]), ins.index(_cc[1])
+    assert ins[_i1 + 1].mnemonic == 'je' and ins[_i2 + 1].mnemonic == 'je'
+    assert ins[_i2 - 1].mnemonic == 'dec' and ins[_i2 + 2].mnemonic == 'inc', \
+        '第二次比较前要 dec ecx(比 ax-1==cnt), 比较后要 inc 回原序号'
     one('movzx', 'eax, word ptr [ecx*2 + 0x%x]' % L['menu_code'])   # 序号 -> 原生指令码
-    one('mov', 'eax, 7')
+    # 两个新项都发**码 7** (跳转表只有 0x4CD47C 这一个空槽), 谁被选中记在 BIRTH_PICK。
+    #   生孩子绝不能再发"码 8 + jmp 处理程序": 钩子还站在构建器的帧上(0x34 字节没拆),
+    #   从那儿 jmp 过去就是把调用方的 esp 和栈上返回地址一起弄歪 (2026-10-07 实机=点生孩子变休息)。
+    assert cnt('mov', 'eax, 7') == 2, '培养孩子/生孩子 同发码 7'
+    one('mov', 'dword ptr [0x%x], 0' % L['pick'])
+    one('mov', 'dword ptr [0x%x], 1' % L['pick'])
     one('mov', 'eax, 0xffffffff')   # capstone 把 -1 打成 0xffffffff
     one('inc', 'dword ptr [0x%x]' % L['c_menu'])
     assert cnt('dec', 'ecx') == 2, '码表 + 指针数组两份拷贝循环'
     one('mov', 'dword ptr [edx + eax], 0x%x' % (L['str_va'] + S_HOME * STR_ROW))  # 尾追"培养孩子"
+    one('mov', 'dword ptr [edx + eax + 4], 0x%x' % L['birth_label'])  # 尾追"生孩子"(独立标签行)
     # 收尾必须与原生 0x4CD581..0x4CD58C 同构 (pop edi/esi/ebp + add esp,0x24 + ret), 且不能碰原生翻译那条
     tail = ins[-5:]
     assert [i.mnemonic for i in tail] == ['pop', 'pop', 'pop', 'add', 'ret'], [i.mnemonic for i in tail]
@@ -808,7 +1350,11 @@ def selfcheck_foster(code, origin, L):
     assert cntx('push', '0') == 18, '每次两枚 0 尾参'
     one('call', '0x%x' % AGE_GET)
     assert cnt('sub', 'esp, 0x38') == 1 and cnt('add', 'esp, 0x38') == 1
-    head = ins[:4]
+    # 入口 = 分流器 (码 7 一个槽, 两条路): cmp [pick],0 / je 本体 / jmp 生孩子, 然后才是本体的 4 连 push
+    assert [i.mnemonic for i in ins[:3]] == ['cmp', 'je', 'jmp'], [i.mnemonic for i in ins[:3]]
+    assert ins[0].op_str == 'dword ptr [0x%x], 0' % L['pick'], ins[0].op_str
+    assert ins[2].op_str == '0x%x' % L['birth_handler'], ins[2].op_str
+    head = ins[3:7]
     assert [i.op_str for i in head] == ['ebx', 'ebp', 'esi', 'edi'], [i.op_str for i in head]
     tail = ins[-6:]
     assert [i.mnemonic for i in tail] == ['add', 'pop', 'pop', 'pop', 'pop', 'jmp'], [i.mnemonic for i in tail]
@@ -945,5 +1491,160 @@ def selfcheck_foster(code, origin, L):
     one('mov', 'dword ptr [0x%x], eax' % L['msg_act'])
     for k in ('f_ym', 'f_cnt', 'f_days', 'f_gold', 'msg_act', 'msg_slot'):
         assert L[k] > 0, k
+    return ins
+
+
+def selfcheck_birth(code, origin, L):
+    """生孩子处理程序自检 (码 7 的第二条路; 实例化交回已验证的 child_pass)。"""
+    ins = _dis(code, origin)
+    one, cnt, cntx = _mk(ins)
+    dl = '0x%x' % DIALOG
+    pm = cap_imm(BIRTH_NAME_PAGE)
+    # 帧: push ebx/ebp/esi/edi + sub esp,0x20 ... add esp,0x20 + pop edi/esi/ebp/ebx + jmp 菜单头
+    head = ins[:4]
+    assert [i.op_str for i in head] == ['ebx', 'ebp', 'esi', 'edi'], [i.op_str for i in head]
+    one('sub', 'esp, 0x20')
+    one('add', 'esp, 0x20')
+    # 收尾不在 ins 末尾: v2 之后还接了 bn_avail/bn_live 两个子程序 (各自 ret 收尾),
+    #   所以按"最后一条 jmp 菜单头"定位 b_cancel 那五行。
+    _tj = [k for k, i in enumerate(ins)
+           if i.mnemonic == 'jmp' and i.op_str == '0x%x' % MENU_TOP][-1]
+    tail = ins[_tj - 4:_tj + 1]
+    assert [i.mnemonic for i in tail] == ['pop', 'pop', 'pop', 'pop', 'jmp'], [i.mnemonic for i in tail]
+    assert [i.op_str for i in tail[:4]] == ['edi', 'esi', 'ebp', 'ebx'], [i.op_str for i in tail[:4]]
+    assert tail[4].op_str == '0x%x' % MENU_TOP, '完事回菜单头 (与培养同一条收尾)'
+    one('inc', 'dword ptr [0x%x]' % L['c_birth'])
+    # 名字弹窗 = 原生 5 枚实参 (条目数/指针数组/样式/0/0), 分页后 11 行, 压在 12 硬门里
+    # ★ 三次对话框: 选名 / 满员提示 / **出生提示** (2026-10-07 实机「生了孩子没有任何提示」)
+    assert cnt('call', dl) == 3, '一次选名 + 满员提示 + 出生提示 (命中 %d)' % cnt('call', dl)
+    assert cnt('add', 'esp, 0x14') == 3 and cntx('push', '4') == 4 and cntx('push', '0') == 6
+    # 行数不是立即数: bn_show 把"页长 + 1 行导航"算在 edi 里再 push (与培养页同一套写法)
+    assert cntx('mov', 'dword ptr [esp + 8], edi') == 1
+    _dj = [k for k, i in enumerate(ins) if i.mnemonic == 'call' and i.op_str == dl][0]
+    assert [(x.mnemonic, x.op_str) for x in ins[_dj - 5:_dj]] == \
+        [('push', '0'), ('push', '0'), ('push', '4'), ('push', '0x%x' % L['sub_ptr']), ('push', 'edi')], \
+        '选名弹窗必须是原生 5 枚实参 (样式 0/0 + flag 4 + 指针数组 + 条目数)'
+    assert cnt('cmp', 'ax, -1') == 3, '取消 / 排程表两处哨兵'
+    # 分页: 行 -> 池内第 k 个名字 (k*7 用 eax*8-eax, keystone 不支持 scale 7)
+    one('lea', 'edx, [eax*8]')
+    one('sub', 'edx, eax')
+    one('add', 'edx, 0x%x' % L['name_pool'])
+    one('mov', 'dword ptr [edi*4 + 0x%x], edx' % L['sub_ptr'])
+    sa = 'word ptr [edi*2 + 0x%x]' % L['slot_arr']
+    one('mov', sa, '0xfffe')
+    one('mov', sa, '0xfffd')
+    _sa = 'word ptr [eax*2 + 0x%x]' % L['slot_arr']
+    one('movzx', 'edx', _sa)
+    one('cmp', 'edx, 0xfffe')
+    one('cmp', 'edx, 0xfffd')
+    one('add', 'dword ptr [esp + 4], %s' % pm)
+    one('sub', 'dword ptr [esp + 4], %s' % pm)
+    # 空槽扫描: 位图没记 + 状态字 0x8080 (真空闲) + 从 4i 待登场区之后起
+    one('bt', 'dword ptr [0x%x], ebx' % L['child_bm'])
+    one('movzx', 'edx, word ptr [ecx + 0x2c]')
+    one('and', 'edx, 0x8080')
+    one('cmp', 'edx, 0x8080')
+    one('mov', 'ebx, 0x%x' % L['slot_lo'])
+    one('cmp', 'ebx, 0x%x' % L['cap'])
+    # 空身份键: 从高往低吃 (低段是剧本在册的人), 且要没被排程表用过
+    one('mov', 'ebx, 0x%x' % (BIRTH_OID_MAX - 1))
+    one('cmp', 'byte ptr [ebx + 0x%x], 0' % L['flagtab'])
+    one('cmp', 'eax, ebx')
+    # 追排程表项 (oid/slot/fslot=主角 oid/国|城) + 把哨兵往后挪一格, 然后交 child_pass 实例化
+    one('mov', 'word ptr [ebx], ax')
+    one('mov', 'word ptr [ebx + 2], ax')
+    one('mov', 'word ptr [ebx + 4], ax')
+    one('mov', 'word ptr [ebx + 6], ax')
+    one('mov', 'word ptr [ebx + 8], 0xffff')
+    # 池槽 vs oid 是两个键空间: 排程表 fslot 与姓表行号用主角的**槽**(ent+0), 父链 +0x1d 用**oid**(ent+2)
+    one('movzx', 'eax, word ptr [esi]')
+    one('mov', 'dword ptr [esp + 0x1c], eax')
+    _fs = ins.index(one('mov', 'eax, dword ptr [esp + 0x1c]'))
+    assert ins[_fs + 1].mnemonic == 'mov' and ins[_fs + 1].op_str == 'word ptr [ebx + 4], ax', \
+        'fslot 必须取主角的池槽 (place_child 拿它直接算 pool + slot*47)'
+    _sx = ins.index(one('mov', 'edx, dword ptr [esp + 0x1c]'))
+    assert ins[_sx + 1].op_str == 'esi, [edx*8]', '姓行索引必须取主角的池槽 (姓/名表 = 槽 x 7)'
+    one('movzx', 'eax, word ptr [eax + 2]')
+    _cp = ins.index(one('call', '0x%x' % L['child_pass']))
+    assert cnt('call', '0x%x' % 0x47F7B0) == 0, '不自己 INST: 实例化只有 child_pass 那一条已验证的路'
+    # 实例化之后再盖三样: 虚岁 1 的生年 / 父 = 主角 oid / 姓随父 + 名随玩家
+    assert ins.index(one('add', 'eax, %s' % cap_imm(0x46))) > _cp, \
+        '生年必须在 child_pass 之后写 (INST 会先抄记录里的生年)'
+    one('mov', 'byte ptr [ecx + 0x1b], al')
+    one('mov', 'word ptr [ecx + 0x1d], ax')
+    # 姓/名两趟写表 (bcp_*) + 出生提示把两行读回来 (bp_*) = 姓表 2 趟、名表 2 趟
+    assert cnt('mov', 'ecx, 7') == 4, '姓/名各写一趟 + 各读回一趟 (命中 %d)' % cnt('mov', 'ecx, 7')
+    assert cnt('rep', 'movsb') == 0, '不用 rep movsb (不赌方向旗标)'
+    assert cntx('dec', 'ecx') == 4, '四趟字节循环'
+    _g = [i for i in ins if i.mnemonic == 'add' and i.op_str == 'esi, 0x%x' % L['giv']]
+    assert len(_g) == 2, '姓表 esi: 父亲行(写源) + 孩子行(读回显示) 各一趟 (命中 %d)' % len(_g)
+    # 名表 edi 基址有两处 (bcp_giv 写孩子行 / bn_live 扫描读行), 取前面那处核顺序
+    _s = [k for k, i in enumerate(ins)
+          if i.mnemonic == 'add' and i.op_str == 'edi, 0x%x' % L['sur']][0]
+    assert all(i.address > _cp for i in _g) and _s > _cp, '姓/名覆盖必须在 child_pass 之后'
+    # ---- 出生提示: 姓名两行拼成一个连续串, 三行指针数组落 BIRTH_PROMPT, 弹在**写表之后** ----
+    one('mov', 'edi, 0x%x' % L['name_tmp'])                    # 拼串写游标
+    one('mov', 'dword ptr [0x%x], 0x%x' % (L['msg_arr'],
+                                           L['msg_str'] + MS_BORN * MS_STR_ROW))
+    one('mov', 'dword ptr [0x%x], 0x%x' % (L['msg_arr'] + 4, L['name_tmp']))
+    one('mov', 'dword ptr [0x%x], 0x%x' % (L['msg_arr'] + 8,
+                                           L['msg_str'] + MS_BORN_AT * MS_STR_ROW))
+    one('mov', 'dword ptr [0x%x], 0x%x' % (L['msg_arr'] + 12,
+                                           L['msg_str'] + MS_BORN_GK * MS_STR_ROW))
+    assert cntx('mov', 'byte ptr [edi], 0') == 2, '两趟循环都要有界收尾 (落空也补 NUL, 不越界读)'
+    _pp = ins.index(one('push', '0x%x' % L['msg_arr']))
+    assert ins[_pp + 1].mnemonic == 'push' and ins[_pp + 1].op_str == '4', '出生提示 = 4 行'
+    assert ins[_pp + 2].mnemonic == 'call' and ins[_pp + 2].op_str == dl
+    _pc = [i for i in ins if i.mnemonic == 'call' and i.op_str == dl][-1]
+    assert _pc.address > _cp, '出生提示必须在实例化/写表之后 (否则名字还没落盘就显示)'
+    assert _pc.address < ins[-1].address, '出生提示之后才能走收尾'
+    # ---- v2: 本次可选表 bn_avail + 在世重名避让 bn_live (池 500 供 20, 选过不再出现) ----
+    _loc = [i for i in ins if i.mnemonic == 'call'
+            and origin <= int(i.op_str, 16) < origin + len(code)]
+    assert len(_loc) == 2, '桩内只应有 bn_avail / bn_live 两次本地 call (命中 %d)' % len(_loc)
+    _av, _lv = [int(i.op_str, 16) for i in _loc]
+    assert _av < _lv and _loc[0].address < _loc[1].address, \
+        'bn_avail 在前、bn_live 在后 (调用点与目标同序)'
+    # 开框前收表: call bn_avail 必须在选名弹窗之前
+    assert _loc[0].address < [i for i in ins if i.mnemonic == 'call' and i.op_str == dl][0].address, \
+        'bn_avail 必须在弹窗之前 (AVAIL 空着就开框 = 列表什么都没有)'
+    # 收表循环的两道界: 池长 (扫到头) 与本次供给量
+    one('cmp', 'ebx, 0x%x' % BIRTH_NAME_COUNT)
+    one('cmp', 'eax, 0x%x' % BIRTH_NAME_OFFER)
+    # ★随机起点: 每次开框换个起点绕圈扫 (原生 rand(n) 只毁 eax/edx), ebp 数已扫格数 = 至多一整圈
+    one('push', '0x%x' % BIRTH_NAME_COUNT)
+    one('call', '0x%x' % CG.RAND)
+    one('add', 'esp, 4')
+    one('mov', 'ebx, eax')
+    one('cmp', 'ebp, 0x%x' % BIRTH_NAME_COUNT)
+    assert cntx('xor', 'ebx, ebx') == 1, '绕回池头只有扫过界时那一次'
+    _rs = ins.index(one('mov', 'ebx, eax'))
+    assert _rs > ins.index(one('call', '0x%x' % CG.RAND)), '随机起点必须先取 rand 再当游标'
+    assert ins.index(one('call', '0x%x' % _av)) < _rs, 'bn_avail 在弹窗之前 (上面已核, 这里核 rand 也在框前)'
+    # 三道门: 选过没有 / 有没有活人在用 / 收进表并计数
+    one('cmp', 'byte ptr [ebx + 0x%x], 0' % L['used'])
+    one('call', '0x%x' % _lv)
+    one('mov', 'word ptr [eax*2 + 0x%x], bx' % L['avail'])
+    assert cnt('inc', 'dword ptr [0x%x]' % L['avail_n']) == 1
+    # 分页读表: 行号越界看 AVAIL_N (bn_fill 一处 + 下一页守卫一处), 行值 = 池内下标
+    assert cnt('cmp', 'eax, dword ptr [0x%x]' % L['avail_n']) == 2, \
+        'bn_fill 越界 + 下一页守卫 (命中 %d)' % cnt('cmp', 'eax, dword ptr [0x%x]' % L['avail_n'])
+    one('movzx', 'eax', 'word ptr [eax*2 + 0x%x]' % L['avail'])
+    # 选中的名字写进 USED, 且必须在实例化之前 (b_slot 之后就走创建流程了)
+    _us = ins.index(one('mov', 'byte ptr [edx + 0x%x], 1' % L['used']))
+    assert _us < _cp, 'USED 标记必须在 child_pass 之前 (点一次就该少一个候选)'
+    # bn_live 的在岗门 = 点亮桩同一条: 0x8080 / 0x001B / 0x010F (掩码 0x879F)
+    one('movzx', 'edx', 'word ptr [eax + 0x2c]')
+    one('and', 'eax, 0x8080')
+    one('cmp', 'eax, 0x8080')
+    one('and', 'edx, %s' % cap_imm(0x879F))
+    one('cmp', 'edx, %s' % cap_imm(0x1B))
+    one('cmp', 'edx, %s' % cap_imm(0x10F))
+    one('mov', 'eax, dword ptr [ecx + 3]')
+    one('cmp', 'eax, dword ptr [edi + 3]')
+    one('cmp', 'eax, dword ptr [edi]')
+    # 名表 esi/edi 基址: bn_live 的行基址 + bcp_giv 的孩子行, 共两处
+    assert cnt('add', 'edi, 0x%x' % L['sur']) == 2, \
+        '名表 edi 基址 = 写表 1 处 + bn_live 扫描 1 处 (命中 %d)' % cnt('add', 'edi, 0x%x' % L['sur'])
     return ins
 

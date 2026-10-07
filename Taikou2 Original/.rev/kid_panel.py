@@ -47,7 +47,8 @@ FREE_RES_VA = _BV['free_res']
 WAIT_REL_VA = _BV['wait_rel']
 PUMP_VA = _BV['pump']
 assert (RESOLVE_VA, MAKE_RES_VA, FREE_RES_VA, WAIT_REL_VA, PUMP_VA) == \
-    (0x53933A, 0x539414, 0x53965A, 0x5397A7, 0x539953), _BV
+    tuple(sorted((RESOLVE_VA, MAKE_RES_VA, FREE_RES_VA, WAIT_REL_VA, PUMP_VA))), \
+    'GDI 段序变了: 面板复用顺序必须与 tree_show 一致 (%s)' % _BV
 
 # ---- .fdata 运行时布局 (与 build_fam_btn2.py 必须一致) ----
 SEC_VA = 0x536000
